@@ -1,6 +1,6 @@
 entity Element {
 	number Long required
-	//elementKind ElementKind required
+	designation String required
     color Color required
 }
 
@@ -10,10 +10,8 @@ relationship ManyToOne {
 
 entity ElementKind {
 	designation String required
-    //copper Copper required
     gramPerMeterMass Double required
     milimeterDiameter Double required
-    //insulationMaterial Material required
     insulationThickness Double required
 }
 
@@ -26,10 +24,12 @@ relationship ManyToOne {
 }
 
 entity Copper {
+	number Long required
 	designation String required
 }
 
 entity Material {
+	number Long required
 	designation String required
 }
 

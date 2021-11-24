@@ -18,6 +18,7 @@
         "title": "Material"
       },
       "id": "ID",
+      "number": "Number",
       "designation": "Designation"
     }
   }

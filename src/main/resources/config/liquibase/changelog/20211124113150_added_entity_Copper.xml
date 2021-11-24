@@ -14,6 +14,9 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="number" type="bigint">
+                <constraints nullable="false" />
+            </column>
             <column name="designation" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
@@ -38,6 +41,7 @@
                   tableName="copper"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
+            <column name="number" type="numeric"/>
             <column name="designation" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

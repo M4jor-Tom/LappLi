@@ -50,6 +50,9 @@ export const Copper = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.copper.id">ID</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.copper.number">Number</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.copper.designation">Designation</Translate>
                 </th>
                 <th />
@@ -63,6 +66,7 @@ export const Copper = (props: RouteComponentProps<{ url: string }>) => {
                       {copper.id}
                     </Button>
                   </td>
+                  <td>{copper.number}</td>
                   <td>{copper.designation}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

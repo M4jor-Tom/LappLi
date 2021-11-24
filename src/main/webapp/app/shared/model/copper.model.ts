@@ -1,5 +1,6 @@
 export interface ICopper {
   id?: number;
+  number?: number;
   designation?: string;
 }
 

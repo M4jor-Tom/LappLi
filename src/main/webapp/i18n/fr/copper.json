@@ -18,6 +18,7 @@
         "title": "Copper"
       },
       "id": "ID",
+      "number": "Number",
       "designation": "Designation"
     }
   }

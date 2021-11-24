@@ -29,6 +29,9 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class MaterialResourceIT {
 
+    private static final Long DEFAULT_NUMBER = 1L;
+    private static final Long UPDATED_NUMBER = 2L;
+
     private static final String DEFAULT_DESIGNATION = "AAAAAAAAAA";
     private static final String UPDATED_DESIGNATION = "BBBBBBBBBB";
 
@@ -56,7 +59,7 @@ class MaterialResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Material createEntity(EntityManager em) {
-        Material material = new Material().designation(DEFAULT_DESIGNATION);
+        Material material = new Material().number(DEFAULT_NUMBER).designation(DEFAULT_DESIGNATION);
         return material;
     }
 
@@ -67,7 +70,7 @@ class MaterialResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Material createUpdatedEntity(EntityManager em) {
-        Material material = new Material().designation(UPDATED_DESIGNATION);
+        Material material = new Material().number(UPDATED_NUMBER).designation(UPDATED_DESIGNATION);
         return material;
     }
 
@@ -89,6 +92,7 @@ class MaterialResourceIT {
         List<Material> materialList = materialRepository.findAll();
         assertThat(materialList).hasSize(databaseSizeBeforeCreate + 1);
         Material testMaterial = materialList.get(materialList.size() - 1);
+        assertThat(testMaterial.getNumber()).isEqualTo(DEFAULT_NUMBER);
         assertThat(testMaterial.getDesignation()).isEqualTo(DEFAULT_DESIGNATION);
     }
 
@@ -108,6 +112,23 @@ class MaterialResourceIT {
         // Validate the Material in the database
         List<Material> materialList = materialRepository.findAll();
         assertThat(materialList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    void checkNumberIsRequired() throws Exception {
+        int databaseSizeBeforeTest = materialRepository.findAll().size();
+        // set the field null
+        material.setNumber(null);
+
+        // Create the Material, which fails.
+
+        restMaterialMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(material)))
+            .andExpect(status().isBadRequest());
+
+        List<Material> materialList = materialRepository.findAll();
+        assertThat(materialList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -139,6 +160,7 @@ class MaterialResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(material.getId().intValue())))
+            .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER.intValue())))
             .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)));
     }
 
@@ -154,6 +176,7 @@ class MaterialResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(material.getId().intValue()))
+            .andExpect(jsonPath("$.number").value(DEFAULT_NUMBER.intValue()))
             .andExpect(jsonPath("$.designation").value(DEFAULT_DESIGNATION));
     }
 
@@ -176,7 +199,7 @@ class MaterialResourceIT {
         Material updatedMaterial = materialRepository.findById(material.getId()).get();
         // Disconnect from session so that the updates on updatedMaterial are not directly saved in db
         em.detach(updatedMaterial);
-        updatedMaterial.designation(UPDATED_DESIGNATION);
+        updatedMaterial.number(UPDATED_NUMBER).designation(UPDATED_DESIGNATION);
 
         restMaterialMockMvc
             .perform(
@@ -190,6 +213,7 @@ class MaterialResourceIT {
         List<Material> materialList = materialRepository.findAll();
         assertThat(materialList).hasSize(databaseSizeBeforeUpdate);
         Material testMaterial = materialList.get(materialList.size() - 1);
+        assertThat(testMaterial.getNumber()).isEqualTo(UPDATED_NUMBER);
         assertThat(testMaterial.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
     }
 
@@ -261,7 +285,7 @@ class MaterialResourceIT {
         Material partialUpdatedMaterial = new Material();
         partialUpdatedMaterial.setId(material.getId());
 
-        partialUpdatedMaterial.designation(UPDATED_DESIGNATION);
+        partialUpdatedMaterial.number(UPDATED_NUMBER).designation(UPDATED_DESIGNATION);
 
         restMaterialMockMvc
             .perform(
@@ -275,6 +299,7 @@ class MaterialResourceIT {
         List<Material> materialList = materialRepository.findAll();
         assertThat(materialList).hasSize(databaseSizeBeforeUpdate);
         Material testMaterial = materialList.get(materialList.size() - 1);
+        assertThat(testMaterial.getNumber()).isEqualTo(UPDATED_NUMBER);
         assertThat(testMaterial.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
     }
 
@@ -290,7 +315,7 @@ class MaterialResourceIT {
         Material partialUpdatedMaterial = new Material();
         partialUpdatedMaterial.setId(material.getId());
 
-        partialUpdatedMaterial.designation(UPDATED_DESIGNATION);
+        partialUpdatedMaterial.number(UPDATED_NUMBER).designation(UPDATED_DESIGNATION);
 
         restMaterialMockMvc
             .perform(
@@ -304,6 +329,7 @@ class MaterialResourceIT {
         List<Material> materialList = materialRepository.findAll();
         assertThat(materialList).hasSize(databaseSizeBeforeUpdate);
         Material testMaterial = materialList.get(materialList.size() - 1);
+        assertThat(testMaterial.getNumber()).isEqualTo(UPDATED_NUMBER);
         assertThat(testMaterial.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
     }
 

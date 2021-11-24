@@ -125,6 +125,9 @@ public class MaterialResource {
         Optional<Material> result = materialRepository
             .findById(material.getId())
             .map(existingMaterial -> {
+                if (material.getNumber() != null) {
+                    existingMaterial.setNumber(material.getNumber());
+                }
                 if (material.getDesignation() != null) {
                     existingMaterial.setDesignation(material.getDesignation());
                 }

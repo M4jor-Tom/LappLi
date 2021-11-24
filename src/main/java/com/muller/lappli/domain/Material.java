@@ -22,6 +22,10 @@ public class Material implements Serializable {
     private Long id;
 
     @NotNull
+    @Column(name = "number", nullable = false)
+    private Long number;
+
+    @NotNull
     @Column(name = "designation", nullable = false)
     private String designation;
 
@@ -38,6 +42,19 @@ public class Material implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getNumber() {
+        return this.number;
+    }
+
+    public Material number(Long number) {
+        this.setNumber(number);
+        return this;
+    }
+
+    public void setNumber(Long number) {
+        this.number = number;
     }
 
     public String getDesignation() {
@@ -77,6 +94,7 @@ public class Material implements Serializable {
     public String toString() {
         return "Material{" +
             "id=" + getId() +
+            ", number=" + getNumber() +
             ", designation='" + getDesignation() + "'" +
             "}";
     }

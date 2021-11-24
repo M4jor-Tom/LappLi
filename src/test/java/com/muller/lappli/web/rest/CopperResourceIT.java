@@ -29,6 +29,9 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class CopperResourceIT {
 
+    private static final Long DEFAULT_NUMBER = 1L;
+    private static final Long UPDATED_NUMBER = 2L;
+
     private static final String DEFAULT_DESIGNATION = "AAAAAAAAAA";
     private static final String UPDATED_DESIGNATION = "BBBBBBBBBB";
 
@@ -56,7 +59,7 @@ class CopperResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Copper createEntity(EntityManager em) {
-        Copper copper = new Copper().designation(DEFAULT_DESIGNATION);
+        Copper copper = new Copper().number(DEFAULT_NUMBER).designation(DEFAULT_DESIGNATION);
         return copper;
     }
 
@@ -67,7 +70,7 @@ class CopperResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Copper createUpdatedEntity(EntityManager em) {
-        Copper copper = new Copper().designation(UPDATED_DESIGNATION);
+        Copper copper = new Copper().number(UPDATED_NUMBER).designation(UPDATED_DESIGNATION);
         return copper;
     }
 
@@ -89,6 +92,7 @@ class CopperResourceIT {
         List<Copper> copperList = copperRepository.findAll();
         assertThat(copperList).hasSize(databaseSizeBeforeCreate + 1);
         Copper testCopper = copperList.get(copperList.size() - 1);
+        assertThat(testCopper.getNumber()).isEqualTo(DEFAULT_NUMBER);
         assertThat(testCopper.getDesignation()).isEqualTo(DEFAULT_DESIGNATION);
     }
 
@@ -108,6 +112,23 @@ class CopperResourceIT {
         // Validate the Copper in the database
         List<Copper> copperList = copperRepository.findAll();
         assertThat(copperList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    void checkNumberIsRequired() throws Exception {
+        int databaseSizeBeforeTest = copperRepository.findAll().size();
+        // set the field null
+        copper.setNumber(null);
+
+        // Create the Copper, which fails.
+
+        restCopperMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(copper)))
+            .andExpect(status().isBadRequest());
+
+        List<Copper> copperList = copperRepository.findAll();
+        assertThat(copperList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -139,6 +160,7 @@ class CopperResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(copper.getId().intValue())))
+            .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER.intValue())))
             .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)));
     }
 
@@ -154,6 +176,7 @@ class CopperResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(copper.getId().intValue()))
+            .andExpect(jsonPath("$.number").value(DEFAULT_NUMBER.intValue()))
             .andExpect(jsonPath("$.designation").value(DEFAULT_DESIGNATION));
     }
 
@@ -176,7 +199,7 @@ class CopperResourceIT {
         Copper updatedCopper = copperRepository.findById(copper.getId()).get();
         // Disconnect from session so that the updates on updatedCopper are not directly saved in db
         em.detach(updatedCopper);
-        updatedCopper.designation(UPDATED_DESIGNATION);
+        updatedCopper.number(UPDATED_NUMBER).designation(UPDATED_DESIGNATION);
 
         restCopperMockMvc
             .perform(
@@ -190,6 +213,7 @@ class CopperResourceIT {
         List<Copper> copperList = copperRepository.findAll();
         assertThat(copperList).hasSize(databaseSizeBeforeUpdate);
         Copper testCopper = copperList.get(copperList.size() - 1);
+        assertThat(testCopper.getNumber()).isEqualTo(UPDATED_NUMBER);
         assertThat(testCopper.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
     }
 
@@ -273,6 +297,7 @@ class CopperResourceIT {
         List<Copper> copperList = copperRepository.findAll();
         assertThat(copperList).hasSize(databaseSizeBeforeUpdate);
         Copper testCopper = copperList.get(copperList.size() - 1);
+        assertThat(testCopper.getNumber()).isEqualTo(DEFAULT_NUMBER);
         assertThat(testCopper.getDesignation()).isEqualTo(DEFAULT_DESIGNATION);
     }
 
@@ -288,7 +313,7 @@ class CopperResourceIT {
         Copper partialUpdatedCopper = new Copper();
         partialUpdatedCopper.setId(copper.getId());
 
-        partialUpdatedCopper.designation(UPDATED_DESIGNATION);
+        partialUpdatedCopper.number(UPDATED_NUMBER).designation(UPDATED_DESIGNATION);
 
         restCopperMockMvc
             .perform(
@@ -302,6 +327,7 @@ class CopperResourceIT {
         List<Copper> copperList = copperRepository.findAll();
         assertThat(copperList).hasSize(databaseSizeBeforeUpdate);
         Copper testCopper = copperList.get(copperList.size() - 1);
+        assertThat(testCopper.getNumber()).isEqualTo(UPDATED_NUMBER);
         assertThat(testCopper.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
     }
 

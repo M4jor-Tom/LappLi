@@ -2,6 +2,11 @@
   "name": "Copper",
   "fields": [
     {
+      "fieldName": "number",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "designation",
       "fieldType": "String",
       "fieldValidateRules": ["required"]

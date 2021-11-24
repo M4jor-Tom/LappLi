@@ -30,6 +30,12 @@ export const MaterialDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{materialEntity.id}</dd>
           <dt>
+            <span id="number">
+              <Translate contentKey="lappLiApp.material.number">Number</Translate>
+            </span>
+          </dt>
+          <dd>{materialEntity.number}</dd>
+          <dt>
             <span id="designation">
               <Translate contentKey="lappLiApp.material.designation">Designation</Translate>
             </span>

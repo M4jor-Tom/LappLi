@@ -125,6 +125,9 @@ public class CopperResource {
         Optional<Copper> result = copperRepository
             .findById(copper.getId())
             .map(existingCopper -> {
+                if (copper.getNumber() != null) {
+                    existingCopper.setNumber(copper.getNumber());
+                }
                 if (copper.getDesignation() != null) {
                     existingCopper.setDesignation(copper.getDesignation());
                 }

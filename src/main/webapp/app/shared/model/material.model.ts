@@ -1,5 +1,6 @@
 export interface IMaterial {
   id?: number;
+  number?: number;
   designation?: string;
 }
 

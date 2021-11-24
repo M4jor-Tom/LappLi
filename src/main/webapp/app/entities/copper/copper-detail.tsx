@@ -30,6 +30,12 @@ export const CopperDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{copperEntity.id}</dd>
           <dt>
+            <span id="number">
+              <Translate contentKey="lappLiApp.copper.number">Number</Translate>
+            </span>
+          </dt>
+          <dd>{copperEntity.number}</dd>
+          <dt>
             <span id="designation">
               <Translate contentKey="lappLiApp.copper.designation">Designation</Translate>
             </span>
