@@ -44,7 +44,7 @@ export const ElementDetail = (props: RouteComponentProps<{ id: string }>) => {
           <dt>
             <Translate contentKey="lappLiApp.element.elementKind">Element Kind</Translate>
           </dt>
-          <dd>{elementEntity.elementKind ? elementEntity.elementKind.id : ''}</dd>
+          <dd>{elementEntity.elementKind ? elementEntity.elementKind.designation : ''}</dd>
         </dl>
         <Button tag={Link} to="/element" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

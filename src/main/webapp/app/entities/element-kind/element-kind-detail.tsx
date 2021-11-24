@@ -56,11 +56,11 @@ export const ElementKindDetail = (props: RouteComponentProps<{ id: string }>) =>
           <dt>
             <Translate contentKey="lappLiApp.elementKind.copper">Copper</Translate>
           </dt>
-          <dd>{elementKindEntity.copper ? elementKindEntity.copper.id : ''}</dd>
+          <dd>{elementKindEntity.copper ? elementKindEntity.copper.designation : ''}</dd>
           <dt>
             <Translate contentKey="lappLiApp.elementKind.insulationMaterial">Insulation Material</Translate>
           </dt>
-          <dd>{elementKindEntity.insulationMaterial ? elementKindEntity.insulationMaterial.id : ''}</dd>
+          <dd>{elementKindEntity.insulationMaterial ? elementKindEntity.insulationMaterial.designation : ''}</dd>
         </dl>
         <Button tag={Link} to="/element-kind" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
