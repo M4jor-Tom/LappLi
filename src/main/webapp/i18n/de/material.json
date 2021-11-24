@@ -1,0 +1,24 @@
+{
+  "lappLiApp": {
+    "material": {
+      "home": {
+        "title": "Materials",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Material erstellen",
+        "createOrEditLabel": "Material erstellen oder bearbeiten",
+        "notFound": "Keine Materials gefunden"
+      },
+      "created": "Material erstellt mit ID {{ param }}",
+      "updated": "Material aktualisiert mit ID {{ param }}",
+      "deleted": "Material gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Material {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Material"
+      },
+      "id": "ID",
+      "designation": "Designation"
+    }
+  }
+}

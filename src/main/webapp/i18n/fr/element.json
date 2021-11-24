@@ -1,0 +1,26 @@
+{
+  "lappLiApp": {
+    "element": {
+      "home": {
+        "title": "Elements",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Element",
+        "createOrEditLabel": "Créer ou éditer un Element",
+        "notFound": "Aucun Element trouvé"
+      },
+      "created": "Un nouveau Element a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Element avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Element avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Element {{ id }} ?"
+      },
+      "detail": {
+        "title": "Element"
+      },
+      "id": "ID",
+      "number": "Number",
+      "color": "Color",
+      "elementKind": "Element Kind"
+    }
+  }
+}

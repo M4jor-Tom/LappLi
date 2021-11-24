@@ -1,0 +1,26 @@
+{
+  "lappLiApp": {
+    "element": {
+      "home": {
+        "title": "Elements",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Element erstellen",
+        "createOrEditLabel": "Element erstellen oder bearbeiten",
+        "notFound": "Keine Elements gefunden"
+      },
+      "created": "Element erstellt mit ID {{ param }}",
+      "updated": "Element aktualisiert mit ID {{ param }}",
+      "deleted": "Element gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Element {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Element"
+      },
+      "id": "ID",
+      "number": "Number",
+      "color": "Color",
+      "elementKind": "Element Kind"
+    }
+  }
+}

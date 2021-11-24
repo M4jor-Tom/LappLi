@@ -1,0 +1,29 @@
+{
+  "lappLiApp": {
+    "elementKind": {
+      "home": {
+        "title": "ElementKinds",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Element Kind",
+        "createOrEditLabel": "Créer ou éditer un Element Kind",
+        "notFound": "Aucun Element Kind trouvé"
+      },
+      "created": "Un nouveau Element Kind a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Element Kind avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Element Kind avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Element Kind {{ id }} ?"
+      },
+      "detail": {
+        "title": "Element Kind"
+      },
+      "id": "ID",
+      "designation": "Designation",
+      "gramPerMeterMass": "Gram Per Meter Mass",
+      "milimeterDiameter": "Milimeter Diameter",
+      "insulationThickness": "Insulation Thickness",
+      "copper": "Copper",
+      "insulationMaterial": "Insulation Material"
+    }
+  }
+}

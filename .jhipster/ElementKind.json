@@ -1,0 +1,49 @@
+{
+  "name": "ElementKind",
+  "fields": [
+    {
+      "fieldName": "designation",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "gramPerMeterMass",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "milimeterDiameter",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "insulationThickness",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "copper",
+      "otherEntityRelationshipName": "elementKind",
+      "relationshipName": "copper"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "material",
+      "otherEntityRelationshipName": "elementKind",
+      "relationshipName": "insulationMaterial"
+    }
+  ],
+  "entityTableName": "element_kind",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211124113149"
+}

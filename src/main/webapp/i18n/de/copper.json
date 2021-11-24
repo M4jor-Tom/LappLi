@@ -1,0 +1,24 @@
+{
+  "lappLiApp": {
+    "copper": {
+      "home": {
+        "title": "Coppers",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Copper erstellen",
+        "createOrEditLabel": "Copper erstellen oder bearbeiten",
+        "notFound": "Keine Coppers gefunden"
+      },
+      "created": "Copper erstellt mit ID {{ param }}",
+      "updated": "Copper aktualisiert mit ID {{ param }}",
+      "deleted": "Copper gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Copper {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Copper"
+      },
+      "id": "ID",
+      "designation": "Designation"
+    }
+  }
+}
