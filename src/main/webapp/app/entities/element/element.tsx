@@ -73,7 +73,13 @@ export const Element = (props: RouteComponentProps<{ url: string }>) => {
                   <td>
                     <Translate contentKey={`lappLiApp.Color.${element.color}`} />
                   </td>
-                  <td>{element.elementKind ? <Link to={`element-kind/${element.elementKind.id}`}>{element.elementKind.id}</Link> : ''}</td>
+                  <td>
+                    {element.elementKind ? (
+                      <Link to={`element-kind/${element.elementKind.id}`}>{element.elementKind.designation}</Link>
+                    ) : (
+                      ''
+                    )}
+                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${element.id}`} color="info" size="sm" data-cy="entityDetailsButton">

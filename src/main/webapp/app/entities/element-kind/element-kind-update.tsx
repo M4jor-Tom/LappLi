@@ -149,7 +149,7 @@ export const ElementKindUpdate = (props: RouteComponentProps<{ id: string }>) =>
                 {coppers
                   ? coppers.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {otherEntity.designation}
                       </option>
                     ))
                   : null}
@@ -165,7 +165,7 @@ export const ElementKindUpdate = (props: RouteComponentProps<{ id: string }>) =>
                 {materials
                   ? materials.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {otherEntity.designation}
                       </option>
                     ))
                   : null}

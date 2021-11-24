@@ -82,10 +82,10 @@ export const ElementKind = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{elementKind.gramPerMeterMass}</td>
                   <td>{elementKind.milimeterDiameter}</td>
                   <td>{elementKind.insulationThickness}</td>
-                  <td>{elementKind.copper ? <Link to={`copper/${elementKind.copper.id}`}>{elementKind.copper.id}</Link> : ''}</td>
+                  <td>{elementKind.copper ? <Link to={`copper/${elementKind.copper.id}`}>{elementKind.copper.designation}</Link> : ''}</td>
                   <td>
                     {elementKind.insulationMaterial ? (
-                      <Link to={`material/${elementKind.insulationMaterial.id}`}>{elementKind.insulationMaterial.id}</Link>
+                      <Link to={`material/${elementKind.insulationMaterial.id}`}>{elementKind.insulationMaterial.designation}</Link>
                     ) : (
                       ''
                     )}
