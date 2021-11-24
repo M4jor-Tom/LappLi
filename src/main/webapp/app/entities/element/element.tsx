@@ -58,6 +58,9 @@ export const Element = (props: RouteComponentProps<{ url: string }>) => {
                 <th>
                   <Translate contentKey="lappLiApp.element.elementKind">Element Kind</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="lappLiApp.elementKind.milimeterDiameter">Milimeter Diameter</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -80,6 +83,7 @@ export const Element = (props: RouteComponentProps<{ url: string }>) => {
                       ''
                     )}
                   </td>
+                  <td>{element.milimeterDiameter}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${element.id}`} color="info" size="sm" data-cy="entityDetailsButton">

@@ -6,6 +6,7 @@ export interface IElement {
   number?: number;
   color?: Color;
   elementKind?: IElementKind | null;
+  milimeterDiameter?: number;
 }
 
 export const defaultValue: Readonly<IElement> = {};

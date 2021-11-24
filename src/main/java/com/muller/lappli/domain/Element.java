@@ -36,6 +36,10 @@ public class Element implements Serializable {
     @JsonIgnoreProperties(value = { "copper", "insulationMaterial" }, allowSetters = true)
     private ElementKind elementKind;
 
+    public Double getMilimeterDiameter() {
+        return getElementKind().getMilimeterDiameter();
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
