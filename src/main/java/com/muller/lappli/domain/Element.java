@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractAssemblableAtom;
 import com.muller.lappli.domain.enumeration.Color;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -14,7 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Element implements Serializable {
+public class Element extends AbstractAssemblableAtom implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,8 +37,28 @@ public class Element implements Serializable {
     @JsonIgnoreProperties(value = { "copper", "insulationMaterial" }, allowSetters = true)
     private ElementKind elementKind;
 
+    @Override
     public Double getMilimeterDiameter() {
         return getElementKind().getMilimeterDiameter();
+    }
+
+    @Override
+    public Double getGramPerMeterLinearMass() {
+        return getElementKind().getGramPerMeterLinearMass();
+    }
+
+    @Override
+    public Long getArticleNumber() {
+        return getNumber();
+    }
+
+    @Override
+    public String getDesignation() {
+        return getElementKind().getDesignation();
+    }
+
+    public String getDesignationWithColor() {
+        return getElementKind().getDesignation() + " " + getColor().getDesignation();
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
