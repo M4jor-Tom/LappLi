@@ -1,7 +1,5 @@
 package com.muller.lappli.domain.enumeration;
 
-import java.util.Collection;
-
 /**
  * The Color enumeration.
  */
