@@ -128,8 +128,8 @@ public class ElementKindResource {
                 if (elementKind.getDesignation() != null) {
                     existingElementKind.setDesignation(elementKind.getDesignation());
                 }
-                if (elementKind.getGramPerMeterMass() != null) {
-                    existingElementKind.setGramPerMeterMass(elementKind.getGramPerMeterMass());
+                if (elementKind.getGramPerMeterLinearMass() != null) {
+                    existingElementKind.setGramPerMeterLinearMass(elementKind.getGramPerMeterLinearMass());
                 }
                 if (elementKind.getMilimeterDiameter() != null) {
                     existingElementKind.setMilimeterDiameter(elementKind.getMilimeterDiameter());

@@ -53,7 +53,7 @@ export const ElementKind = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.elementKind.designation">Designation</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.elementKind.gramPerMeterMass">Gram Per Meter Mass</Translate>
+                  <Translate contentKey="lappLiApp.elementKind.gramPerMeterLinearMass">Gram Per Meter Linear Mass</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.elementKind.milimeterDiameter">Milimeter Diameter</Translate>
@@ -79,7 +79,7 @@ export const ElementKind = (props: RouteComponentProps<{ url: string }>) => {
                     </Button>
                   </td>
                   <td>{elementKind.designation}</td>
-                  <td>{elementKind.gramPerMeterMass}</td>
+                  <td>{elementKind.gramPerMeterLinearMass}</td>
                   <td>{elementKind.milimeterDiameter}</td>
                   <td>{elementKind.insulationThickness}</td>
                   <td>{elementKind.copper ? <Link to={`copper/${elementKind.copper.id}`}>{elementKind.copper.designation}</Link> : ''}</td>

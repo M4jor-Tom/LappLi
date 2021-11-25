@@ -26,8 +26,8 @@ public class ElementKind implements Serializable {
     private String designation;
 
     @NotNull
-    @Column(name = "gram_per_meter_mass", nullable = false)
-    private Double gramPerMeterMass;
+    @Column(name = "gram_per_meter_linear_mass", nullable = false)
+    private Double gramPerMeterLinearMass;
 
     @NotNull
     @Column(name = "milimeter_diameter", nullable = false)
@@ -71,17 +71,17 @@ public class ElementKind implements Serializable {
         this.designation = designation;
     }
 
-    public Double getGramPerMeterMass() {
-        return this.gramPerMeterMass;
+    public Double getGramPerMeterLinearMass() {
+        return this.gramPerMeterLinearMass;
     }
 
-    public ElementKind gramPerMeterMass(Double gramPerMeterMass) {
-        this.setGramPerMeterMass(gramPerMeterMass);
+    public ElementKind gramPerMeterLinearMass(Double gramPerMeterLinearMass) {
+        this.setGramPerMeterLinearMass(gramPerMeterLinearMass);
         return this;
     }
 
-    public void setGramPerMeterMass(Double gramPerMeterMass) {
-        this.gramPerMeterMass = gramPerMeterMass;
+    public void setGramPerMeterLinearMass(Double gramPerMeterLinearMass) {
+        this.gramPerMeterLinearMass = gramPerMeterLinearMass;
     }
 
     public Double getMilimeterDiameter() {
@@ -161,7 +161,7 @@ public class ElementKind implements Serializable {
         return "ElementKind{" +
             "id=" + getId() +
             ", designation='" + getDesignation() + "'" +
-            ", gramPerMeterMass=" + getGramPerMeterMass() +
+            ", gramPerMeterLinearMass=" + getGramPerMeterLinearMass() +
             ", milimeterDiameter=" + getMilimeterDiameter() +
             ", insulationThickness=" + getInsulationThickness() +
             "}";

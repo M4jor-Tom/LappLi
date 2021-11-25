@@ -4,7 +4,7 @@ import { IMaterial } from 'app/shared/model/material.model';
 export interface IElementKind {
   id?: number;
   designation?: string;
-  gramPerMeterMass?: number;
+  gramPerMeterLinearMass?: number;
   milimeterDiameter?: number;
   insulationThickness?: number;
   copper?: ICopper | null;

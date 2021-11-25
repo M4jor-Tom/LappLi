@@ -7,7 +7,7 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "gramPerMeterMass",
+      "fieldName": "gramPerMeterLinearMass",
       "fieldType": "Double",
       "fieldValidateRules": ["required"]
     },

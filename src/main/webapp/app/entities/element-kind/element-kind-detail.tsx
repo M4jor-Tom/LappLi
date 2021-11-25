@@ -36,11 +36,11 @@ export const ElementKindDetail = (props: RouteComponentProps<{ id: string }>) =>
           </dt>
           <dd>{elementKindEntity.designation}</dd>
           <dt>
-            <span id="gramPerMeterMass">
-              <Translate contentKey="lappLiApp.elementKind.gramPerMeterMass">Gram Per Meter Mass</Translate>
+            <span id="gramPerMeterLinearMass">
+              <Translate contentKey="lappLiApp.elementKind.gramPerMeterLinearMass">Gram Per Meter Linear Mass</Translate>
             </span>
           </dt>
-          <dd>{elementKindEntity.gramPerMeterMass}</dd>
+          <dd>{elementKindEntity.gramPerMeterLinearMass}</dd>
           <dt>
             <span id="milimeterDiameter">
               <Translate contentKey="lappLiApp.elementKind.milimeterDiameter">Milimeter Diameter</Translate>

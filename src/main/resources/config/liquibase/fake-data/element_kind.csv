@@ -1,4 +1,4 @@
-id;designation;gram_per_meter_mass;milimeter_diameter;insulation_thickness;copper_id;insulation_material_id
+id;designation;gram_per_meter_linear_mass;milimeter_diameter;insulation_thickness;copper_id;insulation_material_id
 1;0,09SFZ;1.361;0.69;0.15;1;1
 2;0,12THEL;1.717;0.9;0.225;2;2
 3;0,14ESHYIEL;1.64;0.8;0.16;3;3

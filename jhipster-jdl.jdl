@@ -1,6 +1,5 @@
 entity Element {
 	number Long required
-	designation String required
     color Color required
 }
 
@@ -10,7 +9,7 @@ relationship ManyToOne {
 
 entity ElementKind {
 	designation String required
-    gramPerMeterMass Double required
+    gramPerMeterLinearMass Double required
     milimeterDiameter Double required
     insulationThickness Double required
 }

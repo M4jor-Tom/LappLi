@@ -17,7 +17,7 @@
             <column name="designation" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="gram_per_meter_mass" type="double">
+            <column name="gram_per_meter_linear_mass" type="double">
                 <constraints nullable="false" />
             </column>
             <column name="milimeter_diameter" type="double">
@@ -54,7 +54,7 @@
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="designation" type="string"/>
-            <column name="gram_per_meter_mass" type="numeric"/>
+            <column name="gram_per_meter_linear_mass" type="numeric"/>
             <column name="milimeter_diameter" type="numeric"/>
             <column name="insulation_thickness" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->

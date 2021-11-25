@@ -106,10 +106,10 @@ export const ElementKindUpdate = (props: RouteComponentProps<{ id: string }>) =>
                 }}
               />
               <ValidatedField
-                label={translate('lappLiApp.elementKind.gramPerMeterMass')}
-                id="element-kind-gramPerMeterMass"
-                name="gramPerMeterMass"
-                data-cy="gramPerMeterMass"
+                label={translate('lappLiApp.elementKind.gramPerMeterLinearMass')}
+                id="element-kind-gramPerMeterLinearMass"
+                name="gramPerMeterLinearMass"
+                data-cy="gramPerMeterLinearMass"
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
