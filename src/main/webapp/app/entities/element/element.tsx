@@ -53,6 +53,9 @@ export const Element = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.element.number">Number</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.element.designationWithColor">Designation</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.element.color">Color</Translate>
                 </th>
                 <th>
@@ -73,6 +76,7 @@ export const Element = (props: RouteComponentProps<{ url: string }>) => {
                     </Button>
                   </td>
                   <td>{element.number}</td>
+                  <td>{element.designationWithColor}</td>
                   <td>
                     <Translate contentKey={`lappLiApp.Color.${element.color}`} />
                   </td>

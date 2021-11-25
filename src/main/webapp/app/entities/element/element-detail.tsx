@@ -36,6 +36,12 @@ export const ElementDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{elementEntity.number}</dd>
           <dt>
+            <span id="designation">
+              <Translate contentKey="lappLiApp.element.designation">Designation</Translate>
+            </span>
+          </dt>
+          <dd>{elementEntity.designationWithColor}</dd>
+          <dt>
             <span id="color">
               <Translate contentKey="lappLiApp.element.color">Color</Translate>
             </span>

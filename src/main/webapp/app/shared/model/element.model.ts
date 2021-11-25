@@ -4,6 +4,7 @@ import { Color } from 'app/shared/model/enumerations/color.model';
 export interface IElement {
   id?: number;
   number?: number;
+  designationWithColor?: string;
   color?: Color;
   elementKind?: IElementKind | null;
   milimeterDiameter?: number;
