@@ -1,4 +1,6 @@
 export enum Color {
+  NATURAL = 'NATURAL',
+
   WHITE = 'WHITE',
 
   BROWN = 'BROWN',

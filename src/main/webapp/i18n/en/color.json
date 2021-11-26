@@ -2,6 +2,7 @@
   "lappLiApp": {
     "Color": {
       "null": "",
+      "NATURAL": "NATURAL",
       "WHITE": "WHITE",
       "BROWN": "BROWN",
       "GREEN": "GREEN",
