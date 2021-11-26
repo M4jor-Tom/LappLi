@@ -6,6 +6,7 @@ export interface IElementSupply {
   apparitions?: number;
   forcedMarking?: string | null;
   markingType?: MarkingType | null;
+  quantity?: number;
   element?: IElement | null;
 }
 

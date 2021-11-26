@@ -18,6 +18,8 @@ public class ElementSupply implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public static final Long UNITY_QUANTITY = Long.valueOf(1000);
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -37,6 +39,10 @@ public class ElementSupply implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = { "elementKind" }, allowSetters = true)
     private Element element;
+
+    public Long getQuantity() {
+        return ElementSupply.UNITY_QUANTITY * getApparitions();
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
