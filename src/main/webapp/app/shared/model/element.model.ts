@@ -5,6 +5,7 @@ export interface IElement {
   id?: number;
   number?: number;
   designationWithColor?: string;
+  numberWithDesignationWithColor?: string;
   color?: Color;
   elementKind?: IElementKind | null;
   milimeterDiameter?: number;

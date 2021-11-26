@@ -58,6 +58,10 @@ public class Element extends AbstractAssemblableAtom implements Article, Seriali
         return getElementKind().getDesignation();
     }
 
+    public String getNumberWithDesignationWithColor() {
+        return getNumber() + " - " + getDesignationWithColor();
+    }
+
     public String getDesignationWithColor() {
         return getElementKind().getDesignation() + " " + getColor().getDesignation();
     }
