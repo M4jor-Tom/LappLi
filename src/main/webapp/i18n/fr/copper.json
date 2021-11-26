@@ -1,0 +1,25 @@
+{
+  "lappLiApp": {
+    "copper": {
+      "home": {
+        "title": "Coppers",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Copper",
+        "createOrEditLabel": "Créer ou éditer un Copper",
+        "notFound": "Aucun Copper trouvé"
+      },
+      "created": "Un nouveau Copper a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Copper avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Copper avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Copper {{ id }} ?"
+      },
+      "detail": {
+        "title": "Copper"
+      },
+      "id": "ID",
+      "number": "Number",
+      "designation": "Designation"
+    }
+  }
+}

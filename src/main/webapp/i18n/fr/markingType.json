@@ -1,0 +1,11 @@
+{
+  "lappLiApp": {
+    "MarkingType": {
+      "null": "",
+      "LIFTING": "LIFTING",
+      "SPIRALLY_COLORED": "SPIRALLY_COLORED",
+      "LONGITUDINALLY_COLORED": "LONGITUDINALLY_COLORED",
+      "NUMBERED": "NUMBERED"
+    }
+  }
+}

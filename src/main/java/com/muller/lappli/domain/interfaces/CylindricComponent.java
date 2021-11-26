@@ -1,8 +1,10 @@
 package com.muller.lappli.domain.interfaces;
 
-import com.muller.lappli.domain.Dimension;
+public interface CylindricComponent extends Designable {
+    Double getMilimeterDiameter();
+    Double getGramPerMeterLinearMass();
 
-public interface CylindricComponent extends Article {
-    Dimension getMilimeterDiameter();
-    Dimension getGramPerMeterLinearMass();
+    default Double getSquareMilimeterSurface() {
+        return Math.PI * Math.pow(getGramPerMeterLinearMass(), 2) / 4;
+    }
 }
