@@ -77,7 +77,13 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <td>
                     <Translate contentKey={`lappLiApp.MarkingType.${elementSupply.markingType}`} />
                   </td>
-                  <td>{elementSupply.element ? <Link to={`element/${elementSupply.element.id}`}>{elementSupply.element.id}</Link> : ''}</td>
+                  <td>
+                    {elementSupply.element ? (
+                      <Link to={`element/${elementSupply.element.id}`}>{elementSupply.element.designationWithColor}</Link>
+                    ) : (
+                      ''
+                    )}
+                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${elementSupply.id}`} color="info" size="sm" data-cy="entityDetailsButton">

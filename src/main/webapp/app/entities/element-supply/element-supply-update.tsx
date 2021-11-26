@@ -134,7 +134,7 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ id: string }>) 
                 {elements
                   ? elements.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {otherEntity.designationWithColor}
                       </option>
                     ))
                   : null}
