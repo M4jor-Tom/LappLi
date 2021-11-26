@@ -54,6 +54,7 @@ entity Material {
 }
 
 enum Color {
+    NATURAL,
 	WHITE,
     BROWN,
     GREEN,
