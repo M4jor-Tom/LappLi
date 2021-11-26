@@ -21,7 +21,8 @@
       "apparitions": "Apparitions",
       "forcedMarking": "Forced Marking",
       "markingType": "Marking Type",
-      "element": "Element"
+      "element": "Element",
+      "quantity": "Betragen"
     }
   }
 }

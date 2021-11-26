@@ -48,7 +48,7 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           </dt>
           <dd>{elementSupplyEntity.markingType}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.articleNumber">Article Number</Translate>
+            <Translate contentKey="lappLiApp.article.number">Article Number</Translate>
           </dt>
           <dd>{elementSupplyEntity.element ? elementSupplyEntity.element.number : ''}</dd>
           <dt>
