@@ -59,6 +59,9 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.elementSupply.markingType">Marking Type</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.articleNumber">Article Number</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.elementSupply.element">Element</Translate>
                 </th>
                 <th />
@@ -76,6 +79,9 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{elementSupply.forcedMarking}</td>
                   <td>
                     <Translate contentKey={`lappLiApp.MarkingType.${elementSupply.markingType}`} />
+                  </td>
+                  <td>
+                    {elementSupply.element ? <Link to={`element/${elementSupply.element.id}`}>{elementSupply.element.number}</Link> : ''}
                   </td>
                   <td>
                     {elementSupply.element ? (

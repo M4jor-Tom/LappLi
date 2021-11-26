@@ -48,6 +48,10 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           </dt>
           <dd>{elementSupplyEntity.markingType}</dd>
           <dt>
+            <Translate contentKey="lappLiApp.articleNumber">Article Number</Translate>
+          </dt>
+          <dd>{elementSupplyEntity.element ? elementSupplyEntity.element.number : ''}</dd>
+          <dt>
             <Translate contentKey="lappLiApp.elementSupply.element">Element</Translate>
           </dt>
           <dd>{elementSupplyEntity.element ? elementSupplyEntity.element.designationWithColor : ''}</dd>
