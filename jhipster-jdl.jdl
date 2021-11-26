@@ -1,3 +1,24 @@
+entity ElementSupply {
+	apparitions Long required
+    forcedMarking String
+    markingType MarkingType
+}
+
+filter ElementSupply
+
+service ElementSupply with serviceClass
+
+enum MarkingType {
+	LIFTING,
+    SPIRALLY_COLORED,
+    LONGITUDINALLY_COLORED,
+    NUMBERED
+}
+
+relationship ManyToOne {
+	ElementSupply{Element} to Element
+}
+
 entity Element {
 	number Long required
     color Color required

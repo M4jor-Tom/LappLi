@@ -19,6 +19,8 @@ import elementKind from 'app/entities/element-kind/element-kind.reducer';
 import copper from 'app/entities/copper/copper.reducer';
 // prettier-ignore
 import material from 'app/entities/material/material.reducer';
+// prettier-ignore
+import elementSupply from 'app/entities/element-supply/element-supply.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -36,6 +38,7 @@ const rootReducer = {
   elementKind,
   copper,
   material,
+  elementSupply,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };

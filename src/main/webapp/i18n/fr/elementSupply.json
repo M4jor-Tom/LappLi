@@ -1,0 +1,27 @@
+{
+  "lappLiApp": {
+    "elementSupply": {
+      "home": {
+        "title": "ElementSupplies",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Element Supply",
+        "createOrEditLabel": "Créer ou éditer un Element Supply",
+        "notFound": "Aucun Element Supply trouvé"
+      },
+      "created": "Un nouveau Element Supply a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Element Supply avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Element Supply avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Element Supply {{ id }} ?"
+      },
+      "detail": {
+        "title": "Element Supply"
+      },
+      "id": "ID",
+      "apparitions": "Apparitions",
+      "forcedMarking": "Forced Marking",
+      "markingType": "Marking Type",
+      "element": "Element"
+    }
+  }
+}

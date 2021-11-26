@@ -52,6 +52,7 @@ public class CacheConfiguration {
             createCache(cm, com.muller.lappli.domain.ElementKind.class.getName());
             createCache(cm, com.muller.lappli.domain.Copper.class.getName());
             createCache(cm, com.muller.lappli.domain.Material.class.getName());
+            createCache(cm, com.muller.lappli.domain.ElementSupply.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -1,0 +1,37 @@
+{
+  "name": "ElementSupply",
+  "fields": [
+    {
+      "fieldName": "apparitions",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "forcedMarking",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "markingType",
+      "fieldType": "MarkingType",
+      "fieldValues": "LIFTING,SPIRALLY_COLORED,LONGITUDINALLY_COLORED,NUMBERED"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "element",
+      "otherEntityRelationshipName": "elementSupply",
+      "relationshipName": "element"
+    }
+  ],
+  "entityTableName": "element_supply",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211126153404"
+}

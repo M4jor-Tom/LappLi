@@ -8,6 +8,7 @@ import Element from './element';
 import ElementKind from './element-kind';
 import Copper from './copper';
 import Material from './material';
+import ElementSupply from './element-supply';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -18,6 +19,7 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}element-kind`} component={ElementKind} />
       <ErrorBoundaryRoute path={`${match.url}copper`} component={Copper} />
       <ErrorBoundaryRoute path={`${match.url}material`} component={Material} />
+      <ErrorBoundaryRoute path={`${match.url}element-supply`} component={ElementSupply} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>

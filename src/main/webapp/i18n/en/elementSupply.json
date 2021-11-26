@@ -1,0 +1,27 @@
+{
+  "lappLiApp": {
+    "elementSupply": {
+      "home": {
+        "title": "Element Supplies",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Element Supply",
+        "createOrEditLabel": "Create or edit a Element Supply",
+        "notFound": "No Element Supplies found"
+      },
+      "created": "A new Element Supply is created with identifier {{ param }}",
+      "updated": "A Element Supply is updated with identifier {{ param }}",
+      "deleted": "A Element Supply is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Element Supply {{ id }}?"
+      },
+      "detail": {
+        "title": "Element Supply"
+      },
+      "id": "ID",
+      "apparitions": "Apparitions",
+      "forcedMarking": "Forced Marking",
+      "markingType": "Marking Type",
+      "element": "Element"
+    }
+  }
+}
