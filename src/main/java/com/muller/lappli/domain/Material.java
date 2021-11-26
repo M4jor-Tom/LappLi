@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.muller.lappli.domain.interfaces.Article;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -12,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "material")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Material implements Serializable {
+public class Material implements Article, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,6 +29,11 @@ public class Material implements Serializable {
     @NotNull
     @Column(name = "designation", nullable = false)
     private String designation;
+
+    @Override
+    public Long getArticleNumber() {
+        return getNumber();
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
