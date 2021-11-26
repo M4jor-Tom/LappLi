@@ -59,6 +59,7 @@ public class ElementKind extends AbstractCableAtom implements Serializable {
         this.id = id;
     }
 
+    @Override
     public String getDesignation() {
         return this.designation;
     }
@@ -72,6 +73,7 @@ public class ElementKind extends AbstractCableAtom implements Serializable {
         this.designation = designation;
     }
 
+    @Override
     public Double getGramPerMeterLinearMass() {
         return this.gramPerMeterLinearMass;
     }
@@ -85,6 +87,7 @@ public class ElementKind extends AbstractCableAtom implements Serializable {
         this.gramPerMeterLinearMass = gramPerMeterLinearMass;
     }
 
+    @Override
     public Double getMilimeterDiameter() {
         return this.milimeterDiameter;
     }

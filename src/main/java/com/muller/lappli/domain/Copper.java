@@ -63,6 +63,7 @@ public class Copper implements Article, Serializable {
         this.number = number;
     }
 
+    @Override
     public String getDesignation() {
         return this.designation;
     }
