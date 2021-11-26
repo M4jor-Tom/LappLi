@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.muller.lappli.domain.abstracts.AbstractCableAtom;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -12,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element_kind")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ElementKind implements Serializable {
+public class ElementKind extends AbstractCableAtom implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

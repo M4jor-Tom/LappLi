@@ -3,6 +3,7 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssemblableAtom;
 import com.muller.lappli.domain.enumeration.Color;
+import com.muller.lappli.domain.interfaces.Article;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -15,7 +16,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Element extends AbstractAssemblableAtom implements Serializable {
+public class Element extends AbstractAssemblableAtom implements Article, Serializable {
 
     private static final long serialVersionUID = 1L;
 
