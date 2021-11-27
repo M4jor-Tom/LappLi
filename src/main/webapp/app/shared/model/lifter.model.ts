@@ -6,6 +6,7 @@ export interface ILifter {
   supportsSpirallyColoredMarkingType?: boolean;
   supportsLongitudinallyColoredMarkingType?: boolean;
   supportsNumberedMarkingType?: boolean;
+  name?: string;
 }
 
 export const defaultValue: Readonly<ILifter> = {

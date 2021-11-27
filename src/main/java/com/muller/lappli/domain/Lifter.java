@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -44,6 +45,50 @@ public class Lifter implements Serializable {
     @NotNull
     @Column(name = "supports_numbered_marking_type", nullable = false)
     private Boolean supportsNumberedMarkingType;
+
+    public Lifter() {
+        this(null, Double.NaN, Double.NaN, false, false, false);
+    }
+
+    public Lifter(
+        Long index,
+        Double minimumMilimeterDiameter,
+        Double maximumMilimeterDiameter,
+        Boolean supportsSpirallyColoredMarkingType,
+        Boolean supportsLongitudinallyColoredMarkingType,
+        Boolean supportsNumberedMarkingType
+    ) {
+        super();
+        setIndex(index);
+        setMinimumMilimeterDiameter(minimumMilimeterDiameter);
+        setMaximumMilimeterDiameter(maximumMilimeterDiameter);
+        setSupportsSpirallyColoredMarkingType(supportsSpirallyColoredMarkingType);
+        setSupportsLongitudinallyColoredMarkingType(supportsLongitudinallyColoredMarkingType);
+        setSupportsNumberedMarkingType(supportsNumberedMarkingType);
+    }
+
+    public String getName() {
+        String prefix;
+
+        prefix = getIndex() >= 10 ? "MR" : "MR0";
+
+        return prefix + getIndex();
+    }
+
+    public Boolean supports(MarkingType markingType) {
+        switch (markingType) {
+            case LIFTING:
+                return true;
+            case SPIRALLY_COLORED:
+                return getSupportsSpirallyColoredMarkingType();
+            case LONGITUDINALLY_COLORED:
+                return getSupportsLongitudinallyColoredMarkingType();
+            case NUMBERED:
+                return getSupportsNumberedMarkingType();
+        }
+
+        return false;
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 

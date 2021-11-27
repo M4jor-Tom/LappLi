@@ -31,10 +31,10 @@ export const LifterDetail = (props: RouteComponentProps<{ id: string }>) => {
           <dd>{lifterEntity.id}</dd>
           <dt>
             <span id="index">
-              <Translate contentKey="lappLiApp.lifter.index">Index</Translate>
+              <Translate contentKey="lappLiApp.lifter.name">Name</Translate>
             </span>
           </dt>
-          <dd>{lifterEntity.index}</dd>
+          <dd>{lifterEntity.name}</dd>
           <dt>
             <span id="minimumMilimeterDiameter">
               <Translate contentKey="lappLiApp.lifter.minimumMilimeterDiameter">Minimum Milimeter Diameter</Translate>

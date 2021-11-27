@@ -50,7 +50,7 @@ export const Lifter = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.lifter.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.lifter.index">Index</Translate>
+                  <Translate contentKey="lappLiApp.lifter.name">Name</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.lifter.minimumMilimeterDiameter">Minimum Milimeter Diameter</Translate>
@@ -82,7 +82,7 @@ export const Lifter = (props: RouteComponentProps<{ url: string }>) => {
                       {lifter.id}
                     </Button>
                   </td>
-                  <td>{lifter.index}</td>
+                  <td>{lifter.name}</td>
                   <td>{lifter.minimumMilimeterDiameter}</td>
                   <td>{lifter.maximumMilimeterDiameter}</td>
                   <td>{lifter.supportsSpirallyColoredMarkingType ? 'true' : 'false'}</td>
