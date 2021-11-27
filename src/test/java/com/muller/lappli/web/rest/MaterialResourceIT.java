@@ -35,6 +35,9 @@ class MaterialResourceIT {
     private static final String DEFAULT_DESIGNATION = "AAAAAAAAAA";
     private static final String UPDATED_DESIGNATION = "BBBBBBBBBB";
 
+    private static final Boolean DEFAULT_IS_MARKABLE = false;
+    private static final Boolean UPDATED_IS_MARKABLE = true;
+
     private static final String ENTITY_API_URL = "/api/materials";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -59,7 +62,7 @@ class MaterialResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Material createEntity(EntityManager em) {
-        Material material = new Material().number(DEFAULT_NUMBER).designation(DEFAULT_DESIGNATION);
+        Material material = new Material().number(DEFAULT_NUMBER).designation(DEFAULT_DESIGNATION).isMarkable(DEFAULT_IS_MARKABLE);
         return material;
     }
 
@@ -70,7 +73,7 @@ class MaterialResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Material createUpdatedEntity(EntityManager em) {
-        Material material = new Material().number(UPDATED_NUMBER).designation(UPDATED_DESIGNATION);
+        Material material = new Material().number(UPDATED_NUMBER).designation(UPDATED_DESIGNATION).isMarkable(UPDATED_IS_MARKABLE);
         return material;
     }
 
@@ -94,6 +97,7 @@ class MaterialResourceIT {
         Material testMaterial = materialList.get(materialList.size() - 1);
         assertThat(testMaterial.getNumber()).isEqualTo(DEFAULT_NUMBER);
         assertThat(testMaterial.getDesignation()).isEqualTo(DEFAULT_DESIGNATION);
+        assertThat(testMaterial.getIsMarkable()).isEqualTo(DEFAULT_IS_MARKABLE);
     }
 
     @Test
@@ -150,6 +154,23 @@ class MaterialResourceIT {
 
     @Test
     @Transactional
+    void checkIsMarkableIsRequired() throws Exception {
+        int databaseSizeBeforeTest = materialRepository.findAll().size();
+        // set the field null
+        material.setIsMarkable(null);
+
+        // Create the Material, which fails.
+
+        restMaterialMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(material)))
+            .andExpect(status().isBadRequest());
+
+        List<Material> materialList = materialRepository.findAll();
+        assertThat(materialList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllMaterials() throws Exception {
         // Initialize the database
         materialRepository.saveAndFlush(material);
@@ -161,7 +182,8 @@ class MaterialResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(material.getId().intValue())))
             .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER.intValue())))
-            .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)));
+            .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)))
+            .andExpect(jsonPath("$.[*].isMarkable").value(hasItem(DEFAULT_IS_MARKABLE.booleanValue())));
     }
 
     @Test
@@ -177,7 +199,8 @@ class MaterialResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(material.getId().intValue()))
             .andExpect(jsonPath("$.number").value(DEFAULT_NUMBER.intValue()))
-            .andExpect(jsonPath("$.designation").value(DEFAULT_DESIGNATION));
+            .andExpect(jsonPath("$.designation").value(DEFAULT_DESIGNATION))
+            .andExpect(jsonPath("$.isMarkable").value(DEFAULT_IS_MARKABLE.booleanValue()));
     }
 
     @Test
@@ -199,7 +222,7 @@ class MaterialResourceIT {
         Material updatedMaterial = materialRepository.findById(material.getId()).get();
         // Disconnect from session so that the updates on updatedMaterial are not directly saved in db
         em.detach(updatedMaterial);
-        updatedMaterial.number(UPDATED_NUMBER).designation(UPDATED_DESIGNATION);
+        updatedMaterial.number(UPDATED_NUMBER).designation(UPDATED_DESIGNATION).isMarkable(UPDATED_IS_MARKABLE);
 
         restMaterialMockMvc
             .perform(
@@ -215,6 +238,7 @@ class MaterialResourceIT {
         Material testMaterial = materialList.get(materialList.size() - 1);
         assertThat(testMaterial.getNumber()).isEqualTo(UPDATED_NUMBER);
         assertThat(testMaterial.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
+        assertThat(testMaterial.getIsMarkable()).isEqualTo(UPDATED_IS_MARKABLE);
     }
 
     @Test
@@ -301,6 +325,7 @@ class MaterialResourceIT {
         Material testMaterial = materialList.get(materialList.size() - 1);
         assertThat(testMaterial.getNumber()).isEqualTo(UPDATED_NUMBER);
         assertThat(testMaterial.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
+        assertThat(testMaterial.getIsMarkable()).isEqualTo(DEFAULT_IS_MARKABLE);
     }
 
     @Test
@@ -315,7 +340,7 @@ class MaterialResourceIT {
         Material partialUpdatedMaterial = new Material();
         partialUpdatedMaterial.setId(material.getId());
 
-        partialUpdatedMaterial.number(UPDATED_NUMBER).designation(UPDATED_DESIGNATION);
+        partialUpdatedMaterial.number(UPDATED_NUMBER).designation(UPDATED_DESIGNATION).isMarkable(UPDATED_IS_MARKABLE);
 
         restMaterialMockMvc
             .perform(
@@ -331,6 +356,7 @@ class MaterialResourceIT {
         Material testMaterial = materialList.get(materialList.size() - 1);
         assertThat(testMaterial.getNumber()).isEqualTo(UPDATED_NUMBER);
         assertThat(testMaterial.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
+        assertThat(testMaterial.getIsMarkable()).isEqualTo(UPDATED_IS_MARKABLE);
     }
 
     @Test

@@ -1,0 +1,173 @@
+package com.muller.lappli.domain;
+
+import java.io.Serializable;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+/**
+ * A Lifter.
+ */
+@Entity
+@Table(name = "lifter")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+public class Lifter implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @NotNull
+    @Column(name = "jhi_index", nullable = false)
+    private Long index;
+
+    @NotNull
+    @Column(name = "minimum_milimeter_diameter", nullable = false)
+    private Double minimumMilimeterDiameter;
+
+    @NotNull
+    @Column(name = "maximum_milimeter_diameter", nullable = false)
+    private Double maximumMilimeterDiameter;
+
+    @NotNull
+    @Column(name = "supports_spirally_colored_marking_type", nullable = false)
+    private Boolean supportsSpirallyColoredMarkingType;
+
+    @NotNull
+    @Column(name = "supports_longitudinally_colored_marking_type", nullable = false)
+    private Boolean supportsLongitudinallyColoredMarkingType;
+
+    @NotNull
+    @Column(name = "supports_numbered_marking_type", nullable = false)
+    private Boolean supportsNumberedMarkingType;
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public Lifter id(Long id) {
+        this.setId(id);
+        return this;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getIndex() {
+        return this.index;
+    }
+
+    public Lifter index(Long index) {
+        this.setIndex(index);
+        return this;
+    }
+
+    public void setIndex(Long index) {
+        this.index = index;
+    }
+
+    public Double getMinimumMilimeterDiameter() {
+        return this.minimumMilimeterDiameter;
+    }
+
+    public Lifter minimumMilimeterDiameter(Double minimumMilimeterDiameter) {
+        this.setMinimumMilimeterDiameter(minimumMilimeterDiameter);
+        return this;
+    }
+
+    public void setMinimumMilimeterDiameter(Double minimumMilimeterDiameter) {
+        this.minimumMilimeterDiameter = minimumMilimeterDiameter;
+    }
+
+    public Double getMaximumMilimeterDiameter() {
+        return this.maximumMilimeterDiameter;
+    }
+
+    public Lifter maximumMilimeterDiameter(Double maximumMilimeterDiameter) {
+        this.setMaximumMilimeterDiameter(maximumMilimeterDiameter);
+        return this;
+    }
+
+    public void setMaximumMilimeterDiameter(Double maximumMilimeterDiameter) {
+        this.maximumMilimeterDiameter = maximumMilimeterDiameter;
+    }
+
+    public Boolean getSupportsSpirallyColoredMarkingType() {
+        return this.supportsSpirallyColoredMarkingType;
+    }
+
+    public Lifter supportsSpirallyColoredMarkingType(Boolean supportsSpirallyColoredMarkingType) {
+        this.setSupportsSpirallyColoredMarkingType(supportsSpirallyColoredMarkingType);
+        return this;
+    }
+
+    public void setSupportsSpirallyColoredMarkingType(Boolean supportsSpirallyColoredMarkingType) {
+        this.supportsSpirallyColoredMarkingType = supportsSpirallyColoredMarkingType;
+    }
+
+    public Boolean getSupportsLongitudinallyColoredMarkingType() {
+        return this.supportsLongitudinallyColoredMarkingType;
+    }
+
+    public Lifter supportsLongitudinallyColoredMarkingType(Boolean supportsLongitudinallyColoredMarkingType) {
+        this.setSupportsLongitudinallyColoredMarkingType(supportsLongitudinallyColoredMarkingType);
+        return this;
+    }
+
+    public void setSupportsLongitudinallyColoredMarkingType(Boolean supportsLongitudinallyColoredMarkingType) {
+        this.supportsLongitudinallyColoredMarkingType = supportsLongitudinallyColoredMarkingType;
+    }
+
+    public Boolean getSupportsNumberedMarkingType() {
+        return this.supportsNumberedMarkingType;
+    }
+
+    public Lifter supportsNumberedMarkingType(Boolean supportsNumberedMarkingType) {
+        this.setSupportsNumberedMarkingType(supportsNumberedMarkingType);
+        return this;
+    }
+
+    public void setSupportsNumberedMarkingType(Boolean supportsNumberedMarkingType) {
+        this.supportsNumberedMarkingType = supportsNumberedMarkingType;
+    }
+
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Lifter)) {
+            return false;
+        }
+        return id != null && id.equals(((Lifter) o).id);
+    }
+
+    @Override
+    public int hashCode() {
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
+    }
+
+    // prettier-ignore
+    @Override
+    public String toString() {
+        return "Lifter{" +
+            "id=" + getId() +
+            ", index=" + getIndex() +
+            ", minimumMilimeterDiameter=" + getMinimumMilimeterDiameter() +
+            ", maximumMilimeterDiameter=" + getMaximumMilimeterDiameter() +
+            ", supportsSpirallyColoredMarkingType='" + getSupportsSpirallyColoredMarkingType() + "'" +
+            ", supportsLongitudinallyColoredMarkingType='" + getSupportsLongitudinallyColoredMarkingType() + "'" +
+            ", supportsNumberedMarkingType='" + getSupportsNumberedMarkingType() + "'" +
+            "}";
+    }
+}

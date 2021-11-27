@@ -19,7 +19,8 @@
       },
       "id": "ID",
       "number": "Number",
-      "designation": "Designation"
+      "designation": "Designation",
+      "isMarkable": "Is Markable"
     }
   }
 }

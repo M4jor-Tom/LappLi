@@ -1,0 +1,26 @@
+{
+  "lappLiApp": {
+    "lifterRunMeasure": {
+      "home": {
+        "title": "LifterRunMeasures",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Lifter Run Measure",
+        "createOrEditLabel": "Créer ou éditer un Lifter Run Measure",
+        "notFound": "Aucun Lifter Run Measure trouvé"
+      },
+      "created": "Un nouveau Lifter Run Measure a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Lifter Run Measure avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Lifter Run Measure avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Lifter Run Measure {{ id }} ?"
+      },
+      "detail": {
+        "title": "Lifter Run Measure"
+      },
+      "id": "ID",
+      "milimeterDiameter": "Milimeter Diameter",
+      "markingType": "Marking Type",
+      "lifter": "Lifter"
+    }
+  }
+}

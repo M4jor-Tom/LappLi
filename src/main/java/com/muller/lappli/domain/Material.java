@@ -30,6 +30,10 @@ public class Material implements Article, Serializable {
     @Column(name = "designation", nullable = false)
     private String designation;
 
+    @NotNull
+    @Column(name = "is_markable", nullable = false)
+    private Boolean isMarkable;
+
     @Override
     public Long getArticleNumber() {
         return getNumber();
@@ -77,6 +81,19 @@ public class Material implements Article, Serializable {
         this.designation = designation;
     }
 
+    public Boolean getIsMarkable() {
+        return this.isMarkable;
+    }
+
+    public Material isMarkable(Boolean isMarkable) {
+        this.setIsMarkable(isMarkable);
+        return this;
+    }
+
+    public void setIsMarkable(Boolean isMarkable) {
+        this.isMarkable = isMarkable;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -103,6 +120,7 @@ public class Material implements Article, Serializable {
             "id=" + getId() +
             ", number=" + getNumber() +
             ", designation='" + getDesignation() + "'" +
+            ", isMarkable='" + getIsMarkable() + "'" +
             "}";
     }
 }

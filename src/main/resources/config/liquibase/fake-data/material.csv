@@ -1,6 +1,6 @@
-id;number;designation
-1;0;TEFZEL
-2;0;TH105AE
-3;0;HYTREL
-4;0;ARNITEL
-5;0;PVDF
+id;number;designation;is_markable
+1;0;TEFZEL;true
+2;0;TH105AE;true
+3;0;HYTREL;true
+4;0;ARNITEL;true
+5;0;PVDF;false

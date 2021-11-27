@@ -12,6 +12,8 @@
         "copper": "Copper",
         "material": "Material",
         "elementSupply": "Element Supply",
+        "lifter": "Lifter",
+        "lifterRunMeasure": "Lifter Run Measure",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

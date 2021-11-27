@@ -1,3 +1,25 @@
+entity Lifter {
+	index Long required
+	minimumMilimeterDiameter Double required
+    maximumMilimeterDiameter Double required
+    supportsSpirallyColoredMarkingType Boolean required
+    supportsLongitudinallyColoredMarkingType Boolean required
+    supportsNumberedMarkingType Boolean required
+}
+
+filter Lifter
+
+service Lifter with serviceClass
+
+entity LifterRunMeasure {
+	milimeterDiameter Double
+    markingType MarkingType
+}
+
+relationship ManyToOne {
+	LifterRunMeasure{lifter} to Lifter
+}
+
 entity ElementSupply {
 	apparitions Long required
     forcedMarking String
@@ -13,6 +35,11 @@ enum MarkingType {
     SPIRALLY_COLORED,
     LONGITUDINALLY_COLORED,
     NUMBERED
+}
+
+enum MarkingTechnique {
+    INK_JET,
+    RSD
 }
 
 relationship ManyToOne {
@@ -51,6 +78,7 @@ entity Copper {
 entity Material {
 	number Long required
 	designation String required
+    isMarkable Boolean required
 }
 
 enum Color {

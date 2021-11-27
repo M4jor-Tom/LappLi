@@ -131,6 +131,9 @@ public class MaterialResource {
                 if (material.getDesignation() != null) {
                     existingMaterial.setDesignation(material.getDesignation());
                 }
+                if (material.getIsMarkable() != null) {
+                    existingMaterial.setIsMarkable(material.getIsMarkable());
+                }
 
                 return existingMaterial;
             })
