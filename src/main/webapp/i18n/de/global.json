@@ -5,6 +5,7 @@
     "menu": {
       "home": "Startseite",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
+      "study-multi-supply-list": "Versorgungsliste",
       "entities": {
         "main": "Entitäten",
         "element": "Element",
