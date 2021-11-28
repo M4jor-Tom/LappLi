@@ -59,6 +59,10 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
             <Translate contentKey="lappLiApp.elementSupply.quantity">Quantity</Translate>
           </dt>
           <dd>{elementSupplyEntity.element ? elementSupplyEntity.quantity : ''}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.elementSupply.bestMachinesNames">Best Machines Names</Translate>
+          </dt>
+          <dd>{elementSupplyEntity.element ? elementSupplyEntity.bestMachinesNames : ''}</dd>
         </dl>
         <Button tag={Link} to="/element-supply" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

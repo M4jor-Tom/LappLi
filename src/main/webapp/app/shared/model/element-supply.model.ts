@@ -8,6 +8,7 @@ export interface IElementSupply {
   markingType?: MarkingType | null;
   quantity?: number;
   element?: IElement | null;
+  bestMachinesNames?: string;
 }
 
 export const defaultValue: Readonly<IElementSupply> = {};
