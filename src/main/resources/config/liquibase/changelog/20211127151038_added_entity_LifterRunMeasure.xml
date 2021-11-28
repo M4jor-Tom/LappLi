@@ -17,7 +17,13 @@
             <column name="milimeter_diameter" type="double">
                 <constraints nullable="true" />
             </column>
+            <column name="meter_per_second_speed" type="double">
+                <constraints nullable="true" />
+            </column>
             <column name="marking_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="hour_preparation_time" type="double">
                 <constraints nullable="true" />
             </column>
             <column name="lifter_id" type="bigint">
@@ -45,7 +51,9 @@
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="milimeter_diameter" type="numeric"/>
+            <column name="meter_per_second_speed" type="numeric"/>
             <column name="marking_type" type="string"/>
+            <column name="hour_preparation_time" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

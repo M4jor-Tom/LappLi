@@ -127,8 +127,14 @@ public class LifterRunMeasureResource {
                 if (lifterRunMeasure.getMilimeterDiameter() != null) {
                     existingLifterRunMeasure.setMilimeterDiameter(lifterRunMeasure.getMilimeterDiameter());
                 }
+                if (lifterRunMeasure.getMeterPerSecondSpeed() != null) {
+                    existingLifterRunMeasure.setMeterPerSecondSpeed(lifterRunMeasure.getMeterPerSecondSpeed());
+                }
                 if (lifterRunMeasure.getMarkingType() != null) {
                     existingLifterRunMeasure.setMarkingType(lifterRunMeasure.getMarkingType());
+                }
+                if (lifterRunMeasure.getHourPreparationTime() != null) {
+                    existingLifterRunMeasure.setHourPreparationTime(lifterRunMeasure.getHourPreparationTime());
                 }
 
                 return existingLifterRunMeasure;

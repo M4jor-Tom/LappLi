@@ -9,11 +9,13 @@ entity Lifter {
 
 filter Lifter
 
-service Lifter with serviceClass
+service Lifter with serviceImpl
 
 entity LifterRunMeasure {
 	milimeterDiameter Double
+    meterPerSecondSpeed Double
     markingType MarkingType
+    hourPreparationTime Double
 }
 
 relationship ManyToOne {

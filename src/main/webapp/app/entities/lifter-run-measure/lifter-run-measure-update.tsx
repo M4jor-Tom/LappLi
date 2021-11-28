@@ -100,6 +100,13 @@ export const LifterRunMeasureUpdate = (props: RouteComponentProps<{ id: string }
                 type="text"
               />
               <ValidatedField
+                label={translate('lappLiApp.lifterRunMeasure.meterPerSecondSpeed')}
+                id="lifter-run-measure-meterPerSecondSpeed"
+                name="meterPerSecondSpeed"
+                data-cy="meterPerSecondSpeed"
+                type="text"
+              />
+              <ValidatedField
                 label={translate('lappLiApp.lifterRunMeasure.markingType')}
                 id="lifter-run-measure-markingType"
                 name="markingType"
@@ -112,6 +119,13 @@ export const LifterRunMeasureUpdate = (props: RouteComponentProps<{ id: string }
                   </option>
                 ))}
               </ValidatedField>
+              <ValidatedField
+                label={translate('lappLiApp.lifterRunMeasure.hourPreparationTime')}
+                id="lifter-run-measure-hourPreparationTime"
+                name="hourPreparationTime"
+                data-cy="hourPreparationTime"
+                type="text"
+              />
               <ValidatedField
                 id="lifter-run-measure-lifter"
                 name="lifter"

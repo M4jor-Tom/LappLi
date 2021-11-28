@@ -33,8 +33,8 @@ class ElementResourceIT {
     private static final Long DEFAULT_NUMBER = 1L;
     private static final Long UPDATED_NUMBER = 2L;
 
-    private static final Color DEFAULT_COLOR = Color.WHITE;
-    private static final Color UPDATED_COLOR = Color.BROWN;
+    private static final Color DEFAULT_COLOR = Color.NATURAL;
+    private static final Color UPDATED_COLOR = Color.WHITE;
 
     private static final String ENTITY_API_URL = "/api/elements";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";

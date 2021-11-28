@@ -36,7 +36,7 @@
   "entityTableName": "lifter",
   "dto": "no",
   "pagination": "no",
-  "service": "serviceClass",
+  "service": "serviceImpl",
   "jpaMetamodelFiltering": true,
   "fluentMethods": true,
   "readOnly": false,

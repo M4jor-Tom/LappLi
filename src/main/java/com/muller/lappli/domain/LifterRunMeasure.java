@@ -24,9 +24,15 @@ public class LifterRunMeasure implements Serializable {
     @Column(name = "milimeter_diameter")
     private Double milimeterDiameter;
 
+    @Column(name = "meter_per_second_speed")
+    private Double meterPerSecondSpeed;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "marking_type")
     private MarkingType markingType;
+
+    @Column(name = "hour_preparation_time")
+    private Double hourPreparationTime;
 
     @ManyToOne
     private Lifter lifter;
@@ -59,6 +65,19 @@ public class LifterRunMeasure implements Serializable {
         this.milimeterDiameter = milimeterDiameter;
     }
 
+    public Double getMeterPerSecondSpeed() {
+        return this.meterPerSecondSpeed;
+    }
+
+    public LifterRunMeasure meterPerSecondSpeed(Double meterPerSecondSpeed) {
+        this.setMeterPerSecondSpeed(meterPerSecondSpeed);
+        return this;
+    }
+
+    public void setMeterPerSecondSpeed(Double meterPerSecondSpeed) {
+        this.meterPerSecondSpeed = meterPerSecondSpeed;
+    }
+
     public MarkingType getMarkingType() {
         return this.markingType;
     }
@@ -70,6 +89,19 @@ public class LifterRunMeasure implements Serializable {
 
     public void setMarkingType(MarkingType markingType) {
         this.markingType = markingType;
+    }
+
+    public Double getHourPreparationTime() {
+        return this.hourPreparationTime;
+    }
+
+    public LifterRunMeasure hourPreparationTime(Double hourPreparationTime) {
+        this.setHourPreparationTime(hourPreparationTime);
+        return this;
+    }
+
+    public void setHourPreparationTime(Double hourPreparationTime) {
+        this.hourPreparationTime = hourPreparationTime;
     }
 
     public Lifter getLifter() {
@@ -110,7 +142,9 @@ public class LifterRunMeasure implements Serializable {
         return "LifterRunMeasure{" +
             "id=" + getId() +
             ", milimeterDiameter=" + getMilimeterDiameter() +
+            ", meterPerSecondSpeed=" + getMeterPerSecondSpeed() +
             ", markingType='" + getMarkingType() + "'" +
+            ", hourPreparationTime=" + getHourPreparationTime() +
             "}";
     }
 }

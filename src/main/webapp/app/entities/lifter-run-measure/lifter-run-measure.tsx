@@ -53,7 +53,13 @@ export const LifterRunMeasure = (props: RouteComponentProps<{ url: string }>) =>
                   <Translate contentKey="lappLiApp.lifterRunMeasure.milimeterDiameter">Milimeter Diameter</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.lifterRunMeasure.meterPerSecondSpeed">Meter Per Second Speed</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.lifterRunMeasure.markingType">Marking Type</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.lifterRunMeasure.hourPreparationTime">Hour Preparation Time</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.lifterRunMeasure.lifter">Lifter</Translate>
@@ -70,9 +76,11 @@ export const LifterRunMeasure = (props: RouteComponentProps<{ url: string }>) =>
                     </Button>
                   </td>
                   <td>{lifterRunMeasure.milimeterDiameter}</td>
+                  <td>{lifterRunMeasure.meterPerSecondSpeed}</td>
                   <td>
                     <Translate contentKey={`lappLiApp.MarkingType.${lifterRunMeasure.markingType}`} />
                   </td>
+                  <td>{lifterRunMeasure.hourPreparationTime}</td>
                   <td>
                     {lifterRunMeasure.lifter ? <Link to={`lifter/${lifterRunMeasure.lifter.id}`}>{lifterRunMeasure.lifter.id}</Link> : ''}
                   </td>

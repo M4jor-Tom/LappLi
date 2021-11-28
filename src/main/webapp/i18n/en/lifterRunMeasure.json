@@ -19,7 +19,9 @@
       },
       "id": "ID",
       "milimeterDiameter": "Milimeter Diameter",
+      "meterPerSecondSpeed": "Meter Per Second Speed",
       "markingType": "Marking Type",
+      "hourPreparationTime": "Hour Preparation Time",
       "lifter": "Lifter"
     }
   }

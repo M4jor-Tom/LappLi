@@ -33,8 +33,14 @@ class LifterRunMeasureResourceIT {
     private static final Double DEFAULT_MILIMETER_DIAMETER = 1D;
     private static final Double UPDATED_MILIMETER_DIAMETER = 2D;
 
+    private static final Double DEFAULT_METER_PER_SECOND_SPEED = 1D;
+    private static final Double UPDATED_METER_PER_SECOND_SPEED = 2D;
+
     private static final MarkingType DEFAULT_MARKING_TYPE = MarkingType.LIFTING;
     private static final MarkingType UPDATED_MARKING_TYPE = MarkingType.SPIRALLY_COLORED;
+
+    private static final Double DEFAULT_HOUR_PREPARATION_TIME = 1D;
+    private static final Double UPDATED_HOUR_PREPARATION_TIME = 2D;
 
     private static final String ENTITY_API_URL = "/api/lifter-run-measures";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -62,7 +68,9 @@ class LifterRunMeasureResourceIT {
     public static LifterRunMeasure createEntity(EntityManager em) {
         LifterRunMeasure lifterRunMeasure = new LifterRunMeasure()
             .milimeterDiameter(DEFAULT_MILIMETER_DIAMETER)
-            .markingType(DEFAULT_MARKING_TYPE);
+            .meterPerSecondSpeed(DEFAULT_METER_PER_SECOND_SPEED)
+            .markingType(DEFAULT_MARKING_TYPE)
+            .hourPreparationTime(DEFAULT_HOUR_PREPARATION_TIME);
         return lifterRunMeasure;
     }
 
@@ -75,7 +83,9 @@ class LifterRunMeasureResourceIT {
     public static LifterRunMeasure createUpdatedEntity(EntityManager em) {
         LifterRunMeasure lifterRunMeasure = new LifterRunMeasure()
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
-            .markingType(UPDATED_MARKING_TYPE);
+            .meterPerSecondSpeed(UPDATED_METER_PER_SECOND_SPEED)
+            .markingType(UPDATED_MARKING_TYPE)
+            .hourPreparationTime(UPDATED_HOUR_PREPARATION_TIME);
         return lifterRunMeasure;
     }
 
@@ -100,7 +110,9 @@ class LifterRunMeasureResourceIT {
         assertThat(lifterRunMeasureList).hasSize(databaseSizeBeforeCreate + 1);
         LifterRunMeasure testLifterRunMeasure = lifterRunMeasureList.get(lifterRunMeasureList.size() - 1);
         assertThat(testLifterRunMeasure.getMilimeterDiameter()).isEqualTo(DEFAULT_MILIMETER_DIAMETER);
+        assertThat(testLifterRunMeasure.getMeterPerSecondSpeed()).isEqualTo(DEFAULT_METER_PER_SECOND_SPEED);
         assertThat(testLifterRunMeasure.getMarkingType()).isEqualTo(DEFAULT_MARKING_TYPE);
+        assertThat(testLifterRunMeasure.getHourPreparationTime()).isEqualTo(DEFAULT_HOUR_PREPARATION_TIME);
     }
 
     @Test
@@ -136,7 +148,9 @@ class LifterRunMeasureResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(lifterRunMeasure.getId().intValue())))
             .andExpect(jsonPath("$.[*].milimeterDiameter").value(hasItem(DEFAULT_MILIMETER_DIAMETER.doubleValue())))
-            .andExpect(jsonPath("$.[*].markingType").value(hasItem(DEFAULT_MARKING_TYPE.toString())));
+            .andExpect(jsonPath("$.[*].meterPerSecondSpeed").value(hasItem(DEFAULT_METER_PER_SECOND_SPEED.doubleValue())))
+            .andExpect(jsonPath("$.[*].markingType").value(hasItem(DEFAULT_MARKING_TYPE.toString())))
+            .andExpect(jsonPath("$.[*].hourPreparationTime").value(hasItem(DEFAULT_HOUR_PREPARATION_TIME.doubleValue())));
     }
 
     @Test
@@ -152,7 +166,9 @@ class LifterRunMeasureResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(lifterRunMeasure.getId().intValue()))
             .andExpect(jsonPath("$.milimeterDiameter").value(DEFAULT_MILIMETER_DIAMETER.doubleValue()))
-            .andExpect(jsonPath("$.markingType").value(DEFAULT_MARKING_TYPE.toString()));
+            .andExpect(jsonPath("$.meterPerSecondSpeed").value(DEFAULT_METER_PER_SECOND_SPEED.doubleValue()))
+            .andExpect(jsonPath("$.markingType").value(DEFAULT_MARKING_TYPE.toString()))
+            .andExpect(jsonPath("$.hourPreparationTime").value(DEFAULT_HOUR_PREPARATION_TIME.doubleValue()));
     }
 
     @Test
@@ -174,7 +190,11 @@ class LifterRunMeasureResourceIT {
         LifterRunMeasure updatedLifterRunMeasure = lifterRunMeasureRepository.findById(lifterRunMeasure.getId()).get();
         // Disconnect from session so that the updates on updatedLifterRunMeasure are not directly saved in db
         em.detach(updatedLifterRunMeasure);
-        updatedLifterRunMeasure.milimeterDiameter(UPDATED_MILIMETER_DIAMETER).markingType(UPDATED_MARKING_TYPE);
+        updatedLifterRunMeasure
+            .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
+            .meterPerSecondSpeed(UPDATED_METER_PER_SECOND_SPEED)
+            .markingType(UPDATED_MARKING_TYPE)
+            .hourPreparationTime(UPDATED_HOUR_PREPARATION_TIME);
 
         restLifterRunMeasureMockMvc
             .perform(
@@ -189,7 +209,9 @@ class LifterRunMeasureResourceIT {
         assertThat(lifterRunMeasureList).hasSize(databaseSizeBeforeUpdate);
         LifterRunMeasure testLifterRunMeasure = lifterRunMeasureList.get(lifterRunMeasureList.size() - 1);
         assertThat(testLifterRunMeasure.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
+        assertThat(testLifterRunMeasure.getMeterPerSecondSpeed()).isEqualTo(UPDATED_METER_PER_SECOND_SPEED);
         assertThat(testLifterRunMeasure.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
+        assertThat(testLifterRunMeasure.getHourPreparationTime()).isEqualTo(UPDATED_HOUR_PREPARATION_TIME);
     }
 
     @Test
@@ -262,7 +284,10 @@ class LifterRunMeasureResourceIT {
         LifterRunMeasure partialUpdatedLifterRunMeasure = new LifterRunMeasure();
         partialUpdatedLifterRunMeasure.setId(lifterRunMeasure.getId());
 
-        partialUpdatedLifterRunMeasure.milimeterDiameter(UPDATED_MILIMETER_DIAMETER).markingType(UPDATED_MARKING_TYPE);
+        partialUpdatedLifterRunMeasure
+            .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
+            .meterPerSecondSpeed(UPDATED_METER_PER_SECOND_SPEED)
+            .markingType(UPDATED_MARKING_TYPE);
 
         restLifterRunMeasureMockMvc
             .perform(
@@ -277,7 +302,9 @@ class LifterRunMeasureResourceIT {
         assertThat(lifterRunMeasureList).hasSize(databaseSizeBeforeUpdate);
         LifterRunMeasure testLifterRunMeasure = lifterRunMeasureList.get(lifterRunMeasureList.size() - 1);
         assertThat(testLifterRunMeasure.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
+        assertThat(testLifterRunMeasure.getMeterPerSecondSpeed()).isEqualTo(UPDATED_METER_PER_SECOND_SPEED);
         assertThat(testLifterRunMeasure.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
+        assertThat(testLifterRunMeasure.getHourPreparationTime()).isEqualTo(DEFAULT_HOUR_PREPARATION_TIME);
     }
 
     @Test
@@ -292,7 +319,11 @@ class LifterRunMeasureResourceIT {
         LifterRunMeasure partialUpdatedLifterRunMeasure = new LifterRunMeasure();
         partialUpdatedLifterRunMeasure.setId(lifterRunMeasure.getId());
 
-        partialUpdatedLifterRunMeasure.milimeterDiameter(UPDATED_MILIMETER_DIAMETER).markingType(UPDATED_MARKING_TYPE);
+        partialUpdatedLifterRunMeasure
+            .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
+            .meterPerSecondSpeed(UPDATED_METER_PER_SECOND_SPEED)
+            .markingType(UPDATED_MARKING_TYPE)
+            .hourPreparationTime(UPDATED_HOUR_PREPARATION_TIME);
 
         restLifterRunMeasureMockMvc
             .perform(
@@ -307,7 +338,9 @@ class LifterRunMeasureResourceIT {
         assertThat(lifterRunMeasureList).hasSize(databaseSizeBeforeUpdate);
         LifterRunMeasure testLifterRunMeasure = lifterRunMeasureList.get(lifterRunMeasureList.size() - 1);
         assertThat(testLifterRunMeasure.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
+        assertThat(testLifterRunMeasure.getMeterPerSecondSpeed()).isEqualTo(UPDATED_METER_PER_SECOND_SPEED);
         assertThat(testLifterRunMeasure.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
+        assertThat(testLifterRunMeasure.getHourPreparationTime()).isEqualTo(UPDATED_HOUR_PREPARATION_TIME);
     }
 
     @Test

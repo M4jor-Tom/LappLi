@@ -36,11 +36,23 @@ export const LifterRunMeasureDetail = (props: RouteComponentProps<{ id: string }
           </dt>
           <dd>{lifterRunMeasureEntity.milimeterDiameter}</dd>
           <dt>
+            <span id="meterPerSecondSpeed">
+              <Translate contentKey="lappLiApp.lifterRunMeasure.meterPerSecondSpeed">Meter Per Second Speed</Translate>
+            </span>
+          </dt>
+          <dd>{lifterRunMeasureEntity.meterPerSecondSpeed}</dd>
+          <dt>
             <span id="markingType">
               <Translate contentKey="lappLiApp.lifterRunMeasure.markingType">Marking Type</Translate>
             </span>
           </dt>
           <dd>{lifterRunMeasureEntity.markingType}</dd>
+          <dt>
+            <span id="hourPreparationTime">
+              <Translate contentKey="lappLiApp.lifterRunMeasure.hourPreparationTime">Hour Preparation Time</Translate>
+            </span>
+          </dt>
+          <dd>{lifterRunMeasureEntity.hourPreparationTime}</dd>
           <dt>
             <Translate contentKey="lappLiApp.lifterRunMeasure.lifter">Lifter</Translate>
           </dt>
