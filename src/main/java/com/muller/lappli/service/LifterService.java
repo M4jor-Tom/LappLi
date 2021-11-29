@@ -10,16 +10,18 @@ import java.util.Optional;
  */
 public interface LifterService {
     /**
-     * Get eligible lifters for @param elementSupply
+     * Get bests lifters
+     * @param elementSupply the targeted supply
      *
-     * @return the list of eligible lifters
+     * @return the list of bests lifters
      */
     List<Lifter> findBestLifterList(ElementSupply elementSupply);
 
     /**
-     * Get eligible lifters for @param elementSupply
+     * Get eligibles lifters
+     * @param elementSupply the targeted supply
      *
-     * @return the list of eligible lifters
+     * @return the list of eligibles lifters
      */
     List<Lifter> findEligibleLifterList(ElementSupply elementSupply);
 
