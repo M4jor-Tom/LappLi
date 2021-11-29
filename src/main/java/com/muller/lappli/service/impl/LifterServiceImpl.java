@@ -29,6 +29,11 @@ public class LifterServiceImpl implements LifterService {
     }
 
     @Override
+    public List<Lifter> findBestLifterList(ElementSupply elementSupply) {
+        return findEligibleLifterList(elementSupply);
+    }
+
+    @Override
     public List<Lifter> findEligibleLifterList(ElementSupply elementSupply) {
         List<Lifter> lifterList = new ArrayList<Lifter>();
 

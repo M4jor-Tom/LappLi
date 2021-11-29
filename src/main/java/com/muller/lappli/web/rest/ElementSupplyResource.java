@@ -141,6 +141,10 @@ public class ElementSupplyResource {
 
         Optional<ElementSupply> result = elementSupplyService.partialUpdate(elementSupply);
 
+        if (result.isPresent()) {
+            result.get().setBestLifterList(lifterService.findBestLifterList(new ElementSupply()));
+        }
+
         return ResponseUtil.wrapOrNotFound(
             result,
             HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, elementSupply.getId().toString())
@@ -159,7 +163,7 @@ public class ElementSupplyResource {
         List<ElementSupply> entityList = elementSupplyQueryService.findByCriteria(criteria);
 
         for (ElementSupply elementSupply : entityList) {
-            elementSupply.setBestLifterList(lifterService.findEligibleLifterList(elementSupply));
+            elementSupply.setBestLifterList(lifterService.findBestLifterList(elementSupply));
         }
 
         return ResponseEntity.ok().body(entityList);

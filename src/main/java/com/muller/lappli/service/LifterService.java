@@ -14,6 +14,13 @@ public interface LifterService {
      *
      * @return the list of eligible lifters
      */
+    List<Lifter> findBestLifterList(ElementSupply elementSupply);
+
+    /**
+     * Get eligible lifters for @param elementSupply
+     *
+     * @return the list of eligible lifters
+     */
     List<Lifter> findEligibleLifterList(ElementSupply elementSupply);
 
     /**

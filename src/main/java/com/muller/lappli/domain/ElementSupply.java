@@ -49,8 +49,10 @@ public class ElementSupply implements Serializable {
     public String getBestLiftersNames() {
         String names = "";
 
-        for (Lifter lifter : getBestLifterList()) {
-            names = names + lifter.getName() + " ";
+        if (getBestLifterList() != null) {
+            for (Lifter lifter : getBestLifterList()) {
+                names = names + lifter.getName() + " ";
+            }
         }
 
         return names;
