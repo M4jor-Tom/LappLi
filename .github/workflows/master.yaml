@@ -1,4 +1,4 @@
-name: Build App
+name: Dependencies vulnerability check
 
 on:
     push:
