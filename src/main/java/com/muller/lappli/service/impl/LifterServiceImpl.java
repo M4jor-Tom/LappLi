@@ -77,6 +77,12 @@ public class LifterServiceImpl implements LifterService {
                 if (lifter.getSupportsNumberedMarkingType() != null) {
                     existingLifter.setSupportsNumberedMarkingType(lifter.getSupportsNumberedMarkingType());
                 }
+                if (lifter.getSupportsInkJetMarkingTechnique() != null) {
+                    existingLifter.setSupportsInkJetMarkingTechnique(lifter.getSupportsInkJetMarkingTechnique());
+                }
+                if (lifter.getSupportsRsdMarkingTechnique() != null) {
+                    existingLifter.setSupportsRsdMarkingTechnique(lifter.getSupportsRsdMarkingTechnique());
+                }
 
                 return existingLifter;
             })

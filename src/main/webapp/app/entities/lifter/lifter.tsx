@@ -71,6 +71,12 @@ export const Lifter = (props: RouteComponentProps<{ url: string }>) => {
                 <th>
                   <Translate contentKey="lappLiApp.lifter.supportsNumberedMarkingType">Supports Numbered Marking Type</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="lappLiApp.lifter.supportsInkJetMarkingTechnique">Supports Ink Jet Marking Technique</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.lifter.supportsRsdMarkingTechnique">Supports Rsd Marking Technique</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -88,6 +94,8 @@ export const Lifter = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{lifter.supportsSpirallyColoredMarkingType ? 'true' : 'false'}</td>
                   <td>{lifter.supportsLongitudinallyColoredMarkingType ? 'true' : 'false'}</td>
                   <td>{lifter.supportsNumberedMarkingType ? 'true' : 'false'}</td>
+                  <td>{lifter.supportsInkJetMarkingTechnique ? 'true' : 'false'}</td>
+                  <td>{lifter.supportsRsdMarkingTechnique ? 'true' : 'false'}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${lifter.id}`} color="info" size="sm" data-cy="entityDetailsButton">

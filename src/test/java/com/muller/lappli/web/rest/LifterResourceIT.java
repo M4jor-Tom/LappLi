@@ -51,6 +51,12 @@ class LifterResourceIT {
     private static final Boolean DEFAULT_SUPPORTS_NUMBERED_MARKING_TYPE = false;
     private static final Boolean UPDATED_SUPPORTS_NUMBERED_MARKING_TYPE = true;
 
+    private static final Boolean DEFAULT_SUPPORTS_INK_JET_MARKING_TECHNIQUE = false;
+    private static final Boolean UPDATED_SUPPORTS_INK_JET_MARKING_TECHNIQUE = true;
+
+    private static final Boolean DEFAULT_SUPPORTS_RSD_MARKING_TECHNIQUE = false;
+    private static final Boolean UPDATED_SUPPORTS_RSD_MARKING_TECHNIQUE = true;
+
     private static final String ENTITY_API_URL = "/api/lifters";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -81,7 +87,9 @@ class LifterResourceIT {
             .maximumMilimeterDiameter(DEFAULT_MAXIMUM_MILIMETER_DIAMETER)
             .supportsSpirallyColoredMarkingType(DEFAULT_SUPPORTS_SPIRALLY_COLORED_MARKING_TYPE)
             .supportsLongitudinallyColoredMarkingType(DEFAULT_SUPPORTS_LONGITUDINALLY_COLORED_MARKING_TYPE)
-            .supportsNumberedMarkingType(DEFAULT_SUPPORTS_NUMBERED_MARKING_TYPE);
+            .supportsNumberedMarkingType(DEFAULT_SUPPORTS_NUMBERED_MARKING_TYPE)
+            .supportsInkJetMarkingTechnique(DEFAULT_SUPPORTS_INK_JET_MARKING_TECHNIQUE)
+            .supportsRsdMarkingTechnique(DEFAULT_SUPPORTS_RSD_MARKING_TECHNIQUE);
         return lifter;
     }
 
@@ -98,7 +106,9 @@ class LifterResourceIT {
             .maximumMilimeterDiameter(UPDATED_MAXIMUM_MILIMETER_DIAMETER)
             .supportsSpirallyColoredMarkingType(UPDATED_SUPPORTS_SPIRALLY_COLORED_MARKING_TYPE)
             .supportsLongitudinallyColoredMarkingType(UPDATED_SUPPORTS_LONGITUDINALLY_COLORED_MARKING_TYPE)
-            .supportsNumberedMarkingType(UPDATED_SUPPORTS_NUMBERED_MARKING_TYPE);
+            .supportsNumberedMarkingType(UPDATED_SUPPORTS_NUMBERED_MARKING_TYPE)
+            .supportsInkJetMarkingTechnique(UPDATED_SUPPORTS_INK_JET_MARKING_TECHNIQUE)
+            .supportsRsdMarkingTechnique(UPDATED_SUPPORTS_RSD_MARKING_TECHNIQUE);
         return lifter;
     }
 
@@ -127,6 +137,8 @@ class LifterResourceIT {
         assertThat(testLifter.getSupportsLongitudinallyColoredMarkingType())
             .isEqualTo(DEFAULT_SUPPORTS_LONGITUDINALLY_COLORED_MARKING_TYPE);
         assertThat(testLifter.getSupportsNumberedMarkingType()).isEqualTo(DEFAULT_SUPPORTS_NUMBERED_MARKING_TYPE);
+        assertThat(testLifter.getSupportsInkJetMarkingTechnique()).isEqualTo(DEFAULT_SUPPORTS_INK_JET_MARKING_TECHNIQUE);
+        assertThat(testLifter.getSupportsRsdMarkingTechnique()).isEqualTo(DEFAULT_SUPPORTS_RSD_MARKING_TECHNIQUE);
     }
 
     @Test
@@ -251,6 +263,40 @@ class LifterResourceIT {
 
     @Test
     @Transactional
+    void checkSupportsInkJetMarkingTechniqueIsRequired() throws Exception {
+        int databaseSizeBeforeTest = lifterRepository.findAll().size();
+        // set the field null
+        lifter.setSupportsInkJetMarkingTechnique(null);
+
+        // Create the Lifter, which fails.
+
+        restLifterMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(lifter)))
+            .andExpect(status().isBadRequest());
+
+        List<Lifter> lifterList = lifterRepository.findAll();
+        assertThat(lifterList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkSupportsRsdMarkingTechniqueIsRequired() throws Exception {
+        int databaseSizeBeforeTest = lifterRepository.findAll().size();
+        // set the field null
+        lifter.setSupportsRsdMarkingTechnique(null);
+
+        // Create the Lifter, which fails.
+
+        restLifterMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(lifter)))
+            .andExpect(status().isBadRequest());
+
+        List<Lifter> lifterList = lifterRepository.findAll();
+        assertThat(lifterList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllLifters() throws Exception {
         // Initialize the database
         lifterRepository.saveAndFlush(lifter);
@@ -272,7 +318,11 @@ class LifterResourceIT {
                 jsonPath("$.[*].supportsLongitudinallyColoredMarkingType")
                     .value(hasItem(DEFAULT_SUPPORTS_LONGITUDINALLY_COLORED_MARKING_TYPE.booleanValue()))
             )
-            .andExpect(jsonPath("$.[*].supportsNumberedMarkingType").value(hasItem(DEFAULT_SUPPORTS_NUMBERED_MARKING_TYPE.booleanValue())));
+            .andExpect(jsonPath("$.[*].supportsNumberedMarkingType").value(hasItem(DEFAULT_SUPPORTS_NUMBERED_MARKING_TYPE.booleanValue())))
+            .andExpect(
+                jsonPath("$.[*].supportsInkJetMarkingTechnique").value(hasItem(DEFAULT_SUPPORTS_INK_JET_MARKING_TECHNIQUE.booleanValue()))
+            )
+            .andExpect(jsonPath("$.[*].supportsRsdMarkingTechnique").value(hasItem(DEFAULT_SUPPORTS_RSD_MARKING_TECHNIQUE.booleanValue())));
     }
 
     @Test
@@ -297,7 +347,9 @@ class LifterResourceIT {
                 jsonPath("$.supportsLongitudinallyColoredMarkingType")
                     .value(DEFAULT_SUPPORTS_LONGITUDINALLY_COLORED_MARKING_TYPE.booleanValue())
             )
-            .andExpect(jsonPath("$.supportsNumberedMarkingType").value(DEFAULT_SUPPORTS_NUMBERED_MARKING_TYPE.booleanValue()));
+            .andExpect(jsonPath("$.supportsNumberedMarkingType").value(DEFAULT_SUPPORTS_NUMBERED_MARKING_TYPE.booleanValue()))
+            .andExpect(jsonPath("$.supportsInkJetMarkingTechnique").value(DEFAULT_SUPPORTS_INK_JET_MARKING_TECHNIQUE.booleanValue()))
+            .andExpect(jsonPath("$.supportsRsdMarkingTechnique").value(DEFAULT_SUPPORTS_RSD_MARKING_TECHNIQUE.booleanValue()));
     }
 
     @Test
@@ -812,6 +864,117 @@ class LifterResourceIT {
         defaultLifterShouldNotBeFound("supportsNumberedMarkingType.specified=false");
     }
 
+    @Test
+    @Transactional
+    void getAllLiftersBySupportsInkJetMarkingTechniqueIsEqualToSomething() throws Exception {
+        // Initialize the database
+        lifterRepository.saveAndFlush(lifter);
+
+        // Get all the lifterList where supportsInkJetMarkingTechnique equals to DEFAULT_SUPPORTS_INK_JET_MARKING_TECHNIQUE
+        defaultLifterShouldBeFound("supportsInkJetMarkingTechnique.equals=" + DEFAULT_SUPPORTS_INK_JET_MARKING_TECHNIQUE);
+
+        // Get all the lifterList where supportsInkJetMarkingTechnique equals to UPDATED_SUPPORTS_INK_JET_MARKING_TECHNIQUE
+        defaultLifterShouldNotBeFound("supportsInkJetMarkingTechnique.equals=" + UPDATED_SUPPORTS_INK_JET_MARKING_TECHNIQUE);
+    }
+
+    @Test
+    @Transactional
+    void getAllLiftersBySupportsInkJetMarkingTechniqueIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        lifterRepository.saveAndFlush(lifter);
+
+        // Get all the lifterList where supportsInkJetMarkingTechnique not equals to DEFAULT_SUPPORTS_INK_JET_MARKING_TECHNIQUE
+        defaultLifterShouldNotBeFound("supportsInkJetMarkingTechnique.notEquals=" + DEFAULT_SUPPORTS_INK_JET_MARKING_TECHNIQUE);
+
+        // Get all the lifterList where supportsInkJetMarkingTechnique not equals to UPDATED_SUPPORTS_INK_JET_MARKING_TECHNIQUE
+        defaultLifterShouldBeFound("supportsInkJetMarkingTechnique.notEquals=" + UPDATED_SUPPORTS_INK_JET_MARKING_TECHNIQUE);
+    }
+
+    @Test
+    @Transactional
+    void getAllLiftersBySupportsInkJetMarkingTechniqueIsInShouldWork() throws Exception {
+        // Initialize the database
+        lifterRepository.saveAndFlush(lifter);
+
+        // Get all the lifterList where supportsInkJetMarkingTechnique in DEFAULT_SUPPORTS_INK_JET_MARKING_TECHNIQUE or UPDATED_SUPPORTS_INK_JET_MARKING_TECHNIQUE
+        defaultLifterShouldBeFound(
+            "supportsInkJetMarkingTechnique.in=" +
+            DEFAULT_SUPPORTS_INK_JET_MARKING_TECHNIQUE +
+            "," +
+            UPDATED_SUPPORTS_INK_JET_MARKING_TECHNIQUE
+        );
+
+        // Get all the lifterList where supportsInkJetMarkingTechnique equals to UPDATED_SUPPORTS_INK_JET_MARKING_TECHNIQUE
+        defaultLifterShouldNotBeFound("supportsInkJetMarkingTechnique.in=" + UPDATED_SUPPORTS_INK_JET_MARKING_TECHNIQUE);
+    }
+
+    @Test
+    @Transactional
+    void getAllLiftersBySupportsInkJetMarkingTechniqueIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        lifterRepository.saveAndFlush(lifter);
+
+        // Get all the lifterList where supportsInkJetMarkingTechnique is not null
+        defaultLifterShouldBeFound("supportsInkJetMarkingTechnique.specified=true");
+
+        // Get all the lifterList where supportsInkJetMarkingTechnique is null
+        defaultLifterShouldNotBeFound("supportsInkJetMarkingTechnique.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllLiftersBySupportsRsdMarkingTechniqueIsEqualToSomething() throws Exception {
+        // Initialize the database
+        lifterRepository.saveAndFlush(lifter);
+
+        // Get all the lifterList where supportsRsdMarkingTechnique equals to DEFAULT_SUPPORTS_RSD_MARKING_TECHNIQUE
+        defaultLifterShouldBeFound("supportsRsdMarkingTechnique.equals=" + DEFAULT_SUPPORTS_RSD_MARKING_TECHNIQUE);
+
+        // Get all the lifterList where supportsRsdMarkingTechnique equals to UPDATED_SUPPORTS_RSD_MARKING_TECHNIQUE
+        defaultLifterShouldNotBeFound("supportsRsdMarkingTechnique.equals=" + UPDATED_SUPPORTS_RSD_MARKING_TECHNIQUE);
+    }
+
+    @Test
+    @Transactional
+    void getAllLiftersBySupportsRsdMarkingTechniqueIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        lifterRepository.saveAndFlush(lifter);
+
+        // Get all the lifterList where supportsRsdMarkingTechnique not equals to DEFAULT_SUPPORTS_RSD_MARKING_TECHNIQUE
+        defaultLifterShouldNotBeFound("supportsRsdMarkingTechnique.notEquals=" + DEFAULT_SUPPORTS_RSD_MARKING_TECHNIQUE);
+
+        // Get all the lifterList where supportsRsdMarkingTechnique not equals to UPDATED_SUPPORTS_RSD_MARKING_TECHNIQUE
+        defaultLifterShouldBeFound("supportsRsdMarkingTechnique.notEquals=" + UPDATED_SUPPORTS_RSD_MARKING_TECHNIQUE);
+    }
+
+    @Test
+    @Transactional
+    void getAllLiftersBySupportsRsdMarkingTechniqueIsInShouldWork() throws Exception {
+        // Initialize the database
+        lifterRepository.saveAndFlush(lifter);
+
+        // Get all the lifterList where supportsRsdMarkingTechnique in DEFAULT_SUPPORTS_RSD_MARKING_TECHNIQUE or UPDATED_SUPPORTS_RSD_MARKING_TECHNIQUE
+        defaultLifterShouldBeFound(
+            "supportsRsdMarkingTechnique.in=" + DEFAULT_SUPPORTS_RSD_MARKING_TECHNIQUE + "," + UPDATED_SUPPORTS_RSD_MARKING_TECHNIQUE
+        );
+
+        // Get all the lifterList where supportsRsdMarkingTechnique equals to UPDATED_SUPPORTS_RSD_MARKING_TECHNIQUE
+        defaultLifterShouldNotBeFound("supportsRsdMarkingTechnique.in=" + UPDATED_SUPPORTS_RSD_MARKING_TECHNIQUE);
+    }
+
+    @Test
+    @Transactional
+    void getAllLiftersBySupportsRsdMarkingTechniqueIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        lifterRepository.saveAndFlush(lifter);
+
+        // Get all the lifterList where supportsRsdMarkingTechnique is not null
+        defaultLifterShouldBeFound("supportsRsdMarkingTechnique.specified=true");
+
+        // Get all the lifterList where supportsRsdMarkingTechnique is null
+        defaultLifterShouldNotBeFound("supportsRsdMarkingTechnique.specified=false");
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned.
      */
@@ -832,7 +995,11 @@ class LifterResourceIT {
                 jsonPath("$.[*].supportsLongitudinallyColoredMarkingType")
                     .value(hasItem(DEFAULT_SUPPORTS_LONGITUDINALLY_COLORED_MARKING_TYPE.booleanValue()))
             )
-            .andExpect(jsonPath("$.[*].supportsNumberedMarkingType").value(hasItem(DEFAULT_SUPPORTS_NUMBERED_MARKING_TYPE.booleanValue())));
+            .andExpect(jsonPath("$.[*].supportsNumberedMarkingType").value(hasItem(DEFAULT_SUPPORTS_NUMBERED_MARKING_TYPE.booleanValue())))
+            .andExpect(
+                jsonPath("$.[*].supportsInkJetMarkingTechnique").value(hasItem(DEFAULT_SUPPORTS_INK_JET_MARKING_TECHNIQUE.booleanValue()))
+            )
+            .andExpect(jsonPath("$.[*].supportsRsdMarkingTechnique").value(hasItem(DEFAULT_SUPPORTS_RSD_MARKING_TECHNIQUE.booleanValue())));
 
         // Check, that the count call also returns 1
         restLifterMockMvc
@@ -886,7 +1053,9 @@ class LifterResourceIT {
             .maximumMilimeterDiameter(UPDATED_MAXIMUM_MILIMETER_DIAMETER)
             .supportsSpirallyColoredMarkingType(UPDATED_SUPPORTS_SPIRALLY_COLORED_MARKING_TYPE)
             .supportsLongitudinallyColoredMarkingType(UPDATED_SUPPORTS_LONGITUDINALLY_COLORED_MARKING_TYPE)
-            .supportsNumberedMarkingType(UPDATED_SUPPORTS_NUMBERED_MARKING_TYPE);
+            .supportsNumberedMarkingType(UPDATED_SUPPORTS_NUMBERED_MARKING_TYPE)
+            .supportsInkJetMarkingTechnique(UPDATED_SUPPORTS_INK_JET_MARKING_TECHNIQUE)
+            .supportsRsdMarkingTechnique(UPDATED_SUPPORTS_RSD_MARKING_TECHNIQUE);
 
         restLifterMockMvc
             .perform(
@@ -907,6 +1076,8 @@ class LifterResourceIT {
         assertThat(testLifter.getSupportsLongitudinallyColoredMarkingType())
             .isEqualTo(UPDATED_SUPPORTS_LONGITUDINALLY_COLORED_MARKING_TYPE);
         assertThat(testLifter.getSupportsNumberedMarkingType()).isEqualTo(UPDATED_SUPPORTS_NUMBERED_MARKING_TYPE);
+        assertThat(testLifter.getSupportsInkJetMarkingTechnique()).isEqualTo(UPDATED_SUPPORTS_INK_JET_MARKING_TECHNIQUE);
+        assertThat(testLifter.getSupportsRsdMarkingTechnique()).isEqualTo(UPDATED_SUPPORTS_RSD_MARKING_TECHNIQUE);
     }
 
     @Test
@@ -980,7 +1151,8 @@ class LifterResourceIT {
         partialUpdatedLifter
             .index(UPDATED_INDEX)
             .supportsLongitudinallyColoredMarkingType(UPDATED_SUPPORTS_LONGITUDINALLY_COLORED_MARKING_TYPE)
-            .supportsNumberedMarkingType(UPDATED_SUPPORTS_NUMBERED_MARKING_TYPE);
+            .supportsNumberedMarkingType(UPDATED_SUPPORTS_NUMBERED_MARKING_TYPE)
+            .supportsRsdMarkingTechnique(UPDATED_SUPPORTS_RSD_MARKING_TECHNIQUE);
 
         restLifterMockMvc
             .perform(
@@ -1001,6 +1173,8 @@ class LifterResourceIT {
         assertThat(testLifter.getSupportsLongitudinallyColoredMarkingType())
             .isEqualTo(UPDATED_SUPPORTS_LONGITUDINALLY_COLORED_MARKING_TYPE);
         assertThat(testLifter.getSupportsNumberedMarkingType()).isEqualTo(UPDATED_SUPPORTS_NUMBERED_MARKING_TYPE);
+        assertThat(testLifter.getSupportsInkJetMarkingTechnique()).isEqualTo(DEFAULT_SUPPORTS_INK_JET_MARKING_TECHNIQUE);
+        assertThat(testLifter.getSupportsRsdMarkingTechnique()).isEqualTo(UPDATED_SUPPORTS_RSD_MARKING_TECHNIQUE);
     }
 
     @Test
@@ -1021,7 +1195,9 @@ class LifterResourceIT {
             .maximumMilimeterDiameter(UPDATED_MAXIMUM_MILIMETER_DIAMETER)
             .supportsSpirallyColoredMarkingType(UPDATED_SUPPORTS_SPIRALLY_COLORED_MARKING_TYPE)
             .supportsLongitudinallyColoredMarkingType(UPDATED_SUPPORTS_LONGITUDINALLY_COLORED_MARKING_TYPE)
-            .supportsNumberedMarkingType(UPDATED_SUPPORTS_NUMBERED_MARKING_TYPE);
+            .supportsNumberedMarkingType(UPDATED_SUPPORTS_NUMBERED_MARKING_TYPE)
+            .supportsInkJetMarkingTechnique(UPDATED_SUPPORTS_INK_JET_MARKING_TECHNIQUE)
+            .supportsRsdMarkingTechnique(UPDATED_SUPPORTS_RSD_MARKING_TECHNIQUE);
 
         restLifterMockMvc
             .perform(
@@ -1042,6 +1218,8 @@ class LifterResourceIT {
         assertThat(testLifter.getSupportsLongitudinallyColoredMarkingType())
             .isEqualTo(UPDATED_SUPPORTS_LONGITUDINALLY_COLORED_MARKING_TYPE);
         assertThat(testLifter.getSupportsNumberedMarkingType()).isEqualTo(UPDATED_SUPPORTS_NUMBERED_MARKING_TYPE);
+        assertThat(testLifter.getSupportsInkJetMarkingTechnique()).isEqualTo(UPDATED_SUPPORTS_INK_JET_MARKING_TECHNIQUE);
+        assertThat(testLifter.getSupportsRsdMarkingTechnique()).isEqualTo(UPDATED_SUPPORTS_RSD_MARKING_TECHNIQUE);
     }
 
     @Test

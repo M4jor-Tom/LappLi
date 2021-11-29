@@ -67,6 +67,18 @@ export const LifterDetail = (props: RouteComponentProps<{ id: string }>) => {
             </span>
           </dt>
           <dd>{lifterEntity.supportsNumberedMarkingType ? 'true' : 'false'}</dd>
+          <dt>
+            <span id="supportsInkJetMarkingTechnique">
+              <Translate contentKey="lappLiApp.lifter.supportsInkJetMarkingTechnique">Supports Ink Jet Marking Technique</Translate>
+            </span>
+          </dt>
+          <dd>{lifterEntity.supportsInkJetMarkingTechnique ? 'true' : 'false'}</dd>
+          <dt>
+            <span id="supportsRsdMarkingTechnique">
+              <Translate contentKey="lappLiApp.lifter.supportsRsdMarkingTechnique">Supports Rsd Marking Technique</Translate>
+            </span>
+          </dt>
+          <dd>{lifterEntity.supportsRsdMarkingTechnique ? 'true' : 'false'}</dd>
         </dl>
         <Button tag={Link} to="/lifter" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

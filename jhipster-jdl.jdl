@@ -5,6 +5,8 @@ entity Lifter {
     supportsSpirallyColoredMarkingType Boolean required
     supportsLongitudinallyColoredMarkingType Boolean required
     supportsNumberedMarkingType Boolean required
+    supportsInkJetMarkingTechnique Boolean required
+    supportsRsdMarkingTechnique Boolean required
 }
 
 filter Lifter

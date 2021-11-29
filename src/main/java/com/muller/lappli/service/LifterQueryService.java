@@ -115,6 +115,16 @@ public class LifterQueryService extends QueryService<Lifter> {
                 specification =
                     specification.and(buildSpecification(criteria.getSupportsNumberedMarkingType(), Lifter_.supportsNumberedMarkingType));
             }
+            if (criteria.getSupportsInkJetMarkingTechnique() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getSupportsInkJetMarkingTechnique(), Lifter_.supportsInkJetMarkingTechnique)
+                    );
+            }
+            if (criteria.getSupportsRsdMarkingTechnique() != null) {
+                specification =
+                    specification.and(buildSpecification(criteria.getSupportsRsdMarkingTechnique(), Lifter_.supportsRsdMarkingTechnique));
+            }
         }
         return specification;
     }
