@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -45,6 +44,10 @@ public class ElementSupply implements Serializable {
 
     @Transient
     private List<Lifter> bestLifterList;
+
+    public MarkingTechnique getMarkingTechnique() {
+        return MarkingTechnique.INK_JET;
+    }
 
     public Double getGramPerMeterLinearMass() {
         return getElement().getElementKind().getGramPerMeterLinearMass();

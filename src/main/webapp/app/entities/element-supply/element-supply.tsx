@@ -76,6 +76,9 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                 <th>
                   <Translate contentKey="lappLiApp.elementSupply.bestLiftersNames">Best Machines Names</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="lappLiApp.markingTechnique">Marking Technique</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -106,6 +109,7 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{elementSupply.milimeterDiameter}</td>
                   <td>{elementSupply.gramPerMeterLinearMass}</td>
                   <td>{elementSupply.bestLiftersNames}</td>
+                  <td>{elementSupply.markingTechnique}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${elementSupply.id}`} color="info" size="sm" data-cy="entityDetailsButton">
