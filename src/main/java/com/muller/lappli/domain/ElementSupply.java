@@ -45,20 +45,20 @@ public class ElementSupply implements Serializable {
     @Transient
     private List<Lifter> bestLifterList;
 
+    public Double getHourPreparationTime() {
+        return Double.NaN;
+    }
+
+    public Double getHourExecutionTime() {
+        return Double.NaN;
+    }
+
+    public Double getMeterPerSecondSpeed() {
+        return Double.NaN;
+    }
+
     public MarkingTechnique getMarkingTechnique() {
         return MarkingTechnique.INK_JET;
-    }
-
-    public String getInsulationMaterialDesignation() {
-        return getElement().getElementKind().getInsulationMaterial().getDesignation();
-    }
-
-    public Double getGramPerMeterLinearMass() {
-        return getElement().getElementKind().getGramPerMeterLinearMass();
-    }
-
-    public Double getMilimeterDiameter() {
-        return getElement().getElementKind().getMilimeterDiameter();
     }
 
     public String getBestLiftersNames() {
@@ -75,6 +75,18 @@ public class ElementSupply implements Serializable {
 
     public Long getQuantity() {
         return ElementSupply.UNITY_QUANTITY * getApparitions();
+    }
+
+    public String getInsulationMaterialDesignation() {
+        return getElement().getElementKind().getInsulationMaterial().getDesignation();
+    }
+
+    public Double getGramPerMeterLinearMass() {
+        return getElement().getElementKind().getGramPerMeterLinearMass();
+    }
+
+    public Double getMilimeterDiameter() {
+        return getElement().getElementKind().getMilimeterDiameter();
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

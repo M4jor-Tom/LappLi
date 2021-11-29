@@ -23,7 +23,10 @@
       "markingType": "Marking Type",
       "element": "Element",
       "quantity": "Quantité",
-      "bestLiftersNames": "Meilleures Releveuses"
+      "bestLiftersNames": "Meilleures Releveuses",
+      "meterPerSecondSpeed": "Vitesse (m/s)",
+      "hourPreparationTime": "Temps de Preparation (h)",
+      "hourExecutionTime": "Temps d'Execution (h)"
     }
   }
 }

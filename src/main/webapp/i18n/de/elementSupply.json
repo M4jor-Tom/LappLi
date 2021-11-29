@@ -23,7 +23,10 @@
       "markingType": "Marking Type",
       "element": "Element",
       "quantity": "Betragen",
-      "bestLiftersNames": "Besten Vermessungsingenieure"
+      "bestLiftersNames": "Besten Vermessungsingenieure",
+      "meterPerSecondSpeed": "Speed (m/s)",
+      "hourPreparationTime": "Preparation Time (h)",
+      "hourExecutionTime": "Execution Time (h)"
     }
   }
 }

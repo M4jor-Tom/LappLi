@@ -76,6 +76,18 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           </dt>
           <dd>{elementSupplyEntity.insulationMaterialDesignation}</dd>
           <dt>
+            <Translate contentKey="lappLiApp.elementSupply.meterPerSecondSpeed">Speed (m/s)</Translate>
+          </dt>
+          <dd>{elementSupplyEntity.meterPerSecondSpeed}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.elementSupply.hourPreparationTime">PreparationTime (h)</Translate>
+          </dt>
+          <dd>{elementSupplyEntity.hourPreparationTime}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.elementSupply.hourExecutionTime">Execution Time (h)</Translate>
+          </dt>
+          <dd>{elementSupplyEntity.hourExecutionTime}</dd>
+          <dt>
             <Translate contentKey="lappLiApp.markingTechnique">Marking Technique</Translate>
           </dt>
           <dd>{elementSupplyEntity.markingTechnique}</dd>

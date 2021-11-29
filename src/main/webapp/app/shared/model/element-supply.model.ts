@@ -10,10 +10,14 @@ export interface IElementSupply {
   quantity?: number;
   element?: IElement | null;
   bestLiftersNames?: string;
+  markingTechnique?: MarkingTechnique | null;
+  hourPreparationTime?: number;
+  hourExecutionTime?: number;
+  meterPerSecondSpeed?: number;
+
   milimeterDiameter?: number;
   gramPerMeterLinearMass?: number;
   insulationMaterialDesignation?: string;
-  markingTechnique?: MarkingTechnique | null;
 }
 
 export const defaultValue: Readonly<IElementSupply> = {};
