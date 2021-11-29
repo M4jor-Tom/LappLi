@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -86,7 +87,8 @@ public class Lifter implements Serializable {
     public Boolean supportsElementSupply(ElementSupply elementSupply) {
         return (
             supportsMarkingType(elementSupply.getMarkingType()) &&
-            supportsMilimeterDiameter(elementSupply.getElement().getElementKind().getMilimeterDiameter())
+            supportsMilimeterDiameter(elementSupply.getElement().getElementKind().getMilimeterDiameter()) &&
+            supportsMarkingTechnique(elementSupply.getMarkingTechnique())
         );
     }
 
@@ -105,6 +107,17 @@ public class Lifter implements Serializable {
                 return getSupportsLongitudinallyColoredMarkingType();
             case NUMBERED:
                 return getSupportsNumberedMarkingType();
+        }
+
+        return false;
+    }
+
+    public Boolean supportsMarkingTechnique(MarkingTechnique markingTechnique) {
+        switch (markingTechnique) {
+            case INK_JET:
+                return getSupportsInkJetMarkingTechnique();
+            case RSD:
+                return getSupportsRsdMarkingTechnique();
         }
 
         return false;
