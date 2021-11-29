@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -41,11 +43,20 @@ public class ElementSupply implements Serializable {
     @JsonIgnoreProperties(value = { "elementKind" }, allowSetters = true)
     private Element element;
 
-    public String getBestMachinesNames() {
-        return getBestMachinesNamesWithMarkingTechnique(MarkingTechnique.INK_JET);
+    @Transient
+    private List<Lifter> bestLifterList;
+
+    public String getBestLiftersNames() {
+        String names = "";
+
+        for (Lifter lifter : getBestLifterList()) {
+            names = names + lifter.getName() + " ";
+        }
+
+        return names;
     }
 
-    public String getBestMachinesNamesWithMarkingTechnique(MarkingTechnique markingTechnique) {
+    /*public String getBestLifterList(MarkingTechnique markingTechnique) {
         /*
 
 Machine =SI(PreciseMarkingType=LIFTING;
@@ -79,7 +90,7 @@ Machine =SI(PreciseMarkingType=LIFTING;
         )
     )
 )
-        */
+        *
 
         Double milimeterDiameter = getElement().getElementKind().getMilimeterDiameter();
         Boolean milimeterDiameterMoreThan6 = milimeterDiameter > 6;
@@ -99,7 +110,7 @@ Machine =SI(PreciseMarkingType=LIFTING;
                             )
                     )
             );
-    }
+    }*/
 
     public Long getQuantity() {
         return ElementSupply.UNITY_QUANTITY * getApparitions();
@@ -170,6 +181,15 @@ Machine =SI(PreciseMarkingType=LIFTING;
     public ElementSupply element(Element element) {
         this.setElement(element);
         return this;
+    }
+
+    public List<Lifter> getBestLifterList() {
+        //return getBestLifterList(MarkingTechnique.INK_JET);
+        return bestLifterList;
+    }
+
+    public void setBestLifterList(List<Lifter> bestLifterList) {
+        this.bestLifterList = bestLifterList;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

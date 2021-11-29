@@ -1,5 +1,6 @@
 package com.muller.lappli.service;
 
+import com.muller.lappli.domain.ElementSupply;
 import com.muller.lappli.domain.Lifter;
 import java.util.List;
 import java.util.Optional;
@@ -8,6 +9,13 @@ import java.util.Optional;
  * Service Interface for managing {@link Lifter}.
  */
 public interface LifterService {
+    /**
+     * Get eligible lifters for @param elementSupply
+     *
+     * @return the list of eligible lifters
+     */
+    List<Lifter> findEligibleLifterList(ElementSupply elementSupply);
+
     /**
      * Save a lifter.
      *

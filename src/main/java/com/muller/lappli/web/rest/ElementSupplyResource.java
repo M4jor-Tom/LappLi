@@ -1,9 +1,11 @@
 package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.ElementSupply;
+import com.muller.lappli.domain.Lifter;
 import com.muller.lappli.repository.ElementSupplyRepository;
 import com.muller.lappli.service.ElementSupplyQueryService;
 import com.muller.lappli.service.ElementSupplyService;
+import com.muller.lappli.service.LifterService;
 import com.muller.lappli.service.criteria.ElementSupplyCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -41,14 +43,18 @@ public class ElementSupplyResource {
 
     private final ElementSupplyQueryService elementSupplyQueryService;
 
+    private final LifterService lifterService;
+
     public ElementSupplyResource(
         ElementSupplyService elementSupplyService,
         ElementSupplyRepository elementSupplyRepository,
-        ElementSupplyQueryService elementSupplyQueryService
+        ElementSupplyQueryService elementSupplyQueryService,
+        LifterService lifterService
     ) {
         this.elementSupplyService = elementSupplyService;
         this.elementSupplyRepository = elementSupplyRepository;
         this.elementSupplyQueryService = elementSupplyQueryService;
+        this.lifterService = lifterService;
     }
 
     /**
@@ -151,6 +157,11 @@ public class ElementSupplyResource {
     public ResponseEntity<List<ElementSupply>> getAllElementSupplies(ElementSupplyCriteria criteria) {
         log.debug("REST request to get ElementSupplies by criteria: {}", criteria);
         List<ElementSupply> entityList = elementSupplyQueryService.findByCriteria(criteria);
+
+        for (ElementSupply elementSupply : entityList) {
+            elementSupply.setBestLifterList(lifterService.findEligibleLifterList(elementSupply));
+        }
+
         return ResponseEntity.ok().body(entityList);
     }
 
