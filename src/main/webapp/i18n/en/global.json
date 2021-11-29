@@ -5,8 +5,16 @@
     "menu": {
       "home": "Home",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
+      "study-multi-supply-list": "Supply List",
       "entities": {
         "main": "Entities",
+        "element": "Element",
+        "elementKind": "Element Kind",
+        "copper": "Copper",
+        "material": "Material",
+        "elementSupply": "Element Supply",
+        "lifter": "Lifter",
+        "lifterRunMeasure": "Lifter Run Measure",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

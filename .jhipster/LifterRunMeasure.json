@@ -1,0 +1,40 @@
+{
+  "name": "LifterRunMeasure",
+  "fields": [
+    {
+      "fieldName": "milimeterDiameter",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "meterPerSecondSpeed",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "markingType",
+      "fieldType": "MarkingType",
+      "fieldValues": "LIFTING,SPIRALLY_COLORED,LONGITUDINALLY_COLORED,NUMBERED"
+    },
+    {
+      "fieldName": "hourPreparationTime",
+      "fieldType": "Double"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lifter",
+      "otherEntityRelationshipName": "lifterRunMeasure",
+      "relationshipName": "lifter"
+    }
+  ],
+  "entityTableName": "lifter_run_measure",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211127151038"
+}

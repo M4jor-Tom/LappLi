@@ -42,6 +42,8 @@
     "clientPackageManager": "npm",
     "clientThemeVariant": "",
     "languages": ["en", "fr", "de"],
-    "enableGradleEnterprise": false
+    "enableGradleEnterprise": false,
+    "entities": ["Element", "ElementKind", "Copper", "Material", "ElementSupply", "Lifter", "LifterRunMeasure"],
+    "lastLiquibaseTimestamp": 1638025838000
   }
 }

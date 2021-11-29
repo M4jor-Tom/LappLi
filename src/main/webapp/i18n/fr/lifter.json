@@ -1,0 +1,29 @@
+{
+  "lappLiApp": {
+    "lifter": {
+      "home": {
+        "title": "Lifters",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Lifter",
+        "createOrEditLabel": "Créer ou éditer un Lifter",
+        "notFound": "Aucun Lifter trouvé"
+      },
+      "created": "Un nouveau Lifter a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Lifter avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Lifter avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Lifter {{ id }} ?"
+      },
+      "detail": {
+        "title": "Lifter"
+      },
+      "id": "ID",
+      "index": "Index",
+      "minimumMilimeterDiameter": "Minimum Milimeter Diameter",
+      "maximumMilimeterDiameter": "Maximum Milimeter Diameter",
+      "supportsSpirallyColoredMarkingType": "Supports Spirally Colored Marking Type",
+      "supportsLongitudinallyColoredMarkingType": "Supports Longitudinally Colored Marking Type",
+      "supportsNumberedMarkingType": "Supports Numbered Marking Type"
+    }
+  }
+}

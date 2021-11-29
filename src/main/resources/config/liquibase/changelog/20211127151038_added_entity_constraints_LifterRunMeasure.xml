@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+    <!--
+        Added the constraints for entity LifterRunMeasure.
+    -->
+    <changeSet id="20211127151038-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="lifter_id"
+                                 baseTableName="lifter_run_measure"
+                                 constraintName="fk_lifter_run_measure__lifter_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="lifter"/>
+    </changeSet>
+</databaseChangeLog>

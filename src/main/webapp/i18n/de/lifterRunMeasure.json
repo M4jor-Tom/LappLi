@@ -1,0 +1,28 @@
+{
+  "lappLiApp": {
+    "lifterRunMeasure": {
+      "home": {
+        "title": "Lifter Run Measures",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Lifter Run Measure erstellen",
+        "createOrEditLabel": "Lifter Run Measure erstellen oder bearbeiten",
+        "notFound": "Keine Lifter Run Measures gefunden"
+      },
+      "created": "Lifter Run Measure erstellt mit ID {{ param }}",
+      "updated": "Lifter Run Measure aktualisiert mit ID {{ param }}",
+      "deleted": "Lifter Run Measure gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Lifter Run Measure {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Lifter Run Measure"
+      },
+      "id": "ID",
+      "milimeterDiameter": "Milimeter Diameter",
+      "meterPerSecondSpeed": "Meter Per Second Speed",
+      "markingType": "Marking Type",
+      "hourPreparationTime": "Hour Preparation Time",
+      "lifter": "Lifter"
+    }
+  }
+}

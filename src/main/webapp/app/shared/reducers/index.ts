@@ -11,6 +11,20 @@ import activate from 'app/modules/account/activate/activate.reducer';
 import password from 'app/modules/account/password/password.reducer';
 import settings from 'app/modules/account/settings/settings.reducer';
 import passwordReset from 'app/modules/account/password-reset/password-reset.reducer';
+// prettier-ignore
+import element from 'app/entities/element/element.reducer';
+// prettier-ignore
+import elementKind from 'app/entities/element-kind/element-kind.reducer';
+// prettier-ignore
+import copper from 'app/entities/copper/copper.reducer';
+// prettier-ignore
+import material from 'app/entities/material/material.reducer';
+// prettier-ignore
+import elementSupply from 'app/entities/element-supply/element-supply.reducer';
+// prettier-ignore
+import lifter from 'app/entities/lifter/lifter.reducer';
+// prettier-ignore
+import lifterRunMeasure from 'app/entities/lifter-run-measure/lifter-run-measure.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -24,6 +38,13 @@ const rootReducer = {
   passwordReset,
   password,
   settings,
+  element,
+  elementKind,
+  copper,
+  material,
+  elementSupply,
+  lifter,
+  lifterRunMeasure,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };
