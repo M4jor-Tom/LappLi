@@ -56,62 +56,6 @@ public class ElementSupply implements Serializable {
         return names;
     }
 
-    /*public String getBestLifterList(MarkingTechnique markingTechnique) {
-        /*
-
-Machine =SI(PreciseMarkingType=LIFTING;
-    SI(MmDiameter>6;
-        "MR06"
-        ;"MR04/05/07"
-    )
-    ;SI(PreciseMarkingType=INK_NUMBERED;
-        SI(MmDiameter>6;
-            "MR06"
-            ;"MR04"
-        )
-        ;SI(PreciseMarkingType=RSD_NUMBERED;
-            SI(MmDiameter>6;
-                "MR06"
-                ;"MR05"
-            )
-            ;SI(PreciseMarkingType=LONGITUDINALLY_COLORED;
-                SI(MmDiameter>6;
-                    "MR06"
-                    ;"MR05"
-                )
-                ;SI(PreciseMarkingType=SPIRALLY_COLORED;
-                    SI(MmDiameter>6;
-                        ""
-                        ;"MR01/02/03"
-                    )
-                    ;""
-                )
-            )
-        )
-    )
-)
-        *
-
-        Double milimeterDiameter = getElement().getElementKind().getMilimeterDiameter();
-        Boolean milimeterDiameterMoreThan6 = milimeterDiameter > 6;
-
-        return getMarkingType().equals(MarkingType.LIFTING)
-            ? (milimeterDiameterMoreThan6 ? "MR06" : "MR04/05/07")
-            : (
-                getMarkingType().equals(MarkingType.NUMBERED) && markingTechnique.equals(MarkingTechnique.INK_JET)
-                    ? (milimeterDiameterMoreThan6 ? "MR06" : "MR04")
-                    : (
-                        getMarkingType().equals(MarkingType.NUMBERED) && markingTechnique.equals(MarkingTechnique.RSD)
-                            ? (milimeterDiameterMoreThan6 ? "MR06" : "MR05")
-                            : (
-                                getMarkingType().equals(MarkingType.SPIRALLY_COLORED)
-                                    ? (milimeterDiameterMoreThan6 ? "" : "MR01/02/03")
-                                    : ""
-                            )
-                    )
-            );
-    }*/
-
     public Long getQuantity() {
         return ElementSupply.UNITY_QUANTITY * getApparitions();
     }
@@ -184,7 +128,6 @@ Machine =SI(PreciseMarkingType=LIFTING;
     }
 
     public List<Lifter> getBestLifterList() {
-        //return getBestLifterList(MarkingTechnique.INK_JET);
         return bestLifterList;
     }
 
