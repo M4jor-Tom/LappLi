@@ -79,18 +79,6 @@ public class ElementSupply implements Serializable {
         return ElementSupply.UNITY_QUANTITY * getApparitions();
     }
 
-    public String getInsulationMaterialDesignation() {
-        return getElement().getElementKind().getInsulationMaterial().getDesignation();
-    }
-
-    public Double getGramPerMeterLinearMass() {
-        return getElement().getElementKind().getGramPerMeterLinearMass();
-    }
-
-    public Double getMilimeterDiameter() {
-        return getElement().getElementKind().getMilimeterDiameter();
-    }
-
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {

@@ -14,10 +14,6 @@ export interface IElementSupply {
   hourPreparationTime?: number;
   hourExecutionTime?: number;
   meterPerSecondSpeed?: number;
-
-  milimeterDiameter?: number;
-  gramPerMeterLinearMass?: number;
-  insulationMaterialDesignation?: string;
 }
 
 export const defaultValue: Readonly<IElementSupply> = {};
