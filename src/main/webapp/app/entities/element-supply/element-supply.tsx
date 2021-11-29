@@ -68,7 +68,7 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.elementSupply.quantity">Quantity</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.elementSupply.bestMachinesNames">Best Machines Names</Translate>
+                  <Translate contentKey="lappLiApp.elementSupply.bestLiftersNames">Best Machines Names</Translate>
                 </th>
                 <th />
               </tr>

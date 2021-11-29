@@ -60,7 +60,7 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           </dt>
           <dd>{elementSupplyEntity.element ? elementSupplyEntity.quantity : ''}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.elementSupply.best-lifters-names">Best Lifter Names</Translate>
+            <Translate contentKey="lappLiApp.elementSupply.bestLiftersNames">Best Lifter Names</Translate>
           </dt>
           <dd>{elementSupplyEntity.element ? elementSupplyEntity.bestLiftersNames : ''}</dd>
         </dl>
