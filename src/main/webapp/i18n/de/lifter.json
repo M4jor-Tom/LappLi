@@ -23,7 +23,9 @@
       "maximumMilimeterDiameter": "Maximum Milimeter Diameter",
       "supportsSpirallyColoredMarkingType": "Supports Spirally Colored Marking Type",
       "supportsLongitudinallyColoredMarkingType": "Supports Longitudinally Colored Marking Type",
-      "supportsNumberedMarkingType": "Supports Numbered Marking Type"
+      "supportsNumberedMarkingType": "Supports Numbered Marking Type",
+      "supportsInkJetMarkingTechnique": "Supports Ink Jet Marking Technique",
+      "supportsRsdMarkingTechnique": "Supports Rsd Marking Technique"
     }
   }
 }

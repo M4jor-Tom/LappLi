@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -46,6 +47,14 @@ public class Lifter implements Serializable {
     @Column(name = "supports_numbered_marking_type", nullable = false)
     private Boolean supportsNumberedMarkingType;
 
+    @NotNull
+    @Column(name = "supports_ink_jet_marking_technique", nullable = false)
+    private Boolean supportsInkJetMarkingTechnique;
+
+    @NotNull
+    @Column(name = "supports_rsd_marking_technique", nullable = false)
+    private Boolean supportsRsdMarkingTechnique;
+
     public Lifter() {
         this(null, Double.NaN, Double.NaN, false, false, false);
     }
@@ -78,7 +87,8 @@ public class Lifter implements Serializable {
     public Boolean supportsElementSupply(ElementSupply elementSupply) {
         return (
             supportsMarkingType(elementSupply.getMarkingType()) &&
-            supportsMilimeterDiameter(elementSupply.getElement().getElementKind().getMilimeterDiameter())
+            supportsMilimeterDiameter(elementSupply.getElement().getElementKind().getMilimeterDiameter()) &&
+            supportsMarkingTechnique(elementSupply.getMarkingTechnique())
         );
     }
 
@@ -97,6 +107,17 @@ public class Lifter implements Serializable {
                 return getSupportsLongitudinallyColoredMarkingType();
             case NUMBERED:
                 return getSupportsNumberedMarkingType();
+        }
+
+        return false;
+    }
+
+    public Boolean supportsMarkingTechnique(MarkingTechnique markingTechnique) {
+        switch (markingTechnique) {
+            case INK_JET:
+                return getSupportsInkJetMarkingTechnique();
+            case RSD:
+                return getSupportsRsdMarkingTechnique();
         }
 
         return false;
@@ -195,6 +216,32 @@ public class Lifter implements Serializable {
         this.supportsNumberedMarkingType = supportsNumberedMarkingType;
     }
 
+    public Boolean getSupportsInkJetMarkingTechnique() {
+        return this.supportsInkJetMarkingTechnique;
+    }
+
+    public Lifter supportsInkJetMarkingTechnique(Boolean supportsInkJetMarkingTechnique) {
+        this.setSupportsInkJetMarkingTechnique(supportsInkJetMarkingTechnique);
+        return this;
+    }
+
+    public void setSupportsInkJetMarkingTechnique(Boolean supportsInkJetMarkingTechnique) {
+        this.supportsInkJetMarkingTechnique = supportsInkJetMarkingTechnique;
+    }
+
+    public Boolean getSupportsRsdMarkingTechnique() {
+        return this.supportsRsdMarkingTechnique;
+    }
+
+    public Lifter supportsRsdMarkingTechnique(Boolean supportsRsdMarkingTechnique) {
+        this.setSupportsRsdMarkingTechnique(supportsRsdMarkingTechnique);
+        return this;
+    }
+
+    public void setSupportsRsdMarkingTechnique(Boolean supportsRsdMarkingTechnique) {
+        this.supportsRsdMarkingTechnique = supportsRsdMarkingTechnique;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -225,6 +272,8 @@ public class Lifter implements Serializable {
             ", supportsSpirallyColoredMarkingType='" + getSupportsSpirallyColoredMarkingType() + "'" +
             ", supportsLongitudinallyColoredMarkingType='" + getSupportsLongitudinallyColoredMarkingType() + "'" +
             ", supportsNumberedMarkingType='" + getSupportsNumberedMarkingType() + "'" +
+            ", supportsInkJetMarkingTechnique='" + getSupportsInkJetMarkingTechnique() + "'" +
+            ", supportsRsdMarkingTechnique='" + getSupportsRsdMarkingTechnique() + "'" +
             "}";
     }
 }

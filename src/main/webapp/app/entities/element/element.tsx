@@ -87,7 +87,7 @@ export const Element = (props: RouteComponentProps<{ url: string }>) => {
                       ''
                     )}
                   </td>
-                  <td>{element.milimeterDiameter}</td>
+                  <td>{element.elementKind.milimeterDiameter}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${element.id}`} color="info" size="sm" data-cy="entityDetailsButton">

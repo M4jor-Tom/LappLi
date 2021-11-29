@@ -38,6 +38,10 @@ public class LifterCriteria implements Serializable, Criteria {
 
     private BooleanFilter supportsNumberedMarkingType;
 
+    private BooleanFilter supportsInkJetMarkingTechnique;
+
+    private BooleanFilter supportsRsdMarkingTechnique;
+
     private Boolean distinct;
 
     public LifterCriteria() {}
@@ -52,6 +56,9 @@ public class LifterCriteria implements Serializable, Criteria {
         this.supportsLongitudinallyColoredMarkingType =
             other.supportsLongitudinallyColoredMarkingType == null ? null : other.supportsLongitudinallyColoredMarkingType.copy();
         this.supportsNumberedMarkingType = other.supportsNumberedMarkingType == null ? null : other.supportsNumberedMarkingType.copy();
+        this.supportsInkJetMarkingTechnique =
+            other.supportsInkJetMarkingTechnique == null ? null : other.supportsInkJetMarkingTechnique.copy();
+        this.supportsRsdMarkingTechnique = other.supportsRsdMarkingTechnique == null ? null : other.supportsRsdMarkingTechnique.copy();
         this.distinct = other.distinct;
     }
 
@@ -165,6 +172,36 @@ public class LifterCriteria implements Serializable, Criteria {
         this.supportsNumberedMarkingType = supportsNumberedMarkingType;
     }
 
+    public BooleanFilter getSupportsInkJetMarkingTechnique() {
+        return supportsInkJetMarkingTechnique;
+    }
+
+    public BooleanFilter supportsInkJetMarkingTechnique() {
+        if (supportsInkJetMarkingTechnique == null) {
+            supportsInkJetMarkingTechnique = new BooleanFilter();
+        }
+        return supportsInkJetMarkingTechnique;
+    }
+
+    public void setSupportsInkJetMarkingTechnique(BooleanFilter supportsInkJetMarkingTechnique) {
+        this.supportsInkJetMarkingTechnique = supportsInkJetMarkingTechnique;
+    }
+
+    public BooleanFilter getSupportsRsdMarkingTechnique() {
+        return supportsRsdMarkingTechnique;
+    }
+
+    public BooleanFilter supportsRsdMarkingTechnique() {
+        if (supportsRsdMarkingTechnique == null) {
+            supportsRsdMarkingTechnique = new BooleanFilter();
+        }
+        return supportsRsdMarkingTechnique;
+    }
+
+    public void setSupportsRsdMarkingTechnique(BooleanFilter supportsRsdMarkingTechnique) {
+        this.supportsRsdMarkingTechnique = supportsRsdMarkingTechnique;
+    }
+
     public Boolean getDistinct() {
         return distinct;
     }
@@ -190,6 +227,8 @@ public class LifterCriteria implements Serializable, Criteria {
             Objects.equals(supportsSpirallyColoredMarkingType, that.supportsSpirallyColoredMarkingType) &&
             Objects.equals(supportsLongitudinallyColoredMarkingType, that.supportsLongitudinallyColoredMarkingType) &&
             Objects.equals(supportsNumberedMarkingType, that.supportsNumberedMarkingType) &&
+            Objects.equals(supportsInkJetMarkingTechnique, that.supportsInkJetMarkingTechnique) &&
+            Objects.equals(supportsRsdMarkingTechnique, that.supportsRsdMarkingTechnique) &&
             Objects.equals(distinct, that.distinct)
         );
     }
@@ -204,6 +243,8 @@ public class LifterCriteria implements Serializable, Criteria {
             supportsSpirallyColoredMarkingType,
             supportsLongitudinallyColoredMarkingType,
             supportsNumberedMarkingType,
+            supportsInkJetMarkingTechnique,
+            supportsRsdMarkingTechnique,
             distinct
         );
     }
@@ -219,6 +260,8 @@ public class LifterCriteria implements Serializable, Criteria {
             (supportsSpirallyColoredMarkingType != null ? "supportsSpirallyColoredMarkingType=" + supportsSpirallyColoredMarkingType + ", " : "") +
             (supportsLongitudinallyColoredMarkingType != null ? "supportsLongitudinallyColoredMarkingType=" + supportsLongitudinallyColoredMarkingType + ", " : "") +
             (supportsNumberedMarkingType != null ? "supportsNumberedMarkingType=" + supportsNumberedMarkingType + ", " : "") +
+            (supportsInkJetMarkingTechnique != null ? "supportsInkJetMarkingTechnique=" + supportsInkJetMarkingTechnique + ", " : "") +
+            (supportsRsdMarkingTechnique != null ? "supportsRsdMarkingTechnique=" + supportsRsdMarkingTechnique + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

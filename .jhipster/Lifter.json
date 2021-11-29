@@ -30,6 +30,16 @@
       "fieldName": "supportsNumberedMarkingType",
       "fieldType": "Boolean",
       "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "supportsInkJetMarkingTechnique",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "supportsRsdMarkingTechnique",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
     }
   ],
   "relationships": [],

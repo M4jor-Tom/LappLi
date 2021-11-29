@@ -32,6 +32,12 @@
             <column name="supports_numbered_marking_type" type="boolean">
                 <constraints nullable="false" />
             </column>
+            <column name="supports_ink_jet_marking_technique" type="boolean">
+                <constraints nullable="false" />
+            </column>
+            <column name="supports_rsd_marking_technique" type="boolean">
+                <constraints nullable="false" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
@@ -59,6 +65,8 @@
             <column name="supports_spirally_colored_marking_type" type="boolean"/>
             <column name="supports_longitudinally_colored_marking_type" type="boolean"/>
             <column name="supports_numbered_marking_type" type="boolean"/>
+            <column name="supports_ink_jet_marking_technique" type="boolean"/>
+            <column name="supports_rsd_marking_technique" type="boolean"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

@@ -139,6 +139,22 @@ export const LifterUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 check
                 type="checkbox"
               />
+              <ValidatedField
+                label={translate('lappLiApp.lifter.supportsInkJetMarkingTechnique')}
+                id="lifter-supportsInkJetMarkingTechnique"
+                name="supportsInkJetMarkingTechnique"
+                data-cy="supportsInkJetMarkingTechnique"
+                check
+                type="checkbox"
+              />
+              <ValidatedField
+                label={translate('lappLiApp.lifter.supportsRsdMarkingTechnique')}
+                id="lifter-supportsRsdMarkingTechnique"
+                name="supportsRsdMarkingTechnique"
+                data-cy="supportsRsdMarkingTechnique"
+                check
+                type="checkbox"
+              />
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/lifter" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
