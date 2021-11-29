@@ -68,6 +68,12 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.elementSupply.quantity">Quantity</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.elementKind.milimeterDiameter">Diameter (mm)</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.elementKind.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.elementSupply.bestLiftersNames">Best Machines Names</Translate>
                 </th>
                 <th />
@@ -97,6 +103,8 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                     )}
                   </td>
                   <td>{elementSupply.quantity}</td>
+                  <td>{elementSupply.milimeterDiameter}</td>
+                  <td>{elementSupply.gramPerMeterLinearMass}</td>
                   <td>{elementSupply.bestLiftersNames}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

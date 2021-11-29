@@ -60,6 +60,14 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           </dt>
           <dd>{elementSupplyEntity.element ? elementSupplyEntity.quantity : ''}</dd>
           <dt>
+            <Translate contentKey="lappLiApp.elementKind.milimeterDiameter">Diameter (mm)</Translate>
+          </dt>
+          <dd>{elementSupplyEntity.milimeterDiameter}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.elementKind.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
+          </dt>
+          <dd>{elementSupplyEntity.gramPerMeterLinearMass}</dd>
+          <dt>
             <Translate contentKey="lappLiApp.elementSupply.bestLiftersNames">Best Lifter Names</Translate>
           </dt>
           <dd>{elementSupplyEntity.element ? elementSupplyEntity.bestLiftersNames : ''}</dd>

@@ -46,6 +46,14 @@ public class ElementSupply implements Serializable {
     @Transient
     private List<Lifter> bestLifterList;
 
+    public Double getGramPerMeterLinearMass() {
+        return getElement().getElementKind().getGramPerMeterLinearMass();
+    }
+
+    public Double getMilimeterDiameter() {
+        return getElement().getElementKind().getMilimeterDiameter();
+    }
+
     public String getBestLiftersNames() {
         String names = "";
 

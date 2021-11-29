@@ -9,6 +9,8 @@ export interface IElementSupply {
   quantity?: number;
   element?: IElement | null;
   bestLiftersNames?: string;
+  milimeterDiameter?: number;
+  gramPerMeterLinearMass?: number;
 }
 
 export const defaultValue: Readonly<IElementSupply> = {};
