@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -46,13 +45,27 @@ public class ElementSupply implements Serializable {
     @Transient
     private List<Lifter> bestLifterList;
 
+    public Double getHourPreparationTime() {
+        return Double.NaN;
+    }
+
+    public Double getHourExecutionTime() {
+        return Double.NaN;
+    }
+
+    public Double getMeterPerSecondSpeed() {
+        return Double.NaN;
+    }
+
+    public MarkingTechnique getMarkingTechnique() {
+        return MarkingTechnique.INK_JET;
+    }
+
     public String getBestLiftersNames() {
         String names = "";
 
-        if (getBestLifterList() != null) {
-            for (Lifter lifter : getBestLifterList()) {
-                names = names + lifter.getName() + " ";
-            }
+        for (Lifter lifter : getBestLifterList()) {
+            names = names + lifter.getName() + " ";
         }
 
         return names;
@@ -60,6 +73,18 @@ public class ElementSupply implements Serializable {
 
     public Long getQuantity() {
         return ElementSupply.UNITY_QUANTITY * getApparitions();
+    }
+
+    public String getInsulationMaterialDesignation() {
+        return getElement().getElementKind().getInsulationMaterial().getDesignation();
+    }
+
+    public Double getGramPerMeterLinearMass() {
+        return getElement().getElementKind().getGramPerMeterLinearMass();
+    }
+
+    public Double getMilimeterDiameter() {
+        return getElement().getElementKind().getMilimeterDiameter();
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

@@ -140,10 +140,6 @@ public class ElementSupplyResource {
 
         Optional<ElementSupply> result = elementSupplyService.partialUpdate(elementSupply);
 
-        if (result.isPresent()) {
-            result.get().setBestLifterList(lifterService.findBestLifterList(new ElementSupply()));
-        }
-
         return ResponseUtil.wrapOrNotFound(
             result,
             HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, elementSupply.getId().toString())
@@ -190,6 +186,11 @@ public class ElementSupplyResource {
     public ResponseEntity<ElementSupply> getElementSupply(@PathVariable Long id) {
         log.debug("REST request to get ElementSupply : {}", id);
         Optional<ElementSupply> elementSupply = elementSupplyService.findOne(id);
+
+        if (elementSupply.isPresent()) {
+            elementSupply.get().setBestLifterList(lifterService.findBestLifterList(elementSupply.get()));
+        }
+
         return ResponseUtil.wrapOrNotFound(elementSupply);
     }
 

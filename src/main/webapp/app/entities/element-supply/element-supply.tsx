@@ -68,7 +68,28 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.elementSupply.quantity">Quantity</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.elementKind.milimeterDiameter">Diameter (mm)</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.elementKind.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.elementSupply.bestLiftersNames">Best Machines Names</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.elementKind.insulationMaterial">Material</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.elementSupply.meterPerSecondSpeed">Speed (m/s)</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.elementSupply.hourPreparationTime">Preparation Time (h)</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.elementSupply.hourExecutionTime">Execution Time (h)</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.elementSupply.markingTechnique">Marking Technique</Translate>
                 </th>
                 <th />
               </tr>
@@ -97,7 +118,14 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                     )}
                   </td>
                   <td>{elementSupply.quantity}</td>
+                  <td>{elementSupply.milimeterDiameter}</td>
+                  <td>{elementSupply.gramPerMeterLinearMass}</td>
                   <td>{elementSupply.bestLiftersNames}</td>
+                  <td>{elementSupply.insulationMaterialDesignation}</td>
+                  <td>{elementSupply.meterPerSecondSpeed}</td>
+                  <td>{elementSupply.hourPreparationTime}</td>
+                  <td>{elementSupply.hourExecutionTime}</td>
+                  <td>{elementSupply.markingTechnique}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${elementSupply.id}`} color="info" size="sm" data-cy="entityDetailsButton">

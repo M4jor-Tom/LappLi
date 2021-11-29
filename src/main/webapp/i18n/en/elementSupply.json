@@ -21,9 +21,13 @@
       "apparitions": "Apparitions",
       "forcedMarking": "Forced Marking",
       "markingType": "Marking Type",
+      "markingTechnique": "Marking Technique",
       "element": "Element",
       "quantity": "Quantity",
-      "bestLiftersNames": "Best Lifters"
+      "bestLiftersNames": "Best Lifters",
+      "meterPerSecondSpeed": "Speed (m/s)",
+      "hourPreparationTime": "Preparation Time (h)",
+      "hourExecutionTime": "Execution Time (h)"
     }
   }
 }
