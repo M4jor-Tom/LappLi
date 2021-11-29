@@ -51,6 +51,10 @@ export const ElementDetail = (props: RouteComponentProps<{ id: string }>) => {
             <Translate contentKey="lappLiApp.element.elementKind">Element Kind</Translate>
           </dt>
           <dd>{elementEntity.elementKind ? elementEntity.elementKind.designation : ''}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.elementKind.milimeterDiameter"></Translate>
+          </dt>
+          <dd>{elementEntity.elementKind?.milimeterDiameter}</dd>
         </dl>
         <Button tag={Link} to="/element" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

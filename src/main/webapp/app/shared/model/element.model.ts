@@ -8,7 +8,6 @@ export interface IElement {
   numberWithDesignationWithColor?: string;
   color?: Color;
   elementKind?: IElementKind | null;
-  milimeterDiameter?: number;
 }
 
 export const defaultValue: Readonly<IElement> = {};
