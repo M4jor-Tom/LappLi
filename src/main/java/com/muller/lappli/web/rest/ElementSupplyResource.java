@@ -1,7 +1,6 @@
 package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.ElementSupply;
-import com.muller.lappli.domain.Lifter;
 import com.muller.lappli.repository.ElementSupplyRepository;
 import com.muller.lappli.service.ElementSupplyQueryService;
 import com.muller.lappli.service.ElementSupplyService;
