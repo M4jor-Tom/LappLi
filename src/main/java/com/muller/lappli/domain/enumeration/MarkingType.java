@@ -7,5 +7,6 @@ public enum MarkingType {
     LIFTING,
     SPIRALLY_COLORED,
     LONGITUDINALLY_COLORED,
+    RINGY_COLORED,
     NUMBERED,
 }
