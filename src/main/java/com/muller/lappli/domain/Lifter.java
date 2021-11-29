@@ -75,7 +75,18 @@ public class Lifter implements Serializable {
         return prefix + getIndex();
     }
 
-    public Boolean supports(MarkingType markingType) {
+    public Boolean supportsElementSupply(ElementSupply elementSupply) {
+        return (
+            supportsMarkingType(elementSupply.getMarkingType()) &&
+            supportsMilimeterDiameter(elementSupply.getElement().getElementKind().getMilimeterDiameter())
+        );
+    }
+
+    public Boolean supportsMilimeterDiameter(Double milimeterDiameter) {
+        return milimeterDiameter > getMinimumMilimeterDiameter() && milimeterDiameter < getMaximumMilimeterDiameter();
+    }
+
+    public Boolean supportsMarkingType(MarkingType markingType) {
         switch (markingType) {
             case LIFTING:
                 return true;

@@ -1,8 +1,11 @@
 package com.muller.lappli.service.impl;
 
+import com.muller.lappli.domain.ElementSupply;
 import com.muller.lappli.domain.Lifter;
 import com.muller.lappli.repository.LifterRepository;
+import com.muller.lappli.service.LifterQueryService;
 import com.muller.lappli.service.LifterService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -23,6 +26,24 @@ public class LifterServiceImpl implements LifterService {
 
     public LifterServiceImpl(LifterRepository lifterRepository) {
         this.lifterRepository = lifterRepository;
+    }
+
+    @Override
+    public List<Lifter> findBestLifterList(ElementSupply elementSupply) {
+        return findEligibleLifterList(elementSupply);
+    }
+
+    @Override
+    public List<Lifter> findEligibleLifterList(ElementSupply elementSupply) {
+        List<Lifter> lifterList = new ArrayList<Lifter>();
+
+        for (Lifter lifter : findAll()) {
+            if (lifter.supportsElementSupply(elementSupply)) {
+                lifterList.add(lifter);
+            }
+        }
+
+        return lifterList;
     }
 
     @Override

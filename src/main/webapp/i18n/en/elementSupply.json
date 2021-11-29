@@ -22,7 +22,8 @@
       "forcedMarking": "Forced Marking",
       "markingType": "Marking Type",
       "element": "Element",
-      "quantity": "Quantity"
+      "quantity": "Quantity",
+      "bestLiftersNames": "Best Lifters"
     }
   }
 }
