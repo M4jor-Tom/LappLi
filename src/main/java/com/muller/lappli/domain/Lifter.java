@@ -89,6 +89,7 @@ public class Lifter implements Serializable {
     public Boolean supportsMarkingType(MarkingType markingType) {
         switch (markingType) {
             case LIFTING:
+            case RINGY_COLORED:
                 return true;
             case SPIRALLY_COLORED:
                 return getSupportsSpirallyColoredMarkingType();
