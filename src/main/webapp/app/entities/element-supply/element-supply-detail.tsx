@@ -50,31 +50,31 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           <dt>
             <Translate contentKey="lappLiApp.article.number">Article Number</Translate>
           </dt>
-          <dd>{elementSupplyEntity?.element.number}</dd>
+          <dd>{elementSupplyEntity.element ? elementSupplyEntity.element.number : ''}</dd>
           <dt>
             <Translate contentKey="lappLiApp.elementSupply.element">Element</Translate>
           </dt>
-          <dd>{elementSupplyEntity?.element.designationWithColor}</dd>
+          <dd>{elementSupplyEntity.element ? elementSupplyEntity.element.designationWithColor : ''}</dd>
           <dt>
             <Translate contentKey="lappLiApp.elementSupply.quantity">Quantity</Translate>
           </dt>
-          <dd>{elementSupplyEntity.quantity}</dd>
+          <dd>{elementSupplyEntity.element ? elementSupplyEntity.quantity : ''}</dd>
           <dt>
             <Translate contentKey="lappLiApp.elementKind.milimeterDiameter">Diameter (mm)</Translate>
           </dt>
-          <dd>{elementSupplyEntity?.element?.elementKind.milimeterDiameter}</dd>
+          <dd>{elementSupplyEntity.milimeterDiameter}</dd>
           <dt>
             <Translate contentKey="lappLiApp.elementKind.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
           </dt>
-          <dd>{elementSupplyEntity?.element?.elementKind.gramPerMeterLinearMass}</dd>
+          <dd>{elementSupplyEntity.gramPerMeterLinearMass}</dd>
           <dt>
             <Translate contentKey="lappLiApp.elementSupply.bestLiftersNames">Best Lifter Names</Translate>
           </dt>
-          <dd>{elementSupplyEntity.bestLiftersNames}</dd>
+          <dd>{elementSupplyEntity.element ? elementSupplyEntity.bestLiftersNames : ''}</dd>
           <dt>
             <Translate contentKey="lappLiApp.elementKind.insulationMaterial">Material</Translate>
           </dt>
-          <dd>{elementSupplyEntity?.element?.elementKind.insulationMaterial.designation}</dd>
+          <dd>{elementSupplyEntity.insulationMaterialDesignation}</dd>
           <dt>
             <Translate contentKey="lappLiApp.elementSupply.meterPerSecondSpeed">Speed (m/s)</Translate>
           </dt>
