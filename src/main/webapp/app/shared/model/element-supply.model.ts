@@ -12,6 +12,7 @@ export interface IElementSupply {
   bestLiftersNames?: string;
   milimeterDiameter?: number;
   gramPerMeterLinearMass?: number;
+  insulationMaterialDesignation?: string;
   markingTechnique?: MarkingTechnique | null;
 }
 

@@ -49,6 +49,10 @@ public class ElementSupply implements Serializable {
         return MarkingTechnique.INK_JET;
     }
 
+    public String getInsulationMaterialDesignation() {
+        return getElement().getElementKind().getInsulationMaterial().getDesignation();
+    }
+
     public Double getGramPerMeterLinearMass() {
         return getElement().getElementKind().getGramPerMeterLinearMass();
     }
