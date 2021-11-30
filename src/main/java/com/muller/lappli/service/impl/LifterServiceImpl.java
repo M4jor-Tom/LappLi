@@ -1,7 +1,7 @@
 package com.muller.lappli.service.impl;
 
-import com.muller.lappli.domain.ElementSupply;
 import com.muller.lappli.domain.Lifter;
+import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import com.muller.lappli.repository.LifterRepository;
 import com.muller.lappli.service.LifterQueryService;
 import com.muller.lappli.service.LifterService;
@@ -29,16 +29,16 @@ public class LifterServiceImpl implements LifterService {
     }
 
     @Override
-    public List<Lifter> findBestLifterList(ElementSupply elementSupply) {
-        return findEligibleLifterList(elementSupply);
+    public List<Lifter> findBestLifterList(AbstractLiftedSupply abstractLiftedSupply) {
+        return findEligibleLifterList(abstractLiftedSupply);
     }
 
     @Override
-    public List<Lifter> findEligibleLifterList(ElementSupply elementSupply) {
+    public List<Lifter> findEligibleLifterList(AbstractLiftedSupply abstractLiftedSupply) {
         List<Lifter> lifterList = new ArrayList<Lifter>();
 
         for (Lifter lifter : findAll()) {
-            if (lifter.supportsElementSupply(elementSupply)) {
+            if (lifter.supportsSupply(abstractLiftedSupply)) {
                 lifterList.add(lifter);
             }
         }

@@ -6,7 +6,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.muller.lappli.IntegrationTest;
+import com.muller.lappli.domain.Copper;
 import com.muller.lappli.domain.ElementKind;
+import com.muller.lappli.domain.Material;
 import com.muller.lappli.repository.ElementKindRepository;
 import java.util.List;
 import java.util.Random;
@@ -70,6 +72,26 @@ class ElementKindResourceIT {
             .gramPerMeterLinearMass(DEFAULT_GRAM_PER_METER_LINEAR_MASS)
             .milimeterDiameter(DEFAULT_MILIMETER_DIAMETER)
             .insulationThickness(DEFAULT_INSULATION_THICKNESS);
+        // Add required entity
+        Copper copper;
+        if (TestUtil.findAll(em, Copper.class).isEmpty()) {
+            copper = CopperResourceIT.createEntity(em);
+            em.persist(copper);
+            em.flush();
+        } else {
+            copper = TestUtil.findAll(em, Copper.class).get(0);
+        }
+        elementKind.setCopper(copper);
+        // Add required entity
+        Material material;
+        if (TestUtil.findAll(em, Material.class).isEmpty()) {
+            material = MaterialResourceIT.createEntity(em);
+            em.persist(material);
+            em.flush();
+        } else {
+            material = TestUtil.findAll(em, Material.class).get(0);
+        }
+        elementKind.setInsulationMaterial(material);
         return elementKind;
     }
 
@@ -85,6 +107,26 @@ class ElementKindResourceIT {
             .gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS)
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
             .insulationThickness(UPDATED_INSULATION_THICKNESS);
+        // Add required entity
+        Copper copper;
+        if (TestUtil.findAll(em, Copper.class).isEmpty()) {
+            copper = CopperResourceIT.createUpdatedEntity(em);
+            em.persist(copper);
+            em.flush();
+        } else {
+            copper = TestUtil.findAll(em, Copper.class).get(0);
+        }
+        elementKind.setCopper(copper);
+        // Add required entity
+        Material material;
+        if (TestUtil.findAll(em, Material.class).isEmpty()) {
+            material = MaterialResourceIT.createUpdatedEntity(em);
+            em.persist(material);
+            em.flush();
+        } else {
+            material = TestUtil.findAll(em, Material.class).get(0);
+        }
+        elementKind.setInsulationMaterial(material);
         return elementKind;
     }
 

@@ -12,7 +12,14 @@
     {
       "fieldName": "markingType",
       "fieldType": "MarkingType",
-      "fieldValues": "LIFTING,SPIRALLY_COLORED,LONGITUDINALLY_COLORED,RINGY_COLORED,NUMBERED"
+      "fieldValues": "LIFTING,SPIRALLY_COLORED,LONGITUDINALLY_COLORED,RINGY_COLORED,NUMBERED",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "markingTechnique",
+      "fieldType": "MarkingTechnique",
+      "fieldValues": "NONE,INK_JET,RSD",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "hourPreparationTime",
@@ -24,6 +31,7 @@
       "relationshipType": "many-to-one",
       "otherEntityName": "lifter",
       "otherEntityRelationshipName": "lifterRunMeasure",
+      "relationshipValidateRules": "required",
       "relationshipName": "lifter"
     }
   ],

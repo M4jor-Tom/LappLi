@@ -1,10 +1,10 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -16,11 +16,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element_supply")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ElementSupply implements Serializable {
+public class ElementSupply extends AbstractLiftedSupply implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    public static final Long UNITY_QUANTITY = Long.valueOf(1000);
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,59 +32,30 @@ public class ElementSupply implements Serializable {
     @Column(name = "forced_marking")
     private String forcedMarking;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "marking_type")
+    @Column(name = "marking_type", nullable = false)
     private MarkingType markingType;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     @JsonIgnoreProperties(value = { "elementKind" }, allowSetters = true)
     private Element element;
 
-    @Transient
-    private List<Lifter> bestLifterList;
-
-    public Double getHourPreparationTime() {
-        return Double.NaN;
-    }
-
-    public Double getHourExecutionTime() {
-        return Double.NaN;
-    }
-
-    public Double getMeterPerSecondSpeed() {
-        return Double.NaN;
-    }
-
     public MarkingTechnique getMarkingTechnique() {
         return MarkingTechnique.INK_JET;
-    }
-
-    public String getBestLiftersNames() {
-        if (getBestLifterList() == null) {
-            return "";
-        }
-
-        String names = "";
-
-        for (Lifter lifter : getBestLifterList()) {
-            names = names + lifter.getName() + " ";
-        }
-
-        return names;
-    }
-
-    public Long getQuantity() {
-        return ElementSupply.UNITY_QUANTITY * getApparitions();
     }
 
     public String getInsulationMaterialDesignation() {
         return getElement().getElementKind().getInsulationMaterial().getDesignation();
     }
 
+    @Override
     public Double getGramPerMeterLinearMass() {
         return getElement().getElementKind().getGramPerMeterLinearMass();
     }
 
+    @Override
     public Double getMilimeterDiameter() {
         return getElement().getElementKind().getMilimeterDiameter();
     }
@@ -106,6 +75,7 @@ public class ElementSupply implements Serializable {
         this.id = id;
     }
 
+    @Override
     public Long getApparitions() {
         return this.apparitions;
     }
@@ -156,14 +126,6 @@ public class ElementSupply implements Serializable {
     public ElementSupply element(Element element) {
         this.setElement(element);
         return this;
-    }
-
-    public List<Lifter> getBestLifterList() {
-        return bestLifterList;
-    }
-
-    public void setBestLifterList(List<Lifter> bestLifterList) {
-        this.bestLifterList = bestLifterList;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

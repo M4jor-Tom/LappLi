@@ -52,7 +52,7 @@ export const ElementDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{elementEntity.elementKind ? elementEntity.elementKind.designation : ''}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.elementKind.milimeterDiameter"></Translate>
+            <Translate contentKey="lappLiApp.dimension.milimeterDiameter"></Translate>
           </dt>
           <dd>{elementEntity.elementKind?.milimeterDiameter}</dd>
         </dl>

@@ -1,0 +1,10 @@
+{
+  "lappLiApp": {
+    "MarkingTechnique": {
+      "null": "",
+      "NONE": "NONE",
+      "INK_JET": "INK_JET",
+      "RSD": "RSD"
+    }
+  }
+}

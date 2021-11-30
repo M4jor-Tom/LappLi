@@ -1,8 +1,10 @@
 package com.muller.lappli.domain;
 
+import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -27,14 +29,21 @@ public class LifterRunMeasure implements Serializable {
     @Column(name = "meter_per_second_speed")
     private Double meterPerSecondSpeed;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "marking_type")
+    @Column(name = "marking_type", nullable = false)
     private MarkingType markingType;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "marking_technique", nullable = false)
+    private MarkingTechnique markingTechnique;
 
     @Column(name = "hour_preparation_time")
     private Double hourPreparationTime;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     private Lifter lifter;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -91,6 +100,19 @@ public class LifterRunMeasure implements Serializable {
         this.markingType = markingType;
     }
 
+    public MarkingTechnique getMarkingTechnique() {
+        return this.markingTechnique;
+    }
+
+    public LifterRunMeasure markingTechnique(MarkingTechnique markingTechnique) {
+        this.setMarkingTechnique(markingTechnique);
+        return this;
+    }
+
+    public void setMarkingTechnique(MarkingTechnique markingTechnique) {
+        this.markingTechnique = markingTechnique;
+    }
+
     public Double getHourPreparationTime() {
         return this.hourPreparationTime;
     }
@@ -144,6 +166,7 @@ public class LifterRunMeasure implements Serializable {
             ", milimeterDiameter=" + getMilimeterDiameter() +
             ", meterPerSecondSpeed=" + getMeterPerSecondSpeed() +
             ", markingType='" + getMarkingType() + "'" +
+            ", markingTechnique='" + getMarkingTechnique() + "'" +
             ", hourPreparationTime=" + getHourPreparationTime() +
             "}";
     }

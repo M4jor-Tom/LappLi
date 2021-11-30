@@ -4,12 +4,12 @@
     {
       "fieldName": "number",
       "fieldType": "Long",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["unique", "required"]
     },
     {
       "fieldName": "designation",
       "fieldType": "String",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["unique", "required"]
     }
   ],
   "relationships": [],

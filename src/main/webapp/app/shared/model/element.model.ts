@@ -7,7 +7,7 @@ export interface IElement {
   designationWithColor?: string;
   numberWithDesignationWithColor?: string;
   color?: Color;
-  elementKind?: IElementKind | null;
+  elementKind?: IElementKind;
 }
 
 export const defaultValue: Readonly<IElement> = {};

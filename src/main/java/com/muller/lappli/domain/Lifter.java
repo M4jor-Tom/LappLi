@@ -1,7 +1,9 @@
 package com.muller.lappli.domain;
 
+import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
+import io.jsonwebtoken.lang.UnknownClassException;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -24,7 +26,7 @@ public class Lifter implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "jhi_index", nullable = false)
+    @Column(name = "jhi_index", nullable = false, unique = true)
     private Long index;
 
     @NotNull
@@ -84,12 +86,26 @@ public class Lifter implements Serializable {
         return prefix + getIndex();
     }
 
+    public Boolean supportsSupply(AbstractLiftedSupply abstractLiftedSupply) throws UnknownClassException {
+        if (abstractLiftedSupply instanceof ElementSupply) {
+            return supportsElementSupply((ElementSupply) abstractLiftedSupply);
+        } else if (abstractLiftedSupply instanceof BangleSupply) {
+            return supportsBangleSupply((BangleSupply) abstractLiftedSupply);
+        }
+
+        throw new UnknownClassException(abstractLiftedSupply.toString());
+    }
+
     public Boolean supportsElementSupply(ElementSupply elementSupply) {
         return (
             supportsMarkingType(elementSupply.getMarkingType()) &&
             supportsMilimeterDiameter(elementSupply.getElement().getElementKind().getMilimeterDiameter()) &&
             supportsMarkingTechnique(elementSupply.getMarkingTechnique())
         );
+    }
+
+    public Boolean supportsBangleSupply(BangleSupply bangleSupply) {
+        return (supportsMilimeterDiameter(bangleSupply.getMilimeterDiameter()));
     }
 
     public Boolean supportsMilimeterDiameter(Double milimeterDiameter) {
@@ -114,6 +130,8 @@ public class Lifter implements Serializable {
 
     public Boolean supportsMarkingTechnique(MarkingTechnique markingTechnique) {
         switch (markingTechnique) {
+            case NONE:
+                return true;
             case INK_JET:
                 return getSupportsInkJetMarkingTechnique();
             case RSD:

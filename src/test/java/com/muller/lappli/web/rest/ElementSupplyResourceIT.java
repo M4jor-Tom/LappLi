@@ -70,6 +70,16 @@ class ElementSupplyResourceIT {
             .apparitions(DEFAULT_APPARITIONS)
             .forcedMarking(DEFAULT_FORCED_MARKING)
             .markingType(DEFAULT_MARKING_TYPE);
+        // Add required entity
+        Element element;
+        if (TestUtil.findAll(em, Element.class).isEmpty()) {
+            element = ElementResourceIT.createEntity(em);
+            em.persist(element);
+            em.flush();
+        } else {
+            element = TestUtil.findAll(em, Element.class).get(0);
+        }
+        elementSupply.setElement(element);
         return elementSupply;
     }
 
@@ -84,6 +94,16 @@ class ElementSupplyResourceIT {
             .apparitions(UPDATED_APPARITIONS)
             .forcedMarking(UPDATED_FORCED_MARKING)
             .markingType(UPDATED_MARKING_TYPE);
+        // Add required entity
+        Element element;
+        if (TestUtil.findAll(em, Element.class).isEmpty()) {
+            element = ElementResourceIT.createUpdatedEntity(em);
+            em.persist(element);
+            em.flush();
+        } else {
+            element = TestUtil.findAll(em, Element.class).get(0);
+        }
+        elementSupply.setElement(element);
         return elementSupply;
     }
 
@@ -134,6 +154,23 @@ class ElementSupplyResourceIT {
         int databaseSizeBeforeTest = elementSupplyRepository.findAll().size();
         // set the field null
         elementSupply.setApparitions(null);
+
+        // Create the ElementSupply, which fails.
+
+        restElementSupplyMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(elementSupply)))
+            .andExpect(status().isBadRequest());
+
+        List<ElementSupply> elementSupplyList = elementSupplyRepository.findAll();
+        assertThat(elementSupplyList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkMarkingTypeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = elementSupplyRepository.findAll().size();
+        // set the field null
+        elementSupply.setMarkingType(null);
 
         // Create the ElementSupply, which fails.
 
