@@ -43,13 +43,13 @@ export const BangleDetail = (props: RouteComponentProps<{ id: string }>) => {
           <dd>{bangleEntity.designation}</dd>
           <dt>
             <span id="gramPerMeterLinearMass">
-              <Translate contentKey="lappLiApp.bangle.gramPerMeterLinearMass">Gram Per Meter Linear Mass</Translate>
+              <Translate contentKey="lappLiApp.dimension.gramPerMeterLinearMass">Gram Per Meter Linear Mass</Translate>
             </span>
           </dt>
           <dd>{bangleEntity.gramPerMeterLinearMass}</dd>
           <dt>
             <span id="milimeterDiameter">
-              <Translate contentKey="lappLiApp.bangle.milimeterDiameter">Milimeter Diameter</Translate>
+              <Translate contentKey="lappLiApp.dimension.milimeterDiameter">Milimeter Diameter</Translate>
             </span>
           </dt>
           <dd>{bangleEntity.milimeterDiameter}</dd>

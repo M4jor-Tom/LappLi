@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -12,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "bangle_supply")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class BangleSupply implements Serializable {
+public class BangleSupply extends AbstractLiftedSupply implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,6 +30,16 @@ public class BangleSupply implements Serializable {
     @NotNull
     private Bangle bangle;
 
+    @Override
+    public Double getMilimeterDiameter() {
+        return getBangle().getMilimeterDiameter();
+    }
+
+    @Override
+    public Double getGramPerMeterLinearMass() {
+        return getBangle().getGramPerMeterLinearMass();
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -44,6 +55,7 @@ public class BangleSupply implements Serializable {
         this.id = id;
     }
 
+    @Override
     public Long getApparitions() {
         return this.apparitions;
     }

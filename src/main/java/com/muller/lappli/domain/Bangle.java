@@ -1,5 +1,7 @@
 package com.muller.lappli.domain;
 
+import com.muller.lappli.domain.abstracts.AbstractAssemblableAtom;
+import com.muller.lappli.domain.interfaces.Article;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -12,7 +14,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "bangle")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Bangle implements Serializable {
+public class Bangle extends AbstractAssemblableAtom implements Article, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,6 +38,11 @@ public class Bangle implements Serializable {
     @NotNull
     @Column(name = "milimeter_diameter", nullable = false)
     private Double milimeterDiameter;
+
+    @Override
+    public Long getArticleNumber() {
+        return getNumber();
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 

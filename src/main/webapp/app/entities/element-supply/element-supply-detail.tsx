@@ -31,7 +31,7 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           <dd>{elementSupplyEntity.id}</dd>
           <dt>
             <span id="apparitions">
-              <Translate contentKey="lappLiApp.elementSupply.apparitions">Apparitions</Translate>
+              <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
             </span>
           </dt>
           <dd>{elementSupplyEntity.apparitions}</dd>
@@ -50,41 +50,41 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           <dt>
             <Translate contentKey="lappLiApp.article.number">Article Number</Translate>
           </dt>
-          <dd>{elementSupplyEntity.element ? elementSupplyEntity.element.number : ''}</dd>
+          <dd>{elementSupplyEntity?.element.number}</dd>
           <dt>
             <Translate contentKey="lappLiApp.elementSupply.element">Element</Translate>
           </dt>
-          <dd>{elementSupplyEntity.element ? elementSupplyEntity.element.designationWithColor : ''}</dd>
+          <dd>{elementSupplyEntity?.element.designationWithColor}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.elementSupply.quantity">Quantity</Translate>
+            <Translate contentKey="lappLiApp.dimension.meterQuantity">Quantity (m)</Translate>
           </dt>
-          <dd>{elementSupplyEntity.element ? elementSupplyEntity.quantity : ''}</dd>
+          <dd>{elementSupplyEntity.meterQuantity}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.elementKind.milimeterDiameter">Diameter (mm)</Translate>
+            <Translate contentKey="lappLiApp.dimensions.milimeterDiameter">Diameter (mm)</Translate>
           </dt>
           <dd>{elementSupplyEntity.milimeterDiameter}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.elementKind.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
+            <Translate contentKey="lappLiApp.dimension.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
           </dt>
           <dd>{elementSupplyEntity.gramPerMeterLinearMass}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.elementSupply.bestLiftersNames">Best Lifter Names</Translate>
+            <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Lifter Names</Translate>
           </dt>
-          <dd>{elementSupplyEntity.element ? elementSupplyEntity.bestLiftersNames : ''}</dd>
+          <dd>{elementSupplyEntity.bestLiftersNames}</dd>
           <dt>
             <Translate contentKey="lappLiApp.elementKind.insulationMaterial">Material</Translate>
           </dt>
           <dd>{elementSupplyEntity.insulationMaterialDesignation}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.elementSupply.meterPerSecondSpeed">Speed (m/s)</Translate>
+            <Translate contentKey="lappLiApp.supply.meterPerSecondSpeed">Speed (m/s)</Translate>
           </dt>
           <dd>{elementSupplyEntity.meterPerSecondSpeed}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.elementSupply.hourPreparationTime">PreparationTime (h)</Translate>
+            <Translate contentKey="lappLiApp.supply.hourPreparationTime">PreparationTime (h)</Translate>
           </dt>
           <dd>{elementSupplyEntity.hourPreparationTime}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.elementSupply.hourExecutionTime">Execution Time (h)</Translate>
+            <Translate contentKey="lappLiApp.supply.hourExecutionTime">Execution Time (h)</Translate>
           </dt>
           <dd>{elementSupplyEntity.hourExecutionTime}</dd>
           <dt>

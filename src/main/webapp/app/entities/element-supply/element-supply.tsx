@@ -50,7 +50,7 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.elementSupply.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.elementSupply.apparitions">Apparitions</Translate>
+                  <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.elementSupply.forcedMarking">Forced Marking</Translate>
@@ -65,28 +65,28 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.elementSupply.element">Element</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.elementSupply.quantity">Quantity</Translate>
+                  <Translate contentKey="lappLiApp.dimension.meterQuantity">Quantity (m)</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.elementKind.milimeterDiameter">Diameter (mm)</Translate>
+                  <Translate contentKey="lappLiApp.dimension.milimeterDiameter">Diameter (mm)</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.elementKind.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
+                  <Translate contentKey="lappLiApp.dimension.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.elementSupply.bestLiftersNames">Best Machines Names</Translate>
+                  <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Machines Names</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.elementKind.insulationMaterial">Material</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.elementSupply.meterPerSecondSpeed">Speed (m/s)</Translate>
+                  <Translate contentKey="lappLiApp.supply.meterPerSecondSpeed">Speed (m/s)</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.elementSupply.hourPreparationTime">Preparation Time (h)</Translate>
+                  <Translate contentKey="lappLiApp.supply.hourPreparationTime">Preparation Time (h)</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.elementSupply.hourExecutionTime">Execution Time (h)</Translate>
+                  <Translate contentKey="lappLiApp.supply.hourExecutionTime">Execution Time (h)</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.elementSupply.markingTechnique">Marking Technique</Translate>
@@ -117,7 +117,7 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                       ''
                     )}
                   </td>
-                  <td>{elementSupply.quantity}</td>
+                  <td>{elementSupply.meterQuantity}</td>
                   <td>{elementSupply.milimeterDiameter}</td>
                   <td>{elementSupply.gramPerMeterLinearMass}</td>
                   <td>{elementSupply.bestLiftersNames}</td>
