@@ -1,0 +1,28 @@
+{
+  "name": "BangleSupply",
+  "fields": [
+    {
+      "fieldName": "apparitions",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "bangle",
+      "otherEntityRelationshipName": "bangleSupply",
+      "relationshipName": "bangle"
+    }
+  ],
+  "entityTableName": "bangle_supply",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211130081539"
+}

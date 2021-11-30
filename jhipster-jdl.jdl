@@ -24,6 +24,14 @@ relationship ManyToOne {
 	LifterRunMeasure{lifter} to Lifter
 }
 
+entity BangleSupply {
+	apparitions Long required
+}
+
+filter BangleSupply
+
+service BangleSupply with serviceClass
+
 entity ElementSupply {
 	apparitions Long required
     forcedMarking String
@@ -48,7 +56,18 @@ enum MarkingTechnique {
 }
 
 relationship ManyToOne {
-	ElementSupply{Element} to Element
+	BangleSupply{bangle} to Bangle
+}
+
+relationship ManyToOne {
+	ElementSupply{element} to Element
+}
+
+entity Bangle {
+	number Long required
+    designation String required
+    gramPerMeterLinearMass Double required
+    milimeterDiameter Double required
 }
 
 entity Element {

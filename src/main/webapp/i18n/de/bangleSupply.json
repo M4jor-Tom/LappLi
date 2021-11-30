@@ -1,0 +1,25 @@
+{
+  "lappLiApp": {
+    "bangleSupply": {
+      "home": {
+        "title": "Bangle Supplies",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Bangle Supply erstellen",
+        "createOrEditLabel": "Bangle Supply erstellen oder bearbeiten",
+        "notFound": "Keine Bangle Supplies gefunden"
+      },
+      "created": "Bangle Supply erstellt mit ID {{ param }}",
+      "updated": "Bangle Supply aktualisiert mit ID {{ param }}",
+      "deleted": "Bangle Supply gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Bangle Supply {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Bangle Supply"
+      },
+      "id": "ID",
+      "apparitions": "Apparitions",
+      "bangle": "Bangle"
+    }
+  }
+}

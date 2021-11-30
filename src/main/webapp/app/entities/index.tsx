@@ -11,6 +11,8 @@ import Material from './material';
 import ElementSupply from './element-supply';
 import Lifter from './lifter';
 import LifterRunMeasure from './lifter-run-measure';
+import BangleSupply from './bangle-supply';
+import Bangle from './bangle';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -24,6 +26,8 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}element-supply`} component={ElementSupply} />
       <ErrorBoundaryRoute path={`${match.url}lifter`} component={Lifter} />
       <ErrorBoundaryRoute path={`${match.url}lifter-run-measure`} component={LifterRunMeasure} />
+      <ErrorBoundaryRoute path={`${match.url}bangle-supply`} component={BangleSupply} />
+      <ErrorBoundaryRoute path={`${match.url}bangle`} component={Bangle} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>
