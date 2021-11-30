@@ -60,6 +60,16 @@ class BangleSupplyResourceIT {
      */
     public static BangleSupply createEntity(EntityManager em) {
         BangleSupply bangleSupply = new BangleSupply().apparitions(DEFAULT_APPARITIONS);
+        // Add required entity
+        Bangle bangle;
+        if (TestUtil.findAll(em, Bangle.class).isEmpty()) {
+            bangle = BangleResourceIT.createEntity(em);
+            em.persist(bangle);
+            em.flush();
+        } else {
+            bangle = TestUtil.findAll(em, Bangle.class).get(0);
+        }
+        bangleSupply.setBangle(bangle);
         return bangleSupply;
     }
 
@@ -71,6 +81,16 @@ class BangleSupplyResourceIT {
      */
     public static BangleSupply createUpdatedEntity(EntityManager em) {
         BangleSupply bangleSupply = new BangleSupply().apparitions(UPDATED_APPARITIONS);
+        // Add required entity
+        Bangle bangle;
+        if (TestUtil.findAll(em, Bangle.class).isEmpty()) {
+            bangle = BangleResourceIT.createUpdatedEntity(em);
+            em.persist(bangle);
+            em.flush();
+        } else {
+            bangle = TestUtil.findAll(em, Bangle.class).get(0);
+        }
+        bangleSupply.setBangle(bangle);
         return bangleSupply;
     }
 

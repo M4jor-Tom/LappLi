@@ -27,10 +27,10 @@
                 <constraints nullable="false" />
             </column>
             <column name="copper_id" type="bigint">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="insulation_material_id" type="bigint">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
@@ -57,6 +57,8 @@
             <column name="gram_per_meter_linear_mass" type="numeric"/>
             <column name="milimeter_diameter" type="numeric"/>
             <column name="insulation_thickness" type="numeric"/>
+            <column name="copper_id" type="numeric"/>
+            <column name="insulation_material_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

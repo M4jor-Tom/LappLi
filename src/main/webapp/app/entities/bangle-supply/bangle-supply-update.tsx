@@ -106,6 +106,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
                 data-cy="bangle"
                 label={translate('lappLiApp.bangleSupply.bangle')}
                 type="select"
+                required
               >
                 <option value="" key="0" />
                 {bangles
@@ -116,6 +117,9 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
                     ))
                   : null}
               </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/bangle-supply" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

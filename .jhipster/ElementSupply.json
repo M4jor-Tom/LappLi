@@ -21,6 +21,7 @@
       "relationshipType": "many-to-one",
       "otherEntityName": "element",
       "otherEntityRelationshipName": "elementSupply",
+      "relationshipValidateRules": "required",
       "relationshipName": "element"
     }
   ],

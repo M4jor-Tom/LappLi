@@ -34,7 +34,8 @@ public class Element extends AbstractAssemblableAtom implements Article, Seriali
     @Column(name = "color", nullable = false)
     private Color color;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     @JsonIgnoreProperties(value = { "copper", "insulationMaterial" }, allowSetters = true)
     private ElementKind elementKind;
 

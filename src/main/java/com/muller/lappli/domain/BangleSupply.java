@@ -25,7 +25,8 @@ public class BangleSupply implements Serializable {
     @Column(name = "apparitions", nullable = false)
     private Long apparitions;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     private Bangle bangle;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

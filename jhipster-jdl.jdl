@@ -56,11 +56,11 @@ enum MarkingTechnique {
 }
 
 relationship ManyToOne {
-	BangleSupply{bangle} to Bangle
+	BangleSupply{bangle required} to Bangle
 }
 
 relationship ManyToOne {
-	ElementSupply{element} to Element
+	ElementSupply{element required} to Element
 }
 
 entity Bangle {
@@ -76,7 +76,7 @@ entity Element {
 }
 
 relationship ManyToOne {
-	Element{elementKind} to ElementKind
+	Element{elementKind required} to ElementKind
 }
 
 entity ElementKind {
@@ -87,11 +87,11 @@ entity ElementKind {
 }
 
 relationship ManyToOne {
-	ElementKind{Copper} to Copper
+	ElementKind{Copper required} to Copper
 }
 
 relationship ManyToOne {
-	ElementKind{insulationMaterial} to Material
+	ElementKind{insulationMaterial required} to Material
 }
 
 entity Copper {

@@ -38,10 +38,12 @@ public class ElementKind extends AbstractCableAtom implements Serializable {
     @Column(name = "insulation_thickness", nullable = false)
     private Double insulationThickness;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     private Copper copper;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     private Material insulationMaterial;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

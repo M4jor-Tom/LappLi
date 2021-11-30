@@ -8,7 +8,7 @@ export interface IElementSupply {
   forcedMarking?: string | null;
   markingType?: MarkingType | null;
   quantity?: number;
-  element?: IElement | null;
+  element?: IElement;
   bestLiftersNames?: string;
   markingTechnique?: MarkingTechnique | null;
   hourPreparationTime?: number;

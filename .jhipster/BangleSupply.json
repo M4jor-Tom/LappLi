@@ -12,6 +12,7 @@
       "relationshipType": "many-to-one",
       "otherEntityName": "bangle",
       "otherEntityRelationshipName": "bangleSupply",
+      "relationshipValidateRules": "required",
       "relationshipName": "bangle"
     }
   ],

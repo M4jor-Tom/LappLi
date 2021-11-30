@@ -27,12 +27,14 @@
       "relationshipType": "many-to-one",
       "otherEntityName": "copper",
       "otherEntityRelationshipName": "elementKind",
+      "relationshipValidateRules": "required",
       "relationshipName": "copper"
     },
     {
       "relationshipType": "many-to-one",
       "otherEntityName": "material",
       "otherEntityRelationshipName": "elementKind",
+      "relationshipValidateRules": "required",
       "relationshipName": "insulationMaterial"
     }
   ],

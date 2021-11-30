@@ -144,6 +144,7 @@ export const ElementKindUpdate = (props: RouteComponentProps<{ id: string }>) =>
                 data-cy="copper"
                 label={translate('lappLiApp.elementKind.copper')}
                 type="select"
+                required
               >
                 <option value="" key="0" />
                 {coppers
@@ -154,12 +155,16 @@ export const ElementKindUpdate = (props: RouteComponentProps<{ id: string }>) =>
                     ))
                   : null}
               </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
               <ValidatedField
                 id="element-kind-insulationMaterial"
                 name="insulationMaterial"
                 data-cy="insulationMaterial"
                 label={translate('lappLiApp.elementKind.insulationMaterial')}
                 type="select"
+                required
               >
                 <option value="" key="0" />
                 {materials
@@ -170,6 +175,9 @@ export const ElementKindUpdate = (props: RouteComponentProps<{ id: string }>) =>
                     ))
                   : null}
               </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/element-kind" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
