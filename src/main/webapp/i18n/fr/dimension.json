@@ -1,0 +1,9 @@
+{
+  "lappLiApp": {
+    "dimension": {
+      "meterQuantity": "Quantité (m)",
+      "gramPerMeterLinearMass": "Masse linéique (g/m)",
+      "milimeterDiameter": "Diamètre (mm)"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "lappLiApp": {
+    "supply": {
+      "apparitions": "Auftritte",
+      "bestLiftersNames": "Beste Lifters",
+      "meterPerSecondSpeed": "Geshwindigkeit (m/s)",
+      "hourPreparationTime": "Vorbereitungszeit (h)",
+      "hourExecutionTime": "Ausführungszeit (h)"
+    }
+  }
+}

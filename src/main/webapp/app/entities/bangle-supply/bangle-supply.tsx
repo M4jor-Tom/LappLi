@@ -50,7 +50,7 @@ export const BangleSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.bangleSupply.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.bangleSupply.apparitions">Apparitions</Translate>
+                  <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.bangleSupply.bangle">Bangle</Translate>

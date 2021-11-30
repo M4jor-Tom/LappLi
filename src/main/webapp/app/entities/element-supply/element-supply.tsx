@@ -50,7 +50,7 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.elementSupply.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.elementSupply.apparitions">Apparitions</Translate>
+                  <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.elementSupply.forcedMarking">Forced Marking</Translate>
@@ -62,7 +62,7 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.article.number">Article Number</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.dimension.element">Element</Translate>
+                  <Translate contentKey="lappLiApp.elementSupply.element">Element</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.dimension.meterQuantity">Quantity (m)</Translate>

@@ -31,7 +31,7 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           <dd>{elementSupplyEntity.id}</dd>
           <dt>
             <span id="apparitions">
-              <Translate contentKey="lappLiApp.elementSupply.apparitions">Apparitions</Translate>
+              <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
             </span>
           </dt>
           <dd>{elementSupplyEntity.apparitions}</dd>
