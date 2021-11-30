@@ -1,7 +1,7 @@
 package com.muller.lappli.service;
 
-import com.muller.lappli.domain.ElementSupply;
 import com.muller.lappli.domain.Lifter;
+import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,19 +11,19 @@ import java.util.Optional;
 public interface LifterService {
     /**
      * Get bests lifters
-     * @param elementSupply the targeted supply
+     * @param abstractLiftedSupply the targeted supply
      *
      * @return the list of bests lifters
      */
-    List<Lifter> findBestLifterList(ElementSupply elementSupply);
+    List<Lifter> findBestLifterList(AbstractLiftedSupply abstractLiftedSupply);
 
     /**
      * Get eligibles lifters
-     * @param elementSupply the targeted supply
+     * @param abstractLiftedSupply the targeted supply
      *
      * @return the list of eligibles lifters
      */
-    List<Lifter> findEligibleLifterList(ElementSupply elementSupply);
+    List<Lifter> findEligibleLifterList(AbstractLiftedSupply abstractLiftedSupply);
 
     /**
      * Save a lifter.

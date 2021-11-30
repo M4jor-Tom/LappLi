@@ -39,6 +39,34 @@ export const BangleSupplyDetail = (props: RouteComponentProps<{ id: string }>) =
             <Translate contentKey="lappLiApp.bangleSupply.bangle">Bangle</Translate>
           </dt>
           <dd>{bangleSupplyEntity.bangle.designation}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.dimension.meterQuantity">Quantity (m)</Translate>
+          </dt>
+          <dd>{bangleSupplyEntity.meterQuantity}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.dimension.milimeterDiameter">Diameter (mm)</Translate>
+          </dt>
+          <dd>{bangleSupplyEntity.milimeterDiameter}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.dimension.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
+          </dt>
+          <dd>{bangleSupplyEntity.gramPerMeterLinearMass}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Lifter Names</Translate>
+          </dt>
+          <dd>{bangleSupplyEntity.bestLiftersNames}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.supply.meterPerSecondSpeed">Speed (m/s)</Translate>
+          </dt>
+          <dd>{bangleSupplyEntity.meterPerSecondSpeed}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.supply.hourPreparationTime">PreparationTime (h)</Translate>
+          </dt>
+          <dd>{bangleSupplyEntity.hourPreparationTime}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.supply.hourExecutionTime">Execution Time (h)</Translate>
+          </dt>
+          <dd>{bangleSupplyEntity.hourExecutionTime}</dd>
         </dl>
         <Button tag={Link} to="/bangle-supply" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

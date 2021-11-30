@@ -6,6 +6,7 @@ import com.muller.lappli.service.ElementSupplyQueryService;
 import com.muller.lappli.service.ElementSupplyService;
 import com.muller.lappli.service.LifterService;
 import com.muller.lappli.service.criteria.ElementSupplyCriteria;
+import com.muller.lappli.web.rest.abstracts.AbstractLiftedSupplyRessource;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -27,7 +28,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-public class ElementSupplyResource {
+public class ElementSupplyResource extends AbstractLiftedSupplyRessource<ElementSupply> {
 
     private final Logger log = LoggerFactory.getLogger(ElementSupplyResource.class);
 
@@ -42,18 +43,16 @@ public class ElementSupplyResource {
 
     private final ElementSupplyQueryService elementSupplyQueryService;
 
-    private final LifterService lifterService;
-
     public ElementSupplyResource(
+        LifterService lifterService,
         ElementSupplyService elementSupplyService,
         ElementSupplyRepository elementSupplyRepository,
-        ElementSupplyQueryService elementSupplyQueryService,
-        LifterService lifterService
+        ElementSupplyQueryService elementSupplyQueryService
     ) {
+        super(lifterService);
         this.elementSupplyService = elementSupplyService;
         this.elementSupplyRepository = elementSupplyRepository;
         this.elementSupplyQueryService = elementSupplyQueryService;
-        this.lifterService = lifterService;
     }
 
     /**
@@ -157,9 +156,7 @@ public class ElementSupplyResource {
         log.debug("REST request to get ElementSupplies by criteria: {}", criteria);
         List<ElementSupply> entityList = elementSupplyQueryService.findByCriteria(criteria);
 
-        for (ElementSupply elementSupply : entityList) {
-            elementSupply.setBestLifterList(lifterService.findBestLifterList(elementSupply));
-        }
+        entityList = setBestLifterLists(entityList);
 
         return ResponseEntity.ok().body(entityList);
     }
@@ -187,9 +184,7 @@ public class ElementSupplyResource {
         log.debug("REST request to get ElementSupply : {}", id);
         Optional<ElementSupply> elementSupply = elementSupplyService.findOne(id);
 
-        if (elementSupply.isPresent()) {
-            elementSupply.get().setBestLifterList(lifterService.findBestLifterList(elementSupply.get()));
-        }
+        elementSupply = setBestLifterList(elementSupply);
 
         return ResponseUtil.wrapOrNotFound(elementSupply);
     }

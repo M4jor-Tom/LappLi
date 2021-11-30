@@ -1,8 +1,8 @@
 import { IBangle } from 'app/shared/model/bangle.model';
+import { IAbstractLiftedSupply } from './abstract-lifted-supply.model';
 
-export interface IBangleSupply {
+export interface IBangleSupply extends IAbstractLiftedSupply {
   id?: number;
-  apparitions?: number;
   bangle?: IBangle;
 }
 
