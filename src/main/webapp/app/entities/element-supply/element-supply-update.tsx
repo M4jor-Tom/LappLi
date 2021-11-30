@@ -129,6 +129,7 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ id: string }>) 
                 data-cy="element"
                 label={translate('lappLiApp.elementSupply.element')}
                 type="select"
+                required
               >
                 <option value="" key="0" />
                 {elements
@@ -139,6 +140,9 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ id: string }>) 
                     ))
                   : null}
               </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/element-supply" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

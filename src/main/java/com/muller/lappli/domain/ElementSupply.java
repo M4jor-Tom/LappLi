@@ -38,7 +38,8 @@ public class ElementSupply implements Serializable {
     @Column(name = "marking_type")
     private MarkingType markingType;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     @JsonIgnoreProperties(value = { "elementKind" }, allowSetters = true)
     private Element element;
 

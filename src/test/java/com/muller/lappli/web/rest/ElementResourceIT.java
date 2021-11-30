@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.Element;
+import com.muller.lappli.domain.ElementKind;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.repository.ElementRepository;
 import java.util.List;
@@ -61,6 +62,16 @@ class ElementResourceIT {
      */
     public static Element createEntity(EntityManager em) {
         Element element = new Element().number(DEFAULT_NUMBER).color(DEFAULT_COLOR);
+        // Add required entity
+        ElementKind elementKind;
+        if (TestUtil.findAll(em, ElementKind.class).isEmpty()) {
+            elementKind = ElementKindResourceIT.createEntity(em);
+            em.persist(elementKind);
+            em.flush();
+        } else {
+            elementKind = TestUtil.findAll(em, ElementKind.class).get(0);
+        }
+        element.setElementKind(elementKind);
         return element;
     }
 
@@ -72,6 +83,16 @@ class ElementResourceIT {
      */
     public static Element createUpdatedEntity(EntityManager em) {
         Element element = new Element().number(UPDATED_NUMBER).color(UPDATED_COLOR);
+        // Add required entity
+        ElementKind elementKind;
+        if (TestUtil.findAll(em, ElementKind.class).isEmpty()) {
+            elementKind = ElementKindResourceIT.createUpdatedEntity(em);
+            em.persist(elementKind);
+            em.flush();
+        } else {
+            elementKind = TestUtil.findAll(em, ElementKind.class).get(0);
+        }
+        element.setElementKind(elementKind);
         return element;
     }
 

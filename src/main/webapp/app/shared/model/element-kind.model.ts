@@ -7,8 +7,8 @@ export interface IElementKind {
   gramPerMeterLinearMass?: number;
   milimeterDiameter?: number;
   insulationThickness?: number;
-  copper?: ICopper | null;
-  insulationMaterial?: IMaterial | null;
+  copper?: ICopper;
+  insulationMaterial?: IMaterial;
 }
 
 export const defaultValue: Readonly<IElementKind> = {};

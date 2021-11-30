@@ -18,6 +18,7 @@
       "relationshipType": "many-to-one",
       "otherEntityName": "elementKind",
       "otherEntityRelationshipName": "element",
+      "relationshipValidateRules": "required",
       "relationshipName": "elementKind"
     }
   ],
