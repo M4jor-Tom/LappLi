@@ -19,6 +19,7 @@
       },
       "id": "ID",
       "index": "Index",
+      "name": "Releveuse",
       "minimumMilimeterDiameter": "Minimum Milimeter Diameter",
       "maximumMilimeterDiameter": "Maximum Milimeter Diameter",
       "supportsSpirallyColoredMarkingType": "Supports Spirally Colored Marking Type",
