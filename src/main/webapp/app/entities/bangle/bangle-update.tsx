@@ -83,7 +83,7 @@ export const BangleUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.bangle.number')}
+                label={translate('lappLiApp.article.number')}
                 id="bangle-number"
                 name="number"
                 data-cy="number"
@@ -94,7 +94,7 @@ export const BangleUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 }}
               />
               <ValidatedField
-                label={translate('lappLiApp.bangle.designation')}
+                label={translate('lappLiApp.article.designation')}
                 id="bangle-designation"
                 name="designation"
                 data-cy="designation"
@@ -104,7 +104,7 @@ export const BangleUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 }}
               />
               <ValidatedField
-                label={translate('lappLiApp.bangle.gramPerMeterLinearMass')}
+                label={translate('lappLiApp.dimension.gramPerMeterLinearMass')}
                 id="bangle-gramPerMeterLinearMass"
                 name="gramPerMeterLinearMass"
                 data-cy="gramPerMeterLinearMass"
@@ -115,7 +115,7 @@ export const BangleUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 }}
               />
               <ValidatedField
-                label={translate('lappLiApp.bangle.milimeterDiameter')}
+                label={translate('lappLiApp.dimension.milimeterDiameter')}
                 id="bangle-milimeterDiameter"
                 name="milimeterDiameter"
                 data-cy="milimeterDiameter"

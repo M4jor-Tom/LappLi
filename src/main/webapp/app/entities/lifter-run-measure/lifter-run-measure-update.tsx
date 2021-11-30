@@ -96,14 +96,14 @@ export const LifterRunMeasureUpdate = (props: RouteComponentProps<{ id: string }
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.lifterRunMeasure.milimeterDiameter')}
+                label={translate('lappLiApp.dimension.milimeterDiameter')}
                 id="lifter-run-measure-milimeterDiameter"
                 name="milimeterDiameter"
                 data-cy="milimeterDiameter"
                 type="text"
               />
               <ValidatedField
-                label={translate('lappLiApp.lifterRunMeasure.meterPerSecondSpeed')}
+                label={translate('lappLiApp.supply.meterPerSecondSpeed')}
                 id="lifter-run-measure-meterPerSecondSpeed"
                 name="meterPerSecondSpeed"
                 data-cy="meterPerSecondSpeed"
@@ -136,7 +136,7 @@ export const LifterRunMeasureUpdate = (props: RouteComponentProps<{ id: string }
                 ))}
               </ValidatedField>
               <ValidatedField
-                label={translate('lappLiApp.lifterRunMeasure.hourPreparationTime')}
+                label={translate('lappLiApp.supply.hourPreparationTime')}
                 id="lifter-run-measure-hourPreparationTime"
                 name="hourPreparationTime"
                 data-cy="hourPreparationTime"

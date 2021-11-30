@@ -93,7 +93,7 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ id: string }>) 
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.elementSupply.apparitions')}
+                label={translate('lappLiApp.supply.apparitions')}
                 id="element-supply-apparitions"
                 name="apparitions"
                 data-cy="apparitions"
