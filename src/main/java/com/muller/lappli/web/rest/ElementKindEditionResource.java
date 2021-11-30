@@ -2,6 +2,7 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.ElementKindEdition;
 import com.muller.lappli.repository.ElementKindEditionRepository;
+import com.muller.lappli.service.ElementKindEditionService;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -34,9 +35,15 @@ public class ElementKindEditionResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
+    private final ElementKindEditionService elementKindEditionService;
+
     private final ElementKindEditionRepository elementKindEditionRepository;
 
-    public ElementKindEditionResource(ElementKindEditionRepository elementKindEditionRepository) {
+    public ElementKindEditionResource(
+        ElementKindEditionService elementKindEditionService,
+        ElementKindEditionRepository elementKindEditionRepository
+    ) {
+        this.elementKindEditionService = elementKindEditionService;
         this.elementKindEditionRepository = elementKindEditionRepository;
     }
 
@@ -54,7 +61,7 @@ public class ElementKindEditionResource {
         if (elementKindEdition.getId() != null) {
             throw new BadRequestAlertException("A new elementKindEdition cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ElementKindEdition result = elementKindEditionRepository.save(elementKindEdition);
+        ElementKindEdition result = elementKindEditionService.save(elementKindEdition);
         return ResponseEntity
             .created(new URI("/api/element-kind-editions/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -88,7 +95,7 @@ public class ElementKindEditionResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        ElementKindEdition result = elementKindEditionRepository.save(elementKindEdition);
+        ElementKindEdition result = elementKindEditionService.save(elementKindEdition);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, elementKindEdition.getId().toString()))
@@ -123,25 +130,7 @@ public class ElementKindEditionResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<ElementKindEdition> result = elementKindEditionRepository
-            .findById(elementKindEdition.getId())
-            .map(existingElementKindEdition -> {
-                if (elementKindEdition.getEditionDateTime() != null) {
-                    existingElementKindEdition.setEditionDateTime(elementKindEdition.getEditionDateTime());
-                }
-                if (elementKindEdition.getNewGramPerMeterLinearMass() != null) {
-                    existingElementKindEdition.setNewGramPerMeterLinearMass(elementKindEdition.getNewGramPerMeterLinearMass());
-                }
-                if (elementKindEdition.getNewMilimeterDiameter() != null) {
-                    existingElementKindEdition.setNewMilimeterDiameter(elementKindEdition.getNewMilimeterDiameter());
-                }
-                if (elementKindEdition.getNewInsulationThickness() != null) {
-                    existingElementKindEdition.setNewInsulationThickness(elementKindEdition.getNewInsulationThickness());
-                }
-
-                return existingElementKindEdition;
-            })
-            .map(elementKindEditionRepository::save);
+        Optional<ElementKindEdition> result = elementKindEditionService.partialUpdate(elementKindEdition);
 
         return ResponseUtil.wrapOrNotFound(
             result,
@@ -157,7 +146,7 @@ public class ElementKindEditionResource {
     @GetMapping("/element-kind-editions")
     public List<ElementKindEdition> getAllElementKindEditions() {
         log.debug("REST request to get all ElementKindEditions");
-        return elementKindEditionRepository.findAll();
+        return elementKindEditionService.findAll();
     }
 
     /**
@@ -169,7 +158,7 @@ public class ElementKindEditionResource {
     @GetMapping("/element-kind-editions/{id}")
     public ResponseEntity<ElementKindEdition> getElementKindEdition(@PathVariable Long id) {
         log.debug("REST request to get ElementKindEdition : {}", id);
-        Optional<ElementKindEdition> elementKindEdition = elementKindEditionRepository.findById(id);
+        Optional<ElementKindEdition> elementKindEdition = elementKindEditionService.findOne(id);
         return ResponseUtil.wrapOrNotFound(elementKindEdition);
     }
 
@@ -182,7 +171,7 @@ public class ElementKindEditionResource {
     @DeleteMapping("/element-kind-editions/{id}")
     public ResponseEntity<Void> deleteElementKindEdition(@PathVariable Long id) {
         log.debug("REST request to delete ElementKindEdition : {}", id);
-        elementKindEditionRepository.deleteById(id);
+        elementKindEditionService.delete(id);
         return ResponseEntity
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))

@@ -88,6 +88,8 @@ entity ElementKindEdition {
     newInsulationThickness Double
 }
 
+service ElementKindEdition with serviceClass
+
 relationship ManyToOne {
 	ElementKindEdition{editedElementKind required} to ElementKind
 }
