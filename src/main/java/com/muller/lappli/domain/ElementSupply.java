@@ -43,11 +43,23 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
     private Element element;
 
     public MarkingTechnique getMarkingTechnique() {
+        if (getForcedMarking().isBlank() && !getMarkingType().equals(MarkingType.NUMBERED)) {
+            //A marking technique is necessary when something is written only
+            return MarkingTechnique.NONE;
+        }
+
         return MarkingTechnique.INK_JET;
     }
 
     public String getInsulationMaterialDesignation() {
-        return getElement().getElementKind().getInsulationMaterial().getDesignation();
+        try {
+            return getElement().getElementKind().getInsulationMaterial().getDesignation();
+        } catch (Exception e) {
+            //[HOTFIX] of ElementKind.getInsulationMaterial() being null
+            //when creating ElementSupply
+            //Strange cause it cannot be
+            return "";
+        }
     }
 
     @Override
