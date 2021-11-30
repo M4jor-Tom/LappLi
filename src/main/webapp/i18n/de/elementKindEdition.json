@@ -1,0 +1,28 @@
+{
+  "lappLiApp": {
+    "elementKindEdition": {
+      "home": {
+        "title": "Element Kind Editions",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Element Kind Edition erstellen",
+        "createOrEditLabel": "Element Kind Edition erstellen oder bearbeiten",
+        "notFound": "Keine Element Kind Editions gefunden"
+      },
+      "created": "Element Kind Edition erstellt mit ID {{ param }}",
+      "updated": "Element Kind Edition aktualisiert mit ID {{ param }}",
+      "deleted": "Element Kind Edition gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Element Kind Edition {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Element Kind Edition"
+      },
+      "id": "ID",
+      "editionDateTime": "Edition Date Time",
+      "newGramPerMeterLinearMass": "New Gram Per Meter Linear Mass",
+      "newMilimeterDiameter": "New Milimeter Diameter",
+      "newInsulationThickness": "New Insulation Thickness",
+      "editedElementKind": "Edited Element Kind"
+    }
+  }
+}

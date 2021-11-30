@@ -81,6 +81,17 @@ relationship ManyToOne {
 	Element{elementKind required} to ElementKind
 }
 
+entity ElementKindEdition {
+	editionDateTime Instant required
+    newGramPerMeterLinearMass Double
+    newMilimeterDiameter Double
+    newInsulationThickness Double
+}
+
+relationship ManyToOne {
+	ElementKindEdition{editedElementKind required} to ElementKind
+}
+
 entity ElementKind {
 	designation String unique required
     gramPerMeterLinearMass Double required

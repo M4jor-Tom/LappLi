@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+    <!--
+        Added the constraints for entity ElementKindEdition.
+    -->
+    <changeSet id="20211130133222-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="edited_element_kind_id"
+                                 baseTableName="element_kind_edition"
+                                 constraintName="fk_element_kind_edition__edited_element_kind_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="element_kind"/>
+    </changeSet>
+</databaseChangeLog>

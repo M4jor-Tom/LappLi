@@ -17,6 +17,7 @@
         "lifterRunMeasure": "Lifter Run Measure",
         "bangleSupply": "Bangle Supply",
         "bangle": "Bangle",
+        "elementKindEdition": "Element Kind Edition",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

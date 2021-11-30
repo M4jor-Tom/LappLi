@@ -57,6 +57,7 @@ public class CacheConfiguration {
             createCache(cm, com.muller.lappli.domain.LifterRunMeasure.class.getName());
             createCache(cm, com.muller.lappli.domain.BangleSupply.class.getName());
             createCache(cm, com.muller.lappli.domain.Bangle.class.getName());
+            createCache(cm, com.muller.lappli.domain.ElementKindEdition.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
