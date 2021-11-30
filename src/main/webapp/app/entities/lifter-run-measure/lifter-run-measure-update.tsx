@@ -154,7 +154,7 @@ export const LifterRunMeasureUpdate = (props: RouteComponentProps<{ id: string }
                 {lifters
                   ? lifters.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {otherEntity.name}
                       </option>
                     ))
                   : null}

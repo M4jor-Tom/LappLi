@@ -112,7 +112,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
                 {bangles
                   ? bangles.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {otherEntity.designation}
                       </option>
                     ))
                   : null}
