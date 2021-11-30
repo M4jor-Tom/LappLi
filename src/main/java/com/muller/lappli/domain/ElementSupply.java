@@ -52,7 +52,14 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
     }
 
     public String getInsulationMaterialDesignation() {
-        return getElement().getElementKind().getInsulationMaterial().getDesignation();
+        try {
+            return getElement().getElementKind().getInsulationMaterial().getDesignation();
+        } catch (Exception e) {
+            //[HOTFIX] of ElementKind.getInsulationMaterial() being null
+            //when creating ElementSupply
+            //Strange cause it cannot be
+            return "";
+        }
     }
 
     @Override
