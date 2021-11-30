@@ -83,7 +83,7 @@ export const MaterialUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.material.number')}
+                label={translate('lappLiApp.article.number')}
                 id="material-number"
                 name="number"
                 data-cy="number"
@@ -94,7 +94,7 @@ export const MaterialUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 }}
               />
               <ValidatedField
-                label={translate('lappLiApp.material.designation')}
+                label={translate('lappLiApp.article.designation')}
                 id="material-designation"
                 name="designation"
                 data-cy="designation"

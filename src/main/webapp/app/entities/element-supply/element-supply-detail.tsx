@@ -50,17 +50,17 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           <dt>
             <Translate contentKey="lappLiApp.article.number">Article Number</Translate>
           </dt>
-          <dd>{elementSupplyEntity?.element.number}</dd>
+          <dd>{elementSupplyEntity.element?.number}</dd>
           <dt>
             <Translate contentKey="lappLiApp.elementSupply.element">Element</Translate>
           </dt>
-          <dd>{elementSupplyEntity?.element.designationWithColor}</dd>
+          <dd>{elementSupplyEntity.element?.designationWithColor}</dd>
           <dt>
             <Translate contentKey="lappLiApp.dimension.meterQuantity">Quantity (m)</Translate>
           </dt>
           <dd>{elementSupplyEntity.meterQuantity}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.dimensions.milimeterDiameter">Diameter (mm)</Translate>
+            <Translate contentKey="lappLiApp.dimension.milimeterDiameter">Diameter (mm)</Translate>
           </dt>
           <dd>{elementSupplyEntity.milimeterDiameter}</dd>
           <dt>
