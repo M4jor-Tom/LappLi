@@ -38,7 +38,7 @@ export const BangleSupplyDetail = (props: RouteComponentProps<{ id: string }>) =
           <dt>
             <Translate contentKey="lappLiApp.bangleSupply.bangle">Bangle</Translate>
           </dt>
-          <dd>{bangleSupplyEntity.bangle ? bangleSupplyEntity.bangle.id : ''}</dd>
+          <dd>{bangleSupplyEntity.bangle.designation}</dd>
         </dl>
         <Button tag={Link} to="/bangle-supply" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

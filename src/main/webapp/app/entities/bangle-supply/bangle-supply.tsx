@@ -67,7 +67,9 @@ export const BangleSupply = (props: RouteComponentProps<{ url: string }>) => {
                     </Button>
                   </td>
                   <td>{bangleSupply.apparitions}</td>
-                  <td>{bangleSupply.bangle ? <Link to={`bangle/${bangleSupply.bangle.id}`}>{bangleSupply.bangle.id}</Link> : ''}</td>
+                  <td>
+                    <Link to={`bangle/${bangleSupply.bangle.id}`}>{bangleSupply.bangle.designation}</Link>
+                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${bangleSupply.id}`} color="info" size="sm" data-cy="entityDetailsButton">
