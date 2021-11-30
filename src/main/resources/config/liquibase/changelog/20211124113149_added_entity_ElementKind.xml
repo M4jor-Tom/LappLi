@@ -15,7 +15,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="designation" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_element_kind__designation" />
             </column>
             <column name="gram_per_meter_linear_mass" type="double">
                 <constraints nullable="false" />

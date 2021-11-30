@@ -8,6 +8,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,7 +48,7 @@ public class LifterRunMeasureResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/lifter-run-measures")
-    public ResponseEntity<LifterRunMeasure> createLifterRunMeasure(@RequestBody LifterRunMeasure lifterRunMeasure)
+    public ResponseEntity<LifterRunMeasure> createLifterRunMeasure(@Valid @RequestBody LifterRunMeasure lifterRunMeasure)
         throws URISyntaxException {
         log.debug("REST request to save LifterRunMeasure : {}", lifterRunMeasure);
         if (lifterRunMeasure.getId() != null) {
@@ -72,7 +74,7 @@ public class LifterRunMeasureResource {
     @PutMapping("/lifter-run-measures/{id}")
     public ResponseEntity<LifterRunMeasure> updateLifterRunMeasure(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody LifterRunMeasure lifterRunMeasure
+        @Valid @RequestBody LifterRunMeasure lifterRunMeasure
     ) throws URISyntaxException {
         log.debug("REST request to update LifterRunMeasure : {}, {}", id, lifterRunMeasure);
         if (lifterRunMeasure.getId() == null) {
@@ -107,7 +109,7 @@ public class LifterRunMeasureResource {
     @PatchMapping(value = "/lifter-run-measures/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<LifterRunMeasure> partialUpdateLifterRunMeasure(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody LifterRunMeasure lifterRunMeasure
+        @NotNull @RequestBody LifterRunMeasure lifterRunMeasure
     ) throws URISyntaxException {
         log.debug("REST request to partial update LifterRunMeasure partially : {}, {}", id, lifterRunMeasure);
         if (lifterRunMeasure.getId() == null) {
@@ -132,6 +134,9 @@ public class LifterRunMeasureResource {
                 }
                 if (lifterRunMeasure.getMarkingType() != null) {
                     existingLifterRunMeasure.setMarkingType(lifterRunMeasure.getMarkingType());
+                }
+                if (lifterRunMeasure.getMarkingTechnique() != null) {
+                    existingLifterRunMeasure.setMarkingTechnique(lifterRunMeasure.getMarkingTechnique());
                 }
                 if (lifterRunMeasure.getHourPreparationTime() != null) {
                     existingLifterRunMeasure.setHourPreparationTime(lifterRunMeasure.getHourPreparationTime());

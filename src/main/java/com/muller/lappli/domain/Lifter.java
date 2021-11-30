@@ -24,7 +24,7 @@ public class Lifter implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "jhi_index", nullable = false)
+    @Column(name = "jhi_index", nullable = false, unique = true)
     private Long index;
 
     @NotNull

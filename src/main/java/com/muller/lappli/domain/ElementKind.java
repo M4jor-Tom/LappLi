@@ -23,7 +23,7 @@ public class ElementKind extends AbstractCableAtom implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "designation", nullable = false)
+    @Column(name = "designation", nullable = false, unique = true)
     private String designation;
 
     @NotNull

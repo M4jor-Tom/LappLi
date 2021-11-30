@@ -15,7 +15,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="number" type="bigint">
-                <constraints nullable="false" />
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_element__number" />
             </column>
             <column name="color" type="varchar(255)">
                 <constraints nullable="false" />

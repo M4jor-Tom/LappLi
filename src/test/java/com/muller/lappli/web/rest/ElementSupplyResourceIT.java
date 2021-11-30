@@ -167,6 +167,23 @@ class ElementSupplyResourceIT {
 
     @Test
     @Transactional
+    void checkMarkingTypeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = elementSupplyRepository.findAll().size();
+        // set the field null
+        elementSupply.setMarkingType(null);
+
+        // Create the ElementSupply, which fails.
+
+        restElementSupplyMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(elementSupply)))
+            .andExpect(status().isBadRequest());
+
+        List<ElementSupply> elementSupplyList = elementSupplyRepository.findAll();
+        assertThat(elementSupplyList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllElementSupplies() throws Exception {
         // Initialize the database
         elementSupplyRepository.saveAndFlush(elementSupply);

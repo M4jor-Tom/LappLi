@@ -34,8 +34,9 @@ public class ElementSupply implements Serializable {
     @Column(name = "forced_marking")
     private String forcedMarking;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "marking_type")
+    @Column(name = "marking_type", nullable = false)
     private MarkingType markingType;
 
     @ManyToOne(optional = false)

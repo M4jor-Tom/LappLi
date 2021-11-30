@@ -1,5 +1,5 @@
 entity Lifter {
-	index Long required
+	index Long unique required
 	minimumMilimeterDiameter Double required
     maximumMilimeterDiameter Double required
     supportsSpirallyColoredMarkingType Boolean required
@@ -16,12 +16,13 @@ service Lifter with serviceImpl
 entity LifterRunMeasure {
 	milimeterDiameter Double
     meterPerSecondSpeed Double
-    markingType MarkingType
+    markingType MarkingType required
+    markingTechnique MarkingTechnique required
     hourPreparationTime Double
 }
 
 relationship ManyToOne {
-	LifterRunMeasure{lifter} to Lifter
+	LifterRunMeasure{lifter required} to Lifter
 }
 
 entity BangleSupply {
@@ -35,7 +36,7 @@ service BangleSupply with serviceClass
 entity ElementSupply {
 	apparitions Long required
     forcedMarking String
-    markingType MarkingType
+    markingType MarkingType required
 }
 
 filter ElementSupply
@@ -51,6 +52,7 @@ enum MarkingType {
 }
 
 enum MarkingTechnique {
+	NONE,
     INK_JET,
     RSD
 }
@@ -64,14 +66,14 @@ relationship ManyToOne {
 }
 
 entity Bangle {
-	number Long required
-    designation String required
+	number Long unique required
+    designation String unique required
     gramPerMeterLinearMass Double required
     milimeterDiameter Double required
 }
 
 entity Element {
-	number Long required
+	number Long unique required
     color Color required
 }
 
@@ -80,7 +82,7 @@ relationship ManyToOne {
 }
 
 entity ElementKind {
-	designation String required
+	designation String unique required
     gramPerMeterLinearMass Double required
     milimeterDiameter Double required
     insulationThickness Double required
@@ -95,13 +97,13 @@ relationship ManyToOne {
 }
 
 entity Copper {
-	number Long required
-	designation String required
+	number Long unique required
+	designation String unique required
 }
 
 entity Material {
-	number Long required
-	designation String required
+	number Long unique required
+	designation String unique required
     isMarkable Boolean required
 }
 
