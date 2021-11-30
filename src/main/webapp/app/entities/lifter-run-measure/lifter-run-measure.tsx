@@ -88,7 +88,7 @@ export const LifterRunMeasure = (props: RouteComponentProps<{ url: string }>) =>
                   </td>
                   <td>{lifterRunMeasure.hourPreparationTime}</td>
                   <td>
-                    {lifterRunMeasure.lifter ? <Link to={`lifter/${lifterRunMeasure.lifter.id}`}>{lifterRunMeasure.lifter.id}</Link> : ''}
+                    <Link to={`lifter/${lifterRunMeasure.lifter.id}`}>{lifterRunMeasure.lifter.name}</Link>
                   </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

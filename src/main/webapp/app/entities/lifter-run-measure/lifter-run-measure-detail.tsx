@@ -62,7 +62,7 @@ export const LifterRunMeasureDetail = (props: RouteComponentProps<{ id: string }
           <dt>
             <Translate contentKey="lappLiApp.lifterRunMeasure.lifter">Lifter</Translate>
           </dt>
-          <dd>{lifterRunMeasureEntity.lifter ? lifterRunMeasureEntity.lifter.id : ''}</dd>
+          <dd>{lifterRunMeasureEntity.lifter.name}</dd>
         </dl>
         <Button tag={Link} to="/lifter-run-measure" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
