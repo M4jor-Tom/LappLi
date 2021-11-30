@@ -1,5 +1,5 @@
 entity Lifter {
-	index Long required
+	index Long unique required
 	minimumMilimeterDiameter Double required
     maximumMilimeterDiameter Double required
     supportsSpirallyColoredMarkingType Boolean required
@@ -66,14 +66,14 @@ relationship ManyToOne {
 }
 
 entity Bangle {
-	number Long required
-    designation String required
+	number Long unique required
+    designation String unique required
     gramPerMeterLinearMass Double required
     milimeterDiameter Double required
 }
 
 entity Element {
-	number Long required
+	number Long unique required
     color Color required
 }
 
@@ -82,7 +82,7 @@ relationship ManyToOne {
 }
 
 entity ElementKind {
-	designation String required
+	designation String unique required
     gramPerMeterLinearMass Double required
     milimeterDiameter Double required
     insulationThickness Double required
@@ -97,13 +97,13 @@ relationship ManyToOne {
 }
 
 entity Copper {
-	number Long required
-	designation String required
+	number Long unique required
+	designation String unique required
 }
 
 entity Material {
-	number Long required
-	designation String required
+	number Long unique required
+	designation String unique required
     isMarkable Boolean required
 }
 

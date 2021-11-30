@@ -4,7 +4,7 @@
     {
       "fieldName": "index",
       "fieldType": "Long",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["unique", "required"]
     },
     {
       "fieldName": "minimumMilimeterDiameter",

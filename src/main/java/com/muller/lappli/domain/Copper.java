@@ -23,11 +23,11 @@ public class Copper implements Article, Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "number", nullable = false)
+    @Column(name = "number", nullable = false, unique = true)
     private Long number;
 
     @NotNull
-    @Column(name = "designation", nullable = false)
+    @Column(name = "designation", nullable = false, unique = true)
     private String designation;
 
     @Override

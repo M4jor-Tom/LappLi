@@ -26,7 +26,7 @@ public class Element extends AbstractAssemblableAtom implements Article, Seriali
     private Long id;
 
     @NotNull
-    @Column(name = "number", nullable = false)
+    @Column(name = "number", nullable = false, unique = true)
     private Long number;
 
     @NotNull

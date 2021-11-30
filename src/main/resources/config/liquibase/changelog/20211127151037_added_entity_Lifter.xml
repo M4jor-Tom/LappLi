@@ -15,7 +15,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="jhi_index" type="bigint">
-                <constraints nullable="false" />
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_lifter__jhi_index" />
             </column>
             <column name="minimum_milimeter_diameter" type="double">
                 <constraints nullable="false" />

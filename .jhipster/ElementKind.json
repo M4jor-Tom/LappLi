@@ -4,7 +4,7 @@
     {
       "fieldName": "designation",
       "fieldType": "String",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["unique", "required"]
     },
     {
       "fieldName": "gramPerMeterLinearMass",
