@@ -6,7 +6,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.muller.lappli.IntegrationTest;
+import com.muller.lappli.domain.Lifter;
 import com.muller.lappli.domain.LifterRunMeasure;
+import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.repository.LifterRunMeasureRepository;
 import java.util.List;
@@ -39,6 +41,9 @@ class LifterRunMeasureResourceIT {
     private static final MarkingType DEFAULT_MARKING_TYPE = MarkingType.LIFTING;
     private static final MarkingType UPDATED_MARKING_TYPE = MarkingType.SPIRALLY_COLORED;
 
+    private static final MarkingTechnique DEFAULT_MARKING_TECHNIQUE = MarkingTechnique.NONE;
+    private static final MarkingTechnique UPDATED_MARKING_TECHNIQUE = MarkingTechnique.INK_JET;
+
     private static final Double DEFAULT_HOUR_PREPARATION_TIME = 1D;
     private static final Double UPDATED_HOUR_PREPARATION_TIME = 2D;
 
@@ -70,7 +75,18 @@ class LifterRunMeasureResourceIT {
             .milimeterDiameter(DEFAULT_MILIMETER_DIAMETER)
             .meterPerSecondSpeed(DEFAULT_METER_PER_SECOND_SPEED)
             .markingType(DEFAULT_MARKING_TYPE)
+            .markingTechnique(DEFAULT_MARKING_TECHNIQUE)
             .hourPreparationTime(DEFAULT_HOUR_PREPARATION_TIME);
+        // Add required entity
+        Lifter lifter;
+        if (TestUtil.findAll(em, Lifter.class).isEmpty()) {
+            lifter = LifterResourceIT.createEntity(em);
+            em.persist(lifter);
+            em.flush();
+        } else {
+            lifter = TestUtil.findAll(em, Lifter.class).get(0);
+        }
+        lifterRunMeasure.setLifter(lifter);
         return lifterRunMeasure;
     }
 
@@ -85,7 +101,18 @@ class LifterRunMeasureResourceIT {
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
             .meterPerSecondSpeed(UPDATED_METER_PER_SECOND_SPEED)
             .markingType(UPDATED_MARKING_TYPE)
+            .markingTechnique(UPDATED_MARKING_TECHNIQUE)
             .hourPreparationTime(UPDATED_HOUR_PREPARATION_TIME);
+        // Add required entity
+        Lifter lifter;
+        if (TestUtil.findAll(em, Lifter.class).isEmpty()) {
+            lifter = LifterResourceIT.createUpdatedEntity(em);
+            em.persist(lifter);
+            em.flush();
+        } else {
+            lifter = TestUtil.findAll(em, Lifter.class).get(0);
+        }
+        lifterRunMeasure.setLifter(lifter);
         return lifterRunMeasure;
     }
 
@@ -112,6 +139,7 @@ class LifterRunMeasureResourceIT {
         assertThat(testLifterRunMeasure.getMilimeterDiameter()).isEqualTo(DEFAULT_MILIMETER_DIAMETER);
         assertThat(testLifterRunMeasure.getMeterPerSecondSpeed()).isEqualTo(DEFAULT_METER_PER_SECOND_SPEED);
         assertThat(testLifterRunMeasure.getMarkingType()).isEqualTo(DEFAULT_MARKING_TYPE);
+        assertThat(testLifterRunMeasure.getMarkingTechnique()).isEqualTo(DEFAULT_MARKING_TECHNIQUE);
         assertThat(testLifterRunMeasure.getHourPreparationTime()).isEqualTo(DEFAULT_HOUR_PREPARATION_TIME);
     }
 
@@ -137,6 +165,44 @@ class LifterRunMeasureResourceIT {
 
     @Test
     @Transactional
+    void checkMarkingTypeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = lifterRunMeasureRepository.findAll().size();
+        // set the field null
+        lifterRunMeasure.setMarkingType(null);
+
+        // Create the LifterRunMeasure, which fails.
+
+        restLifterRunMeasureMockMvc
+            .perform(
+                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(lifterRunMeasure))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<LifterRunMeasure> lifterRunMeasureList = lifterRunMeasureRepository.findAll();
+        assertThat(lifterRunMeasureList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkMarkingTechniqueIsRequired() throws Exception {
+        int databaseSizeBeforeTest = lifterRunMeasureRepository.findAll().size();
+        // set the field null
+        lifterRunMeasure.setMarkingTechnique(null);
+
+        // Create the LifterRunMeasure, which fails.
+
+        restLifterRunMeasureMockMvc
+            .perform(
+                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(lifterRunMeasure))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<LifterRunMeasure> lifterRunMeasureList = lifterRunMeasureRepository.findAll();
+        assertThat(lifterRunMeasureList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllLifterRunMeasures() throws Exception {
         // Initialize the database
         lifterRunMeasureRepository.saveAndFlush(lifterRunMeasure);
@@ -150,6 +216,7 @@ class LifterRunMeasureResourceIT {
             .andExpect(jsonPath("$.[*].milimeterDiameter").value(hasItem(DEFAULT_MILIMETER_DIAMETER.doubleValue())))
             .andExpect(jsonPath("$.[*].meterPerSecondSpeed").value(hasItem(DEFAULT_METER_PER_SECOND_SPEED.doubleValue())))
             .andExpect(jsonPath("$.[*].markingType").value(hasItem(DEFAULT_MARKING_TYPE.toString())))
+            .andExpect(jsonPath("$.[*].markingTechnique").value(hasItem(DEFAULT_MARKING_TECHNIQUE.toString())))
             .andExpect(jsonPath("$.[*].hourPreparationTime").value(hasItem(DEFAULT_HOUR_PREPARATION_TIME.doubleValue())));
     }
 
@@ -168,6 +235,7 @@ class LifterRunMeasureResourceIT {
             .andExpect(jsonPath("$.milimeterDiameter").value(DEFAULT_MILIMETER_DIAMETER.doubleValue()))
             .andExpect(jsonPath("$.meterPerSecondSpeed").value(DEFAULT_METER_PER_SECOND_SPEED.doubleValue()))
             .andExpect(jsonPath("$.markingType").value(DEFAULT_MARKING_TYPE.toString()))
+            .andExpect(jsonPath("$.markingTechnique").value(DEFAULT_MARKING_TECHNIQUE.toString()))
             .andExpect(jsonPath("$.hourPreparationTime").value(DEFAULT_HOUR_PREPARATION_TIME.doubleValue()));
     }
 
@@ -194,6 +262,7 @@ class LifterRunMeasureResourceIT {
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
             .meterPerSecondSpeed(UPDATED_METER_PER_SECOND_SPEED)
             .markingType(UPDATED_MARKING_TYPE)
+            .markingTechnique(UPDATED_MARKING_TECHNIQUE)
             .hourPreparationTime(UPDATED_HOUR_PREPARATION_TIME);
 
         restLifterRunMeasureMockMvc
@@ -211,6 +280,7 @@ class LifterRunMeasureResourceIT {
         assertThat(testLifterRunMeasure.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
         assertThat(testLifterRunMeasure.getMeterPerSecondSpeed()).isEqualTo(UPDATED_METER_PER_SECOND_SPEED);
         assertThat(testLifterRunMeasure.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
+        assertThat(testLifterRunMeasure.getMarkingTechnique()).isEqualTo(UPDATED_MARKING_TECHNIQUE);
         assertThat(testLifterRunMeasure.getHourPreparationTime()).isEqualTo(UPDATED_HOUR_PREPARATION_TIME);
     }
 
@@ -287,41 +357,6 @@ class LifterRunMeasureResourceIT {
         partialUpdatedLifterRunMeasure
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
             .meterPerSecondSpeed(UPDATED_METER_PER_SECOND_SPEED)
-            .markingType(UPDATED_MARKING_TYPE);
-
-        restLifterRunMeasureMockMvc
-            .perform(
-                patch(ENTITY_API_URL_ID, partialUpdatedLifterRunMeasure.getId())
-                    .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedLifterRunMeasure))
-            )
-            .andExpect(status().isOk());
-
-        // Validate the LifterRunMeasure in the database
-        List<LifterRunMeasure> lifterRunMeasureList = lifterRunMeasureRepository.findAll();
-        assertThat(lifterRunMeasureList).hasSize(databaseSizeBeforeUpdate);
-        LifterRunMeasure testLifterRunMeasure = lifterRunMeasureList.get(lifterRunMeasureList.size() - 1);
-        assertThat(testLifterRunMeasure.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
-        assertThat(testLifterRunMeasure.getMeterPerSecondSpeed()).isEqualTo(UPDATED_METER_PER_SECOND_SPEED);
-        assertThat(testLifterRunMeasure.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
-        assertThat(testLifterRunMeasure.getHourPreparationTime()).isEqualTo(DEFAULT_HOUR_PREPARATION_TIME);
-    }
-
-    @Test
-    @Transactional
-    void fullUpdateLifterRunMeasureWithPatch() throws Exception {
-        // Initialize the database
-        lifterRunMeasureRepository.saveAndFlush(lifterRunMeasure);
-
-        int databaseSizeBeforeUpdate = lifterRunMeasureRepository.findAll().size();
-
-        // Update the lifterRunMeasure using partial update
-        LifterRunMeasure partialUpdatedLifterRunMeasure = new LifterRunMeasure();
-        partialUpdatedLifterRunMeasure.setId(lifterRunMeasure.getId());
-
-        partialUpdatedLifterRunMeasure
-            .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
-            .meterPerSecondSpeed(UPDATED_METER_PER_SECOND_SPEED)
             .markingType(UPDATED_MARKING_TYPE)
             .hourPreparationTime(UPDATED_HOUR_PREPARATION_TIME);
 
@@ -340,6 +375,45 @@ class LifterRunMeasureResourceIT {
         assertThat(testLifterRunMeasure.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
         assertThat(testLifterRunMeasure.getMeterPerSecondSpeed()).isEqualTo(UPDATED_METER_PER_SECOND_SPEED);
         assertThat(testLifterRunMeasure.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
+        assertThat(testLifterRunMeasure.getMarkingTechnique()).isEqualTo(DEFAULT_MARKING_TECHNIQUE);
+        assertThat(testLifterRunMeasure.getHourPreparationTime()).isEqualTo(UPDATED_HOUR_PREPARATION_TIME);
+    }
+
+    @Test
+    @Transactional
+    void fullUpdateLifterRunMeasureWithPatch() throws Exception {
+        // Initialize the database
+        lifterRunMeasureRepository.saveAndFlush(lifterRunMeasure);
+
+        int databaseSizeBeforeUpdate = lifterRunMeasureRepository.findAll().size();
+
+        // Update the lifterRunMeasure using partial update
+        LifterRunMeasure partialUpdatedLifterRunMeasure = new LifterRunMeasure();
+        partialUpdatedLifterRunMeasure.setId(lifterRunMeasure.getId());
+
+        partialUpdatedLifterRunMeasure
+            .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
+            .meterPerSecondSpeed(UPDATED_METER_PER_SECOND_SPEED)
+            .markingType(UPDATED_MARKING_TYPE)
+            .markingTechnique(UPDATED_MARKING_TECHNIQUE)
+            .hourPreparationTime(UPDATED_HOUR_PREPARATION_TIME);
+
+        restLifterRunMeasureMockMvc
+            .perform(
+                patch(ENTITY_API_URL_ID, partialUpdatedLifterRunMeasure.getId())
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedLifterRunMeasure))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the LifterRunMeasure in the database
+        List<LifterRunMeasure> lifterRunMeasureList = lifterRunMeasureRepository.findAll();
+        assertThat(lifterRunMeasureList).hasSize(databaseSizeBeforeUpdate);
+        LifterRunMeasure testLifterRunMeasure = lifterRunMeasureList.get(lifterRunMeasureList.size() - 1);
+        assertThat(testLifterRunMeasure.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
+        assertThat(testLifterRunMeasure.getMeterPerSecondSpeed()).isEqualTo(UPDATED_METER_PER_SECOND_SPEED);
+        assertThat(testLifterRunMeasure.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
+        assertThat(testLifterRunMeasure.getMarkingTechnique()).isEqualTo(UPDATED_MARKING_TECHNIQUE);
         assertThat(testLifterRunMeasure.getHourPreparationTime()).isEqualTo(UPDATED_HOUR_PREPARATION_TIME);
     }
 

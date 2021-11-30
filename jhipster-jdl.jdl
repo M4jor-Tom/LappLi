@@ -16,12 +16,13 @@ service Lifter with serviceImpl
 entity LifterRunMeasure {
 	milimeterDiameter Double
     meterPerSecondSpeed Double
-    markingType MarkingType
+    markingType MarkingType required
+    markingTechnique MarkingTechnique required
     hourPreparationTime Double
 }
 
 relationship ManyToOne {
-	LifterRunMeasure{lifter} to Lifter
+	LifterRunMeasure{lifter required} to Lifter
 }
 
 entity BangleSupply {
@@ -35,7 +36,7 @@ service BangleSupply with serviceClass
 entity ElementSupply {
 	apparitions Long required
     forcedMarking String
-    markingType MarkingType
+    markingType MarkingType required
 }
 
 filter ElementSupply
@@ -51,6 +52,7 @@ enum MarkingType {
 }
 
 enum MarkingTechnique {
+	NONE,
     INK_JET,
     RSD
 }

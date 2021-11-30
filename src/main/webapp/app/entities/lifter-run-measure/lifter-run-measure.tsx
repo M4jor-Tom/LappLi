@@ -59,6 +59,9 @@ export const LifterRunMeasure = (props: RouteComponentProps<{ url: string }>) =>
                   <Translate contentKey="lappLiApp.lifterRunMeasure.markingType">Marking Type</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.lifterRunMeasure.markingTechnique">Marking Technique</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.lifterRunMeasure.hourPreparationTime">Hour Preparation Time</Translate>
                 </th>
                 <th>
@@ -79,6 +82,9 @@ export const LifterRunMeasure = (props: RouteComponentProps<{ url: string }>) =>
                   <td>{lifterRunMeasure.meterPerSecondSpeed}</td>
                   <td>
                     <Translate contentKey={`lappLiApp.MarkingType.${lifterRunMeasure.markingType}`} />
+                  </td>
+                  <td>
+                    <Translate contentKey={`lappLiApp.MarkingTechnique.${lifterRunMeasure.markingTechnique}`} />
                   </td>
                   <td>{lifterRunMeasure.hourPreparationTime}</td>
                   <td>

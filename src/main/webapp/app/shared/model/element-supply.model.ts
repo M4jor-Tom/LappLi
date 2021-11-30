@@ -6,7 +6,7 @@ export interface IElementSupply {
   id?: number;
   apparitions?: number;
   forcedMarking?: string | null;
-  markingType?: MarkingType | null;
+  markingType?: MarkingType;
   quantity?: number;
   element?: IElement;
   bestLiftersNames?: string;

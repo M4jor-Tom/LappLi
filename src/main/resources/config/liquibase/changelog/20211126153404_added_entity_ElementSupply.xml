@@ -21,7 +21,7 @@
                 <constraints nullable="true" />
             </column>
             <column name="marking_type" type="varchar(255)">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="element_id" type="bigint">
                 <constraints nullable="false" />

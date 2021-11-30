@@ -12,6 +12,7 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
+import { MarkingTechnique } from 'app/shared/model/enumerations/marking-technique.model';
 
 export const LifterRunMeasureUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
@@ -24,6 +25,7 @@ export const LifterRunMeasureUpdate = (props: RouteComponentProps<{ id: string }
   const updating = useAppSelector(state => state.lifterRunMeasure.updating);
   const updateSuccess = useAppSelector(state => state.lifterRunMeasure.updateSuccess);
   const markingTypeValues = Object.keys(MarkingType);
+  const markingTechniqueValues = Object.keys(MarkingTechnique);
   const handleClose = () => {
     props.history.push('/lifter-run-measure');
   };
@@ -63,6 +65,7 @@ export const LifterRunMeasureUpdate = (props: RouteComponentProps<{ id: string }
       ? {}
       : {
           markingType: 'LIFTING',
+          markingTechnique: 'NONE',
           ...lifterRunMeasureEntity,
           lifter: lifterRunMeasureEntity?.lifter?.id,
         };
@@ -120,6 +123,19 @@ export const LifterRunMeasureUpdate = (props: RouteComponentProps<{ id: string }
                 ))}
               </ValidatedField>
               <ValidatedField
+                label={translate('lappLiApp.lifterRunMeasure.markingTechnique')}
+                id="lifter-run-measure-markingTechnique"
+                name="markingTechnique"
+                data-cy="markingTechnique"
+                type="select"
+              >
+                {markingTechniqueValues.map(markingTechnique => (
+                  <option value={markingTechnique} key={markingTechnique}>
+                    {translate('lappLiApp.MarkingTechnique' + markingTechnique)}
+                  </option>
+                ))}
+              </ValidatedField>
+              <ValidatedField
                 label={translate('lappLiApp.lifterRunMeasure.hourPreparationTime')}
                 id="lifter-run-measure-hourPreparationTime"
                 name="hourPreparationTime"
@@ -132,6 +148,7 @@ export const LifterRunMeasureUpdate = (props: RouteComponentProps<{ id: string }
                 data-cy="lifter"
                 label={translate('lappLiApp.lifterRunMeasure.lifter')}
                 type="select"
+                required
               >
                 <option value="" key="0" />
                 {lifters
@@ -142,6 +159,9 @@ export const LifterRunMeasureUpdate = (props: RouteComponentProps<{ id: string }
                     ))
                   : null}
               </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/lifter-run-measure" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
