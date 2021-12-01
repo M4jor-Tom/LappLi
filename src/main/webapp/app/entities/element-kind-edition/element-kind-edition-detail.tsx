@@ -60,7 +60,7 @@ export const ElementKindEditionDetail = (props: RouteComponentProps<{ id: string
           <dt>
             <Translate contentKey="lappLiApp.elementKindEdition.editedElementKind">Edited Element Kind</Translate>
           </dt>
-          <dd>{elementKindEditionEntity.editedElementKind ? elementKindEditionEntity.editedElementKind.id : ''}</dd>
+          <dd>{elementKindEditionEntity.editedElementKind.designation}</dd>
         </dl>
         <Button tag={Link} to="/element-kind-edition" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
