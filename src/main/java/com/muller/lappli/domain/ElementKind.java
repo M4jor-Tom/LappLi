@@ -46,6 +46,26 @@ public class ElementKind extends AbstractCableAtom implements Serializable {
     @NotNull
     private Material insulationMaterial;
 
+    public ElementKind() {
+        this("", Double.NaN, Double.NaN, Double.NaN, new Copper(), new Material());
+    }
+
+    public ElementKind(
+        String designation,
+        Double gramPerMeterLinearMass,
+        Double milimeterDiameter,
+        Double insulationThickness,
+        Copper copper,
+        Material insulationMaterial
+    ) {
+        setDesignation(designation);
+        setGramPerMeterLinearMass(gramPerMeterLinearMass);
+        setMilimeterDiameter(milimeterDiameter);
+        setInsulationThickness(insulationThickness);
+        setCopper(copper);
+        setInsulationMaterial(insulationMaterial);
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {

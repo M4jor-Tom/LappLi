@@ -30,6 +30,15 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
     @NotNull
     private Bangle bangle;
 
+    public BangleSupply() {
+        this(null, new Bangle());
+    }
+
+    public BangleSupply(Long apparitions, Bangle bangle) {
+        setApparitions(apparitions);
+        setBangle(bangle);
+    }
+
     @Override
     public Double getMilimeterDiameter() {
         return getBangle().getMilimeterDiameter();
