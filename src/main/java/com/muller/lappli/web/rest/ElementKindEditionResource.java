@@ -1,13 +1,11 @@
 package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.ElementKindEdition;
-import com.muller.lappli.repository.ElementKindEditionRepository;
 import com.muller.lappli.service.ElementKindEditionService;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -37,14 +35,14 @@ public class ElementKindEditionResource {
 
     private final ElementKindEditionService elementKindEditionService;
 
-    private final ElementKindEditionRepository elementKindEditionRepository;
+    //private final ElementKindEditionRepository elementKindEditionRepository;
 
     public ElementKindEditionResource(
-        ElementKindEditionService elementKindEditionService,
-        ElementKindEditionRepository elementKindEditionRepository
+        ElementKindEditionService elementKindEditionService //,
+        //ElementKindEditionRepository elementKindEditionRepository
     ) {
         this.elementKindEditionService = elementKindEditionService;
-        this.elementKindEditionRepository = elementKindEditionRepository;
+        //this.elementKindEditionRepository = elementKindEditionRepository;
     }
 
     /**
@@ -83,7 +81,7 @@ public class ElementKindEditionResource {
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody ElementKindEdition elementKindEdition
     ) throws URISyntaxException {
-        log.debug("REST request to update ElementKindEdition : {}, {}", id, elementKindEdition);
+        /*log.debug("REST request to update ElementKindEdition : {}, {}", id, elementKindEdition);
         if (elementKindEdition.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
@@ -99,7 +97,8 @@ public class ElementKindEditionResource {
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, elementKindEdition.getId().toString()))
-            .body(result);
+            .body(result);*/
+        return null;
     }
 
     /**
@@ -118,7 +117,7 @@ public class ElementKindEditionResource {
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody ElementKindEdition elementKindEdition
     ) throws URISyntaxException {
-        log.debug("REST request to partial update ElementKindEdition partially : {}, {}", id, elementKindEdition);
+        /*log.debug("REST request to partial update ElementKindEdition partially : {}, {}", id, elementKindEdition);
         if (elementKindEdition.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
@@ -135,7 +134,8 @@ public class ElementKindEditionResource {
         return ResponseUtil.wrapOrNotFound(
             result,
             HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, elementKindEdition.getId().toString())
-        );
+        );*/
+        return null;
     }
 
     /**
@@ -159,6 +159,11 @@ public class ElementKindEditionResource {
     public ResponseEntity<ElementKindEdition> getElementKindEdition(@PathVariable Long id) {
         log.debug("REST request to get ElementKindEdition : {}", id);
         Optional<ElementKindEdition> elementKindEdition = elementKindEditionService.findOne(id);
+
+        if (elementKindEdition.isPresent()) {
+            elementKindEdition.get().forceNotNull();
+        }
+
         return ResponseUtil.wrapOrNotFound(elementKindEdition);
     }
 
@@ -170,11 +175,12 @@ public class ElementKindEditionResource {
      */
     @DeleteMapping("/element-kind-editions/{id}")
     public ResponseEntity<Void> deleteElementKindEdition(@PathVariable Long id) {
-        log.debug("REST request to delete ElementKindEdition : {}", id);
+        /*log.debug("REST request to delete ElementKindEdition : {}", id);
         elementKindEditionService.delete(id);
         return ResponseEntity
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
-            .build();
+            .build();*/
+        return null;
     }
 }

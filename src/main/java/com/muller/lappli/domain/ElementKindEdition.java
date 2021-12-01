@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.interfaces.NotNullForceable;
 import java.io.Serializable;
 import java.time.Instant;
 import javax.persistence.*;
@@ -14,7 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element_kind_edition")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ElementKindEdition implements Serializable {
+public class ElementKindEdition implements NotNullForceable<ElementKindEdition>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -56,6 +57,54 @@ public class ElementKindEdition implements Serializable {
         setNewMilimeterDiameter(newMilimeterDiameter);
         setNewInsulationThickness(newInsulationThickness);
         setEditedElementKind(editedElementKind);
+    }
+
+    public ElementKind update(ElementKind elementKind) {
+        if (!getNewGramPerMeterLinearMass().isNaN()) {
+            elementKind.setGramPerMeterLinearMass(getNewGramPerMeterLinearMass());
+        }
+        if (!getNewMilimeterDiameter().isNaN()) {
+            elementKind.setMilimeterDiameter(getNewMilimeterDiameter());
+        }
+        if (!getNewInsulationThickness().isNaN()) {
+            elementKind.setInsulationThickness(getNewInsulationThickness());
+        }
+
+        return elementKind;
+    }
+
+    @Override
+    public ElementKindEdition forceNotNull() {
+        if (getEditionDateTime() == null) {
+            epochEditionTime();
+        }
+        if (getEditedElementKind() == null) {
+            setEditedElementKind(new ElementKind());
+        }
+        if (getNewGramPerMeterLinearMass() == null) {
+            setNewGramPerMeterLinearMass(Double.NaN);
+        }
+        if (getNewMilimeterDiameter() == null) {
+            setNewMilimeterDiameter(Double.NaN);
+        }
+        if (getNewInsulationThickness() == null) {
+            setNewInsulationThickness(Double.NaN);
+        }
+        if (getEditedElementKind() == null) {
+            setEditedElementKind(new ElementKind());
+        }
+
+        return this;
+    }
+
+    public ElementKindEdition nowEditionTime() {
+        setEditionDateTime(Instant.now());
+        return this;
+    }
+
+    public ElementKindEdition epochEditionTime() {
+        setEditionDateTime(Instant.EPOCH);
+        return this;
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

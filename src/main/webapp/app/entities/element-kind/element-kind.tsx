@@ -98,12 +98,12 @@ export const ElementKind = (props: RouteComponentProps<{ url: string }>) => {
                           <Translate contentKey="entity.action.view">View</Translate>
                         </span>
                       </Button>
-                      <Button tag={Link} to={`${match.url}/${elementKind.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
+                      {/* <Button tag={Link} to={`${match.url}/${elementKind.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
                         <FontAwesomeIcon icon="pencil-alt" />{' '}
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.edit">Edit</Translate>
                         </span>
-                      </Button>
+                      </Button>*/}
                       <Button tag={Link} to={`${match.url}/${elementKind.id}/delete`} color="danger" size="sm" data-cy="entityDeleteButton">
                         <FontAwesomeIcon icon="trash" />{' '}
                         <span className="d-none d-md-inline">

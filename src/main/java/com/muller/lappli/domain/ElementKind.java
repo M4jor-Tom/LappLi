@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.muller.lappli.domain.abstracts.AbstractCableAtom;
+import com.muller.lappli.domain.interfaces.NotNullForceable;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -13,7 +14,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element_kind")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ElementKind extends AbstractCableAtom implements Serializable {
+public class ElementKind extends AbstractCableAtom implements NotNullForceable<ElementKind>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -64,6 +65,29 @@ public class ElementKind extends AbstractCableAtom implements Serializable {
         setInsulationThickness(insulationThickness);
         setCopper(copper);
         setInsulationMaterial(insulationMaterial);
+    }
+
+    @Override
+    public ElementKind forceNotNull() {
+        if (getDesignation() == null) {
+            setDesignation("");
+        }
+        if (getGramPerMeterLinearMass() == null) {
+            setGramPerMeterLinearMass(Double.NaN);
+        }
+        if (getMilimeterDiameter() == null) {
+            setMilimeterDiameter(Double.NaN);
+        }
+        if (getInsulationThickness() == null) {
+            setInsulationThickness(Double.NaN);
+        }
+        if (getCopper() == null) {
+            setCopper(new Copper());
+        }
+        if (getInsulationMaterial() == null) {
+            setInsulationMaterial(new Material());
+        }
+        return this;
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

@@ -1,7 +1,10 @@
 package com.muller.lappli.service;
 
+import com.muller.lappli.domain.ElementKind;
 import com.muller.lappli.domain.ElementKindEdition;
 import com.muller.lappli.repository.ElementKindEditionRepository;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -22,6 +25,81 @@ public class ElementKindEditionService {
 
     public ElementKindEditionService(ElementKindEditionRepository elementKindEditionRepository) {
         this.elementKindEditionRepository = elementKindEditionRepository;
+    }
+
+    /**
+     * @return a Comparator anonym class used to sort in findAllSorted()
+     */
+    private Comparator<ElementKindEdition> getComparator() {
+        return new Comparator<ElementKindEdition>() {
+            @Override
+            public int compare(ElementKindEdition o1, ElementKindEdition o2) {
+                if (o1.getEditionDateTime().isBefore(o2.getEditionDateTime())) {
+                    return 1;
+                } else if (o1.getEditionDateTime().equals(o2.getEditionDateTime())) {
+                    return 0;
+                }
+
+                return -1;
+            }
+        };
+    }
+
+    /**
+     * updates elementKindList's members if possible
+     *
+     * @param elementKindList to be fetched for members to edit
+     * @return updated elementKindList
+     */
+    public List<ElementKind> update(List<ElementKind> elementKindList) {
+        for (ElementKind elementKind : elementKindList) {
+            elementKind = update(elementKind);
+        }
+
+        return elementKindList;
+    }
+
+    /**
+     * Gets an updated version of elementKind
+     *
+     * @param elementKind the elementKind to edit
+     * @return elementKind once edited
+     */
+    public ElementKind update(ElementKind elementKind) {
+        for (ElementKindEdition elementKindEdition : findAllSortedFor(elementKind)) {
+            elementKind = elementKindEdition.update(elementKind);
+        }
+
+        return elementKind;
+    }
+
+    /**
+     * Like findAllSorted() but only ElementKindEditions corresponding to elementKind
+     *
+     * @param elementKind the one to give editions to
+     * @return
+     */
+    private List<ElementKindEdition> findAllSortedFor(ElementKind elementKind) {
+        ArrayList<ElementKindEdition> elementKindEditionArrayList = new ArrayList<ElementKindEdition>();
+
+        for (ElementKindEdition elementKindEdition : findAllSorted()) {
+            if (elementKindEdition.getEditedElementKind().getId().equals(elementKind.getId())) {
+                elementKindEditionArrayList.add(elementKindEdition);
+            }
+        }
+
+        return elementKindEditionArrayList;
+    }
+
+    /**
+     * Like findAll() but sorted with getComparator()
+     *
+     * @return sorted elementKindEditionList
+     */
+    private List<ElementKindEdition> findAllSorted() {
+        List<ElementKindEdition> elementKindEditionList = findAll();
+        elementKindEditionList.sort(getComparator());
+        return elementKindEditionList;
     }
 
     /**
@@ -70,7 +148,13 @@ public class ElementKindEditionService {
     @Transactional(readOnly = true)
     public List<ElementKindEdition> findAll() {
         log.debug("Request to get all ElementKindEditions");
-        return elementKindEditionRepository.findAll();
+        List<ElementKindEdition> elementKindEditionList = elementKindEditionRepository.findAll();
+
+        for (ElementKindEdition elementKindEdition : elementKindEditionList) {
+            elementKindEdition.forceNotNull();
+        }
+
+        return elementKindEditionList;
     }
 
     /**

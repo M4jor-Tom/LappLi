@@ -96,7 +96,7 @@ export const ElementKindEdition = (props: RouteComponentProps<{ url: string }>) 
                           <Translate contentKey="entity.action.view">View</Translate>
                         </span>
                       </Button>
-                      <Button
+                      {/* <Button
                         tag={Link}
                         to={`${match.url}/${elementKindEdition.id}/edit`}
                         color="primary"
@@ -107,7 +107,7 @@ export const ElementKindEdition = (props: RouteComponentProps<{ url: string }>) 
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.edit">Edit</Translate>
                         </span>
-                      </Button>
+                      </Button>*/}
                       <Button
                         tag={Link}
                         to={`${match.url}/${elementKindEdition.id}/delete`}
