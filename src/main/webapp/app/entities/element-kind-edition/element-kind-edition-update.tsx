@@ -95,17 +95,6 @@ export const ElementKindEditionUpdate = (props: RouteComponentProps<{ id: string
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.elementKindEdition.editionDateTime')}
-                id="element-kind-edition-editionDateTime"
-                name="editionDateTime"
-                data-cy="editionDateTime"
-                type="datetime-local"
-                placeholder="YYYY-MM-DD HH:mm"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                }}
-              />
-              <ValidatedField
                 label={translate('lappLiApp.elementKindEdition.newGramPerMeterLinearMass')}
                 id="element-kind-edition-newGramPerMeterLinearMass"
                 name="newGramPerMeterLinearMass"
