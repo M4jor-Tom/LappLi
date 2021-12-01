@@ -46,6 +46,24 @@ public class LifterRunMeasure implements Serializable {
     @NotNull
     private Lifter lifter;
 
+    public LifterRunMeasure() {
+        this(Double.NaN, Double.NaN, MarkingType.LIFTING, Double.NaN, new Lifter());
+    }
+
+    public LifterRunMeasure(
+        Double milimeterDiameter,
+        Double meterPerSecondSpeed,
+        MarkingType markingType,
+        Double hourPreparationTime,
+        Lifter lifter
+    ) {
+        setMilimeterDiameter(milimeterDiameter);
+        setMeterPerSecondSpeed(meterPerSecondSpeed);
+        setMarkingType(markingType);
+        setHourPreparationTime(hourPreparationTime);
+        setLifter(lifter);
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {

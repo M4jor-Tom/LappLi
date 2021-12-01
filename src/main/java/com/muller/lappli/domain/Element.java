@@ -39,6 +39,16 @@ public class Element extends AbstractAssemblableAtom implements Article, Seriali
     @JsonIgnoreProperties(value = { "copper", "insulationMaterial" }, allowSetters = true)
     private ElementKind elementKind;
 
+    public Element() {
+        this(null, Color.NONE, new ElementKind());
+    }
+
+    public Element(Long number, Color color, ElementKind elementKind) {
+        setNumber(number);
+        setColor(color);
+        setElementKind(elementKind);
+    }
+
     @Override
     public Double getMilimeterDiameter() {
         return getElementKind().getMilimeterDiameter();

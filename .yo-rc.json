@@ -43,7 +43,18 @@
     "clientThemeVariant": "",
     "languages": ["en", "fr", "de"],
     "enableGradleEnterprise": false,
-    "entities": ["Element", "ElementKind", "Copper", "Material", "ElementSupply", "Lifter", "LifterRunMeasure", "BangleSupply", "Bangle"],
-    "lastLiquibaseTimestamp": 1638260140000
+    "entities": [
+      "Element",
+      "ElementKind",
+      "Copper",
+      "Material",
+      "ElementSupply",
+      "Lifter",
+      "LifterRunMeasure",
+      "BangleSupply",
+      "Bangle",
+      "ElementKindEdition"
+    ],
+    "lastLiquibaseTimestamp": 1638279142000
   }
 }

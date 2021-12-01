@@ -13,6 +13,7 @@ import Lifter from './lifter';
 import LifterRunMeasure from './lifter-run-measure';
 import BangleSupply from './bangle-supply';
 import Bangle from './bangle';
+import ElementKindEdition from './element-kind-edition';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -28,6 +29,7 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}lifter-run-measure`} component={LifterRunMeasure} />
       <ErrorBoundaryRoute path={`${match.url}bangle-supply`} component={BangleSupply} />
       <ErrorBoundaryRoute path={`${match.url}bangle`} component={Bangle} />
+      <ErrorBoundaryRoute path={`${match.url}element-kind-edition`} component={ElementKindEdition} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>

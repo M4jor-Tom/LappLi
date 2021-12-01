@@ -4,6 +4,7 @@ package com.muller.lappli.domain.enumeration;
  * The Color enumeration.
  */
 public enum Color {
+    NONE("NONE"),
     NATURAL("NAT"),
     WHITE("B"),
     BROWN("M"),

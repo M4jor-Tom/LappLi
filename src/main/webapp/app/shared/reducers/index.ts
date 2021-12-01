@@ -29,6 +29,8 @@ import lifterRunMeasure from 'app/entities/lifter-run-measure/lifter-run-measure
 import bangleSupply from 'app/entities/bangle-supply/bangle-supply.reducer';
 // prettier-ignore
 import bangle from 'app/entities/bangle/bangle.reducer';
+// prettier-ignore
+import elementKindEdition from 'app/entities/element-kind-edition/element-kind-edition.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -51,6 +53,7 @@ const rootReducer = {
   lifterRunMeasure,
   bangleSupply,
   bangle,
+  elementKindEdition,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };
