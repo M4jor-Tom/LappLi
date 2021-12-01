@@ -283,6 +283,7 @@ class ElementKindResourceIT {
         restElementKindMockMvc.perform(get(ENTITY_API_URL_ID, Long.MAX_VALUE)).andExpect(status().isNotFound());
     }
 
+    /*
     @Test
     @Transactional
     void putNewElementKind() throws Exception {
@@ -317,8 +318,8 @@ class ElementKindResourceIT {
         assertThat(testElementKind.getGramPerMeterLinearMass()).isEqualTo(UPDATED_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testElementKind.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
         assertThat(testElementKind.getInsulationThickness()).isEqualTo(UPDATED_INSULATION_THICKNESS);
-    }
-
+    }*/
+    /*
     @Test
     @Transactional
     void putNonExistingElementKind() throws Exception {
@@ -337,8 +338,8 @@ class ElementKindResourceIT {
         // Validate the ElementKind in the database
         List<ElementKind> elementKindList = elementKindRepository.findAll();
         assertThat(elementKindList).hasSize(databaseSizeBeforeUpdate);
-    }
-
+    }*/
+    /*
     @Test
     @Transactional
     void putWithIdMismatchElementKind() throws Exception {
@@ -357,8 +358,8 @@ class ElementKindResourceIT {
         // Validate the ElementKind in the database
         List<ElementKind> elementKindList = elementKindRepository.findAll();
         assertThat(elementKindList).hasSize(databaseSizeBeforeUpdate);
-    }
-
+    }*/
+    /*
     @Test
     @Transactional
     void putWithMissingIdPathParamElementKind() throws Exception {
@@ -373,8 +374,8 @@ class ElementKindResourceIT {
         // Validate the ElementKind in the database
         List<ElementKind> elementKindList = elementKindRepository.findAll();
         assertThat(elementKindList).hasSize(databaseSizeBeforeUpdate);
-    }
-
+    }*/
+    /*
     @Test
     @Transactional
     void partialUpdateElementKindWithPatch() throws Exception {
@@ -408,8 +409,8 @@ class ElementKindResourceIT {
         assertThat(testElementKind.getGramPerMeterLinearMass()).isEqualTo(DEFAULT_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testElementKind.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
         assertThat(testElementKind.getInsulationThickness()).isEqualTo(UPDATED_INSULATION_THICKNESS);
-    }
-
+    }*/
+    /*
     @Test
     @Transactional
     void fullUpdateElementKindWithPatch() throws Exception {
@@ -444,8 +445,8 @@ class ElementKindResourceIT {
         assertThat(testElementKind.getGramPerMeterLinearMass()).isEqualTo(UPDATED_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testElementKind.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
         assertThat(testElementKind.getInsulationThickness()).isEqualTo(UPDATED_INSULATION_THICKNESS);
-    }
-
+    }*/
+    /*
     @Test
     @Transactional
     void patchNonExistingElementKind() throws Exception {
@@ -464,8 +465,8 @@ class ElementKindResourceIT {
         // Validate the ElementKind in the database
         List<ElementKind> elementKindList = elementKindRepository.findAll();
         assertThat(elementKindList).hasSize(databaseSizeBeforeUpdate);
-    }
-
+    }*/
+    /*
     @Test
     @Transactional
     void patchWithIdMismatchElementKind() throws Exception {
@@ -484,8 +485,8 @@ class ElementKindResourceIT {
         // Validate the ElementKind in the database
         List<ElementKind> elementKindList = elementKindRepository.findAll();
         assertThat(elementKindList).hasSize(databaseSizeBeforeUpdate);
-    }
-
+    }*/
+    /*
     @Test
     @Transactional
     void patchWithMissingIdPathParamElementKind() throws Exception {
@@ -502,7 +503,7 @@ class ElementKindResourceIT {
         // Validate the ElementKind in the database
         List<ElementKind> elementKindList = elementKindRepository.findAll();
         assertThat(elementKindList).hasSize(databaseSizeBeforeUpdate);
-    }
+    }*/
 
     @Test
     @Transactional

@@ -2,11 +2,11 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.ElementKind;
 import com.muller.lappli.repository.ElementKindRepository;
+import com.muller.lappli.service.ElementKindEditionService;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -36,8 +36,11 @@ public class ElementKindResource {
 
     private final ElementKindRepository elementKindRepository;
 
-    public ElementKindResource(ElementKindRepository elementKindRepository) {
+    private final ElementKindEditionService elementKindEditionService;
+
+    public ElementKindResource(ElementKindRepository elementKindRepository, ElementKindEditionService elementKindEditionService) {
         this.elementKindRepository = elementKindRepository;
+        this.elementKindEditionService = elementKindEditionService;
     }
 
     /**
@@ -70,12 +73,12 @@ public class ElementKindResource {
      * or with status {@code 500 (Internal Server Error)} if the elementKind couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/element-kinds/{id}")
+    //@PutMapping("/element-kinds/{id}")
     public ResponseEntity<ElementKind> updateElementKind(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody ElementKind elementKind
     ) throws URISyntaxException {
-        log.debug("REST request to update ElementKind : {}, {}", id, elementKind);
+        /*log.debug("REST request to update ElementKind : {}, {}", id, elementKind);
         if (elementKind.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
@@ -92,6 +95,8 @@ public class ElementKindResource {
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, elementKind.getId().toString()))
             .body(result);
+        */
+        return null;
     }
 
     /**
@@ -105,12 +110,12 @@ public class ElementKindResource {
      * or with status {@code 500 (Internal Server Error)} if the elementKind couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/element-kinds/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    //@PatchMapping(value = "/element-kinds/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<ElementKind> partialUpdateElementKind(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody ElementKind elementKind
     ) throws URISyntaxException {
-        log.debug("REST request to partial update ElementKind partially : {}, {}", id, elementKind);
+        /*log.debug("REST request to partial update ElementKind partially : {}, {}", id, elementKind);
         if (elementKind.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
@@ -145,7 +150,8 @@ public class ElementKindResource {
         return ResponseUtil.wrapOrNotFound(
             result,
             HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, elementKind.getId().toString())
-        );
+        );*/
+        return null;
     }
 
     /**
@@ -156,7 +162,7 @@ public class ElementKindResource {
     @GetMapping("/element-kinds")
     public List<ElementKind> getAllElementKinds() {
         log.debug("REST request to get all ElementKinds");
-        return elementKindRepository.findAll();
+        return elementKindEditionService.update(elementKindRepository.findAll());
     }
 
     /**
