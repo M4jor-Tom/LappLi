@@ -42,6 +42,17 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
     @JsonIgnoreProperties(value = { "elementKind" }, allowSetters = true)
     private Element element;
 
+    public ElementSupply() {
+        this(null, "", MarkingType.LIFTING, new Element());
+    }
+
+    public ElementSupply(Long apparitions, String forcedMarking, MarkingType markingType, Element element) {
+        setApparitions(apparitions);
+        setForcedMarking(forcedMarking);
+        setMarkingType(markingType);
+        setElement(element);
+    }
+
     public MarkingTechnique getMarkingTechnique() {
         if (getForcedMarking().isBlank() && !getMarkingType().equals(MarkingType.NUMBERED)) {
             //A marking technique is necessary when something is written only
@@ -52,14 +63,7 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
     }
 
     public String getInsulationMaterialDesignation() {
-        try {
-            return getElement().getElementKind().getInsulationMaterial().getDesignation();
-        } catch (Exception e) {
-            //[HOTFIX] of ElementKind.getInsulationMaterial() being null
-            //when creating ElementSupply
-            //Strange cause it cannot be
-            return "";
-        }
+        return getElement().getElementKind().getInsulationMaterial().getDesignation();
     }
 
     @Override
