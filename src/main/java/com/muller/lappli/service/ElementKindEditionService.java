@@ -47,9 +47,6 @@ public class ElementKindEditionService {
         return elementKindEditionRepository
             .findById(elementKindEdition.getId())
             .map(existingElementKindEdition -> {
-                if (elementKindEdition.getEditionDateTime() != null) {
-                    existingElementKindEdition.setEditionDateTime(elementKindEdition.getEditionDateTime());
-                }
                 if (elementKindEdition.getNewGramPerMeterLinearMass() != null) {
                     existingElementKindEdition.setNewGramPerMeterLinearMass(elementKindEdition.getNewGramPerMeterLinearMass());
                 }

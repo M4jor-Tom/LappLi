@@ -41,6 +41,23 @@ public class ElementKindEdition implements Serializable {
     @JsonIgnoreProperties(value = { "copper", "insulationMaterial" }, allowSetters = true)
     private ElementKind editedElementKind;
 
+    public ElementKindEdition() {
+        this(Double.NaN, Double.NaN, Double.NaN, new ElementKind());
+    }
+
+    public ElementKindEdition(
+        Double newGramPerMeterLinearMass,
+        Double newMilimeterDiameter,
+        Double newInsulationThickness,
+        ElementKind editedElementKind
+    ) {
+        setEditionDateTime(Instant.now());
+        setNewGramPerMeterLinearMass(newGramPerMeterLinearMass);
+        setNewMilimeterDiameter(newMilimeterDiameter);
+        setNewInsulationThickness(newInsulationThickness);
+        setEditedElementKind(editedElementKind);
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -60,12 +77,12 @@ public class ElementKindEdition implements Serializable {
         return this.editionDateTime;
     }
 
-    public ElementKindEdition editionDateTime(Instant editionDateTime) {
+    private ElementKindEdition editionDateTime(Instant editionDateTime) {
         this.setEditionDateTime(editionDateTime);
         return this;
     }
 
-    public void setEditionDateTime(Instant editionDateTime) {
+    private void setEditionDateTime(Instant editionDateTime) {
         this.editionDateTime = editionDateTime;
     }
 
