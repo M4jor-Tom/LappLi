@@ -32,7 +32,8 @@
       "otherEntityName": "lifter",
       "otherEntityRelationshipName": "lifterRunMeasure",
       "relationshipValidateRules": "required",
-      "relationshipName": "lifter"
+      "relationshipName": "lifter",
+      "otherEntityField": "name"
     }
   ],
   "entityTableName": "lifter_run_measure",

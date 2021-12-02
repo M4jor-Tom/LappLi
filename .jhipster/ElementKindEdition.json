@@ -25,7 +25,8 @@
       "otherEntityName": "elementKind",
       "otherEntityRelationshipName": "elementKindEdition",
       "relationshipValidateRules": "required",
-      "relationshipName": "editedElementKind"
+      "relationshipName": "editedElementKind",
+      "otherEntityField": "designation"
     }
   ],
   "entityTableName": "element_kind_edition",

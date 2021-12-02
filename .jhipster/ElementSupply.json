@@ -23,7 +23,8 @@
       "otherEntityName": "element",
       "otherEntityRelationshipName": "elementSupply",
       "relationshipValidateRules": "required",
-      "relationshipName": "element"
+      "relationshipName": "element",
+      "otherEntityField": "designationWithColor"
     }
   ],
   "entityTableName": "element_supply",

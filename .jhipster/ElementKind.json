@@ -28,14 +28,16 @@
       "otherEntityName": "copper",
       "otherEntityRelationshipName": "elementKind",
       "relationshipValidateRules": "required",
-      "relationshipName": "copper"
+      "relationshipName": "copper",
+      "otherEntityField": "designation"
     },
     {
       "relationshipType": "many-to-one",
       "otherEntityName": "material",
       "otherEntityRelationshipName": "elementKind",
       "relationshipValidateRules": "required",
-      "relationshipName": "insulationMaterial"
+      "relationshipName": "insulationMaterial",
+      "otherEntityField": "designation"
     }
   ],
   "entityTableName": "element_kind",

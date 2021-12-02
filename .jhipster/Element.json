@@ -19,7 +19,8 @@
       "otherEntityName": "elementKind",
       "otherEntityRelationshipName": "element",
       "relationshipValidateRules": "required",
-      "relationshipName": "elementKind"
+      "relationshipName": "elementKind",
+      "otherEntityField": "designation"
     }
   ],
   "entityTableName": "element",

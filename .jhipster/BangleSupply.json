@@ -13,7 +13,8 @@
       "otherEntityName": "bangle",
       "otherEntityRelationshipName": "bangleSupply",
       "relationshipValidateRules": "required",
-      "relationshipName": "bangle"
+      "relationshipName": "bangle",
+      "otherEntityField": "designation"
     }
   ],
   "entityTableName": "bangle_supply",

@@ -22,7 +22,7 @@ entity LifterRunMeasure {
 }
 
 relationship ManyToOne {
-	LifterRunMeasure{lifter required} to Lifter
+	LifterRunMeasure{lifter(name) required} to Lifter
 }
 
 entity BangleSupply {
@@ -58,11 +58,11 @@ enum MarkingTechnique {
 }
 
 relationship ManyToOne {
-	BangleSupply{bangle required} to Bangle
+	BangleSupply{bangle(designation) required} to Bangle
 }
 
 relationship ManyToOne {
-	ElementSupply{element required} to Element
+	ElementSupply{element(designationWithColor) required} to Element
 }
 
 entity Bangle {
@@ -78,7 +78,7 @@ entity Element {
 }
 
 relationship ManyToOne {
-	Element{elementKind required} to ElementKind
+	Element{elementKind(designation) required} to ElementKind
 }
 
 entity ElementKindEdition {
@@ -91,7 +91,7 @@ entity ElementKindEdition {
 service ElementKindEdition with serviceClass
 
 relationship ManyToOne {
-	ElementKindEdition{editedElementKind required} to ElementKind
+	ElementKindEdition{editedElementKind(designation) required} to ElementKind
 }
 
 entity ElementKind {
@@ -102,11 +102,11 @@ entity ElementKind {
 }
 
 relationship ManyToOne {
-	ElementKind{Copper required} to Copper
+	ElementKind{Copper(designation) required} to Copper
 }
 
 relationship ManyToOne {
-	ElementKind{insulationMaterial required} to Material
+	ElementKind{insulationMaterial(designation) required} to Material
 }
 
 entity Copper {
