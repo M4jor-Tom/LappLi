@@ -1,11 +1,15 @@
 package com.muller.lappli.web.rest;
 
+import com.muller.lappli.domain.EditionListManager;
 import com.muller.lappli.domain.ElementKind;
+import com.muller.lappli.domain.ElementKindEdition;
 import com.muller.lappli.repository.ElementKindRepository;
 import com.muller.lappli.service.ElementKindEditionService;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -162,7 +166,38 @@ public class ElementKindResource {
     @GetMapping("/element-kinds")
     public List<ElementKind> getAllElementKinds() {
         log.debug("REST request to get all ElementKinds");
-        return elementKindEditionService.update(elementKindRepository.findAll());
+        List<ElementKind> elementKindList = elementKindRepository.findAll();
+
+        /*List<IEdition<CommitableObject>> editionList = new ArrayList<IEdition<CommitableObject>>();
+
+        EditionListManager<CommitableObject> editionListManager = 
+            new EditionListManager<CommitableObject>(editionList);
+        
+        editionListManager.getEditionList().add(new EditionObject(Instant.now()));
+        editionListManager.getEditionList().add(new EditionObject(Instant.now()));
+        editionListManager.getEditionList().add(new EditionObject(Instant.now()));
+
+        CommitableObject commitableObject = new CommitableObject(null);
+
+        commitableObject.setEditionListManager(editionListManager);*/
+
+        ArrayList<ElementKind> editedElementKindList = new ArrayList<ElementKind>();
+
+        for (ElementKind elementKind : elementKindList) {
+            List<ElementKindEdition> elementKindEditionList = elementKindEditionService.findAllSortedFor(elementKind);
+
+            EditionListManager<ElementKind> elementKindEditionListManager = new EditionListManager<ElementKind>(new ArrayList<>());
+
+            for (ElementKindEdition elementKindEdition : elementKindEditionList) {
+                elementKindEditionListManager.getEditionList().add(elementKindEdition);
+            }
+
+            elementKind.setEditionListManager(elementKindEditionListManager);
+
+            editedElementKindList.add(elementKind.getAtInstant(elementKind, Instant.now()));
+        }
+
+        return editedElementKindList;
     }
 
     /**

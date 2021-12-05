@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.interfaces.IEdition;
 import com.muller.lappli.domain.interfaces.NotNullForceable;
 import java.io.Serializable;
 import java.time.Instant;
@@ -15,7 +16,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element_kind_edition")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ElementKindEdition implements NotNullForceable<ElementKindEdition>, Serializable {
+public class ElementKindEdition implements IEdition<ElementKind>, NotNullForceable<ElementKindEdition>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -71,6 +72,11 @@ public class ElementKindEdition implements NotNullForceable<ElementKindEdition>,
         }
 
         return elementKind;
+    }
+
+    @Override
+    public Instant getEditionInstant() {
+        return getEditionDateTime();
     }
 
     @Override
