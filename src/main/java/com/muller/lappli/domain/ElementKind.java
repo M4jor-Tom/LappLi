@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.muller.lappli.domain.abstracts.AbstractCableAtom;
+import com.muller.lappli.domain.interfaces.Commitable;
 import com.muller.lappli.domain.interfaces.NotNullForceable;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -14,7 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element_kind")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ElementKind extends AbstractCableAtom implements NotNullForceable<ElementKind>, Serializable {
+public class ElementKind extends AbstractCableAtom implements Commitable<ElementKind>, NotNullForceable<ElementKind>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,6 +47,9 @@ public class ElementKind extends AbstractCableAtom implements NotNullForceable<E
     @ManyToOne(optional = false)
     @NotNull
     private Material insulationMaterial;
+
+    @Transient
+    private EditionListManager<ElementKind> editionListManager;
 
     public ElementKind() {
         this("", Double.NaN, Double.NaN, Double.NaN, new Copper(), new Material());
@@ -184,6 +188,15 @@ public class ElementKind extends AbstractCableAtom implements NotNullForceable<E
     public ElementKind insulationMaterial(Material material) {
         this.setInsulationMaterial(material);
         return this;
+    }
+
+    @Override
+    public EditionListManager<ElementKind> getEditionListManager() {
+        return editionListManager;
+    }
+
+    public void setEditionListManager(EditionListManager<ElementKind> editionListManager) {
+        this.editionListManager = editionListManager;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

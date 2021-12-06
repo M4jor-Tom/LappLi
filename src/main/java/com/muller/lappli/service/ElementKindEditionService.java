@@ -79,7 +79,7 @@ public class ElementKindEditionService {
      * @param elementKind the one to give editions to
      * @return
      */
-    private List<ElementKindEdition> findAllSortedFor(ElementKind elementKind) {
+    public List<ElementKindEdition> findAllSortedFor(ElementKind elementKind) {
         ArrayList<ElementKindEdition> elementKindEditionArrayList = new ArrayList<ElementKindEdition>();
 
         for (ElementKindEdition elementKindEdition : findAllSorted()) {
