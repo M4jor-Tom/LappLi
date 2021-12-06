@@ -53,6 +53,21 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
         setElement(element);
     }
 
+    @Override
+    public Double getHourPreparationTime() {
+        return Double.NaN;
+    }
+
+    @Override
+    public Double getHourExecutionTime() {
+        return Double.NaN;
+    }
+
+    @Override
+    public Double getMeterPerSecondSpeed() {
+        return Double.NaN;
+    }
+
     public MarkingTechnique getMarkingTechnique() {
         if (getForcedMarking().isBlank() && !getMarkingType().equals(MarkingType.NUMBERED)) {
             //A marking technique is necessary when something is written only

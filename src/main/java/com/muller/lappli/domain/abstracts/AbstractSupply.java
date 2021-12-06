@@ -13,17 +13,11 @@ public abstract class AbstractSupply {
 
     public abstract Double getGramPerMeterLinearMass();
 
-    public Double getHourPreparationTime() {
-        return Double.NaN;
-    }
+    public abstract Double getHourPreparationTime();
 
-    public Double getHourExecutionTime() {
-        return Double.NaN;
-    }
+    public abstract Double getHourExecutionTime();
 
-    public Double getMeterPerSecondSpeed() {
-        return Double.NaN;
-    }
+    public abstract Double getMeterPerSecondSpeed();
 
     public Long getMeterQuantity() {
         return AbstractSupply.UNITY_METRIC_QUANTITY * getApparitions();

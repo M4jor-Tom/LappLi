@@ -40,6 +40,21 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
     }
 
     @Override
+    public Double getHourPreparationTime() {
+        return Double.NaN;
+    }
+
+    @Override
+    public Double getHourExecutionTime() {
+        return Double.NaN;
+    }
+
+    @Override
+    public Double getMeterPerSecondSpeed() {
+        return Double.NaN;
+    }
+
+    @Override
     public Double getMilimeterDiameter() {
         return getBangle().getMilimeterDiameter();
     }
