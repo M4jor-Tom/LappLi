@@ -11,7 +11,10 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A ElementKindEdition.
+ * This domain class serves EditionKind as an implementation of IEdition<ElementKind>
+ *
+ * That means that its fields will be used to edit any ElementKind instance
+ * at a given Instant
  */
 @Entity
 @Table(name = "element_kind_edition")
