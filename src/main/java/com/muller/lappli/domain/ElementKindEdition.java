@@ -1,7 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.muller.lappli.domain.interfaces.IEdition;
+import com.muller.lappli.domain.abstracts.AbstractEdition;
 import com.muller.lappli.domain.interfaces.NotNullForceable;
 import java.io.Serializable;
 import java.time.Instant;
@@ -19,7 +19,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element_kind_edition")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ElementKindEdition implements IEdition<ElementKind>, NotNullForceable<ElementKindEdition>, Serializable {
+public class ElementKindEdition extends AbstractEdition<ElementKind> implements NotNullForceable<ElementKindEdition>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -84,6 +84,11 @@ public class ElementKindEdition implements IEdition<ElementKind>, NotNullForceab
     }
 
     @Override
+    protected void setEditionInstant(Instant editionInstant) {
+        setEditionDateTime(editionInstant);
+    }
+
+    @Override
     public ElementKindEdition forceNotNull() {
         if (getEditionDateTime() == null) {
             epochEditionTime();
@@ -104,16 +109,6 @@ public class ElementKindEdition implements IEdition<ElementKind>, NotNullForceab
             setEditedElementKind(new ElementKind());
         }
 
-        return this;
-    }
-
-    public ElementKindEdition nowEditionTime() {
-        setEditionDateTime(Instant.now());
-        return this;
-    }
-
-    public ElementKindEdition epochEditionTime() {
-        setEditionDateTime(Instant.EPOCH);
         return this;
     }
 

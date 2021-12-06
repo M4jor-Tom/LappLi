@@ -1,6 +1,7 @@
 package com.muller.lappli.domain.interfaces;
 
 import com.muller.lappli.domain.EditionListManager;
+import com.muller.lappli.domain.abstracts.AbstractEdition;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +21,12 @@ public interface Commitable<C extends Commitable<C>> {
      * Gets each edition which is dated before a given instant
      *
      * @param instant the instant before which modification shall be
-     * @return a List of IEdition instances for a given instant
+     * @return a List of AbstractEdition instances for a given instant
      */
-    public default List<IEdition<C>> getEditionListTill(Instant instant) {
-        ArrayList<IEdition<C>> editionArrayList = new ArrayList<IEdition<C>>();
+    public default List<AbstractEdition<C>> getEditionListTill(Instant instant) {
+        ArrayList<AbstractEdition<C>> editionArrayList = new ArrayList<AbstractEdition<C>>();
 
-        for (IEdition<C> edition : getEditionListManager().getEditionList()) {
+        for (AbstractEdition<C> edition : getEditionListManager().getEditionList()) {
             if (edition.getEditionInstant().isBefore(instant)) {
                 editionArrayList.add(edition);
             }
@@ -42,7 +43,7 @@ public interface Commitable<C extends Commitable<C>> {
      * @return an edited version of commitable parameter
      */
     public default C getAtInstant(C commitable, Instant instant) {
-        for (IEdition<C> edition : getEditionListTill(instant)) {
+        for (AbstractEdition<C> edition : getEditionListTill(instant)) {
             edition.update(commitable);
         }
 
