@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractEdition;
+import com.muller.lappli.domain.interfaces.Commitable;
 import com.muller.lappli.domain.interfaces.NotNullForceable;
 import java.io.Serializable;
 import java.time.Instant;
@@ -61,6 +62,11 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
         setNewMilimeterDiameter(newMilimeterDiameter);
         setNewInsulationThickness(newInsulationThickness);
         setEditedElementKind(editedElementKind);
+    }
+
+    @Override
+    public ElementKind getEditedCommitable() {
+        return getEditedElementKind();
     }
 
     @Override
