@@ -14,6 +14,11 @@ public abstract class AbstractEdition<C extends Commitable<C>> {
     }
 
     /**
+     * @return the edited Commitable instance
+     */
+    public abstract C getEditedCommitable();
+
+    /**
      * @return the Instant when the edition has been created
      */
     public abstract Instant getEditionInstant();

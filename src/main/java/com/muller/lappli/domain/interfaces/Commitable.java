@@ -15,6 +15,10 @@ import java.util.List;
  *
  */
 public interface Commitable<C extends Commitable<C>> {
+    public Long getId();
+
+    public void setEditionListManager(EditionListManager<C> editionListManager);
+
     public EditionListManager<C> getEditionListManager();
 
     /**

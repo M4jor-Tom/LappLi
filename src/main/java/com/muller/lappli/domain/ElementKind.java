@@ -96,6 +96,7 @@ public class ElementKind extends AbstractCableAtom implements Commitable<Element
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    @Override
     public Long getId() {
         return this.id;
     }
@@ -195,6 +196,7 @@ public class ElementKind extends AbstractCableAtom implements Commitable<Element
         return editionListManager;
     }
 
+    @Override
     public void setEditionListManager(EditionListManager<ElementKind> editionListManager) {
         this.editionListManager = editionListManager;
     }
