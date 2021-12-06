@@ -9,12 +9,12 @@ import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.ElementKind;
 import com.muller.lappli.domain.ElementKindEdition;
 import com.muller.lappli.repository.ElementKindEditionRepository;
-import com.muller.lappli.service.criteria.ElementKindEditionCriteria;
+//import com.muller.lappli.service.criteria.ElementKindEditionCriteria;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicLong;
+//import java.util.Random;
+//import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,8 +51,8 @@ class ElementKindEditionResourceIT {
     private static final String ENTITY_API_URL = "/api/element-kind-editions";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
-    private static Random random = new Random();
-    private static AtomicLong count = new AtomicLong(random.nextInt() + (2 * Integer.MAX_VALUE));
+    //private static Random random = new Random();
+    //private static AtomicLong count = new AtomicLong(random.nextInt() + (2 * Integer.MAX_VALUE));
 
     @Autowired
     private ElementKindEditionRepository elementKindEditionRepository;
