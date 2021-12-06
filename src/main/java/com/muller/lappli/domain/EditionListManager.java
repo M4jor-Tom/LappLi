@@ -4,6 +4,9 @@ import com.muller.lappli.domain.interfaces.Commitable;
 import com.muller.lappli.domain.interfaces.IEdition;
 import java.util.List;
 
+/**
+ * This class wraps a List of IEdition instances
+ */
 public class EditionListManager<C extends Commitable<C>> {
 
     private List<IEdition<C>> editionList;
