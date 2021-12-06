@@ -176,32 +176,14 @@ public class ElementKindResource {
         log.debug("REST request to get all ElementKinds");
         List<ElementKind> elementKindList = elementKindService.findAll();
 
-        /*List<IEdition<CommitableObject>> editionList = new ArrayList<IEdition<CommitableObject>>();
-
-        EditionListManager<CommitableObject> editionListManager = 
-            new EditionListManager<CommitableObject>(editionList);
-        
-        editionListManager.getEditionList().add(new EditionObject(Instant.now()));
-        editionListManager.getEditionList().add(new EditionObject(Instant.now()));
-        editionListManager.getEditionList().add(new EditionObject(Instant.now()));
-
-        CommitableObject commitableObject = new CommitableObject(null);
-
-        commitableObject.setEditionListManager(editionListManager);*/
-
+        //Creating a list for edited ElementKinds
         ArrayList<ElementKind> editedElementKindList = new ArrayList<ElementKind>();
 
         for (ElementKind elementKind : elementKindList) {
-            List<ElementKindEdition> elementKindEditionList = elementKindEditionService.findAllSortedFor(elementKind);
+            //Giving an EditionListManager to the ElementKind
+            elementKindEditionService.setEditionListManagerTo(elementKind);
 
-            EditionListManager<ElementKind> elementKindEditionListManager = new EditionListManager<ElementKind>(new ArrayList<>());
-
-            for (ElementKindEdition elementKindEdition : elementKindEditionList) {
-                elementKindEditionListManager.getEditionList().add(elementKindEdition);
-            }
-
-            elementKind.setEditionListManager(elementKindEditionListManager);
-
+            //Storing changed entity into a new list that'll be returned
             editedElementKindList.add(elementKind.getAtInstant(elementKind, Instant.now()));
         }
 
@@ -218,6 +200,15 @@ public class ElementKindResource {
     public ResponseEntity<ElementKind> getElementKind(@PathVariable Long id) {
         log.debug("REST request to get ElementKind : {}", id);
         Optional<ElementKind> elementKind = elementKindService.findOne(id);
+
+        if (elementKind.isPresent()) {
+            //Giving an EditionListManager to the ElementKind
+            elementKindEditionService.setEditionListManagerTo(elementKind.get());
+
+            //Changing the value of the ElementKind depending on its Editions
+            elementKind = Optional.of(elementKind.get().getAtInstant(elementKind.get(), Instant.now()));
+        }
+
         return ResponseUtil.wrapOrNotFound(elementKind);
     }
 
