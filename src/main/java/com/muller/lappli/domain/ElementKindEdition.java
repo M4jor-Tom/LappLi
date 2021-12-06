@@ -63,6 +63,7 @@ public class ElementKindEdition implements IEdition<ElementKind>, NotNullForceab
         setEditedElementKind(editedElementKind);
     }
 
+    @Override
     public ElementKind update(ElementKind elementKind) {
         if (!getNewGramPerMeterLinearMass().isNaN()) {
             elementKind.setGramPerMeterLinearMass(getNewGramPerMeterLinearMass());
