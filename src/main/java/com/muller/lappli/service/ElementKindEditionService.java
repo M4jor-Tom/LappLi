@@ -1,5 +1,6 @@
 package com.muller.lappli.service;
 
+import com.muller.lappli.domain.EditionListManager;
 import com.muller.lappli.domain.ElementKind;
 import com.muller.lappli.domain.ElementKindEdition;
 import com.muller.lappli.repository.ElementKindEditionRepository;
@@ -25,6 +26,22 @@ public class ElementKindEditionService {
 
     public ElementKindEditionService(ElementKindEditionRepository elementKindEditionRepository) {
         this.elementKindEditionRepository = elementKindEditionRepository;
+    }
+
+    /**
+     * Finds ElementKindEditions corresponding to elementKind,
+     * then sets its EditionListManager with them
+     *
+     * @param elementKind the elementKind to set its EditionListManager
+     */
+    public void setEditionListManagerTo(ElementKind elementKind) {
+        EditionListManager<ElementKind> editionListManager = new EditionListManager<ElementKind>(new ArrayList<>());
+
+        for (ElementKindEdition elementKindEdition : findAllSortedFor(elementKind)) {
+            editionListManager.getEditionList().add(elementKindEdition);
+        }
+
+        elementKind.setEditionListManager(editionListManager);
     }
 
     /**
