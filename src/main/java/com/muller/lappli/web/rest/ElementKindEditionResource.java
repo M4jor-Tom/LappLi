@@ -1,11 +1,16 @@
 package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.ElementKindEdition;
+import com.muller.lappli.repository.ElementKindEditionRepository;
+import com.muller.lappli.service.ElementKindEditionQueryService;
 import com.muller.lappli.service.ElementKindEditionService;
+import com.muller.lappli.service.ElementKindQueryService;
+import com.muller.lappli.service.criteria.ElementKindEditionCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -13,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -23,7 +27,6 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-@Transactional
 public class ElementKindEditionResource {
 
     private final Logger log = LoggerFactory.getLogger(ElementKindEditionResource.class);
@@ -37,12 +40,20 @@ public class ElementKindEditionResource {
 
     //private final ElementKindEditionRepository elementKindEditionRepository;
 
+    private final ElementKindQueryService elementKindQueryService;
+
+    private final ElementKindEditionQueryService elementKindEditionQueryService;
+
     public ElementKindEditionResource(
-        ElementKindEditionService elementKindEditionService //,
+        ElementKindEditionService elementKindEditionService,
         //ElementKindEditionRepository elementKindEditionRepository
+        ElementKindQueryService elementKindQueryService,
+        ElementKindEditionQueryService elementKindEditionQueryService
     ) {
         this.elementKindEditionService = elementKindEditionService;
         //this.elementKindEditionRepository = elementKindEditionRepository;
+        this.elementKindQueryService = elementKindQueryService;
+        this.elementKindEditionQueryService = elementKindEditionQueryService;
     }
 
     /**
@@ -141,12 +152,26 @@ public class ElementKindEditionResource {
     /**
      * {@code GET  /element-kind-editions} : get all the elementKindEditions.
      *
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of elementKindEditions in body.
      */
     @GetMapping("/element-kind-editions")
-    public List<ElementKindEdition> getAllElementKindEditions() {
-        log.debug("REST request to get all ElementKindEditions");
-        return elementKindEditionService.findAll();
+    public ResponseEntity<List<ElementKindEdition>> getAllElementKindEditions(ElementKindEditionCriteria criteria) {
+        log.debug("REST request to get ElementKindEditions by criteria: {}", criteria);
+        List<ElementKindEdition> entityList = elementKindEditionQueryService.findByCriteria(criteria);
+        return ResponseEntity.ok().body(entityList);
+    }
+
+    /**
+     * {@code GET  /element-kind-editions/count} : count all the elementKindEditions.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/element-kind-editions/count")
+    public ResponseEntity<Long> countElementKindEditions(ElementKindEditionCriteria criteria) {
+        log.debug("REST request to count ElementKindEditions by criteria: {}", criteria);
+        return ResponseEntity.ok().body(elementKindEditionQueryService.countByCriteria(criteria));
     }
 
     /**

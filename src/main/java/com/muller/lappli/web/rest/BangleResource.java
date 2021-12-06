@@ -2,6 +2,9 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.Bangle;
 import com.muller.lappli.repository.BangleRepository;
+import com.muller.lappli.service.BangleQueryService;
+import com.muller.lappli.service.BangleService;
+import com.muller.lappli.service.criteria.BangleCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -14,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -24,7 +26,6 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-@Transactional
 public class BangleResource {
 
     private final Logger log = LoggerFactory.getLogger(BangleResource.class);
@@ -34,10 +35,16 @@ public class BangleResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
+    private final BangleService bangleService;
+
     private final BangleRepository bangleRepository;
 
-    public BangleResource(BangleRepository bangleRepository) {
+    private final BangleQueryService bangleQueryService;
+
+    public BangleResource(BangleService bangleService, BangleRepository bangleRepository, BangleQueryService bangleQueryService) {
+        this.bangleService = bangleService;
         this.bangleRepository = bangleRepository;
+        this.bangleQueryService = bangleQueryService;
     }
 
     /**
@@ -53,7 +60,7 @@ public class BangleResource {
         if (bangle.getId() != null) {
             throw new BadRequestAlertException("A new bangle cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Bangle result = bangleRepository.save(bangle);
+        Bangle result = bangleService.save(bangle);
         return ResponseEntity
             .created(new URI("/api/bangles/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -87,7 +94,7 @@ public class BangleResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Bangle result = bangleRepository.save(bangle);
+        Bangle result = bangleService.save(bangle);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, bangle.getId().toString()))
@@ -122,25 +129,7 @@ public class BangleResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Bangle> result = bangleRepository
-            .findById(bangle.getId())
-            .map(existingBangle -> {
-                if (bangle.getNumber() != null) {
-                    existingBangle.setNumber(bangle.getNumber());
-                }
-                if (bangle.getDesignation() != null) {
-                    existingBangle.setDesignation(bangle.getDesignation());
-                }
-                if (bangle.getGramPerMeterLinearMass() != null) {
-                    existingBangle.setGramPerMeterLinearMass(bangle.getGramPerMeterLinearMass());
-                }
-                if (bangle.getMilimeterDiameter() != null) {
-                    existingBangle.setMilimeterDiameter(bangle.getMilimeterDiameter());
-                }
-
-                return existingBangle;
-            })
-            .map(bangleRepository::save);
+        Optional<Bangle> result = bangleService.partialUpdate(bangle);
 
         return ResponseUtil.wrapOrNotFound(
             result,
@@ -151,12 +140,26 @@ public class BangleResource {
     /**
      * {@code GET  /bangles} : get all the bangles.
      *
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of bangles in body.
      */
     @GetMapping("/bangles")
-    public List<Bangle> getAllBangles() {
-        log.debug("REST request to get all Bangles");
-        return bangleRepository.findAll();
+    public ResponseEntity<List<Bangle>> getAllBangles(BangleCriteria criteria) {
+        log.debug("REST request to get Bangles by criteria: {}", criteria);
+        List<Bangle> entityList = bangleQueryService.findByCriteria(criteria);
+        return ResponseEntity.ok().body(entityList);
+    }
+
+    /**
+     * {@code GET  /bangles/count} : count all the bangles.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/bangles/count")
+    public ResponseEntity<Long> countBangles(BangleCriteria criteria) {
+        log.debug("REST request to count Bangles by criteria: {}", criteria);
+        return ResponseEntity.ok().body(bangleQueryService.countByCriteria(criteria));
     }
 
     /**
@@ -168,7 +171,7 @@ public class BangleResource {
     @GetMapping("/bangles/{id}")
     public ResponseEntity<Bangle> getBangle(@PathVariable Long id) {
         log.debug("REST request to get Bangle : {}", id);
-        Optional<Bangle> bangle = bangleRepository.findById(id);
+        Optional<Bangle> bangle = bangleService.findOne(id);
         return ResponseUtil.wrapOrNotFound(bangle);
     }
 
@@ -181,7 +184,7 @@ public class BangleResource {
     @DeleteMapping("/bangles/{id}")
     public ResponseEntity<Void> deleteBangle(@PathVariable Long id) {
         log.debug("REST request to delete Bangle : {}", id);
-        bangleRepository.deleteById(id);
+        bangleService.delete(id);
         return ResponseEntity
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))

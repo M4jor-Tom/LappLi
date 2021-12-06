@@ -2,6 +2,9 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.Element;
 import com.muller.lappli.repository.ElementRepository;
+import com.muller.lappli.service.ElementQueryService;
+import com.muller.lappli.service.ElementService;
+import com.muller.lappli.service.criteria.ElementCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -14,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -24,7 +26,6 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-@Transactional
 public class ElementResource {
 
     private final Logger log = LoggerFactory.getLogger(ElementResource.class);
@@ -34,10 +35,16 @@ public class ElementResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
+    private final ElementService elementService;
+
     private final ElementRepository elementRepository;
 
-    public ElementResource(ElementRepository elementRepository) {
+    private final ElementQueryService elementQueryService;
+
+    public ElementResource(ElementService elementService, ElementRepository elementRepository, ElementQueryService elementQueryService) {
+        this.elementService = elementService;
         this.elementRepository = elementRepository;
+        this.elementQueryService = elementQueryService;
     }
 
     /**
@@ -53,7 +60,7 @@ public class ElementResource {
         if (element.getId() != null) {
             throw new BadRequestAlertException("A new element cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Element result = elementRepository.save(element);
+        Element result = elementService.save(element);
         return ResponseEntity
             .created(new URI("/api/elements/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -87,7 +94,7 @@ public class ElementResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Element result = elementRepository.save(element);
+        Element result = elementService.save(element);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, element.getId().toString()))
@@ -122,19 +129,7 @@ public class ElementResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Element> result = elementRepository
-            .findById(element.getId())
-            .map(existingElement -> {
-                if (element.getNumber() != null) {
-                    existingElement.setNumber(element.getNumber());
-                }
-                if (element.getColor() != null) {
-                    existingElement.setColor(element.getColor());
-                }
-
-                return existingElement;
-            })
-            .map(elementRepository::save);
+        Optional<Element> result = elementService.partialUpdate(element);
 
         return ResponseUtil.wrapOrNotFound(
             result,
@@ -145,12 +140,26 @@ public class ElementResource {
     /**
      * {@code GET  /elements} : get all the elements.
      *
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of elements in body.
      */
     @GetMapping("/elements")
-    public List<Element> getAllElements() {
-        log.debug("REST request to get all Elements");
-        return elementRepository.findAll();
+    public ResponseEntity<List<Element>> getAllElements(ElementCriteria criteria) {
+        log.debug("REST request to get Elements by criteria: {}", criteria);
+        List<Element> entityList = elementQueryService.findByCriteria(criteria);
+        return ResponseEntity.ok().body(entityList);
+    }
+
+    /**
+     * {@code GET  /elements/count} : count all the elements.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/elements/count")
+    public ResponseEntity<Long> countElements(ElementCriteria criteria) {
+        log.debug("REST request to count Elements by criteria: {}", criteria);
+        return ResponseEntity.ok().body(elementQueryService.countByCriteria(criteria));
     }
 
     /**
@@ -162,7 +171,7 @@ public class ElementResource {
     @GetMapping("/elements/{id}")
     public ResponseEntity<Element> getElement(@PathVariable Long id) {
         log.debug("REST request to get Element : {}", id);
-        Optional<Element> element = elementRepository.findById(id);
+        Optional<Element> element = elementService.findOne(id);
         return ResponseUtil.wrapOrNotFound(element);
     }
 
@@ -175,7 +184,7 @@ public class ElementResource {
     @DeleteMapping("/elements/{id}")
     public ResponseEntity<Void> deleteElement(@PathVariable Long id) {
         log.debug("REST request to delete Element : {}", id);
-        elementRepository.deleteById(id);
+        elementService.delete(id);
         return ResponseEntity
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))

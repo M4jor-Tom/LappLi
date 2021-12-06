@@ -9,9 +9,9 @@ entity Lifter {
     supportsRsdMarkingTechnique Boolean required
 }
 
-filter Lifter
+filter *
 
-service Lifter with serviceImpl
+service * with serviceImpl
 
 entity LifterRunMeasure {
 	milimeterDiameter Double

@@ -2,6 +2,9 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.Material;
 import com.muller.lappli.repository.MaterialRepository;
+import com.muller.lappli.service.MaterialQueryService;
+import com.muller.lappli.service.MaterialService;
+import com.muller.lappli.service.criteria.MaterialCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -14,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -24,7 +26,6 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-@Transactional
 public class MaterialResource {
 
     private final Logger log = LoggerFactory.getLogger(MaterialResource.class);
@@ -34,10 +35,20 @@ public class MaterialResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
+    private final MaterialService materialService;
+
     private final MaterialRepository materialRepository;
 
-    public MaterialResource(MaterialRepository materialRepository) {
+    private final MaterialQueryService materialQueryService;
+
+    public MaterialResource(
+        MaterialService materialService,
+        MaterialRepository materialRepository,
+        MaterialQueryService materialQueryService
+    ) {
+        this.materialService = materialService;
         this.materialRepository = materialRepository;
+        this.materialQueryService = materialQueryService;
     }
 
     /**
@@ -53,7 +64,7 @@ public class MaterialResource {
         if (material.getId() != null) {
             throw new BadRequestAlertException("A new material cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Material result = materialRepository.save(material);
+        Material result = materialService.save(material);
         return ResponseEntity
             .created(new URI("/api/materials/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -87,7 +98,7 @@ public class MaterialResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Material result = materialRepository.save(material);
+        Material result = materialService.save(material);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, material.getId().toString()))
@@ -122,22 +133,7 @@ public class MaterialResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Material> result = materialRepository
-            .findById(material.getId())
-            .map(existingMaterial -> {
-                if (material.getNumber() != null) {
-                    existingMaterial.setNumber(material.getNumber());
-                }
-                if (material.getDesignation() != null) {
-                    existingMaterial.setDesignation(material.getDesignation());
-                }
-                if (material.getIsMarkable() != null) {
-                    existingMaterial.setIsMarkable(material.getIsMarkable());
-                }
-
-                return existingMaterial;
-            })
-            .map(materialRepository::save);
+        Optional<Material> result = materialService.partialUpdate(material);
 
         return ResponseUtil.wrapOrNotFound(
             result,
@@ -148,12 +144,26 @@ public class MaterialResource {
     /**
      * {@code GET  /materials} : get all the materials.
      *
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of materials in body.
      */
     @GetMapping("/materials")
-    public List<Material> getAllMaterials() {
-        log.debug("REST request to get all Materials");
-        return materialRepository.findAll();
+    public ResponseEntity<List<Material>> getAllMaterials(MaterialCriteria criteria) {
+        log.debug("REST request to get Materials by criteria: {}", criteria);
+        List<Material> entityList = materialQueryService.findByCriteria(criteria);
+        return ResponseEntity.ok().body(entityList);
+    }
+
+    /**
+     * {@code GET  /materials/count} : count all the materials.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/materials/count")
+    public ResponseEntity<Long> countMaterials(MaterialCriteria criteria) {
+        log.debug("REST request to count Materials by criteria: {}", criteria);
+        return ResponseEntity.ok().body(materialQueryService.countByCriteria(criteria));
     }
 
     /**
@@ -165,7 +175,7 @@ public class MaterialResource {
     @GetMapping("/materials/{id}")
     public ResponseEntity<Material> getMaterial(@PathVariable Long id) {
         log.debug("REST request to get Material : {}", id);
-        Optional<Material> material = materialRepository.findById(id);
+        Optional<Material> material = materialService.findOne(id);
         return ResponseUtil.wrapOrNotFound(material);
     }
 
@@ -178,7 +188,7 @@ public class MaterialResource {
     @DeleteMapping("/materials/{id}")
     public ResponseEntity<Void> deleteMaterial(@PathVariable Long id) {
         log.debug("REST request to delete Material : {}", id);
-        materialRepository.deleteById(id);
+        materialService.delete(id);
         return ResponseEntity
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))

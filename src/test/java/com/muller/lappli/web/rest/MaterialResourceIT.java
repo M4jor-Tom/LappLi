@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.Material;
 import com.muller.lappli.repository.MaterialRepository;
+import com.muller.lappli.service.criteria.MaterialCriteria;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -31,6 +32,7 @@ class MaterialResourceIT {
 
     private static final Long DEFAULT_NUMBER = 1L;
     private static final Long UPDATED_NUMBER = 2L;
+    private static final Long SMALLER_NUMBER = 1L - 1L;
 
     private static final String DEFAULT_DESIGNATION = "AAAAAAAAAA";
     private static final String UPDATED_DESIGNATION = "BBBBBBBBBB";
@@ -201,6 +203,298 @@ class MaterialResourceIT {
             .andExpect(jsonPath("$.number").value(DEFAULT_NUMBER.intValue()))
             .andExpect(jsonPath("$.designation").value(DEFAULT_DESIGNATION))
             .andExpect(jsonPath("$.isMarkable").value(DEFAULT_IS_MARKABLE.booleanValue()));
+    }
+
+    @Test
+    @Transactional
+    void getMaterialsByIdFiltering() throws Exception {
+        // Initialize the database
+        materialRepository.saveAndFlush(material);
+
+        Long id = material.getId();
+
+        defaultMaterialShouldBeFound("id.equals=" + id);
+        defaultMaterialShouldNotBeFound("id.notEquals=" + id);
+
+        defaultMaterialShouldBeFound("id.greaterThanOrEqual=" + id);
+        defaultMaterialShouldNotBeFound("id.greaterThan=" + id);
+
+        defaultMaterialShouldBeFound("id.lessThanOrEqual=" + id);
+        defaultMaterialShouldNotBeFound("id.lessThan=" + id);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialsByNumberIsEqualToSomething() throws Exception {
+        // Initialize the database
+        materialRepository.saveAndFlush(material);
+
+        // Get all the materialList where number equals to DEFAULT_NUMBER
+        defaultMaterialShouldBeFound("number.equals=" + DEFAULT_NUMBER);
+
+        // Get all the materialList where number equals to UPDATED_NUMBER
+        defaultMaterialShouldNotBeFound("number.equals=" + UPDATED_NUMBER);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialsByNumberIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        materialRepository.saveAndFlush(material);
+
+        // Get all the materialList where number not equals to DEFAULT_NUMBER
+        defaultMaterialShouldNotBeFound("number.notEquals=" + DEFAULT_NUMBER);
+
+        // Get all the materialList where number not equals to UPDATED_NUMBER
+        defaultMaterialShouldBeFound("number.notEquals=" + UPDATED_NUMBER);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialsByNumberIsInShouldWork() throws Exception {
+        // Initialize the database
+        materialRepository.saveAndFlush(material);
+
+        // Get all the materialList where number in DEFAULT_NUMBER or UPDATED_NUMBER
+        defaultMaterialShouldBeFound("number.in=" + DEFAULT_NUMBER + "," + UPDATED_NUMBER);
+
+        // Get all the materialList where number equals to UPDATED_NUMBER
+        defaultMaterialShouldNotBeFound("number.in=" + UPDATED_NUMBER);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialsByNumberIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        materialRepository.saveAndFlush(material);
+
+        // Get all the materialList where number is not null
+        defaultMaterialShouldBeFound("number.specified=true");
+
+        // Get all the materialList where number is null
+        defaultMaterialShouldNotBeFound("number.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialsByNumberIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        materialRepository.saveAndFlush(material);
+
+        // Get all the materialList where number is greater than or equal to DEFAULT_NUMBER
+        defaultMaterialShouldBeFound("number.greaterThanOrEqual=" + DEFAULT_NUMBER);
+
+        // Get all the materialList where number is greater than or equal to UPDATED_NUMBER
+        defaultMaterialShouldNotBeFound("number.greaterThanOrEqual=" + UPDATED_NUMBER);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialsByNumberIsLessThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        materialRepository.saveAndFlush(material);
+
+        // Get all the materialList where number is less than or equal to DEFAULT_NUMBER
+        defaultMaterialShouldBeFound("number.lessThanOrEqual=" + DEFAULT_NUMBER);
+
+        // Get all the materialList where number is less than or equal to SMALLER_NUMBER
+        defaultMaterialShouldNotBeFound("number.lessThanOrEqual=" + SMALLER_NUMBER);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialsByNumberIsLessThanSomething() throws Exception {
+        // Initialize the database
+        materialRepository.saveAndFlush(material);
+
+        // Get all the materialList where number is less than DEFAULT_NUMBER
+        defaultMaterialShouldNotBeFound("number.lessThan=" + DEFAULT_NUMBER);
+
+        // Get all the materialList where number is less than UPDATED_NUMBER
+        defaultMaterialShouldBeFound("number.lessThan=" + UPDATED_NUMBER);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialsByNumberIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        materialRepository.saveAndFlush(material);
+
+        // Get all the materialList where number is greater than DEFAULT_NUMBER
+        defaultMaterialShouldNotBeFound("number.greaterThan=" + DEFAULT_NUMBER);
+
+        // Get all the materialList where number is greater than SMALLER_NUMBER
+        defaultMaterialShouldBeFound("number.greaterThan=" + SMALLER_NUMBER);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialsByDesignationIsEqualToSomething() throws Exception {
+        // Initialize the database
+        materialRepository.saveAndFlush(material);
+
+        // Get all the materialList where designation equals to DEFAULT_DESIGNATION
+        defaultMaterialShouldBeFound("designation.equals=" + DEFAULT_DESIGNATION);
+
+        // Get all the materialList where designation equals to UPDATED_DESIGNATION
+        defaultMaterialShouldNotBeFound("designation.equals=" + UPDATED_DESIGNATION);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialsByDesignationIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        materialRepository.saveAndFlush(material);
+
+        // Get all the materialList where designation not equals to DEFAULT_DESIGNATION
+        defaultMaterialShouldNotBeFound("designation.notEquals=" + DEFAULT_DESIGNATION);
+
+        // Get all the materialList where designation not equals to UPDATED_DESIGNATION
+        defaultMaterialShouldBeFound("designation.notEquals=" + UPDATED_DESIGNATION);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialsByDesignationIsInShouldWork() throws Exception {
+        // Initialize the database
+        materialRepository.saveAndFlush(material);
+
+        // Get all the materialList where designation in DEFAULT_DESIGNATION or UPDATED_DESIGNATION
+        defaultMaterialShouldBeFound("designation.in=" + DEFAULT_DESIGNATION + "," + UPDATED_DESIGNATION);
+
+        // Get all the materialList where designation equals to UPDATED_DESIGNATION
+        defaultMaterialShouldNotBeFound("designation.in=" + UPDATED_DESIGNATION);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialsByDesignationIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        materialRepository.saveAndFlush(material);
+
+        // Get all the materialList where designation is not null
+        defaultMaterialShouldBeFound("designation.specified=true");
+
+        // Get all the materialList where designation is null
+        defaultMaterialShouldNotBeFound("designation.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialsByDesignationContainsSomething() throws Exception {
+        // Initialize the database
+        materialRepository.saveAndFlush(material);
+
+        // Get all the materialList where designation contains DEFAULT_DESIGNATION
+        defaultMaterialShouldBeFound("designation.contains=" + DEFAULT_DESIGNATION);
+
+        // Get all the materialList where designation contains UPDATED_DESIGNATION
+        defaultMaterialShouldNotBeFound("designation.contains=" + UPDATED_DESIGNATION);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialsByDesignationNotContainsSomething() throws Exception {
+        // Initialize the database
+        materialRepository.saveAndFlush(material);
+
+        // Get all the materialList where designation does not contain DEFAULT_DESIGNATION
+        defaultMaterialShouldNotBeFound("designation.doesNotContain=" + DEFAULT_DESIGNATION);
+
+        // Get all the materialList where designation does not contain UPDATED_DESIGNATION
+        defaultMaterialShouldBeFound("designation.doesNotContain=" + UPDATED_DESIGNATION);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialsByIsMarkableIsEqualToSomething() throws Exception {
+        // Initialize the database
+        materialRepository.saveAndFlush(material);
+
+        // Get all the materialList where isMarkable equals to DEFAULT_IS_MARKABLE
+        defaultMaterialShouldBeFound("isMarkable.equals=" + DEFAULT_IS_MARKABLE);
+
+        // Get all the materialList where isMarkable equals to UPDATED_IS_MARKABLE
+        defaultMaterialShouldNotBeFound("isMarkable.equals=" + UPDATED_IS_MARKABLE);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialsByIsMarkableIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        materialRepository.saveAndFlush(material);
+
+        // Get all the materialList where isMarkable not equals to DEFAULT_IS_MARKABLE
+        defaultMaterialShouldNotBeFound("isMarkable.notEquals=" + DEFAULT_IS_MARKABLE);
+
+        // Get all the materialList where isMarkable not equals to UPDATED_IS_MARKABLE
+        defaultMaterialShouldBeFound("isMarkable.notEquals=" + UPDATED_IS_MARKABLE);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialsByIsMarkableIsInShouldWork() throws Exception {
+        // Initialize the database
+        materialRepository.saveAndFlush(material);
+
+        // Get all the materialList where isMarkable in DEFAULT_IS_MARKABLE or UPDATED_IS_MARKABLE
+        defaultMaterialShouldBeFound("isMarkable.in=" + DEFAULT_IS_MARKABLE + "," + UPDATED_IS_MARKABLE);
+
+        // Get all the materialList where isMarkable equals to UPDATED_IS_MARKABLE
+        defaultMaterialShouldNotBeFound("isMarkable.in=" + UPDATED_IS_MARKABLE);
+    }
+
+    @Test
+    @Transactional
+    void getAllMaterialsByIsMarkableIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        materialRepository.saveAndFlush(material);
+
+        // Get all the materialList where isMarkable is not null
+        defaultMaterialShouldBeFound("isMarkable.specified=true");
+
+        // Get all the materialList where isMarkable is null
+        defaultMaterialShouldNotBeFound("isMarkable.specified=false");
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is returned.
+     */
+    private void defaultMaterialShouldBeFound(String filter) throws Exception {
+        restMaterialMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(material.getId().intValue())))
+            .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER.intValue())))
+            .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)))
+            .andExpect(jsonPath("$.[*].isMarkable").value(hasItem(DEFAULT_IS_MARKABLE.booleanValue())));
+
+        // Check, that the count call also returns 1
+        restMaterialMockMvc
+            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(content().string("1"));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is not returned.
+     */
+    private void defaultMaterialShouldNotBeFound(String filter) throws Exception {
+        restMaterialMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$").isEmpty());
+
+        // Check, that the count call also returns 0
+        restMaterialMockMvc
+            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(content().string("0"));
     }
 
     @Test

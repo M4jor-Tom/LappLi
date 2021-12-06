@@ -5,6 +5,9 @@ import com.muller.lappli.domain.ElementKind;
 import com.muller.lappli.domain.ElementKindEdition;
 import com.muller.lappli.repository.ElementKindRepository;
 import com.muller.lappli.service.ElementKindEditionService;
+import com.muller.lappli.service.ElementKindQueryService;
+import com.muller.lappli.service.ElementKindService;
+import com.muller.lappli.service.criteria.ElementKindCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -18,7 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -28,7 +30,6 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-@Transactional
 public class ElementKindResource {
 
     private final Logger log = LoggerFactory.getLogger(ElementKindResource.class);
@@ -38,13 +39,20 @@ public class ElementKindResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final ElementKindRepository elementKindRepository;
+    private final ElementKindService elementKindService;
 
     private final ElementKindEditionService elementKindEditionService;
 
-    public ElementKindResource(ElementKindRepository elementKindRepository, ElementKindEditionService elementKindEditionService) {
-        this.elementKindRepository = elementKindRepository;
+    private final ElementKindQueryService elementKindQueryService;
+
+    public ElementKindResource(
+        ElementKindService elementKindService,
+        ElementKindEditionService elementKindEditionService,
+        ElementKindQueryService elementKindQueryService
+    ) {
+        this.elementKindService = elementKindService;
         this.elementKindEditionService = elementKindEditionService;
+        this.elementKindQueryService = elementKindQueryService;
     }
 
     /**
@@ -60,7 +68,7 @@ public class ElementKindResource {
         if (elementKind.getId() != null) {
             throw new BadRequestAlertException("A new elementKind cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ElementKind result = elementKindRepository.save(elementKind);
+        ElementKind result = elementKindService.save(elementKind);
         return ResponseEntity
             .created(new URI("/api/element-kinds/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -166,7 +174,7 @@ public class ElementKindResource {
     @GetMapping("/element-kinds")
     public List<ElementKind> getAllElementKinds() {
         log.debug("REST request to get all ElementKinds");
-        List<ElementKind> elementKindList = elementKindRepository.findAll();
+        List<ElementKind> elementKindList = elementKindService.findAll();
 
         /*List<IEdition<CommitableObject>> editionList = new ArrayList<IEdition<CommitableObject>>();
 
@@ -209,7 +217,7 @@ public class ElementKindResource {
     @GetMapping("/element-kinds/{id}")
     public ResponseEntity<ElementKind> getElementKind(@PathVariable Long id) {
         log.debug("REST request to get ElementKind : {}", id);
-        Optional<ElementKind> elementKind = elementKindRepository.findById(id);
+        Optional<ElementKind> elementKind = elementKindService.findOne(id);
         return ResponseUtil.wrapOrNotFound(elementKind);
     }
 
@@ -222,7 +230,7 @@ public class ElementKindResource {
     @DeleteMapping("/element-kinds/{id}")
     public ResponseEntity<Void> deleteElementKind(@PathVariable Long id) {
         log.debug("REST request to delete ElementKind : {}", id);
-        elementKindRepository.deleteById(id);
+        elementKindService.delete(id);
         return ResponseEntity
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
