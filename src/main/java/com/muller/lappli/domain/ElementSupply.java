@@ -29,13 +29,13 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
     @Column(name = "apparitions", nullable = false)
     private Long apparitions;
 
-    @Column(name = "forced_marking")
-    private String forcedMarking;
-
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "marking_type", nullable = false)
     private MarkingType markingType;
+
+    @Column(name = "description")
+    private String description;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -43,13 +43,13 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
     private Element element;
 
     public ElementSupply() {
-        this(null, "", MarkingType.LIFTING, new Element());
+        this(null, MarkingType.LIFTING, "", new Element());
     }
 
-    public ElementSupply(Long apparitions, String forcedMarking, MarkingType markingType, Element element) {
+    public ElementSupply(Long apparitions, MarkingType markingType, String description, Element element) {
         setApparitions(apparitions);
-        setForcedMarking(forcedMarking);
         setMarkingType(markingType);
+        setDescription(description);
         setElement(element);
     }
 
@@ -120,19 +120,6 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
         this.apparitions = apparitions;
     }
 
-    public String getForcedMarking() {
-        return this.forcedMarking;
-    }
-
-    public ElementSupply forcedMarking(String forcedMarking) {
-        this.setForcedMarking(forcedMarking);
-        return this;
-    }
-
-    public void setForcedMarking(String forcedMarking) {
-        this.forcedMarking = forcedMarking;
-    }
-
     public MarkingType getMarkingType() {
         return this.markingType;
     }
@@ -144,6 +131,19 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
 
     public void setMarkingType(MarkingType markingType) {
         this.markingType = markingType;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public ElementSupply description(String description) {
+        this.setDescription(description);
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Element getElement() {
@@ -184,8 +184,8 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
         return "ElementSupply{" +
             "id=" + getId() +
             ", apparitions=" + getApparitions() +
-            ", forcedMarking='" + getForcedMarking() + "'" +
             ", markingType='" + getMarkingType() + "'" +
+            ", description='" + getDescription() + "'" +
             "}";
     }
 }

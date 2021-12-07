@@ -1,7 +1,10 @@
 package com.muller.lappli.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.interfaces.Article;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -30,9 +33,10 @@ public class Material implements Article, Serializable {
     @Column(name = "designation", nullable = false, unique = true)
     private String designation;
 
-    @NotNull
-    @Column(name = "is_markable", nullable = false)
-    private Boolean isMarkable;
+    @OneToMany(mappedBy = "material")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "material" }, allowSetters = true)
+    private Set<MaterialMarkingStatistic> materialMarkingStatistics = new HashSet<>();
 
     @Override
     public Long getArticleNumber() {
@@ -81,17 +85,35 @@ public class Material implements Article, Serializable {
         this.designation = designation;
     }
 
-    public Boolean getIsMarkable() {
-        return this.isMarkable;
+    public Set<MaterialMarkingStatistic> getMaterialMarkingStatistics() {
+        return this.materialMarkingStatistics;
     }
 
-    public Material isMarkable(Boolean isMarkable) {
-        this.setIsMarkable(isMarkable);
+    public void setMaterialMarkingStatistics(Set<MaterialMarkingStatistic> materialMarkingStatistics) {
+        if (this.materialMarkingStatistics != null) {
+            this.materialMarkingStatistics.forEach(i -> i.setMaterial(null));
+        }
+        if (materialMarkingStatistics != null) {
+            materialMarkingStatistics.forEach(i -> i.setMaterial(this));
+        }
+        this.materialMarkingStatistics = materialMarkingStatistics;
+    }
+
+    public Material materialMarkingStatistics(Set<MaterialMarkingStatistic> materialMarkingStatistics) {
+        this.setMaterialMarkingStatistics(materialMarkingStatistics);
         return this;
     }
 
-    public void setIsMarkable(Boolean isMarkable) {
-        this.isMarkable = isMarkable;
+    public Material addMaterialMarkingStatistics(MaterialMarkingStatistic materialMarkingStatistic) {
+        this.materialMarkingStatistics.add(materialMarkingStatistic);
+        materialMarkingStatistic.setMaterial(this);
+        return this;
+    }
+
+    public Material removeMaterialMarkingStatistics(MaterialMarkingStatistic materialMarkingStatistic) {
+        this.materialMarkingStatistics.remove(materialMarkingStatistic);
+        materialMarkingStatistic.setMaterial(null);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -120,7 +142,6 @@ public class Material implements Article, Serializable {
             "id=" + getId() +
             ", number=" + getNumber() +
             ", designation='" + getDesignation() + "'" +
-            ", isMarkable='" + getIsMarkable() + "'" +
             "}";
     }
 }

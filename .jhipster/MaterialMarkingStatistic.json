@@ -1,0 +1,42 @@
+{
+  "name": "MaterialMarkingStatistic",
+  "fields": [
+    {
+      "fieldName": "markingType",
+      "fieldType": "MarkingType",
+      "fieldValues": "LIFTING,SPIRALLY_COLORED,LONGITUDINALLY_COLORED,RINGY_COLORED,NUMBERED",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "markingTechnique",
+      "fieldType": "MarkingTechnique",
+      "fieldValues": "NONE,INK_JET,RSD",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "meterPerHourSpeed",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "material",
+      "otherEntityRelationshipName": "materialMarkingStatistics",
+      "relationshipValidateRules": "required",
+      "relationshipName": "material",
+      "otherEntityField": "designation"
+    }
+  ],
+  "entityTableName": "material_marking_statistic",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211207122453"
+}

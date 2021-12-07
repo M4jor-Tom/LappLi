@@ -1,3 +1,7 @@
+filter *
+
+service * with serviceImpl
+
 entity Lifter {
 	index Long unique required
 	minimumMilimeterDiameter Double required
@@ -8,10 +12,6 @@ entity Lifter {
     supportsInkJetMarkingTechnique Boolean required
     supportsRsdMarkingTechnique Boolean required
 }
-
-filter *
-
-service * with serviceImpl
 
 entity LifterRunMeasure {
 	milimeterDiameter Double
@@ -27,6 +27,7 @@ relationship ManyToOne {
 
 entity BangleSupply {
 	apparitions Long required
+    description String
 }
 
 filter BangleSupply
@@ -35,8 +36,8 @@ service BangleSupply with serviceClass
 
 entity ElementSupply {
 	apparitions Long required
-    forcedMarking String
     markingType MarkingType required
+    description String
 }
 
 filter ElementSupply
@@ -55,6 +56,16 @@ enum MarkingTechnique {
 	NONE,
     INK_JET,
     RSD
+}
+
+entity MaterialMarkingStatistic {
+	markingType MarkingType required
+    markingTechnique MarkingTechnique required
+    meterPerHourSpeed Long required
+}
+
+relationship OneToMany {
+	Material{materialMarkingStatistics(markingType)} to MaterialMarkingStatistic{material(designation) required}
 }
 
 relationship ManyToOne {
@@ -117,7 +128,6 @@ entity Copper {
 entity Material {
 	number Long unique required
 	designation String unique required
-    isMarkable Boolean required
 }
 
 enum Color {

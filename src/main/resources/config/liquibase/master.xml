@@ -25,6 +25,7 @@
     <include file="config/liquibase/changelog/20211130081539_added_entity_BangleSupply.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211130081540_added_entity_Bangle.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211130133222_added_entity_ElementKindEdition.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211207122453_added_entity_MaterialMarkingStatistic.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20211124113148_added_entity_constraints_Element.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211124113149_added_entity_constraints_ElementKind.xml" relativeToChangelogFile="false"/>
@@ -32,6 +33,7 @@
     <include file="config/liquibase/changelog/20211127151038_added_entity_constraints_LifterRunMeasure.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211130081539_added_entity_constraints_BangleSupply.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211130133222_added_entity_constraints_ElementKindEdition.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211207122453_added_entity_constraints_MaterialMarkingStatistic.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

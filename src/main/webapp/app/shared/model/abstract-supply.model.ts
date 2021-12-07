@@ -1,6 +1,7 @@
 export interface IAbstractSupply {
   id?: number;
   apparitions?: number;
+  description?: string | null;
   meterQuantity?: number;
   hourPreparationTime?: number;
   hourExecutionTime?: number;

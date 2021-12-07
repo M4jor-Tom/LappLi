@@ -65,6 +65,9 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.elementSupply.element">Element</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.elementSupply.description">Description</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.dimension.meterQuantity">Quantity (m)</Translate>
                 </th>
                 <th>
@@ -103,7 +106,6 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                     </Button>
                   </td>
                   <td>{elementSupply.apparitions}</td>
-                  <td>{elementSupply.forcedMarking}</td>
                   <td>
                     <Translate contentKey={`lappLiApp.MarkingType.${elementSupply.markingType}`} />
                   </td>
@@ -117,6 +119,7 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                       ''
                     )}
                   </td>
+                  <td>{elementSupply.description}</td>
                   <td>{elementSupply.meterQuantity}</td>
                   <td>{elementSupply.milimeterDiameter}</td>
                   <td>{elementSupply.gramPerMeterLinearMass}</td>

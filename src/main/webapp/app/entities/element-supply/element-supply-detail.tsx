@@ -36,12 +36,6 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           </dt>
           <dd>{elementSupplyEntity.apparitions}</dd>
           <dt>
-            <span id="forcedMarking">
-              <Translate contentKey="lappLiApp.elementSupply.forcedMarking">Forced Marking</Translate>
-            </span>
-          </dt>
-          <dd>{elementSupplyEntity.forcedMarking}</dd>
-          <dt>
             <span id="markingType">
               <Translate contentKey="lappLiApp.elementSupply.markingType">Marking Type</Translate>
             </span>
@@ -51,6 +45,12 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
             <Translate contentKey="lappLiApp.article.number">Article Number</Translate>
           </dt>
           <dd>{elementSupplyEntity.element?.number}</dd>
+          <dt>
+            <span id="description">
+              <Translate contentKey="lappLiApp.elementSupply.description">Description</Translate>
+            </span>
+          </dt>
+          <dd>{elementSupplyEntity.description}</dd>
           <dt>
             <Translate contentKey="lappLiApp.elementSupply.element">Element</Translate>
           </dt>

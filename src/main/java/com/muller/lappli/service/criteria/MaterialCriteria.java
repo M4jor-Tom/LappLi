@@ -30,7 +30,7 @@ public class MaterialCriteria implements Serializable, Criteria {
 
     private StringFilter designation;
 
-    private BooleanFilter isMarkable;
+    private LongFilter materialMarkingStatisticsId;
 
     private Boolean distinct;
 
@@ -40,7 +40,7 @@ public class MaterialCriteria implements Serializable, Criteria {
         this.id = other.id == null ? null : other.id.copy();
         this.number = other.number == null ? null : other.number.copy();
         this.designation = other.designation == null ? null : other.designation.copy();
-        this.isMarkable = other.isMarkable == null ? null : other.isMarkable.copy();
+        this.materialMarkingStatisticsId = other.materialMarkingStatisticsId == null ? null : other.materialMarkingStatisticsId.copy();
         this.distinct = other.distinct;
     }
 
@@ -94,19 +94,19 @@ public class MaterialCriteria implements Serializable, Criteria {
         this.designation = designation;
     }
 
-    public BooleanFilter getIsMarkable() {
-        return isMarkable;
+    public LongFilter getMaterialMarkingStatisticsId() {
+        return materialMarkingStatisticsId;
     }
 
-    public BooleanFilter isMarkable() {
-        if (isMarkable == null) {
-            isMarkable = new BooleanFilter();
+    public LongFilter materialMarkingStatisticsId() {
+        if (materialMarkingStatisticsId == null) {
+            materialMarkingStatisticsId = new LongFilter();
         }
-        return isMarkable;
+        return materialMarkingStatisticsId;
     }
 
-    public void setIsMarkable(BooleanFilter isMarkable) {
-        this.isMarkable = isMarkable;
+    public void setMaterialMarkingStatisticsId(LongFilter materialMarkingStatisticsId) {
+        this.materialMarkingStatisticsId = materialMarkingStatisticsId;
     }
 
     public Boolean getDistinct() {
@@ -130,14 +130,14 @@ public class MaterialCriteria implements Serializable, Criteria {
             Objects.equals(id, that.id) &&
             Objects.equals(number, that.number) &&
             Objects.equals(designation, that.designation) &&
-            Objects.equals(isMarkable, that.isMarkable) &&
+            Objects.equals(materialMarkingStatisticsId, that.materialMarkingStatisticsId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, number, designation, isMarkable, distinct);
+        return Objects.hash(id, number, designation, materialMarkingStatisticsId, distinct);
     }
 
     // prettier-ignore
@@ -147,7 +147,7 @@ public class MaterialCriteria implements Serializable, Criteria {
             (id != null ? "id=" + id + ", " : "") +
             (number != null ? "number=" + number + ", " : "") +
             (designation != null ? "designation=" + designation + ", " : "") +
-            (isMarkable != null ? "isMarkable=" + isMarkable + ", " : "") +
+            (materialMarkingStatisticsId != null ? "materialMarkingStatisticsId=" + materialMarkingStatisticsId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }
