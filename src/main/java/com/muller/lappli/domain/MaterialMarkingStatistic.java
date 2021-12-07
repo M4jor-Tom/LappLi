@@ -38,9 +38,8 @@ public class MaterialMarkingStatistic implements Serializable {
     @Column(name = "meter_per_hour_speed", nullable = false)
     private Long meterPerHourSpeed;
 
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties(value = { "materialMarkingStatisticLists" }, allowSetters = true)
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material material;
 
     public MaterialMarkingStatistic() {

@@ -23,10 +23,8 @@
     {
       "relationshipType": "many-to-one",
       "otherEntityName": "material",
-      "otherEntityRelationshipName": "materialMarkingStatisticList",
-      "relationshipValidateRules": "required",
-      "relationshipName": "material",
-      "otherEntityField": "designation"
+      "otherEntityRelationshipName": "materialMarkingStatistic",
+      "relationshipName": "material"
     }
   ],
   "entityTableName": "material_marking_statistic",

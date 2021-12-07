@@ -61,6 +61,7 @@ public class CacheConfiguration {
             createCache(cm, com.muller.lappli.domain.MaterialMarkingStatistic.class.getName());
             createCache(cm, com.muller.lappli.domain.MaterialMarkingStatistic.class.getName() + ".materials");
             createCache(cm, com.muller.lappli.domain.Material.class.getName() + ".materialMarkingStatisticLists");
+            createCache(cm, com.muller.lappli.domain.Material.class.getName() + ".materialMarkingStatistics");
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -385,28 +385,28 @@ class MaterialResourceIT {
 
     @Test
     @Transactional
-    void getAllMaterialsByMaterialMarkingStatisticListIsEqualToSomething() throws Exception {
+    void getAllMaterialsByMaterialMarkingStatisticIsEqualToSomething() throws Exception {
         // Initialize the database
         materialRepository.saveAndFlush(material);
-        MaterialMarkingStatistic materialMarkingStatisticList;
+        MaterialMarkingStatistic materialMarkingStatistic;
         if (TestUtil.findAll(em, MaterialMarkingStatistic.class).isEmpty()) {
-            materialMarkingStatisticList = MaterialMarkingStatisticResourceIT.createEntity(em);
-            em.persist(materialMarkingStatisticList);
+            materialMarkingStatistic = MaterialMarkingStatisticResourceIT.createEntity(em);
+            em.persist(materialMarkingStatistic);
             em.flush();
         } else {
-            materialMarkingStatisticList = TestUtil.findAll(em, MaterialMarkingStatistic.class).get(0);
+            materialMarkingStatistic = TestUtil.findAll(em, MaterialMarkingStatistic.class).get(0);
         }
-        em.persist(materialMarkingStatisticList);
+        em.persist(materialMarkingStatistic);
         em.flush();
-        material.addMaterialMarkingStatisticList(materialMarkingStatisticList);
+        material.addMaterialMarkingStatistic(materialMarkingStatistic);
         materialRepository.saveAndFlush(material);
-        Long materialMarkingStatisticListId = materialMarkingStatisticList.getId();
+        Long materialMarkingStatisticId = materialMarkingStatistic.getId();
 
-        // Get all the materialList where materialMarkingStatisticList equals to materialMarkingStatisticListId
-        defaultMaterialShouldBeFound("materialMarkingStatisticListId.equals=" + materialMarkingStatisticListId);
+        // Get all the materialList where materialMarkingStatistic equals to materialMarkingStatisticId
+        defaultMaterialShouldBeFound("materialMarkingStatisticId.equals=" + materialMarkingStatisticId);
 
-        // Get all the materialList where materialMarkingStatisticList equals to (materialMarkingStatisticListId + 1)
-        defaultMaterialShouldNotBeFound("materialMarkingStatisticListId.equals=" + (materialMarkingStatisticListId + 1));
+        // Get all the materialList where materialMarkingStatistic equals to (materialMarkingStatisticId + 1)
+        defaultMaterialShouldNotBeFound("materialMarkingStatisticId.equals=" + (materialMarkingStatisticId + 1));
     }
 
     /**

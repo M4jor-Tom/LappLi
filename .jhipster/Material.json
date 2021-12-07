@@ -17,7 +17,7 @@
       "relationshipType": "one-to-many",
       "otherEntityName": "materialMarkingStatistic",
       "otherEntityRelationshipName": "material",
-      "relationshipName": "materialMarkingStatisticList",
+      "relationshipName": "materialMarkingStatistic",
       "otherEntityField": "markingType"
     }
   ],

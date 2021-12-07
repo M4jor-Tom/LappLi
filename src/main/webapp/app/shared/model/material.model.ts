@@ -4,7 +4,7 @@ export interface IMaterial {
   id?: number;
   number?: number;
   designation?: string;
-  materialMarkingStatisticLists?: IMaterialMarkingStatistic[] | null;
+  materialMarkingStatistics?: IMaterialMarkingStatistic[] | null;
 }
 
 export const defaultValue: Readonly<IMaterial> = {};

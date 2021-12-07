@@ -71,16 +71,6 @@ class MaterialMarkingStatisticResourceIT {
             .markingType(DEFAULT_MARKING_TYPE)
             .markingTechnique(DEFAULT_MARKING_TECHNIQUE)
             .meterPerHourSpeed(DEFAULT_METER_PER_HOUR_SPEED);
-        // Add required entity
-        Material material;
-        if (TestUtil.findAll(em, Material.class).isEmpty()) {
-            material = MaterialResourceIT.createEntity(em);
-            em.persist(material);
-            em.flush();
-        } else {
-            material = TestUtil.findAll(em, Material.class).get(0);
-        }
-        materialMarkingStatistic.setMaterial(material);
         return materialMarkingStatistic;
     }
 
@@ -95,16 +85,6 @@ class MaterialMarkingStatisticResourceIT {
             .markingType(UPDATED_MARKING_TYPE)
             .markingTechnique(UPDATED_MARKING_TECHNIQUE)
             .meterPerHourSpeed(UPDATED_METER_PER_HOUR_SPEED);
-        // Add required entity
-        Material material;
-        if (TestUtil.findAll(em, Material.class).isEmpty()) {
-            material = MaterialResourceIT.createUpdatedEntity(em);
-            em.persist(material);
-            em.flush();
-        } else {
-            material = TestUtil.findAll(em, Material.class).get(0);
-        }
-        materialMarkingStatistic.setMaterial(material);
         return materialMarkingStatistic;
     }
 

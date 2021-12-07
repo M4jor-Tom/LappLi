@@ -30,7 +30,7 @@ public class MaterialCriteria implements Serializable, Criteria {
 
     private StringFilter designation;
 
-    private LongFilter materialMarkingStatisticListId;
+    private LongFilter materialMarkingStatisticId;
 
     private Boolean distinct;
 
@@ -40,8 +40,7 @@ public class MaterialCriteria implements Serializable, Criteria {
         this.id = other.id == null ? null : other.id.copy();
         this.number = other.number == null ? null : other.number.copy();
         this.designation = other.designation == null ? null : other.designation.copy();
-        this.materialMarkingStatisticListId =
-            other.materialMarkingStatisticListId == null ? null : other.materialMarkingStatisticListId.copy();
+        this.materialMarkingStatisticId = other.materialMarkingStatisticId == null ? null : other.materialMarkingStatisticId.copy();
         this.distinct = other.distinct;
     }
 
@@ -95,19 +94,19 @@ public class MaterialCriteria implements Serializable, Criteria {
         this.designation = designation;
     }
 
-    public LongFilter getMaterialMarkingStatisticListId() {
-        return materialMarkingStatisticListId;
+    public LongFilter getMaterialMarkingStatisticId() {
+        return materialMarkingStatisticId;
     }
 
-    public LongFilter materialMarkingStatisticListId() {
-        if (materialMarkingStatisticListId == null) {
-            materialMarkingStatisticListId = new LongFilter();
+    public LongFilter materialMarkingStatisticId() {
+        if (materialMarkingStatisticId == null) {
+            materialMarkingStatisticId = new LongFilter();
         }
-        return materialMarkingStatisticListId;
+        return materialMarkingStatisticId;
     }
 
-    public void setMaterialMarkingStatisticListId(LongFilter materialMarkingStatisticListId) {
-        this.materialMarkingStatisticListId = materialMarkingStatisticListId;
+    public void setMaterialMarkingStatisticId(LongFilter materialMarkingStatisticId) {
+        this.materialMarkingStatisticId = materialMarkingStatisticId;
     }
 
     public Boolean getDistinct() {
@@ -131,14 +130,14 @@ public class MaterialCriteria implements Serializable, Criteria {
             Objects.equals(id, that.id) &&
             Objects.equals(number, that.number) &&
             Objects.equals(designation, that.designation) &&
-            Objects.equals(materialMarkingStatisticListId, that.materialMarkingStatisticListId) &&
+            Objects.equals(materialMarkingStatisticId, that.materialMarkingStatisticId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, number, designation, materialMarkingStatisticListId, distinct);
+        return Objects.hash(id, number, designation, materialMarkingStatisticId, distinct);
     }
 
     // prettier-ignore
@@ -148,7 +147,7 @@ public class MaterialCriteria implements Serializable, Criteria {
             (id != null ? "id=" + id + ", " : "") +
             (number != null ? "number=" + number + ", " : "") +
             (designation != null ? "designation=" + designation + ", " : "") +
-            (materialMarkingStatisticListId != null ? "materialMarkingStatisticListId=" + materialMarkingStatisticListId + ", " : "") +
+            (materialMarkingStatisticId != null ? "materialMarkingStatisticId=" + materialMarkingStatisticId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }
