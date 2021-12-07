@@ -53,9 +53,6 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.elementSupply.forcedMarking">Forced Marking</Translate>
-                </th>
-                <th>
                   <Translate contentKey="lappLiApp.elementSupply.markingType">Marking Type</Translate>
                 </th>
                 <th>

@@ -5,7 +5,6 @@ import { IAbstractLiftedSupply } from './abstract-lifted-supply.model';
 
 export interface IElementSupply extends IAbstractLiftedSupply {
   id?: number;
-  forcedMarking?: string | null;
   markingType?: MarkingType;
   metricQuantity?: number;
   element?: IElement;
