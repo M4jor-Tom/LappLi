@@ -4,6 +4,8 @@ import { Button, Row, Col, FormText } from 'reactstrap';
 import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { IMaterial } from 'app/shared/model/material.model';
+import { getEntities as getMaterials } from 'app/entities/material/material.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './material-marking-statistic.reducer';
 import { IMaterialMarkingStatistic } from 'app/shared/model/material-marking-statistic.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -17,6 +19,7 @@ export const MaterialMarkingStatisticUpdate = (props: RouteComponentProps<{ id: 
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
+  const materials = useAppSelector(state => state.material.entities);
   const materialMarkingStatisticEntity = useAppSelector(state => state.materialMarkingStatistic.entity);
   const loading = useAppSelector(state => state.materialMarkingStatistic.loading);
   const updating = useAppSelector(state => state.materialMarkingStatistic.updating);
@@ -33,6 +36,8 @@ export const MaterialMarkingStatisticUpdate = (props: RouteComponentProps<{ id: 
     } else {
       dispatch(getEntity(props.match.params.id));
     }
+
+    dispatch(getMaterials({}));
   }, []);
 
   useEffect(() => {
@@ -45,6 +50,7 @@ export const MaterialMarkingStatisticUpdate = (props: RouteComponentProps<{ id: 
     const entity = {
       ...materialMarkingStatisticEntity,
       ...values,
+      material: materials.find(it => it.id.toString() === values.material.toString()),
     };
 
     if (isNew) {
@@ -61,6 +67,7 @@ export const MaterialMarkingStatisticUpdate = (props: RouteComponentProps<{ id: 
           markingType: 'LIFTING',
           markingTechnique: 'NONE',
           ...materialMarkingStatisticEntity,
+          material: materialMarkingStatisticEntity?.material?.id,
         };
 
   return (
@@ -117,16 +124,36 @@ export const MaterialMarkingStatisticUpdate = (props: RouteComponentProps<{ id: 
                 ))}
               </ValidatedField>
               <ValidatedField
-                label={translate('lappLiApp.materialMarkingStatistic.meterPerSecondSpeed')}
-                id="material-marking-statistic-meterPerSecondSpeed"
-                name="meterPerSecondSpeed"
-                data-cy="meterPerSecondSpeed"
+                label={translate('lappLiApp.materialMarkingStatistic.meterPerHourSpeed')}
+                id="material-marking-statistic-meterPerHourSpeed"
+                name="meterPerHourSpeed"
+                data-cy="meterPerHourSpeed"
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
               />
+              <ValidatedField
+                id="material-marking-statistic-material"
+                name="material"
+                data-cy="material"
+                label={translate('lappLiApp.materialMarkingStatistic.material')}
+                type="select"
+                required
+              >
+                <option value="" key="0" />
+                {materials
+                  ? materials.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.designation}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/material-marking-statistic" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

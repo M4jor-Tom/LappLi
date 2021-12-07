@@ -398,7 +398,7 @@ class MaterialResourceIT {
         }
         em.persist(materialMarkingStatisticList);
         em.flush();
-        material.setMaterialMarkingStatisticList(materialMarkingStatisticList);
+        material.addMaterialMarkingStatisticList(materialMarkingStatisticList);
         materialRepository.saveAndFlush(material);
         Long materialMarkingStatisticListId = materialMarkingStatisticList.getId();
 

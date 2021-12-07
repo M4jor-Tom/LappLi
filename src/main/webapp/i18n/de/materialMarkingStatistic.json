@@ -20,7 +20,7 @@
       "id": "ID",
       "markingType": "Marking Type",
       "markingTechnique": "Marking Technique",
-      "meterPerSecondSpeed": "Meter Per Second Speed",
+      "meterPerHourSpeed": "Meter Per Hour Speed",
       "material": "Material"
     }
   }

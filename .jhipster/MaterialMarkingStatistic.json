@@ -14,14 +14,14 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "meterPerSecondSpeed",
+      "fieldName": "meterPerHourSpeed",
       "fieldType": "Long",
       "fieldValidateRules": ["required"]
     }
   ],
   "relationships": [
     {
-      "relationshipType": "one-to-many",
+      "relationshipType": "many-to-one",
       "otherEntityName": "material",
       "otherEntityRelationshipName": "materialMarkingStatisticList",
       "relationshipValidateRules": "required",

@@ -66,7 +66,7 @@ public class MaterialMarkingStatisticCriteria implements Serializable, Criteria 
 
     private MarkingTechniqueFilter markingTechnique;
 
-    private LongFilter meterPerSecondSpeed;
+    private LongFilter meterPerHourSpeed;
 
     private LongFilter materialId;
 
@@ -78,7 +78,7 @@ public class MaterialMarkingStatisticCriteria implements Serializable, Criteria 
         this.id = other.id == null ? null : other.id.copy();
         this.markingType = other.markingType == null ? null : other.markingType.copy();
         this.markingTechnique = other.markingTechnique == null ? null : other.markingTechnique.copy();
-        this.meterPerSecondSpeed = other.meterPerSecondSpeed == null ? null : other.meterPerSecondSpeed.copy();
+        this.meterPerHourSpeed = other.meterPerHourSpeed == null ? null : other.meterPerHourSpeed.copy();
         this.materialId = other.materialId == null ? null : other.materialId.copy();
         this.distinct = other.distinct;
     }
@@ -133,19 +133,19 @@ public class MaterialMarkingStatisticCriteria implements Serializable, Criteria 
         this.markingTechnique = markingTechnique;
     }
 
-    public LongFilter getMeterPerSecondSpeed() {
-        return meterPerSecondSpeed;
+    public LongFilter getMeterPerHourSpeed() {
+        return meterPerHourSpeed;
     }
 
-    public LongFilter meterPerSecondSpeed() {
-        if (meterPerSecondSpeed == null) {
-            meterPerSecondSpeed = new LongFilter();
+    public LongFilter meterPerHourSpeed() {
+        if (meterPerHourSpeed == null) {
+            meterPerHourSpeed = new LongFilter();
         }
-        return meterPerSecondSpeed;
+        return meterPerHourSpeed;
     }
 
-    public void setMeterPerSecondSpeed(LongFilter meterPerSecondSpeed) {
-        this.meterPerSecondSpeed = meterPerSecondSpeed;
+    public void setMeterPerHourSpeed(LongFilter meterPerHourSpeed) {
+        this.meterPerHourSpeed = meterPerHourSpeed;
     }
 
     public LongFilter getMaterialId() {
@@ -184,7 +184,7 @@ public class MaterialMarkingStatisticCriteria implements Serializable, Criteria 
             Objects.equals(id, that.id) &&
             Objects.equals(markingType, that.markingType) &&
             Objects.equals(markingTechnique, that.markingTechnique) &&
-            Objects.equals(meterPerSecondSpeed, that.meterPerSecondSpeed) &&
+            Objects.equals(meterPerHourSpeed, that.meterPerHourSpeed) &&
             Objects.equals(materialId, that.materialId) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -192,7 +192,7 @@ public class MaterialMarkingStatisticCriteria implements Serializable, Criteria 
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, markingType, markingTechnique, meterPerSecondSpeed, materialId, distinct);
+        return Objects.hash(id, markingType, markingTechnique, meterPerHourSpeed, materialId, distinct);
     }
 
     // prettier-ignore
@@ -202,7 +202,7 @@ public class MaterialMarkingStatisticCriteria implements Serializable, Criteria 
             (id != null ? "id=" + id + ", " : "") +
             (markingType != null ? "markingType=" + markingType + ", " : "") +
             (markingTechnique != null ? "markingTechnique=" + markingTechnique + ", " : "") +
-            (meterPerSecondSpeed != null ? "meterPerSecondSpeed=" + meterPerSecondSpeed + ", " : "") +
+            (meterPerHourSpeed != null ? "meterPerHourSpeed=" + meterPerHourSpeed + ", " : "") +
             (materialId != null ? "materialId=" + materialId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

@@ -6,8 +6,8 @@ export interface IMaterialMarkingStatistic {
   id?: number;
   markingType?: MarkingType;
   markingTechnique?: MarkingTechnique;
-  meterPerSecondSpeed?: number;
-  materials?: IMaterial[];
+  meterPerHourSpeed?: number;
+  material?: IMaterial;
 }
 
 export const defaultValue: Readonly<IMaterialMarkingStatistic> = {};

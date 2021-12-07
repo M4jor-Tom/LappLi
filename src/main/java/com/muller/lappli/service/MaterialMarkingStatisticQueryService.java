@@ -92,10 +92,10 @@ public class MaterialMarkingStatisticQueryService extends QueryService<MaterialM
                 specification =
                     specification.and(buildSpecification(criteria.getMarkingTechnique(), MaterialMarkingStatistic_.markingTechnique));
             }
-            if (criteria.getMeterPerSecondSpeed() != null) {
+            if (criteria.getMeterPerHourSpeed() != null) {
                 specification =
                     specification.and(
-                        buildRangeSpecification(criteria.getMeterPerSecondSpeed(), MaterialMarkingStatistic_.meterPerSecondSpeed)
+                        buildRangeSpecification(criteria.getMeterPerHourSpeed(), MaterialMarkingStatistic_.meterPerHourSpeed)
                     );
             }
             if (criteria.getMaterialId() != null) {
@@ -103,7 +103,7 @@ public class MaterialMarkingStatisticQueryService extends QueryService<MaterialM
                     specification.and(
                         buildSpecification(
                             criteria.getMaterialId(),
-                            root -> root.join(MaterialMarkingStatistic_.materials, JoinType.LEFT).get(Material_.id)
+                            root -> root.join(MaterialMarkingStatistic_.material, JoinType.LEFT).get(Material_.id)
                         )
                     );
             }

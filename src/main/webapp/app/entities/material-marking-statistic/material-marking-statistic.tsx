@@ -56,7 +56,10 @@ export const MaterialMarkingStatistic = (props: RouteComponentProps<{ url: strin
                   <Translate contentKey="lappLiApp.materialMarkingStatistic.markingTechnique">Marking Technique</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.materialMarkingStatistic.meterPerSecondSpeed">Meter Per Second Speed</Translate>
+                  <Translate contentKey="lappLiApp.materialMarkingStatistic.meterPerHourSpeed">Meter Per Hour Speed</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.materialMarkingStatistic.material">Material</Translate>
                 </th>
                 <th />
               </tr>
@@ -75,7 +78,14 @@ export const MaterialMarkingStatistic = (props: RouteComponentProps<{ url: strin
                   <td>
                     <Translate contentKey={`lappLiApp.MarkingTechnique.${materialMarkingStatistic.markingTechnique}`} />
                   </td>
-                  <td>{materialMarkingStatistic.meterPerSecondSpeed}</td>
+                  <td>{materialMarkingStatistic.meterPerHourSpeed}</td>
+                  <td>
+                    {materialMarkingStatistic.material ? (
+                      <Link to={`material/${materialMarkingStatistic.material.id}`}>{materialMarkingStatistic.material.designation}</Link>
+                    ) : (
+                      ''
+                    )}
+                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button

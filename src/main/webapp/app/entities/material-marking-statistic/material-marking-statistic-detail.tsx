@@ -42,11 +42,15 @@ export const MaterialMarkingStatisticDetail = (props: RouteComponentProps<{ id: 
           </dt>
           <dd>{materialMarkingStatisticEntity.markingTechnique}</dd>
           <dt>
-            <span id="meterPerSecondSpeed">
-              <Translate contentKey="lappLiApp.materialMarkingStatistic.meterPerSecondSpeed">Meter Per Second Speed</Translate>
+            <span id="meterPerHourSpeed">
+              <Translate contentKey="lappLiApp.materialMarkingStatistic.meterPerHourSpeed">Meter Per Hour Speed</Translate>
             </span>
           </dt>
-          <dd>{materialMarkingStatisticEntity.meterPerSecondSpeed}</dd>
+          <dd>{materialMarkingStatisticEntity.meterPerHourSpeed}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.materialMarkingStatistic.material">Material</Translate>
+          </dt>
+          <dd>{materialMarkingStatisticEntity.material ? materialMarkingStatisticEntity.material.designation : ''}</dd>
         </dl>
         <Button tag={Link} to="/material-marking-statistic" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

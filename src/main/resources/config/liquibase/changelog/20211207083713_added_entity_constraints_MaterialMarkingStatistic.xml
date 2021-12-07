@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+    <!--
+        Added the constraints for entity MaterialMarkingStatistic.
+    -->
+    <changeSet id="20211207083713-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="material_id"
+                                 baseTableName="material_marking_statistic"
+                                 constraintName="fk_material_marking_statistic__material_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="material"/>
+    </changeSet>
+</databaseChangeLog>

@@ -39,9 +39,9 @@ class MaterialMarkingStatisticResourceIT {
     private static final MarkingTechnique DEFAULT_MARKING_TECHNIQUE = MarkingTechnique.NONE;
     private static final MarkingTechnique UPDATED_MARKING_TECHNIQUE = MarkingTechnique.INK_JET;
 
-    private static final Long DEFAULT_METER_PER_SECOND_SPEED = 1L;
-    private static final Long UPDATED_METER_PER_SECOND_SPEED = 2L;
-    private static final Long SMALLER_METER_PER_SECOND_SPEED = 1L - 1L;
+    private static final Long DEFAULT_METER_PER_HOUR_SPEED = 1L;
+    private static final Long UPDATED_METER_PER_HOUR_SPEED = 2L;
+    private static final Long SMALLER_METER_PER_HOUR_SPEED = 1L - 1L;
 
     private static final String ENTITY_API_URL = "/api/material-marking-statistics";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -70,7 +70,7 @@ class MaterialMarkingStatisticResourceIT {
         MaterialMarkingStatistic materialMarkingStatistic = new MaterialMarkingStatistic()
             .markingType(DEFAULT_MARKING_TYPE)
             .markingTechnique(DEFAULT_MARKING_TECHNIQUE)
-            .meterPerSecondSpeed(DEFAULT_METER_PER_SECOND_SPEED);
+            .meterPerHourSpeed(DEFAULT_METER_PER_HOUR_SPEED);
         // Add required entity
         Material material;
         if (TestUtil.findAll(em, Material.class).isEmpty()) {
@@ -80,7 +80,7 @@ class MaterialMarkingStatisticResourceIT {
         } else {
             material = TestUtil.findAll(em, Material.class).get(0);
         }
-        materialMarkingStatistic.getMaterials().add(material);
+        materialMarkingStatistic.setMaterial(material);
         return materialMarkingStatistic;
     }
 
@@ -94,7 +94,7 @@ class MaterialMarkingStatisticResourceIT {
         MaterialMarkingStatistic materialMarkingStatistic = new MaterialMarkingStatistic()
             .markingType(UPDATED_MARKING_TYPE)
             .markingTechnique(UPDATED_MARKING_TECHNIQUE)
-            .meterPerSecondSpeed(UPDATED_METER_PER_SECOND_SPEED);
+            .meterPerHourSpeed(UPDATED_METER_PER_HOUR_SPEED);
         // Add required entity
         Material material;
         if (TestUtil.findAll(em, Material.class).isEmpty()) {
@@ -104,7 +104,7 @@ class MaterialMarkingStatisticResourceIT {
         } else {
             material = TestUtil.findAll(em, Material.class).get(0);
         }
-        materialMarkingStatistic.getMaterials().add(material);
+        materialMarkingStatistic.setMaterial(material);
         return materialMarkingStatistic;
     }
 
@@ -132,7 +132,7 @@ class MaterialMarkingStatisticResourceIT {
         MaterialMarkingStatistic testMaterialMarkingStatistic = materialMarkingStatisticList.get(materialMarkingStatisticList.size() - 1);
         assertThat(testMaterialMarkingStatistic.getMarkingType()).isEqualTo(DEFAULT_MARKING_TYPE);
         assertThat(testMaterialMarkingStatistic.getMarkingTechnique()).isEqualTo(DEFAULT_MARKING_TECHNIQUE);
-        assertThat(testMaterialMarkingStatistic.getMeterPerSecondSpeed()).isEqualTo(DEFAULT_METER_PER_SECOND_SPEED);
+        assertThat(testMaterialMarkingStatistic.getMeterPerHourSpeed()).isEqualTo(DEFAULT_METER_PER_HOUR_SPEED);
     }
 
     @Test
@@ -201,10 +201,10 @@ class MaterialMarkingStatisticResourceIT {
 
     @Test
     @Transactional
-    void checkMeterPerSecondSpeedIsRequired() throws Exception {
+    void checkMeterPerHourSpeedIsRequired() throws Exception {
         int databaseSizeBeforeTest = materialMarkingStatisticRepository.findAll().size();
         // set the field null
-        materialMarkingStatistic.setMeterPerSecondSpeed(null);
+        materialMarkingStatistic.setMeterPerHourSpeed(null);
 
         // Create the MaterialMarkingStatistic, which fails.
 
@@ -234,7 +234,7 @@ class MaterialMarkingStatisticResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(materialMarkingStatistic.getId().intValue())))
             .andExpect(jsonPath("$.[*].markingType").value(hasItem(DEFAULT_MARKING_TYPE.toString())))
             .andExpect(jsonPath("$.[*].markingTechnique").value(hasItem(DEFAULT_MARKING_TECHNIQUE.toString())))
-            .andExpect(jsonPath("$.[*].meterPerSecondSpeed").value(hasItem(DEFAULT_METER_PER_SECOND_SPEED.intValue())));
+            .andExpect(jsonPath("$.[*].meterPerHourSpeed").value(hasItem(DEFAULT_METER_PER_HOUR_SPEED.intValue())));
     }
 
     @Test
@@ -251,7 +251,7 @@ class MaterialMarkingStatisticResourceIT {
             .andExpect(jsonPath("$.id").value(materialMarkingStatistic.getId().intValue()))
             .andExpect(jsonPath("$.markingType").value(DEFAULT_MARKING_TYPE.toString()))
             .andExpect(jsonPath("$.markingTechnique").value(DEFAULT_MARKING_TECHNIQUE.toString()))
-            .andExpect(jsonPath("$.meterPerSecondSpeed").value(DEFAULT_METER_PER_SECOND_SPEED.intValue()));
+            .andExpect(jsonPath("$.meterPerHourSpeed").value(DEFAULT_METER_PER_HOUR_SPEED.intValue()));
     }
 
     @Test
@@ -378,108 +378,108 @@ class MaterialMarkingStatisticResourceIT {
 
     @Test
     @Transactional
-    void getAllMaterialMarkingStatisticsByMeterPerSecondSpeedIsEqualToSomething() throws Exception {
+    void getAllMaterialMarkingStatisticsByMeterPerHourSpeedIsEqualToSomething() throws Exception {
         // Initialize the database
         materialMarkingStatisticRepository.saveAndFlush(materialMarkingStatistic);
 
-        // Get all the materialMarkingStatisticList where meterPerSecondSpeed equals to DEFAULT_METER_PER_SECOND_SPEED
-        defaultMaterialMarkingStatisticShouldBeFound("meterPerSecondSpeed.equals=" + DEFAULT_METER_PER_SECOND_SPEED);
+        // Get all the materialMarkingStatisticList where meterPerHourSpeed equals to DEFAULT_METER_PER_HOUR_SPEED
+        defaultMaterialMarkingStatisticShouldBeFound("meterPerHourSpeed.equals=" + DEFAULT_METER_PER_HOUR_SPEED);
 
-        // Get all the materialMarkingStatisticList where meterPerSecondSpeed equals to UPDATED_METER_PER_SECOND_SPEED
-        defaultMaterialMarkingStatisticShouldNotBeFound("meterPerSecondSpeed.equals=" + UPDATED_METER_PER_SECOND_SPEED);
+        // Get all the materialMarkingStatisticList where meterPerHourSpeed equals to UPDATED_METER_PER_HOUR_SPEED
+        defaultMaterialMarkingStatisticShouldNotBeFound("meterPerHourSpeed.equals=" + UPDATED_METER_PER_HOUR_SPEED);
     }
 
     @Test
     @Transactional
-    void getAllMaterialMarkingStatisticsByMeterPerSecondSpeedIsNotEqualToSomething() throws Exception {
+    void getAllMaterialMarkingStatisticsByMeterPerHourSpeedIsNotEqualToSomething() throws Exception {
         // Initialize the database
         materialMarkingStatisticRepository.saveAndFlush(materialMarkingStatistic);
 
-        // Get all the materialMarkingStatisticList where meterPerSecondSpeed not equals to DEFAULT_METER_PER_SECOND_SPEED
-        defaultMaterialMarkingStatisticShouldNotBeFound("meterPerSecondSpeed.notEquals=" + DEFAULT_METER_PER_SECOND_SPEED);
+        // Get all the materialMarkingStatisticList where meterPerHourSpeed not equals to DEFAULT_METER_PER_HOUR_SPEED
+        defaultMaterialMarkingStatisticShouldNotBeFound("meterPerHourSpeed.notEquals=" + DEFAULT_METER_PER_HOUR_SPEED);
 
-        // Get all the materialMarkingStatisticList where meterPerSecondSpeed not equals to UPDATED_METER_PER_SECOND_SPEED
-        defaultMaterialMarkingStatisticShouldBeFound("meterPerSecondSpeed.notEquals=" + UPDATED_METER_PER_SECOND_SPEED);
+        // Get all the materialMarkingStatisticList where meterPerHourSpeed not equals to UPDATED_METER_PER_HOUR_SPEED
+        defaultMaterialMarkingStatisticShouldBeFound("meterPerHourSpeed.notEquals=" + UPDATED_METER_PER_HOUR_SPEED);
     }
 
     @Test
     @Transactional
-    void getAllMaterialMarkingStatisticsByMeterPerSecondSpeedIsInShouldWork() throws Exception {
+    void getAllMaterialMarkingStatisticsByMeterPerHourSpeedIsInShouldWork() throws Exception {
         // Initialize the database
         materialMarkingStatisticRepository.saveAndFlush(materialMarkingStatistic);
 
-        // Get all the materialMarkingStatisticList where meterPerSecondSpeed in DEFAULT_METER_PER_SECOND_SPEED or UPDATED_METER_PER_SECOND_SPEED
+        // Get all the materialMarkingStatisticList where meterPerHourSpeed in DEFAULT_METER_PER_HOUR_SPEED or UPDATED_METER_PER_HOUR_SPEED
         defaultMaterialMarkingStatisticShouldBeFound(
-            "meterPerSecondSpeed.in=" + DEFAULT_METER_PER_SECOND_SPEED + "," + UPDATED_METER_PER_SECOND_SPEED
+            "meterPerHourSpeed.in=" + DEFAULT_METER_PER_HOUR_SPEED + "," + UPDATED_METER_PER_HOUR_SPEED
         );
 
-        // Get all the materialMarkingStatisticList where meterPerSecondSpeed equals to UPDATED_METER_PER_SECOND_SPEED
-        defaultMaterialMarkingStatisticShouldNotBeFound("meterPerSecondSpeed.in=" + UPDATED_METER_PER_SECOND_SPEED);
+        // Get all the materialMarkingStatisticList where meterPerHourSpeed equals to UPDATED_METER_PER_HOUR_SPEED
+        defaultMaterialMarkingStatisticShouldNotBeFound("meterPerHourSpeed.in=" + UPDATED_METER_PER_HOUR_SPEED);
     }
 
     @Test
     @Transactional
-    void getAllMaterialMarkingStatisticsByMeterPerSecondSpeedIsNullOrNotNull() throws Exception {
+    void getAllMaterialMarkingStatisticsByMeterPerHourSpeedIsNullOrNotNull() throws Exception {
         // Initialize the database
         materialMarkingStatisticRepository.saveAndFlush(materialMarkingStatistic);
 
-        // Get all the materialMarkingStatisticList where meterPerSecondSpeed is not null
-        defaultMaterialMarkingStatisticShouldBeFound("meterPerSecondSpeed.specified=true");
+        // Get all the materialMarkingStatisticList where meterPerHourSpeed is not null
+        defaultMaterialMarkingStatisticShouldBeFound("meterPerHourSpeed.specified=true");
 
-        // Get all the materialMarkingStatisticList where meterPerSecondSpeed is null
-        defaultMaterialMarkingStatisticShouldNotBeFound("meterPerSecondSpeed.specified=false");
+        // Get all the materialMarkingStatisticList where meterPerHourSpeed is null
+        defaultMaterialMarkingStatisticShouldNotBeFound("meterPerHourSpeed.specified=false");
     }
 
     @Test
     @Transactional
-    void getAllMaterialMarkingStatisticsByMeterPerSecondSpeedIsGreaterThanOrEqualToSomething() throws Exception {
+    void getAllMaterialMarkingStatisticsByMeterPerHourSpeedIsGreaterThanOrEqualToSomething() throws Exception {
         // Initialize the database
         materialMarkingStatisticRepository.saveAndFlush(materialMarkingStatistic);
 
-        // Get all the materialMarkingStatisticList where meterPerSecondSpeed is greater than or equal to DEFAULT_METER_PER_SECOND_SPEED
-        defaultMaterialMarkingStatisticShouldBeFound("meterPerSecondSpeed.greaterThanOrEqual=" + DEFAULT_METER_PER_SECOND_SPEED);
+        // Get all the materialMarkingStatisticList where meterPerHourSpeed is greater than or equal to DEFAULT_METER_PER_HOUR_SPEED
+        defaultMaterialMarkingStatisticShouldBeFound("meterPerHourSpeed.greaterThanOrEqual=" + DEFAULT_METER_PER_HOUR_SPEED);
 
-        // Get all the materialMarkingStatisticList where meterPerSecondSpeed is greater than or equal to UPDATED_METER_PER_SECOND_SPEED
-        defaultMaterialMarkingStatisticShouldNotBeFound("meterPerSecondSpeed.greaterThanOrEqual=" + UPDATED_METER_PER_SECOND_SPEED);
+        // Get all the materialMarkingStatisticList where meterPerHourSpeed is greater than or equal to UPDATED_METER_PER_HOUR_SPEED
+        defaultMaterialMarkingStatisticShouldNotBeFound("meterPerHourSpeed.greaterThanOrEqual=" + UPDATED_METER_PER_HOUR_SPEED);
     }
 
     @Test
     @Transactional
-    void getAllMaterialMarkingStatisticsByMeterPerSecondSpeedIsLessThanOrEqualToSomething() throws Exception {
+    void getAllMaterialMarkingStatisticsByMeterPerHourSpeedIsLessThanOrEqualToSomething() throws Exception {
         // Initialize the database
         materialMarkingStatisticRepository.saveAndFlush(materialMarkingStatistic);
 
-        // Get all the materialMarkingStatisticList where meterPerSecondSpeed is less than or equal to DEFAULT_METER_PER_SECOND_SPEED
-        defaultMaterialMarkingStatisticShouldBeFound("meterPerSecondSpeed.lessThanOrEqual=" + DEFAULT_METER_PER_SECOND_SPEED);
+        // Get all the materialMarkingStatisticList where meterPerHourSpeed is less than or equal to DEFAULT_METER_PER_HOUR_SPEED
+        defaultMaterialMarkingStatisticShouldBeFound("meterPerHourSpeed.lessThanOrEqual=" + DEFAULT_METER_PER_HOUR_SPEED);
 
-        // Get all the materialMarkingStatisticList where meterPerSecondSpeed is less than or equal to SMALLER_METER_PER_SECOND_SPEED
-        defaultMaterialMarkingStatisticShouldNotBeFound("meterPerSecondSpeed.lessThanOrEqual=" + SMALLER_METER_PER_SECOND_SPEED);
+        // Get all the materialMarkingStatisticList where meterPerHourSpeed is less than or equal to SMALLER_METER_PER_HOUR_SPEED
+        defaultMaterialMarkingStatisticShouldNotBeFound("meterPerHourSpeed.lessThanOrEqual=" + SMALLER_METER_PER_HOUR_SPEED);
     }
 
     @Test
     @Transactional
-    void getAllMaterialMarkingStatisticsByMeterPerSecondSpeedIsLessThanSomething() throws Exception {
+    void getAllMaterialMarkingStatisticsByMeterPerHourSpeedIsLessThanSomething() throws Exception {
         // Initialize the database
         materialMarkingStatisticRepository.saveAndFlush(materialMarkingStatistic);
 
-        // Get all the materialMarkingStatisticList where meterPerSecondSpeed is less than DEFAULT_METER_PER_SECOND_SPEED
-        defaultMaterialMarkingStatisticShouldNotBeFound("meterPerSecondSpeed.lessThan=" + DEFAULT_METER_PER_SECOND_SPEED);
+        // Get all the materialMarkingStatisticList where meterPerHourSpeed is less than DEFAULT_METER_PER_HOUR_SPEED
+        defaultMaterialMarkingStatisticShouldNotBeFound("meterPerHourSpeed.lessThan=" + DEFAULT_METER_PER_HOUR_SPEED);
 
-        // Get all the materialMarkingStatisticList where meterPerSecondSpeed is less than UPDATED_METER_PER_SECOND_SPEED
-        defaultMaterialMarkingStatisticShouldBeFound("meterPerSecondSpeed.lessThan=" + UPDATED_METER_PER_SECOND_SPEED);
+        // Get all the materialMarkingStatisticList where meterPerHourSpeed is less than UPDATED_METER_PER_HOUR_SPEED
+        defaultMaterialMarkingStatisticShouldBeFound("meterPerHourSpeed.lessThan=" + UPDATED_METER_PER_HOUR_SPEED);
     }
 
     @Test
     @Transactional
-    void getAllMaterialMarkingStatisticsByMeterPerSecondSpeedIsGreaterThanSomething() throws Exception {
+    void getAllMaterialMarkingStatisticsByMeterPerHourSpeedIsGreaterThanSomething() throws Exception {
         // Initialize the database
         materialMarkingStatisticRepository.saveAndFlush(materialMarkingStatistic);
 
-        // Get all the materialMarkingStatisticList where meterPerSecondSpeed is greater than DEFAULT_METER_PER_SECOND_SPEED
-        defaultMaterialMarkingStatisticShouldNotBeFound("meterPerSecondSpeed.greaterThan=" + DEFAULT_METER_PER_SECOND_SPEED);
+        // Get all the materialMarkingStatisticList where meterPerHourSpeed is greater than DEFAULT_METER_PER_HOUR_SPEED
+        defaultMaterialMarkingStatisticShouldNotBeFound("meterPerHourSpeed.greaterThan=" + DEFAULT_METER_PER_HOUR_SPEED);
 
-        // Get all the materialMarkingStatisticList where meterPerSecondSpeed is greater than SMALLER_METER_PER_SECOND_SPEED
-        defaultMaterialMarkingStatisticShouldBeFound("meterPerSecondSpeed.greaterThan=" + SMALLER_METER_PER_SECOND_SPEED);
+        // Get all the materialMarkingStatisticList where meterPerHourSpeed is greater than SMALLER_METER_PER_HOUR_SPEED
+        defaultMaterialMarkingStatisticShouldBeFound("meterPerHourSpeed.greaterThan=" + SMALLER_METER_PER_HOUR_SPEED);
     }
 
     @Test
@@ -497,7 +497,7 @@ class MaterialMarkingStatisticResourceIT {
         }
         em.persist(material);
         em.flush();
-        materialMarkingStatistic.addMaterial(material);
+        materialMarkingStatistic.setMaterial(material);
         materialMarkingStatisticRepository.saveAndFlush(materialMarkingStatistic);
         Long materialId = material.getId();
 
@@ -519,7 +519,7 @@ class MaterialMarkingStatisticResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(materialMarkingStatistic.getId().intValue())))
             .andExpect(jsonPath("$.[*].markingType").value(hasItem(DEFAULT_MARKING_TYPE.toString())))
             .andExpect(jsonPath("$.[*].markingTechnique").value(hasItem(DEFAULT_MARKING_TECHNIQUE.toString())))
-            .andExpect(jsonPath("$.[*].meterPerSecondSpeed").value(hasItem(DEFAULT_METER_PER_SECOND_SPEED.intValue())));
+            .andExpect(jsonPath("$.[*].meterPerHourSpeed").value(hasItem(DEFAULT_METER_PER_HOUR_SPEED.intValue())));
 
         // Check, that the count call also returns 1
         restMaterialMarkingStatisticMockMvc
@@ -572,7 +572,7 @@ class MaterialMarkingStatisticResourceIT {
         updatedMaterialMarkingStatistic
             .markingType(UPDATED_MARKING_TYPE)
             .markingTechnique(UPDATED_MARKING_TECHNIQUE)
-            .meterPerSecondSpeed(UPDATED_METER_PER_SECOND_SPEED);
+            .meterPerHourSpeed(UPDATED_METER_PER_HOUR_SPEED);
 
         restMaterialMarkingStatisticMockMvc
             .perform(
@@ -588,7 +588,7 @@ class MaterialMarkingStatisticResourceIT {
         MaterialMarkingStatistic testMaterialMarkingStatistic = materialMarkingStatisticList.get(materialMarkingStatisticList.size() - 1);
         assertThat(testMaterialMarkingStatistic.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
         assertThat(testMaterialMarkingStatistic.getMarkingTechnique()).isEqualTo(UPDATED_MARKING_TECHNIQUE);
-        assertThat(testMaterialMarkingStatistic.getMeterPerSecondSpeed()).isEqualTo(UPDATED_METER_PER_SECOND_SPEED);
+        assertThat(testMaterialMarkingStatistic.getMeterPerHourSpeed()).isEqualTo(UPDATED_METER_PER_HOUR_SPEED);
     }
 
     @Test
@@ -679,7 +679,7 @@ class MaterialMarkingStatisticResourceIT {
         MaterialMarkingStatistic testMaterialMarkingStatistic = materialMarkingStatisticList.get(materialMarkingStatisticList.size() - 1);
         assertThat(testMaterialMarkingStatistic.getMarkingType()).isEqualTo(DEFAULT_MARKING_TYPE);
         assertThat(testMaterialMarkingStatistic.getMarkingTechnique()).isEqualTo(UPDATED_MARKING_TECHNIQUE);
-        assertThat(testMaterialMarkingStatistic.getMeterPerSecondSpeed()).isEqualTo(DEFAULT_METER_PER_SECOND_SPEED);
+        assertThat(testMaterialMarkingStatistic.getMeterPerHourSpeed()).isEqualTo(DEFAULT_METER_PER_HOUR_SPEED);
     }
 
     @Test
@@ -697,7 +697,7 @@ class MaterialMarkingStatisticResourceIT {
         partialUpdatedMaterialMarkingStatistic
             .markingType(UPDATED_MARKING_TYPE)
             .markingTechnique(UPDATED_MARKING_TECHNIQUE)
-            .meterPerSecondSpeed(UPDATED_METER_PER_SECOND_SPEED);
+            .meterPerHourSpeed(UPDATED_METER_PER_HOUR_SPEED);
 
         restMaterialMarkingStatisticMockMvc
             .perform(
@@ -713,7 +713,7 @@ class MaterialMarkingStatisticResourceIT {
         MaterialMarkingStatistic testMaterialMarkingStatistic = materialMarkingStatisticList.get(materialMarkingStatisticList.size() - 1);
         assertThat(testMaterialMarkingStatistic.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
         assertThat(testMaterialMarkingStatistic.getMarkingTechnique()).isEqualTo(UPDATED_MARKING_TECHNIQUE);
-        assertThat(testMaterialMarkingStatistic.getMeterPerSecondSpeed()).isEqualTo(UPDATED_METER_PER_SECOND_SPEED);
+        assertThat(testMaterialMarkingStatistic.getMeterPerHourSpeed()).isEqualTo(UPDATED_METER_PER_HOUR_SPEED);
     }
 
     @Test

@@ -3,6 +3,8 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.interfaces.Article;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -31,9 +33,10 @@ public class Material implements Article, Serializable {
     @Column(name = "designation", nullable = false, unique = true)
     private String designation;
 
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "materials" }, allowSetters = true)
-    private MaterialMarkingStatistic materialMarkingStatisticList;
+    @OneToMany(mappedBy = "material")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "material" }, allowSetters = true)
+    private Set<MaterialMarkingStatistic> materialMarkingStatisticLists = new HashSet<>();
 
     @Override
     public Long getArticleNumber() {
@@ -82,16 +85,34 @@ public class Material implements Article, Serializable {
         this.designation = designation;
     }
 
-    public MaterialMarkingStatistic getMaterialMarkingStatisticList() {
-        return this.materialMarkingStatisticList;
+    public Set<MaterialMarkingStatistic> getMaterialMarkingStatisticLists() {
+        return this.materialMarkingStatisticLists;
     }
 
-    public void setMaterialMarkingStatisticList(MaterialMarkingStatistic materialMarkingStatistic) {
-        this.materialMarkingStatisticList = materialMarkingStatistic;
+    public void setMaterialMarkingStatisticLists(Set<MaterialMarkingStatistic> materialMarkingStatistics) {
+        if (this.materialMarkingStatisticLists != null) {
+            this.materialMarkingStatisticLists.forEach(i -> i.setMaterial(null));
+        }
+        if (materialMarkingStatistics != null) {
+            materialMarkingStatistics.forEach(i -> i.setMaterial(this));
+        }
+        this.materialMarkingStatisticLists = materialMarkingStatistics;
     }
 
-    public Material materialMarkingStatisticList(MaterialMarkingStatistic materialMarkingStatistic) {
-        this.setMaterialMarkingStatisticList(materialMarkingStatistic);
+    public Material materialMarkingStatisticLists(Set<MaterialMarkingStatistic> materialMarkingStatistics) {
+        this.setMaterialMarkingStatisticLists(materialMarkingStatistics);
+        return this;
+    }
+
+    public Material addMaterialMarkingStatisticList(MaterialMarkingStatistic materialMarkingStatistic) {
+        this.materialMarkingStatisticLists.add(materialMarkingStatistic);
+        materialMarkingStatistic.setMaterial(this);
+        return this;
+    }
+
+    public Material removeMaterialMarkingStatisticList(MaterialMarkingStatistic materialMarkingStatistic) {
+        this.materialMarkingStatisticLists.remove(materialMarkingStatistic);
+        materialMarkingStatistic.setMaterial(null);
         return this;
     }
 

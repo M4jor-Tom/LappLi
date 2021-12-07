@@ -44,8 +44,8 @@ public class MaterialMarkingStatisticServiceImpl implements MaterialMarkingStati
                 if (materialMarkingStatistic.getMarkingTechnique() != null) {
                     existingMaterialMarkingStatistic.setMarkingTechnique(materialMarkingStatistic.getMarkingTechnique());
                 }
-                if (materialMarkingStatistic.getMeterPerSecondSpeed() != null) {
-                    existingMaterialMarkingStatistic.setMeterPerSecondSpeed(materialMarkingStatistic.getMeterPerSecondSpeed());
+                if (materialMarkingStatistic.getMeterPerHourSpeed() != null) {
+                    existingMaterialMarkingStatistic.setMeterPerHourSpeed(materialMarkingStatistic.getMeterPerHourSpeed());
                 }
 
                 return existingMaterialMarkingStatistic;

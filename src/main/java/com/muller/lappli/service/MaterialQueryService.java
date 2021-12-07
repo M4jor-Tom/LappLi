@@ -96,7 +96,7 @@ public class MaterialQueryService extends QueryService<Material> {
                     specification.and(
                         buildSpecification(
                             criteria.getMaterialMarkingStatisticListId(),
-                            root -> root.join(Material_.materialMarkingStatisticList, JoinType.LEFT).get(MaterialMarkingStatistic_.id)
+                            root -> root.join(Material_.materialMarkingStatisticLists, JoinType.LEFT).get(MaterialMarkingStatistic_.id)
                         )
                     );
             }

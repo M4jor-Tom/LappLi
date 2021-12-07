@@ -20,7 +20,10 @@
             <column name="marking_technique" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="meter_per_second_speed" type="bigint">
+            <column name="meter_per_hour_speed" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="material_id" type="bigint">
                 <constraints nullable="false" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
@@ -46,7 +49,8 @@
             <column name="id" type="numeric"/>
             <column name="marking_type" type="string"/>
             <column name="marking_technique" type="string"/>
-            <column name="meter_per_second_speed" type="numeric"/>
+            <column name="meter_per_hour_speed" type="numeric"/>
+            <column name="material_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

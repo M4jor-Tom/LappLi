@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -37,28 +35,23 @@ public class MaterialMarkingStatistic implements Serializable {
     private MarkingTechnique markingTechnique;
 
     @NotNull
-    @Column(name = "meter_per_second_speed", nullable = false)
-    private Long meterPerSecondSpeed;
+    @Column(name = "meter_per_hour_speed", nullable = false)
+    private Long meterPerHourSpeed;
 
-    @OneToMany(mappedBy = "materialMarkingStatisticList")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "materialMarkingStatisticList" }, allowSetters = true)
-    private Set<Material> materials = new HashSet<>();
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "materialMarkingStatisticLists" }, allowSetters = true)
+    private Material material;
 
     public MaterialMarkingStatistic() {
-        this(MarkingType.LIFTING, MarkingTechnique.NONE, null, new HashSet<>());
+        this(MarkingType.LIFTING, MarkingTechnique.NONE, null, new Material());
     }
 
-    public MaterialMarkingStatistic(
-        MarkingType markingType,
-        MarkingTechnique markingTechnique,
-        Long meterPerSecondSpeed,
-        Set<Material> materials
-    ) {
+    public MaterialMarkingStatistic(MarkingType markingType, MarkingTechnique markingTechnique, Long meterPerHourSpeed, Material material) {
         setMarkingType(markingType);
         setMarkingTechnique(markingTechnique);
-        setMeterPerSecondSpeed(meterPerSecondSpeed);
-        setMaterials(materials);
+        setMeterPerHourSpeed(meterPerHourSpeed);
+        setMaterial(material);
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -114,47 +107,29 @@ public class MaterialMarkingStatistic implements Serializable {
         }
     }
 
-    public Long getMeterPerSecondSpeed() {
-        return this.meterPerSecondSpeed;
+    public Long getMeterPerHourSpeed() {
+        return this.meterPerHourSpeed;
     }
 
-    public MaterialMarkingStatistic meterPerSecondSpeed(Long meterPerSecondSpeed) {
-        this.setMeterPerSecondSpeed(meterPerSecondSpeed);
+    public MaterialMarkingStatistic meterPerHourSpeed(Long meterPerHourSpeed) {
+        this.setMeterPerHourSpeed(meterPerHourSpeed);
         return this;
     }
 
-    public void setMeterPerSecondSpeed(Long meterPerSecondSpeed) {
-        this.meterPerSecondSpeed = meterPerSecondSpeed;
+    public void setMeterPerHourSpeed(Long meterPerHourSpeed) {
+        this.meterPerHourSpeed = meterPerHourSpeed;
     }
 
-    public Set<Material> getMaterials() {
-        return this.materials;
+    public Material getMaterial() {
+        return this.material;
     }
 
-    public void setMaterials(Set<Material> materials) {
-        if (this.materials != null) {
-            this.materials.forEach(i -> i.setMaterialMarkingStatisticList(null));
-        }
-        if (materials != null) {
-            materials.forEach(i -> i.setMaterialMarkingStatisticList(this));
-        }
-        this.materials = materials;
+    public void setMaterial(Material material) {
+        this.material = material;
     }
 
-    public MaterialMarkingStatistic materials(Set<Material> materials) {
-        this.setMaterials(materials);
-        return this;
-    }
-
-    public MaterialMarkingStatistic addMaterial(Material material) {
-        this.materials.add(material);
-        material.setMaterialMarkingStatisticList(this);
-        return this;
-    }
-
-    public MaterialMarkingStatistic removeMaterial(Material material) {
-        this.materials.remove(material);
-        material.setMaterialMarkingStatisticList(null);
+    public MaterialMarkingStatistic material(Material material) {
+        this.setMaterial(material);
         return this;
     }
 
@@ -184,7 +159,7 @@ public class MaterialMarkingStatistic implements Serializable {
             "id=" + getId() +
             ", markingType='" + getMarkingType() + "'" +
             ", markingTechnique='" + getMarkingTechnique() + "'" +
-            ", meterPerSecondSpeed=" + getMeterPerSecondSpeed() +
+            ", meterPerHourSpeed=" + getMeterPerHourSpeed() +
             "}";
     }
 }

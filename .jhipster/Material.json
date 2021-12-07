@@ -14,7 +14,7 @@
   ],
   "relationships": [
     {
-      "relationshipType": "many-to-one",
+      "relationshipType": "one-to-many",
       "otherEntityName": "materialMarkingStatistic",
       "otherEntityRelationshipName": "material",
       "relationshipName": "materialMarkingStatisticList",
