@@ -6,6 +6,7 @@ import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -77,7 +78,22 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
             return MarkingTechnique.NONE;
         }
 
-        return MarkingTechnique.INK_JET;
+        return getElement()
+            .getElementKind()
+            .getInsulationMaterial()
+            .getMaterialMarkingStatistics()
+            .stream()
+            .filter(statistic -> statistic.getMarkingType().equals(getMarkingType()))
+            .max(
+                new Comparator<MaterialMarkingStatistic>() {
+                    @Override
+                    public int compare(MaterialMarkingStatistic o1, MaterialMarkingStatistic o2) {
+                        return o1.getMeterPerHourSpeed().compareTo(o2.getMeterPerHourSpeed());
+                    }
+                }
+            )
+            .orElse(new MaterialMarkingStatistic().markingTechnique(MarkingTechnique.NONE))
+            .getMarkingTechnique();
     }
 
     public String getInsulationMaterialDesignation() {

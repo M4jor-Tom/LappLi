@@ -33,7 +33,7 @@ public class Material implements Article, Serializable {
     @Column(name = "designation", nullable = false, unique = true)
     private String designation;
 
-    @OneToMany(mappedBy = "material")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "material")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "material" }, allowSetters = true)
     private Set<MaterialMarkingStatistic> materialMarkingStatistics = new HashSet<>();
