@@ -20,8 +20,8 @@
             <column name="designation" type="varchar(255)">
                 <constraints nullable="false" unique="true" uniqueConstraintName="ux_material__designation" />
             </column>
-            <column name="is_markable" type="boolean">
-                <constraints nullable="false" />
+            <column name="material_marking_statistic_list_id" type="bigint">
+                <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
@@ -46,7 +46,6 @@
             <column name="id" type="numeric"/>
             <column name="number" type="numeric"/>
             <column name="designation" type="string"/>
-            <column name="is_markable" type="boolean"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

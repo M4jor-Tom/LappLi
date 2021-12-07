@@ -26,16 +26,20 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
     @Column(name = "apparitions", nullable = false)
     private Long apparitions;
 
+    @Column(name = "description")
+    private String description;
+
     @ManyToOne(optional = false)
     @NotNull
     private Bangle bangle;
 
     public BangleSupply() {
-        this(null, new Bangle());
+        this(null, "", new Bangle());
     }
 
-    public BangleSupply(Long apparitions, Bangle bangle) {
+    public BangleSupply(Long apparitions, String description, Bangle bangle) {
         setApparitions(apparitions);
+        setDescription(description);
         setBangle(bangle);
     }
 
@@ -93,6 +97,19 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
         this.apparitions = apparitions;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
+    public BangleSupply description(String description) {
+        this.setDescription(description);
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Bangle getBangle() {
         return this.bangle;
     }
@@ -131,6 +148,7 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
         return "BangleSupply{" +
             "id=" + getId() +
             ", apparitions=" + getApparitions() +
+            ", description='" + getDescription() + "'" +
             "}";
     }
 }

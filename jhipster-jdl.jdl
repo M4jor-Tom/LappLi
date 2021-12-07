@@ -27,6 +27,7 @@ relationship ManyToOne {
 
 entity BangleSupply {
 	apparitions Long required
+    description String
 }
 
 filter BangleSupply
@@ -35,8 +36,8 @@ service BangleSupply with serviceClass
 
 entity ElementSupply {
 	apparitions Long required
-    forcedMarking String
     markingType MarkingType required
+    description String
 }
 
 filter ElementSupply
@@ -55,6 +56,16 @@ enum MarkingTechnique {
 	NONE,
     INK_JET,
     RSD
+}
+
+entity MaterialMarkingStatistic {
+	markingType MarkingType required
+    markingTechnique MarkingTechnique required
+    meterPerSecondSpeed Long required
+}
+
+relationship ManyToOne {
+	Material{materialMarkingStatisticList(meterPerSecondSpeed)} to MaterialMarkingStatistic{material(designation) required}
 }
 
 relationship ManyToOne {
@@ -117,7 +128,6 @@ entity Copper {
 entity Material {
 	number Long unique required
 	designation String unique required
-    isMarkable Boolean required
 }
 
 enum Color {

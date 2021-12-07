@@ -50,11 +50,11 @@ public class ElementSupplyService {
                 if (elementSupply.getApparitions() != null) {
                     existingElementSupply.setApparitions(elementSupply.getApparitions());
                 }
-                if (elementSupply.getForcedMarking() != null) {
-                    existingElementSupply.setForcedMarking(elementSupply.getForcedMarking());
-                }
                 if (elementSupply.getMarkingType() != null) {
                     existingElementSupply.setMarkingType(elementSupply.getMarkingType());
+                }
+                if (elementSupply.getDescription() != null) {
+                    existingElementSupply.setDescription(elementSupply.getDescription());
                 }
 
                 return existingElementSupply;

@@ -62,6 +62,9 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.article.number">Article Number</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.elementSupply.description">Description</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.elementSupply.element">Element</Translate>
                 </th>
                 <th>
@@ -110,6 +113,7 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <td>
                     {elementSupply.element ? <Link to={`element/${elementSupply.element.id}`}>{elementSupply.element.number}</Link> : ''}
                   </td>
+                  <td>{elementSupply.description}</td>
                   <td>
                     {elementSupply.element ? (
                       <Link to={`element/${elementSupply.element.id}`}>{elementSupply.element.designationWithColor}</Link>

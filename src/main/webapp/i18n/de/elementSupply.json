@@ -18,10 +18,10 @@
         "title": "Element Supply"
       },
       "id": "ID",
-      "forcedMarking": "Forced Marking",
       "markingType": "Marking Type",
       "markingTechnique": "Markierungstechnik",
       "element": "Element",
+      "description": "Description",
       "meterQuantity": "Betragen (m)"
     }
   }

@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.interfaces.Article;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -30,9 +31,9 @@ public class Material implements Article, Serializable {
     @Column(name = "designation", nullable = false, unique = true)
     private String designation;
 
-    @NotNull
-    @Column(name = "is_markable", nullable = false)
-    private Boolean isMarkable;
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "materials" }, allowSetters = true)
+    private MaterialMarkingStatistic materialMarkingStatisticList;
 
     @Override
     public Long getArticleNumber() {
@@ -81,17 +82,17 @@ public class Material implements Article, Serializable {
         this.designation = designation;
     }
 
-    public Boolean getIsMarkable() {
-        return this.isMarkable;
+    public MaterialMarkingStatistic getMaterialMarkingStatisticList() {
+        return this.materialMarkingStatisticList;
     }
 
-    public Material isMarkable(Boolean isMarkable) {
-        this.setIsMarkable(isMarkable);
+    public void setMaterialMarkingStatisticList(MaterialMarkingStatistic materialMarkingStatistic) {
+        this.materialMarkingStatisticList = materialMarkingStatistic;
+    }
+
+    public Material materialMarkingStatisticList(MaterialMarkingStatistic materialMarkingStatistic) {
+        this.setMaterialMarkingStatisticList(materialMarkingStatistic);
         return this;
-    }
-
-    public void setIsMarkable(Boolean isMarkable) {
-        this.isMarkable = isMarkable;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -120,7 +121,6 @@ public class Material implements Article, Serializable {
             "id=" + getId() +
             ", number=" + getNumber() +
             ", designation='" + getDesignation() + "'" +
-            ", isMarkable='" + getIsMarkable() + "'" +
             "}";
     }
 }

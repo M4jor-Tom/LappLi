@@ -18,9 +18,9 @@
         "title": "Element Supply"
       },
       "id": "ID",
-      "forcedMarking": "Forced Marking",
       "markingType": "Marking Type",
       "markingTechnique": "Marking Technique",
+      "description": "Description",
       "element": "Element"
     }
   }

@@ -4,6 +4,8 @@ import { Button, Row, Col, FormText } from 'reactstrap';
 import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { IMaterialMarkingStatistic } from 'app/shared/model/material-marking-statistic.model';
+import { getEntities as getMaterialMarkingStatistics } from 'app/entities/material-marking-statistic/material-marking-statistic.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './material.reducer';
 import { IMaterial } from 'app/shared/model/material.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -15,6 +17,7 @@ export const MaterialUpdate = (props: RouteComponentProps<{ id: string }>) => {
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
+  const materialMarkingStatistics = useAppSelector(state => state.materialMarkingStatistic.entities);
   const materialEntity = useAppSelector(state => state.material.entity);
   const loading = useAppSelector(state => state.material.loading);
   const updating = useAppSelector(state => state.material.updating);
@@ -29,6 +32,8 @@ export const MaterialUpdate = (props: RouteComponentProps<{ id: string }>) => {
     } else {
       dispatch(getEntity(props.match.params.id));
     }
+
+    dispatch(getMaterialMarkingStatistics({}));
   }, []);
 
   useEffect(() => {
@@ -41,6 +46,9 @@ export const MaterialUpdate = (props: RouteComponentProps<{ id: string }>) => {
     const entity = {
       ...materialEntity,
       ...values,
+      materialMarkingStatisticList: materialMarkingStatistics.find(
+        it => it.id.toString() === values.materialMarkingStatisticList.toString()
+      ),
     };
 
     if (isNew) {
@@ -55,6 +63,7 @@ export const MaterialUpdate = (props: RouteComponentProps<{ id: string }>) => {
       ? {}
       : {
           ...materialEntity,
+          materialMarkingStatisticList: materialEntity?.materialMarkingStatisticList?.id,
         };
 
   return (
@@ -104,13 +113,21 @@ export const MaterialUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 }}
               />
               <ValidatedField
-                label={translate('lappLiApp.material.isMarkable')}
-                id="material-isMarkable"
-                name="isMarkable"
-                data-cy="isMarkable"
-                check
-                type="checkbox"
-              />
+                id="material-materialMarkingStatisticList"
+                name="materialMarkingStatisticList"
+                data-cy="materialMarkingStatisticList"
+                label={translate('lappLiApp.material.materialMarkingStatisticList')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {materialMarkingStatistics
+                  ? materialMarkingStatistics.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.meterPerSecondSpeed}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/material" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

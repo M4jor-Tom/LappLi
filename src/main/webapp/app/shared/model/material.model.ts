@@ -1,10 +1,10 @@
+import { IMaterialMarkingStatistic } from 'app/shared/model/material-marking-statistic.model';
+
 export interface IMaterial {
   id?: number;
   number?: number;
   designation?: string;
-  isMarkable?: boolean;
+  materialMarkingStatisticList?: IMaterialMarkingStatistic | null;
 }
 
-export const defaultValue: Readonly<IMaterial> = {
-  isMarkable: false,
-};
+export const defaultValue: Readonly<IMaterial> = {};

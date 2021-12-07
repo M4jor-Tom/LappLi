@@ -18,6 +18,8 @@
         "title": "Bangle Supply"
       },
       "id": "ID",
+      "apparitions": "Apparitions",
+      "description": "Description",
       "bangle": "Bangle"
     }
   }

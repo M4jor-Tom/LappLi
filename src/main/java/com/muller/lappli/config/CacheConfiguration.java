@@ -58,6 +58,8 @@ public class CacheConfiguration {
             createCache(cm, com.muller.lappli.domain.BangleSupply.class.getName());
             createCache(cm, com.muller.lappli.domain.Bangle.class.getName());
             createCache(cm, com.muller.lappli.domain.ElementKindEdition.class.getName());
+            createCache(cm, com.muller.lappli.domain.MaterialMarkingStatistic.class.getName());
+            createCache(cm, com.muller.lappli.domain.MaterialMarkingStatistic.class.getName() + ".materials");
             // jhipster-needle-ehcache-add-entry
         };
     }

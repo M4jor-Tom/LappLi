@@ -5,6 +5,7 @@ export interface IAbstractSupply {
   hourPreparationTime?: number;
   hourExecutionTime?: number;
   meterPerSecondSpeed?: number;
+  description?: string;
 
   milimeterDiameter?: number;
   gramPerMeterLinearMass?: number;

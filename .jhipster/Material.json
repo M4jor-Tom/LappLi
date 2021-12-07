@@ -10,14 +10,17 @@
       "fieldName": "designation",
       "fieldType": "String",
       "fieldValidateRules": ["unique", "required"]
-    },
-    {
-      "fieldName": "isMarkable",
-      "fieldType": "Boolean",
-      "fieldValidateRules": ["required"]
     }
   ],
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "materialMarkingStatistic",
+      "otherEntityRelationshipName": "material",
+      "relationshipName": "materialMarkingStatisticList",
+      "otherEntityField": "meterPerSecondSpeed"
+    }
+  ],
   "entityTableName": "material",
   "dto": "no",
   "pagination": "no",
