@@ -43,6 +43,17 @@ public class MaterialMarkingStatistic implements Serializable {
     @JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material material;
 
+    public MaterialMarkingStatistic() {
+        this(MarkingType.LIFTING, MarkingTechnique.NONE, null, new Material());
+    }
+
+    public MaterialMarkingStatistic(MarkingType markingType, MarkingTechnique markingTechnique, Long meterPerHourSpeed, Material material) {
+        setMarkingType(markingType);
+        setMarkingTechnique(markingTechnique);
+        setMeterPerHourSpeed(meterPerHourSpeed);
+        setMaterial(material);
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -72,6 +83,10 @@ public class MaterialMarkingStatistic implements Serializable {
     }
 
     public MarkingTechnique getMarkingTechnique() {
+        if (!getMarkingType().equals(MarkingType.NUMBERED)) {
+            return MarkingTechnique.NONE;
+        }
+
         return this.markingTechnique;
     }
 
@@ -81,7 +96,15 @@ public class MaterialMarkingStatistic implements Serializable {
     }
 
     public void setMarkingTechnique(MarkingTechnique markingTechnique) {
-        this.markingTechnique = markingTechnique;
+        if (getMarkingType().equals(MarkingType.NUMBERED)) {
+            this.markingTechnique = markingTechnique;
+
+            if (markingTechnique.equals(MarkingTechnique.NONE)) {
+                (new Exception("NoneMarkingTechniqueForMarkingTypeNumbered")).printStackTrace();
+            }
+        } else {
+            this.markingTechnique = MarkingTechnique.NONE;
+        }
     }
 
     public Long getMeterPerHourSpeed() {
