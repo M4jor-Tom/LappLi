@@ -18,7 +18,7 @@
       "otherEntityName": "materialMarkingStatistic",
       "otherEntityRelationshipName": "material",
       "relationshipName": "materialMarkingStatisticList",
-      "otherEntityField": "meterPerSecondSpeed"
+      "otherEntityField": "markingType"
     }
   ],
   "entityTableName": "material",

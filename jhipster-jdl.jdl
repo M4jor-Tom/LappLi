@@ -65,7 +65,7 @@ entity MaterialMarkingStatistic {
 }
 
 relationship ManyToOne {
-	MaterialMarkingStatistic{material(designation) required} to Material{materialMarkingStatisticList(meterPerSecondSpeed)}
+	MaterialMarkingStatistic{material(designation) required} to Material{materialMarkingStatisticList(markingType)}
 }
 
 relationship ManyToOne {
