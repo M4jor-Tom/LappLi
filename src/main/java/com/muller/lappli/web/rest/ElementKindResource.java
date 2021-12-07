@@ -14,6 +14,7 @@ import java.net.URISyntaxException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -85,7 +86,7 @@ public class ElementKindResource {
      * or with status {@code 500 (Internal Server Error)} if the elementKind couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    //@PutMapping("/element-kinds/{id}")
+    @PutMapping("/element-kinds/{id}")
     public ResponseEntity<ElementKind> updateElementKind(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody ElementKind elementKind
@@ -108,7 +109,7 @@ public class ElementKindResource {
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, elementKind.getId().toString()))
             .body(result);
         */
-        return null;
+        return ResponseEntity.badRequest().body(elementKind);
     }
 
     /**
@@ -122,7 +123,7 @@ public class ElementKindResource {
      * or with status {@code 500 (Internal Server Error)} if the elementKind couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    //@PatchMapping(value = "/element-kinds/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PatchMapping(value = "/element-kinds/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<ElementKind> partialUpdateElementKind(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody ElementKind elementKind
@@ -135,12 +136,12 @@ public class ElementKindResource {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
-        if (!elementKindRepository.existsById(id)) {
+        if (!elementKindService.findOne(id).isPresent()) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<ElementKind> result = elementKindRepository
-            .findById(elementKind.getId())
+        Optional<ElementKind> result = elementKindService
+            .findOne(elementKind.getId())
             .map(existingElementKind -> {
                 if (elementKind.getDesignation() != null) {
                     existingElementKind.setDesignation(elementKind.getDesignation());
@@ -157,24 +158,25 @@ public class ElementKindResource {
 
                 return existingElementKind;
             })
-            .map(elementKindRepository::save);
+            .map(elementKindService::save);
 
         return ResponseUtil.wrapOrNotFound(
             result,
             HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, elementKind.getId().toString())
         );*/
-        return null;
+        return ResponseUtil.wrapOrNotFound(Optional.empty());
     }
 
     /**
      * {@code GET  /element-kinds} : get all the elementKinds.
      *
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of elementKinds in body.
      */
     @GetMapping("/element-kinds")
-    public List<ElementKind> getAllElementKinds() {
-        log.debug("REST request to get all ElementKinds");
-        List<ElementKind> elementKindList = elementKindService.findAll();
+    public ResponseEntity<List<ElementKind>> getAllElementKinds(ElementKindCriteria criteria) {
+        log.debug("REST request to get ElementKinds by criteria: {}", criteria);
+        List<ElementKind> elementKindList = elementKindQueryService.findByCriteria(criteria);
 
         //Creating a list for edited ElementKinds
         ArrayList<ElementKind> editedElementKindList = new ArrayList<ElementKind>();
@@ -187,7 +189,19 @@ public class ElementKindResource {
             editedElementKindList.add(elementKind.getAtInstant(elementKind, Instant.now()));
         }
 
-        return editedElementKindList;
+        return ResponseEntity.ok().body(editedElementKindList);
+    }
+
+    /**
+     * {@code GET  /element-kinds/count} : count all the elementKinds.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/element-kinds/count")
+    public ResponseEntity<Long> countElementKinds(ElementKindCriteria criteria) {
+        log.debug("REST request to count ElementKinds by criteria: {}", criteria);
+        return ResponseEntity.ok().body(elementKindQueryService.countByCriteria(criteria));
     }
 
     /**
