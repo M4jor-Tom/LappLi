@@ -2,6 +2,8 @@ package com.muller.lappli.domain;
 
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -34,10 +36,11 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
     private Bangle bangle;
 
     public BangleSupply() {
-        this(null, new Bangle());
+        this(new ArrayList<>(), null, new Bangle());
     }
 
-    public BangleSupply(Long apparitions, Bangle bangle) {
+    public BangleSupply(List<Lifter> bestLifterList, Long apparitions, Bangle bangle) {
+        super(bestLifterList);
         setApparitions(apparitions);
         setBangle(bangle);
     }
@@ -53,7 +56,7 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
     }
 
     @Override
-    public Double getMeterPerSecondSpeed() {
+    public Double getMeterPerHourSpeed() {
         return Double.NaN;
     }
 

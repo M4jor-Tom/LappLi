@@ -44,9 +44,9 @@ public abstract class AbstractSupply {
     public abstract Double getHourExecutionTime();
 
     /**
-     * @return the speed in meters per second of the supply operation
+     * @return the speed in meters per hour of the supply operation
      */
-    public abstract Double getMeterPerSecondSpeed();
+    public abstract Double getMeterPerHourSpeed();
 
     /**
      * @return the necessary quantity of that CylindricComponent to make the final Cable

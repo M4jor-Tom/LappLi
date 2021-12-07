@@ -5,6 +5,8 @@ import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -43,10 +45,11 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
     private Element element;
 
     public ElementSupply() {
-        this(null, MarkingType.LIFTING, "", new Element());
+        this(new ArrayList<>(), null, MarkingType.LIFTING, "", new Element());
     }
 
-    public ElementSupply(Long apparitions, MarkingType markingType, String description, Element element) {
+    public ElementSupply(List<Lifter> bestLifterList, Long apparitions, MarkingType markingType, String description, Element element) {
+        super(bestLifterList);
         setApparitions(apparitions);
         setMarkingType(markingType);
         setDescription(description);
@@ -64,7 +67,7 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
     }
 
     @Override
-    public Double getMeterPerSecondSpeed() {
+    public Double getMeterPerHourSpeed() {
         return Double.NaN;
     }
 

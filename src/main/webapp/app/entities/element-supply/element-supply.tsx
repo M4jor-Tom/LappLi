@@ -83,7 +83,7 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.elementKind.insulationMaterial">Material</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.supply.meterPerSecondSpeed">Speed (m/s)</Translate>
+                  <Translate contentKey="lappLiApp.supply.meterPerHourSpeed">Speed (m/h)</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.supply.hourPreparationTime">Preparation Time (h)</Translate>
@@ -125,7 +125,7 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{elementSupply.gramPerMeterLinearMass}</td>
                   <td>{elementSupply.bestLiftersNames}</td>
                   <td>{elementSupply.insulationMaterialDesignation}</td>
-                  <td>{elementSupply.meterPerSecondSpeed}</td>
+                  <td>{elementSupply.meterPerHourSpeed}</td>
                   <td>{elementSupply.hourPreparationTime}</td>
                   <td>{elementSupply.hourExecutionTime}</td>
                   <td>{elementSupply.markingTechnique}</td>
