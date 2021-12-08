@@ -37,7 +37,7 @@ class MaterialMarkingStatisticResourceIT {
     private static final MarkingType UPDATED_MARKING_TYPE = MarkingType.SPIRALLY_COLORED;
 
     private static final MarkingTechnique DEFAULT_MARKING_TECHNIQUE = MarkingTechnique.NONE;
-    private static final MarkingTechnique UPDATED_MARKING_TECHNIQUE = MarkingTechnique.INK_JET;
+    private static final MarkingTechnique UPDATED_MARKING_TECHNIQUE = MarkingTechnique.NONE_SUITABLE;
 
     private static final Long DEFAULT_METER_PER_HOUR_SPEED = 1L;
     private static final Long UPDATED_METER_PER_HOUR_SPEED = 2L;
