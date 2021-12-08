@@ -130,6 +130,8 @@ public class Lifter implements Serializable {
 
     public Boolean supportsMarkingTechnique(MarkingTechnique markingTechnique) {
         switch (markingTechnique) {
+            case NONE_SUITABLE:
+                return false;
             case NONE:
                 return true;
             case INK_JET:
