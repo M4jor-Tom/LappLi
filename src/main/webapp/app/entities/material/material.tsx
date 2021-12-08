@@ -55,9 +55,6 @@ export const Material = (props: RouteComponentProps<{ url: string }>) => {
                 <th>
                   <Translate contentKey="lappLiApp.material.designation">Designation</Translate>
                 </th>
-                <th>
-                  <Translate contentKey="lappLiApp.material.isMarkable">Is Markable</Translate>
-                </th>
                 <th />
               </tr>
             </thead>
@@ -71,7 +68,6 @@ export const Material = (props: RouteComponentProps<{ url: string }>) => {
                   </td>
                   <td>{material.number}</td>
                   <td>{material.designation}</td>
-                  <td>{material.isMarkable ? 'true' : 'false'}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${material.id}`} color="info" size="sm" data-cy="entityDetailsButton">

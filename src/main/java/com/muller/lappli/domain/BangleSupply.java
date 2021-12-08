@@ -2,6 +2,8 @@ package com.muller.lappli.domain;
 
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -26,17 +28,36 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
     @Column(name = "apparitions", nullable = false)
     private Long apparitions;
 
+    @Column(name = "description")
+    private String description;
+
     @ManyToOne(optional = false)
     @NotNull
     private Bangle bangle;
 
     public BangleSupply() {
-        this(null, new Bangle());
+        this(new ArrayList<>(), null, new Bangle());
     }
 
-    public BangleSupply(Long apparitions, Bangle bangle) {
+    public BangleSupply(List<Lifter> bestLifterList, Long apparitions, Bangle bangle) {
+        super(bestLifterList);
         setApparitions(apparitions);
         setBangle(bangle);
+    }
+
+    @Override
+    public Double getHourPreparationTime() {
+        return Double.NaN;
+    }
+
+    @Override
+    public Double getHourExecutionTime() {
+        return Double.NaN;
+    }
+
+    @Override
+    public Double getMeterPerHourSpeed() {
+        return Double.NaN;
     }
 
     @Override
@@ -78,6 +99,19 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
         this.apparitions = apparitions;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
+    public BangleSupply description(String description) {
+        this.setDescription(description);
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Bangle getBangle() {
         return this.bangle;
     }
@@ -116,6 +150,7 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
         return "BangleSupply{" +
             "id=" + getId() +
             ", apparitions=" + getApparitions() +
+            ", description='" + getDescription() + "'" +
             "}";
     }
 }

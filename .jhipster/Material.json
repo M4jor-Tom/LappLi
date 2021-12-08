@@ -10,19 +10,22 @@
       "fieldName": "designation",
       "fieldType": "String",
       "fieldValidateRules": ["unique", "required"]
-    },
-    {
-      "fieldName": "isMarkable",
-      "fieldType": "Boolean",
-      "fieldValidateRules": ["required"]
     }
   ],
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "materialMarkingStatistic",
+      "otherEntityRelationshipName": "material",
+      "relationshipName": "materialMarkingStatistics",
+      "otherEntityField": "markingType"
+    }
+  ],
   "entityTableName": "material",
   "dto": "no",
   "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,

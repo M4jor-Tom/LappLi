@@ -28,21 +28,23 @@
       "otherEntityName": "copper",
       "otherEntityRelationshipName": "elementKind",
       "relationshipValidateRules": "required",
-      "relationshipName": "copper"
+      "relationshipName": "copper",
+      "otherEntityField": "designation"
     },
     {
       "relationshipType": "many-to-one",
       "otherEntityName": "material",
       "otherEntityRelationshipName": "elementKind",
       "relationshipValidateRules": "required",
-      "relationshipName": "insulationMaterial"
+      "relationshipName": "insulationMaterial",
+      "otherEntityField": "designation"
     }
   ],
   "entityTableName": "element_kind",
   "dto": "no",
   "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,

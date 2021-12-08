@@ -18,7 +18,7 @@
     {
       "fieldName": "markingTechnique",
       "fieldType": "MarkingTechnique",
-      "fieldValues": "NONE,INK_JET,RSD",
+      "fieldValues": "NONE,NONE_SUITABLE,INK_JET,RSD",
       "fieldValidateRules": ["required"]
     },
     {
@@ -32,14 +32,15 @@
       "otherEntityName": "lifter",
       "otherEntityRelationshipName": "lifterRunMeasure",
       "relationshipValidateRules": "required",
-      "relationshipName": "lifter"
+      "relationshipName": "lifter",
+      "otherEntityField": "name"
     }
   ],
   "entityTableName": "lifter_run_measure",
   "dto": "no",
   "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,

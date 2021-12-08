@@ -36,12 +36,6 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           </dt>
           <dd>{elementSupplyEntity.apparitions}</dd>
           <dt>
-            <span id="forcedMarking">
-              <Translate contentKey="lappLiApp.elementSupply.forcedMarking">Forced Marking</Translate>
-            </span>
-          </dt>
-          <dd>{elementSupplyEntity.forcedMarking}</dd>
-          <dt>
             <span id="markingType">
               <Translate contentKey="lappLiApp.elementSupply.markingType">Marking Type</Translate>
             </span>
@@ -51,6 +45,12 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
             <Translate contentKey="lappLiApp.article.number">Article Number</Translate>
           </dt>
           <dd>{elementSupplyEntity.element?.number}</dd>
+          <dt>
+            <span id="description">
+              <Translate contentKey="lappLiApp.supply.description">Description</Translate>
+            </span>
+          </dt>
+          <dd>{elementSupplyEntity.description}</dd>
           <dt>
             <Translate contentKey="lappLiApp.elementSupply.element">Element</Translate>
           </dt>
@@ -76,9 +76,9 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           </dt>
           <dd>{elementSupplyEntity.insulationMaterialDesignation}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.supply.meterPerSecondSpeed">Speed (m/s)</Translate>
+            <Translate contentKey="lappLiApp.supply.meterPerHourSpeed">Speed (m/h)</Translate>
           </dt>
-          <dd>{elementSupplyEntity.meterPerSecondSpeed}</dd>
+          <dd>{elementSupplyEntity.meterPerHourSpeed}</dd>
           <dt>
             <Translate contentKey="lappLiApp.supply.hourPreparationTime">PreparationTime (h)</Translate>
           </dt>

@@ -5,6 +5,10 @@
       "fieldName": "apparitions",
       "fieldType": "Long",
       "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
     }
   ],
   "relationships": [
@@ -13,7 +17,8 @@
       "otherEntityName": "bangle",
       "otherEntityRelationshipName": "bangleSupply",
       "relationshipValidateRules": "required",
-      "relationshipName": "bangle"
+      "relationshipName": "bangle",
+      "otherEntityField": "designation"
     }
   ],
   "entityTableName": "bangle_supply",

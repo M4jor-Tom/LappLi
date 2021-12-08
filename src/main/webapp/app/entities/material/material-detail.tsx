@@ -41,12 +41,6 @@ export const MaterialDetail = (props: RouteComponentProps<{ id: string }>) => {
             </span>
           </dt>
           <dd>{materialEntity.designation}</dd>
-          <dt>
-            <span id="isMarkable">
-              <Translate contentKey="lappLiApp.material.isMarkable">Is Markable</Translate>
-            </span>
-          </dt>
-          <dd>{materialEntity.isMarkable ? 'true' : 'false'}</dd>
         </dl>
         <Button tag={Link} to="/material" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

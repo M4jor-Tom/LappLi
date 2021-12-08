@@ -1,12 +1,20 @@
 package com.muller.lappli.web.rest;
 
+import com.muller.lappli.domain.EditionListManager;
 import com.muller.lappli.domain.ElementKind;
+import com.muller.lappli.domain.ElementKindEdition;
 import com.muller.lappli.repository.ElementKindRepository;
 import com.muller.lappli.service.ElementKindEditionService;
+import com.muller.lappli.service.ElementKindQueryService;
+import com.muller.lappli.service.ElementKindService;
+import com.muller.lappli.service.criteria.ElementKindCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -14,7 +22,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -24,7 +31,6 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-@Transactional
 public class ElementKindResource {
 
     private final Logger log = LoggerFactory.getLogger(ElementKindResource.class);
@@ -34,13 +40,20 @@ public class ElementKindResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final ElementKindRepository elementKindRepository;
+    private final ElementKindService elementKindService;
 
     private final ElementKindEditionService elementKindEditionService;
 
-    public ElementKindResource(ElementKindRepository elementKindRepository, ElementKindEditionService elementKindEditionService) {
-        this.elementKindRepository = elementKindRepository;
+    private final ElementKindQueryService elementKindQueryService;
+
+    public ElementKindResource(
+        ElementKindService elementKindService,
+        ElementKindEditionService elementKindEditionService,
+        ElementKindQueryService elementKindQueryService
+    ) {
+        this.elementKindService = elementKindService;
         this.elementKindEditionService = elementKindEditionService;
+        this.elementKindQueryService = elementKindQueryService;
     }
 
     /**
@@ -56,7 +69,7 @@ public class ElementKindResource {
         if (elementKind.getId() != null) {
             throw new BadRequestAlertException("A new elementKind cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ElementKind result = elementKindRepository.save(elementKind);
+        ElementKind result = elementKindService.save(elementKind);
         return ResponseEntity
             .created(new URI("/api/element-kinds/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -73,7 +86,7 @@ public class ElementKindResource {
      * or with status {@code 500 (Internal Server Error)} if the elementKind couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    //@PutMapping("/element-kinds/{id}")
+    @PutMapping("/element-kinds/{id}")
     public ResponseEntity<ElementKind> updateElementKind(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody ElementKind elementKind
@@ -96,7 +109,7 @@ public class ElementKindResource {
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, elementKind.getId().toString()))
             .body(result);
         */
-        return null;
+        return ResponseEntity.badRequest().body(elementKind);
     }
 
     /**
@@ -110,7 +123,7 @@ public class ElementKindResource {
      * or with status {@code 500 (Internal Server Error)} if the elementKind couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    //@PatchMapping(value = "/element-kinds/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PatchMapping(value = "/element-kinds/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<ElementKind> partialUpdateElementKind(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody ElementKind elementKind
@@ -123,12 +136,12 @@ public class ElementKindResource {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
-        if (!elementKindRepository.existsById(id)) {
+        if (!elementKindService.findOne(id).isPresent()) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<ElementKind> result = elementKindRepository
-            .findById(elementKind.getId())
+        Optional<ElementKind> result = elementKindService
+            .findOne(elementKind.getId())
             .map(existingElementKind -> {
                 if (elementKind.getDesignation() != null) {
                     existingElementKind.setDesignation(elementKind.getDesignation());
@@ -145,24 +158,50 @@ public class ElementKindResource {
 
                 return existingElementKind;
             })
-            .map(elementKindRepository::save);
+            .map(elementKindService::save);
 
         return ResponseUtil.wrapOrNotFound(
             result,
             HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, elementKind.getId().toString())
         );*/
-        return null;
+        return ResponseUtil.wrapOrNotFound(Optional.empty());
     }
 
     /**
      * {@code GET  /element-kinds} : get all the elementKinds.
      *
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of elementKinds in body.
      */
     @GetMapping("/element-kinds")
-    public List<ElementKind> getAllElementKinds() {
-        log.debug("REST request to get all ElementKinds");
-        return elementKindEditionService.update(elementKindRepository.findAll());
+    public ResponseEntity<List<ElementKind>> getAllElementKinds(ElementKindCriteria criteria) {
+        log.debug("REST request to get ElementKinds by criteria: {}", criteria);
+        List<ElementKind> elementKindList = elementKindQueryService.findByCriteria(criteria);
+
+        //Creating a list for edited ElementKinds
+        ArrayList<ElementKind> editedElementKindList = new ArrayList<ElementKind>();
+
+        for (ElementKind elementKind : elementKindList) {
+            //Giving an EditionListManager to the ElementKind
+            elementKindEditionService.setEditionListManagerTo(elementKind);
+
+            //Storing changed entity into a new list that'll be returned
+            editedElementKindList.add(elementKind.getAtInstant(elementKind, Instant.now()));
+        }
+
+        return ResponseEntity.ok().body(editedElementKindList);
+    }
+
+    /**
+     * {@code GET  /element-kinds/count} : count all the elementKinds.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/element-kinds/count")
+    public ResponseEntity<Long> countElementKinds(ElementKindCriteria criteria) {
+        log.debug("REST request to count ElementKinds by criteria: {}", criteria);
+        return ResponseEntity.ok().body(elementKindQueryService.countByCriteria(criteria));
     }
 
     /**
@@ -174,7 +213,16 @@ public class ElementKindResource {
     @GetMapping("/element-kinds/{id}")
     public ResponseEntity<ElementKind> getElementKind(@PathVariable Long id) {
         log.debug("REST request to get ElementKind : {}", id);
-        Optional<ElementKind> elementKind = elementKindRepository.findById(id);
+        Optional<ElementKind> elementKind = elementKindService.findOne(id);
+
+        if (elementKind.isPresent()) {
+            //Giving an EditionListManager to the ElementKind
+            elementKindEditionService.setEditionListManagerTo(elementKind.get());
+
+            //Changing the value of the ElementKind depending on its Editions
+            elementKind = Optional.of(elementKind.get().getAtInstant(elementKind.get(), Instant.now()));
+        }
+
         return ResponseUtil.wrapOrNotFound(elementKind);
     }
 
@@ -187,7 +235,7 @@ public class ElementKindResource {
     @DeleteMapping("/element-kinds/{id}")
     public ResponseEntity<Void> deleteElementKind(@PathVariable Long id) {
         log.debug("REST request to delete ElementKind : {}", id);
-        elementKindRepository.deleteById(id);
+        elementKindService.delete(id);
         return ResponseEntity
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))

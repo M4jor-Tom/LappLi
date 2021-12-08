@@ -53,8 +53,9 @@
       "LifterRunMeasure",
       "BangleSupply",
       "Bangle",
-      "ElementKindEdition"
+      "ElementKindEdition",
+      "MaterialMarkingStatistic"
     ],
-    "lastLiquibaseTimestamp": 1638279142000
+    "lastLiquibaseTimestamp": 1638879893000
   }
 }

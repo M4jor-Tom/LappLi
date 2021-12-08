@@ -50,6 +50,9 @@ public class BangleSupplyService {
                 if (bangleSupply.getApparitions() != null) {
                     existingBangleSupply.setApparitions(bangleSupply.getApparitions());
                 }
+                if (bangleSupply.getDescription() != null) {
+                    existingBangleSupply.setDescription(bangleSupply.getDescription());
+                }
 
                 return existingBangleSupply;
             })

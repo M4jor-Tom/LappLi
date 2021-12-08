@@ -1,3 +1,7 @@
+filter *
+
+service * with serviceImpl
+
 entity Lifter {
 	index Long unique required
 	minimumMilimeterDiameter Double required
@@ -9,10 +13,6 @@ entity Lifter {
     supportsRsdMarkingTechnique Boolean required
 }
 
-filter Lifter
-
-service Lifter with serviceImpl
-
 entity LifterRunMeasure {
 	milimeterDiameter Double
     meterPerSecondSpeed Double
@@ -22,11 +22,12 @@ entity LifterRunMeasure {
 }
 
 relationship ManyToOne {
-	LifterRunMeasure{lifter required} to Lifter
+	LifterRunMeasure{lifter(name) required} to Lifter
 }
 
 entity BangleSupply {
 	apparitions Long required
+    description String
 }
 
 filter BangleSupply
@@ -35,8 +36,8 @@ service BangleSupply with serviceClass
 
 entity ElementSupply {
 	apparitions Long required
-    forcedMarking String
     markingType MarkingType required
+    description String
 }
 
 filter ElementSupply
@@ -53,16 +54,27 @@ enum MarkingType {
 
 enum MarkingTechnique {
 	NONE,
+    NONE_SUITABLE,
     INK_JET,
     RSD
 }
 
-relationship ManyToOne {
-	BangleSupply{bangle required} to Bangle
+entity MaterialMarkingStatistic {
+	markingType MarkingType required
+    markingTechnique MarkingTechnique required
+    meterPerHourSpeed Long required
+}
+
+relationship OneToMany {
+	Material{materialMarkingStatistics(markingType)} to MaterialMarkingStatistic{material(designation) required}
 }
 
 relationship ManyToOne {
-	ElementSupply{element required} to Element
+	BangleSupply{bangle(designation) required} to Bangle
+}
+
+relationship ManyToOne {
+	ElementSupply{element(designationWithColor) required} to Element
 }
 
 entity Bangle {
@@ -78,7 +90,7 @@ entity Element {
 }
 
 relationship ManyToOne {
-	Element{elementKind required} to ElementKind
+	Element{elementKind(designation) required} to ElementKind
 }
 
 entity ElementKindEdition {
@@ -91,7 +103,7 @@ entity ElementKindEdition {
 service ElementKindEdition with serviceClass
 
 relationship ManyToOne {
-	ElementKindEdition{editedElementKind required} to ElementKind
+	ElementKindEdition{editedElementKind(designation) required} to ElementKind
 }
 
 entity ElementKind {
@@ -102,11 +114,11 @@ entity ElementKind {
 }
 
 relationship ManyToOne {
-	ElementKind{Copper required} to Copper
+	ElementKind{Copper(designation) required} to Copper
 }
 
 relationship ManyToOne {
-	ElementKind{insulationMaterial required} to Material
+	ElementKind{insulationMaterial(designation) required} to Material
 }
 
 entity Copper {
@@ -117,7 +129,6 @@ entity Copper {
 entity Material {
 	number Long unique required
 	designation String unique required
-    isMarkable Boolean required
 }
 
 enum Color {

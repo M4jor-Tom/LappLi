@@ -1,0 +1,27 @@
+{
+  "lappLiApp": {
+    "materialMarkingStatistic": {
+      "home": {
+        "title": "Material Marking Statistics",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Material Marking Statistic",
+        "createOrEditLabel": "Create or edit a Material Marking Statistic",
+        "notFound": "No Material Marking Statistics found"
+      },
+      "created": "A new Material Marking Statistic is created with identifier {{ param }}",
+      "updated": "A Material Marking Statistic is updated with identifier {{ param }}",
+      "deleted": "A Material Marking Statistic is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Material Marking Statistic {{ id }}?"
+      },
+      "detail": {
+        "title": "Material Marking Statistic"
+      },
+      "id": "ID",
+      "markingType": "Marking Type",
+      "markingTechnique": "Marking Technique",
+      "meterPerHourSpeed": "Meter Per Hour Speed",
+      "material": "Material"
+    }
+  }
+}

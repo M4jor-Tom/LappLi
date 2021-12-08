@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractEdition;
 import com.muller.lappli.domain.interfaces.NotNullForceable;
 import java.io.Serializable;
 import java.time.Instant;
@@ -10,12 +11,15 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A ElementKindEdition.
+ * This domain class serves EditionKind as an implementation of IEdition<ElementKind>
+ *
+ * That means that its fields will be used to edit any ElementKind instance
+ * at a given Instant
  */
 @Entity
 @Table(name = "element_kind_edition")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ElementKindEdition implements NotNullForceable<ElementKindEdition>, Serializable {
+public class ElementKindEdition extends AbstractEdition<ElementKind> implements NotNullForceable<ElementKindEdition>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -59,6 +63,12 @@ public class ElementKindEdition implements NotNullForceable<ElementKindEdition>,
         setEditedElementKind(editedElementKind);
     }
 
+    @Override
+    public ElementKind getEditedCommitable() {
+        return getEditedElementKind();
+    }
+
+    @Override
     public ElementKind update(ElementKind elementKind) {
         if (!getNewGramPerMeterLinearMass().isNaN()) {
             elementKind.setGramPerMeterLinearMass(getNewGramPerMeterLinearMass());
@@ -71,6 +81,16 @@ public class ElementKindEdition implements NotNullForceable<ElementKindEdition>,
         }
 
         return elementKind;
+    }
+
+    @Override
+    public Instant getEditionInstant() {
+        return getEditionDateTime();
+    }
+
+    @Override
+    protected void setEditionInstant(Instant editionInstant) {
+        setEditionDateTime(editionInstant);
     }
 
     @Override
@@ -97,16 +117,6 @@ public class ElementKindEdition implements NotNullForceable<ElementKindEdition>,
         return this;
     }
 
-    public ElementKindEdition nowEditionTime() {
-        setEditionDateTime(Instant.now());
-        return this;
-    }
-
-    public ElementKindEdition epochEditionTime() {
-        setEditionDateTime(Instant.EPOCH);
-        return this;
-    }
-
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -124,11 +134,6 @@ public class ElementKindEdition implements NotNullForceable<ElementKindEdition>,
 
     public Instant getEditionDateTime() {
         return this.editionDateTime;
-    }
-
-    private ElementKindEdition editionDateTime(Instant editionDateTime) {
-        this.setEditionDateTime(editionDateTime);
-        return this;
     }
 
     private void setEditionDateTime(Instant editionDateTime) {

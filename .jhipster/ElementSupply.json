@@ -7,14 +7,14 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "forcedMarking",
-      "fieldType": "String"
-    },
-    {
       "fieldName": "markingType",
       "fieldType": "MarkingType",
       "fieldValues": "LIFTING,SPIRALLY_COLORED,LONGITUDINALLY_COLORED,RINGY_COLORED,NUMBERED",
       "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
     }
   ],
   "relationships": [
@@ -23,7 +23,8 @@
       "otherEntityName": "element",
       "otherEntityRelationshipName": "elementSupply",
       "relationshipValidateRules": "required",
-      "relationshipName": "element"
+      "relationshipName": "element",
+      "otherEntityField": "designationWithColor"
     }
   ],
   "entityTableName": "element_supply",

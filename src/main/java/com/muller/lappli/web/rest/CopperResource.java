@@ -2,6 +2,9 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.Copper;
 import com.muller.lappli.repository.CopperRepository;
+import com.muller.lappli.service.CopperQueryService;
+import com.muller.lappli.service.CopperService;
+import com.muller.lappli.service.criteria.CopperCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -14,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -24,7 +26,6 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-@Transactional
 public class CopperResource {
 
     private final Logger log = LoggerFactory.getLogger(CopperResource.class);
@@ -34,10 +35,16 @@ public class CopperResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
+    private final CopperService copperService;
+
     private final CopperRepository copperRepository;
 
-    public CopperResource(CopperRepository copperRepository) {
+    private final CopperQueryService copperQueryService;
+
+    public CopperResource(CopperService copperService, CopperRepository copperRepository, CopperQueryService copperQueryService) {
+        this.copperService = copperService;
         this.copperRepository = copperRepository;
+        this.copperQueryService = copperQueryService;
     }
 
     /**
@@ -53,7 +60,7 @@ public class CopperResource {
         if (copper.getId() != null) {
             throw new BadRequestAlertException("A new copper cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Copper result = copperRepository.save(copper);
+        Copper result = copperService.save(copper);
         return ResponseEntity
             .created(new URI("/api/coppers/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -87,7 +94,7 @@ public class CopperResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Copper result = copperRepository.save(copper);
+        Copper result = copperService.save(copper);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, copper.getId().toString()))
@@ -122,19 +129,7 @@ public class CopperResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Copper> result = copperRepository
-            .findById(copper.getId())
-            .map(existingCopper -> {
-                if (copper.getNumber() != null) {
-                    existingCopper.setNumber(copper.getNumber());
-                }
-                if (copper.getDesignation() != null) {
-                    existingCopper.setDesignation(copper.getDesignation());
-                }
-
-                return existingCopper;
-            })
-            .map(copperRepository::save);
+        Optional<Copper> result = copperService.partialUpdate(copper);
 
         return ResponseUtil.wrapOrNotFound(
             result,
@@ -145,12 +140,26 @@ public class CopperResource {
     /**
      * {@code GET  /coppers} : get all the coppers.
      *
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of coppers in body.
      */
     @GetMapping("/coppers")
-    public List<Copper> getAllCoppers() {
-        log.debug("REST request to get all Coppers");
-        return copperRepository.findAll();
+    public ResponseEntity<List<Copper>> getAllCoppers(CopperCriteria criteria) {
+        log.debug("REST request to get Coppers by criteria: {}", criteria);
+        List<Copper> entityList = copperQueryService.findByCriteria(criteria);
+        return ResponseEntity.ok().body(entityList);
+    }
+
+    /**
+     * {@code GET  /coppers/count} : count all the coppers.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/coppers/count")
+    public ResponseEntity<Long> countCoppers(CopperCriteria criteria) {
+        log.debug("REST request to count Coppers by criteria: {}", criteria);
+        return ResponseEntity.ok().body(copperQueryService.countByCriteria(criteria));
     }
 
     /**
@@ -162,7 +171,7 @@ public class CopperResource {
     @GetMapping("/coppers/{id}")
     public ResponseEntity<Copper> getCopper(@PathVariable Long id) {
         log.debug("REST request to get Copper : {}", id);
-        Optional<Copper> copper = copperRepository.findById(id);
+        Optional<Copper> copper = copperService.findOne(id);
         return ResponseUtil.wrapOrNotFound(copper);
     }
 
@@ -175,7 +184,7 @@ public class CopperResource {
     @DeleteMapping("/coppers/{id}")
     public ResponseEntity<Void> deleteCopper(@PathVariable Long id) {
         log.debug("REST request to delete Copper : {}", id);
-        copperRepository.deleteById(id);
+        copperService.delete(id);
         return ResponseEntity
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))

@@ -40,6 +40,12 @@ export const BangleSupplyDetail = (props: RouteComponentProps<{ id: string }>) =
           </dt>
           <dd>{bangleSupplyEntity.bangle?.designation}</dd>
           <dt>
+            <span id="description">
+              <Translate contentKey="lappLiApp.bangleSupply.description">Description</Translate>
+            </span>
+          </dt>
+          <dd>{bangleSupplyEntity.description}</dd>
+          <dt>
             <Translate contentKey="lappLiApp.dimension.meterQuantity">Quantity (m)</Translate>
           </dt>
           <dd>{bangleSupplyEntity.meterQuantity}</dd>
@@ -56,9 +62,9 @@ export const BangleSupplyDetail = (props: RouteComponentProps<{ id: string }>) =
           </dt>
           <dd>{bangleSupplyEntity.bestLiftersNames}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.supply.meterPerSecondSpeed">Speed (m/s)</Translate>
+            <Translate contentKey="lappLiApp.supply.meterPerHourSpeed">Speed (m/h)</Translate>
           </dt>
-          <dd>{bangleSupplyEntity.meterPerSecondSpeed}</dd>
+          <dd>{bangleSupplyEntity.meterPerHourSpeed}</dd>
           <dt>
             <Translate contentKey="lappLiApp.supply.hourPreparationTime">PreparationTime (h)</Translate>
           </dt>

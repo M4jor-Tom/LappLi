@@ -19,14 +19,15 @@
       "otherEntityName": "elementKind",
       "otherEntityRelationshipName": "element",
       "relationshipValidateRules": "required",
-      "relationshipName": "elementKind"
+      "relationshipName": "elementKind",
+      "otherEntityField": "designation"
     }
   ],
   "entityTableName": "element",
   "dto": "no",
   "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,

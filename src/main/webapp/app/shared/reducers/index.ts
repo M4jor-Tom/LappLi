@@ -31,6 +31,8 @@ import bangleSupply from 'app/entities/bangle-supply/bangle-supply.reducer';
 import bangle from 'app/entities/bangle/bangle.reducer';
 // prettier-ignore
 import elementKindEdition from 'app/entities/element-kind-edition/element-kind-edition.reducer';
+// prettier-ignore
+import materialMarkingStatistic from 'app/entities/material-marking-statistic/material-marking-statistic.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -54,6 +56,7 @@ const rootReducer = {
   bangleSupply,
   bangle,
   elementKindEdition,
+  materialMarkingStatistic,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };

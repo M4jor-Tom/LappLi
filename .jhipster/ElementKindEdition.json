@@ -25,14 +25,15 @@
       "otherEntityName": "elementKind",
       "otherEntityRelationshipName": "elementKindEdition",
       "relationshipValidateRules": "required",
-      "relationshipName": "editedElementKind"
+      "relationshipName": "editedElementKind",
+      "otherEntityField": "designation"
     }
   ],
   "entityTableName": "element_kind_edition",
   "dto": "no",
   "pagination": "no",
   "service": "serviceClass",
-  "jpaMetamodelFiltering": false,
+  "jpaMetamodelFiltering": true,
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,
