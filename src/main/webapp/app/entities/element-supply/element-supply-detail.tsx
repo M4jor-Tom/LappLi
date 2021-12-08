@@ -84,9 +84,9 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           </dt>
           <dd>{elementSupplyEntity.formatedHourPreparationTime}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.supply.formatedFormatedHourExecutionTime">Execution Time (h)</Translate>
+            <Translate contentKey="lappLiApp.supply.formatedHourExecutionTime">Execution Time (h)</Translate>
           </dt>
-          <dd>{elementSupplyEntity.formatedFormatedHourExecutionTime}</dd>
+          <dd>{elementSupplyEntity.formatedHourExecutionTime}</dd>
           <dt>
             <Translate contentKey="lappLiApp.elementSupply.markingTechnique">Marking Technique</Translate>
           </dt>

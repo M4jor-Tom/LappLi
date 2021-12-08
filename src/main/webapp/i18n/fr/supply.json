@@ -6,7 +6,7 @@
       "bestLiftersNames": "Meilleures releveuses",
       "meterPerHourSpeed": "Vitesse (m/h)",
       "formatedHourPreparationTime": "Temps de Preparation (h)",
-      "formatedFormatedHourExecutionTime": "Temps d'Execution (h)"
+      "formatedHourExecutionTime": "Temps d'Execution (h)"
     }
   }
 }

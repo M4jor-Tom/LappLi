@@ -4,7 +4,7 @@ export interface IAbstractSupply {
   description?: string | null;
   meterQuantity?: number;
   formatedHourPreparationTime?: number;
-  formatedFormatedHourExecutionTime?: number;
+  formatedHourExecutionTime?: number;
   meterPerHourSpeed?: number;
 
   milimeterDiameter?: number;

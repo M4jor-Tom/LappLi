@@ -70,9 +70,9 @@ export const BangleSupplyDetail = (props: RouteComponentProps<{ id: string }>) =
           </dt>
           <dd>{bangleSupplyEntity.formatedHourPreparationTime}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.supply.formatedFormatedHourExecutionTime">Execution Time (h)</Translate>
+            <Translate contentKey="lappLiApp.supply.formatedHourExecutionTime">Execution Time (h)</Translate>
           </dt>
-          <dd>{bangleSupplyEntity.formatedFormatedHourExecutionTime}</dd>
+          <dd>{bangleSupplyEntity.formatedHourExecutionTime}</dd>
         </dl>
         <Button tag={Link} to="/bangle-supply" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
