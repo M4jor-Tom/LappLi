@@ -104,6 +104,10 @@ public class MaterialMarkingStatistic implements Serializable {
             }
         } else {
             this.markingTechnique = MarkingTechnique.NONE;
+
+            if (!markingTechnique.equals(MarkingTechnique.NONE)) {
+                (new Exception("ExistingMarkingTechniqueForMarkingTypeNotNumbered")).printStackTrace();
+            }
         }
     }
 

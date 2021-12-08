@@ -78,12 +78,18 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
             return MarkingTechnique.NONE;
         }
 
+        //Takes the element supply's element, then
         return getElement()
+            //Takes its element kind, then
             .getElementKind()
+            //Takes its insulation material, then
             .getInsulationMaterial()
+            //Takes its marking statistics, but
             .getMaterialMarkingStatistics()
             .stream()
+            //Only those which has our element supply's marking type, then
             .filter(statistic -> statistic.getMarkingType().equals(getMarkingType()))
+            //Takes the fastest to act in a lifter machine, but
             .max(
                 new Comparator<MaterialMarkingStatistic>() {
                     @Override
@@ -92,7 +98,9 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
                     }
                 }
             )
-            .orElse(new MaterialMarkingStatistic().markingTechnique(MarkingTechnique.NONE))
+            //If no statistic is found, meaning the lifting operation is unavailable for
+            //those parameters, it means that no marking technique is suitable
+            .orElse(new MaterialMarkingStatistic().markingType(getMarkingType()).markingTechnique(MarkingTechnique.NONE_SUITABLE))
             .getMarkingTechnique();
     }
 
