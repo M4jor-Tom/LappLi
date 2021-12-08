@@ -61,17 +61,31 @@ public abstract class AbstractSupply {
     }
 
     /**
+     * @return the formated preparation time in hours of the supply operation
+     */
+    public Double getHourPreparationTime() {
+        return (5.0 * getApparitions() + 5) / 60.0;
+    }
+
+    /**
      * @return the preparation time in hours of the supply operation
      */
     public Double getFormatedHourPreparationTime() {
-        return hourFormat((5.0 * getApparitions() + 5) / 60.0);
+        return hourFormat(getHourPreparationTime());
     }
 
     /**
      * @return the execution time in hours of the supply operation
      */
+    public Double getHourExecutionTime() {
+        return getMeterQuantity() / getMeterPerHourSpeed();
+    }
+
+    /**
+     * @return the formated execution time in hours of the supply operation
+     */
     public Double getFormatedHourExecutionTime() {
-        return hourFormat(getMeterQuantity() / getMeterPerHourSpeed());
+        return hourFormat(getHourExecutionTime());
     }
 
     /**
