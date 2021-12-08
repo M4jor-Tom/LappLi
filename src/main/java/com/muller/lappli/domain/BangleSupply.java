@@ -47,7 +47,7 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
 
     @Override
     public Double getMeterPerHourSpeed() {
-        return Double.NaN;
+        return Double.valueOf(LIFTING_METER_PER_HOUR_SPEED);
     }
 
     @Override
