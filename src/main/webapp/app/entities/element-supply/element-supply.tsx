@@ -83,10 +83,10 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.supply.meterPerHourSpeed">Speed (m/h)</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.supply.hourPreparationTime">Preparation Time (h)</Translate>
+                  <Translate contentKey="lappLiApp.supply.formatedHourPreparationTime">Preparation Time (h)</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.supply.hourExecutionTime">Execution Time (h)</Translate>
+                  <Translate contentKey="lappLiApp.supply.formatedFormatedHourExecutionTime">Execution Time (h)</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.elementSupply.markingTechnique">Marking Technique</Translate>
@@ -123,8 +123,8 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{elementSupply.bestLiftersNames}</td>
                   <td>{elementSupply.insulationMaterialDesignation}</td>
                   <td>{elementSupply.meterPerHourSpeed}</td>
-                  <td>{elementSupply.hourPreparationTime}</td>
-                  <td>{elementSupply.hourExecutionTime}</td>
+                  <td>{elementSupply.formatedHourPreparationTime}</td>
+                  <td>{elementSupply.formatedFormatedHourExecutionTime}</td>
                   <td>{elementSupply.markingTechnique}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

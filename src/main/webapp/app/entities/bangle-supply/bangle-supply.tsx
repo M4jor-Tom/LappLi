@@ -74,10 +74,10 @@ export const BangleSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.supply.meterPerHourSpeed">Speed (m/h)</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.supply.hourPreparationTime">Preparation Time (h)</Translate>
+                  <Translate contentKey="lappLiApp.supply.formatedHourPreparationTime">Preparation Time (h)</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.supply.hourExecutionTime">Execution Time (h)</Translate>
+                  <Translate contentKey="lappLiApp.supply.formatedFormatedHourExecutionTime">Execution Time (h)</Translate>
                 </th>
                 <th />
               </tr>
@@ -100,8 +100,8 @@ export const BangleSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{bangleSupply.gramPerMeterLinearMass}</td>
                   <td>{bangleSupply.bestLiftersNames}</td>
                   <td>{bangleSupply.meterPerHourSpeed}</td>
-                  <td>{bangleSupply.hourPreparationTime}</td>
-                  <td>{bangleSupply.hourExecutionTime}</td>
+                  <td>{bangleSupply.formatedHourPreparationTime}</td>
+                  <td>{bangleSupply.formatedFormatedHourExecutionTime}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${bangleSupply.id}`} color="info" size="sm" data-cy="entityDetailsButton">

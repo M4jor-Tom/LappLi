@@ -50,8 +50,8 @@ public class LifterRunMeasureServiceImpl implements LifterRunMeasureService {
                 if (lifterRunMeasure.getMarkingTechnique() != null) {
                     existingLifterRunMeasure.setMarkingTechnique(lifterRunMeasure.getMarkingTechnique());
                 }
-                if (lifterRunMeasure.getHourPreparationTime() != null) {
-                    existingLifterRunMeasure.setHourPreparationTime(lifterRunMeasure.getHourPreparationTime());
+                if (lifterRunMeasure.getFormatedHourPreparationTime() != null) {
+                    existingLifterRunMeasure.setFormatedHourPreparationTime(lifterRunMeasure.getFormatedHourPreparationTime());
                 }
 
                 return existingLifterRunMeasure;

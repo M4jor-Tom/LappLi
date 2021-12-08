@@ -3,8 +3,8 @@ export interface IAbstractSupply {
   apparitions?: number;
   description?: string | null;
   meterQuantity?: number;
-  hourPreparationTime?: number;
-  hourExecutionTime?: number;
+  formatedHourPreparationTime?: number;
+  formatedFormatedHourExecutionTime?: number;
   meterPerHourSpeed?: number;
 
   milimeterDiameter?: number;

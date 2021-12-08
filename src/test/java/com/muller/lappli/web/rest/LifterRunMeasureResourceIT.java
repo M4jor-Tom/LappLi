@@ -47,9 +47,9 @@ class LifterRunMeasureResourceIT {
     private static final MarkingTechnique DEFAULT_MARKING_TECHNIQUE = MarkingTechnique.NONE;
     private static final MarkingTechnique UPDATED_MARKING_TECHNIQUE = MarkingTechnique.NONE_SUITABLE;
 
-    private static final Double DEFAULT_HOUR_PREPARATION_TIME = 1D;
-    private static final Double UPDATED_HOUR_PREPARATION_TIME = 2D;
-    private static final Double SMALLER_HOUR_PREPARATION_TIME = 1D - 1D;
+    private static final Double DEFAULT_FORMATED_HOUR_PREPARATION_TIME = 1D;
+    private static final Double UPDATED_FORMATED_HOUR_PREPARATION_TIME = 2D;
+    private static final Double SMALLER_FORMATED_HOUR_PREPARATION_TIME = 1D - 1D;
 
     private static final String ENTITY_API_URL = "/api/lifter-run-measures";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -80,7 +80,7 @@ class LifterRunMeasureResourceIT {
             .meterPerSecondSpeed(DEFAULT_METER_PER_SECOND_SPEED)
             .markingType(DEFAULT_MARKING_TYPE)
             .markingTechnique(DEFAULT_MARKING_TECHNIQUE)
-            .hourPreparationTime(DEFAULT_HOUR_PREPARATION_TIME);
+            .formatedHourPreparationTime(DEFAULT_FORMATED_HOUR_PREPARATION_TIME);
         // Add required entity
         Lifter lifter;
         if (TestUtil.findAll(em, Lifter.class).isEmpty()) {
@@ -106,7 +106,7 @@ class LifterRunMeasureResourceIT {
             .meterPerSecondSpeed(UPDATED_METER_PER_SECOND_SPEED)
             .markingType(UPDATED_MARKING_TYPE)
             .markingTechnique(UPDATED_MARKING_TECHNIQUE)
-            .hourPreparationTime(UPDATED_HOUR_PREPARATION_TIME);
+            .formatedHourPreparationTime(UPDATED_FORMATED_HOUR_PREPARATION_TIME);
         // Add required entity
         Lifter lifter;
         if (TestUtil.findAll(em, Lifter.class).isEmpty()) {
@@ -144,7 +144,7 @@ class LifterRunMeasureResourceIT {
         assertThat(testLifterRunMeasure.getMeterPerSecondSpeed()).isEqualTo(DEFAULT_METER_PER_SECOND_SPEED);
         assertThat(testLifterRunMeasure.getMarkingType()).isEqualTo(DEFAULT_MARKING_TYPE);
         assertThat(testLifterRunMeasure.getMarkingTechnique()).isEqualTo(DEFAULT_MARKING_TECHNIQUE);
-        assertThat(testLifterRunMeasure.getHourPreparationTime()).isEqualTo(DEFAULT_HOUR_PREPARATION_TIME);
+        assertThat(testLifterRunMeasure.getFormatedHourPreparationTime()).isEqualTo(DEFAULT_FORMATED_HOUR_PREPARATION_TIME);
     }
 
     @Test
@@ -221,7 +221,7 @@ class LifterRunMeasureResourceIT {
             .andExpect(jsonPath("$.[*].meterPerSecondSpeed").value(hasItem(DEFAULT_METER_PER_SECOND_SPEED.doubleValue())))
             .andExpect(jsonPath("$.[*].markingType").value(hasItem(DEFAULT_MARKING_TYPE.toString())))
             .andExpect(jsonPath("$.[*].markingTechnique").value(hasItem(DEFAULT_MARKING_TECHNIQUE.toString())))
-            .andExpect(jsonPath("$.[*].hourPreparationTime").value(hasItem(DEFAULT_HOUR_PREPARATION_TIME.doubleValue())));
+            .andExpect(jsonPath("$.[*].formatedHourPreparationTime").value(hasItem(DEFAULT_FORMATED_HOUR_PREPARATION_TIME.doubleValue())));
     }
 
     @Test
@@ -240,7 +240,7 @@ class LifterRunMeasureResourceIT {
             .andExpect(jsonPath("$.meterPerSecondSpeed").value(DEFAULT_METER_PER_SECOND_SPEED.doubleValue()))
             .andExpect(jsonPath("$.markingType").value(DEFAULT_MARKING_TYPE.toString()))
             .andExpect(jsonPath("$.markingTechnique").value(DEFAULT_MARKING_TECHNIQUE.toString()))
-            .andExpect(jsonPath("$.hourPreparationTime").value(DEFAULT_HOUR_PREPARATION_TIME.doubleValue()));
+            .andExpect(jsonPath("$.formatedHourPreparationTime").value(DEFAULT_FORMATED_HOUR_PREPARATION_TIME.doubleValue()));
     }
 
     @Test
@@ -577,108 +577,108 @@ class LifterRunMeasureResourceIT {
 
     @Test
     @Transactional
-    void getAllLifterRunMeasuresByHourPreparationTimeIsEqualToSomething() throws Exception {
+    void getAllLifterRunMeasuresByFormatedHourPreparationTimeIsEqualToSomething() throws Exception {
         // Initialize the database
         lifterRunMeasureRepository.saveAndFlush(lifterRunMeasure);
 
-        // Get all the lifterRunMeasureList where hourPreparationTime equals to DEFAULT_HOUR_PREPARATION_TIME
-        defaultLifterRunMeasureShouldBeFound("hourPreparationTime.equals=" + DEFAULT_HOUR_PREPARATION_TIME);
+        // Get all the lifterRunMeasureList where formatedHourPreparationTime equals to DEFAULT_FORMATED_HOUR_PREPARATION_TIME
+        defaultLifterRunMeasureShouldBeFound("formatedHourPreparationTime.equals=" + DEFAULT_FORMATED_HOUR_PREPARATION_TIME);
 
-        // Get all the lifterRunMeasureList where hourPreparationTime equals to UPDATED_HOUR_PREPARATION_TIME
-        defaultLifterRunMeasureShouldNotBeFound("hourPreparationTime.equals=" + UPDATED_HOUR_PREPARATION_TIME);
+        // Get all the lifterRunMeasureList where formatedHourPreparationTime equals to UPDATED_FORMATED_HOUR_PREPARATION_TIME
+        defaultLifterRunMeasureShouldNotBeFound("formatedHourPreparationTime.equals=" + UPDATED_FORMATED_HOUR_PREPARATION_TIME);
     }
 
     @Test
     @Transactional
-    void getAllLifterRunMeasuresByHourPreparationTimeIsNotEqualToSomething() throws Exception {
+    void getAllLifterRunMeasuresByFormatedHourPreparationTimeIsNotEqualToSomething() throws Exception {
         // Initialize the database
         lifterRunMeasureRepository.saveAndFlush(lifterRunMeasure);
 
-        // Get all the lifterRunMeasureList where hourPreparationTime not equals to DEFAULT_HOUR_PREPARATION_TIME
-        defaultLifterRunMeasureShouldNotBeFound("hourPreparationTime.notEquals=" + DEFAULT_HOUR_PREPARATION_TIME);
+        // Get all the lifterRunMeasureList where formatedHourPreparationTime not equals to DEFAULT_FORMATED_HOUR_PREPARATION_TIME
+        defaultLifterRunMeasureShouldNotBeFound("formatedHourPreparationTime.notEquals=" + DEFAULT_FORMATED_HOUR_PREPARATION_TIME);
 
-        // Get all the lifterRunMeasureList where hourPreparationTime not equals to UPDATED_HOUR_PREPARATION_TIME
-        defaultLifterRunMeasureShouldBeFound("hourPreparationTime.notEquals=" + UPDATED_HOUR_PREPARATION_TIME);
+        // Get all the lifterRunMeasureList where formatedHourPreparationTime not equals to UPDATED_FORMATED_HOUR_PREPARATION_TIME
+        defaultLifterRunMeasureShouldBeFound("formatedHourPreparationTime.notEquals=" + UPDATED_FORMATED_HOUR_PREPARATION_TIME);
     }
 
     @Test
     @Transactional
-    void getAllLifterRunMeasuresByHourPreparationTimeIsInShouldWork() throws Exception {
+    void getAllLifterRunMeasuresByFormatedHourPreparationTimeIsInShouldWork() throws Exception {
         // Initialize the database
         lifterRunMeasureRepository.saveAndFlush(lifterRunMeasure);
 
-        // Get all the lifterRunMeasureList where hourPreparationTime in DEFAULT_HOUR_PREPARATION_TIME or UPDATED_HOUR_PREPARATION_TIME
+        // Get all the lifterRunMeasureList where formatedHourPreparationTime in DEFAULT_FORMATED_HOUR_PREPARATION_TIME or UPDATED_FORMATED_HOUR_PREPARATION_TIME
         defaultLifterRunMeasureShouldBeFound(
-            "hourPreparationTime.in=" + DEFAULT_HOUR_PREPARATION_TIME + "," + UPDATED_HOUR_PREPARATION_TIME
+            "formatedHourPreparationTime.in=" + DEFAULT_FORMATED_HOUR_PREPARATION_TIME + "," + UPDATED_FORMATED_HOUR_PREPARATION_TIME
         );
 
-        // Get all the lifterRunMeasureList where hourPreparationTime equals to UPDATED_HOUR_PREPARATION_TIME
-        defaultLifterRunMeasureShouldNotBeFound("hourPreparationTime.in=" + UPDATED_HOUR_PREPARATION_TIME);
+        // Get all the lifterRunMeasureList where formatedHourPreparationTime equals to UPDATED_FORMATED_HOUR_PREPARATION_TIME
+        defaultLifterRunMeasureShouldNotBeFound("formatedHourPreparationTime.in=" + UPDATED_FORMATED_HOUR_PREPARATION_TIME);
     }
 
     @Test
     @Transactional
-    void getAllLifterRunMeasuresByHourPreparationTimeIsNullOrNotNull() throws Exception {
+    void getAllLifterRunMeasuresByFormatedHourPreparationTimeIsNullOrNotNull() throws Exception {
         // Initialize the database
         lifterRunMeasureRepository.saveAndFlush(lifterRunMeasure);
 
-        // Get all the lifterRunMeasureList where hourPreparationTime is not null
-        defaultLifterRunMeasureShouldBeFound("hourPreparationTime.specified=true");
+        // Get all the lifterRunMeasureList where formatedHourPreparationTime is not null
+        defaultLifterRunMeasureShouldBeFound("formatedHourPreparationTime.specified=true");
 
-        // Get all the lifterRunMeasureList where hourPreparationTime is null
-        defaultLifterRunMeasureShouldNotBeFound("hourPreparationTime.specified=false");
+        // Get all the lifterRunMeasureList where formatedHourPreparationTime is null
+        defaultLifterRunMeasureShouldNotBeFound("formatedHourPreparationTime.specified=false");
     }
 
     @Test
     @Transactional
-    void getAllLifterRunMeasuresByHourPreparationTimeIsGreaterThanOrEqualToSomething() throws Exception {
+    void getAllLifterRunMeasuresByFormatedHourPreparationTimeIsGreaterThanOrEqualToSomething() throws Exception {
         // Initialize the database
         lifterRunMeasureRepository.saveAndFlush(lifterRunMeasure);
 
-        // Get all the lifterRunMeasureList where hourPreparationTime is greater than or equal to DEFAULT_HOUR_PREPARATION_TIME
-        defaultLifterRunMeasureShouldBeFound("hourPreparationTime.greaterThanOrEqual=" + DEFAULT_HOUR_PREPARATION_TIME);
+        // Get all the lifterRunMeasureList where formatedHourPreparationTime is greater than or equal to DEFAULT_FORMATED_HOUR_PREPARATION_TIME
+        defaultLifterRunMeasureShouldBeFound("formatedHourPreparationTime.greaterThanOrEqual=" + DEFAULT_FORMATED_HOUR_PREPARATION_TIME);
 
-        // Get all the lifterRunMeasureList where hourPreparationTime is greater than or equal to UPDATED_HOUR_PREPARATION_TIME
-        defaultLifterRunMeasureShouldNotBeFound("hourPreparationTime.greaterThanOrEqual=" + UPDATED_HOUR_PREPARATION_TIME);
+        // Get all the lifterRunMeasureList where formatedHourPreparationTime is greater than or equal to UPDATED_FORMATED_HOUR_PREPARATION_TIME
+        defaultLifterRunMeasureShouldNotBeFound("formatedHourPreparationTime.greaterThanOrEqual=" + UPDATED_FORMATED_HOUR_PREPARATION_TIME);
     }
 
     @Test
     @Transactional
-    void getAllLifterRunMeasuresByHourPreparationTimeIsLessThanOrEqualToSomething() throws Exception {
+    void getAllLifterRunMeasuresByFormatedHourPreparationTimeIsLessThanOrEqualToSomething() throws Exception {
         // Initialize the database
         lifterRunMeasureRepository.saveAndFlush(lifterRunMeasure);
 
-        // Get all the lifterRunMeasureList where hourPreparationTime is less than or equal to DEFAULT_HOUR_PREPARATION_TIME
-        defaultLifterRunMeasureShouldBeFound("hourPreparationTime.lessThanOrEqual=" + DEFAULT_HOUR_PREPARATION_TIME);
+        // Get all the lifterRunMeasureList where formatedHourPreparationTime is less than or equal to DEFAULT_FORMATED_HOUR_PREPARATION_TIME
+        defaultLifterRunMeasureShouldBeFound("formatedHourPreparationTime.lessThanOrEqual=" + DEFAULT_FORMATED_HOUR_PREPARATION_TIME);
 
-        // Get all the lifterRunMeasureList where hourPreparationTime is less than or equal to SMALLER_HOUR_PREPARATION_TIME
-        defaultLifterRunMeasureShouldNotBeFound("hourPreparationTime.lessThanOrEqual=" + SMALLER_HOUR_PREPARATION_TIME);
+        // Get all the lifterRunMeasureList where formatedHourPreparationTime is less than or equal to SMALLER_FORMATED_HOUR_PREPARATION_TIME
+        defaultLifterRunMeasureShouldNotBeFound("formatedHourPreparationTime.lessThanOrEqual=" + SMALLER_FORMATED_HOUR_PREPARATION_TIME);
     }
 
     @Test
     @Transactional
-    void getAllLifterRunMeasuresByHourPreparationTimeIsLessThanSomething() throws Exception {
+    void getAllLifterRunMeasuresByFormatedHourPreparationTimeIsLessThanSomething() throws Exception {
         // Initialize the database
         lifterRunMeasureRepository.saveAndFlush(lifterRunMeasure);
 
-        // Get all the lifterRunMeasureList where hourPreparationTime is less than DEFAULT_HOUR_PREPARATION_TIME
-        defaultLifterRunMeasureShouldNotBeFound("hourPreparationTime.lessThan=" + DEFAULT_HOUR_PREPARATION_TIME);
+        // Get all the lifterRunMeasureList where formatedHourPreparationTime is less than DEFAULT_FORMATED_HOUR_PREPARATION_TIME
+        defaultLifterRunMeasureShouldNotBeFound("formatedHourPreparationTime.lessThan=" + DEFAULT_FORMATED_HOUR_PREPARATION_TIME);
 
-        // Get all the lifterRunMeasureList where hourPreparationTime is less than UPDATED_HOUR_PREPARATION_TIME
-        defaultLifterRunMeasureShouldBeFound("hourPreparationTime.lessThan=" + UPDATED_HOUR_PREPARATION_TIME);
+        // Get all the lifterRunMeasureList where formatedHourPreparationTime is less than UPDATED_FORMATED_HOUR_PREPARATION_TIME
+        defaultLifterRunMeasureShouldBeFound("formatedHourPreparationTime.lessThan=" + UPDATED_FORMATED_HOUR_PREPARATION_TIME);
     }
 
     @Test
     @Transactional
-    void getAllLifterRunMeasuresByHourPreparationTimeIsGreaterThanSomething() throws Exception {
+    void getAllLifterRunMeasuresByFormatedHourPreparationTimeIsGreaterThanSomething() throws Exception {
         // Initialize the database
         lifterRunMeasureRepository.saveAndFlush(lifterRunMeasure);
 
-        // Get all the lifterRunMeasureList where hourPreparationTime is greater than DEFAULT_HOUR_PREPARATION_TIME
-        defaultLifterRunMeasureShouldNotBeFound("hourPreparationTime.greaterThan=" + DEFAULT_HOUR_PREPARATION_TIME);
+        // Get all the lifterRunMeasureList where formatedHourPreparationTime is greater than DEFAULT_FORMATED_HOUR_PREPARATION_TIME
+        defaultLifterRunMeasureShouldNotBeFound("formatedHourPreparationTime.greaterThan=" + DEFAULT_FORMATED_HOUR_PREPARATION_TIME);
 
-        // Get all the lifterRunMeasureList where hourPreparationTime is greater than SMALLER_HOUR_PREPARATION_TIME
-        defaultLifterRunMeasureShouldBeFound("hourPreparationTime.greaterThan=" + SMALLER_HOUR_PREPARATION_TIME);
+        // Get all the lifterRunMeasureList where formatedHourPreparationTime is greater than SMALLER_FORMATED_HOUR_PREPARATION_TIME
+        defaultLifterRunMeasureShouldBeFound("formatedHourPreparationTime.greaterThan=" + SMALLER_FORMATED_HOUR_PREPARATION_TIME);
     }
 
     @Test
@@ -720,7 +720,7 @@ class LifterRunMeasureResourceIT {
             .andExpect(jsonPath("$.[*].meterPerSecondSpeed").value(hasItem(DEFAULT_METER_PER_SECOND_SPEED.doubleValue())))
             .andExpect(jsonPath("$.[*].markingType").value(hasItem(DEFAULT_MARKING_TYPE.toString())))
             .andExpect(jsonPath("$.[*].markingTechnique").value(hasItem(DEFAULT_MARKING_TECHNIQUE.toString())))
-            .andExpect(jsonPath("$.[*].hourPreparationTime").value(hasItem(DEFAULT_HOUR_PREPARATION_TIME.doubleValue())));
+            .andExpect(jsonPath("$.[*].formatedHourPreparationTime").value(hasItem(DEFAULT_FORMATED_HOUR_PREPARATION_TIME.doubleValue())));
 
         // Check, that the count call also returns 1
         restLifterRunMeasureMockMvc
@@ -773,7 +773,7 @@ class LifterRunMeasureResourceIT {
             .meterPerSecondSpeed(UPDATED_METER_PER_SECOND_SPEED)
             .markingType(UPDATED_MARKING_TYPE)
             .markingTechnique(UPDATED_MARKING_TECHNIQUE)
-            .hourPreparationTime(UPDATED_HOUR_PREPARATION_TIME);
+            .formatedHourPreparationTime(UPDATED_FORMATED_HOUR_PREPARATION_TIME);
 
         restLifterRunMeasureMockMvc
             .perform(
@@ -791,7 +791,7 @@ class LifterRunMeasureResourceIT {
         assertThat(testLifterRunMeasure.getMeterPerSecondSpeed()).isEqualTo(UPDATED_METER_PER_SECOND_SPEED);
         assertThat(testLifterRunMeasure.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
         assertThat(testLifterRunMeasure.getMarkingTechnique()).isEqualTo(UPDATED_MARKING_TECHNIQUE);
-        assertThat(testLifterRunMeasure.getHourPreparationTime()).isEqualTo(UPDATED_HOUR_PREPARATION_TIME);
+        assertThat(testLifterRunMeasure.getFormatedHourPreparationTime()).isEqualTo(UPDATED_FORMATED_HOUR_PREPARATION_TIME);
     }
 
     @Test
@@ -868,7 +868,7 @@ class LifterRunMeasureResourceIT {
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
             .meterPerSecondSpeed(UPDATED_METER_PER_SECOND_SPEED)
             .markingType(UPDATED_MARKING_TYPE)
-            .hourPreparationTime(UPDATED_HOUR_PREPARATION_TIME);
+            .formatedHourPreparationTime(UPDATED_FORMATED_HOUR_PREPARATION_TIME);
 
         restLifterRunMeasureMockMvc
             .perform(
@@ -886,7 +886,7 @@ class LifterRunMeasureResourceIT {
         assertThat(testLifterRunMeasure.getMeterPerSecondSpeed()).isEqualTo(UPDATED_METER_PER_SECOND_SPEED);
         assertThat(testLifterRunMeasure.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
         assertThat(testLifterRunMeasure.getMarkingTechnique()).isEqualTo(DEFAULT_MARKING_TECHNIQUE);
-        assertThat(testLifterRunMeasure.getHourPreparationTime()).isEqualTo(UPDATED_HOUR_PREPARATION_TIME);
+        assertThat(testLifterRunMeasure.getFormatedHourPreparationTime()).isEqualTo(UPDATED_FORMATED_HOUR_PREPARATION_TIME);
     }
 
     @Test
@@ -906,7 +906,7 @@ class LifterRunMeasureResourceIT {
             .meterPerSecondSpeed(UPDATED_METER_PER_SECOND_SPEED)
             .markingType(UPDATED_MARKING_TYPE)
             .markingTechnique(UPDATED_MARKING_TECHNIQUE)
-            .hourPreparationTime(UPDATED_HOUR_PREPARATION_TIME);
+            .formatedHourPreparationTime(UPDATED_FORMATED_HOUR_PREPARATION_TIME);
 
         restLifterRunMeasureMockMvc
             .perform(
@@ -924,7 +924,7 @@ class LifterRunMeasureResourceIT {
         assertThat(testLifterRunMeasure.getMeterPerSecondSpeed()).isEqualTo(UPDATED_METER_PER_SECOND_SPEED);
         assertThat(testLifterRunMeasure.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
         assertThat(testLifterRunMeasure.getMarkingTechnique()).isEqualTo(UPDATED_MARKING_TECHNIQUE);
-        assertThat(testLifterRunMeasure.getHourPreparationTime()).isEqualTo(UPDATED_HOUR_PREPARATION_TIME);
+        assertThat(testLifterRunMeasure.getFormatedHourPreparationTime()).isEqualTo(UPDATED_FORMATED_HOUR_PREPARATION_TIME);
     }
 
     @Test

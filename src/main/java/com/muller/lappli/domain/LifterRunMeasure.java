@@ -40,7 +40,7 @@ public class LifterRunMeasure implements Serializable {
     private MarkingTechnique markingTechnique;
 
     @Column(name = "hour_preparation_time")
-    private Double hourPreparationTime;
+    private Double formatedHourPreparationTime;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -54,13 +54,13 @@ public class LifterRunMeasure implements Serializable {
         Double milimeterDiameter,
         Double meterPerSecondSpeed,
         MarkingType markingType,
-        Double hourPreparationTime,
+        Double formatedHourPreparationTime,
         Lifter lifter
     ) {
         setMilimeterDiameter(milimeterDiameter);
         setMeterPerSecondSpeed(meterPerSecondSpeed);
         setMarkingType(markingType);
-        setHourPreparationTime(hourPreparationTime);
+        setFormatedHourPreparationTime(formatedHourPreparationTime);
         setLifter(lifter);
     }
 
@@ -131,17 +131,17 @@ public class LifterRunMeasure implements Serializable {
         this.markingTechnique = markingTechnique;
     }
 
-    public Double getHourPreparationTime() {
-        return this.hourPreparationTime;
+    public Double getFormatedHourPreparationTime() {
+        return this.formatedHourPreparationTime;
     }
 
-    public LifterRunMeasure hourPreparationTime(Double hourPreparationTime) {
-        this.setHourPreparationTime(hourPreparationTime);
+    public LifterRunMeasure formatedHourPreparationTime(Double formatedHourPreparationTime) {
+        this.setFormatedHourPreparationTime(formatedHourPreparationTime);
         return this;
     }
 
-    public void setHourPreparationTime(Double hourPreparationTime) {
-        this.hourPreparationTime = hourPreparationTime;
+    public void setFormatedHourPreparationTime(Double formatedHourPreparationTime) {
+        this.formatedHourPreparationTime = formatedHourPreparationTime;
     }
 
     public Lifter getLifter() {
@@ -185,7 +185,7 @@ public class LifterRunMeasure implements Serializable {
             ", meterPerSecondSpeed=" + getMeterPerSecondSpeed() +
             ", markingType='" + getMarkingType() + "'" +
             ", markingTechnique='" + getMarkingTechnique() + "'" +
-            ", hourPreparationTime=" + getHourPreparationTime() +
+            ", formatedHourPreparationTime=" + getFormatedHourPreparationTime() +
             "}";
     }
 }
