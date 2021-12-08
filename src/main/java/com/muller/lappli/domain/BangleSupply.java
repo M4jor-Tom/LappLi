@@ -46,16 +46,6 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
     }
 
     @Override
-    public Double getHourPreparationTime() {
-        return Double.NaN;
-    }
-
-    @Override
-    public Double getHourExecutionTime() {
-        return Double.NaN;
-    }
-
-    @Override
     public Double getMeterPerHourSpeed() {
         return Double.NaN;
     }

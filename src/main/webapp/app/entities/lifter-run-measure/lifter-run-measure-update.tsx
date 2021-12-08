@@ -136,10 +136,10 @@ export const LifterRunMeasureUpdate = (props: RouteComponentProps<{ id: string }
                 ))}
               </ValidatedField>
               <ValidatedField
-                label={translate('lappLiApp.supply.hourPreparationTime')}
-                id="lifter-run-measure-hourPreparationTime"
-                name="hourPreparationTime"
-                data-cy="hourPreparationTime"
+                label={translate('lappLiApp.supply.formatedHourPreparationTime')}
+                id="lifter-run-measure-formatedHourPreparationTime"
+                name="formatedHourPreparationTime"
+                data-cy="formatedHourPreparationTime"
                 type="text"
               />
               <ValidatedField
