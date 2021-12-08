@@ -46,6 +46,10 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
     //@JsonIgnoreProperties(value = { "copper", "insulationMaterial" }, allowSetters = true)
     private ElementKind editedElementKind;
 
+    public ElementKindEdition() {
+        super();
+    }
+
     /*public ElementKindEdition() {
         this(Double.NaN, Double.NaN, Double.NaN, new ElementKind());
     }
