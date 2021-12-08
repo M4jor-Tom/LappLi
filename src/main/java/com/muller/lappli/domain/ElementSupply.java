@@ -60,7 +60,7 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
 
     @Override
     public Double getMeterPerHourSpeed() {
-        if (getMarkingType().equals(MarkingType.LIFTING)) {
+        if (MarkingType.LIFTING.equals(getMarkingType())) {
             return Double.valueOf(Math.max(getBestMarkingMaterialStatistic().getMeterPerHourSpeed(), LIFTING_METER_PER_HOUR_SPEED));
         }
 
@@ -81,8 +81,8 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
             .filter(statistic -> statistic.getMarkingType().equals(getMarkingType()))
             //INK_JET can't print on black
             .filter(statistic ->
-                (statistic.getMarkingTechnique().equals(MarkingTechnique.INK_JET) != getElement().getColor().equals(Color.BLACK)) ||
-                statistic.getMarkingTechnique().equals(MarkingTechnique.NONE)
+                (MarkingTechnique.INK_JET.equals(statistic.getMarkingTechnique()) != Color.BLACK.equals(getElement().getColor())) ||
+                MarkingTechnique.NONE.equals(statistic.getMarkingTechnique())
             )
             //Takes the fastest to act in a lifter machine, but
             .max(
@@ -104,7 +104,7 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
     }
 
     public MarkingTechnique getMarkingTechnique() {
-        if (!getMarkingType().equals(MarkingType.NUMBERED)) {
+        if (!MarkingType.NUMBERED.equals(getMarkingType())) {
             //A marking technique is necessary when something is written only
             return MarkingTechnique.NONE;
         }

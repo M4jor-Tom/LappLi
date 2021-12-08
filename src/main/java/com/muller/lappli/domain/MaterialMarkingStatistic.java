@@ -83,7 +83,7 @@ public class MaterialMarkingStatistic implements Serializable {
     }
 
     public MarkingTechnique getMarkingTechnique() {
-        if (!getMarkingType().equals(MarkingType.NUMBERED)) {
+        if (!MarkingType.NUMBERED.equals(getMarkingType())) {
             return MarkingTechnique.NONE;
         }
 
@@ -96,13 +96,13 @@ public class MaterialMarkingStatistic implements Serializable {
     }
 
     public void setMarkingTechnique(MarkingTechnique markingTechnique) {
-        if (markingTechnique.equals(MarkingTechnique.NONE_SUITABLE)) {
+        if (MarkingTechnique.NONE_SUITABLE.equals(markingTechnique)) {
             //No control here, NONE_SUITABLE says enough
             this.markingTechnique = markingTechnique;
-        } else if (getMarkingType().equals(MarkingType.NUMBERED)) {
+        } else if (MarkingType.NUMBERED.equals(getMarkingType())) {
             this.markingTechnique = markingTechnique;
 
-            if (markingTechnique.equals(MarkingTechnique.NONE)) {
+            if (MarkingTechnique.NONE.equals(markingTechnique)) {
                 //If marking type is NUMBERED, then marking technique
                 //shall be among RSD, INK_JET, and NONE_SUITABLE
                 (new Exception("NoneMarkingTechniqueForMarkingTypeNumbered")).printStackTrace();
@@ -110,7 +110,7 @@ public class MaterialMarkingStatistic implements Serializable {
         } else {
             this.markingTechnique = MarkingTechnique.NONE;
 
-            if (!markingTechnique.equals(MarkingTechnique.NONE)) {
+            if (!MarkingTechnique.NONE.equals(markingTechnique)) {
                 //If the marking type is not NUMBERED, then
                 //the marking technique must be NONE(_SUITABLE)
                 (new Exception("ExistingMarkingTechniqueForMarkingTypeNotNumbered")).printStackTrace();
