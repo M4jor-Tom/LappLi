@@ -43,10 +43,10 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "elementKind" }, allowSetters = true)
+    //@JsonIgnoreProperties(value = { "elementKind" }, allowSetters = true)
     private Element element;
 
-    public ElementSupply() {
+    /*public ElementSupply() {
         this(new ArrayList<>(), null, MarkingType.LIFTING, "", new Element());
     }
 
@@ -56,11 +56,11 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
         setMarkingType(markingType);
         setDescription(description);
         setElement(element);
-    }
+    }*/
 
     @Override
     public Double getMeterPerHourSpeed() {
-        if (getMarkingType().equals(MarkingType.LIFTING)) {
+        if (MarkingType.LIFTING.equals(getMarkingType())) {
             return Double.valueOf(Math.max(getBestMarkingMaterialStatistic().getMeterPerHourSpeed(), LIFTING_METER_PER_HOUR_SPEED));
         }
 
@@ -81,8 +81,8 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
             .filter(statistic -> statistic.getMarkingType().equals(getMarkingType()))
             //INK_JET can't print on black
             .filter(statistic ->
-                (statistic.getMarkingTechnique().equals(MarkingTechnique.INK_JET) != getElement().getColor().equals(Color.BLACK)) ||
-                statistic.getMarkingTechnique().equals(MarkingTechnique.NONE)
+                (MarkingTechnique.INK_JET.equals(statistic.getMarkingTechnique()) != Color.BLACK.equals(getElement().getColor())) ||
+                MarkingTechnique.NONE.equals(statistic.getMarkingTechnique())
             )
             //Takes the fastest to act in a lifter machine, but
             .max(
@@ -95,11 +95,16 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
             )
             //If no statistic is found, meaning the lifting operation is unavailable for
             //those parameters, it means that no marking technique is suitable
-            .orElse(new MaterialMarkingStatistic(getMarkingType(), MarkingTechnique.NONE_SUITABLE, Long.valueOf(0), new Material()));
+            .orElse(
+                new MaterialMarkingStatistic()
+                    .markingType(getMarkingType())
+                    .markingTechnique(MarkingTechnique.NONE_SUITABLE)
+                    .meterPerHourSpeed(Long.valueOf(0))
+            );
     }
 
     public MarkingTechnique getMarkingTechnique() {
-        if (!getMarkingType().equals(MarkingType.NUMBERED)) {
+        if (!MarkingType.NUMBERED.equals(getMarkingType())) {
             //A marking technique is necessary when something is written only
             return MarkingTechnique.NONE;
         }

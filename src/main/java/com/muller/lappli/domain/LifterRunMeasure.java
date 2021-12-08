@@ -46,7 +46,7 @@ public class LifterRunMeasure implements Serializable {
     @NotNull
     private Lifter lifter;
 
-    public LifterRunMeasure() {
+    /*public LifterRunMeasure() {
         this(Double.NaN, Double.NaN, MarkingType.LIFTING, Double.NaN, new Lifter());
     }
 
@@ -62,7 +62,7 @@ public class LifterRunMeasure implements Serializable {
         setMarkingType(markingType);
         setHourPreparationTime(hourPreparationTime);
         setLifter(lifter);
-    }
+    }*/
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 

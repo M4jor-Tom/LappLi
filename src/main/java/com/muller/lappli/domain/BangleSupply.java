@@ -34,10 +34,10 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "material" }, allowSetters = true)
+    //@JsonIgnoreProperties(value = { "material" }, allowSetters = true)
     private Bangle bangle;
 
-    public BangleSupply() {
+    /*public BangleSupply() {
         this(new ArrayList<>(), null, new Bangle());
     }
 
@@ -45,7 +45,7 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
         super(bestLifterList);
         setApparitions(apparitions);
         setBangle(bangle);
-    }
+    }*/
 
     @Override
     public Double getMeterPerHourSpeed() {

@@ -43,10 +43,14 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "copper", "insulationMaterial" }, allowSetters = true)
+    //@JsonIgnoreProperties(value = { "copper", "insulationMaterial" }, allowSetters = true)
     private ElementKind editedElementKind;
 
     public ElementKindEdition() {
+        super();
+    }
+
+    /*public ElementKindEdition() {
         this(Double.NaN, Double.NaN, Double.NaN, new ElementKind());
     }
 
@@ -61,7 +65,7 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
         setNewMilimeterDiameter(newMilimeterDiameter);
         setNewInsulationThickness(newInsulationThickness);
         setEditedElementKind(editedElementKind);
-    }
+    }*/
 
     @Override
     public ElementKind getEditedCommitable() {
@@ -70,13 +74,13 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
 
     @Override
     public ElementKind update(ElementKind elementKind) {
-        if (!getNewGramPerMeterLinearMass().isNaN()) {
+        if (getNewGramPerMeterLinearMass() != null) {
             elementKind.setGramPerMeterLinearMass(getNewGramPerMeterLinearMass());
         }
-        if (!getNewMilimeterDiameter().isNaN()) {
+        if (getNewMilimeterDiameter() != null) {
             elementKind.setMilimeterDiameter(getNewMilimeterDiameter());
         }
-        if (!getNewInsulationThickness().isNaN()) {
+        if (getNewInsulationThickness() != null) {
             elementKind.setInsulationThickness(getNewInsulationThickness());
         }
 
@@ -95,7 +99,7 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
 
     @Override
     public ElementKindEdition forceNotNull() {
-        if (getEditionDateTime() == null) {
+        /*if (getEditionDateTime() == null) {
             epochEditionTime();
         }
         if (getEditedElementKind() == null) {
@@ -112,7 +116,7 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
         }
         if (getEditedElementKind() == null) {
             setEditedElementKind(new ElementKind());
-        }
+        }*/
 
         return this;
     }
