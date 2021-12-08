@@ -62,7 +62,7 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.elementSupply.element">Element</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.elementSupply.description">Description</Translate>
+                  <Translate contentKey="lappLiApp.supply.description">Description</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.dimension.meterQuantity">Quantity (m)</Translate>

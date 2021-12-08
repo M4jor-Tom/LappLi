@@ -2,8 +2,9 @@
   "lappLiApp": {
     "supply": {
       "apparitions": "Apparitions",
+      "description": "description",
       "bestLiftersNames": "Meilleures releveuses",
-      "meterPerSecondSpeed": "Vitesse (m/h)",
+      "meterPerHourSpeed": "Vitesse (m/h)",
       "hourPreparationTime": "Temps de Preparation (h)",
       "hourExecutionTime": "Temps d'Execution (h)"
     }

@@ -117,7 +117,7 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ id: string }>) 
                 ))}
               </ValidatedField>
               <ValidatedField
-                label={translate('lappLiApp.elementSupply.description')}
+                label={translate('lappLiApp.supply.description')}
                 id="element-supply-description"
                 name="description"
                 data-cy="description"

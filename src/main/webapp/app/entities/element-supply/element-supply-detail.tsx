@@ -47,7 +47,7 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           <dd>{elementSupplyEntity.element?.number}</dd>
           <dt>
             <span id="description">
-              <Translate contentKey="lappLiApp.elementSupply.description">Description</Translate>
+              <Translate contentKey="lappLiApp.supply.description">Description</Translate>
             </span>
           </dt>
           <dd>{elementSupplyEntity.description}</dd>
