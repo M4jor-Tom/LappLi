@@ -46,7 +46,7 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
     @JsonIgnoreProperties(value = { "elementKind" }, allowSetters = true)
     private Element element;
 
-    public ElementSupply() {
+    /*public ElementSupply() {
         this(new ArrayList<>(), null, MarkingType.LIFTING, "", new Element());
     }
 
@@ -56,7 +56,7 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
         setMarkingType(markingType);
         setDescription(description);
         setElement(element);
-    }
+    }*/
 
     @Override
     public Double getMeterPerHourSpeed() {
@@ -95,7 +95,12 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
             )
             //If no statistic is found, meaning the lifting operation is unavailable for
             //those parameters, it means that no marking technique is suitable
-            .orElse(new MaterialMarkingStatistic(getMarkingType(), MarkingTechnique.NONE_SUITABLE, Long.valueOf(0), new Material()));
+            .orElse(
+                new MaterialMarkingStatistic()
+                    .markingType(getMarkingType())
+                    .markingTechnique(MarkingTechnique.NONE_SUITABLE)
+                    .meterPerHourSpeed(Long.valueOf(0))
+            );
     }
 
     public MarkingTechnique getMarkingTechnique() {

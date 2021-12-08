@@ -53,7 +53,7 @@ public class ElementKind extends AbstractCableAtom implements Commitable<Element
     @Transient
     private EditionListManager<ElementKind> editionListManager;
 
-    public ElementKind() {
+    /*public ElementKind() {
         this("", Double.NaN, Double.NaN, Double.NaN, new Copper(), new Material());
     }
 
@@ -71,11 +71,11 @@ public class ElementKind extends AbstractCableAtom implements Commitable<Element
         setInsulationThickness(insulationThickness);
         setCopper(copper);
         setInsulationMaterial(insulationMaterial);
-    }
+    }*/
 
     @Override
     public ElementKind forceNotNull() {
-        if (getDesignation() == null) {
+        /*if (getDesignation() == null) {
             setDesignation("");
         }
         if (getGramPerMeterLinearMass() == null) {
@@ -92,7 +92,7 @@ public class ElementKind extends AbstractCableAtom implements Commitable<Element
         }
         if (getInsulationMaterial() == null) {
             setInsulationMaterial(new Material());
-        }
+        }*/
         return this;
     }
 

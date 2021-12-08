@@ -46,7 +46,7 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
     @JsonIgnoreProperties(value = { "copper", "insulationMaterial" }, allowSetters = true)
     private ElementKind editedElementKind;
 
-    public ElementKindEdition() {
+    /*public ElementKindEdition() {
         this(Double.NaN, Double.NaN, Double.NaN, new ElementKind());
     }
 
@@ -61,7 +61,7 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
         setNewMilimeterDiameter(newMilimeterDiameter);
         setNewInsulationThickness(newInsulationThickness);
         setEditedElementKind(editedElementKind);
-    }
+    }*/
 
     @Override
     public ElementKind getEditedCommitable() {
@@ -95,7 +95,7 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
 
     @Override
     public ElementKindEdition forceNotNull() {
-        if (getEditionDateTime() == null) {
+        /*if (getEditionDateTime() == null) {
             epochEditionTime();
         }
         if (getEditedElementKind() == null) {
@@ -112,7 +112,7 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
         }
         if (getEditedElementKind() == null) {
             setEditedElementKind(new ElementKind());
-        }
+        }*/
 
         return this;
     }

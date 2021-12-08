@@ -43,7 +43,7 @@ public class MaterialMarkingStatistic implements Serializable {
     @JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material material;
 
-    public MaterialMarkingStatistic() {
+    /*public MaterialMarkingStatistic() {
         this(MarkingType.LIFTING, MarkingTechnique.NONE, null, new Material());
     }
 
@@ -52,7 +52,7 @@ public class MaterialMarkingStatistic implements Serializable {
         setMarkingTechnique(markingTechnique);
         setMeterPerHourSpeed(meterPerHourSpeed);
         setMaterial(material);
-    }
+    }*/
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 

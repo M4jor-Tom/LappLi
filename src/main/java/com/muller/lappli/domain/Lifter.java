@@ -57,7 +57,7 @@ public class Lifter implements Serializable {
     @Column(name = "supports_rsd_marking_technique", nullable = false)
     private Boolean supportsRsdMarkingTechnique;
 
-    public Lifter() {
+    /*public Lifter() {
         this(null, Double.NaN, Double.NaN, false, false, false);
     }
 
@@ -76,7 +76,7 @@ public class Lifter implements Serializable {
         setSupportsSpirallyColoredMarkingType(supportsSpirallyColoredMarkingType);
         setSupportsLongitudinallyColoredMarkingType(supportsLongitudinallyColoredMarkingType);
         setSupportsNumberedMarkingType(supportsNumberedMarkingType);
-    }
+    }*/
 
     public String getName() {
         String prefix;
