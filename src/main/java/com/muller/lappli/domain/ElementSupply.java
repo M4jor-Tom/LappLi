@@ -70,6 +70,10 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
 
     @Override
     public Double getMeterPerHourSpeed() {
+        if (getMarkingType().equals(MarkingType.LIFTING)) {
+            return Double.valueOf(Math.max(getBestMarkingMaterialStatistic().getMeterPerHourSpeed(), LIFTING_METER_PER_HOUR_SPEED));
+        }
+
         return Double.valueOf(getBestMarkingMaterialStatistic().getMeterPerHourSpeed());
     }
 

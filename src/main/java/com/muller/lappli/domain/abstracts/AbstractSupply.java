@@ -19,6 +19,11 @@ public abstract class AbstractSupply {
     public static final Long UNITY_METRIC_QUANTITY = Long.valueOf(1000);
 
     /**
+     * The speed at which a lifter is supposed to run at maximum
+     */
+    protected static final Long LIFTING_METER_PER_HOUR_SPEED = Long.valueOf(5000);
+
+    /**
      * @return the apparitions of the CylindricComponent inside the final Cable
      */
     public abstract Long getApparitions();
