@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractCableAtom;
 import com.muller.lappli.domain.interfaces.Commitable;
 import com.muller.lappli.domain.interfaces.NotNullForceable;
