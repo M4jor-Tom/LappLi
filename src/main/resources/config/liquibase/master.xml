@@ -34,6 +34,7 @@
     <include file="config/liquibase/changelog/20211130081539_added_entity_constraints_BangleSupply.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211130133222_added_entity_constraints_ElementKindEdition.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211207122453_added_entity_constraints_MaterialMarkingStatistic.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211130081540_added_entity_constraints_Bangle.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

@@ -84,6 +84,10 @@ entity Bangle {
     milimeterDiameter Double required
 }
 
+relationship ManyToOne {
+	Bangle{material(designation) required} to Material
+}
+
 entity Element {
 	number Long unique required
     color Color required

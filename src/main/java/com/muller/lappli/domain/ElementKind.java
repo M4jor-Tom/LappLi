@@ -46,6 +46,7 @@ public class ElementKind extends AbstractCableAtom implements Commitable<Element
 
     @ManyToOne(optional = false)
     @NotNull
+    @JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material insulationMaterial;
 
     @Transient

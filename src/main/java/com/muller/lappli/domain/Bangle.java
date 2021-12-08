@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssemblableAtom;
 import com.muller.lappli.domain.interfaces.Article;
 import java.io.Serializable;
@@ -38,6 +39,11 @@ public class Bangle extends AbstractAssemblableAtom implements Article, Serializ
     @NotNull
     @Column(name = "milimeter_diameter", nullable = false)
     private Double milimeterDiameter;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
+    private Material material;
 
     @Override
     public Long getArticleNumber() {
@@ -109,6 +115,19 @@ public class Bangle extends AbstractAssemblableAtom implements Article, Serializ
 
     public void setMilimeterDiameter(Double milimeterDiameter) {
         this.milimeterDiameter = milimeterDiameter;
+    }
+
+    public Material getMaterial() {
+        return this.material;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
+
+    public Bangle material(Material material) {
+        this.setMaterial(material);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
