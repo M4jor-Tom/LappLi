@@ -41,12 +41,16 @@ public abstract class AbstractSupply {
     /**
      * @return the preparation time in hours of the supply operation
      */
-    public abstract Double getHourPreparationTime();
+    public Double getHourPreparationTime() {
+        return (5.0 * getApparitions() + 5) / 60.0;
+    }
 
     /**
      * @return the execution time in hours of the supply operation
      */
-    public abstract Double getHourExecutionTime();
+    public Double getHourExecutionTime() {
+        return getMeterQuantity() / getMeterPerHourSpeed();
+    }
 
     /**
      * @return the speed in meters per hour of the supply operation
