@@ -70,15 +70,10 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
 
     @Override
     public Double getMeterPerHourSpeed() {
-        return Double.NaN;
+        return Double.valueOf(getBestMarkingMaterialStatistic().getMeterPerHourSpeed());
     }
 
-    public MarkingTechnique getMarkingTechnique() {
-        if (!getMarkingType().equals(MarkingType.NUMBERED)) {
-            //A marking technique is necessary when something is written only
-            return MarkingTechnique.NONE;
-        }
-
+    private MaterialMarkingStatistic getBestMarkingMaterialStatistic() {
         //Takes the element supply's element, then
         return getElement()
             //Takes its element kind, then
@@ -105,8 +100,16 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
             )
             //If no statistic is found, meaning the lifting operation is unavailable for
             //those parameters, it means that no marking technique is suitable
-            .orElse(new MaterialMarkingStatistic().markingType(getMarkingType()).markingTechnique(MarkingTechnique.NONE_SUITABLE))
-            .getMarkingTechnique();
+            .orElse(new MaterialMarkingStatistic(getMarkingType(), MarkingTechnique.NONE_SUITABLE, Long.valueOf(0), new Material()));
+    }
+
+    public MarkingTechnique getMarkingTechnique() {
+        if (!getMarkingType().equals(MarkingType.NUMBERED)) {
+            //A marking technique is necessary when something is written only
+            return MarkingTechnique.NONE;
+        }
+
+        return getBestMarkingMaterialStatistic().getMarkingTechnique();
     }
 
     public String getInsulationMaterialDesignation() {
