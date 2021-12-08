@@ -35,6 +35,9 @@ class BangleSupplyResourceIT {
     private static final Long UPDATED_APPARITIONS = 2L;
     private static final Long SMALLER_APPARITIONS = 1L - 1L;
 
+    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+
     private static final String ENTITY_API_URL = "/api/bangle-supplies";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -59,7 +62,7 @@ class BangleSupplyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static BangleSupply createEntity(EntityManager em) {
-        BangleSupply bangleSupply = new BangleSupply().apparitions(DEFAULT_APPARITIONS);
+        BangleSupply bangleSupply = new BangleSupply().apparitions(DEFAULT_APPARITIONS).description(DEFAULT_DESCRIPTION);
         // Add required entity
         Bangle bangle;
         if (TestUtil.findAll(em, Bangle.class).isEmpty()) {
@@ -80,7 +83,7 @@ class BangleSupplyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static BangleSupply createUpdatedEntity(EntityManager em) {
-        BangleSupply bangleSupply = new BangleSupply().apparitions(UPDATED_APPARITIONS);
+        BangleSupply bangleSupply = new BangleSupply().apparitions(UPDATED_APPARITIONS).description(UPDATED_DESCRIPTION);
         // Add required entity
         Bangle bangle;
         if (TestUtil.findAll(em, Bangle.class).isEmpty()) {
@@ -113,6 +116,7 @@ class BangleSupplyResourceIT {
         assertThat(bangleSupplyList).hasSize(databaseSizeBeforeCreate + 1);
         BangleSupply testBangleSupply = bangleSupplyList.get(bangleSupplyList.size() - 1);
         assertThat(testBangleSupply.getApparitions()).isEqualTo(DEFAULT_APPARITIONS);
+        assertThat(testBangleSupply.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
     }
 
     @Test
@@ -162,7 +166,8 @@ class BangleSupplyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(bangleSupply.getId().intValue())))
-            .andExpect(jsonPath("$.[*].apparitions").value(hasItem(DEFAULT_APPARITIONS.intValue())));
+            .andExpect(jsonPath("$.[*].apparitions").value(hasItem(DEFAULT_APPARITIONS.intValue())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
     }
 
     @Test
@@ -177,7 +182,8 @@ class BangleSupplyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(bangleSupply.getId().intValue()))
-            .andExpect(jsonPath("$.apparitions").value(DEFAULT_APPARITIONS.intValue()));
+            .andExpect(jsonPath("$.apparitions").value(DEFAULT_APPARITIONS.intValue()))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION));
     }
 
     @Test
@@ -304,6 +310,84 @@ class BangleSupplyResourceIT {
 
     @Test
     @Transactional
+    void getAllBangleSuppliesByDescriptionIsEqualToSomething() throws Exception {
+        // Initialize the database
+        bangleSupplyRepository.saveAndFlush(bangleSupply);
+
+        // Get all the bangleSupplyList where description equals to DEFAULT_DESCRIPTION
+        defaultBangleSupplyShouldBeFound("description.equals=" + DEFAULT_DESCRIPTION);
+
+        // Get all the bangleSupplyList where description equals to UPDATED_DESCRIPTION
+        defaultBangleSupplyShouldNotBeFound("description.equals=" + UPDATED_DESCRIPTION);
+    }
+
+    @Test
+    @Transactional
+    void getAllBangleSuppliesByDescriptionIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        bangleSupplyRepository.saveAndFlush(bangleSupply);
+
+        // Get all the bangleSupplyList where description not equals to DEFAULT_DESCRIPTION
+        defaultBangleSupplyShouldNotBeFound("description.notEquals=" + DEFAULT_DESCRIPTION);
+
+        // Get all the bangleSupplyList where description not equals to UPDATED_DESCRIPTION
+        defaultBangleSupplyShouldBeFound("description.notEquals=" + UPDATED_DESCRIPTION);
+    }
+
+    @Test
+    @Transactional
+    void getAllBangleSuppliesByDescriptionIsInShouldWork() throws Exception {
+        // Initialize the database
+        bangleSupplyRepository.saveAndFlush(bangleSupply);
+
+        // Get all the bangleSupplyList where description in DEFAULT_DESCRIPTION or UPDATED_DESCRIPTION
+        defaultBangleSupplyShouldBeFound("description.in=" + DEFAULT_DESCRIPTION + "," + UPDATED_DESCRIPTION);
+
+        // Get all the bangleSupplyList where description equals to UPDATED_DESCRIPTION
+        defaultBangleSupplyShouldNotBeFound("description.in=" + UPDATED_DESCRIPTION);
+    }
+
+    @Test
+    @Transactional
+    void getAllBangleSuppliesByDescriptionIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        bangleSupplyRepository.saveAndFlush(bangleSupply);
+
+        // Get all the bangleSupplyList where description is not null
+        defaultBangleSupplyShouldBeFound("description.specified=true");
+
+        // Get all the bangleSupplyList where description is null
+        defaultBangleSupplyShouldNotBeFound("description.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllBangleSuppliesByDescriptionContainsSomething() throws Exception {
+        // Initialize the database
+        bangleSupplyRepository.saveAndFlush(bangleSupply);
+
+        // Get all the bangleSupplyList where description contains DEFAULT_DESCRIPTION
+        defaultBangleSupplyShouldBeFound("description.contains=" + DEFAULT_DESCRIPTION);
+
+        // Get all the bangleSupplyList where description contains UPDATED_DESCRIPTION
+        defaultBangleSupplyShouldNotBeFound("description.contains=" + UPDATED_DESCRIPTION);
+    }
+
+    @Test
+    @Transactional
+    void getAllBangleSuppliesByDescriptionNotContainsSomething() throws Exception {
+        // Initialize the database
+        bangleSupplyRepository.saveAndFlush(bangleSupply);
+
+        // Get all the bangleSupplyList where description does not contain DEFAULT_DESCRIPTION
+        defaultBangleSupplyShouldNotBeFound("description.doesNotContain=" + DEFAULT_DESCRIPTION);
+
+        // Get all the bangleSupplyList where description does not contain UPDATED_DESCRIPTION
+        defaultBangleSupplyShouldBeFound("description.doesNotContain=" + UPDATED_DESCRIPTION);
+    }
+
+    @Test
+    @Transactional
     void getAllBangleSuppliesByBangleIsEqualToSomething() throws Exception {
         // Initialize the database
         bangleSupplyRepository.saveAndFlush(bangleSupply);
@@ -337,7 +421,8 @@ class BangleSupplyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(bangleSupply.getId().intValue())))
-            .andExpect(jsonPath("$.[*].apparitions").value(hasItem(DEFAULT_APPARITIONS.intValue())));
+            .andExpect(jsonPath("$.[*].apparitions").value(hasItem(DEFAULT_APPARITIONS.intValue())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
 
         // Check, that the count call also returns 1
         restBangleSupplyMockMvc
@@ -385,7 +470,7 @@ class BangleSupplyResourceIT {
         BangleSupply updatedBangleSupply = bangleSupplyRepository.findById(bangleSupply.getId()).get();
         // Disconnect from session so that the updates on updatedBangleSupply are not directly saved in db
         em.detach(updatedBangleSupply);
-        updatedBangleSupply.apparitions(UPDATED_APPARITIONS);
+        updatedBangleSupply.apparitions(UPDATED_APPARITIONS).description(UPDATED_DESCRIPTION);
 
         restBangleSupplyMockMvc
             .perform(
@@ -400,6 +485,7 @@ class BangleSupplyResourceIT {
         assertThat(bangleSupplyList).hasSize(databaseSizeBeforeUpdate);
         BangleSupply testBangleSupply = bangleSupplyList.get(bangleSupplyList.size() - 1);
         assertThat(testBangleSupply.getApparitions()).isEqualTo(UPDATED_APPARITIONS);
+        assertThat(testBangleSupply.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }
 
     @Test
@@ -470,6 +556,8 @@ class BangleSupplyResourceIT {
         BangleSupply partialUpdatedBangleSupply = new BangleSupply();
         partialUpdatedBangleSupply.setId(bangleSupply.getId());
 
+        partialUpdatedBangleSupply.description(UPDATED_DESCRIPTION);
+
         restBangleSupplyMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedBangleSupply.getId())
@@ -483,6 +571,7 @@ class BangleSupplyResourceIT {
         assertThat(bangleSupplyList).hasSize(databaseSizeBeforeUpdate);
         BangleSupply testBangleSupply = bangleSupplyList.get(bangleSupplyList.size() - 1);
         assertThat(testBangleSupply.getApparitions()).isEqualTo(DEFAULT_APPARITIONS);
+        assertThat(testBangleSupply.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }
 
     @Test
@@ -497,7 +586,7 @@ class BangleSupplyResourceIT {
         BangleSupply partialUpdatedBangleSupply = new BangleSupply();
         partialUpdatedBangleSupply.setId(bangleSupply.getId());
 
-        partialUpdatedBangleSupply.apparitions(UPDATED_APPARITIONS);
+        partialUpdatedBangleSupply.apparitions(UPDATED_APPARITIONS).description(UPDATED_DESCRIPTION);
 
         restBangleSupplyMockMvc
             .perform(
@@ -512,6 +601,7 @@ class BangleSupplyResourceIT {
         assertThat(bangleSupplyList).hasSize(databaseSizeBeforeUpdate);
         BangleSupply testBangleSupply = bangleSupplyList.get(bangleSupplyList.size() - 1);
         assertThat(testBangleSupply.getApparitions()).isEqualTo(UPDATED_APPARITIONS);
+        assertThat(testBangleSupply.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }
 
     @Test

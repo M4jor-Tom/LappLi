@@ -103,14 +103,6 @@ export const MaterialUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
               />
-              <ValidatedField
-                label={translate('lappLiApp.material.isMarkable')}
-                id="material-isMarkable"
-                name="isMarkable"
-                data-cy="isMarkable"
-                check
-                type="checkbox"
-              />
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/material" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

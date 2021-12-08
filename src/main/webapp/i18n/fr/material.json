@@ -20,7 +20,7 @@
       "id": "ID",
       "number": "Number",
       "designation": "Designation",
-      "isMarkable": "Is Markable"
+      "materialMarkingStatistics": "Material Marking Statistics"
     }
   }
 }

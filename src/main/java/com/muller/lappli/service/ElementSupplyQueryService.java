@@ -88,11 +88,11 @@ public class ElementSupplyQueryService extends QueryService<ElementSupply> {
             if (criteria.getApparitions() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getApparitions(), ElementSupply_.apparitions));
             }
-            if (criteria.getForcedMarking() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getForcedMarking(), ElementSupply_.forcedMarking));
-            }
             if (criteria.getMarkingType() != null) {
                 specification = specification.and(buildSpecification(criteria.getMarkingType(), ElementSupply_.markingType));
+            }
+            if (criteria.getDescription() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getDescription(), ElementSupply_.description));
             }
             if (criteria.getElementId() != null) {
                 specification =

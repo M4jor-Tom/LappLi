@@ -28,6 +28,8 @@ public class BangleSupplyCriteria implements Serializable, Criteria {
 
     private LongFilter apparitions;
 
+    private StringFilter description;
+
     private LongFilter bangleId;
 
     private Boolean distinct;
@@ -37,6 +39,7 @@ public class BangleSupplyCriteria implements Serializable, Criteria {
     public BangleSupplyCriteria(BangleSupplyCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.apparitions = other.apparitions == null ? null : other.apparitions.copy();
+        this.description = other.description == null ? null : other.description.copy();
         this.bangleId = other.bangleId == null ? null : other.bangleId.copy();
         this.distinct = other.distinct;
     }
@@ -76,6 +79,21 @@ public class BangleSupplyCriteria implements Serializable, Criteria {
         this.apparitions = apparitions;
     }
 
+    public StringFilter getDescription() {
+        return description;
+    }
+
+    public StringFilter description() {
+        if (description == null) {
+            description = new StringFilter();
+        }
+        return description;
+    }
+
+    public void setDescription(StringFilter description) {
+        this.description = description;
+    }
+
     public LongFilter getBangleId() {
         return bangleId;
     }
@@ -111,6 +129,7 @@ public class BangleSupplyCriteria implements Serializable, Criteria {
         return (
             Objects.equals(id, that.id) &&
             Objects.equals(apparitions, that.apparitions) &&
+            Objects.equals(description, that.description) &&
             Objects.equals(bangleId, that.bangleId) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -118,7 +137,7 @@ public class BangleSupplyCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, apparitions, bangleId, distinct);
+        return Objects.hash(id, apparitions, description, bangleId, distinct);
     }
 
     // prettier-ignore
@@ -127,6 +146,7 @@ public class BangleSupplyCriteria implements Serializable, Criteria {
         return "BangleSupplyCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
             (apparitions != null ? "apparitions=" + apparitions + ", " : "") +
+            (description != null ? "description=" + description + ", " : "") +
             (bangleId != null ? "bangleId=" + bangleId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

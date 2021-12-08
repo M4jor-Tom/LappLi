@@ -88,6 +88,9 @@ public class BangleSupplyQueryService extends QueryService<BangleSupply> {
             if (criteria.getApparitions() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getApparitions(), BangleSupply_.apparitions));
             }
+            if (criteria.getDescription() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getDescription(), BangleSupply_.description));
+            }
             if (criteria.getBangleId() != null) {
                 specification =
                     specification.and(

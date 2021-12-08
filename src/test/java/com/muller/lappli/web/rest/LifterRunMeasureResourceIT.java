@@ -45,7 +45,7 @@ class LifterRunMeasureResourceIT {
     private static final MarkingType UPDATED_MARKING_TYPE = MarkingType.SPIRALLY_COLORED;
 
     private static final MarkingTechnique DEFAULT_MARKING_TECHNIQUE = MarkingTechnique.NONE;
-    private static final MarkingTechnique UPDATED_MARKING_TECHNIQUE = MarkingTechnique.INK_JET;
+    private static final MarkingTechnique UPDATED_MARKING_TECHNIQUE = MarkingTechnique.NONE_SUITABLE;
 
     private static final Double DEFAULT_HOUR_PREPARATION_TIME = 1D;
     private static final Double UPDATED_HOUR_PREPARATION_TIME = 2D;

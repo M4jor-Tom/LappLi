@@ -3,7 +3,7 @@
     "supply": {
       "apparitions": "Apparitions",
       "bestLiftersNames": "Meilleures releveuses",
-      "meterPerSecondSpeed": "Vitesse (m/s)",
+      "meterPerSecondSpeed": "Vitesse (m/h)",
       "hourPreparationTime": "Temps de Preparation (h)",
       "hourExecutionTime": "Temps d'Execution (h)"
     }

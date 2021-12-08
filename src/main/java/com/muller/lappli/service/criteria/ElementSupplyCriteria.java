@@ -46,9 +46,9 @@ public class ElementSupplyCriteria implements Serializable, Criteria {
 
     private LongFilter apparitions;
 
-    private StringFilter forcedMarking;
-
     private MarkingTypeFilter markingType;
+
+    private StringFilter description;
 
     private LongFilter elementId;
 
@@ -59,8 +59,8 @@ public class ElementSupplyCriteria implements Serializable, Criteria {
     public ElementSupplyCriteria(ElementSupplyCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.apparitions = other.apparitions == null ? null : other.apparitions.copy();
-        this.forcedMarking = other.forcedMarking == null ? null : other.forcedMarking.copy();
         this.markingType = other.markingType == null ? null : other.markingType.copy();
+        this.description = other.description == null ? null : other.description.copy();
         this.elementId = other.elementId == null ? null : other.elementId.copy();
         this.distinct = other.distinct;
     }
@@ -100,21 +100,6 @@ public class ElementSupplyCriteria implements Serializable, Criteria {
         this.apparitions = apparitions;
     }
 
-    public StringFilter getForcedMarking() {
-        return forcedMarking;
-    }
-
-    public StringFilter forcedMarking() {
-        if (forcedMarking == null) {
-            forcedMarking = new StringFilter();
-        }
-        return forcedMarking;
-    }
-
-    public void setForcedMarking(StringFilter forcedMarking) {
-        this.forcedMarking = forcedMarking;
-    }
-
     public MarkingTypeFilter getMarkingType() {
         return markingType;
     }
@@ -128,6 +113,21 @@ public class ElementSupplyCriteria implements Serializable, Criteria {
 
     public void setMarkingType(MarkingTypeFilter markingType) {
         this.markingType = markingType;
+    }
+
+    public StringFilter getDescription() {
+        return description;
+    }
+
+    public StringFilter description() {
+        if (description == null) {
+            description = new StringFilter();
+        }
+        return description;
+    }
+
+    public void setDescription(StringFilter description) {
+        this.description = description;
     }
 
     public LongFilter getElementId() {
@@ -165,8 +165,8 @@ public class ElementSupplyCriteria implements Serializable, Criteria {
         return (
             Objects.equals(id, that.id) &&
             Objects.equals(apparitions, that.apparitions) &&
-            Objects.equals(forcedMarking, that.forcedMarking) &&
             Objects.equals(markingType, that.markingType) &&
+            Objects.equals(description, that.description) &&
             Objects.equals(elementId, that.elementId) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -174,7 +174,7 @@ public class ElementSupplyCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, apparitions, forcedMarking, markingType, elementId, distinct);
+        return Objects.hash(id, apparitions, markingType, description, elementId, distinct);
     }
 
     // prettier-ignore
@@ -183,8 +183,8 @@ public class ElementSupplyCriteria implements Serializable, Criteria {
         return "ElementSupplyCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
             (apparitions != null ? "apparitions=" + apparitions + ", " : "") +
-            (forcedMarking != null ? "forcedMarking=" + forcedMarking + ", " : "") +
             (markingType != null ? "markingType=" + markingType + ", " : "") +
+            (description != null ? "description=" + description + ", " : "") +
             (elementId != null ? "elementId=" + elementId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

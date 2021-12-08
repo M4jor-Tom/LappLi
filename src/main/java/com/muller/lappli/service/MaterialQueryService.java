@@ -91,8 +91,14 @@ public class MaterialQueryService extends QueryService<Material> {
             if (criteria.getDesignation() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDesignation(), Material_.designation));
             }
-            if (criteria.getIsMarkable() != null) {
-                specification = specification.and(buildSpecification(criteria.getIsMarkable(), Material_.isMarkable));
+            if (criteria.getMaterialMarkingStatisticsId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getMaterialMarkingStatisticsId(),
+                            root -> root.join(Material_.materialMarkingStatistics, JoinType.LEFT).get(MaterialMarkingStatistic_.id)
+                        )
+                    );
             }
         }
         return specification;

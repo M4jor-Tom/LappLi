@@ -53,6 +53,9 @@ export const BangleSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.bangleSupply.description">Description</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.bangleSupply.bangle">Bangle</Translate>
                 </th>
                 <th>
@@ -68,7 +71,7 @@ export const BangleSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Machines Names</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.supply.meterPerSecondSpeed">Speed (m/s)</Translate>
+                  <Translate contentKey="lappLiApp.supply.meterPerHourSpeed">Speed (m/h)</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.supply.hourPreparationTime">Preparation Time (h)</Translate>
@@ -88,14 +91,15 @@ export const BangleSupply = (props: RouteComponentProps<{ url: string }>) => {
                     </Button>
                   </td>
                   <td>{bangleSupply.apparitions}</td>
+                  <td>{bangleSupply.description}</td>
                   <td>
-                    <Link to={`bangle/${bangleSupply.bangle.id}`}>{bangleSupply.bangle.designation}</Link>
+                    {bangleSupply.bangle ? <Link to={`bangle/${bangleSupply.bangle.id}`}>{bangleSupply.bangle.designation}</Link> : ''}
                   </td>
                   <td>{bangleSupply.meterQuantity}</td>
                   <td>{bangleSupply.milimeterDiameter}</td>
                   <td>{bangleSupply.gramPerMeterLinearMass}</td>
                   <td>{bangleSupply.bestLiftersNames}</td>
-                  <td>{bangleSupply.meterPerSecondSpeed}</td>
+                  <td>{bangleSupply.meterPerHourSpeed}</td>
                   <td>{bangleSupply.hourPreparationTime}</td>
                   <td>{bangleSupply.hourExecutionTime}</td>
                   <td className="text-right">

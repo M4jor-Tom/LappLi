@@ -5,6 +5,9 @@ import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -29,13 +32,13 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
     @Column(name = "apparitions", nullable = false)
     private Long apparitions;
 
-    @Column(name = "forced_marking")
-    private String forcedMarking;
-
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "marking_type", nullable = false)
     private MarkingType markingType;
+
+    @Column(name = "description")
+    private String description;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -43,13 +46,14 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
     private Element element;
 
     public ElementSupply() {
-        this(null, "", MarkingType.LIFTING, new Element());
+        this(new ArrayList<>(), null, MarkingType.LIFTING, "", new Element());
     }
 
-    public ElementSupply(Long apparitions, String forcedMarking, MarkingType markingType, Element element) {
+    public ElementSupply(List<Lifter> bestLifterList, Long apparitions, MarkingType markingType, String description, Element element) {
+        super(bestLifterList);
         setApparitions(apparitions);
-        setForcedMarking(forcedMarking);
         setMarkingType(markingType);
+        setDescription(description);
         setElement(element);
     }
 
@@ -64,7 +68,7 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
     }
 
     @Override
-    public Double getMeterPerSecondSpeed() {
+    public Double getMeterPerHourSpeed() {
         return Double.NaN;
     }
 
@@ -74,7 +78,30 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
             return MarkingTechnique.NONE;
         }
 
-        return MarkingTechnique.INK_JET;
+        //Takes the element supply's element, then
+        return getElement()
+            //Takes its element kind, then
+            .getElementKind()
+            //Takes its insulation material, then
+            .getInsulationMaterial()
+            //Takes its marking statistics, but
+            .getMaterialMarkingStatistics()
+            .stream()
+            //Only those which has our element supply's marking type, then
+            .filter(statistic -> statistic.getMarkingType().equals(getMarkingType()))
+            //Takes the fastest to act in a lifter machine, but
+            .max(
+                new Comparator<MaterialMarkingStatistic>() {
+                    @Override
+                    public int compare(MaterialMarkingStatistic o1, MaterialMarkingStatistic o2) {
+                        return o1.getMeterPerHourSpeed().compareTo(o2.getMeterPerHourSpeed());
+                    }
+                }
+            )
+            //If no statistic is found, meaning the lifting operation is unavailable for
+            //those parameters, it means that no marking technique is suitable
+            .orElse(new MaterialMarkingStatistic().markingType(getMarkingType()).markingTechnique(MarkingTechnique.NONE_SUITABLE))
+            .getMarkingTechnique();
     }
 
     public String getInsulationMaterialDesignation() {
@@ -120,19 +147,6 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
         this.apparitions = apparitions;
     }
 
-    public String getForcedMarking() {
-        return this.forcedMarking;
-    }
-
-    public ElementSupply forcedMarking(String forcedMarking) {
-        this.setForcedMarking(forcedMarking);
-        return this;
-    }
-
-    public void setForcedMarking(String forcedMarking) {
-        this.forcedMarking = forcedMarking;
-    }
-
     public MarkingType getMarkingType() {
         return this.markingType;
     }
@@ -144,6 +158,19 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
 
     public void setMarkingType(MarkingType markingType) {
         this.markingType = markingType;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public ElementSupply description(String description) {
+        this.setDescription(description);
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Element getElement() {
@@ -184,8 +211,8 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
         return "ElementSupply{" +
             "id=" + getId() +
             ", apparitions=" + getApparitions() +
-            ", forcedMarking='" + getForcedMarking() + "'" +
             ", markingType='" + getMarkingType() + "'" +
+            ", description='" + getDescription() + "'" +
             "}";
     }
 }

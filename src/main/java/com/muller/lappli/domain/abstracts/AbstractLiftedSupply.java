@@ -1,6 +1,7 @@
 package com.muller.lappli.domain.abstracts;
 
 import com.muller.lappli.domain.Lifter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
@@ -14,6 +15,14 @@ public abstract class AbstractLiftedSupply extends AbstractSupply {
 
     @Transient
     private List<Lifter> bestLifterList;
+
+    public AbstractLiftedSupply() {
+        this(new ArrayList<>());
+    }
+
+    public AbstractLiftedSupply(List<Lifter> bestLifterList) {
+        setBestLifterList(bestLifterList);
+    }
 
     /**
      * Gets a list of each Lifter names for getBestLifterList()

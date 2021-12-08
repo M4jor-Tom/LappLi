@@ -5,6 +5,10 @@
       "fieldName": "apparitions",
       "fieldType": "Long",
       "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
     }
   ],
   "relationships": [
