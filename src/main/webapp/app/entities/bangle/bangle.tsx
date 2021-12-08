@@ -61,6 +61,9 @@ export const Bangle = (props: RouteComponentProps<{ url: string }>) => {
                 <th>
                   <Translate contentKey="lappLiApp.dimension.milimeterDiameter">Milimeter Diameter</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="lappLiApp.bangle.material">Material</Translate>
+                </th>
                 <th />
               </tr>
             </thead>

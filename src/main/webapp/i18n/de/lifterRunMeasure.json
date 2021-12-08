@@ -22,7 +22,7 @@
       "meterPerSecondSpeed": "Meter Per Second Speed",
       "markingType": "Marking Type",
       "markingTechnique": "Marking Technique",
-      "formatedHourPreparationTime": "Formated Hour Preparation Time",
+      "hourPreparationTime": "Hour Preparation Time",
       "lifter": "Heber"
     }
   }

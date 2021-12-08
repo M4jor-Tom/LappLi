@@ -18,7 +18,7 @@ entity LifterRunMeasure {
     meterPerSecondSpeed Double
     markingType MarkingType required
     markingTechnique MarkingTechnique required
-    formatedHourPreparationTime Double
+    hourPreparationTime Double
 }
 
 relationship ManyToOne {
