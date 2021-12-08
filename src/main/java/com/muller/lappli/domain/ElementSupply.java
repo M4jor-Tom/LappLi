@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
+import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
@@ -89,6 +90,10 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
             .stream()
             //Only those which has our element supply's marking type, then
             .filter(statistic -> statistic.getMarkingType().equals(getMarkingType()))
+            //INK_JET can't print on black
+            .filter(statistic ->
+                statistic.getMarkingTechnique().equals(MarkingTechnique.INK_JET) != getElement().getColor().equals(Color.BLACK)
+            )
             //Takes the fastest to act in a lifter machine, but
             .max(
                 new Comparator<MaterialMarkingStatistic>() {
