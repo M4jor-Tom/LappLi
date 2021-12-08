@@ -91,7 +91,8 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
             .filter(statistic -> statistic.getMarkingType().equals(getMarkingType()))
             //INK_JET can't print on black
             .filter(statistic ->
-                statistic.getMarkingTechnique().equals(MarkingTechnique.INK_JET) != getElement().getColor().equals(Color.BLACK)
+                (statistic.getMarkingTechnique().equals(MarkingTechnique.INK_JET) != getElement().getColor().equals(Color.BLACK)) ||
+                statistic.getMarkingTechnique().equals(MarkingTechnique.NONE)
             )
             //Takes the fastest to act in a lifter machine, but
             .max(
