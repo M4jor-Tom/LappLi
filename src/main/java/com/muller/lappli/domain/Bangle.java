@@ -42,7 +42,7 @@ public class Bangle extends AbstractAssemblableAtom implements Article, Serializ
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
+    //@JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material material;
 
     @Override

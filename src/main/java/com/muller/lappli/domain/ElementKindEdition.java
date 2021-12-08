@@ -43,7 +43,7 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "copper", "insulationMaterial" }, allowSetters = true)
+    //@JsonIgnoreProperties(value = { "copper", "insulationMaterial" }, allowSetters = true)
     private ElementKind editedElementKind;
 
     /*public ElementKindEdition() {
@@ -70,13 +70,13 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
 
     @Override
     public ElementKind update(ElementKind elementKind) {
-        if (!getNewGramPerMeterLinearMass().isNaN()) {
+        if (getNewGramPerMeterLinearMass() != null) {
             elementKind.setGramPerMeterLinearMass(getNewGramPerMeterLinearMass());
         }
-        if (!getNewMilimeterDiameter().isNaN()) {
+        if (getNewMilimeterDiameter() != null) {
             elementKind.setMilimeterDiameter(getNewMilimeterDiameter());
         }
-        if (!getNewInsulationThickness().isNaN()) {
+        if (getNewInsulationThickness() != null) {
             elementKind.setInsulationThickness(getNewInsulationThickness());
         }
 

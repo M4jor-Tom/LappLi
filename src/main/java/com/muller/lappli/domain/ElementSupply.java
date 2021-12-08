@@ -43,7 +43,7 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "elementKind" }, allowSetters = true)
+    //@JsonIgnoreProperties(value = { "elementKind" }, allowSetters = true)
     private Element element;
 
     /*public ElementSupply() {

@@ -36,7 +36,7 @@ public class Element extends AbstractAssemblableAtom implements Article, Seriali
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "copper", "insulationMaterial" }, allowSetters = true)
+    //@JsonIgnoreProperties(value = { "copper"/*, "insulationMaterial"*/ }, allowSetters = true)
     private ElementKind elementKind;
 
     /*public Element() {
