@@ -99,9 +99,11 @@ public class LifterRunMeasureQueryService extends QueryService<LifterRunMeasure>
             if (criteria.getMarkingTechnique() != null) {
                 specification = specification.and(buildSpecification(criteria.getMarkingTechnique(), LifterRunMeasure_.markingTechnique));
             }
-            if (criteria.getHourPreparationTime() != null) {
+            if (criteria.getFormatedHourPreparationTime() != null) {
                 specification =
-                    specification.and(buildRangeSpecification(criteria.getHourPreparationTime(), LifterRunMeasure_.hourPreparationTime));
+                    specification.and(
+                        buildRangeSpecification(criteria.getFormatedHourPreparationTime(), LifterRunMeasure_.formatedHourPreparationTime)
+                    );
             }
             if (criteria.getLifterId() != null) {
                 specification =

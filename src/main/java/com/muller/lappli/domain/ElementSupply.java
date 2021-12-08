@@ -59,16 +59,6 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
     }
 
     @Override
-    public Double getHourPreparationTime() {
-        return Double.NaN;
-    }
-
-    @Override
-    public Double getHourExecutionTime() {
-        return Double.NaN;
-    }
-
-    @Override
     public Double getMeterPerHourSpeed() {
         if (getMarkingType().equals(MarkingType.LIFTING)) {
             return Double.valueOf(Math.max(getBestMarkingMaterialStatistic().getMeterPerHourSpeed(), LIFTING_METER_PER_HOUR_SPEED));
