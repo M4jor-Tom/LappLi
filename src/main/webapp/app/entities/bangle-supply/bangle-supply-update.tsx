@@ -101,7 +101,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
                 }}
               />
               <ValidatedField
-                label={translate('lappLiApp.bangleSupply.description')}
+                label={translate('lappLiApp.supply.description')}
                 id="bangle-supply-description"
                 name="description"
                 data-cy="description"
