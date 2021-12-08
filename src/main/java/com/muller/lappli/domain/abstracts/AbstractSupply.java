@@ -46,6 +46,12 @@ public abstract class AbstractSupply {
      */
     public abstract Double getGramPerMeterLinearMass();
 
+    /**
+     * Will determine how hours are display along Supply entities
+     *
+     * @param value the input Double value
+     * @return a value that is formatted for human reading
+     */
     private static Double hourFormat(Double value) {
         if (value.isInfinite()) {
             value = Double.NaN;
