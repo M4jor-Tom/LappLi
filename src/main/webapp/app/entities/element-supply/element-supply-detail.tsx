@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getEntity } from './element-supply.reducer';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import ElementKind from '../element-kind/element-kind';
 
 export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
@@ -62,11 +63,11 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           <dt>
             <Translate contentKey="lappLiApp.dimension.milimeterDiameter">Diameter (mm)</Translate>
           </dt>
-          <dd>{elementSupplyEntity.milimeterDiameter}</dd>
+          <dd>{elementSupplyEntity.element.elementKind.milimeterDiameter}</dd>
           <dt>
             <Translate contentKey="lappLiApp.dimension.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
           </dt>
-          <dd>{elementSupplyEntity.gramPerMeterLinearMass}</dd>
+          <dd>{elementSupplyEntity.element.elementKind.gramPerMeterLinearMass}</dd>
           <dt>
             <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Lifter Names</Translate>
           </dt>
@@ -74,7 +75,7 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           <dt>
             <Translate contentKey="lappLiApp.elementKind.insulationMaterial">Material</Translate>
           </dt>
-          <dd>{elementSupplyEntity.insulationMaterialDesignation}</dd>
+          <dd>{elementSupplyEntity.element.elementKind.insulationMaterial.designation}</dd>
           <dt>
             <Translate contentKey="lappLiApp.supply.meterPerHourSpeed">Speed (m/h)</Translate>
           </dt>

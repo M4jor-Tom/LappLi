@@ -6,9 +6,6 @@ export interface IAbstractSupply {
   formatedHourPreparationTime?: number;
   formatedHourExecutionTime?: number;
   meterPerHourSpeed?: number;
-
-  milimeterDiameter?: number;
-  gramPerMeterLinearMass?: number;
 }
 
 export const defaultValue: Readonly<IAbstractSupply> = {};
