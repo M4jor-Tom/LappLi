@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
@@ -59,6 +60,7 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
     }*/
 
     @Override
+    @JsonIgnore
     public Double getMeterPerHourSpeed() {
         if (MarkingType.LIFTING.equals(getMarkingType())) {
             return Double.valueOf(Math.max(getBestMarkingMaterialStatistic().getMeterPerHourSpeed(), LIFTING_METER_PER_HOUR_SPEED));
@@ -67,6 +69,7 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
         return Double.valueOf(getBestMarkingMaterialStatistic().getMeterPerHourSpeed());
     }
 
+    @JsonIgnore
     private MaterialMarkingStatistic getBestMarkingMaterialStatistic() {
         //Takes the element supply's element, then
         return getElement()
@@ -103,6 +106,7 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
             );
     }
 
+    @JsonIgnore
     public MarkingTechnique getMarkingTechnique() {
         if (!MarkingType.NUMBERED.equals(getMarkingType())) {
             //A marking technique is necessary when something is written only
@@ -112,16 +116,19 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
         return getBestMarkingMaterialStatistic().getMarkingTechnique();
     }
 
+    @JsonIgnore
     public String getInsulationMaterialDesignation() {
         return getElement().getElementKind().getInsulationMaterial().getDesignation();
     }
 
     @Override
+    @JsonIgnore
     public Double getGramPerMeterLinearMass() {
         return getElement().getElementKind().getGramPerMeterLinearMass();
     }
 
     @Override
+    @JsonIgnore
     public Double getMilimeterDiameter() {
         return getElement().getElementKind().getMilimeterDiameter();
     }

@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssemblableAtom;
 import com.muller.lappli.domain.enumeration.Color;
@@ -50,29 +51,35 @@ public class Element extends AbstractAssemblableAtom implements Article, Seriali
     }*/
 
     @Override
+    @JsonIgnore
     public Double getMilimeterDiameter() {
         return getElementKind().getMilimeterDiameter();
     }
 
     @Override
+    @JsonIgnore
     public Double getGramPerMeterLinearMass() {
         return getElementKind().getGramPerMeterLinearMass();
     }
 
     @Override
+    @JsonIgnore
     public Long getArticleNumber() {
         return getNumber();
     }
 
     @Override
+    @JsonIgnore
     public String getDesignation() {
         return getElementKind().getDesignation();
     }
 
+    @JsonIgnore
     public String getNumberWithDesignationWithColor() {
         return getNumber() + " - " + getDesignationWithColor();
     }
 
+    @JsonIgnore
     public String getDesignationWithColor() {
         return getElementKind().getDesignation() + " " + getColor().getDesignation();
     }

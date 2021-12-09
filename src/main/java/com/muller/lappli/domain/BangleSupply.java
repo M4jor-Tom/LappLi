@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import java.io.Serializable;
@@ -53,11 +54,13 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
     }
 
     @Override
+    @JsonIgnore
     public Double getMilimeterDiameter() {
         return getBangle().getMilimeterDiameter();
     }
 
     @Override
+    @JsonIgnore
     public Double getGramPerMeterLinearMass() {
         return getBangle().getGramPerMeterLinearMass();
     }
