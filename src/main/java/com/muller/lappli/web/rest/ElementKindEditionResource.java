@@ -185,10 +185,6 @@ public class ElementKindEditionResource {
         log.debug("REST request to get ElementKindEdition : {}", id);
         Optional<ElementKindEdition> elementKindEdition = elementKindEditionService.findOne(id);
 
-        if (elementKindEdition.isPresent()) {
-            elementKindEdition.get().forceNotNull();
-        }
-
         return ResponseUtil.wrapOrNotFound(elementKindEdition);
     }
 
