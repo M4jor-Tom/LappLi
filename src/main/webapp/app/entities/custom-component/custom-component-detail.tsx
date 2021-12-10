@@ -54,6 +54,12 @@ export const CustomComponentDetail = (props: RouteComponentProps<{ id: string }>
           </dt>
           <dd>{customComponentEntity.milimeterDiameter}</dd>
           <dt>
+            <span id="surfaceColor">
+              <Translate contentKey="lappLiApp.customComponent.surfaceColor">Surface Color</Translate>
+            </span>
+          </dt>
+          <dd>{customComponentEntity.surfaceColor}</dd>
+          <dt>
             <Translate contentKey="lappLiApp.customComponent.surfaceMaterial">Surface Material</Translate>
           </dt>
           <dd>{customComponentEntity.surfaceMaterial ? customComponentEntity.surfaceMaterial.designation : ''}</dd>

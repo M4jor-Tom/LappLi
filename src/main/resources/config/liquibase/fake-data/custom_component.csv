@@ -1,11 +1,11 @@
-id;number;designation;gram_per_meter_linear_mass;milimeter_diameter;surface_material_id
-1;38152;copying;21036;92517;1
-2;6565;Factors;7879;30074;2
-3;2112;Global;20275;6713;3
-4;12120;Berkshire;75893;92398;4
-5;19915;Steel;72794;21599;5
-6;90190;interface;65794;85984;6
-7;32128;Metal Guarani;22739;95861;7
-8;28454;Bike niches silver;35591;33619;8
-9;37881;bypass harness;13400;67500;9
-10;39575;Diverse;81550;1044;10
+id;number;designation;gram_per_meter_linear_mass;milimeter_diameter;surface_color;surface_material_id
+1;38152;copying;21036;92517;YELLOW;1
+2;18867;Usability adapter Global;20275;6713;BLUE;2
+3;2763;eyeballs Dynamic;13760;5084;WHITE_BLACK;3
+4;72794;Senior;39073;27869;PINK_RED;4
+5;85984;Territory;18637;67892;PINK_RED;5
+6;55109;Response;17197;24302;GREEN;6
+7;41107;SSL Fantastic;37881;45611;YELLOW_GREEN_BLACK;7
+8;9202;harness;13400;67500;BROWN_RED;8
+9;15152;maroon;1044;1866;GREY_PINK_BLACK;9
+10;34907;action-items iterate calculating;92891;72571;WHITE_BLACK;10

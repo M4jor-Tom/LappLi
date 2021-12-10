@@ -11,6 +11,7 @@ import { ICustomComponent } from 'app/shared/model/custom-component.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { Color } from 'app/shared/model/enumerations/color.model';
 
 export const CustomComponentUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
@@ -22,6 +23,7 @@ export const CustomComponentUpdate = (props: RouteComponentProps<{ id: string }>
   const loading = useAppSelector(state => state.customComponent.loading);
   const updating = useAppSelector(state => state.customComponent.updating);
   const updateSuccess = useAppSelector(state => state.customComponent.updateSuccess);
+  const colorValues = Object.keys(Color);
   const handleClose = () => {
     props.history.push('/custom-component');
   };
@@ -60,6 +62,7 @@ export const CustomComponentUpdate = (props: RouteComponentProps<{ id: string }>
     isNew
       ? {}
       : {
+          surfaceColor: 'NATURAL',
           ...customComponentEntity,
           surfaceMaterial: customComponentEntity?.surfaceMaterial?.id,
         };
@@ -125,6 +128,19 @@ export const CustomComponentUpdate = (props: RouteComponentProps<{ id: string }>
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
               />
+              <ValidatedField
+                label={translate('lappLiApp.customComponent.surfaceColor')}
+                id="custom-component-surfaceColor"
+                name="surfaceColor"
+                data-cy="surfaceColor"
+                type="select"
+              >
+                {colorValues.map(color => (
+                  <option value={color} key={color}>
+                    {translate('lappLiApp.Color' + color)}
+                  </option>
+                ))}
+              </ValidatedField>
               <ValidatedField
                 id="custom-component-surfaceMaterial"
                 name="surfaceMaterial"

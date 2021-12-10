@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.CustomComponent;
 import com.muller.lappli.domain.Material;
+import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.repository.CustomComponentRepository;
 import com.muller.lappli.service.criteria.CustomComponentCriteria;
 import java.util.List;
@@ -46,6 +47,9 @@ class CustomComponentResourceIT {
     private static final Double UPDATED_MILIMETER_DIAMETER = 2D;
     private static final Double SMALLER_MILIMETER_DIAMETER = 1D - 1D;
 
+    private static final Color DEFAULT_SURFACE_COLOR = Color.NATURAL;
+    private static final Color UPDATED_SURFACE_COLOR = Color.WHITE;
+
     private static final String ENTITY_API_URL = "/api/custom-components";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -74,7 +78,8 @@ class CustomComponentResourceIT {
             .number(DEFAULT_NUMBER)
             .designation(DEFAULT_DESIGNATION)
             .gramPerMeterLinearMass(DEFAULT_GRAM_PER_METER_LINEAR_MASS)
-            .milimeterDiameter(DEFAULT_MILIMETER_DIAMETER);
+            .milimeterDiameter(DEFAULT_MILIMETER_DIAMETER)
+            .surfaceColor(DEFAULT_SURFACE_COLOR);
         // Add required entity
         Material material;
         if (TestUtil.findAll(em, Material.class).isEmpty()) {
@@ -99,7 +104,8 @@ class CustomComponentResourceIT {
             .number(UPDATED_NUMBER)
             .designation(UPDATED_DESIGNATION)
             .gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS)
-            .milimeterDiameter(UPDATED_MILIMETER_DIAMETER);
+            .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
+            .surfaceColor(UPDATED_SURFACE_COLOR);
         // Add required entity
         Material material;
         if (TestUtil.findAll(em, Material.class).isEmpty()) {
@@ -137,6 +143,7 @@ class CustomComponentResourceIT {
         assertThat(testCustomComponent.getDesignation()).isEqualTo(DEFAULT_DESIGNATION);
         assertThat(testCustomComponent.getGramPerMeterLinearMass()).isEqualTo(DEFAULT_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testCustomComponent.getMilimeterDiameter()).isEqualTo(DEFAULT_MILIMETER_DIAMETER);
+        assertThat(testCustomComponent.getSurfaceColor()).isEqualTo(DEFAULT_SURFACE_COLOR);
     }
 
     @Test
@@ -199,6 +206,25 @@ class CustomComponentResourceIT {
 
     @Test
     @Transactional
+    void checkSurfaceColorIsRequired() throws Exception {
+        int databaseSizeBeforeTest = customComponentRepository.findAll().size();
+        // set the field null
+        customComponent.setSurfaceColor(null);
+
+        // Create the CustomComponent, which fails.
+
+        restCustomComponentMockMvc
+            .perform(
+                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(customComponent))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<CustomComponent> customComponentList = customComponentRepository.findAll();
+        assertThat(customComponentList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllCustomComponents() throws Exception {
         // Initialize the database
         customComponentRepository.saveAndFlush(customComponent);
@@ -212,7 +238,8 @@ class CustomComponentResourceIT {
             .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER.intValue())))
             .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)))
             .andExpect(jsonPath("$.[*].gramPerMeterLinearMass").value(hasItem(DEFAULT_GRAM_PER_METER_LINEAR_MASS.doubleValue())))
-            .andExpect(jsonPath("$.[*].milimeterDiameter").value(hasItem(DEFAULT_MILIMETER_DIAMETER.doubleValue())));
+            .andExpect(jsonPath("$.[*].milimeterDiameter").value(hasItem(DEFAULT_MILIMETER_DIAMETER.doubleValue())))
+            .andExpect(jsonPath("$.[*].surfaceColor").value(hasItem(DEFAULT_SURFACE_COLOR.toString())));
     }
 
     @Test
@@ -230,7 +257,8 @@ class CustomComponentResourceIT {
             .andExpect(jsonPath("$.number").value(DEFAULT_NUMBER.intValue()))
             .andExpect(jsonPath("$.designation").value(DEFAULT_DESIGNATION))
             .andExpect(jsonPath("$.gramPerMeterLinearMass").value(DEFAULT_GRAM_PER_METER_LINEAR_MASS.doubleValue()))
-            .andExpect(jsonPath("$.milimeterDiameter").value(DEFAULT_MILIMETER_DIAMETER.doubleValue()));
+            .andExpect(jsonPath("$.milimeterDiameter").value(DEFAULT_MILIMETER_DIAMETER.doubleValue()))
+            .andExpect(jsonPath("$.surfaceColor").value(DEFAULT_SURFACE_COLOR.toString()));
     }
 
     @Test
@@ -645,6 +673,58 @@ class CustomComponentResourceIT {
 
     @Test
     @Transactional
+    void getAllCustomComponentsBySurfaceColorIsEqualToSomething() throws Exception {
+        // Initialize the database
+        customComponentRepository.saveAndFlush(customComponent);
+
+        // Get all the customComponentList where surfaceColor equals to DEFAULT_SURFACE_COLOR
+        defaultCustomComponentShouldBeFound("surfaceColor.equals=" + DEFAULT_SURFACE_COLOR);
+
+        // Get all the customComponentList where surfaceColor equals to UPDATED_SURFACE_COLOR
+        defaultCustomComponentShouldNotBeFound("surfaceColor.equals=" + UPDATED_SURFACE_COLOR);
+    }
+
+    @Test
+    @Transactional
+    void getAllCustomComponentsBySurfaceColorIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        customComponentRepository.saveAndFlush(customComponent);
+
+        // Get all the customComponentList where surfaceColor not equals to DEFAULT_SURFACE_COLOR
+        defaultCustomComponentShouldNotBeFound("surfaceColor.notEquals=" + DEFAULT_SURFACE_COLOR);
+
+        // Get all the customComponentList where surfaceColor not equals to UPDATED_SURFACE_COLOR
+        defaultCustomComponentShouldBeFound("surfaceColor.notEquals=" + UPDATED_SURFACE_COLOR);
+    }
+
+    @Test
+    @Transactional
+    void getAllCustomComponentsBySurfaceColorIsInShouldWork() throws Exception {
+        // Initialize the database
+        customComponentRepository.saveAndFlush(customComponent);
+
+        // Get all the customComponentList where surfaceColor in DEFAULT_SURFACE_COLOR or UPDATED_SURFACE_COLOR
+        defaultCustomComponentShouldBeFound("surfaceColor.in=" + DEFAULT_SURFACE_COLOR + "," + UPDATED_SURFACE_COLOR);
+
+        // Get all the customComponentList where surfaceColor equals to UPDATED_SURFACE_COLOR
+        defaultCustomComponentShouldNotBeFound("surfaceColor.in=" + UPDATED_SURFACE_COLOR);
+    }
+
+    @Test
+    @Transactional
+    void getAllCustomComponentsBySurfaceColorIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        customComponentRepository.saveAndFlush(customComponent);
+
+        // Get all the customComponentList where surfaceColor is not null
+        defaultCustomComponentShouldBeFound("surfaceColor.specified=true");
+
+        // Get all the customComponentList where surfaceColor is null
+        defaultCustomComponentShouldNotBeFound("surfaceColor.specified=false");
+    }
+
+    @Test
+    @Transactional
     void getAllCustomComponentsBySurfaceMaterialIsEqualToSomething() throws Exception {
         // Initialize the database
         customComponentRepository.saveAndFlush(customComponent);
@@ -681,7 +761,8 @@ class CustomComponentResourceIT {
             .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER.intValue())))
             .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)))
             .andExpect(jsonPath("$.[*].gramPerMeterLinearMass").value(hasItem(DEFAULT_GRAM_PER_METER_LINEAR_MASS.doubleValue())))
-            .andExpect(jsonPath("$.[*].milimeterDiameter").value(hasItem(DEFAULT_MILIMETER_DIAMETER.doubleValue())));
+            .andExpect(jsonPath("$.[*].milimeterDiameter").value(hasItem(DEFAULT_MILIMETER_DIAMETER.doubleValue())))
+            .andExpect(jsonPath("$.[*].surfaceColor").value(hasItem(DEFAULT_SURFACE_COLOR.toString())));
 
         // Check, that the count call also returns 1
         restCustomComponentMockMvc
@@ -733,7 +814,8 @@ class CustomComponentResourceIT {
             .number(UPDATED_NUMBER)
             .designation(UPDATED_DESIGNATION)
             .gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS)
-            .milimeterDiameter(UPDATED_MILIMETER_DIAMETER);
+            .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
+            .surfaceColor(UPDATED_SURFACE_COLOR);
 
         restCustomComponentMockMvc
             .perform(
@@ -751,6 +833,7 @@ class CustomComponentResourceIT {
         assertThat(testCustomComponent.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
         assertThat(testCustomComponent.getGramPerMeterLinearMass()).isEqualTo(UPDATED_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testCustomComponent.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
+        assertThat(testCustomComponent.getSurfaceColor()).isEqualTo(UPDATED_SURFACE_COLOR);
     }
 
     @Test
@@ -841,6 +924,7 @@ class CustomComponentResourceIT {
         assertThat(testCustomComponent.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
         assertThat(testCustomComponent.getGramPerMeterLinearMass()).isEqualTo(DEFAULT_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testCustomComponent.getMilimeterDiameter()).isEqualTo(DEFAULT_MILIMETER_DIAMETER);
+        assertThat(testCustomComponent.getSurfaceColor()).isEqualTo(DEFAULT_SURFACE_COLOR);
     }
 
     @Test
@@ -859,7 +943,8 @@ class CustomComponentResourceIT {
             .number(UPDATED_NUMBER)
             .designation(UPDATED_DESIGNATION)
             .gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS)
-            .milimeterDiameter(UPDATED_MILIMETER_DIAMETER);
+            .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
+            .surfaceColor(UPDATED_SURFACE_COLOR);
 
         restCustomComponentMockMvc
             .perform(
@@ -877,6 +962,7 @@ class CustomComponentResourceIT {
         assertThat(testCustomComponent.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
         assertThat(testCustomComponent.getGramPerMeterLinearMass()).isEqualTo(UPDATED_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testCustomComponent.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
+        assertThat(testCustomComponent.getSurfaceColor()).isEqualTo(UPDATED_SURFACE_COLOR);
     }
 
     @Test

@@ -50,6 +50,9 @@ public class CustomComponentServiceImpl implements CustomComponentService {
                 if (customComponent.getMilimeterDiameter() != null) {
                     existingCustomComponent.setMilimeterDiameter(customComponent.getMilimeterDiameter());
                 }
+                if (customComponent.getSurfaceColor() != null) {
+                    existingCustomComponent.setSurfaceColor(customComponent.getSurfaceColor());
+                }
 
                 return existingCustomComponent;
             })

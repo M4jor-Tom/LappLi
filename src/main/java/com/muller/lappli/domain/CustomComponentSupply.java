@@ -40,6 +40,7 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply implements
 
     @ManyToOne(optional = false)
     @NotNull
+    @JsonIgnoreProperties(value = { "surfaceMaterial" }, allowSetters = true)
     private CustomComponent customComponent;
 
     @Override

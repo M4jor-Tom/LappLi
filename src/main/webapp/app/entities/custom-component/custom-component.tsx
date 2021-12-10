@@ -62,6 +62,9 @@ export const CustomComponent = (props: RouteComponentProps<{ url: string }>) => 
                   <Translate contentKey="lappLiApp.customComponent.milimeterDiameter">Milimeter Diameter</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.customComponent.surfaceColor">Surface Color</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.customComponent.surfaceMaterial">Surface Material</Translate>
                 </th>
                 <th />
@@ -79,6 +82,9 @@ export const CustomComponent = (props: RouteComponentProps<{ url: string }>) => 
                   <td>{customComponent.designation}</td>
                   <td>{customComponent.gramPerMeterLinearMass}</td>
                   <td>{customComponent.milimeterDiameter}</td>
+                  <td>
+                    <Translate contentKey={`lappLiApp.Color.${customComponent.surfaceColor}`} />
+                  </td>
                   <td>
                     {customComponent.surfaceMaterial ? (
                       <Link to={`material/${customComponent.surfaceMaterial.id}`}>{customComponent.surfaceMaterial.designation}</Link>

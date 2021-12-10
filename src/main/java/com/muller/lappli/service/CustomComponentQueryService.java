@@ -101,6 +101,9 @@ public class CustomComponentQueryService extends QueryService<CustomComponent> {
                 specification =
                     specification.and(buildRangeSpecification(criteria.getMilimeterDiameter(), CustomComponent_.milimeterDiameter));
             }
+            if (criteria.getSurfaceColor() != null) {
+                specification = specification.and(buildSpecification(criteria.getSurfaceColor(), CustomComponent_.surfaceColor));
+            }
             if (criteria.getSurfaceMaterialId() != null) {
                 specification =
                     specification.and(

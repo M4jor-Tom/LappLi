@@ -45,6 +45,7 @@ entity CustomComponent {
     designation String,
     gramPerMeterLinearMass Double required
     milimeterDiameter Double required
+    surfaceColor Color required
 }
 
 relationship ManyToOne {

@@ -1,5 +1,6 @@
 package com.muller.lappli.service.criteria;
 
+import com.muller.lappli.domain.enumeration.Color;
 import java.io.Serializable;
 import java.util.Objects;
 import tech.jhipster.service.Criteria;
@@ -22,6 +23,23 @@ import tech.jhipster.service.filter.StringFilter;
  */
 public class CustomComponentCriteria implements Serializable, Criteria {
 
+    /**
+     * Class for filtering Color
+     */
+    public static class ColorFilter extends Filter<Color> {
+
+        public ColorFilter() {}
+
+        public ColorFilter(ColorFilter filter) {
+            super(filter);
+        }
+
+        @Override
+        public ColorFilter copy() {
+            return new ColorFilter(this);
+        }
+    }
+
     private static final long serialVersionUID = 1L;
 
     private LongFilter id;
@@ -33,6 +51,8 @@ public class CustomComponentCriteria implements Serializable, Criteria {
     private DoubleFilter gramPerMeterLinearMass;
 
     private DoubleFilter milimeterDiameter;
+
+    private ColorFilter surfaceColor;
 
     private LongFilter surfaceMaterialId;
 
@@ -46,6 +66,7 @@ public class CustomComponentCriteria implements Serializable, Criteria {
         this.designation = other.designation == null ? null : other.designation.copy();
         this.gramPerMeterLinearMass = other.gramPerMeterLinearMass == null ? null : other.gramPerMeterLinearMass.copy();
         this.milimeterDiameter = other.milimeterDiameter == null ? null : other.milimeterDiameter.copy();
+        this.surfaceColor = other.surfaceColor == null ? null : other.surfaceColor.copy();
         this.surfaceMaterialId = other.surfaceMaterialId == null ? null : other.surfaceMaterialId.copy();
         this.distinct = other.distinct;
     }
@@ -130,6 +151,21 @@ public class CustomComponentCriteria implements Serializable, Criteria {
         this.milimeterDiameter = milimeterDiameter;
     }
 
+    public ColorFilter getSurfaceColor() {
+        return surfaceColor;
+    }
+
+    public ColorFilter surfaceColor() {
+        if (surfaceColor == null) {
+            surfaceColor = new ColorFilter();
+        }
+        return surfaceColor;
+    }
+
+    public void setSurfaceColor(ColorFilter surfaceColor) {
+        this.surfaceColor = surfaceColor;
+    }
+
     public LongFilter getSurfaceMaterialId() {
         return surfaceMaterialId;
     }
@@ -168,6 +204,7 @@ public class CustomComponentCriteria implements Serializable, Criteria {
             Objects.equals(designation, that.designation) &&
             Objects.equals(gramPerMeterLinearMass, that.gramPerMeterLinearMass) &&
             Objects.equals(milimeterDiameter, that.milimeterDiameter) &&
+            Objects.equals(surfaceColor, that.surfaceColor) &&
             Objects.equals(surfaceMaterialId, that.surfaceMaterialId) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -175,7 +212,7 @@ public class CustomComponentCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, number, designation, gramPerMeterLinearMass, milimeterDiameter, surfaceMaterialId, distinct);
+        return Objects.hash(id, number, designation, gramPerMeterLinearMass, milimeterDiameter, surfaceColor, surfaceMaterialId, distinct);
     }
 
     // prettier-ignore
@@ -187,6 +224,7 @@ public class CustomComponentCriteria implements Serializable, Criteria {
             (designation != null ? "designation=" + designation + ", " : "") +
             (gramPerMeterLinearMass != null ? "gramPerMeterLinearMass=" + gramPerMeterLinearMass + ", " : "") +
             (milimeterDiameter != null ? "milimeterDiameter=" + milimeterDiameter + ", " : "") +
+            (surfaceColor != null ? "surfaceColor=" + surfaceColor + ", " : "") +
             (surfaceMaterialId != null ? "surfaceMaterialId=" + surfaceMaterialId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

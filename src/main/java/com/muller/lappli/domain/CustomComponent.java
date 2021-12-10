@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.enumeration.Color;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -35,6 +36,11 @@ public class CustomComponent implements Serializable {
     @NotNull
     @Column(name = "milimeter_diameter", nullable = false)
     private Double milimeterDiameter;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "surface_color", nullable = false)
+    private Color surfaceColor;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -108,6 +114,19 @@ public class CustomComponent implements Serializable {
         this.milimeterDiameter = milimeterDiameter;
     }
 
+    public Color getSurfaceColor() {
+        return this.surfaceColor;
+    }
+
+    public CustomComponent surfaceColor(Color surfaceColor) {
+        this.setSurfaceColor(surfaceColor);
+        return this;
+    }
+
+    public void setSurfaceColor(Color surfaceColor) {
+        this.surfaceColor = surfaceColor;
+    }
+
     public Material getSurfaceMaterial() {
         return this.surfaceMaterial;
     }
@@ -149,6 +168,7 @@ public class CustomComponent implements Serializable {
             ", designation='" + getDesignation() + "'" +
             ", gramPerMeterLinearMass=" + getGramPerMeterLinearMass() +
             ", milimeterDiameter=" + getMilimeterDiameter() +
+            ", surfaceColor='" + getSurfaceColor() + "'" +
             "}";
     }
 }
