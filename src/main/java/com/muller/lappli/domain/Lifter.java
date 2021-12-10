@@ -79,11 +79,15 @@ public class Lifter implements Serializable {
     }*/
 
     public String getName() {
-        String prefix;
+        try {
+            String prefix;
 
-        prefix = getIndex() >= 10 ? "MR" : "MR0";
+            prefix = getIndex() >= 10 ? "MR" : "MR0";
 
-        return prefix + getIndex();
+            return prefix + getIndex();
+        } catch (NullPointerException e) {
+            return "";
+        }
     }
 
     public Boolean supportsSupply(AbstractLiftedSupply abstractLiftedSupply) throws UnknownClassException {

@@ -71,7 +71,20 @@ public class Element extends AbstractAssemblableAtom implements Article, Seriali
     @Override
     @JsonIgnore
     public String getDesignation() {
-        return getElementKind().getDesignation();
+        try {
+            return getElementKind().getDesignation();
+        } catch (NullPointerException e) {
+            return "";
+        }
+    }
+
+    @JsonIgnore
+    public String getColorDesignation() {
+        try {
+            return getColor().getDesignation();
+        } catch (NullPointerException e) {
+            return "";
+        }
     }
 
     @JsonIgnoreProperties(allowGetters = true)
@@ -81,7 +94,7 @@ public class Element extends AbstractAssemblableAtom implements Article, Seriali
 
     @JsonIgnoreProperties(allowGetters = true)
     public String getDesignationWithColor() {
-        return getElementKind().getDesignation() + " " + getColor().getDesignation();
+        return getDesignation() + " " + getColorDesignation();
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

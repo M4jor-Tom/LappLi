@@ -62,11 +62,15 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
     @Override
     @JsonIgnoreProperties(allowGetters = true)
     public Double getMeterPerHourSpeed() {
-        if (MarkingType.LIFTING.equals(getMarkingType())) {
-            return Double.valueOf(Math.max(getBestMarkingMaterialStatistic().getMeterPerHourSpeed(), LIFTING_METER_PER_HOUR_SPEED));
-        }
+        try {
+            if (MarkingType.LIFTING.equals(getMarkingType())) {
+                return Double.valueOf(Math.max(getBestMarkingMaterialStatistic().getMeterPerHourSpeed(), LIFTING_METER_PER_HOUR_SPEED));
+            }
 
-        return Double.valueOf(getBestMarkingMaterialStatistic().getMeterPerHourSpeed());
+            return Double.valueOf(getBestMarkingMaterialStatistic().getMeterPerHourSpeed());
+        } catch (NullPointerException e) {
+            return Double.NaN;
+        }
     }
 
     @JsonIgnore
