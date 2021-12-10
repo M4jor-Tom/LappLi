@@ -87,7 +87,7 @@ public class ElementKindEditionResource {
      * or with status {@code 500 (Internal Server Error)} if the elementKindEdition couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    //@PutMapping("/element-kind-editions/{id}")
+    @PutMapping("/element-kind-editions/{id}")
     public ResponseEntity<ElementKindEdition> updateElementKindEdition(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody ElementKindEdition elementKindEdition
@@ -123,7 +123,7 @@ public class ElementKindEditionResource {
      * or with status {@code 500 (Internal Server Error)} if the elementKindEdition couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    //@PatchMapping(value = "/element-kind-editions/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PatchMapping(value = "/element-kind-editions/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<ElementKindEdition> partialUpdateElementKindEdition(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody ElementKindEdition elementKindEdition
