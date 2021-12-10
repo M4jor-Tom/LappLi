@@ -56,8 +56,11 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply implements
     @Override
     @JsonIgnore
     public Color getSurfaceColor() {
-        // TODO[next jdl] Auto-generated method stub
-        return null;
+        try {
+            return getCustomComponent().getSurfaceColor();
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     @Override
