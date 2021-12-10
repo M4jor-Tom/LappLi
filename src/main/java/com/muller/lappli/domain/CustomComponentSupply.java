@@ -1,6 +1,9 @@
 package com.muller.lappli.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
+import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -37,8 +40,36 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply implements
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "surfaceMaterial" }, allowSetters = true)
     private CustomComponent customComponent;
+
+    @Override
+    @JsonIgnore
+    public Material getSurfaceMaterial() {
+        try {
+            return getCustomComponent().getSurfaceMaterial();
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    @Override
+    @JsonIgnore
+    public Color getSurfaceColor() {
+        // TODO[next jdl] Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    @JsonIgnore
+    public Double getMilimeterDiameter() {
+        return getCustomComponent().getMilimeterDiameter();
+    }
+
+    @Override
+    @JsonIgnore
+    public Double getGramPerMeterLinearMass() {
+        return getCustomComponent().getGramPerMeterLinearMass();
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 

@@ -3,10 +3,8 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
-import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
-import java.util.Comparator;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -58,40 +56,21 @@ public class ElementSupply extends AbstractMarkedLiftedSupply implements Seriali
 
     @Override
     @JsonIgnore
-    protected MaterialMarkingStatistic getBestMarkingMaterialStatistic() {
-        //Takes the element supply's element, then
-        return getElement()
-            //Takes its element kind, then
-            .getElementKind()
-            //Takes its insulation material, then
-            .getInsulationMaterial()
-            //Takes its marking statistics, but
-            .getMaterialMarkingStatistics()
-            .stream()
-            //Only those which has our element supply's marking type, then
-            .filter(statistic -> statistic.getMarkingType().equals(getMarkingType()))
-            //INK_JET can't print on black
-            .filter(statistic ->
-                (MarkingTechnique.INK_JET.equals(statistic.getMarkingTechnique()) != Color.BLACK.equals(getElement().getColor())) ||
-                MarkingTechnique.NONE.equals(statistic.getMarkingTechnique())
-            )
-            //Takes the fastest to act in a lifter machine, but
-            .max(
-                new Comparator<MaterialMarkingStatistic>() {
-                    @Override
-                    public int compare(MaterialMarkingStatistic o1, MaterialMarkingStatistic o2) {
-                        return o1.getMeterPerHourSpeed().compareTo(o2.getMeterPerHourSpeed());
-                    }
-                }
-            )
-            //If no statistic is found, meaning the lifting operation is unavailable for
-            //those parameters, it means that no marking technique is suitable
-            .orElse(
-                new MaterialMarkingStatistic()
-                    .markingType(getMarkingType())
-                    .markingTechnique(MarkingTechnique.NONE_SUITABLE)
-                    .meterPerHourSpeed(Long.valueOf(0))
-            );
+    public Material getSurfaceMaterial() {
+        try {
+            return getElement().getElementKind().getInsulationMaterial();
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Color getSurfaceColor() {
+        try {
+            return getElement().getColor();
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     @JsonIgnore
