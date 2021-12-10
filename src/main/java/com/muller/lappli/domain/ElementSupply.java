@@ -1,15 +1,12 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
+import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -21,7 +18,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element_supply")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ElementSupply extends AbstractLiftedSupply implements Serializable {
+public class ElementSupply extends AbstractMarkedLiftedSupply implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -47,11 +44,11 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
     //@JsonIgnoreProperties(value = { "elementKind" }, allowSetters = true)
     private Element element;
 
-    /*public ElementSupply() {
-        this(new ArrayList<>(), null, MarkingType.LIFTING, "", new Element());
+    public ElementSupply() {
+        super();
     }
 
-    public ElementSupply(List<Lifter> bestLifterList, Long apparitions, MarkingType markingType, String description, Element element) {
+    /*public ElementSupply(List<Lifter> bestLifterList, Long apparitions, MarkingType markingType, String description, Element element) {
         super(bestLifterList);
         setApparitions(apparitions);
         setMarkingType(markingType);
@@ -60,21 +57,8 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
     }*/
 
     @Override
-    @JsonIgnoreProperties(allowGetters = true)
-    public Double getMeterPerHourSpeed() {
-        try {
-            if (MarkingType.LIFTING.equals(getMarkingType())) {
-                return Double.valueOf(Math.max(getBestMarkingMaterialStatistic().getMeterPerHourSpeed(), LIFTING_METER_PER_HOUR_SPEED));
-            }
-
-            return Double.valueOf(getBestMarkingMaterialStatistic().getMeterPerHourSpeed());
-        } catch (NullPointerException e) {
-            return Double.NaN;
-        }
-    }
-
     @JsonIgnore
-    private MaterialMarkingStatistic getBestMarkingMaterialStatistic() {
+    protected MaterialMarkingStatistic getBestMarkingMaterialStatistic() {
         //Takes the element supply's element, then
         return getElement()
             //Takes its element kind, then
@@ -108,16 +92,6 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
                     .markingTechnique(MarkingTechnique.NONE_SUITABLE)
                     .meterPerHourSpeed(Long.valueOf(0))
             );
-    }
-
-    @JsonIgnoreProperties(allowGetters = true)
-    public MarkingTechnique getMarkingTechnique() {
-        if (!MarkingType.NUMBERED.equals(getMarkingType())) {
-            //A marking technique is necessary when something is written only
-            return MarkingTechnique.NONE;
-        }
-
-        return getBestMarkingMaterialStatistic().getMarkingTechnique();
     }
 
     @JsonIgnore
@@ -166,6 +140,7 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
         this.apparitions = apparitions;
     }
 
+    @Override
     public MarkingType getMarkingType() {
         return this.markingType;
     }
