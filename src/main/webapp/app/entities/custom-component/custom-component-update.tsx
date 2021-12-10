@@ -109,6 +109,10 @@ export const CustomComponentUpdate = (props: RouteComponentProps<{ id: string }>
                 name="gramPerMeterLinearMass"
                 data-cy="gramPerMeterLinearMass"
                 type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
               />
               <ValidatedField
                 label={translate('lappLiApp.customComponent.milimeterDiameter')}
@@ -116,6 +120,10 @@ export const CustomComponentUpdate = (props: RouteComponentProps<{ id: string }>
                 name="milimeterDiameter"
                 data-cy="milimeterDiameter"
                 type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
               />
               <ValidatedField
                 id="custom-component-surfaceMaterial"

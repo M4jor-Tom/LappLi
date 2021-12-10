@@ -56,6 +56,9 @@ export const CustomComponentSupply = (props: RouteComponentProps<{ url: string }
                   <Translate contentKey="lappLiApp.customComponentSupply.description">Description</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.customComponentSupply.markingType">Marking Type</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.customComponentSupply.customComponent">Custom Component</Translate>
                 </th>
                 <th />
@@ -71,6 +74,9 @@ export const CustomComponentSupply = (props: RouteComponentProps<{ url: string }
                   </td>
                   <td>{customComponentSupply.apparitions}</td>
                   <td>{customComponentSupply.description}</td>
+                  <td>
+                    <Translate contentKey={`lappLiApp.MarkingType.${customComponentSupply.markingType}`} />
+                  </td>
                   <td>
                     {customComponentSupply.customComponent ? (
                       <Link to={`custom-component/${customComponentSupply.customComponent.id}`}>

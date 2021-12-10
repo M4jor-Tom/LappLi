@@ -42,6 +42,12 @@ export const CustomComponentSupplyDetail = (props: RouteComponentProps<{ id: str
           </dt>
           <dd>{customComponentSupplyEntity.description}</dd>
           <dt>
+            <span id="markingType">
+              <Translate contentKey="lappLiApp.customComponentSupply.markingType">Marking Type</Translate>
+            </span>
+          </dt>
+          <dd>{customComponentSupplyEntity.markingType}</dd>
+          <dt>
             <Translate contentKey="lappLiApp.customComponentSupply.customComponent">Custom Component</Translate>
           </dt>
           <dd>{customComponentSupplyEntity.customComponent ? customComponentSupplyEntity.customComponent.designation : ''}</dd>

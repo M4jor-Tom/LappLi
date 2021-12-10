@@ -37,13 +37,14 @@ service BangleSupply with serviceClass
 entity CustomComponentSupply {
 	apparitions Long required
     description String
+    markingType MarkingType required
 }
 
 entity CustomComponent {
 	number Long
     designation String,
-    gramPerMeterLinearMass Double
-    milimeterDiameter Double
+    gramPerMeterLinearMass Double required
+    milimeterDiameter Double required
 }
 
 relationship ManyToOne {

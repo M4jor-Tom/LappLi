@@ -161,6 +161,44 @@ class CustomComponentResourceIT {
 
     @Test
     @Transactional
+    void checkGramPerMeterLinearMassIsRequired() throws Exception {
+        int databaseSizeBeforeTest = customComponentRepository.findAll().size();
+        // set the field null
+        customComponent.setGramPerMeterLinearMass(null);
+
+        // Create the CustomComponent, which fails.
+
+        restCustomComponentMockMvc
+            .perform(
+                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(customComponent))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<CustomComponent> customComponentList = customComponentRepository.findAll();
+        assertThat(customComponentList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkMilimeterDiameterIsRequired() throws Exception {
+        int databaseSizeBeforeTest = customComponentRepository.findAll().size();
+        // set the field null
+        customComponent.setMilimeterDiameter(null);
+
+        // Create the CustomComponent, which fails.
+
+        restCustomComponentMockMvc
+            .perform(
+                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(customComponent))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<CustomComponent> customComponentList = customComponentRepository.findAll();
+        assertThat(customComponentList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllCustomComponents() throws Exception {
         // Initialize the database
         customComponentRepository.saveAndFlush(customComponent);

@@ -28,10 +28,12 @@ public class CustomComponent implements Serializable {
     @Column(name = "designation")
     private String designation;
 
-    @Column(name = "gram_per_meter_linear_mass")
+    @NotNull
+    @Column(name = "gram_per_meter_linear_mass", nullable = false)
     private Double gramPerMeterLinearMass;
 
-    @Column(name = "milimeter_diameter")
+    @NotNull
+    @Column(name = "milimeter_diameter", nullable = false)
     private Double milimeterDiameter;
 
     @ManyToOne(optional = false)

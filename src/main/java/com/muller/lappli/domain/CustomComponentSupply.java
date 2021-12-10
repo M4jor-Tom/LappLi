@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -13,7 +14,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "custom_component_supply")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CustomComponentSupply implements Serializable {
+public class CustomComponentSupply extends AbstractMarkedLiftedSupply implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,6 +29,11 @@ public class CustomComponentSupply implements Serializable {
 
     @Column(name = "description")
     private String description;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "marking_type", nullable = false)
+    private MarkingType markingType;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -75,6 +81,19 @@ public class CustomComponentSupply implements Serializable {
         this.description = description;
     }
 
+    public MarkingType getMarkingType() {
+        return this.markingType;
+    }
+
+    public CustomComponentSupply markingType(MarkingType markingType) {
+        this.setMarkingType(markingType);
+        return this;
+    }
+
+    public void setMarkingType(MarkingType markingType) {
+        this.markingType = markingType;
+    }
+
     public CustomComponent getCustomComponent() {
         return this.customComponent;
     }
@@ -114,6 +133,7 @@ public class CustomComponentSupply implements Serializable {
             "id=" + getId() +
             ", apparitions=" + getApparitions() +
             ", description='" + getDescription() + "'" +
+            ", markingType='" + getMarkingType() + "'" +
             "}";
     }
 }

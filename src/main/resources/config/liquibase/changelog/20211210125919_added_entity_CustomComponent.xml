@@ -21,10 +21,10 @@
                 <constraints nullable="true" />
             </column>
             <column name="gram_per_meter_linear_mass" type="double">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="milimeter_diameter" type="double">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="surface_material_id" type="bigint">
                 <constraints nullable="false" />

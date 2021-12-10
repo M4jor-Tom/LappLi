@@ -4,8 +4,8 @@ export interface ICustomComponent {
   id?: number;
   number?: number | null;
   designation?: string | null;
-  gramPerMeterLinearMass?: number | null;
-  milimeterDiameter?: number | null;
+  gramPerMeterLinearMass?: number;
+  milimeterDiameter?: number;
   surfaceMaterial?: IMaterial;
 }
 

@@ -44,6 +44,9 @@ public class CustomComponentSupplyServiceImpl implements CustomComponentSupplySe
                 if (customComponentSupply.getDescription() != null) {
                     existingCustomComponentSupply.setDescription(customComponentSupply.getDescription());
                 }
+                if (customComponentSupply.getMarkingType() != null) {
+                    existingCustomComponentSupply.setMarkingType(customComponentSupply.getMarkingType());
+                }
 
                 return existingCustomComponentSupply;
             })

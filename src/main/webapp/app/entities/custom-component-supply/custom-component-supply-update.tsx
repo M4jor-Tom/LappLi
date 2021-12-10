@@ -11,6 +11,7 @@ import { ICustomComponentSupply } from 'app/shared/model/custom-component-supply
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 
 export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
@@ -22,6 +23,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ id: str
   const loading = useAppSelector(state => state.customComponentSupply.loading);
   const updating = useAppSelector(state => state.customComponentSupply.updating);
   const updateSuccess = useAppSelector(state => state.customComponentSupply.updateSuccess);
+  const markingTypeValues = Object.keys(MarkingType);
   const handleClose = () => {
     props.history.push('/custom-component-supply');
   };
@@ -60,6 +62,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ id: str
     isNew
       ? {}
       : {
+          markingType: 'LIFTING',
           ...customComponentSupplyEntity,
           customComponent: customComponentSupplyEntity?.customComponent?.id,
         };
@@ -109,6 +112,19 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ id: str
                 data-cy="description"
                 type="text"
               />
+              <ValidatedField
+                label={translate('lappLiApp.customComponentSupply.markingType')}
+                id="custom-component-supply-markingType"
+                name="markingType"
+                data-cy="markingType"
+                type="select"
+              >
+                {markingTypeValues.map(markingType => (
+                  <option value={markingType} key={markingType}>
+                    {translate('lappLiApp.MarkingType' + markingType)}
+                  </option>
+                ))}
+              </ValidatedField>
               <ValidatedField
                 id="custom-component-supply-customComponent"
                 name="customComponent"

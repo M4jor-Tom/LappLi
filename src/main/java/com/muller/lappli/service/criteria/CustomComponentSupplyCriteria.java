@@ -1,5 +1,6 @@
 package com.muller.lappli.service.criteria;
 
+import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
 import java.util.Objects;
 import tech.jhipster.service.Criteria;
@@ -22,6 +23,23 @@ import tech.jhipster.service.filter.StringFilter;
  */
 public class CustomComponentSupplyCriteria implements Serializable, Criteria {
 
+    /**
+     * Class for filtering MarkingType
+     */
+    public static class MarkingTypeFilter extends Filter<MarkingType> {
+
+        public MarkingTypeFilter() {}
+
+        public MarkingTypeFilter(MarkingTypeFilter filter) {
+            super(filter);
+        }
+
+        @Override
+        public MarkingTypeFilter copy() {
+            return new MarkingTypeFilter(this);
+        }
+    }
+
     private static final long serialVersionUID = 1L;
 
     private LongFilter id;
@@ -29,6 +47,8 @@ public class CustomComponentSupplyCriteria implements Serializable, Criteria {
     private LongFilter apparitions;
 
     private StringFilter description;
+
+    private MarkingTypeFilter markingType;
 
     private LongFilter customComponentId;
 
@@ -40,6 +60,7 @@ public class CustomComponentSupplyCriteria implements Serializable, Criteria {
         this.id = other.id == null ? null : other.id.copy();
         this.apparitions = other.apparitions == null ? null : other.apparitions.copy();
         this.description = other.description == null ? null : other.description.copy();
+        this.markingType = other.markingType == null ? null : other.markingType.copy();
         this.customComponentId = other.customComponentId == null ? null : other.customComponentId.copy();
         this.distinct = other.distinct;
     }
@@ -94,6 +115,21 @@ public class CustomComponentSupplyCriteria implements Serializable, Criteria {
         this.description = description;
     }
 
+    public MarkingTypeFilter getMarkingType() {
+        return markingType;
+    }
+
+    public MarkingTypeFilter markingType() {
+        if (markingType == null) {
+            markingType = new MarkingTypeFilter();
+        }
+        return markingType;
+    }
+
+    public void setMarkingType(MarkingTypeFilter markingType) {
+        this.markingType = markingType;
+    }
+
     public LongFilter getCustomComponentId() {
         return customComponentId;
     }
@@ -130,6 +166,7 @@ public class CustomComponentSupplyCriteria implements Serializable, Criteria {
             Objects.equals(id, that.id) &&
             Objects.equals(apparitions, that.apparitions) &&
             Objects.equals(description, that.description) &&
+            Objects.equals(markingType, that.markingType) &&
             Objects.equals(customComponentId, that.customComponentId) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -137,7 +174,7 @@ public class CustomComponentSupplyCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, apparitions, description, customComponentId, distinct);
+        return Objects.hash(id, apparitions, description, markingType, customComponentId, distinct);
     }
 
     // prettier-ignore
@@ -147,6 +184,7 @@ public class CustomComponentSupplyCriteria implements Serializable, Criteria {
             (id != null ? "id=" + id + ", " : "") +
             (apparitions != null ? "apparitions=" + apparitions + ", " : "") +
             (description != null ? "description=" + description + ", " : "") +
+            (markingType != null ? "markingType=" + markingType + ", " : "") +
             (customComponentId != null ? "customComponentId=" + customComponentId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

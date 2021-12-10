@@ -91,6 +91,9 @@ public class CustomComponentSupplyQueryService extends QueryService<CustomCompon
             if (criteria.getDescription() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDescription(), CustomComponentSupply_.description));
             }
+            if (criteria.getMarkingType() != null) {
+                specification = specification.and(buildSpecification(criteria.getMarkingType(), CustomComponentSupply_.markingType));
+            }
             if (criteria.getCustomComponentId() != null) {
                 specification =
                     specification.and(

@@ -9,6 +9,12 @@
     {
       "fieldName": "description",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "markingType",
+      "fieldType": "MarkingType",
+      "fieldValues": "LIFTING,SPIRALLY_COLORED,LONGITUDINALLY_COLORED,RINGY_COLORED,NUMBERED",
+      "fieldValidateRules": ["required"]
     }
   ],
   "relationships": [
