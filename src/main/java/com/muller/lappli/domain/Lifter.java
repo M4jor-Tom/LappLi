@@ -91,7 +91,9 @@ public class Lifter implements Serializable {
     }
 
     public Boolean supportsSupply(AbstractLiftedSupply abstractLiftedSupply) throws UnknownClassException {
-        if (abstractLiftedSupply instanceof ElementSupply) {
+        if (abstractLiftedSupply instanceof CustomComponentSupply) {
+            return supportsCustomComponentSupply((CustomComponentSupply) abstractLiftedSupply);
+        } else if (abstractLiftedSupply instanceof ElementSupply) {
             return supportsElementSupply((ElementSupply) abstractLiftedSupply);
         } else if (abstractLiftedSupply instanceof BangleSupply) {
             return supportsBangleSupply((BangleSupply) abstractLiftedSupply);
@@ -100,10 +102,18 @@ public class Lifter implements Serializable {
         throw new UnknownClassException(abstractLiftedSupply.toString());
     }
 
+    public Boolean supportsCustomComponentSupply(CustomComponentSupply customComponentSupply) {
+        return (
+            supportsMarkingType(customComponentSupply.getMarkingType()) &&
+            supportsMilimeterDiameter(customComponentSupply.getMilimeterDiameter()) &&
+            supportsMarkingTechnique(customComponentSupply.getMarkingTechnique())
+        );
+    }
+
     public Boolean supportsElementSupply(ElementSupply elementSupply) {
         return (
             supportsMarkingType(elementSupply.getMarkingType()) &&
-            supportsMilimeterDiameter(elementSupply.getElement().getElementKind().getMilimeterDiameter()) &&
+            supportsMilimeterDiameter(elementSupply.getMilimeterDiameter()) &&
             supportsMarkingTechnique(elementSupply.getMarkingTechnique())
         );
     }
