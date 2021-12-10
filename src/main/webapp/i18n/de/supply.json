@@ -6,7 +6,9 @@
       "bestLiftersNames": "Beste Lifters",
       "meterPerHourSpeed": "Geshwindigkeit (m/h)",
       "formatedHourPreparationTime": "Vorbereitungszeit (h)",
-      "formatedHourExecutionTime": "Ausführungszeit (h)"
+      "formatedHourExecutionTime": "Ausführungszeit (h)",
+      "markingType": "Marking Type",
+      "markingTechnique": "Markierungstechnik"
     }
   }
 }

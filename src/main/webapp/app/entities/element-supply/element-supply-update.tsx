@@ -104,7 +104,7 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ id: string }>) 
                 }}
               />
               <ValidatedField
-                label={translate('lappLiApp.elementSupply.markingType')}
+                label={translate('lappLiApp.supply.markingType')}
                 id="element-supply-markingType"
                 name="markingType"
                 data-cy="markingType"

@@ -95,7 +95,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ id: str
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.customComponentSupply.apparitions')}
+                label={translate('lappLiApp.supply.apparitions')}
                 id="custom-component-supply-apparitions"
                 name="apparitions"
                 data-cy="apparitions"
@@ -106,14 +106,14 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ id: str
                 }}
               />
               <ValidatedField
-                label={translate('lappLiApp.customComponentSupply.description')}
+                label={translate('lappLiApp.supply.description')}
                 id="custom-component-supply-description"
                 name="description"
                 data-cy="description"
                 type="text"
               />
               <ValidatedField
-                label={translate('lappLiApp.customComponentSupply.markingType')}
+                label={translate('lappLiApp.supply.markingType')}
                 id="custom-component-supply-markingType"
                 name="markingType"
                 data-cy="markingType"

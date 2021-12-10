@@ -1,11 +1,8 @@
 import { ICustomComponent } from 'app/shared/model/custom-component.model';
-import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
+import { IAbstractMarkedLiftedSupply } from './abstract-marked-lifted-supply.model';
 
-export interface ICustomComponentSupply {
+export interface ICustomComponentSupply extends IAbstractMarkedLiftedSupply {
   id?: number;
-  apparitions?: number;
-  description?: string | null;
-  markingType?: MarkingType;
   customComponent?: ICustomComponent;
 }
 

@@ -31,19 +31,19 @@ export const CustomComponentSupplyDetail = (props: RouteComponentProps<{ id: str
           <dd>{customComponentSupplyEntity.id}</dd>
           <dt>
             <span id="apparitions">
-              <Translate contentKey="lappLiApp.customComponentSupply.apparitions">Apparitions</Translate>
+              <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
             </span>
           </dt>
           <dd>{customComponentSupplyEntity.apparitions}</dd>
           <dt>
             <span id="description">
-              <Translate contentKey="lappLiApp.customComponentSupply.description">Description</Translate>
+              <Translate contentKey="lappLiApp.supply.description">Description</Translate>
             </span>
           </dt>
           <dd>{customComponentSupplyEntity.description}</dd>
           <dt>
             <span id="markingType">
-              <Translate contentKey="lappLiApp.customComponentSupply.markingType">Marking Type</Translate>
+              <Translate contentKey="lappLiApp.supply.markingType">Marking Type</Translate>
             </span>
           </dt>
           <dd>{customComponentSupplyEntity.markingType}</dd>
@@ -51,6 +51,46 @@ export const CustomComponentSupplyDetail = (props: RouteComponentProps<{ id: str
             <Translate contentKey="lappLiApp.customComponentSupply.customComponent">Custom Component</Translate>
           </dt>
           <dd>{customComponentSupplyEntity.customComponent ? customComponentSupplyEntity.customComponent.designation : ''}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.dimension.meterQuantity">Quantity (m)</Translate>
+          </dt>
+          <dd>{customComponentSupplyEntity.meterQuantity}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.dimension.milimeterDiameter">Diameter (mm)</Translate>
+          </dt>
+          <dd>{customComponentSupplyEntity.customComponent?.milimeterDiameter}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.dimension.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
+          </dt>
+          <dd>{customComponentSupplyEntity.customComponent?.gramPerMeterLinearMass}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Lifter Names</Translate>
+          </dt>
+          <dd>{customComponentSupplyEntity.bestLiftersNames}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.customComponent.surfaceMaterial">Material</Translate>
+          </dt>
+          <dd>{customComponentSupplyEntity.customComponent?.surfaceMaterial?.designation}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.customComponent.surfaceColor">Color</Translate>
+          </dt>
+          <dd>{customComponentSupplyEntity.customComponent?.surfaceColor}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.supply.meterPerHourSpeed">Speed (m/h)</Translate>
+          </dt>
+          <dd>{customComponentSupplyEntity.meterPerHourSpeed}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.supply.formatedHourPreparationTime">PreparationTime (h)</Translate>
+          </dt>
+          <dd>{customComponentSupplyEntity.formatedHourPreparationTime}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.supply.formatedHourExecutionTime">Execution Time (h)</Translate>
+          </dt>
+          <dd>{customComponentSupplyEntity.formatedHourExecutionTime}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.supply.markingTechnique">Marking Technique</Translate>
+          </dt>
+          <dd>{customComponentSupplyEntity.markingTechnique}</dd>
         </dl>
         <Button tag={Link} to="/custom-component-supply" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

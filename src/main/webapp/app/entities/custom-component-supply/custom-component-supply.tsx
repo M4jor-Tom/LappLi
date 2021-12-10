@@ -50,16 +50,46 @@ export const CustomComponentSupply = (props: RouteComponentProps<{ url: string }
                   <Translate contentKey="lappLiApp.customComponentSupply.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.customComponentSupply.apparitions">Apparitions</Translate>
+                  <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.customComponentSupply.description">Description</Translate>
+                  <Translate contentKey="lappLiApp.supply.description">Description</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.customComponentSupply.markingType">Marking Type</Translate>
+                  <Translate contentKey="lappLiApp.supply.markingType">Marking Type</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.customComponentSupply.customComponent">Custom Component</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.dimension.meterQuantity">Quantity (m)</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.dimension.milimeterDiameter">Diameter (mm)</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.dimension.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Machines Names</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.customComponent.surfaceMaterial">Material</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.customComponent.surfaceColor">Color</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.supply.meterPerHourSpeed">Speed (m/h)</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.supply.formatedHourPreparationTime">Preparation Time (h)</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.supply.formatedHourExecutionTime">Execution Time (h)</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.supply.markingTechnique">Marking Technique</Translate>
                 </th>
                 <th />
               </tr>
@@ -86,6 +116,16 @@ export const CustomComponentSupply = (props: RouteComponentProps<{ url: string }
                       ''
                     )}
                   </td>
+                  <td>{customComponentSupply.meterQuantity}</td>
+                  <td>{customComponentSupply.customComponent.milimeterDiameter}</td>
+                  <td>{customComponentSupply.customComponent.gramPerMeterLinearMass}</td>
+                  <td>{customComponentSupply.bestLiftersNames}</td>
+                  <td>{customComponentSupply.customComponent.surfaceMaterial?.designation}</td>
+                  <td>{customComponentSupply.customComponent.surfaceColor}</td>
+                  <td>{customComponentSupply.meterPerHourSpeed}</td>
+                  <td>{customComponentSupply.formatedHourPreparationTime}</td>
+                  <td>{customComponentSupply.formatedHourExecutionTime}</td>
+                  <td>{customComponentSupply.markingTechnique}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button

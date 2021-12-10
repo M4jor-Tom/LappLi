@@ -44,7 +44,6 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply implements
     private CustomComponent customComponent;
 
     @Override
-    @JsonIgnore
     public Material getSurfaceMaterial() {
         try {
             return getCustomComponent().getSurfaceMaterial();
@@ -54,7 +53,6 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply implements
     }
 
     @Override
-    @JsonIgnore
     public Color getSurfaceColor() {
         try {
             return getCustomComponent().getSurfaceColor();
