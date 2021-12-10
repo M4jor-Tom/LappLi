@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssemblableAtom;
 import com.muller.lappli.domain.enumeration.Color;
@@ -50,31 +51,50 @@ public class Element extends AbstractAssemblableAtom implements Article, Seriali
     }*/
 
     @Override
+    @JsonIgnore
     public Double getMilimeterDiameter() {
         return getElementKind().getMilimeterDiameter();
     }
 
     @Override
+    @JsonIgnore
     public Double getGramPerMeterLinearMass() {
         return getElementKind().getGramPerMeterLinearMass();
     }
 
     @Override
+    @JsonIgnore
     public Long getArticleNumber() {
         return getNumber();
     }
 
     @Override
+    @JsonIgnore
     public String getDesignation() {
-        return getElementKind().getDesignation();
+        try {
+            return getElementKind().getDesignation();
+        } catch (NullPointerException e) {
+            return "";
+        }
     }
 
+    @JsonIgnore
+    public String getColorDesignation() {
+        try {
+            return getColor().getDesignation();
+        } catch (NullPointerException e) {
+            return "";
+        }
+    }
+
+    @JsonIgnoreProperties(allowGetters = true)
     public String getNumberWithDesignationWithColor() {
         return getNumber() + " - " + getDesignationWithColor();
     }
 
+    @JsonIgnoreProperties(allowGetters = true)
     public String getDesignationWithColor() {
-        return getElementKind().getDesignation() + " " + getColor().getDesignation();
+        return getDesignation() + " " + getColorDesignation();
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

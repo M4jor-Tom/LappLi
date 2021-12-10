@@ -1,5 +1,6 @@
 package com.muller.lappli.domain.abstracts;
 
+import com.muller.lappli.domain.DomainManager;
 import java.text.DecimalFormat;
 import javax.persistence.MappedSuperclass;
 
@@ -23,13 +24,6 @@ public abstract class AbstractSupply {
      * The speed at which a lifter is supposed to run at maximum
      */
     protected static final Long LIFTING_METER_PER_HOUR_SPEED = Long.valueOf(5000);
-
-    /**
-     * When displaying hours,
-     *
-     * this will be the post-comma count of decimals
-     */
-    private static final Long HOUR_DECIMAL_COUNT = Long.valueOf(2);
 
     /**
      * @return the apparitions of the CylindricComponent inside the final Cable
@@ -59,7 +53,7 @@ public abstract class AbstractSupply {
 
         String hourStringDecimals = "";
 
-        for (int i = 0; i < HOUR_DECIMAL_COUNT; i++) {
+        for (int i = 0; i < DomainManager.HOUR_DECIMAL_COUNT; i++) {
             hourStringDecimals += '#';
         }
 
@@ -70,7 +64,11 @@ public abstract class AbstractSupply {
      * @return the formated preparation time in hours of the supply operation
      */
     public Double getHourPreparationTime() {
-        return (5.0 * getApparitions() + 5) / 60.0;
+        try {
+            return (5.0 * getApparitions() + 5) / 60.0;
+        } catch (NullPointerException e) {
+            return Double.NaN;
+        }
     }
 
     /**
@@ -103,6 +101,10 @@ public abstract class AbstractSupply {
      * @return the necessary quantity of that CylindricComponent to make the final Cable
      */
     public Long getMeterQuantity() {
-        return AbstractSupply.UNITY_METRIC_QUANTITY * getApparitions();
+        try {
+            return AbstractSupply.UNITY_METRIC_QUANTITY * getApparitions();
+        } catch (NullPointerException e) {
+            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import java.io.Serializable;
@@ -53,13 +54,23 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
     }
 
     @Override
+    @JsonIgnore
     public Double getMilimeterDiameter() {
-        return getBangle().getMilimeterDiameter();
+        try {
+            return getBangle().getMilimeterDiameter();
+        } catch (NullPointerException e) {
+            return Double.NaN;
+        }
     }
 
     @Override
+    @JsonIgnore
     public Double getGramPerMeterLinearMass() {
-        return getBangle().getGramPerMeterLinearMass();
+        try {
+            return getBangle().getGramPerMeterLinearMass();
+        } catch (NullPointerException e) {
+            return Double.NaN;
+        }
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

@@ -10,8 +10,6 @@ export interface IElementSupply extends IAbstractLiftedSupply {
   element?: IElement;
   bestLiftersNames?: string;
   markingTechnique?: MarkingTechnique | null;
-
-  insulationMaterialDesignation?: string;
 }
 
 export const defaultValue: Readonly<IElementSupply> = {};

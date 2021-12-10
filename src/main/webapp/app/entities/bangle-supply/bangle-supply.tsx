@@ -100,8 +100,8 @@ export const BangleSupply = (props: RouteComponentProps<{ url: string }>) => {
                   </td>
                   <td>{bangleSupply.bangle.material.designation}</td>
                   <td>{bangleSupply.meterQuantity}</td>
-                  <td>{bangleSupply.milimeterDiameter}</td>
-                  <td>{bangleSupply.gramPerMeterLinearMass}</td>
+                  <td>{bangleSupply.bangle.milimeterDiameter}</td>
+                  <td>{bangleSupply.bangle.gramPerMeterLinearMass}</td>
                   <td>{bangleSupply.bestLiftersNames}</td>
                   <td>{bangleSupply.meterPerHourSpeed}</td>
                   <td>{bangleSupply.formatedHourPreparationTime}</td>
