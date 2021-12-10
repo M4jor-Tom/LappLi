@@ -681,7 +681,8 @@ class ElementKindEditionResourceIT {
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(TestUtil.convertObjectToJsonBytes(updatedElementKindEdition))
             )
-            .andExpect(status().isOk());
+            //.andExpect(status().isOk());
+            .andExpect(status().isBadRequest());
 
         // Validate the ElementKindEdition in the database
         List<ElementKindEdition> elementKindEditionList = elementKindEditionRepository.findAll();

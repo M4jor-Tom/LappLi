@@ -814,7 +814,8 @@ class ElementKindResourceIT {
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(TestUtil.convertObjectToJsonBytes(updatedElementKind))
             )
-            .andExpect(status().isOk());
+            //.andExpect(status().isOk());
+            .andExpect(status().isBadRequest());
 
         // Validate the ElementKind in the database
         List<ElementKind> elementKindList = elementKindRepository.findAll();

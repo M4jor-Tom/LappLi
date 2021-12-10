@@ -109,7 +109,7 @@ public class ElementKindEditionResource {
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, elementKindEdition.getId().toString()))
             .body(result);*/
-        return null;
+        return ResponseEntity.badRequest().body(elementKindEdition);
     }
 
     /**
@@ -146,7 +146,7 @@ public class ElementKindEditionResource {
             result,
             HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, elementKindEdition.getId().toString())
         );*/
-        return null;
+        return ResponseUtil.wrapOrNotFound(Optional.empty());
     }
 
     /**
@@ -206,6 +206,6 @@ public class ElementKindEditionResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();*/
-        return null;
+        return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName, "Can't delete", ENTITY_NAME)).build();
     }
 }
