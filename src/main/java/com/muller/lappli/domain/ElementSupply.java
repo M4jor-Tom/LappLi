@@ -60,7 +60,7 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
     }*/
 
     @Override
-    @JsonIgnore
+    @JsonIgnoreProperties(allowGetters = true)
     public Double getMeterPerHourSpeed() {
         if (MarkingType.LIFTING.equals(getMarkingType())) {
             return Double.valueOf(Math.max(getBestMarkingMaterialStatistic().getMeterPerHourSpeed(), LIFTING_METER_PER_HOUR_SPEED));
@@ -106,7 +106,7 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
             );
     }
 
-    @JsonIgnore
+    @JsonIgnoreProperties(allowGetters = true)
     public MarkingTechnique getMarkingTechnique() {
         if (!MarkingType.NUMBERED.equals(getMarkingType())) {
             //A marking technique is necessary when something is written only
