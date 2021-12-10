@@ -1,0 +1,41 @@
+{
+  "name": "CustomComponent",
+  "fields": [
+    {
+      "fieldName": "number",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "designation",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "gramPerMeterLinearMass",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "milimeterDiameter",
+      "fieldType": "Double"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "material",
+      "otherEntityRelationshipName": "customComponent",
+      "relationshipValidateRules": "required",
+      "relationshipName": "surfaceMaterial",
+      "otherEntityField": "designation"
+    }
+  ],
+  "entityTableName": "custom_component",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211210125919"
+}

@@ -1,0 +1,26 @@
+{
+  "lappLiApp": {
+    "customComponentSupply": {
+      "home": {
+        "title": "CustomComponentSupplies",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Custom Component Supply",
+        "createOrEditLabel": "Créer ou éditer un Custom Component Supply",
+        "notFound": "Aucun Custom Component Supply trouvé"
+      },
+      "created": "Un nouveau Custom Component Supply a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Custom Component Supply avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Custom Component Supply avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Custom Component Supply {{ id }} ?"
+      },
+      "detail": {
+        "title": "Custom Component Supply"
+      },
+      "id": "ID",
+      "apparitions": "Apparitions",
+      "description": "Description",
+      "customComponent": "Custom Component"
+    }
+  }
+}
