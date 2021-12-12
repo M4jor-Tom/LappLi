@@ -87,10 +87,6 @@ public class ElementKindEditionService extends AbstractEditionService<ElementKin
         log.debug("Request to get all ElementKindEditions");
         List<ElementKindEdition> elementKindEditionList = elementKindEditionRepository.findAll();
 
-        for (ElementKindEdition elementKindEdition : elementKindEditionList) {
-            elementKindEdition.forceNotNull();
-        }
-
         return elementKindEditionList;
     }
 

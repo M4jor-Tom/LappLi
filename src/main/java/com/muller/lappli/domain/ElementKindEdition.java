@@ -2,7 +2,6 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractEdition;
-import com.muller.lappli.domain.interfaces.NotNullForceable;
 import java.io.Serializable;
 import java.time.Instant;
 import javax.persistence.*;
@@ -19,7 +18,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element_kind_edition")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ElementKindEdition extends AbstractEdition<ElementKind> implements NotNullForceable<ElementKindEdition>, Serializable {
+public class ElementKindEdition extends AbstractEdition<ElementKind> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -95,30 +94,6 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
     @Override
     protected void setEditionInstant(Instant editionInstant) {
         setEditionDateTime(editionInstant);
-    }
-
-    @Override
-    public ElementKindEdition forceNotNull() {
-        /*if (getEditionDateTime() == null) {
-            epochEditionTime();
-        }
-        if (getEditedElementKind() == null) {
-            setEditedElementKind(new ElementKind());
-        }
-        if (getNewGramPerMeterLinearMass() == null) {
-            setNewGramPerMeterLinearMass(Double.NaN);
-        }
-        if (getNewMilimeterDiameter() == null) {
-            setNewMilimeterDiameter(Double.NaN);
-        }
-        if (getNewInsulationThickness() == null) {
-            setNewInsulationThickness(Double.NaN);
-        }
-        if (getEditedElementKind() == null) {
-            setEditedElementKind(new ElementKind());
-        }*/
-
-        return this;
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
