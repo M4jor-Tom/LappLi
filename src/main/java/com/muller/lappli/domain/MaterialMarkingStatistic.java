@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.mapstruct.ap.shaded.freemarker.template.utility.NullArgumentException;
 
 /**
  * A MaterialMarkingStatistic.
@@ -93,7 +94,7 @@ public class MaterialMarkingStatistic implements Serializable {
 
     public void setMarkingTechnique(MarkingTechnique markingTechnique) {
         if (markingTechnique == null) {
-            throw new IllegalArgumentException("MaterialMarkingStatistic.markingTechnic = null");
+            (new NullArgumentException("MaterialMarkingStatistic.markingTechnic = null")).printStackTrace();
         } else if (
             //NONE_SUITABLE means we don't test anything, it's okay
             !MarkingTechnique.NONE_SUITABLE.equals(markingTechnique) &&
