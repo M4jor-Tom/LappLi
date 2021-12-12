@@ -821,10 +821,10 @@ class ElementKindResourceIT {
         List<ElementKind> elementKindList = elementKindRepository.findAll();
         assertThat(elementKindList).hasSize(databaseSizeBeforeUpdate);
         ElementKind testElementKind = elementKindList.get(elementKindList.size() - 1);
-        assertThat(testElementKind.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
-        assertThat(testElementKind.getGramPerMeterLinearMass()).isEqualTo(UPDATED_GRAM_PER_METER_LINEAR_MASS);
-        assertThat(testElementKind.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
-        assertThat(testElementKind.getInsulationThickness()).isEqualTo(UPDATED_INSULATION_THICKNESS);
+        assertThat(testElementKind.getDesignation()).isEqualTo(DEFAULT_DESIGNATION); //UPDATED_DESIGNATION);
+        assertThat(testElementKind.getGramPerMeterLinearMass()).isEqualTo(DEFAULT_GRAM_PER_METER_LINEAR_MASS); //UPDATED_GRAM_PER_METER_LINEAR_MASS);
+        assertThat(testElementKind.getMilimeterDiameter()).isEqualTo(DEFAULT_MILIMETER_DIAMETER); //UPDATED_MILIMETER_DIAMETER);
+        assertThat(testElementKind.getInsulationThickness()).isEqualTo(DEFAULT_INSULATION_THICKNESS); //UPDATED_INSULATION_THICKNESS);
     }
 
     /*
