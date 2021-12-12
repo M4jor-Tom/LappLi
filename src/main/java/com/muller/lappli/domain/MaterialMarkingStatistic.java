@@ -83,10 +83,6 @@ public class MaterialMarkingStatistic implements Serializable {
     }
 
     public MarkingTechnique getMarkingTechnique() {
-        if (!MarkingType.NUMBERED.equals(getMarkingType())) {
-            return MarkingTechnique.NONE;
-        }
-
         return this.markingTechnique;
     }
 
@@ -96,26 +92,26 @@ public class MaterialMarkingStatistic implements Serializable {
     }
 
     public void setMarkingTechnique(MarkingTechnique markingTechnique) {
-        if (MarkingTechnique.NONE_SUITABLE.equals(markingTechnique)) {
+        if (markingTechnique == null) {
+            throw new IllegalArgumentException("MaterialMarkingStatistic.markingTechnic = null");
+        } else if (MarkingTechnique.NONE_SUITABLE.equals(markingTechnique)) {
             //No control here, NONE_SUITABLE says enough
-            this.markingTechnique = markingTechnique;
-        } else if (MarkingType.NUMBERED.equals(getMarkingType())) {
-            this.markingTechnique = markingTechnique;
 
+        } else if (MarkingType.NUMBERED.equals(getMarkingType())) {
             if (MarkingTechnique.NONE.equals(markingTechnique)) {
                 //If marking type is NUMBERED, then marking technique
                 //shall be among RSD, INK_JET, and NONE_SUITABLE
                 (new Exception("NoneMarkingTechniqueForMarkingTypeNumbered")).printStackTrace();
             }
         } else {
-            this.markingTechnique = MarkingTechnique.NONE;
-
             if (!MarkingTechnique.NONE.equals(markingTechnique)) {
                 //If the marking type is not NUMBERED, then
                 //the marking technique must be NONE(_SUITABLE)
                 (new Exception("ExistingMarkingTechniqueForMarkingTypeNotNumbered")).printStackTrace();
             }
         }
+
+        this.markingTechnique = markingTechnique;
     }
 
     public Long getMeterPerHourSpeed() {
