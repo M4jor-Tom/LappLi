@@ -94,21 +94,21 @@ public class MaterialMarkingStatistic implements Serializable {
     public void setMarkingTechnique(MarkingTechnique markingTechnique) {
         if (markingTechnique == null) {
             throw new IllegalArgumentException("MaterialMarkingStatistic.markingTechnic = null");
-        } else if (MarkingTechnique.NONE_SUITABLE.equals(markingTechnique)) {
-            //No control here, NONE_SUITABLE says enough
-
-        } else if (MarkingType.NUMBERED.equals(getMarkingType())) {
-            if (MarkingTechnique.NONE.equals(markingTechnique)) {
-                //If marking type is NUMBERED, then marking technique
-                //shall be among RSD, INK_JET, and NONE_SUITABLE
-                (new Exception("NoneMarkingTechniqueForMarkingTypeNumbered")).printStackTrace();
-            }
-        } else {
-            if (!MarkingTechnique.NONE.equals(markingTechnique)) {
-                //If the marking type is not NUMBERED, then
-                //the marking technique must be NONE(_SUITABLE)
-                (new Exception("ExistingMarkingTechniqueForMarkingTypeNotNumbered")).printStackTrace();
-            }
+        } else if (
+            //NONE_SUITABLE means we don't test anything, it's okay
+            !MarkingTechnique.NONE_SUITABLE.equals(markingTechnique) &&
+            //NUMBERED markingType means that...
+            MarkingType.NUMBERED.equals(getMarkingType()) &&
+            //markingTechnique must not be NONE
+            MarkingTechnique.NONE.equals(markingTechnique)
+        ) {
+            //If marking type is NUMBERED, then marking technique
+            //shall be among RSD, INK_JET, and NONE_SUITABLE
+            (new Exception("NoneMarkingTechniqueForMarkingTypeNumbered")).printStackTrace();
+        } else if (!MarkingTechnique.NONE.equals(markingTechnique)) {
+            //If the marking type is not NUMBERED, then
+            //the marking technique must be NONE(_SUITABLE)
+            (new Exception("ExistingMarkingTechniqueForMarkingTypeNotNumbered")).printStackTrace();
         }
 
         this.markingTechnique = markingTechnique;
