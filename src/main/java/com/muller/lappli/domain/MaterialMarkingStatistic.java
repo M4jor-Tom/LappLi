@@ -97,7 +97,8 @@ public class MaterialMarkingStatistic implements Serializable {
             (new NullArgumentException("MaterialMarkingStatistic.markingTechnic = null")).printStackTrace();
         } else if (
             //NONE_SUITABLE means we don't test anything, it's okay
-            !MarkingTechnique.NONE_SUITABLE.equals(markingTechnique) &&
+            MarkingTechnique.NONE_SUITABLE.equals(markingTechnique)
+        ) {} else if (
             //NUMBERED markingType means that...
             MarkingType.NUMBERED.equals(getMarkingType()) &&
             //markingTechnique must not be NONE
