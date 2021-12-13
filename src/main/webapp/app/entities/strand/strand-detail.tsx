@@ -48,6 +48,7 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>
             <div className="table-responsive">
+              {/* [DUPLICATE] */}
               {(strandEntity.customComponentSupplies && strandEntity.customComponentSupplies.length > 0) ||
               (strandEntity.bangleSupplies && strandEntity.bangleSupplies.length > 0) ||
               (strandEntity.elementSupplies && strandEntity.elementSupplies.length > 0) ? (
@@ -103,8 +104,6 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {' '}
-                    {/* [DUPLICATE] */}
                     {strandEntity.customComponentSupplies.map((customComponentSupply, i) => (
                       <>
                         <tr>
