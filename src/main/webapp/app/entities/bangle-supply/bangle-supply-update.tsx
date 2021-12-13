@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IBangle } from 'app/shared/model/bangle.model';
 import { getEntities as getBangles } from 'app/entities/bangle/bangle.reducer';
+import { IStrand } from 'app/shared/model/strand.model';
+import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './bangle-supply.reducer';
 import { IBangleSupply } from 'app/shared/model/bangle-supply.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -18,6 +20,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
   const bangles = useAppSelector(state => state.bangle.entities);
+  const strands = useAppSelector(state => state.strand.entities);
   const bangleSupplyEntity = useAppSelector(state => state.bangleSupply.entity);
   const loading = useAppSelector(state => state.bangleSupply.loading);
   const updating = useAppSelector(state => state.bangleSupply.updating);
@@ -34,6 +37,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
     }
 
     dispatch(getBangles({}));
+    dispatch(getStrands({}));
   }, []);
 
   useEffect(() => {
@@ -47,6 +51,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
       ...bangleSupplyEntity,
       ...values,
       bangle: bangles.find(it => it.id.toString() === values.bangle.toString()),
+      strand: strands.find(it => it.id.toString() === values.strand.toString()),
     };
 
     if (isNew) {
@@ -62,6 +67,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
       : {
           ...bangleSupplyEntity,
           bangle: bangleSupplyEntity?.bangle?.id,
+          strand: bangleSupplyEntity?.strand?.id,
         };
 
   return (
@@ -90,7 +96,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.supply.apparitions')}
+                label={translate('lappLiApp.bangleSupply.apparitions')}
                 id="bangle-supply-apparitions"
                 name="apparitions"
                 data-cy="apparitions"
@@ -101,7 +107,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
                 }}
               />
               <ValidatedField
-                label={translate('lappLiApp.supply.description')}
+                label={translate('lappLiApp.bangleSupply.description')}
                 id="bangle-supply-description"
                 name="description"
                 data-cy="description"
@@ -118,6 +124,26 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
                 <option value="" key="0" />
                 {bangles
                   ? bangles.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.designation}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
+              <ValidatedField
+                id="bangle-supply-strand"
+                name="strand"
+                data-cy="strand"
+                label={translate('lappLiApp.bangleSupply.strand')}
+                type="select"
+                required
+              >
+                <option value="" key="0" />
+                {strands
+                  ? strands.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.designation}
                       </option>

@@ -1,0 +1,13 @@
+{
+  "lappLiApp": {
+    "OperationType": {
+      "null": "",
+      "TAPE": "TAPE",
+      "SCREEN": "SCREEN",
+      "BRAID": "BRAID",
+      "ASSEMBLY": "ASSEMBLY",
+      "INSULATION": "INSULATION",
+      "SHEATH": "SHEATH"
+    }
+  }
+}

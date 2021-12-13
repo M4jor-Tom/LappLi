@@ -103,6 +103,15 @@ public class CustomComponentSupplyQueryService extends QueryService<CustomCompon
                         )
                     );
             }
+            if (criteria.getStrandId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getStrandId(),
+                            root -> root.join(CustomComponentSupply_.strand, JoinType.LEFT).get(Strand_.id)
+                        )
+                    );
+            }
         }
         return specification;
     }

@@ -43,6 +43,11 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply implements
     //@JsonIgnoreProperties(value = { "surfaceMaterial" }, allowSetters = true)
     private CustomComponent customComponent;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "elementSupplies", "bangleSupplies", "customComponentSupplies" }, allowSetters = true)
+    private Strand strand;
+
     @Override
     public Material getSurfaceMaterial() {
         try {
@@ -137,6 +142,19 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply implements
 
     public CustomComponentSupply customComponent(CustomComponent customComponent) {
         this.setCustomComponent(customComponent);
+        return this;
+    }
+
+    public Strand getStrand() {
+        return this.strand;
+    }
+
+    public void setStrand(Strand strand) {
+        this.strand = strand;
+    }
+
+    public CustomComponentSupply strand(Strand strand) {
+        this.setStrand(strand);
         return this;
     }
 

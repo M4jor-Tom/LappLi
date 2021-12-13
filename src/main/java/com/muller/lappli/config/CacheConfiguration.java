@@ -62,6 +62,10 @@ public class CacheConfiguration {
             createCache(cm, com.muller.lappli.domain.MaterialMarkingStatistic.class.getName());
             createCache(cm, com.muller.lappli.domain.CustomComponentSupply.class.getName());
             createCache(cm, com.muller.lappli.domain.CustomComponent.class.getName());
+            createCache(cm, com.muller.lappli.domain.Strand.class.getName());
+            createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".elementSupplies");
+            createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".bangleSupplies");
+            createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".customComponentSupplies");
             // jhipster-needle-ehcache-add-entry
         };
     }

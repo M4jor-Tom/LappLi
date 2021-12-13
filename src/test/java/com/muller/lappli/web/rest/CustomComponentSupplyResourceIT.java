@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.CustomComponent;
 import com.muller.lappli.domain.CustomComponentSupply;
+import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.repository.CustomComponentSupplyRepository;
 import com.muller.lappli.service.criteria.CustomComponentSupplyCriteria;
@@ -80,6 +81,16 @@ class CustomComponentSupplyResourceIT {
             customComponent = TestUtil.findAll(em, CustomComponent.class).get(0);
         }
         customComponentSupply.setCustomComponent(customComponent);
+        // Add required entity
+        Strand strand;
+        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
+            strand = StrandResourceIT.createEntity(em);
+            em.persist(strand);
+            em.flush();
+        } else {
+            strand = TestUtil.findAll(em, Strand.class).get(0);
+        }
+        customComponentSupply.setStrand(strand);
         return customComponentSupply;
     }
 
@@ -104,6 +115,16 @@ class CustomComponentSupplyResourceIT {
             customComponent = TestUtil.findAll(em, CustomComponent.class).get(0);
         }
         customComponentSupply.setCustomComponent(customComponent);
+        // Add required entity
+        Strand strand;
+        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
+            strand = StrandResourceIT.createUpdatedEntity(em);
+            em.persist(strand);
+            em.flush();
+        } else {
+            strand = TestUtil.findAll(em, Strand.class).get(0);
+        }
+        customComponentSupply.setStrand(strand);
         return customComponentSupply;
     }
 
@@ -508,6 +529,32 @@ class CustomComponentSupplyResourceIT {
 
         // Get all the customComponentSupplyList where customComponent equals to (customComponentId + 1)
         defaultCustomComponentSupplyShouldNotBeFound("customComponentId.equals=" + (customComponentId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllCustomComponentSuppliesByStrandIsEqualToSomething() throws Exception {
+        // Initialize the database
+        customComponentSupplyRepository.saveAndFlush(customComponentSupply);
+        Strand strand;
+        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
+            strand = StrandResourceIT.createEntity(em);
+            em.persist(strand);
+            em.flush();
+        } else {
+            strand = TestUtil.findAll(em, Strand.class).get(0);
+        }
+        em.persist(strand);
+        em.flush();
+        customComponentSupply.setStrand(strand);
+        customComponentSupplyRepository.saveAndFlush(customComponentSupply);
+        Long strandId = strand.getId();
+
+        // Get all the customComponentSupplyList where strand equals to strandId
+        defaultCustomComponentSupplyShouldBeFound("strandId.equals=" + strandId);
+
+        // Get all the customComponentSupplyList where strand equals to (strandId + 1)
+        defaultCustomComponentSupplyShouldNotBeFound("strandId.equals=" + (strandId + 1));
     }
 
     /**

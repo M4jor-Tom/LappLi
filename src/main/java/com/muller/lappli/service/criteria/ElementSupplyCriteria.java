@@ -52,6 +52,8 @@ public class ElementSupplyCriteria implements Serializable, Criteria {
 
     private LongFilter elementId;
 
+    private LongFilter strandId;
+
     private Boolean distinct;
 
     public ElementSupplyCriteria() {}
@@ -62,6 +64,7 @@ public class ElementSupplyCriteria implements Serializable, Criteria {
         this.markingType = other.markingType == null ? null : other.markingType.copy();
         this.description = other.description == null ? null : other.description.copy();
         this.elementId = other.elementId == null ? null : other.elementId.copy();
+        this.strandId = other.strandId == null ? null : other.strandId.copy();
         this.distinct = other.distinct;
     }
 
@@ -145,6 +148,21 @@ public class ElementSupplyCriteria implements Serializable, Criteria {
         this.elementId = elementId;
     }
 
+    public LongFilter getStrandId() {
+        return strandId;
+    }
+
+    public LongFilter strandId() {
+        if (strandId == null) {
+            strandId = new LongFilter();
+        }
+        return strandId;
+    }
+
+    public void setStrandId(LongFilter strandId) {
+        this.strandId = strandId;
+    }
+
     public Boolean getDistinct() {
         return distinct;
     }
@@ -168,13 +186,14 @@ public class ElementSupplyCriteria implements Serializable, Criteria {
             Objects.equals(markingType, that.markingType) &&
             Objects.equals(description, that.description) &&
             Objects.equals(elementId, that.elementId) &&
+            Objects.equals(strandId, that.strandId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, apparitions, markingType, description, elementId, distinct);
+        return Objects.hash(id, apparitions, markingType, description, elementId, strandId, distinct);
     }
 
     // prettier-ignore
@@ -186,6 +205,7 @@ public class ElementSupplyCriteria implements Serializable, Criteria {
             (markingType != null ? "markingType=" + markingType + ", " : "") +
             (description != null ? "description=" + description + ", " : "") +
             (elementId != null ? "elementId=" + elementId + ", " : "") +
+            (strandId != null ? "strandId=" + strandId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

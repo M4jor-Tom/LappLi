@@ -19,6 +19,14 @@
       "relationshipValidateRules": "required",
       "relationshipName": "bangle",
       "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "strand",
+      "otherEntityRelationshipName": "bangleSupplies",
+      "relationshipValidateRules": "required",
+      "relationshipName": "strand",
+      "otherEntityField": "designation"
     }
   ],
   "entityTableName": "bangle_supply",

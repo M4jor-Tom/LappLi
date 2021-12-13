@@ -21,7 +21,8 @@
       "apparitions": "Apparitions",
       "description": "Description",
       "markingType": "Marking Type",
-      "customComponent": "Custom Component"
+      "customComponent": "Custom Component",
+      "strand": "Strand"
     }
   }
 }

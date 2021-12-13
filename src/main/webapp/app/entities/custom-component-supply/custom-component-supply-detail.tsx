@@ -91,6 +91,10 @@ export const CustomComponentSupplyDetail = (props: RouteComponentProps<{ id: str
             <Translate contentKey="lappLiApp.supply.markingTechnique">Marking Technique</Translate>
           </dt>
           <dd>{customComponentSupplyEntity.markingTechnique}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.customComponentSupply.strand">Strand</Translate>
+          </dt>
+          <dd>{customComponentSupplyEntity.strand ? customComponentSupplyEntity.strand.designation : ''}</dd>
         </dl>
         <Button tag={Link} to="/custom-component-supply" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

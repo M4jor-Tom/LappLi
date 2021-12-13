@@ -2,6 +2,26 @@ filter *
 
 service * with serviceImpl
 
+entity Strand {
+    designation String required
+	housingOperationType OperationType
+}
+
+relationship OneToMany {
+	Strand{elementSupplies(designation)} to ElementSupply{strand(designation) required}
+    Strand{bangleSupplies(designation)} to BangleSupply{strand(designation) required}
+    Strand{customComponentSupplies(designation)} to CustomComponentSupply{strand(designation) required}
+}
+
+enum OperationType {
+	TAPE,
+    SCREEN,
+    BRAID,
+    ASSEMBLY,
+    INSULATION,
+    SHEATH
+}
+
 entity Lifter {
 	index Long unique required
 	minimumMilimeterDiameter Double required
