@@ -53,28 +53,72 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
               (strandEntity.elementSupplies && strandEntity.elementSupplies.length > 0) ? (
                 <Table responsive>
                   <thead>
-                    <tr></tr>
+                    <tr>
+                      <th>
+                        <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
+                      </th>
+                      <th>
+                        <Translate contentKey="lappLiApp.supply.markingType">Marking Type</Translate>
+                      </th>
+                      <th>
+                        <Translate contentKey="lappLiApp.article.number">Article Number</Translate>
+                      </th>
+                      <th>
+                        <Translate contentKey="lappLiApp.article.designation">Designation</Translate>
+                      </th>
+                      <th>
+                        <Translate contentKey="lappLiApp.supply.description">Description</Translate>
+                      </th>
+                      <th>
+                        <Translate contentKey="lappLiApp.dimension.meterQuantity">Quantity (m)</Translate>
+                      </th>
+                      <th>
+                        <Translate contentKey="lappLiApp.dimension.milimeterDiameter">Diameter (mm)</Translate>
+                      </th>
+                      <th>
+                        <Translate contentKey="lappLiApp.dimension.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
+                      </th>
+                      <th>
+                        <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Machines Names</Translate>
+                      </th>
+                      <th>
+                        <Translate contentKey="lappLiApp.supply.surfaceMaterial">Surface Material</Translate>
+                      </th>
+                      <th>
+                        <Translate contentKey="lappLiApp.supply.surfaceColor">Surface Color</Translate>
+                      </th>
+                      <th>
+                        <Translate contentKey="lappLiApp.supply.meterPerHourSpeed">Speed (m/h)</Translate>
+                      </th>
+                      <th>
+                        <Translate contentKey="lappLiApp.supply.formatedHourPreparationTime">Preparation Time (h)</Translate>
+                      </th>
+                      <th>
+                        <Translate contentKey="lappLiApp.supply.formatedHourExecutionTime">Execution Time (h)</Translate>
+                      </th>
+                      <th>
+                        <Translate contentKey="lappLiApp.supply.markingTechnique">Marking Technique</Translate>
+                      </th>
+                      <th />
+                    </tr>
                   </thead>
                   <tbody>
                     {' '}
-                    {/*[DUPLICATE]*/}
+                    {/* [DUPLICATE] */}
                     {strandEntity.customComponentSupplies.map((customComponentSupply, i) => (
                       <>
                         <tr>
                           <td>{customComponentSupply.apparitions}</td>
-                          <td>{customComponentSupply.description}</td>
                           <td>
                             <Translate contentKey={`lappLiApp.MarkingType.${customComponentSupply.markingType}`} />
                           </td>
+                          <td>{customComponentSupply.customComponent.number}</td>
                           <td>
-                            {customComponentSupply.customComponent ? (
-                              <Link to={`custom-component/${customComponentSupply.customComponent.id}`}>
-                                {customComponentSupply.customComponent.designation}
-                              </Link>
-                            ) : (
-                              ''
-                            )}
+                            <Link to={`custom-component/${customComponentSupply.customComponent.id}`}>
+                              {customComponentSupply.customComponent.designation}
+                            </Link>
                           </td>
+                          <td>{customComponentSupply.description}</td>
                           <td>{customComponentSupply.meterQuantity}</td>
                           <td>{customComponentSupply.customComponent.milimeterDiameter}</td>
                           <td>{customComponentSupply.customComponent.gramPerMeterLinearMass}</td>
@@ -92,22 +136,24 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
                       <>
                         <tr>
                           <td>{bangleSupply.apparitions}</td>
-                          <td>{bangleSupply.description}</td>
+                          <td>{/* MarkingType, absent for bangles */}</td>
                           <td>
-                            {bangleSupply.bangle ? (
-                              <Link to={`bangle/${bangleSupply.bangle.id}`}>{bangleSupply.bangle.designation}</Link>
-                            ) : (
-                              ''
-                            )}
+                            <Link to={`bangle/${bangleSupply.bangle.id}`}>{bangleSupply.bangle.number}</Link>
                           </td>
-                          <td>{bangleSupply.bangle.material.designation}</td>
+                          <td>
+                            <Link to={`bangle/${bangleSupply.bangle.id}`}>{bangleSupply.bangle.designation}</Link>
+                          </td>
+                          <td>{bangleSupply.description}</td>
                           <td>{bangleSupply.meterQuantity}</td>
                           <td>{bangleSupply.bangle.milimeterDiameter}</td>
                           <td>{bangleSupply.bangle.gramPerMeterLinearMass}</td>
                           <td>{bangleSupply.bestLiftersNames}</td>
+                          <td>{bangleSupply.bangle.material.designation}</td>
+                          <td>{/* surfaceColor, absent for bangles */}</td>
                           <td>{bangleSupply.meterPerHourSpeed}</td>
                           <td>{bangleSupply.formatedHourPreparationTime}</td>
                           <td>{bangleSupply.formatedHourExecutionTime}</td>
+                          <td>{/* MarkingTechnique, absent for bangles */}</td>
                         </tr>
                       </>
                     ))}
@@ -119,18 +165,10 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
                             <Translate contentKey={`lappLiApp.MarkingType.${elementSupply.markingType}`} />
                           </td>
                           <td>
-                            {elementSupply.element ? (
-                              <Link to={`element/${elementSupply.element.id}`}>{elementSupply.element.number}</Link>
-                            ) : (
-                              ''
-                            )}
+                            <Link to={`element/${elementSupply.element.id}`}>{elementSupply.element.number}</Link>
                           </td>
                           <td>
-                            {elementSupply.element ? (
-                              <Link to={`element/${elementSupply.element.id}`}>{elementSupply.element.designationWithColor}</Link>
-                            ) : (
-                              ''
-                            )}
+                            <Link to={`element/${elementSupply.element.id}`}>{elementSupply.element.designationWithColor}</Link>
                           </td>
                           <td>{elementSupply.description}</td>
                           <td>{elementSupply.meterQuantity}</td>
@@ -138,6 +176,7 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
                           <td>{elementSupply.element.elementKind.gramPerMeterLinearMass}</td>
                           <td>{elementSupply.bestLiftersNames}</td>
                           <td>{elementSupply.element.elementKind.insulationMaterial.designation}</td>
+                          <td>{elementSupply.element.color}</td>
                           <td>{elementSupply.meterPerHourSpeed}</td>
                           <td>{elementSupply.formatedHourPreparationTime}</td>
                           <td>{elementSupply.formatedHourExecutionTime}</td>
