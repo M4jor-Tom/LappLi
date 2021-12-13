@@ -71,6 +71,16 @@ class ISupplyResourceIT {
             .apparitions(DEFAULT_APPARITIONS)
             .milimeterDiameter(DEFAULT_MILIMETER_DIAMETER)
             .gramPerMeterLinearMass(DEFAULT_GRAM_PER_METER_LINEAR_MASS);
+        // Add required entity
+        Strand strand;
+        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
+            strand = StrandResourceIT.createEntity(em);
+            em.persist(strand);
+            em.flush();
+        } else {
+            strand = TestUtil.findAll(em, Strand.class).get(0);
+        }
+        iSupply.setStrand(strand);
         return iSupply;
     }
 
@@ -85,6 +95,16 @@ class ISupplyResourceIT {
             .apparitions(UPDATED_APPARITIONS)
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
             .gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS);
+        // Add required entity
+        Strand strand;
+        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
+            strand = StrandResourceIT.createUpdatedEntity(em);
+            em.persist(strand);
+            em.flush();
+        } else {
+            strand = TestUtil.findAll(em, Strand.class).get(0);
+        }
+        iSupply.setStrand(strand);
         return iSupply;
     }
 

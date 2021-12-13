@@ -34,7 +34,8 @@ public class ISupply implements Serializable {
     @Column(name = "gram_per_meter_linear_mass", nullable = false)
     private Double gramPerMeterLinearMass;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     @JsonIgnoreProperties(value = { "supplies" }, allowSetters = true)
     private Strand strand;
 

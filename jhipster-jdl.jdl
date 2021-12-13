@@ -14,7 +14,7 @@ entity ISupply {
 }
 
 relationship OneToMany {
-	Strand{supplies(designation)} to ISupply{strand(designation)}
+	Strand{supplies(designation)} to ISupply{strand(designation) required}
 }
 
 enum OperationType {

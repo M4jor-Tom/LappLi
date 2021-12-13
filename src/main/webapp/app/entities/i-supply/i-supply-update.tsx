@@ -128,6 +128,7 @@ export const ISupplyUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 data-cy="strand"
                 label={translate('lappLiApp.iSupply.strand')}
                 type="select"
+                required
               >
                 <option value="" key="0" />
                 {strands
@@ -138,6 +139,9 @@ export const ISupplyUpdate = (props: RouteComponentProps<{ id: string }>) => {
                     ))
                   : null}
               </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/i-supply" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

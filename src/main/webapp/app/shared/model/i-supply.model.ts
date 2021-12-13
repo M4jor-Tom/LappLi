@@ -5,7 +5,7 @@ export interface IISupply {
   apparitions?: number;
   milimeterDiameter?: number;
   gramPerMeterLinearMass?: number;
-  strand?: IStrand | null;
+  strand?: IStrand;
 }
 
 export const defaultValue: Readonly<IISupply> = {};

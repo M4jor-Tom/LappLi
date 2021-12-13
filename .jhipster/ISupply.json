@@ -22,6 +22,7 @@
       "relationshipType": "many-to-one",
       "otherEntityName": "strand",
       "otherEntityRelationshipName": "supplies",
+      "relationshipValidateRules": "required",
       "relationshipName": "strand",
       "otherEntityField": "designation"
     }
