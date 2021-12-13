@@ -37,6 +37,10 @@ import materialMarkingStatistic from 'app/entities/material-marking-statistic/ma
 import customComponentSupply from 'app/entities/custom-component-supply/custom-component-supply.reducer';
 // prettier-ignore
 import customComponent from 'app/entities/custom-component/custom-component.reducer';
+// prettier-ignore
+import strand from 'app/entities/strand/strand.reducer';
+// prettier-ignore
+import iSupply from 'app/entities/i-supply/i-supply.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -63,6 +67,8 @@ const rootReducer = {
   materialMarkingStatistic,
   customComponentSupply,
   customComponent,
+  strand,
+  iSupply,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };

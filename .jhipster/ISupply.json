@@ -1,0 +1,39 @@
+{
+  "name": "ISupply",
+  "fields": [
+    {
+      "fieldName": "apparitions",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "milimeterDiameter",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "gramPerMeterLinearMass",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "strand",
+      "otherEntityRelationshipName": "supplies",
+      "relationshipName": "strand",
+      "otherEntityField": "designation"
+    }
+  ],
+  "entityTableName": "i_supply",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211213093157"
+}

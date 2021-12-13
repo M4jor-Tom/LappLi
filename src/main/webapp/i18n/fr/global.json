@@ -21,6 +21,8 @@
         "materialMarkingStatistic": "Material Marking Statistic",
         "customComponentSupply": "Custom Component Supply",
         "customComponent": "Custom Component",
+        "strand": "Strand",
+        "iSupply": "I Supply",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

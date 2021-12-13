@@ -1,0 +1,26 @@
+{
+  "lappLiApp": {
+    "strand": {
+      "home": {
+        "title": "Strands",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Strand erstellen",
+        "createOrEditLabel": "Strand erstellen oder bearbeiten",
+        "notFound": "Keine Strands gefunden"
+      },
+      "created": "Strand erstellt mit ID {{ param }}",
+      "updated": "Strand aktualisiert mit ID {{ param }}",
+      "deleted": "Strand gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Strand {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Strand"
+      },
+      "id": "ID",
+      "designation": "Designation",
+      "housingOperationType": "Housing Operation Type",
+      "supplies": "Supplies"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "lappLiApp": {
+    "iSupply": {
+      "home": {
+        "title": "I Supplies",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "I Supply erstellen",
+        "createOrEditLabel": "I Supply erstellen oder bearbeiten",
+        "notFound": "Keine I Supplies gefunden"
+      },
+      "created": "I Supply erstellt mit ID {{ param }}",
+      "updated": "I Supply aktualisiert mit ID {{ param }}",
+      "deleted": "I Supply gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll I Supply {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "I Supply"
+      },
+      "id": "ID",
+      "apparitions": "Apparitions",
+      "milimeterDiameter": "Milimeter Diameter",
+      "gramPerMeterLinearMass": "Gram Per Meter Linear Mass",
+      "strand": "Strand"
+    }
+  }
+}

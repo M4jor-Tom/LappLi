@@ -17,6 +17,8 @@ import ElementKindEdition from './element-kind-edition';
 import MaterialMarkingStatistic from './material-marking-statistic';
 import CustomComponentSupply from './custom-component-supply';
 import CustomComponent from './custom-component';
+import Strand from './strand';
+import ISupply from './i-supply';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -36,6 +38,8 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}material-marking-statistic`} component={MaterialMarkingStatistic} />
       <ErrorBoundaryRoute path={`${match.url}custom-component-supply`} component={CustomComponentSupply} />
       <ErrorBoundaryRoute path={`${match.url}custom-component`} component={CustomComponent} />
+      <ErrorBoundaryRoute path={`${match.url}strand`} component={Strand} />
+      <ErrorBoundaryRoute path={`${match.url}i-supply`} component={ISupply} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>
