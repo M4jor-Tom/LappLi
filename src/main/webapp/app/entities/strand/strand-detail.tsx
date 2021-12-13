@@ -48,41 +48,107 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>
             <div className="table-responsive">
-              {strandEntity.customComponentSupplies && strandEntity.customComponentSupplies.length > 0 ? (
+              {(strandEntity.customComponentSupplies && strandEntity.customComponentSupplies.length > 0) ||
+              (strandEntity.bangleSupplies && strandEntity.bangleSupplies.length > 0) ||
+              (strandEntity.elementSupplies && strandEntity.elementSupplies.length > 0) ? (
                 <Table responsive>
+                  <thead>
+                    <tr></tr>
+                  </thead>
                   <tbody>
+                    {' '}
+                    {/*[DUPLICATE]*/}
                     {strandEntity.customComponentSupplies.map((customComponentSupply, i) => (
                       <>
-                        <td>{customComponentSupply.apparitions}</td>
-                        <td>{customComponentSupply.description}</td>
-                        <td>
-                          <Translate contentKey={`lappLiApp.MarkingType.${customComponentSupply.markingType}`} />
-                        </td>
-                        <td>
-                          {customComponentSupply.customComponent ? (
-                            <Link to={`custom-component/${customComponentSupply.customComponent.id}`}>
-                              {customComponentSupply.customComponent.designation}
-                            </Link>
-                          ) : (
-                            ''
-                          )}
-                        </td>
-                        <td>{customComponentSupply.meterQuantity}</td>
-                        <td>{customComponentSupply.customComponent.milimeterDiameter}</td>
-                        <td>{customComponentSupply.customComponent.gramPerMeterLinearMass}</td>
-                        <td>{customComponentSupply.bestLiftersNames}</td>
-                        <td>{customComponentSupply.customComponent.surfaceMaterial?.designation}</td>
-                        <td>{customComponentSupply.customComponent.surfaceColor}</td>
-                        <td>{customComponentSupply.meterPerHourSpeed}</td>
-                        <td>{customComponentSupply.formatedHourPreparationTime}</td>
-                        <td>{customComponentSupply.formatedHourExecutionTime}</td>
-                        <td>{customComponentSupply.markingTechnique}</td>
+                        <tr>
+                          <td>{customComponentSupply.apparitions}</td>
+                          <td>{customComponentSupply.description}</td>
+                          <td>
+                            <Translate contentKey={`lappLiApp.MarkingType.${customComponentSupply.markingType}`} />
+                          </td>
+                          <td>
+                            {customComponentSupply.customComponent ? (
+                              <Link to={`custom-component/${customComponentSupply.customComponent.id}`}>
+                                {customComponentSupply.customComponent.designation}
+                              </Link>
+                            ) : (
+                              ''
+                            )}
+                          </td>
+                          <td>{customComponentSupply.meterQuantity}</td>
+                          <td>{customComponentSupply.customComponent.milimeterDiameter}</td>
+                          <td>{customComponentSupply.customComponent.gramPerMeterLinearMass}</td>
+                          <td>{customComponentSupply.bestLiftersNames}</td>
+                          <td>{customComponentSupply.customComponent.surfaceMaterial?.designation}</td>
+                          <td>{customComponentSupply.customComponent.surfaceColor}</td>
+                          <td>{customComponentSupply.meterPerHourSpeed}</td>
+                          <td>{customComponentSupply.formatedHourPreparationTime}</td>
+                          <td>{customComponentSupply.formatedHourExecutionTime}</td>
+                          <td>{customComponentSupply.markingTechnique}</td>
+                        </tr>
+                      </>
+                    ))}
+                    {strandEntity.bangleSupplies.map((bangleSupply, i) => (
+                      <>
+                        <tr>
+                          <td>{bangleSupply.apparitions}</td>
+                          <td>{bangleSupply.description}</td>
+                          <td>
+                            {bangleSupply.bangle ? (
+                              <Link to={`bangle/${bangleSupply.bangle.id}`}>{bangleSupply.bangle.designation}</Link>
+                            ) : (
+                              ''
+                            )}
+                          </td>
+                          <td>{bangleSupply.bangle.material.designation}</td>
+                          <td>{bangleSupply.meterQuantity}</td>
+                          <td>{bangleSupply.bangle.milimeterDiameter}</td>
+                          <td>{bangleSupply.bangle.gramPerMeterLinearMass}</td>
+                          <td>{bangleSupply.bestLiftersNames}</td>
+                          <td>{bangleSupply.meterPerHourSpeed}</td>
+                          <td>{bangleSupply.formatedHourPreparationTime}</td>
+                          <td>{bangleSupply.formatedHourExecutionTime}</td>
+                        </tr>
+                      </>
+                    ))}
+                    {strandEntity.elementSupplies.map((elementSupply, i) => (
+                      <>
+                        <tr>
+                          <td>{elementSupply.apparitions}</td>
+                          <td>
+                            <Translate contentKey={`lappLiApp.MarkingType.${elementSupply.markingType}`} />
+                          </td>
+                          <td>
+                            {elementSupply.element ? (
+                              <Link to={`element/${elementSupply.element.id}`}>{elementSupply.element.number}</Link>
+                            ) : (
+                              ''
+                            )}
+                          </td>
+                          <td>
+                            {elementSupply.element ? (
+                              <Link to={`element/${elementSupply.element.id}`}>{elementSupply.element.designationWithColor}</Link>
+                            ) : (
+                              ''
+                            )}
+                          </td>
+                          <td>{elementSupply.description}</td>
+                          <td>{elementSupply.meterQuantity}</td>
+                          <td>{elementSupply.element.elementKind.milimeterDiameter}</td>
+                          <td>{elementSupply.element.elementKind.gramPerMeterLinearMass}</td>
+                          <td>{elementSupply.bestLiftersNames}</td>
+                          <td>{elementSupply.element.elementKind.insulationMaterial.designation}</td>
+                          <td>{elementSupply.meterPerHourSpeed}</td>
+                          <td>{elementSupply.formatedHourPreparationTime}</td>
+                          <td>{elementSupply.formatedHourExecutionTime}</td>
+                          <td>{elementSupply.markingTechnique}</td>
+                        </tr>
                       </>
                     ))}
                   </tbody>
                 </Table>
               ) : (
-                <div>No custom components</div>
+                <Translate contentKey="LappLiApp.strand.noSuppliesFound"> No Supplies Found</Translate>
               )}
             </div>
           </dd>
