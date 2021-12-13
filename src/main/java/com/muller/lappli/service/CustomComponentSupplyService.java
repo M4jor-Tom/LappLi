@@ -1,13 +1,14 @@
 package com.muller.lappli.service;
 
 import com.muller.lappli.domain.CustomComponentSupply;
+import com.muller.lappli.service.interfaces.ISupplyService;
 import java.util.List;
 import java.util.Optional;
 
 /**
  * Service Interface for managing {@link CustomComponentSupply}.
  */
-public interface CustomComponentSupplyService {
+public interface CustomComponentSupplyService extends ISupplyService<CustomComponentSupply> {
     /**
      * Save a customComponentSupply.
      *

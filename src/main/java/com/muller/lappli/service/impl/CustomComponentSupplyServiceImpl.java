@@ -1,10 +1,14 @@
 package com.muller.lappli.service.impl;
 
+import com.muller.lappli.domain.CustomComponent;
 import com.muller.lappli.domain.CustomComponentSupply;
 import com.muller.lappli.repository.CustomComponentSupplyRepository;
 import com.muller.lappli.service.CustomComponentSupplyService;
+import com.muller.lappli.service.interfaces.ISupplyService;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -71,5 +75,17 @@ public class CustomComponentSupplyServiceImpl implements CustomComponentSupplySe
     public void delete(Long id) {
         log.debug("Request to delete CustomComponentSupply : {}", id);
         customComponentSupplyRepository.deleteById(id);
+    }
+
+    @Override
+    public Set<CustomComponentSupply> findByStrandId(Long id) {
+        Set<CustomComponentSupply> customComponentSupplyList = new HashSet<>();
+        for (CustomComponentSupply customComponentSupply : customComponentSupplyRepository.findAll()) {
+            if (customComponentSupply.getStrand().getId().equals(id)) {
+                customComponentSupplyList.add(customComponentSupply);
+            }
+        }
+
+        return customComponentSupplyList;
     }
 }

@@ -33,19 +33,19 @@ public class Strand implements Serializable {
     @Column(name = "housing_operation_type")
     private OperationType housingOperationType;
 
-    @OneToMany(mappedBy = "strand")
+    @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "element", "strand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
     private Set<ElementSupply> elementSupplies = new HashSet<>();
 
-    @OneToMany(mappedBy = "strand")
+    @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "bangle", "strand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
     private Set<BangleSupply> bangleSupplies = new HashSet<>();
 
-    @OneToMany(mappedBy = "strand")
+    @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "customComponent", "strand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
     private Set<CustomComponentSupply> customComponentSupplies = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
