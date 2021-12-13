@@ -43,7 +43,7 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
           <dd>{strandEntity.housingOperationType}</dd>
           <dt>
             <span id="customComponentSupplies">
-              <Translate contentKey="lappLiApp.strand.customComponentSupplies">Custom component supplies</Translate>
+              <Translate contentKey="lappLiApp.strand.supplies">Supplies</Translate>
             </span>
           </dt>
           <dd>
