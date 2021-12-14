@@ -26,12 +26,13 @@ export const StrandCustomComponentSupplyUpdate = (props: RouteComponentProps<{ c
   const customComponents = useAppSelector(state => state.customComponent.entities);
   const strands = useAppSelector(state => state.strand.entities);
   const customComponentSupplyEntity = useAppSelector(state => state.customComponentSupply.entity);
+  const strandDetailHref = '/strand/' + customComponentSupplyEntity.strand?.id;
   const loading = useAppSelector(state => state.customComponentSupply.loading);
   const updating = useAppSelector(state => state.customComponentSupply.updating);
   const updateSuccess = useAppSelector(state => state.customComponentSupply.updateSuccess);
   const markingTypeValues = Object.keys(MarkingType);
   const handleClose = () => {
-    props.history.push('/custom-component-supply');
+    props.history.push(strandDetailHref); // '/custom-component-supply');
   };
 
   useEffect(() => {
@@ -174,7 +175,7 @@ export const StrandCustomComponentSupplyUpdate = (props: RouteComponentProps<{ c
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/custom-component-supply" replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={strandDetailHref} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
