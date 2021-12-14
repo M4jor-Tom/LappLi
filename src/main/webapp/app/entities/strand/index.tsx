@@ -9,6 +9,7 @@ import StrandUpdate from './strand-update';
 import StrandDeleteDialog from './strand-delete-dialog';
 import StrandBangleSupplyUpdate from './supply/strand-bangle-supply-update';
 import StrandCustomComponentSupplyUpdate from './supply/strand-custom-component-supply-update';
+import StrandElementSupplyUpdate from './supply/strand-element-supply-update';
 
 const Routes = ({ match }) => (
   <>
@@ -28,6 +29,8 @@ const Routes = ({ match }) => (
         path={`${match.url}/custom-component-supply/:strand_id/new`}
         component={StrandCustomComponentSupplyUpdate}
       />
+      <ErrorBoundaryRoute exact path={`${match.url}/element-supply/:element_supply_id/edit`} component={StrandElementSupplyUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url}/element-supply/:strand_id/new`} component={StrandElementSupplyUpdate} />
       <ErrorBoundaryRoute path={match.url} component={Strand} />
     </Switch>
     <ErrorBoundaryRoute exact path={`${match.url}/:id/delete`} component={StrandDeleteDialog} />
