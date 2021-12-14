@@ -33,6 +33,12 @@ import bangle from 'app/entities/bangle/bangle.reducer';
 import elementKindEdition from 'app/entities/element-kind-edition/element-kind-edition.reducer';
 // prettier-ignore
 import materialMarkingStatistic from 'app/entities/material-marking-statistic/material-marking-statistic.reducer';
+// prettier-ignore
+import strand from 'app/entities/strand/strand.reducer';
+// prettier-ignore
+import customComponentSupply from 'app/entities/custom-component-supply/custom-component-supply.reducer';
+// prettier-ignore
+import customComponent from 'app/entities/custom-component/custom-component.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -57,6 +63,9 @@ const rootReducer = {
   bangle,
   elementKindEdition,
   materialMarkingStatistic,
+  strand,
+  customComponentSupply,
+  customComponent,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };

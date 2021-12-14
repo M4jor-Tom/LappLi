@@ -18,10 +18,11 @@
         "title": "Element Supply"
       },
       "id": "ID",
+      "apparitions": "Apparitions",
       "markingType": "Marking Type",
-      "markingTechnique": "Markierungstechnik",
+      "description": "Description",
       "element": "Element",
-      "meterQuantity": "Betragen (m)"
+      "strand": "Strand"
     }
   }
 }

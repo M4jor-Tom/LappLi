@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
+import { Button, Table } from 'reactstrap';
 import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -30,7 +30,7 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
       <h2 id="element-supply-heading" data-cy="ElementSupplyHeading">
         <Translate contentKey="lappLiApp.elementSupply.home.title">Element Supplies</Translate>
         <div className="d-flex justify-content-end">
-          <Button className="mr-2" color="info" onClick={handleSyncList} disabled={loading}>
+          <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} />{' '}
             <Translate contentKey="lappLiApp.elementSupply.home.refreshListLabel">Refresh List</Translate>
           </Button>
@@ -50,46 +50,19 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.elementSupply.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
+                  <Translate contentKey="lappLiApp.elementSupply.apparitions">Apparitions</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.elementSupply.markingType">Marking Type</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.article.number">Article Number</Translate>
+                  <Translate contentKey="lappLiApp.elementSupply.description">Description</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.elementSupply.element">Element</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.supply.description">Description</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.dimension.meterQuantity">Quantity (m)</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.dimension.milimeterDiameter">Diameter (mm)</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.dimension.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Machines Names</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.elementKind.insulationMaterial">Material</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.supply.meterPerHourSpeed">Speed (m/h)</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.supply.formatedHourPreparationTime">Preparation Time (h)</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.supply.formatedHourExecutionTime">Execution Time (h)</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.elementSupply.markingTechnique">Marking Technique</Translate>
+                  <Translate contentKey="lappLiApp.elementSupply.strand">Strand</Translate>
                 </th>
                 <th />
               </tr>
@@ -106,9 +79,7 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <td>
                     <Translate contentKey={`lappLiApp.MarkingType.${elementSupply.markingType}`} />
                   </td>
-                  <td>
-                    {elementSupply.element ? <Link to={`element/${elementSupply.element.id}`}>{elementSupply.element.number}</Link> : ''}
-                  </td>
+                  <td>{elementSupply.description}</td>
                   <td>
                     {elementSupply.element ? (
                       <Link to={`element/${elementSupply.element.id}`}>{elementSupply.element.designationWithColor}</Link>
@@ -116,17 +87,10 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                       ''
                     )}
                   </td>
-                  <td>{elementSupply.description}</td>
-                  <td>{elementSupply.meterQuantity}</td>
-                  <td>{elementSupply.milimeterDiameter}</td>
-                  <td>{elementSupply.gramPerMeterLinearMass}</td>
-                  <td>{elementSupply.bestLiftersNames}</td>
-                  <td>{elementSupply.insulationMaterialDesignation}</td>
-                  <td>{elementSupply.meterPerHourSpeed}</td>
-                  <td>{elementSupply.formatedHourPreparationTime}</td>
-                  <td>{elementSupply.formatedHourExecutionTime}</td>
-                  <td>{elementSupply.markingTechnique}</td>
-                  <td className="text-right">
+                  <td>
+                    {elementSupply.strand ? <Link to={`strand/${elementSupply.strand.id}`}>{elementSupply.strand.designation}</Link> : ''}
+                  </td>
+                  <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${elementSupply.id}`} color="info" size="sm" data-cy="entityDetailsButton">
                         <FontAwesomeIcon icon="eye" />{' '}

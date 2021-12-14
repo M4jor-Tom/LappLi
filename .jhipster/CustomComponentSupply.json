@@ -1,0 +1,48 @@
+{
+  "name": "CustomComponentSupply",
+  "fields": [
+    {
+      "fieldName": "apparitions",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "markingType",
+      "fieldType": "MarkingType",
+      "fieldValues": "LIFTING,SPIRALLY_COLORED,LONGITUDINALLY_COLORED,RINGY_COLORED,NUMBERED",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "customComponent",
+      "otherEntityRelationshipName": "customComponentSupply",
+      "relationshipValidateRules": "required",
+      "relationshipName": "customComponent",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "strand",
+      "otherEntityRelationshipName": "customComponentSupplies",
+      "relationshipValidateRules": "required",
+      "relationshipName": "strand",
+      "otherEntityField": "designation"
+    }
+  ],
+  "entityTableName": "custom_component_supply",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211214162856"
+}

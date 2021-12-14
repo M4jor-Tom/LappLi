@@ -1,7 +1,6 @@
 package com.muller.lappli.domain;
 
-import com.muller.lappli.domain.abstracts.AbstractAssemblableAtom;
-import com.muller.lappli.domain.interfaces.Article;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -14,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "bangle")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Bangle extends AbstractAssemblableAtom implements Article, Serializable {
+public class Bangle implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,10 +38,10 @@ public class Bangle extends AbstractAssemblableAtom implements Article, Serializ
     @Column(name = "milimeter_diameter", nullable = false)
     private Double milimeterDiameter;
 
-    @Override
-    public Long getArticleNumber() {
-        return getNumber();
-    }
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
+    private Material material;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -109,6 +108,19 @@ public class Bangle extends AbstractAssemblableAtom implements Article, Serializ
 
     public void setMilimeterDiameter(Double milimeterDiameter) {
         this.milimeterDiameter = milimeterDiameter;
+    }
+
+    public Material getMaterial() {
+        return this.material;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
+
+    public Bangle material(Material material) {
+        this.setMaterial(material);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

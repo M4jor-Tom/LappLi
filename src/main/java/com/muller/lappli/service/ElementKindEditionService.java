@@ -1,11 +1,7 @@
 package com.muller.lappli.service;
 
-import com.muller.lappli.domain.ElementKind;
 import com.muller.lappli.domain.ElementKindEdition;
-import com.muller.lappli.domain.abstracts.AbstractEdition;
 import com.muller.lappli.repository.ElementKindEditionRepository;
-import com.muller.lappli.service.abstracts.AbstractEditionService;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -18,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class ElementKindEditionService extends AbstractEditionService<ElementKind> {
+public class ElementKindEditionService {
 
     private final Logger log = LoggerFactory.getLogger(ElementKindEditionService.class);
 
@@ -26,17 +22,6 @@ public class ElementKindEditionService extends AbstractEditionService<ElementKin
 
     public ElementKindEditionService(ElementKindEditionRepository elementKindEditionRepository) {
         this.elementKindEditionRepository = elementKindEditionRepository;
-    }
-
-    @Override
-    public List<AbstractEdition<ElementKind>> tooAbstractFindAll() {
-        List<AbstractEdition<ElementKind>> editionList = new ArrayList<>();
-
-        for (AbstractEdition<ElementKind> edition : findAll()) {
-            editionList.add(edition);
-        }
-
-        return editionList;
     }
 
     /**
@@ -62,6 +47,9 @@ public class ElementKindEditionService extends AbstractEditionService<ElementKin
         return elementKindEditionRepository
             .findById(elementKindEdition.getId())
             .map(existingElementKindEdition -> {
+                if (elementKindEdition.getEditionDateTime() != null) {
+                    existingElementKindEdition.setEditionDateTime(elementKindEdition.getEditionDateTime());
+                }
                 if (elementKindEdition.getNewGramPerMeterLinearMass() != null) {
                     existingElementKindEdition.setNewGramPerMeterLinearMass(elementKindEdition.getNewGramPerMeterLinearMass());
                 }
@@ -85,13 +73,7 @@ public class ElementKindEditionService extends AbstractEditionService<ElementKin
     @Transactional(readOnly = true)
     public List<ElementKindEdition> findAll() {
         log.debug("Request to get all ElementKindEditions");
-        List<ElementKindEdition> elementKindEditionList = elementKindEditionRepository.findAll();
-
-        for (ElementKindEdition elementKindEdition : elementKindEditionList) {
-            elementKindEdition.forceNotNull();
-        }
-
-        return elementKindEditionList;
+        return elementKindEditionRepository.findAll();
     }
 
     /**

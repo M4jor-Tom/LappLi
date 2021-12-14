@@ -54,8 +54,11 @@
       "BangleSupply",
       "Bangle",
       "ElementKindEdition",
-      "MaterialMarkingStatistic"
+      "MaterialMarkingStatistic",
+      "Strand",
+      "CustomComponentSupply",
+      "CustomComponent"
     ],
-    "lastLiquibaseTimestamp": 1638879893000
+    "lastLiquibaseTimestamp": 1639499337000
   }
 }

@@ -1,7 +1,6 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.muller.lappli.domain.interfaces.Article;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,7 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "material")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Material implements Article, Serializable {
+public class Material implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -33,15 +32,10 @@ public class Material implements Article, Serializable {
     @Column(name = "designation", nullable = false, unique = true)
     private String designation;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "material")
+    @OneToMany(mappedBy = "material")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "material" }, allowSetters = true)
     private Set<MaterialMarkingStatistic> materialMarkingStatistics = new HashSet<>();
-
-    @Override
-    public Long getArticleNumber() {
-        return getNumber();
-    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -71,7 +65,6 @@ public class Material implements Article, Serializable {
         this.number = number;
     }
 
-    @Override
     public String getDesignation() {
         return this.designation;
     }

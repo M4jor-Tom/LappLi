@@ -22,8 +22,8 @@
       "meterPerSecondSpeed": "Meter Per Second Speed",
       "markingType": "Marking Type",
       "markingTechnique": "Marking Technique",
-      "formatedHourPreparationTime": "Hour Preparation Time",
-      "lifter": "Releveuse"
+      "hourPreparationTime": "Hour Preparation Time",
+      "lifter": "Lifter"
     }
   }
 }

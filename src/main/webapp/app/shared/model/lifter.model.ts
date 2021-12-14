@@ -6,7 +6,6 @@ export interface ILifter {
   supportsSpirallyColoredMarkingType?: boolean;
   supportsLongitudinallyColoredMarkingType?: boolean;
   supportsNumberedMarkingType?: boolean;
-  name?: string;
   supportsInkJetMarkingTechnique?: boolean;
   supportsRsdMarkingTechnique?: boolean;
 }

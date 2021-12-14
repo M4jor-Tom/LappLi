@@ -31,14 +31,10 @@ export const BangleSupplyDetail = (props: RouteComponentProps<{ id: string }>) =
           <dd>{bangleSupplyEntity.id}</dd>
           <dt>
             <span id="apparitions">
-              <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
+              <Translate contentKey="lappLiApp.bangleSupply.apparitions">Apparitions</Translate>
             </span>
           </dt>
           <dd>{bangleSupplyEntity.apparitions}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.bangleSupply.bangle">Bangle</Translate>
-          </dt>
-          <dd>{bangleSupplyEntity.bangle?.designation}</dd>
           <dt>
             <span id="description">
               <Translate contentKey="lappLiApp.bangleSupply.description">Description</Translate>
@@ -46,33 +42,13 @@ export const BangleSupplyDetail = (props: RouteComponentProps<{ id: string }>) =
           </dt>
           <dd>{bangleSupplyEntity.description}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.dimension.meterQuantity">Quantity (m)</Translate>
+            <Translate contentKey="lappLiApp.bangleSupply.bangle">Bangle</Translate>
           </dt>
-          <dd>{bangleSupplyEntity.meterQuantity}</dd>
+          <dd>{bangleSupplyEntity.bangle ? bangleSupplyEntity.bangle.designation : ''}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.dimension.milimeterDiameter">Diameter (mm)</Translate>
+            <Translate contentKey="lappLiApp.bangleSupply.strand">Strand</Translate>
           </dt>
-          <dd>{bangleSupplyEntity.milimeterDiameter}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.dimension.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
-          </dt>
-          <dd>{bangleSupplyEntity.gramPerMeterLinearMass}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Lifter Names</Translate>
-          </dt>
-          <dd>{bangleSupplyEntity.bestLiftersNames}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.supply.meterPerHourSpeed">Speed (m/h)</Translate>
-          </dt>
-          <dd>{bangleSupplyEntity.meterPerHourSpeed}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.supply.formatedHourPreparationTime">PreparationTime (h)</Translate>
-          </dt>
-          <dd>{bangleSupplyEntity.formatedHourPreparationTime}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.supply.formatedHourExecutionTime">Execution Time (h)</Translate>
-          </dt>
-          <dd>{bangleSupplyEntity.formatedHourExecutionTime}</dd>
+          <dd>{bangleSupplyEntity.strand ? bangleSupplyEntity.strand.designation : ''}</dd>
         </dl>
         <Button tag={Link} to="/bangle-supply" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

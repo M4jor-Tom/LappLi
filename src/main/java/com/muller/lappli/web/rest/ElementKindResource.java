@@ -1,18 +1,13 @@
 package com.muller.lappli.web.rest;
 
-import com.muller.lappli.domain.EditionListManager;
 import com.muller.lappli.domain.ElementKind;
-import com.muller.lappli.domain.ElementKindEdition;
 import com.muller.lappli.repository.ElementKindRepository;
-import com.muller.lappli.service.ElementKindEditionService;
 import com.muller.lappli.service.ElementKindQueryService;
 import com.muller.lappli.service.ElementKindService;
 import com.muller.lappli.service.criteria.ElementKindCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -42,17 +37,17 @@ public class ElementKindResource {
 
     private final ElementKindService elementKindService;
 
-    private final ElementKindEditionService elementKindEditionService;
+    private final ElementKindRepository elementKindRepository;
 
     private final ElementKindQueryService elementKindQueryService;
 
     public ElementKindResource(
         ElementKindService elementKindService,
-        ElementKindEditionService elementKindEditionService,
+        ElementKindRepository elementKindRepository,
         ElementKindQueryService elementKindQueryService
     ) {
         this.elementKindService = elementKindService;
-        this.elementKindEditionService = elementKindEditionService;
+        this.elementKindRepository = elementKindRepository;
         this.elementKindQueryService = elementKindQueryService;
     }
 
@@ -91,7 +86,7 @@ public class ElementKindResource {
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody ElementKind elementKind
     ) throws URISyntaxException {
-        /*log.debug("REST request to update ElementKind : {}, {}", id, elementKind);
+        log.debug("REST request to update ElementKind : {}, {}", id, elementKind);
         if (elementKind.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
@@ -103,13 +98,11 @@ public class ElementKindResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        ElementKind result = elementKindRepository.save(elementKind);
+        ElementKind result = elementKindService.save(elementKind);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, elementKind.getId().toString()))
             .body(result);
-        */
-        return ResponseEntity.badRequest().body(elementKind);
     }
 
     /**
@@ -128,7 +121,7 @@ public class ElementKindResource {
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody ElementKind elementKind
     ) throws URISyntaxException {
-        /*log.debug("REST request to partial update ElementKind partially : {}, {}", id, elementKind);
+        log.debug("REST request to partial update ElementKind partially : {}, {}", id, elementKind);
         if (elementKind.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
@@ -136,35 +129,16 @@ public class ElementKindResource {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
-        if (!elementKindService.findOne(id).isPresent()) {
+        if (!elementKindRepository.existsById(id)) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<ElementKind> result = elementKindService
-            .findOne(elementKind.getId())
-            .map(existingElementKind -> {
-                if (elementKind.getDesignation() != null) {
-                    existingElementKind.setDesignation(elementKind.getDesignation());
-                }
-                if (elementKind.getGramPerMeterLinearMass() != null) {
-                    existingElementKind.setGramPerMeterLinearMass(elementKind.getGramPerMeterLinearMass());
-                }
-                if (elementKind.getMilimeterDiameter() != null) {
-                    existingElementKind.setMilimeterDiameter(elementKind.getMilimeterDiameter());
-                }
-                if (elementKind.getInsulationThickness() != null) {
-                    existingElementKind.setInsulationThickness(elementKind.getInsulationThickness());
-                }
-
-                return existingElementKind;
-            })
-            .map(elementKindService::save);
+        Optional<ElementKind> result = elementKindService.partialUpdate(elementKind);
 
         return ResponseUtil.wrapOrNotFound(
             result,
             HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, elementKind.getId().toString())
-        );*/
-        return ResponseUtil.wrapOrNotFound(Optional.empty());
+        );
     }
 
     /**
@@ -176,20 +150,8 @@ public class ElementKindResource {
     @GetMapping("/element-kinds")
     public ResponseEntity<List<ElementKind>> getAllElementKinds(ElementKindCriteria criteria) {
         log.debug("REST request to get ElementKinds by criteria: {}", criteria);
-        List<ElementKind> elementKindList = elementKindQueryService.findByCriteria(criteria);
-
-        //Creating a list for edited ElementKinds
-        ArrayList<ElementKind> editedElementKindList = new ArrayList<ElementKind>();
-
-        for (ElementKind elementKind : elementKindList) {
-            //Giving an EditionListManager to the ElementKind
-            elementKindEditionService.setEditionListManagerTo(elementKind);
-
-            //Storing changed entity into a new list that'll be returned
-            editedElementKindList.add(elementKind.getAtInstant(elementKind, Instant.now()));
-        }
-
-        return ResponseEntity.ok().body(editedElementKindList);
+        List<ElementKind> entityList = elementKindQueryService.findByCriteria(criteria);
+        return ResponseEntity.ok().body(entityList);
     }
 
     /**
@@ -214,15 +176,6 @@ public class ElementKindResource {
     public ResponseEntity<ElementKind> getElementKind(@PathVariable Long id) {
         log.debug("REST request to get ElementKind : {}", id);
         Optional<ElementKind> elementKind = elementKindService.findOne(id);
-
-        if (elementKind.isPresent()) {
-            //Giving an EditionListManager to the ElementKind
-            elementKindEditionService.setEditionListManagerTo(elementKind.get());
-
-            //Changing the value of the ElementKind depending on its Editions
-            elementKind = Optional.of(elementKind.get().getAtInstant(elementKind.get(), Instant.now()));
-        }
-
         return ResponseUtil.wrapOrNotFound(elementKind);
     }
 

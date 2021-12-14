@@ -31,7 +31,7 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           <dd>{elementSupplyEntity.id}</dd>
           <dt>
             <span id="apparitions">
-              <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
+              <Translate contentKey="lappLiApp.elementSupply.apparitions">Apparitions</Translate>
             </span>
           </dt>
           <dd>{elementSupplyEntity.apparitions}</dd>
@@ -42,55 +42,19 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           </dt>
           <dd>{elementSupplyEntity.markingType}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.article.number">Article Number</Translate>
-          </dt>
-          <dd>{elementSupplyEntity.element?.number}</dd>
-          <dt>
             <span id="description">
-              <Translate contentKey="lappLiApp.supply.description">Description</Translate>
+              <Translate contentKey="lappLiApp.elementSupply.description">Description</Translate>
             </span>
           </dt>
           <dd>{elementSupplyEntity.description}</dd>
           <dt>
             <Translate contentKey="lappLiApp.elementSupply.element">Element</Translate>
           </dt>
-          <dd>{elementSupplyEntity.element?.designationWithColor}</dd>
+          <dd>{elementSupplyEntity.element ? elementSupplyEntity.element.designationWithColor : ''}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.dimension.meterQuantity">Quantity (m)</Translate>
+            <Translate contentKey="lappLiApp.elementSupply.strand">Strand</Translate>
           </dt>
-          <dd>{elementSupplyEntity.meterQuantity}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.dimension.milimeterDiameter">Diameter (mm)</Translate>
-          </dt>
-          <dd>{elementSupplyEntity.milimeterDiameter}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.dimension.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
-          </dt>
-          <dd>{elementSupplyEntity.gramPerMeterLinearMass}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Lifter Names</Translate>
-          </dt>
-          <dd>{elementSupplyEntity.bestLiftersNames}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.elementKind.insulationMaterial">Material</Translate>
-          </dt>
-          <dd>{elementSupplyEntity.insulationMaterialDesignation}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.supply.meterPerHourSpeed">Speed (m/h)</Translate>
-          </dt>
-          <dd>{elementSupplyEntity.meterPerHourSpeed}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.supply.formatedHourPreparationTime">PreparationTime (h)</Translate>
-          </dt>
-          <dd>{elementSupplyEntity.formatedHourPreparationTime}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.supply.formatedHourExecutionTime">Execution Time (h)</Translate>
-          </dt>
-          <dd>{elementSupplyEntity.formatedHourExecutionTime}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.elementSupply.markingTechnique">Marking Technique</Translate>
-          </dt>
-          <dd>{elementSupplyEntity.markingTechnique}</dd>
+          <dd>{elementSupplyEntity.strand ? elementSupplyEntity.strand.designation : ''}</dd>
         </dl>
         <Button tag={Link} to="/element-supply" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

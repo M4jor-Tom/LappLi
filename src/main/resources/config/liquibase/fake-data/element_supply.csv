@@ -1,11 +1,11 @@
-id;apparitions;marking_type;description;element_id
-1;12;NUMBERED;;1
-2;3;LIFTING;;2
-3;4;NUMBERED;;3
-4;5;NUMBERED;;4
-5;1;LONGITUDINALLY_COLORED;;5
-6;2;LONGITUDINALLY_COLORED;;6
-7;5;LIFTING;;7
-8;8;SPIRALLY_COLORED;;1
-9;10;LIFTING;;3
-10;2;SPIRALLY_COLORED;;3
+id;apparitions;marking_type;description;element_id;strand_id
+1;50580;LONGITUDINALLY_COLORED;withdrawal bypassing;1;1
+2;4279;SPIRALLY_COLORED;Open-source Frozen;2;2
+3;65281;RINGY_COLORED;Turkey actuating;3;3
+4;81107;SPIRALLY_COLORED;Soap generate;4;4
+5;4624;NUMBERED;Dynamic;5;5
+6;44763;LIFTING;Franc copy;6;6
+7;91325;LONGITUDINALLY_COLORED;base Texas;7;7
+8;53284;LIFTING;Generic;8;8
+9;94265;LIFTING;Investment Vermont Montana;9;9
+10;6233;LIFTING;Indiana Avon hacking;10;10

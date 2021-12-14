@@ -1,9 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.muller.lappli.domain.abstracts.AbstractAssemblableAtom;
 import com.muller.lappli.domain.enumeration.Color;
-import com.muller.lappli.domain.interfaces.Article;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -16,7 +14,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Element extends AbstractAssemblableAtom implements Article, Serializable {
+public class Element implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -38,44 +36,6 @@ public class Element extends AbstractAssemblableAtom implements Article, Seriali
     @NotNull
     @JsonIgnoreProperties(value = { "copper", "insulationMaterial" }, allowSetters = true)
     private ElementKind elementKind;
-
-    public Element() {
-        this(null, Color.NONE, new ElementKind());
-    }
-
-    public Element(Long number, Color color, ElementKind elementKind) {
-        setNumber(number);
-        setColor(color);
-        setElementKind(elementKind);
-    }
-
-    @Override
-    public Double getMilimeterDiameter() {
-        return getElementKind().getMilimeterDiameter();
-    }
-
-    @Override
-    public Double getGramPerMeterLinearMass() {
-        return getElementKind().getGramPerMeterLinearMass();
-    }
-
-    @Override
-    public Long getArticleNumber() {
-        return getNumber();
-    }
-
-    @Override
-    public String getDesignation() {
-        return getElementKind().getDesignation();
-    }
-
-    public String getNumberWithDesignationWithColor() {
-        return getNumber() + " - " + getDesignationWithColor();
-    }
-
-    public String getDesignationWithColor() {
-        return getElementKind().getDesignation() + " " + getColor().getDesignation();
-    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 

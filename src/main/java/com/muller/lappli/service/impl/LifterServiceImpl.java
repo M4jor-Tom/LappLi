@@ -1,11 +1,8 @@
 package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.Lifter;
-import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import com.muller.lappli.repository.LifterRepository;
-import com.muller.lappli.service.LifterQueryService;
 import com.muller.lappli.service.LifterService;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -26,24 +23,6 @@ public class LifterServiceImpl implements LifterService {
 
     public LifterServiceImpl(LifterRepository lifterRepository) {
         this.lifterRepository = lifterRepository;
-    }
-
-    @Override
-    public List<Lifter> findBestLifterList(AbstractLiftedSupply abstractLiftedSupply) {
-        return findEligibleLifterList(abstractLiftedSupply);
-    }
-
-    @Override
-    public List<Lifter> findEligibleLifterList(AbstractLiftedSupply abstractLiftedSupply) {
-        List<Lifter> lifterList = new ArrayList<Lifter>();
-
-        for (Lifter lifter : findAll()) {
-            if (lifter.supportsSupply(abstractLiftedSupply)) {
-                lifterList.add(lifter);
-            }
-        }
-
-        return lifterList;
     }
 
     @Override

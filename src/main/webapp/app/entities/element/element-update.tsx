@@ -62,7 +62,7 @@ export const ElementUpdate = (props: RouteComponentProps<{ id: string }>) => {
     isNew
       ? {}
       : {
-          color: 'WHITE',
+          color: 'NATURAL',
           ...elementEntity,
           elementKind: elementEntity?.elementKind?.id,
         };
@@ -93,7 +93,7 @@ export const ElementUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.article.number')}
+                label={translate('lappLiApp.element.number')}
                 id="element-number"
                 name="number"
                 data-cy="number"
@@ -106,7 +106,7 @@ export const ElementUpdate = (props: RouteComponentProps<{ id: string }>) => {
               <ValidatedField label={translate('lappLiApp.element.color')} id="element-color" name="color" data-cy="color" type="select">
                 {colorValues.map(color => (
                   <option value={color} key={color}>
-                    {translate('lappLiApp.Color' + color)}
+                    {translate('lappLiApp.Color.' + color)}
                   </option>
                 ))}
               </ValidatedField>

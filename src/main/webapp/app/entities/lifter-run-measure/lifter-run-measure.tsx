@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
+import { Button, Table } from 'reactstrap';
 import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -30,7 +30,7 @@ export const LifterRunMeasure = (props: RouteComponentProps<{ url: string }>) =>
       <h2 id="lifter-run-measure-heading" data-cy="LifterRunMeasureHeading">
         <Translate contentKey="lappLiApp.lifterRunMeasure.home.title">Lifter Run Measures</Translate>
         <div className="d-flex justify-content-end">
-          <Button className="mr-2" color="info" onClick={handleSyncList} disabled={loading}>
+          <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} />{' '}
             <Translate contentKey="lappLiApp.lifterRunMeasure.home.refreshListLabel">Refresh List</Translate>
           </Button>
@@ -50,10 +50,10 @@ export const LifterRunMeasure = (props: RouteComponentProps<{ url: string }>) =>
                   <Translate contentKey="lappLiApp.lifterRunMeasure.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.dimension.milimeterDiameter">Milimeter Diameter</Translate>
+                  <Translate contentKey="lappLiApp.lifterRunMeasure.milimeterDiameter">Milimeter Diameter</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.supply.meterPerSecondSpeed">Meter Per Second Speed</Translate>
+                  <Translate contentKey="lappLiApp.lifterRunMeasure.meterPerSecondSpeed">Meter Per Second Speed</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.lifterRunMeasure.markingType">Marking Type</Translate>
@@ -62,7 +62,7 @@ export const LifterRunMeasure = (props: RouteComponentProps<{ url: string }>) =>
                   <Translate contentKey="lappLiApp.lifterRunMeasure.markingTechnique">Marking Technique</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.supply.formatedHourPreparationTime">Hour Preparation Time</Translate>
+                  <Translate contentKey="lappLiApp.lifterRunMeasure.hourPreparationTime">Hour Preparation Time</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.lifterRunMeasure.lifter">Lifter</Translate>
@@ -86,11 +86,11 @@ export const LifterRunMeasure = (props: RouteComponentProps<{ url: string }>) =>
                   <td>
                     <Translate contentKey={`lappLiApp.MarkingTechnique.${lifterRunMeasure.markingTechnique}`} />
                   </td>
-                  <td>{lifterRunMeasure.formatedHourPreparationTime}</td>
+                  <td>{lifterRunMeasure.hourPreparationTime}</td>
                   <td>
-                    <Link to={`lifter/${lifterRunMeasure.lifter.id}`}>{lifterRunMeasure.lifter.name}</Link>
+                    {lifterRunMeasure.lifter ? <Link to={`lifter/${lifterRunMeasure.lifter.id}`}>{lifterRunMeasure.lifter.name}</Link> : ''}
                   </td>
-                  <td className="text-right">
+                  <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${lifterRunMeasure.id}`} color="info" size="sm" data-cy="entityDetailsButton">
                         <FontAwesomeIcon icon="eye" />{' '}

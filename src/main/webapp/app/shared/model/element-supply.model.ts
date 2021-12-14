@@ -1,17 +1,14 @@
 import { IElement } from 'app/shared/model/element.model';
+import { IStrand } from 'app/shared/model/strand.model';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
-import { MarkingTechnique } from 'app/shared/model/enumerations/marking-technique.model';
-import { IAbstractLiftedSupply } from './abstract-lifted-supply.model';
 
-export interface IElementSupply extends IAbstractLiftedSupply {
+export interface IElementSupply {
   id?: number;
+  apparitions?: number;
   markingType?: MarkingType;
-  metricQuantity?: number;
+  description?: string | null;
   element?: IElement;
-  bestLiftersNames?: string;
-  markingTechnique?: MarkingTechnique | null;
-
-  insulationMaterialDesignation?: string;
+  strand?: IStrand;
 }
 
 export const defaultValue: Readonly<IElementSupply> = {};

@@ -96,7 +96,7 @@ export const ElementKindUpdate = (props: RouteComponentProps<{ id: string }>) =>
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.article.designation')}
+                label={translate('lappLiApp.elementKind.designation')}
                 id="element-kind-designation"
                 name="designation"
                 data-cy="designation"
@@ -106,7 +106,7 @@ export const ElementKindUpdate = (props: RouteComponentProps<{ id: string }>) =>
                 }}
               />
               <ValidatedField
-                label={translate('lappLiApp.dimension.gramPerMeterLinearMass')}
+                label={translate('lappLiApp.elementKind.gramPerMeterLinearMass')}
                 id="element-kind-gramPerMeterLinearMass"
                 name="gramPerMeterLinearMass"
                 data-cy="gramPerMeterLinearMass"
@@ -117,7 +117,7 @@ export const ElementKindUpdate = (props: RouteComponentProps<{ id: string }>) =>
                 }}
               />
               <ValidatedField
-                label={translate('lappLiApp.dimension.milimeterDiameter')}
+                label={translate('lappLiApp.elementKind.milimeterDiameter')}
                 id="element-kind-milimeterDiameter"
                 name="milimeterDiameter"
                 data-cy="milimeterDiameter"

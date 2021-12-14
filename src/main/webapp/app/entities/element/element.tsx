@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
+import { Button, Table } from 'reactstrap';
 import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -30,7 +30,7 @@ export const Element = (props: RouteComponentProps<{ url: string }>) => {
       <h2 id="element-heading" data-cy="ElementHeading">
         <Translate contentKey="lappLiApp.element.home.title">Elements</Translate>
         <div className="d-flex justify-content-end">
-          <Button className="mr-2" color="info" onClick={handleSyncList} disabled={loading}>
+          <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} />{' '}
             <Translate contentKey="lappLiApp.element.home.refreshListLabel">Refresh List</Translate>
           </Button>
@@ -53,16 +53,10 @@ export const Element = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.element.number">Number</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.element.designationWithColor">Designation</Translate>
-                </th>
-                <th>
                   <Translate contentKey="lappLiApp.element.color">Color</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.element.elementKind">Element Kind</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.elementKind.milimeterDiameter">Milimeter Diameter</Translate>
                 </th>
                 <th />
               </tr>
@@ -76,7 +70,6 @@ export const Element = (props: RouteComponentProps<{ url: string }>) => {
                     </Button>
                   </td>
                   <td>{element.number}</td>
-                  <td>{element.designationWithColor}</td>
                   <td>
                     <Translate contentKey={`lappLiApp.Color.${element.color}`} />
                   </td>
@@ -87,8 +80,7 @@ export const Element = (props: RouteComponentProps<{ url: string }>) => {
                       ''
                     )}
                   </td>
-                  <td>{element.elementKind.milimeterDiameter}</td>
-                  <td className="text-right">
+                  <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${element.id}`} color="info" size="sm" data-cy="entityDetailsButton">
                         <FontAwesomeIcon icon="eye" />{' '}

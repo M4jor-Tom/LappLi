@@ -96,14 +96,14 @@ export const LifterRunMeasureUpdate = (props: RouteComponentProps<{ id: string }
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.dimension.milimeterDiameter')}
+                label={translate('lappLiApp.lifterRunMeasure.milimeterDiameter')}
                 id="lifter-run-measure-milimeterDiameter"
                 name="milimeterDiameter"
                 data-cy="milimeterDiameter"
                 type="text"
               />
               <ValidatedField
-                label={translate('lappLiApp.supply.meterPerSecondSpeed')}
+                label={translate('lappLiApp.lifterRunMeasure.meterPerSecondSpeed')}
                 id="lifter-run-measure-meterPerSecondSpeed"
                 name="meterPerSecondSpeed"
                 data-cy="meterPerSecondSpeed"
@@ -118,7 +118,7 @@ export const LifterRunMeasureUpdate = (props: RouteComponentProps<{ id: string }
               >
                 {markingTypeValues.map(markingType => (
                   <option value={markingType} key={markingType}>
-                    {translate('lappLiApp.MarkingType' + markingType)}
+                    {translate('lappLiApp.MarkingType.' + markingType)}
                   </option>
                 ))}
               </ValidatedField>
@@ -131,15 +131,15 @@ export const LifterRunMeasureUpdate = (props: RouteComponentProps<{ id: string }
               >
                 {markingTechniqueValues.map(markingTechnique => (
                   <option value={markingTechnique} key={markingTechnique}>
-                    {translate('lappLiApp.MarkingTechnique' + markingTechnique)}
+                    {translate('lappLiApp.MarkingTechnique.' + markingTechnique)}
                   </option>
                 ))}
               </ValidatedField>
               <ValidatedField
-                label={translate('lappLiApp.supply.formatedHourPreparationTime')}
-                id="lifter-run-measure-formatedHourPreparationTime"
-                name="formatedHourPreparationTime"
-                data-cy="formatedHourPreparationTime"
+                label={translate('lappLiApp.lifterRunMeasure.hourPreparationTime')}
+                id="lifter-run-measure-hourPreparationTime"
+                name="hourPreparationTime"
+                data-cy="hourPreparationTime"
                 type="text"
               />
               <ValidatedField

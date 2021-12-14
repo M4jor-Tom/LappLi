@@ -31,13 +31,13 @@ export const LifterRunMeasureDetail = (props: RouteComponentProps<{ id: string }
           <dd>{lifterRunMeasureEntity.id}</dd>
           <dt>
             <span id="milimeterDiameter">
-              <Translate contentKey="lappLiApp.dimension.milimeterDiameter">Milimeter Diameter</Translate>
+              <Translate contentKey="lappLiApp.lifterRunMeasure.milimeterDiameter">Milimeter Diameter</Translate>
             </span>
           </dt>
           <dd>{lifterRunMeasureEntity.milimeterDiameter}</dd>
           <dt>
             <span id="meterPerSecondSpeed">
-              <Translate contentKey="lappLiApp.supply.meterPerSecondSpeed">Meter Per Second Speed</Translate>
+              <Translate contentKey="lappLiApp.lifterRunMeasure.meterPerSecondSpeed">Meter Per Second Speed</Translate>
             </span>
           </dt>
           <dd>{lifterRunMeasureEntity.meterPerSecondSpeed}</dd>
@@ -54,15 +54,15 @@ export const LifterRunMeasureDetail = (props: RouteComponentProps<{ id: string }
           </dt>
           <dd>{lifterRunMeasureEntity.markingTechnique}</dd>
           <dt>
-            <span id="formatedHourPreparationTime">
-              <Translate contentKey="lappLiApp.supply.formatedHourPreparationTime">Hour Preparation Time</Translate>
+            <span id="hourPreparationTime">
+              <Translate contentKey="lappLiApp.lifterRunMeasure.hourPreparationTime">Hour Preparation Time</Translate>
             </span>
           </dt>
-          <dd>{lifterRunMeasureEntity.formatedHourPreparationTime}</dd>
+          <dd>{lifterRunMeasureEntity.hourPreparationTime}</dd>
           <dt>
             <Translate contentKey="lappLiApp.lifterRunMeasure.lifter">Lifter</Translate>
           </dt>
-          <dd>{lifterRunMeasureEntity.lifter?.name}</dd>
+          <dd>{lifterRunMeasureEntity.lifter ? lifterRunMeasureEntity.lifter.name : ''}</dd>
         </dl>
         <Button tag={Link} to="/lifter-run-measure" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
+import { Button, Table } from 'reactstrap';
 import { Translate, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -30,7 +30,7 @@ export const ElementKindEdition = (props: RouteComponentProps<{ url: string }>) 
       <h2 id="element-kind-edition-heading" data-cy="ElementKindEditionHeading">
         <Translate contentKey="lappLiApp.elementKindEdition.home.title">Element Kind Editions</Translate>
         <div className="d-flex justify-content-end">
-          <Button className="mr-2" color="info" onClick={handleSyncList} disabled={loading}>
+          <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} />{' '}
             <Translate contentKey="lappLiApp.elementKindEdition.home.refreshListLabel">Refresh List</Translate>
           </Button>
@@ -84,11 +84,15 @@ export const ElementKindEdition = (props: RouteComponentProps<{ url: string }>) 
                   <td>{elementKindEdition.newMilimeterDiameter}</td>
                   <td>{elementKindEdition.newInsulationThickness}</td>
                   <td>
-                    <Link to={`element-kind/${elementKindEdition.editedElementKind.id}`}>
-                      {elementKindEdition.editedElementKind.designation}
-                    </Link>
+                    {elementKindEdition.editedElementKind ? (
+                      <Link to={`element-kind/${elementKindEdition.editedElementKind.id}`}>
+                        {elementKindEdition.editedElementKind.designation}
+                      </Link>
+                    ) : (
+                      ''
+                    )}
                   </td>
-                  <td className="text-right">
+                  <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${elementKindEdition.id}`} color="info" size="sm" data-cy="entityDetailsButton">
                         <FontAwesomeIcon icon="eye" />{' '}
@@ -96,7 +100,7 @@ export const ElementKindEdition = (props: RouteComponentProps<{ url: string }>) 
                           <Translate contentKey="entity.action.view">View</Translate>
                         </span>
                       </Button>
-                      {/* <Button
+                      <Button
                         tag={Link}
                         to={`${match.url}/${elementKindEdition.id}/edit`}
                         color="primary"
@@ -119,7 +123,7 @@ export const ElementKindEdition = (props: RouteComponentProps<{ url: string }>) 
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.delete">Delete</Translate>
                         </span>
-                      </Button>*/}
+                      </Button>
                     </div>
                   </td>
                 </tr>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
+import { Button, Table } from 'reactstrap';
 import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -30,7 +30,7 @@ export const MaterialMarkingStatistic = (props: RouteComponentProps<{ url: strin
       <h2 id="material-marking-statistic-heading" data-cy="MaterialMarkingStatisticHeading">
         <Translate contentKey="lappLiApp.materialMarkingStatistic.home.title">Material Marking Statistics</Translate>
         <div className="d-flex justify-content-end">
-          <Button className="mr-2" color="info" onClick={handleSyncList} disabled={loading}>
+          <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} />{' '}
             <Translate contentKey="lappLiApp.materialMarkingStatistic.home.refreshListLabel">Refresh List</Translate>
           </Button>
@@ -86,7 +86,7 @@ export const MaterialMarkingStatistic = (props: RouteComponentProps<{ url: strin
                       ''
                     )}
                   </td>
-                  <td className="text-right">
+                  <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button
                         tag={Link}

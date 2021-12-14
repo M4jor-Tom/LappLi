@@ -1,8 +1,6 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.muller.lappli.domain.abstracts.AbstractEdition;
-import com.muller.lappli.domain.interfaces.NotNullForceable;
 import java.io.Serializable;
 import java.time.Instant;
 import javax.persistence.*;
@@ -11,15 +9,12 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * This domain class serves EditionKind as an implementation of IEdition<ElementKind>
- *
- * That means that its fields will be used to edit any ElementKind instance
- * at a given Instant
+ * A ElementKindEdition.
  */
 @Entity
 @Table(name = "element_kind_edition")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ElementKindEdition extends AbstractEdition<ElementKind> implements NotNullForceable<ElementKindEdition>, Serializable {
+public class ElementKindEdition implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,77 +41,6 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
     @JsonIgnoreProperties(value = { "copper", "insulationMaterial" }, allowSetters = true)
     private ElementKind editedElementKind;
 
-    public ElementKindEdition() {
-        this(Double.NaN, Double.NaN, Double.NaN, new ElementKind());
-    }
-
-    public ElementKindEdition(
-        Double newGramPerMeterLinearMass,
-        Double newMilimeterDiameter,
-        Double newInsulationThickness,
-        ElementKind editedElementKind
-    ) {
-        setEditionDateTime(Instant.now());
-        setNewGramPerMeterLinearMass(newGramPerMeterLinearMass);
-        setNewMilimeterDiameter(newMilimeterDiameter);
-        setNewInsulationThickness(newInsulationThickness);
-        setEditedElementKind(editedElementKind);
-    }
-
-    @Override
-    public ElementKind getEditedCommitable() {
-        return getEditedElementKind();
-    }
-
-    @Override
-    public ElementKind update(ElementKind elementKind) {
-        if (!getNewGramPerMeterLinearMass().isNaN()) {
-            elementKind.setGramPerMeterLinearMass(getNewGramPerMeterLinearMass());
-        }
-        if (!getNewMilimeterDiameter().isNaN()) {
-            elementKind.setMilimeterDiameter(getNewMilimeterDiameter());
-        }
-        if (!getNewInsulationThickness().isNaN()) {
-            elementKind.setInsulationThickness(getNewInsulationThickness());
-        }
-
-        return elementKind;
-    }
-
-    @Override
-    public Instant getEditionInstant() {
-        return getEditionDateTime();
-    }
-
-    @Override
-    protected void setEditionInstant(Instant editionInstant) {
-        setEditionDateTime(editionInstant);
-    }
-
-    @Override
-    public ElementKindEdition forceNotNull() {
-        if (getEditionDateTime() == null) {
-            epochEditionTime();
-        }
-        if (getEditedElementKind() == null) {
-            setEditedElementKind(new ElementKind());
-        }
-        if (getNewGramPerMeterLinearMass() == null) {
-            setNewGramPerMeterLinearMass(Double.NaN);
-        }
-        if (getNewMilimeterDiameter() == null) {
-            setNewMilimeterDiameter(Double.NaN);
-        }
-        if (getNewInsulationThickness() == null) {
-            setNewInsulationThickness(Double.NaN);
-        }
-        if (getEditedElementKind() == null) {
-            setEditedElementKind(new ElementKind());
-        }
-
-        return this;
-    }
-
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -136,7 +60,12 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
         return this.editionDateTime;
     }
 
-    private void setEditionDateTime(Instant editionDateTime) {
+    public ElementKindEdition editionDateTime(Instant editionDateTime) {
+        this.setEditionDateTime(editionDateTime);
+        return this;
+    }
+
+    public void setEditionDateTime(Instant editionDateTime) {
         this.editionDateTime = editionDateTime;
     }
 

@@ -1,0 +1,48 @@
+{
+  "name": "Strand",
+  "fields": [
+    {
+      "fieldName": "designation",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "housingOperationType",
+      "fieldType": "OperationType",
+      "fieldValues": "TAPE,SCREEN,BRAID,ASSEMBLY,INSULATION,SHEATH"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "elementSupply",
+      "otherEntityRelationshipName": "strand",
+      "relationshipName": "elementSupplies",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "bangleSupply",
+      "otherEntityRelationshipName": "strand",
+      "relationshipName": "bangleSupplies",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "customComponentSupply",
+      "otherEntityRelationshipName": "strand",
+      "relationshipName": "customComponentSupplies",
+      "otherEntityField": "designation"
+    }
+  ],
+  "entityTableName": "strand",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211214162855"
+}

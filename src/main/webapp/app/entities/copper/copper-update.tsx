@@ -83,7 +83,7 @@ export const CopperUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.article.number')}
+                label={translate('lappLiApp.copper.number')}
                 id="copper-number"
                 name="number"
                 data-cy="number"
@@ -94,7 +94,7 @@ export const CopperUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 }}
               />
               <ValidatedField
-                label={translate('lappLiApp.article.designation')}
+                label={translate('lappLiApp.copper.designation')}
                 id="copper-designation"
                 name="designation"
                 data-cy="designation"

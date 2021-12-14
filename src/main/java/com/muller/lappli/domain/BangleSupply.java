@@ -1,9 +1,7 @@
 package com.muller.lappli.domain;
 
-import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -15,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "bangle_supply")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class BangleSupply extends AbstractLiftedSupply implements Serializable {
+public class BangleSupply implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -33,32 +31,13 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
+    @JsonIgnoreProperties(value = { "material" }, allowSetters = true)
     private Bangle bangle;
 
-    public BangleSupply() {
-        this(new ArrayList<>(), null, new Bangle());
-    }
-
-    public BangleSupply(List<Lifter> bestLifterList, Long apparitions, Bangle bangle) {
-        super(bestLifterList);
-        setApparitions(apparitions);
-        setBangle(bangle);
-    }
-
-    @Override
-    public Double getMeterPerHourSpeed() {
-        return Double.NaN;
-    }
-
-    @Override
-    public Double getMilimeterDiameter() {
-        return getBangle().getMilimeterDiameter();
-    }
-
-    @Override
-    public Double getGramPerMeterLinearMass() {
-        return getBangle().getGramPerMeterLinearMass();
-    }
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "elementSupplies", "bangleSupplies", "customComponentSupplies" }, allowSetters = true)
+    private Strand strand;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -75,7 +54,6 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
         this.id = id;
     }
 
-    @Override
     public Long getApparitions() {
         return this.apparitions;
     }
@@ -112,6 +90,19 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
 
     public BangleSupply bangle(Bangle bangle) {
         this.setBangle(bangle);
+        return this;
+    }
+
+    public Strand getStrand() {
+        return this.strand;
+    }
+
+    public void setStrand(Strand strand) {
+        this.strand = strand;
+    }
+
+    public BangleSupply strand(Strand strand) {
+        this.setStrand(strand);
         return this;
     }
 

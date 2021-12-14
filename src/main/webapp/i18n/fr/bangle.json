@@ -21,7 +21,8 @@
       "number": "Number",
       "designation": "Designation",
       "gramPerMeterLinearMass": "Gram Per Meter Linear Mass",
-      "milimeterDiameter": "Milimeter Diameter"
+      "milimeterDiameter": "Milimeter Diameter",
+      "material": "Material"
     }
   }
 }

@@ -60,7 +60,7 @@ export const ElementKindEditionDetail = (props: RouteComponentProps<{ id: string
           <dt>
             <Translate contentKey="lappLiApp.elementKindEdition.editedElementKind">Edited Element Kind</Translate>
           </dt>
-          <dd>{elementKindEditionEntity.editedElementKind.designation}</dd>
+          <dd>{elementKindEditionEntity.editedElementKind ? elementKindEditionEntity.editedElementKind.designation : ''}</dd>
         </dl>
         <Button tag={Link} to="/element-kind-edition" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
@@ -68,13 +68,13 @@ export const ElementKindEditionDetail = (props: RouteComponentProps<{ id: string
             <Translate contentKey="entity.action.back">Back</Translate>
           </span>
         </Button>
-        {/* &nbsp;
+        &nbsp;
         <Button tag={Link} to={`/element-kind-edition/${elementKindEditionEntity.id}/edit`} replace color="primary">
           <FontAwesomeIcon icon="pencil-alt" />{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.edit">Edit</Translate>
           </span>
-        </Button>*/}
+        </Button>
       </Col>
     </Row>
   );

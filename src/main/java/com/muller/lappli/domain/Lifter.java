@@ -1,9 +1,5 @@
 package com.muller.lappli.domain;
 
-import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
-import com.muller.lappli.domain.enumeration.MarkingTechnique;
-import com.muller.lappli.domain.enumeration.MarkingType;
-import io.jsonwebtoken.lang.UnknownClassException;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -56,92 +52,6 @@ public class Lifter implements Serializable {
     @NotNull
     @Column(name = "supports_rsd_marking_technique", nullable = false)
     private Boolean supportsRsdMarkingTechnique;
-
-    public Lifter() {
-        this(null, Double.NaN, Double.NaN, false, false, false);
-    }
-
-    public Lifter(
-        Long index,
-        Double minimumMilimeterDiameter,
-        Double maximumMilimeterDiameter,
-        Boolean supportsSpirallyColoredMarkingType,
-        Boolean supportsLongitudinallyColoredMarkingType,
-        Boolean supportsNumberedMarkingType
-    ) {
-        super();
-        setIndex(index);
-        setMinimumMilimeterDiameter(minimumMilimeterDiameter);
-        setMaximumMilimeterDiameter(maximumMilimeterDiameter);
-        setSupportsSpirallyColoredMarkingType(supportsSpirallyColoredMarkingType);
-        setSupportsLongitudinallyColoredMarkingType(supportsLongitudinallyColoredMarkingType);
-        setSupportsNumberedMarkingType(supportsNumberedMarkingType);
-    }
-
-    public String getName() {
-        String prefix;
-
-        prefix = getIndex() >= 10 ? "MR" : "MR0";
-
-        return prefix + getIndex();
-    }
-
-    public Boolean supportsSupply(AbstractLiftedSupply abstractLiftedSupply) throws UnknownClassException {
-        if (abstractLiftedSupply instanceof ElementSupply) {
-            return supportsElementSupply((ElementSupply) abstractLiftedSupply);
-        } else if (abstractLiftedSupply instanceof BangleSupply) {
-            return supportsBangleSupply((BangleSupply) abstractLiftedSupply);
-        }
-
-        throw new UnknownClassException(abstractLiftedSupply.toString());
-    }
-
-    public Boolean supportsElementSupply(ElementSupply elementSupply) {
-        return (
-            supportsMarkingType(elementSupply.getMarkingType()) &&
-            supportsMilimeterDiameter(elementSupply.getElement().getElementKind().getMilimeterDiameter()) &&
-            supportsMarkingTechnique(elementSupply.getMarkingTechnique())
-        );
-    }
-
-    public Boolean supportsBangleSupply(BangleSupply bangleSupply) {
-        return (supportsMilimeterDiameter(bangleSupply.getMilimeterDiameter()));
-    }
-
-    public Boolean supportsMilimeterDiameter(Double milimeterDiameter) {
-        return milimeterDiameter > getMinimumMilimeterDiameter() && milimeterDiameter < getMaximumMilimeterDiameter();
-    }
-
-    public Boolean supportsMarkingType(MarkingType markingType) {
-        switch (markingType) {
-            case LIFTING:
-            case RINGY_COLORED:
-                return true;
-            case SPIRALLY_COLORED:
-                return getSupportsSpirallyColoredMarkingType();
-            case LONGITUDINALLY_COLORED:
-                return getSupportsLongitudinallyColoredMarkingType();
-            case NUMBERED:
-                return getSupportsNumberedMarkingType();
-        }
-
-        return false;
-    }
-
-    public Boolean supportsMarkingTechnique(MarkingTechnique markingTechnique) {
-        switch (markingTechnique) {
-            case NONE_SUITABLE:
-                return false;
-            case NONE:
-                return true;
-            case INK_JET:
-                return getSupportsInkJetMarkingTechnique();
-            case RSD:
-                return getSupportsRsdMarkingTechnique();
-        }
-
-        return false;
-    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 

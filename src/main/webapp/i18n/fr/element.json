@@ -20,9 +20,7 @@
       "id": "ID",
       "number": "Number",
       "color": "Color",
-      "elementKind": "Element Kind",
-      "designation": "Désignation",
-      "designationWithColor": "Désignation + Couleur"
+      "elementKind": "Element Kind"
     }
   }
 }

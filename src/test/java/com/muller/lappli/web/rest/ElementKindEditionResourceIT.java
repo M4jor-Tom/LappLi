@@ -9,12 +9,12 @@ import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.ElementKind;
 import com.muller.lappli.domain.ElementKindEdition;
 import com.muller.lappli.repository.ElementKindEditionRepository;
-//import com.muller.lappli.service.criteria.ElementKindEditionCriteria;
+import com.muller.lappli.service.criteria.ElementKindEditionCriteria;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-//import java.util.Random;
-//import java.util.concurrent.atomic.AtomicLong;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,8 +51,8 @@ class ElementKindEditionResourceIT {
     private static final String ENTITY_API_URL = "/api/element-kind-editions";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
-    //private static Random random = new Random();
-    //private static AtomicLong count = new AtomicLong(random.nextInt() + (2 * Integer.MAX_VALUE));
+    private static Random random = new Random();
+    private static AtomicLong count = new AtomicLong(random.nextInt() + (2 * Integer.MAX_VALUE));
 
     @Autowired
     private ElementKindEditionRepository elementKindEditionRepository;
@@ -73,6 +73,7 @@ class ElementKindEditionResourceIT {
      */
     public static ElementKindEdition createEntity(EntityManager em) {
         ElementKindEdition elementKindEdition = new ElementKindEdition()
+            .editionDateTime(DEFAULT_EDITION_DATE_TIME)
             .newGramPerMeterLinearMass(DEFAULT_NEW_GRAM_PER_METER_LINEAR_MASS)
             .newMilimeterDiameter(DEFAULT_NEW_MILIMETER_DIAMETER)
             .newInsulationThickness(DEFAULT_NEW_INSULATION_THICKNESS);
@@ -97,6 +98,7 @@ class ElementKindEditionResourceIT {
      */
     public static ElementKindEdition createUpdatedEntity(EntityManager em) {
         ElementKindEdition elementKindEdition = new ElementKindEdition()
+            .editionDateTime(UPDATED_EDITION_DATE_TIME)
             .newGramPerMeterLinearMass(UPDATED_NEW_GRAM_PER_METER_LINEAR_MASS)
             .newMilimeterDiameter(UPDATED_NEW_MILIMETER_DIAMETER)
             .newInsulationThickness(UPDATED_NEW_INSULATION_THICKNESS);
@@ -157,6 +159,25 @@ class ElementKindEditionResourceIT {
         // Validate the ElementKindEdition in the database
         List<ElementKindEdition> elementKindEditionList = elementKindEditionRepository.findAll();
         assertThat(elementKindEditionList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    void checkEditionDateTimeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = elementKindEditionRepository.findAll().size();
+        // set the field null
+        elementKindEdition.setEditionDateTime(null);
+
+        // Create the ElementKindEdition, which fails.
+
+        restElementKindEditionMockMvc
+            .perform(
+                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(elementKindEdition))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<ElementKindEdition> elementKindEditionList = elementKindEditionRepository.findAll();
+        assertThat(elementKindEditionList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -670,6 +691,7 @@ class ElementKindEditionResourceIT {
         // Disconnect from session so that the updates on updatedElementKindEdition are not directly saved in db
         em.detach(updatedElementKindEdition);
         updatedElementKindEdition
+            .editionDateTime(UPDATED_EDITION_DATE_TIME)
             .newGramPerMeterLinearMass(UPDATED_NEW_GRAM_PER_METER_LINEAR_MASS)
             .newMilimeterDiameter(UPDATED_NEW_MILIMETER_DIAMETER)
             .newInsulationThickness(UPDATED_NEW_INSULATION_THICKNESS);
@@ -686,11 +708,12 @@ class ElementKindEditionResourceIT {
         List<ElementKindEdition> elementKindEditionList = elementKindEditionRepository.findAll();
         assertThat(elementKindEditionList).hasSize(databaseSizeBeforeUpdate);
         ElementKindEdition testElementKindEdition = elementKindEditionList.get(elementKindEditionList.size() - 1);
+        assertThat(testElementKindEdition.getEditionDateTime()).isEqualTo(UPDATED_EDITION_DATE_TIME);
         assertThat(testElementKindEdition.getNewGramPerMeterLinearMass()).isEqualTo(UPDATED_NEW_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testElementKindEdition.getNewMilimeterDiameter()).isEqualTo(UPDATED_NEW_MILIMETER_DIAMETER);
         assertThat(testElementKindEdition.getNewInsulationThickness()).isEqualTo(UPDATED_NEW_INSULATION_THICKNESS);
     }
-    /*
+
     @Test
     @Transactional
     void putNonExistingElementKindEdition() throws Exception {
@@ -709,8 +732,8 @@ class ElementKindEditionResourceIT {
         // Validate the ElementKindEdition in the database
         List<ElementKindEdition> elementKindEditionList = elementKindEditionRepository.findAll();
         assertThat(elementKindEditionList).hasSize(databaseSizeBeforeUpdate);
-    }*/
-    /*
+    }
+
     @Test
     @Transactional
     void putWithIdMismatchElementKindEdition() throws Exception {
@@ -729,8 +752,8 @@ class ElementKindEditionResourceIT {
         // Validate the ElementKindEdition in the database
         List<ElementKindEdition> elementKindEditionList = elementKindEditionRepository.findAll();
         assertThat(elementKindEditionList).hasSize(databaseSizeBeforeUpdate);
-    }*/
-    /*
+    }
+
     @Test
     @Transactional
     void putWithMissingIdPathParamElementKindEdition() throws Exception {
@@ -747,8 +770,8 @@ class ElementKindEditionResourceIT {
         // Validate the ElementKindEdition in the database
         List<ElementKindEdition> elementKindEditionList = elementKindEditionRepository.findAll();
         assertThat(elementKindEditionList).hasSize(databaseSizeBeforeUpdate);
-    }*/
-    /*
+    }
+
     @Test
     @Transactional
     void partialUpdateElementKindEditionWithPatch() throws Exception {
@@ -761,7 +784,7 @@ class ElementKindEditionResourceIT {
         ElementKindEdition partialUpdatedElementKindEdition = new ElementKindEdition();
         partialUpdatedElementKindEdition.setId(elementKindEdition.getId());
 
-        partialUpdatedElementKindEdition.newMilimeterDiameter(UPDATED_NEW_MILIMETER_DIAMETER);
+        partialUpdatedElementKindEdition.editionDateTime(UPDATED_EDITION_DATE_TIME).newMilimeterDiameter(UPDATED_NEW_MILIMETER_DIAMETER);
 
         restElementKindEditionMockMvc
             .perform(
@@ -775,11 +798,12 @@ class ElementKindEditionResourceIT {
         List<ElementKindEdition> elementKindEditionList = elementKindEditionRepository.findAll();
         assertThat(elementKindEditionList).hasSize(databaseSizeBeforeUpdate);
         ElementKindEdition testElementKindEdition = elementKindEditionList.get(elementKindEditionList.size() - 1);
+        assertThat(testElementKindEdition.getEditionDateTime()).isEqualTo(UPDATED_EDITION_DATE_TIME);
         assertThat(testElementKindEdition.getNewGramPerMeterLinearMass()).isEqualTo(DEFAULT_NEW_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testElementKindEdition.getNewMilimeterDiameter()).isEqualTo(UPDATED_NEW_MILIMETER_DIAMETER);
         assertThat(testElementKindEdition.getNewInsulationThickness()).isEqualTo(DEFAULT_NEW_INSULATION_THICKNESS);
-    }*/
-    /*
+    }
+
     @Test
     @Transactional
     void fullUpdateElementKindEditionWithPatch() throws Exception {
@@ -793,6 +817,7 @@ class ElementKindEditionResourceIT {
         partialUpdatedElementKindEdition.setId(elementKindEdition.getId());
 
         partialUpdatedElementKindEdition
+            .editionDateTime(UPDATED_EDITION_DATE_TIME)
             .newGramPerMeterLinearMass(UPDATED_NEW_GRAM_PER_METER_LINEAR_MASS)
             .newMilimeterDiameter(UPDATED_NEW_MILIMETER_DIAMETER)
             .newInsulationThickness(UPDATED_NEW_INSULATION_THICKNESS);
@@ -809,11 +834,12 @@ class ElementKindEditionResourceIT {
         List<ElementKindEdition> elementKindEditionList = elementKindEditionRepository.findAll();
         assertThat(elementKindEditionList).hasSize(databaseSizeBeforeUpdate);
         ElementKindEdition testElementKindEdition = elementKindEditionList.get(elementKindEditionList.size() - 1);
+        assertThat(testElementKindEdition.getEditionDateTime()).isEqualTo(UPDATED_EDITION_DATE_TIME);
         assertThat(testElementKindEdition.getNewGramPerMeterLinearMass()).isEqualTo(UPDATED_NEW_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testElementKindEdition.getNewMilimeterDiameter()).isEqualTo(UPDATED_NEW_MILIMETER_DIAMETER);
         assertThat(testElementKindEdition.getNewInsulationThickness()).isEqualTo(UPDATED_NEW_INSULATION_THICKNESS);
-    }*/
-    /*
+    }
+
     @Test
     @Transactional
     void patchNonExistingElementKindEdition() throws Exception {
@@ -832,8 +858,8 @@ class ElementKindEditionResourceIT {
         // Validate the ElementKindEdition in the database
         List<ElementKindEdition> elementKindEditionList = elementKindEditionRepository.findAll();
         assertThat(elementKindEditionList).hasSize(databaseSizeBeforeUpdate);
-    }*/
-    /*
+    }
+
     @Test
     @Transactional
     void patchWithIdMismatchElementKindEdition() throws Exception {
@@ -852,8 +878,8 @@ class ElementKindEditionResourceIT {
         // Validate the ElementKindEdition in the database
         List<ElementKindEdition> elementKindEditionList = elementKindEditionRepository.findAll();
         assertThat(elementKindEditionList).hasSize(databaseSizeBeforeUpdate);
-    }*/
-    /*
+    }
+
     @Test
     @Transactional
     void patchWithMissingIdPathParamElementKindEdition() throws Exception {
@@ -872,8 +898,8 @@ class ElementKindEditionResourceIT {
         // Validate the ElementKindEdition in the database
         List<ElementKindEdition> elementKindEditionList = elementKindEditionRepository.findAll();
         assertThat(elementKindEditionList).hasSize(databaseSizeBeforeUpdate);
-    }*/
-    /*
+    }
+
     @Test
     @Transactional
     void deleteElementKindEdition() throws Exception {
@@ -890,5 +916,5 @@ class ElementKindEditionResourceIT {
         // Validate the database contains one less item
         List<ElementKindEdition> elementKindEditionList = elementKindEditionRepository.findAll();
         assertThat(elementKindEditionList).hasSize(databaseSizeBeforeDelete - 1);
-    }*/
+    }
 }

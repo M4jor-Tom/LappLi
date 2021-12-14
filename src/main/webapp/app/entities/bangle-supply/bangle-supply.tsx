@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
+import { Button, Table } from 'reactstrap';
 import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -30,7 +30,7 @@ export const BangleSupply = (props: RouteComponentProps<{ url: string }>) => {
       <h2 id="bangle-supply-heading" data-cy="BangleSupplyHeading">
         <Translate contentKey="lappLiApp.bangleSupply.home.title">Bangle Supplies</Translate>
         <div className="d-flex justify-content-end">
-          <Button className="mr-2" color="info" onClick={handleSyncList} disabled={loading}>
+          <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} />{' '}
             <Translate contentKey="lappLiApp.bangleSupply.home.refreshListLabel">Refresh List</Translate>
           </Button>
@@ -50,7 +50,7 @@ export const BangleSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.bangleSupply.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
+                  <Translate contentKey="lappLiApp.bangleSupply.apparitions">Apparitions</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.bangleSupply.description">Description</Translate>
@@ -59,25 +59,7 @@ export const BangleSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.bangleSupply.bangle">Bangle</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.dimension.meterQuantity">Quantity (m)</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.dimension.milimeterDiameter">Diameter (mm)</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.dimension.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Machines Names</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.supply.meterPerHourSpeed">Speed (m/h)</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.supply.formatedHourPreparationTime">Preparation Time (h)</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.supply.formatedHourExecutionTime">Execution Time (h)</Translate>
+                  <Translate contentKey="lappLiApp.bangleSupply.strand">Strand</Translate>
                 </th>
                 <th />
               </tr>
@@ -95,14 +77,10 @@ export const BangleSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <td>
                     {bangleSupply.bangle ? <Link to={`bangle/${bangleSupply.bangle.id}`}>{bangleSupply.bangle.designation}</Link> : ''}
                   </td>
-                  <td>{bangleSupply.meterQuantity}</td>
-                  <td>{bangleSupply.milimeterDiameter}</td>
-                  <td>{bangleSupply.gramPerMeterLinearMass}</td>
-                  <td>{bangleSupply.bestLiftersNames}</td>
-                  <td>{bangleSupply.meterPerHourSpeed}</td>
-                  <td>{bangleSupply.formatedHourPreparationTime}</td>
-                  <td>{bangleSupply.formatedHourExecutionTime}</td>
-                  <td className="text-right">
+                  <td>
+                    {bangleSupply.strand ? <Link to={`strand/${bangleSupply.strand.id}`}>{bangleSupply.strand.designation}</Link> : ''}
+                  </td>
+                  <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${bangleSupply.id}`} color="info" size="sm" data-cy="entityDetailsButton">
                         <FontAwesomeIcon icon="eye" />{' '}

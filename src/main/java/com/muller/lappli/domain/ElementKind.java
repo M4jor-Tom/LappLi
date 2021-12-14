@@ -1,8 +1,6 @@
 package com.muller.lappli.domain;
 
-import com.muller.lappli.domain.abstracts.AbstractCableAtom;
-import com.muller.lappli.domain.interfaces.Commitable;
-import com.muller.lappli.domain.interfaces.NotNullForceable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -15,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element_kind")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ElementKind extends AbstractCableAtom implements Commitable<ElementKind>, NotNullForceable<ElementKind>, Serializable {
+public class ElementKind implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,57 +44,11 @@ public class ElementKind extends AbstractCableAtom implements Commitable<Element
 
     @ManyToOne(optional = false)
     @NotNull
+    @JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material insulationMaterial;
-
-    @Transient
-    private EditionListManager<ElementKind> editionListManager;
-
-    public ElementKind() {
-        this("", Double.NaN, Double.NaN, Double.NaN, new Copper(), new Material());
-    }
-
-    public ElementKind(
-        String designation,
-        Double gramPerMeterLinearMass,
-        Double milimeterDiameter,
-        Double insulationThickness,
-        Copper copper,
-        Material insulationMaterial
-    ) {
-        setDesignation(designation);
-        setGramPerMeterLinearMass(gramPerMeterLinearMass);
-        setMilimeterDiameter(milimeterDiameter);
-        setInsulationThickness(insulationThickness);
-        setCopper(copper);
-        setInsulationMaterial(insulationMaterial);
-    }
-
-    @Override
-    public ElementKind forceNotNull() {
-        if (getDesignation() == null) {
-            setDesignation("");
-        }
-        if (getGramPerMeterLinearMass() == null) {
-            setGramPerMeterLinearMass(Double.NaN);
-        }
-        if (getMilimeterDiameter() == null) {
-            setMilimeterDiameter(Double.NaN);
-        }
-        if (getInsulationThickness() == null) {
-            setInsulationThickness(Double.NaN);
-        }
-        if (getCopper() == null) {
-            setCopper(new Copper());
-        }
-        if (getInsulationMaterial() == null) {
-            setInsulationMaterial(new Material());
-        }
-        return this;
-    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    @Override
     public Long getId() {
         return this.id;
     }
@@ -110,7 +62,6 @@ public class ElementKind extends AbstractCableAtom implements Commitable<Element
         this.id = id;
     }
 
-    @Override
     public String getDesignation() {
         return this.designation;
     }
@@ -124,7 +75,6 @@ public class ElementKind extends AbstractCableAtom implements Commitable<Element
         this.designation = designation;
     }
 
-    @Override
     public Double getGramPerMeterLinearMass() {
         return this.gramPerMeterLinearMass;
     }
@@ -138,7 +88,6 @@ public class ElementKind extends AbstractCableAtom implements Commitable<Element
         this.gramPerMeterLinearMass = gramPerMeterLinearMass;
     }
 
-    @Override
     public Double getMilimeterDiameter() {
         return this.milimeterDiameter;
     }
@@ -189,16 +138,6 @@ public class ElementKind extends AbstractCableAtom implements Commitable<Element
     public ElementKind insulationMaterial(Material material) {
         this.setInsulationMaterial(material);
         return this;
-    }
-
-    @Override
-    public EditionListManager<ElementKind> getEditionListManager() {
-        return editionListManager;
-    }
-
-    @Override
-    public void setEditionListManager(EditionListManager<ElementKind> editionListManager) {
-        this.editionListManager = editionListManager;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

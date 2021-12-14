@@ -19,6 +19,9 @@
         "bangle": "Bangle",
         "elementKindEdition": "Element Kind Edition",
         "materialMarkingStatistic": "Material Marking Statistic",
+        "strand": "Strand",
+        "customComponentSupply": "Custom Component Supply",
+        "customComponent": "Custom Component",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

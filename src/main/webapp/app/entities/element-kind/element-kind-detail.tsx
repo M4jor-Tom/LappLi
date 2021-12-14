@@ -68,13 +68,13 @@ export const ElementKindDetail = (props: RouteComponentProps<{ id: string }>) =>
             <Translate contentKey="entity.action.back">Back</Translate>
           </span>
         </Button>
-        {/* &nbsp;
+        &nbsp;
         <Button tag={Link} to={`/element-kind/${elementKindEntity.id}/edit`} replace color="primary">
           <FontAwesomeIcon icon="pencil-alt" />{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.edit">Edit</Translate>
           </span>
-        </Button>*/}
+        </Button>
       </Col>
     </Row>
   );

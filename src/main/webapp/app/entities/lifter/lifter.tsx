@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
+import { Button, Table } from 'reactstrap';
 import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -30,7 +30,7 @@ export const Lifter = (props: RouteComponentProps<{ url: string }>) => {
       <h2 id="lifter-heading" data-cy="LifterHeading">
         <Translate contentKey="lappLiApp.lifter.home.title">Lifters</Translate>
         <div className="d-flex justify-content-end">
-          <Button className="mr-2" color="info" onClick={handleSyncList} disabled={loading}>
+          <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} />{' '}
             <Translate contentKey="lappLiApp.lifter.home.refreshListLabel">Refresh List</Translate>
           </Button>
@@ -50,7 +50,7 @@ export const Lifter = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.lifter.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.lifter.name">Name</Translate>
+                  <Translate contentKey="lappLiApp.lifter.index">Index</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.lifter.minimumMilimeterDiameter">Minimum Milimeter Diameter</Translate>
@@ -88,7 +88,7 @@ export const Lifter = (props: RouteComponentProps<{ url: string }>) => {
                       {lifter.id}
                     </Button>
                   </td>
-                  <td>{lifter.name}</td>
+                  <td>{lifter.index}</td>
                   <td>{lifter.minimumMilimeterDiameter}</td>
                   <td>{lifter.maximumMilimeterDiameter}</td>
                   <td>{lifter.supportsSpirallyColoredMarkingType ? 'true' : 'false'}</td>
@@ -96,7 +96,7 @@ export const Lifter = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{lifter.supportsNumberedMarkingType ? 'true' : 'false'}</td>
                   <td>{lifter.supportsInkJetMarkingTechnique ? 'true' : 'false'}</td>
                   <td>{lifter.supportsRsdMarkingTechnique ? 'true' : 'false'}</td>
-                  <td className="text-right">
+                  <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${lifter.id}`} color="info" size="sm" data-cy="entityDetailsButton">
                         <FontAwesomeIcon icon="eye" />{' '}

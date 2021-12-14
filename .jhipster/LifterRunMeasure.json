@@ -22,7 +22,7 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "formatedHourPreparationTime",
+      "fieldName": "hourPreparationTime",
       "fieldType": "Double"
     }
   ],
