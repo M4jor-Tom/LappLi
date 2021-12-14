@@ -193,7 +193,12 @@ public class StrandResource {
         Optional<Strand> strand = strandService.findOne(id);
 
         if (strand.isPresent()) {
-            strand.get().setBangleSupplies(bangleSupplyService.findByStrandId(strand.get().getId()));
+            Long strandId = strand.get().getId();
+            strand
+                .get()
+                .bangleSupplies(bangleSupplyService.findByStrandId(strandId))
+                .customComponentSupplies(customComponentSupplyService.findByStrandId(strandId))
+                .elementSupplies(elementSupplyService.findByStrandId(strandId));
         }
 
         return ResponseUtil.wrapOrNotFound(strand);
