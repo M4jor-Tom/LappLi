@@ -4,6 +4,8 @@ import { Button, Row, Col, Table } from 'reactstrap';
 import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import bangleSupplyImport from '../bangle-supply/bangle-supply';
+
 import { getEntity } from './strand.reducer';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
@@ -14,6 +16,8 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
   useEffect(() => {
     dispatch(getEntity(props.match.params.id));
   }, []);
+
+  const { match } = props;
 
   const strandEntity = useAppSelector(state => state.strand.entity);
   return (
@@ -153,6 +157,22 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
                           <td>{bangleSupply.formatedHourPreparationTime}</td>
                           <td>{bangleSupply.formatedHourExecutionTime}</td>
                           <td>{/* MarkingTechnique, absent for bangles */}</td>
+                          <td>
+                            <Button
+                              tag={Link}
+                              to={`${/* bangleSupplyImport.bangleSupplyMatchUrl */ 'bangle-supply'}/${bangleSupply.id}/edit/${
+                                /* strandEntity.id*/ ''
+                              }`}
+                              color="primary"
+                              size="sm"
+                              data-cy="entityEditButton"
+                            >
+                              <FontAwesomeIcon icon="pencil-alt" />{' '}
+                              <span className="d-none d-md-inline">
+                                <Translate contentKey="entity.action.edit">Edit</Translate>
+                              </span>
+                            </Button>
+                          </td>
                         </tr>
                       </>
                     ))}

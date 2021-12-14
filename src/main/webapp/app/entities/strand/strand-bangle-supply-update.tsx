@@ -8,16 +8,20 @@ import { IBangle } from 'app/shared/model/bangle.model';
 import { getEntities as getBangles } from 'app/entities/bangle/bangle.reducer';
 import { IStrand } from 'app/shared/model/strand.model';
 import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
-import { getEntity, updateEntity, createEntity, reset } from './bangle-supply.reducer';
+import { getEntity, updateEntity, createEntity, reset } from '../bangle-supply/bangle-supply.reducer';
 import { IBangleSupply } from 'app/shared/model/bangle-supply.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+// import { values } from 'lodash';
 
-export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string }>) => {
+export const StrandBangleSupplyUpdate = (props: RouteComponentProps<{ bangle_supply_id: string; strand_id: string }>) => {
   const dispatch = useAppDispatch();
 
-  const [isNew] = useState(!props.match.params || !props.match.params.id);
+  const [isNew] = useState(!props.match.params || !props.match.params.bangle_supply_id);
+
+  // bangle_supply_id and strand_id shall never be both set
+  const [error] = useState(!props.match.params.bangle_supply_id === !props.match.params.strand_id);
 
   const bangles = useAppSelector(state => state.bangle.entities);
   const strands = useAppSelector(state => state.strand.entities);
@@ -33,7 +37,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
     if (isNew) {
       dispatch(reset());
     } else {
-      dispatch(getEntity(props.match.params.id));
+      dispatch(getEntity(props.match.params.bangle_supply_id));
     }
 
     dispatch(getBangles({}));
@@ -133,26 +137,19 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              <ValidatedField
-                id="bangle-supply-strand"
-                name="strand"
-                data-cy="strand"
-                label={translate('lappLiApp.supply.strand')}
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {strands
-                  ? strands.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.designation}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
+              {isNew ? (
+                <ValidatedField
+                  id="bangle-supply-strand"
+                  name="strand"
+                  data-cy="strand"
+                  label={translate('lappLiApp.bangleSupply.strand')}
+                  type="hidden"
+                  value={bangleSupplyEntity.strand.id}
+                  required
+                />
+              ) : (
+                ''
+              )}
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/bangle-supply" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
@@ -174,4 +171,4 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
   );
 };
 
-export default BangleSupplyUpdate;
+export default StrandBangleSupplyUpdate;
