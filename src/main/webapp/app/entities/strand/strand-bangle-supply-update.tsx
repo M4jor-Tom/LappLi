@@ -20,7 +20,7 @@ export const StrandBangleSupplyUpdate = (props: RouteComponentProps<{ bangle_sup
 
   const [isNew] = useState(!props.match.params || !props.match.params.bangle_supply_id);
 
-  // bangle_supply_id and strand_id shall never be both set
+  // bangle_supply_id(for edition) and strand_id(for creation) shall never be both set
   const [error] = useState(!props.match.params.bangle_supply_id === !props.match.params.strand_id);
 
   const bangles = useAppSelector(state => state.bangle.entities);
