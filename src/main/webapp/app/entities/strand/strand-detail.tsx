@@ -230,6 +230,16 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
                 &nbsp;
                 <Translate contentKey="lappLiApp.bangleSupply.home.createLabel">Create new Bangle Supply</Translate>
               </Link>
+              <Link
+                to={`custom-component-supply/${strandEntity.id}/new`}
+                className="btn btn-primary jh-create-entity"
+                id="jh-create-entity"
+                data-cy="entityCreateButton"
+              >
+                <FontAwesomeIcon icon="plus" />
+                &nbsp;
+                <Translate contentKey="lappLiApp.customComponentSupply.home.createLabel">Create new Custom Component Supply</Translate>
+              </Link>
             </div>
           </dd>
         </dl>
