@@ -14,6 +14,7 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from '../../../../app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from '../../../../app/config/store';
 import { MarkingType } from '../../../../app/shared/model/enumerations/marking-type.model';
+import { getStrandId } from './supply-functions';
 
 export const StrandElementSupplyUpdate = (props: RouteComponentProps<{ element_supply_id: string; strand_id: string }>) => {
   const dispatch = useAppDispatch();
@@ -23,12 +24,15 @@ export const StrandElementSupplyUpdate = (props: RouteComponentProps<{ element_s
   const elements = useAppSelector(state => state.element.entities);
   const strands = useAppSelector(state => state.strand.entities);
   const elementSupplyEntity = useAppSelector(state => state.elementSupply.entity);
+
+  const strandDetailHref = '/strand/' + getStrandId(props.match.params.strand_id, elementSupplyEntity);
+
   const loading = useAppSelector(state => state.elementSupply.loading);
   const updating = useAppSelector(state => state.elementSupply.updating);
   const updateSuccess = useAppSelector(state => state.elementSupply.updateSuccess);
   const markingTypeValues = Object.keys(MarkingType);
   const handleClose = () => {
-    props.history.push('/element-supply');
+    props.history.push(strandDetailHref); // '/element-supply');
   };
 
   useEffect(() => {
@@ -169,7 +173,7 @@ export const StrandElementSupplyUpdate = (props: RouteComponentProps<{ element_s
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/element-supply" replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={strandDetailHref} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
