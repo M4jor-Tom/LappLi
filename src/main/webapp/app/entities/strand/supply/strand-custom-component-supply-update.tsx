@@ -15,7 +15,9 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 
-export const StrandCustomComponentSupplyUpdate = (props: RouteComponentProps<{ custom_component_supply_id: string }>) => {
+export const StrandCustomComponentSupplyUpdate = (
+  props: RouteComponentProps<{ custom_component_supply_id: string; strand_id: string }>
+) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.custom_component_supply_id);
@@ -155,26 +157,18 @@ export const StrandCustomComponentSupplyUpdate = (props: RouteComponentProps<{ c
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              <ValidatedField
-                id="custom-component-supply-strand"
-                name="strand"
-                data-cy="strand"
-                label={translate('lappLiApp.customComponentSupply.strand')}
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {strands
-                  ? strands.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.designation}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
+              {isNew ? (
+                <ValidatedField
+                  id="custom-component-supply-strand"
+                  name="strand"
+                  data-cy="strand"
+                  type="hidden"
+                  value={props.match.params.strand_id}
+                  required
+                />
+              ) : (
+                ''
+              )}
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={strandDetailHref} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
