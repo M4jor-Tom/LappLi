@@ -212,6 +212,20 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
                           <td>{elementSupply.formatedHourPreparationTime}</td>
                           <td>{elementSupply.formatedHourExecutionTime}</td>
                           <td>{elementSupply.markingTechnique}</td>
+                          <td>
+                            <Button
+                              tag={Link}
+                              to={`${'element-supply'}/${elementSupply.id}/edit`}
+                              color="primary"
+                              size="sm"
+                              data-cy="entityEditButton"
+                            >
+                              <FontAwesomeIcon icon="pencil-alt" />{' '}
+                              <span className="d-none d-md-inline">
+                                <Translate contentKey="entity.action.edit">Edit</Translate>
+                              </span>
+                            </Button>
+                          </td>
                         </tr>
                       </>
                     ))}
@@ -239,6 +253,16 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
                 <FontAwesomeIcon icon="plus" />
                 &nbsp;
                 <Translate contentKey="lappLiApp.customComponentSupply.home.createLabel">Create new Custom Component Supply</Translate>
+              </Link>
+              <Link
+                to={`element-supply/${strandEntity.id}/new`}
+                className="btn btn-primary jh-create-entity"
+                id="jh-create-entity"
+                data-cy="entityCreateButton"
+              >
+                <FontAwesomeIcon icon="plus" />
+                &nbsp;
+                <Translate contentKey="lappLiApp.elementSupply.home.createLabel">Create new Element Supply</Translate>
               </Link>
             </div>
           </dd>
