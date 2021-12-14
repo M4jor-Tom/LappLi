@@ -15,7 +15,7 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 
-export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ custom_component_supply_id: string }>) => {
+export const StrandCustomComponentSupplyUpdate = (props: RouteComponentProps<{ custom_component_supply_id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.custom_component_supply_id);
@@ -192,4 +192,4 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ custom_
   );
 };
 
-export default CustomComponentSupplyUpdate;
+export default StrandCustomComponentSupplyUpdate;
