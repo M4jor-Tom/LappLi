@@ -26,11 +26,12 @@ export const StrandBangleSupplyUpdate = (props: RouteComponentProps<{ bangle_sup
   const bangles = useAppSelector(state => state.bangle.entities);
   const strands = useAppSelector(state => state.strand.entities);
   const bangleSupplyEntity = useAppSelector(state => state.bangleSupply.entity);
+  const strandDetailHref = '/strand/' + bangleSupplyEntity.strand?.id;
   const loading = useAppSelector(state => state.bangleSupply.loading);
   const updating = useAppSelector(state => state.bangleSupply.updating);
   const updateSuccess = useAppSelector(state => state.bangleSupply.updateSuccess);
   const handleClose = () => {
-    props.history.push('/bangle-supply');
+    props.history.push(strandDetailHref); // '/bangle-supply');
   };
 
   useEffect(() => {
@@ -150,7 +151,7 @@ export const StrandBangleSupplyUpdate = (props: RouteComponentProps<{ bangle_sup
               ) : (
                 ''
               )}
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/bangle-supply" replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={strandDetailHref} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
