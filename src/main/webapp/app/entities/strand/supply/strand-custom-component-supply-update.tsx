@@ -15,10 +15,10 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 
-export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ id: string }>) => {
+export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ custom_component_supply_id: string }>) => {
   const dispatch = useAppDispatch();
 
-  const [isNew] = useState(!props.match.params || !props.match.params.id);
+  const [isNew] = useState(!props.match.params || !props.match.params.custom_component_supply_id);
 
   const customComponents = useAppSelector(state => state.customComponent.entities);
   const strands = useAppSelector(state => state.strand.entities);
@@ -35,7 +35,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ id: str
     if (isNew) {
       dispatch(reset());
     } else {
-      dispatch(getEntity(props.match.params.id));
+      dispatch(getEntity(props.match.params.custom_component_supply_id));
     }
 
     dispatch(getCustomComponents({}));
