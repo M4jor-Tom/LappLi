@@ -7,8 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import bangleSupplyImport from '../bangle-supply/bangle-supply';
 
 import { getEntity } from './strand.reducer';
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
-import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from '../../../app/config/constants';
+import { useAppDispatch, useAppSelector } from '../../../app/config/store';
 
 export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();

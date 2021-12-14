@@ -4,16 +4,12 @@ import { Button, Row, Col, FormText } from 'reactstrap';
 import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { ICustomComponent } from 'app/shared/model/custom-component.model';
-import { getEntities as getCustomComponents } from 'app/entities/custom-component/custom-component.reducer';
-import { IStrand } from 'app/shared/model/strand.model';
-import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
+import { getEntities as getCustomComponents } from '../../../../app/entities/custom-component/custom-component.reducer';
+import { getEntities as getStrands } from '../../../../app/entities/strand/strand.reducer';
 import { getEntity, updateEntity, createEntity, reset } from '../../custom-component-supply/custom-component-supply.reducer';
-import { ICustomComponentSupply } from 'app/shared/model/custom-component-supply.model';
-import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
-import { useAppDispatch, useAppSelector } from 'app/config/store';
-import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
+import { useAppDispatch, useAppSelector } from '../../../../app/config/store';
+import { MarkingType } from '../../../../app/shared/model/enumerations/marking-type.model';
+import { getStrandId } from './supply-functions';
 
 export const StrandCustomComponentSupplyUpdate = (
   props: RouteComponentProps<{ custom_component_supply_id: string; strand_id: string }>
@@ -22,13 +18,12 @@ export const StrandCustomComponentSupplyUpdate = (
 
   const [isNew] = useState(!props.match.params || !props.match.params.custom_component_supply_id);
 
-  // custom_component_supply_id(for edition) and strand_id(for creation) shall never be both set
-  const [error] = useState(!props.match.params.custom_component_supply_id === !props.match.params.custom_component_supply_id);
-
   const customComponents = useAppSelector(state => state.customComponent.entities);
   const strands = useAppSelector(state => state.strand.entities);
   const customComponentSupplyEntity = useAppSelector(state => state.customComponentSupply.entity);
-  const strandDetailHref = '/strand/' + customComponentSupplyEntity.strand?.id;
+
+  const strandDetailHref = '/strand/' + getStrandId(props.match.params.strand_id, customComponentSupplyEntity);
+
   const loading = useAppSelector(state => state.customComponentSupply.loading);
   const updating = useAppSelector(state => state.customComponentSupply.updating);
   const updateSuccess = useAppSelector(state => state.customComponentSupply.updateSuccess);

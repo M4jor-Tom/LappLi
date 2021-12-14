@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 
-import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
+import ErrorBoundaryRoute from '../../../app/shared/error/error-boundary-route';
 
 import Strand from './strand';
 import StrandDetail from './strand-detail';

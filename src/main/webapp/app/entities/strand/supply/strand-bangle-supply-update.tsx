@@ -4,15 +4,12 @@ import { Button, Row, Col, FormText } from 'reactstrap';
 import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { IBangle } from 'app/shared/model/bangle.model';
-import { getEntities as getBangles } from 'app/entities/bangle/bangle.reducer';
-import { IStrand } from 'app/shared/model/strand.model';
-import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
+import { getStrandId } from './supply-functions';
+
+import { getEntities as getBangles } from '../../../../app/entities/bangle/bangle.reducer';
+import { getEntities as getStrands } from '../../../../app/entities/strand/strand.reducer';
 import { getEntity, updateEntity, createEntity, reset } from '../../bangle-supply/bangle-supply.reducer';
-import { IBangleSupply } from 'app/shared/model/bangle-supply.model';
-import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
-import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { useAppDispatch, useAppSelector } from '../../../../app/config/store';
 // import { values } from 'lodash';
 
 export const StrandBangleSupplyUpdate = (props: RouteComponentProps<{ bangle_supply_id: string; strand_id: string }>) => {
@@ -20,13 +17,12 @@ export const StrandBangleSupplyUpdate = (props: RouteComponentProps<{ bangle_sup
 
   const [isNew] = useState(!props.match.params || !props.match.params.bangle_supply_id);
 
-  // bangle_supply_id(for edition) and strand_id(for creation) shall never be both set
-  const [error] = useState(!props.match.params.bangle_supply_id === !props.match.params.strand_id);
-
   const bangles = useAppSelector(state => state.bangle.entities);
   const strands = useAppSelector(state => state.strand.entities);
   const bangleSupplyEntity = useAppSelector(state => state.bangleSupply.entity);
-  const strandDetailHref = '/strand/' + bangleSupplyEntity.strand?.id;
+
+  const strandDetailHref = '/strand/' + getStrandId(props.match.params.strand_id, bangleSupplyEntity);
+
   const loading = useAppSelector(state => state.bangleSupply.loading);
   const updating = useAppSelector(state => state.bangleSupply.updating);
   const updateSuccess = useAppSelector(state => state.bangleSupply.updateSuccess);
