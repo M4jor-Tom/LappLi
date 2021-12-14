@@ -1,0 +1,235 @@
+filter *
+
+service * with serviceImpl
+
+entity Strand {
+    designation String required
+	housingOperationType OperationType
+}
+
+relationship OneToMany {
+	Strand{elementSupplies(designation)} to ElementSupply{strand(designation) required}
+    Strand{bangleSupplies(designation)} to BangleSupply{strand(designation) required}
+    Strand{customComponentSupplies(designation)} to CustomComponentSupply{strand(designation) required}
+}
+
+enum OperationType {
+	TAPE,
+    SCREEN,
+    BRAID,
+    ASSEMBLY,
+    INSULATION,
+    SHEATH
+}
+
+entity Lifter {
+	index Long unique required
+	minimumMilimeterDiameter Double required
+    maximumMilimeterDiameter Double required
+    supportsSpirallyColoredMarkingType Boolean required
+    supportsLongitudinallyColoredMarkingType Boolean required
+    supportsNumberedMarkingType Boolean required
+    supportsInkJetMarkingTechnique Boolean required
+    supportsRsdMarkingTechnique Boolean required
+}
+
+entity LifterRunMeasure {
+	milimeterDiameter Double
+    meterPerSecondSpeed Double
+    markingType MarkingType required
+    markingTechnique MarkingTechnique required
+    hourPreparationTime Double
+}
+
+relationship ManyToOne {
+	LifterRunMeasure{lifter(name) required} to Lifter
+}
+
+entity BangleSupply {
+	apparitions Long required
+    description String
+}
+
+entity CustomComponentSupply {
+	apparitions Long required
+    description String
+    markingType MarkingType required
+}
+
+entity CustomComponent {
+	number Long
+    designation String,
+    gramPerMeterLinearMass Double required
+    milimeterDiameter Double required
+    surfaceColor Color required
+}
+
+relationship ManyToOne {
+	CustomComponentSupply{customComponent(designation) required} to CustomComponent
+}
+
+relationship ManyToOne {
+	CustomComponent{surfaceMaterial(designation) required} to Material
+}
+
+entity ElementSupply {
+	apparitions Long required
+    markingType MarkingType required
+    description String
+}
+
+enum MarkingType {
+	LIFTING,
+    SPIRALLY_COLORED,
+    LONGITUDINALLY_COLORED,
+    RINGY_COLORED,
+    NUMBERED
+}
+
+enum MarkingTechnique {
+	NONE,
+    NONE_SUITABLE,
+    INK_JET,
+    RSD
+}
+
+entity MaterialMarkingStatistic {
+	markingType MarkingType required
+    markingTechnique MarkingTechnique required
+    meterPerHourSpeed Long required
+}
+
+relationship OneToMany {
+	Material{materialMarkingStatistics(markingType)} to MaterialMarkingStatistic{material(designation) required}
+}
+
+relationship ManyToOne {
+	BangleSupply{bangle(designation) required} to Bangle
+}
+
+relationship ManyToOne {
+	ElementSupply{element(designationWithColor) required} to Element
+}
+
+entity Bangle {
+	number Long unique required
+    designation String unique required
+    gramPerMeterLinearMass Double required
+    milimeterDiameter Double required
+}
+
+relationship ManyToOne {
+	Bangle{material(designation) required} to Material
+}
+
+entity Element {
+	number Long unique required
+    color Color required
+}
+
+relationship ManyToOne {
+	Element{elementKind(designation) required} to ElementKind
+}
+
+entity ElementKindEdition {
+	editionDateTime Instant required
+    newGramPerMeterLinearMass Double
+    newMilimeterDiameter Double
+    newInsulationThickness Double
+}
+
+service ElementKindEdition with serviceClass
+
+relationship ManyToOne {
+	ElementKindEdition{editedElementKind(designation) required} to ElementKind
+}
+
+entity ElementKind {
+	designation String unique required
+    gramPerMeterLinearMass Double required
+    milimeterDiameter Double required
+    insulationThickness Double required
+}
+
+relationship ManyToOne {
+	ElementKind{Copper(designation) required} to Copper
+}
+
+relationship ManyToOne {
+	ElementKind{insulationMaterial(designation) required} to Material
+}
+
+entity Copper {
+	number Long unique required
+	designation String unique required
+}
+
+entity Material {
+	number Long unique required
+	designation String unique required
+}
+
+enum Color {
+    NATURAL,
+	WHITE,
+    BROWN,
+    GREEN,
+    YELLOW,
+    GREY,
+    PINK,
+    BLUE,
+    RED,
+    BLACK,
+    PURPLE,
+    PINK_GREY,
+    RED_BLUE,
+    WHITE_GREEN,
+    BROWN_GREEN,
+    WHITE_YELLOW,
+    YELLOW_BROWN,
+    WHITE_GREY,
+    GREY_BROWN,
+    WHITE_PINK,
+    PINK_BROWN,
+    WHITE_BLUE,
+    BROWN_BLUE,
+    WHITE_RED,
+    BROWN_RED,
+    WHITE_BLACK,
+    BROWN_BLACK,
+    GREY_GREEN,
+    YELLOW_GREY,
+    PINK_GREEN,
+    YELLOW_PINK,
+    GREEN_BLUE,
+    YELLOW_BLUE,
+    GREEN_RED,
+    YELLOW_RED,
+    GREEN_BLACK,
+    YELLOW_BLACK,
+    GREY_BLUE,
+    PINK_BLUE,
+    GREY_RED,
+    PINK_RED,
+    GREY_BLACK,
+    PINK_BLACK,
+    BLUE_BLACK,
+    RED_BLACK,
+    WHITE_BROWN_BLACK,
+    YELLOW_GREEN_BLACK,
+    GREY_PINK_BLACK,
+    RED_BLUE_BLACK,
+    WHITE_GREEN_BLACK,
+    BROWN_GREEN_BLACK,
+    WHITE_YELLOW_BLACK,
+    YELLOW_BROWN_BLACK,
+    WHITE_GREY_BLACK,
+    GREY_BROWN_BLACK,
+    WHITE_PINK_BLACK,
+    PINK_BROWN_BLACK,
+    WHITE_BLUE_BLACK,
+    BROWN_BLUE_BLACK,
+    WHITE_RED_BLACK,
+    BROWN_RED_BLACK,
+    BLACK_WHITE
+}
