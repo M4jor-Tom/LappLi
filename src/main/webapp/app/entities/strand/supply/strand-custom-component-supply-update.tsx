@@ -20,6 +20,9 @@ export const StrandCustomComponentSupplyUpdate = (props: RouteComponentProps<{ c
 
   const [isNew] = useState(!props.match.params || !props.match.params.custom_component_supply_id);
 
+  // custom_component_supply_id(for edition) and strand_id(for creation) shall never be both set
+  const [error] = useState(!props.match.params.custom_component_supply_id === !props.match.params.custom_component_supply_id);
+
   const customComponents = useAppSelector(state => state.customComponent.entities);
   const strands = useAppSelector(state => state.strand.entities);
   const customComponentSupplyEntity = useAppSelector(state => state.customComponentSupply.entity);
