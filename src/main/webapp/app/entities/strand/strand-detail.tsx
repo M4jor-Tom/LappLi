@@ -160,9 +160,7 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
                           <td>
                             <Button
                               tag={Link}
-                              to={`${/* bangleSupplyImport.bangleSupplyMatchUrl */ 'bangle-supply'}/${bangleSupply.id}/edit/${
-                                /* strandEntity.id*/ ''
-                              }`}
+                              to={`${/* bangleSupplyImport.bangleSupplyMatchUrl */ 'bangle-supply'}/${bangleSupply.id}/edit`}
                               color="primary"
                               size="sm"
                               data-cy="entityEditButton"
@@ -208,6 +206,16 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
               ) : (
                 <Translate contentKey="LappLiApp.strand.noSuppliesFound"> No Supplies Found</Translate>
               )}
+              <Link
+                to={`bangle-supply/${strandEntity.id}/new`}
+                className="btn btn-primary jh-create-entity"
+                id="jh-create-entity"
+                data-cy="entityCreateButton"
+              >
+                <FontAwesomeIcon icon="plus" />
+                &nbsp;
+                <Translate contentKey="lappLiApp.bangleSupply.home.createLabel">Create new Bangle Supply</Translate>
+              </Link>
             </div>
           </dd>
         </dl>

@@ -143,9 +143,9 @@ export const StrandBangleSupplyUpdate = (props: RouteComponentProps<{ bangle_sup
                   id="bangle-supply-strand"
                   name="strand"
                   data-cy="strand"
-                  label={translate('lappLiApp.bangleSupply.strand')}
+                  // label={translate('lappLiApp.supply.strand')}
                   type="hidden"
-                  value={bangleSupplyEntity.strand.id}
+                  value={props.match.params.strand_id}
                   required
                 />
               ) : (

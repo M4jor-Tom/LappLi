@@ -16,7 +16,7 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute exact path={`${match.url}/:id/edit`} component={StrandUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:id`} component={StrandDetail} />
       <ErrorBoundaryRoute exact path={`${match.url}/bangle-supply/:bangle_supply_id/edit`} component={StrandBangleSupplyUpdate} />
-      <ErrorBoundaryRoute exact path={`${match.url}/bangle-supply/:strand_id/create`} component={StrandBangleSupplyUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url}/bangle-supply/:strand_id/new`} component={StrandBangleSupplyUpdate} />
       <ErrorBoundaryRoute path={match.url} component={Strand} />
     </Switch>
     <ErrorBoundaryRoute exact path={`${match.url}/:id/delete`} component={StrandDeleteDialog} />
