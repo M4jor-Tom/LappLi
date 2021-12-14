@@ -8,7 +8,7 @@ import { IBangle } from 'app/shared/model/bangle.model';
 import { getEntities as getBangles } from 'app/entities/bangle/bangle.reducer';
 import { IStrand } from 'app/shared/model/strand.model';
 import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
-import { getEntity, updateEntity, createEntity, reset } from '../bangle-supply/bangle-supply.reducer';
+import { getEntity, updateEntity, createEntity, reset } from '../../bangle-supply/bangle-supply.reducer';
 import { IBangleSupply } from 'app/shared/model/bangle-supply.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';

@@ -7,7 +7,7 @@ import Strand from './strand';
 import StrandDetail from './strand-detail';
 import StrandUpdate from './strand-update';
 import StrandDeleteDialog from './strand-delete-dialog';
-import StrandBangleSupplyUpdate from './strand-bangle-supply-update';
+import StrandBangleSupplyUpdate from './supply/strand-bangle-supply-update';
 
 const Routes = ({ match }) => (
   <>
