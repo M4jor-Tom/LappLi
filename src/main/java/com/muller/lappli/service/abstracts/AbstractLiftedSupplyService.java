@@ -1,16 +1,24 @@
-package com.muller.lappli.web.rest.abstracts;
+package com.muller.lappli.service.abstracts;
 
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import com.muller.lappli.service.LifterService;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public abstract class AbstractLiftedSupplyRessource<T extends AbstractLiftedSupply> {
+public abstract class AbstractLiftedSupplyService<T extends AbstractLiftedSupply> extends AbstractSpecificationExecutorService<T> {
 
     private final LifterService lifterService;
 
-    public AbstractLiftedSupplyRessource(LifterService lifterService) {
+    public AbstractLiftedSupplyService(JpaSpecificationExecutor<T> repository, LifterService lifterService) {
+        super(repository);
         this.lifterService = lifterService;
+    }
+
+    @Override
+    protected T onDomainObjectGetting(T domainObject) {
+        domainObject.setBestLifterList(lifterService.findBestLifterList(domainObject));
+        return domainObject;
     }
 
     protected Optional<T> setBestLifterList(Optional<T> liftedSupply) {

@@ -27,10 +27,10 @@ public class BangleSupplyQueryService extends QueryService<BangleSupply> {
 
     private final Logger log = LoggerFactory.getLogger(BangleSupplyQueryService.class);
 
-    private final BangleSupplyRepository bangleSupplyRepository;
+    private final BangleSupplyService bangleSupplyService;
 
-    public BangleSupplyQueryService(BangleSupplyRepository bangleSupplyRepository) {
-        this.bangleSupplyRepository = bangleSupplyRepository;
+    public BangleSupplyQueryService(BangleSupplyService bangleSupplyService) {
+        this.bangleSupplyService = bangleSupplyService;
     }
 
     /**
@@ -42,7 +42,7 @@ public class BangleSupplyQueryService extends QueryService<BangleSupply> {
     public List<BangleSupply> findByCriteria(BangleSupplyCriteria criteria) {
         log.debug("find by criteria : {}", criteria);
         final Specification<BangleSupply> specification = createSpecification(criteria);
-        return bangleSupplyRepository.findAll(specification);
+        return bangleSupplyService.findAll(specification);
     }
 
     /**
@@ -55,7 +55,7 @@ public class BangleSupplyQueryService extends QueryService<BangleSupply> {
     public Page<BangleSupply> findByCriteria(BangleSupplyCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<BangleSupply> specification = createSpecification(criteria);
-        return bangleSupplyRepository.findAll(specification, page);
+        return bangleSupplyService.findAll(specification, page);
     }
 
     /**
@@ -67,7 +67,7 @@ public class BangleSupplyQueryService extends QueryService<BangleSupply> {
     public long countByCriteria(BangleSupplyCriteria criteria) {
         log.debug("count by criteria : {}", criteria);
         final Specification<BangleSupply> specification = createSpecification(criteria);
-        return bangleSupplyRepository.count(specification);
+        return bangleSupplyService.count(specification);
     }
 
     /**

@@ -4,9 +4,7 @@ import com.muller.lappli.domain.ElementSupply;
 import com.muller.lappli.repository.ElementSupplyRepository;
 import com.muller.lappli.service.ElementSupplyQueryService;
 import com.muller.lappli.service.ElementSupplyService;
-import com.muller.lappli.service.LifterService;
 import com.muller.lappli.service.criteria.ElementSupplyCriteria;
-import com.muller.lappli.web.rest.abstracts.AbstractLiftedSupplyRessource;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,7 +26,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-public class ElementSupplyResource extends AbstractLiftedSupplyRessource<ElementSupply> {
+public class ElementSupplyResource {
 
     private final Logger log = LoggerFactory.getLogger(ElementSupplyResource.class);
 
@@ -44,12 +42,10 @@ public class ElementSupplyResource extends AbstractLiftedSupplyRessource<Element
     private final ElementSupplyQueryService elementSupplyQueryService;
 
     public ElementSupplyResource(
-        LifterService lifterService,
         ElementSupplyService elementSupplyService,
         ElementSupplyRepository elementSupplyRepository,
         ElementSupplyQueryService elementSupplyQueryService
     ) {
-        super(lifterService);
         this.elementSupplyService = elementSupplyService;
         this.elementSupplyRepository = elementSupplyRepository;
         this.elementSupplyQueryService = elementSupplyQueryService;
@@ -155,9 +151,6 @@ public class ElementSupplyResource extends AbstractLiftedSupplyRessource<Element
     public ResponseEntity<List<ElementSupply>> getAllElementSupplies(ElementSupplyCriteria criteria) {
         log.debug("REST request to get ElementSupplies by criteria: {}", criteria);
         List<ElementSupply> entityList = elementSupplyQueryService.findByCriteria(criteria);
-
-        entityList = setBestLifterLists(entityList);
-
         return ResponseEntity.ok().body(entityList);
     }
 
@@ -183,9 +176,6 @@ public class ElementSupplyResource extends AbstractLiftedSupplyRessource<Element
     public ResponseEntity<ElementSupply> getElementSupply(@PathVariable Long id) {
         log.debug("REST request to get ElementSupply : {}", id);
         Optional<ElementSupply> elementSupply = elementSupplyService.findOne(id);
-
-        elementSupply = setBestLifterList(elementSupply);
-
         return ResponseUtil.wrapOrNotFound(elementSupply);
     }
 

@@ -3,7 +3,7 @@ package com.muller.lappli.service.interfaces;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import java.util.Set;
 
-public interface ISupplyService<T extends AbstractSupply> {
+public interface ISupplyService<T extends AbstractSupply> extends ISpecificationExecutorService<T> {
     /**
      * Returns a supplies Set from a strand id
      *

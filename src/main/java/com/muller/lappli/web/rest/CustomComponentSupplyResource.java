@@ -6,7 +6,6 @@ import com.muller.lappli.service.CustomComponentSupplyQueryService;
 import com.muller.lappli.service.CustomComponentSupplyService;
 import com.muller.lappli.service.LifterService;
 import com.muller.lappli.service.criteria.CustomComponentSupplyCriteria;
-import com.muller.lappli.web.rest.abstracts.AbstractLiftedSupplyRessource;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,7 +27,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-public class CustomComponentSupplyResource extends AbstractLiftedSupplyRessource<CustomComponentSupply> {
+public class CustomComponentSupplyResource {
 
     private final Logger log = LoggerFactory.getLogger(CustomComponentSupplyResource.class);
 
@@ -49,7 +48,6 @@ public class CustomComponentSupplyResource extends AbstractLiftedSupplyRessource
         CustomComponentSupplyRepository customComponentSupplyRepository,
         CustomComponentSupplyQueryService customComponentSupplyQueryService
     ) {
-        super(lifterService);
         this.customComponentSupplyService = customComponentSupplyService;
         this.customComponentSupplyRepository = customComponentSupplyRepository;
         this.customComponentSupplyQueryService = customComponentSupplyQueryService;
@@ -157,9 +155,6 @@ public class CustomComponentSupplyResource extends AbstractLiftedSupplyRessource
     public ResponseEntity<List<CustomComponentSupply>> getAllCustomComponentSupplies(CustomComponentSupplyCriteria criteria) {
         log.debug("REST request to get CustomComponentSupplies by criteria: {}", criteria);
         List<CustomComponentSupply> entityList = customComponentSupplyQueryService.findByCriteria(criteria);
-
-        entityList = setBestLifterLists(entityList);
-
         return ResponseEntity.ok().body(entityList);
     }
 
@@ -185,9 +180,6 @@ public class CustomComponentSupplyResource extends AbstractLiftedSupplyRessource
     public ResponseEntity<CustomComponentSupply> getCustomComponentSupply(@PathVariable Long id) {
         log.debug("REST request to get CustomComponentSupply : {}", id);
         Optional<CustomComponentSupply> customComponentSupply = customComponentSupplyService.findOne(id);
-
-        customComponentSupply = setBestLifterList(customComponentSupply);
-
         return ResponseUtil.wrapOrNotFound(customComponentSupply);
     }
 

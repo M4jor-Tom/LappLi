@@ -2,9 +2,6 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.repository.StrandRepository;
-import com.muller.lappli.service.BangleSupplyService;
-import com.muller.lappli.service.CustomComponentSupplyService;
-import com.muller.lappli.service.ElementSupplyService;
 import com.muller.lappli.service.StrandQueryService;
 import com.muller.lappli.service.StrandService;
 import com.muller.lappli.service.criteria.StrandCriteria;
@@ -44,26 +41,10 @@ public class StrandResource {
 
     private final StrandQueryService strandQueryService;
 
-    private final BangleSupplyService bangleSupplyService;
-
-    private final CustomComponentSupplyService customComponentSupplyService;
-
-    private final ElementSupplyService elementSupplyService;
-
-    public StrandResource(
-        StrandService strandService,
-        StrandRepository strandRepository,
-        StrandQueryService strandQueryService,
-        BangleSupplyService bangleSupplyService,
-        CustomComponentSupplyService customComponentSupplyService,
-        ElementSupplyService elementSupplyService
-    ) {
+    public StrandResource(StrandService strandService, StrandRepository strandRepository, StrandQueryService strandQueryService) {
         this.strandService = strandService;
         this.strandRepository = strandRepository;
         this.strandQueryService = strandQueryService;
-        this.bangleSupplyService = bangleSupplyService;
-        this.customComponentSupplyService = customComponentSupplyService;
-        this.elementSupplyService = elementSupplyService;
     }
 
     /**
@@ -191,16 +172,6 @@ public class StrandResource {
     public ResponseEntity<Strand> getStrand(@PathVariable Long id) {
         log.debug("REST request to get Strand : {}", id);
         Optional<Strand> strand = strandService.findOne(id);
-
-        if (strand.isPresent()) {
-            Long strandId = strand.get().getId();
-            strand
-                .get()
-                .bangleSupplies(bangleSupplyService.findByStrandId(strandId))
-                .customComponentSupplies(customComponentSupplyService.findByStrandId(strandId))
-                .elementSupplies(elementSupplyService.findByStrandId(strandId));
-        }
-
         return ResponseUtil.wrapOrNotFound(strand);
     }
 

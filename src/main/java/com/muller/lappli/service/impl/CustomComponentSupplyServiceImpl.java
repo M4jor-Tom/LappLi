@@ -3,7 +3,11 @@ package com.muller.lappli.service.impl;
 import com.muller.lappli.domain.CustomComponent;
 import com.muller.lappli.domain.CustomComponentSupply;
 import com.muller.lappli.repository.CustomComponentSupplyRepository;
+import com.muller.lappli.repository.LifterRepository;
 import com.muller.lappli.service.CustomComponentSupplyService;
+import com.muller.lappli.service.LifterService;
+import com.muller.lappli.service.abstracts.AbstractLiftedSupplyService;
+import com.muller.lappli.service.abstracts.AbstractSpecificationExecutorService;
 import com.muller.lappli.service.interfaces.ISupplyService;
 import java.util.HashSet;
 import java.util.List;
@@ -19,13 +23,20 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class CustomComponentSupplyServiceImpl implements CustomComponentSupplyService {
+public class CustomComponentSupplyServiceImpl
+    extends AbstractLiftedSupplyService<CustomComponentSupply>
+    implements CustomComponentSupplyService {
 
     private final Logger log = LoggerFactory.getLogger(CustomComponentSupplyServiceImpl.class);
 
     private final CustomComponentSupplyRepository customComponentSupplyRepository;
 
-    public CustomComponentSupplyServiceImpl(CustomComponentSupplyRepository customComponentSupplyRepository) {
+    public CustomComponentSupplyServiceImpl(
+        LifterRepository lifterRepository,
+        LifterService lifterService,
+        CustomComponentSupplyRepository customComponentSupplyRepository
+    ) {
+        super(customComponentSupplyRepository, lifterService);
         this.customComponentSupplyRepository = customComponentSupplyRepository;
     }
 

@@ -2,7 +2,6 @@ package com.muller.lappli.service;
 
 import com.muller.lappli.domain.*; // for static metamodels
 import com.muller.lappli.domain.CustomComponentSupply;
-import com.muller.lappli.repository.CustomComponentSupplyRepository;
 import com.muller.lappli.service.criteria.CustomComponentSupplyCriteria;
 import java.util.List;
 import javax.persistence.criteria.JoinType;
@@ -27,10 +26,10 @@ public class CustomComponentSupplyQueryService extends QueryService<CustomCompon
 
     private final Logger log = LoggerFactory.getLogger(CustomComponentSupplyQueryService.class);
 
-    private final CustomComponentSupplyRepository customComponentSupplyRepository;
+    private final CustomComponentSupplyService customComponentSupplyService;
 
-    public CustomComponentSupplyQueryService(CustomComponentSupplyRepository customComponentSupplyRepository) {
-        this.customComponentSupplyRepository = customComponentSupplyRepository;
+    public CustomComponentSupplyQueryService(CustomComponentSupplyService customComponentSupplyService) {
+        this.customComponentSupplyService = customComponentSupplyService;
     }
 
     /**
@@ -42,7 +41,7 @@ public class CustomComponentSupplyQueryService extends QueryService<CustomCompon
     public List<CustomComponentSupply> findByCriteria(CustomComponentSupplyCriteria criteria) {
         log.debug("find by criteria : {}", criteria);
         final Specification<CustomComponentSupply> specification = createSpecification(criteria);
-        return customComponentSupplyRepository.findAll(specification);
+        return customComponentSupplyService.findAll(specification);
     }
 
     /**
@@ -55,7 +54,7 @@ public class CustomComponentSupplyQueryService extends QueryService<CustomCompon
     public Page<CustomComponentSupply> findByCriteria(CustomComponentSupplyCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<CustomComponentSupply> specification = createSpecification(criteria);
-        return customComponentSupplyRepository.findAll(specification, page);
+        return customComponentSupplyService.findAll(specification, page);
     }
 
     /**
@@ -67,7 +66,7 @@ public class CustomComponentSupplyQueryService extends QueryService<CustomCompon
     public long countByCriteria(CustomComponentSupplyCriteria criteria) {
         log.debug("count by criteria : {}", criteria);
         final Specification<CustomComponentSupply> specification = createSpecification(criteria);
-        return customComponentSupplyRepository.count(specification);
+        return customComponentSupplyService.count(specification);
     }
 
     /**

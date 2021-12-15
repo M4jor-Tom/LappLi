@@ -4,9 +4,7 @@ import com.muller.lappli.domain.BangleSupply;
 import com.muller.lappli.repository.BangleSupplyRepository;
 import com.muller.lappli.service.BangleSupplyQueryService;
 import com.muller.lappli.service.BangleSupplyService;
-import com.muller.lappli.service.LifterService;
 import com.muller.lappli.service.criteria.BangleSupplyCriteria;
-import com.muller.lappli.web.rest.abstracts.AbstractLiftedSupplyRessource;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,7 +26,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-public class BangleSupplyResource extends AbstractLiftedSupplyRessource<BangleSupply> {
+public class BangleSupplyResource {
 
     private final Logger log = LoggerFactory.getLogger(BangleSupplyResource.class);
 
@@ -44,12 +42,10 @@ public class BangleSupplyResource extends AbstractLiftedSupplyRessource<BangleSu
     private final BangleSupplyQueryService bangleSupplyQueryService;
 
     public BangleSupplyResource(
-        LifterService lifterService,
         BangleSupplyService bangleSupplyService,
         BangleSupplyRepository bangleSupplyRepository,
         BangleSupplyQueryService bangleSupplyQueryService
     ) {
-        super(lifterService);
         this.bangleSupplyService = bangleSupplyService;
         this.bangleSupplyRepository = bangleSupplyRepository;
         this.bangleSupplyQueryService = bangleSupplyQueryService;
@@ -155,9 +151,6 @@ public class BangleSupplyResource extends AbstractLiftedSupplyRessource<BangleSu
     public ResponseEntity<List<BangleSupply>> getAllBangleSupplies(BangleSupplyCriteria criteria) {
         log.debug("REST request to get BangleSupplies by criteria: {}", criteria);
         List<BangleSupply> entityList = bangleSupplyQueryService.findByCriteria(criteria);
-
-        entityList = setBestLifterLists(entityList);
-
         return ResponseEntity.ok().body(entityList);
     }
 
@@ -183,9 +176,6 @@ public class BangleSupplyResource extends AbstractLiftedSupplyRessource<BangleSu
     public ResponseEntity<BangleSupply> getBangleSupply(@PathVariable Long id) {
         log.debug("REST request to get BangleSupply : {}", id);
         Optional<BangleSupply> bangleSupply = bangleSupplyService.findOne(id);
-
-        bangleSupply = setBestLifterList(bangleSupply);
-
         return ResponseUtil.wrapOrNotFound(bangleSupply);
     }
 

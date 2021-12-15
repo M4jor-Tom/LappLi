@@ -1,13 +1,14 @@
 package com.muller.lappli.service;
 
 import com.muller.lappli.domain.Strand;
+import com.muller.lappli.service.interfaces.ISpecificationExecutorService;
 import java.util.List;
 import java.util.Optional;
 
 /**
  * Service Interface for managing {@link Strand}.
  */
-public interface StrandService {
+public interface StrandService extends ISpecificationExecutorService<Strand> {
     /**
      * Save a strand.
      *

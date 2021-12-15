@@ -2,6 +2,8 @@ package com.muller.lappli.service;
 
 import com.muller.lappli.domain.ElementSupply;
 import com.muller.lappli.repository.ElementSupplyRepository;
+import com.muller.lappli.service.abstracts.AbstractLiftedSupplyService;
+import com.muller.lappli.service.abstracts.AbstractSpecificationExecutorService;
 import com.muller.lappli.service.interfaces.ISupplyService;
 import java.util.HashSet;
 import java.util.List;
@@ -17,13 +19,14 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class ElementSupplyService implements ISupplyService<ElementSupply> {
+public class ElementSupplyService extends AbstractLiftedSupplyService<ElementSupply> implements ISupplyService<ElementSupply> {
 
     private final Logger log = LoggerFactory.getLogger(ElementSupplyService.class);
 
     private final ElementSupplyRepository elementSupplyRepository;
 
-    public ElementSupplyService(ElementSupplyRepository elementSupplyRepository) {
+    public ElementSupplyService(ElementSupplyRepository elementSupplyRepository, LifterService lifterService) {
+        super(elementSupplyRepository, lifterService);
         this.elementSupplyRepository = elementSupplyRepository;
     }
 
@@ -108,5 +111,10 @@ public class ElementSupplyService implements ISupplyService<ElementSupply> {
         }
 
         return elementSupplyList;
+    }
+
+    @Override
+    protected ElementSupply onDomainObjectGetting(ElementSupply domainObject) {
+        return domainObject;
     }
 }

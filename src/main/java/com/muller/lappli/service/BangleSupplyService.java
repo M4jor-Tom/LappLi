@@ -2,6 +2,7 @@ package com.muller.lappli.service;
 
 import com.muller.lappli.domain.BangleSupply;
 import com.muller.lappli.repository.BangleSupplyRepository;
+import com.muller.lappli.service.abstracts.AbstractSpecificationExecutorService;
 import com.muller.lappli.service.interfaces.ISupplyService;
 import java.util.HashSet;
 import java.util.List;
@@ -17,13 +18,14 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class BangleSupplyService implements ISupplyService<BangleSupply> {
+public class BangleSupplyService extends AbstractSpecificationExecutorService<BangleSupply> implements ISupplyService<BangleSupply> {
 
     private final Logger log = LoggerFactory.getLogger(BangleSupplyService.class);
 
     private final BangleSupplyRepository bangleSupplyRepository;
 
     public BangleSupplyService(BangleSupplyRepository bangleSupplyRepository) {
+        super(bangleSupplyRepository);
         this.bangleSupplyRepository = bangleSupplyRepository;
     }
 
@@ -105,5 +107,10 @@ public class BangleSupplyService implements ISupplyService<BangleSupply> {
         }
 
         return bangleSupplyList;
+    }
+
+    @Override
+    protected BangleSupply onDomainObjectGetting(BangleSupply domainObject) {
+        return domainObject;
     }
 }

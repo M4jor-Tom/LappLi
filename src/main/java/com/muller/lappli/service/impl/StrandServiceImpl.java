@@ -2,7 +2,11 @@ package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.repository.StrandRepository;
+import com.muller.lappli.service.BangleSupplyService;
+import com.muller.lappli.service.CustomComponentSupplyService;
+import com.muller.lappli.service.ElementSupplyService;
 import com.muller.lappli.service.StrandService;
+import com.muller.lappli.service.abstracts.AbstractSpecificationExecutorService;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -15,14 +19,29 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class StrandServiceImpl implements StrandService {
+public class StrandServiceImpl extends AbstractSpecificationExecutorService<Strand> implements StrandService {
 
     private final Logger log = LoggerFactory.getLogger(StrandServiceImpl.class);
 
     private final StrandRepository strandRepository;
 
-    public StrandServiceImpl(StrandRepository strandRepository) {
+    private final BangleSupplyService bangleSupplyService;
+
+    private final CustomComponentSupplyService customComponentSupplyService;
+
+    private final ElementSupplyService elementSupplyService;
+
+    public StrandServiceImpl(
+        StrandRepository strandRepository,
+        BangleSupplyService bangleSupplyService,
+        CustomComponentSupplyService customComponentSupplyService,
+        ElementSupplyService elementSupplyService
+    ) {
+        super(strandRepository);
         this.strandRepository = strandRepository;
+        this.bangleSupplyService = bangleSupplyService;
+        this.customComponentSupplyService = customComponentSupplyService;
+        this.elementSupplyService = elementSupplyService;
     }
 
     @Override
@@ -61,12 +80,33 @@ public class StrandServiceImpl implements StrandService {
     @Transactional(readOnly = true)
     public Optional<Strand> findOne(Long id) {
         log.debug("Request to get Strand : {}", id);
-        return strandRepository.findById(id);
+        Optional<Strand> strand = strandRepository.findById(id);
+
+        if (strand.isPresent()) {
+            Long strandId = strand.get().getId();
+            strand
+                .get()
+                .bangleSupplies(bangleSupplyService.findByStrandId(strandId))
+                .customComponentSupplies(customComponentSupplyService.findByStrandId(strandId))
+                .elementSupplies(elementSupplyService.findByStrandId(strandId));
+        }
+
+        return strand;
     }
 
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Strand : {}", id);
         strandRepository.deleteById(id);
+    }
+
+    @Override
+    protected Strand onDomainObjectGetting(Strand domainObject) {
+        Long strandId = domainObject.getId();
+
+        return domainObject
+            .bangleSupplies(bangleSupplyService.findByStrandId(strandId))
+            .customComponentSupplies(customComponentSupplyService.findByStrandId(strandId))
+            .elementSupplies(elementSupplyService.findByStrandId(strandId));
     }
 }
