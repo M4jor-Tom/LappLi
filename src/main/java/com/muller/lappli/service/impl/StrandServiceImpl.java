@@ -70,31 +70,6 @@ public class StrandServiceImpl extends AbstractSpecificationExecutorService<Stra
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<Strand> findAll() {
-        log.debug("Request to get all Strands");
-        return strandRepository.findAll();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<Strand> findOne(Long id) {
-        log.debug("Request to get Strand : {}", id);
-        Optional<Strand> strand = strandRepository.findById(id);
-
-        if (strand.isPresent()) {
-            Long strandId = strand.get().getId();
-            strand
-                .get()
-                .bangleSupplies(bangleSupplyService.findByStrandId(strandId))
-                .customComponentSupplies(customComponentSupplyService.findByStrandId(strandId))
-                .elementSupplies(elementSupplyService.findByStrandId(strandId));
-        }
-
-        return strand;
-    }
-
-    @Override
     public void delete(Long id) {
         log.debug("Request to delete Strand : {}", id);
         strandRepository.deleteById(id);

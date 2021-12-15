@@ -3,7 +3,6 @@ package com.muller.lappli.service;
 import com.muller.lappli.domain.ElementSupply;
 import com.muller.lappli.repository.ElementSupplyRepository;
 import com.muller.lappli.service.abstracts.AbstractLiftedSupplyService;
-import com.muller.lappli.service.abstracts.AbstractSpecificationExecutorService;
 import com.muller.lappli.service.interfaces.ISupplyService;
 import java.util.HashSet;
 import java.util.List;
@@ -66,29 +65,6 @@ public class ElementSupplyService extends AbstractLiftedSupplyService<ElementSup
                 return existingElementSupply;
             })
             .map(elementSupplyRepository::save);
-    }
-
-    /**
-     * Get all the elementSupplies.
-     *
-     * @return the list of entities.
-     */
-    @Transactional(readOnly = true)
-    public List<ElementSupply> findAll() {
-        log.debug("Request to get all ElementSupplies");
-        return elementSupplyRepository.findAll();
-    }
-
-    /**
-     * Get one elementSupply by id.
-     *
-     * @param id the id of the entity.
-     * @return the entity.
-     */
-    @Transactional(readOnly = true)
-    public Optional<ElementSupply> findOne(Long id) {
-        log.debug("Request to get ElementSupply : {}", id);
-        return elementSupplyRepository.findById(id);
     }
 
     /**

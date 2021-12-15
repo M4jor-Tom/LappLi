@@ -65,29 +65,6 @@ public class BangleSupplyService extends AbstractSpecificationExecutorService<Ba
     }
 
     /**
-     * Get all the bangleSupplies.
-     *
-     * @return the list of entities.
-     */
-    @Transactional(readOnly = true)
-    public List<BangleSupply> findAll() {
-        log.debug("Request to get all BangleSupplies");
-        return bangleSupplyRepository.findAll();
-    }
-
-    /**
-     * Get one bangleSupply by id.
-     *
-     * @param id the id of the entity.
-     * @return the entity.
-     */
-    @Transactional(readOnly = true)
-    public Optional<BangleSupply> findOne(Long id) {
-        log.debug("Request to get BangleSupply : {}", id);
-        return bangleSupplyRepository.findById(id);
-    }
-
-    /**
      * Delete the bangleSupply by id.
      *
      * @param id the id of the entity.
