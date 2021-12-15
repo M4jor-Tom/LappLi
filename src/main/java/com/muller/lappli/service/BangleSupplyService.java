@@ -25,7 +25,7 @@ public class BangleSupplyService extends AbstractSpecificationExecutorService<Ba
     private final BangleSupplyRepository bangleSupplyRepository;
 
     public BangleSupplyService(BangleSupplyRepository bangleSupplyRepository) {
-        super(bangleSupplyRepository);
+        super(bangleSupplyRepository, bangleSupplyRepository);
         this.bangleSupplyRepository = bangleSupplyRepository;
     }
 

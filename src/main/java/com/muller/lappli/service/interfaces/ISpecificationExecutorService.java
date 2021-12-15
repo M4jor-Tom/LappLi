@@ -1,6 +1,7 @@
 package com.muller.lappli.service.interfaces;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -37,6 +38,29 @@ public interface ISpecificationExecutorService<T> {
      * @return never {@literal null}.
      */
     public Page<T> findAll(@Nullable Specification<T> spec, Pageable pageable);
+
+    /**
+     * Normaly a repository's method.
+     * <p>
+     * Implemented to use services at most places.
+     * <p>
+     * Get all the domainObjects.
+     *
+     * @return the list of entities.
+     */
+    public List<T> findAll();
+
+    /**
+     * Normaly a repository's method.
+     * <p>
+     * Implemented to use services at most places.
+     * <p>
+     * Get the "id" domainObject.
+     *
+     * @param id the id of the entity.
+     * @return the entity.
+     */
+    public Optional<T> findOne(Long id);
 
     /**
      * Normaly a repository's method.

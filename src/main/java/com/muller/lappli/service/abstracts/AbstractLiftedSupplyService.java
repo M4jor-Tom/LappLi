@@ -5,13 +5,20 @@ import com.muller.lappli.service.LifterService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public abstract class AbstractLiftedSupplyService<T extends AbstractLiftedSupply> extends AbstractSpecificationExecutorService<T> {
 
     private final LifterService lifterService;
 
-    public AbstractLiftedSupplyService(JpaSpecificationExecutor<T> repository, LifterService lifterService) {
-        super(repository);
+    public AbstractLiftedSupplyService(
+        JpaSpecificationExecutor<T> jpaSpecificationExecutor,
+        CrudRepository<T, Long> crudRepository,
+        LifterService lifterService
+    ) {
+        super(jpaSpecificationExecutor, crudRepository);
         this.lifterService = lifterService;
     }
 

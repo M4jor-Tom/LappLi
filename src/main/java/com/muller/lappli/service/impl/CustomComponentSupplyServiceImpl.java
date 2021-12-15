@@ -27,12 +27,8 @@ public class CustomComponentSupplyServiceImpl
 
     private final CustomComponentSupplyRepository customComponentSupplyRepository;
 
-    public CustomComponentSupplyServiceImpl(
-        LifterRepository lifterRepository,
-        LifterService lifterService,
-        CustomComponentSupplyRepository customComponentSupplyRepository
-    ) {
-        super(customComponentSupplyRepository, lifterService);
+    public CustomComponentSupplyServiceImpl(LifterService lifterService, CustomComponentSupplyRepository customComponentSupplyRepository) {
+        super(customComponentSupplyRepository, customComponentSupplyRepository, lifterService);
         this.customComponentSupplyRepository = customComponentSupplyRepository;
     }
 

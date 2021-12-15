@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +26,8 @@ public class ElementSupplyService extends AbstractLiftedSupplyService<ElementSup
     private final ElementSupplyRepository elementSupplyRepository;
 
     public ElementSupplyService(ElementSupplyRepository elementSupplyRepository, LifterService lifterService) {
-        super(elementSupplyRepository, lifterService);
+        super(elementSupplyRepository, elementSupplyRepository, lifterService);
+        //System.out.println("\n\n===========\n\n" + elementSupplyRepository + "\n\n==============\n\n" + ((elementSupplyRepository instanceof JpaSpecificationExecutor<?>) ? "YES" : "NO") + "\n\n==============\n\n");
         this.elementSupplyRepository = elementSupplyRepository;
     }
 

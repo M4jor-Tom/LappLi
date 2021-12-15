@@ -26,21 +26,6 @@ public interface StrandService extends ISpecificationExecutorService<Strand> {
     Optional<Strand> partialUpdate(Strand strand);
 
     /**
-     * Get all the strands.
-     *
-     * @return the list of entities.
-     */
-    List<Strand> findAll();
-
-    /**
-     * Get the "id" strand.
-     *
-     * @param id the id of the entity.
-     * @return the entity.
-     */
-    Optional<Strand> findOne(Long id);
-
-    /**
      * Delete the "id" strand.
      *
      * @param id the id of the entity.

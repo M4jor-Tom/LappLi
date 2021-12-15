@@ -11,6 +11,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Service;
 
 /**
  * There is no need of caring about this class if:
@@ -45,19 +46,25 @@ import org.springframework.lang.Nullable;
  *
  * @author Tom VAUTRAY (https://github.com/M4jor-Tom)
  */
+
+@Service
 public abstract class AbstractSpecificationExecutorService<T> {
 
-    @NotNull
-    private JpaSpecificationExecutor<T> repository;
+    private JpaSpecificationExecutor<T> jpaSpecificationExecutor;
+    private CrudRepository<T, Long> crudRepository;
 
-    public AbstractSpecificationExecutorService(@NotNull JpaSpecificationExecutor<T> repository) {
-        setRepository(repository);
+    public AbstractSpecificationExecutorService(
+        JpaSpecificationExecutor<T> jpaSpecificationExecutor,
+        CrudRepository<T, Long> crudRepository
+    ) {
+        this.jpaSpecificationExecutor = jpaSpecificationExecutor;
+        this.crudRepository = crudRepository;
     }
 
     protected abstract T onDomainObjectGetting(T domainObject);
 
-    public final List<T> findAll(@Nullable Specification<T> spec) {
-        List<T> domainObjectList = getRepositoryAsSpecificationExecutor().findAll(spec);
+    public List<T> findAll(@Nullable Specification<T> spec) {
+        List<T> domainObjectList = jpaSpecificationExecutor.findAll(spec);
 
         for (T domainObject : domainObjectList) {
             domainObject = onDomainObjectGetting(domainObject);
@@ -66,8 +73,8 @@ public abstract class AbstractSpecificationExecutorService<T> {
         return domainObjectList;
     }
 
-    public final Page<T> findAll(@Nullable Specification<T> spec, Pageable pageable) {
-        Page<T> domainObjectPage = getRepositoryAsSpecificationExecutor().findAll(spec, pageable);
+    public Page<T> findAll(@Nullable Specification<T> spec, Pageable pageable) {
+        Page<T> domainObjectPage = jpaSpecificationExecutor.findAll(spec, pageable);
 
         for (T domainObject : domainObjectPage) {
             domainObject = onDomainObjectGetting(domainObject);
@@ -76,18 +83,18 @@ public abstract class AbstractSpecificationExecutorService<T> {
         return domainObjectPage;
     }
 
-    public final List<T> findAll() {
+    public List<T> findAll() {
         List<T> domainObjectList = new ArrayList<>();
 
-        for (T domainObject : getRepositoryAsCrud().findAll()) {
+        for (T domainObject : crudRepository.findAll()) {
             domainObjectList.add(onDomainObjectGetting(domainObject));
         }
 
         return domainObjectList;
     }
 
-    public final Optional<T> findOne(Long id) {
-        Optional<T> domainObjectOptional = getRepositoryAsCrud().findById(id);
+    public Optional<T> findOne(Long id) {
+        Optional<T> domainObjectOptional = crudRepository.findById(id);
 
         if (domainObjectOptional.isPresent()) {
             domainObjectOptional = Optional.of(onDomainObjectGetting(domainObjectOptional.get()));
@@ -96,38 +103,7 @@ public abstract class AbstractSpecificationExecutorService<T> {
         return domainObjectOptional;
     }
 
-    public final long count(@Nullable Specification<T> spec) {
-        return repository.count(spec);
-    }
-
-    private final Boolean repositoryTypeIsOkay(JpaSpecificationExecutor<T> repository) {
-        return repository instanceof CrudRepository<?, ?>;
-    }
-
-    @NotNull
-    public final JpaSpecificationExecutor<T> getRepositoryAsSpecificationExecutor() {
-        if (repository == null) {
-            (new UnknownClassException("repository is null")).printStackTrace();
-        }
-
-        return repository;
-    }
-
-    @SuppressWarnings("unchecked")
-    public final CrudRepository<T, Long> getRepositoryAsCrud() {
-        if (repositoryTypeIsOkay(repository)) {
-            return (CrudRepository<T, Long>) repository;
-        }
-
-        (new UnknownClassException("repository is not instance of CrudRepository")).printStackTrace();
-
-        return null;
-    }
-
-    public final void setRepository(@NotNull JpaSpecificationExecutor<T> repository) {
-        if (!repositoryTypeIsOkay(repository)) {
-            (new UnknownClassException("repository must be JpaSpecificationExecutor as well as CrudRepository")).printStackTrace();
-        }
-        this.repository = repository;
+    public long count(@Nullable Specification<T> spec) {
+        return jpaSpecificationExecutor.count(spec);
     }
 }
