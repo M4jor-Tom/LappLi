@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.Element;
 import com.muller.lappli.domain.ElementSupply;
+import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.repository.ElementSupplyRepository;
 import com.muller.lappli.service.criteria.ElementSupplyCriteria;
@@ -80,6 +81,16 @@ class ElementSupplyResourceIT {
             element = TestUtil.findAll(em, Element.class).get(0);
         }
         elementSupply.setElement(element);
+        // Add required entity
+        Strand strand;
+        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
+            strand = StrandResourceIT.createEntity(em);
+            em.persist(strand);
+            em.flush();
+        } else {
+            strand = TestUtil.findAll(em, Strand.class).get(0);
+        }
+        elementSupply.setStrand(strand);
         return elementSupply;
     }
 
@@ -104,6 +115,16 @@ class ElementSupplyResourceIT {
             element = TestUtil.findAll(em, Element.class).get(0);
         }
         elementSupply.setElement(element);
+        // Add required entity
+        Strand strand;
+        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
+            strand = StrandResourceIT.createUpdatedEntity(em);
+            em.persist(strand);
+            em.flush();
+        } else {
+            strand = TestUtil.findAll(em, Strand.class).get(0);
+        }
+        elementSupply.setStrand(strand);
         return elementSupply;
     }
 
@@ -492,6 +513,32 @@ class ElementSupplyResourceIT {
 
         // Get all the elementSupplyList where element equals to (elementId + 1)
         defaultElementSupplyShouldNotBeFound("elementId.equals=" + (elementId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllElementSuppliesByStrandIsEqualToSomething() throws Exception {
+        // Initialize the database
+        elementSupplyRepository.saveAndFlush(elementSupply);
+        Strand strand;
+        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
+            strand = StrandResourceIT.createEntity(em);
+            em.persist(strand);
+            em.flush();
+        } else {
+            strand = TestUtil.findAll(em, Strand.class).get(0);
+        }
+        em.persist(strand);
+        em.flush();
+        elementSupply.setStrand(strand);
+        elementSupplyRepository.saveAndFlush(elementSupply);
+        Long strandId = strand.getId();
+
+        // Get all the elementSupplyList where strand equals to strandId
+        defaultElementSupplyShouldBeFound("strandId.equals=" + strandId);
+
+        // Get all the elementSupplyList where strand equals to (strandId + 1)
+        defaultElementSupplyShouldNotBeFound("strandId.equals=" + (strandId + 1));
     }
 
     /**

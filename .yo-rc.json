@@ -56,8 +56,9 @@
       "ElementKindEdition",
       "MaterialMarkingStatistic",
       "CustomComponentSupply",
-      "CustomComponent"
+      "CustomComponent",
+      "Strand"
     ],
-    "lastLiquibaseTimestamp": 1639141159000
+    "lastLiquibaseTimestamp": 1639585639000
   }
 }

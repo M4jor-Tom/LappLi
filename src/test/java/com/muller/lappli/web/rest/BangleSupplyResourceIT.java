@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.Bangle;
 import com.muller.lappli.domain.BangleSupply;
+import com.muller.lappli.domain.Strand;
 import com.muller.lappli.repository.BangleSupplyRepository;
 import com.muller.lappli.service.criteria.BangleSupplyCriteria;
 import java.util.List;
@@ -73,6 +74,16 @@ class BangleSupplyResourceIT {
             bangle = TestUtil.findAll(em, Bangle.class).get(0);
         }
         bangleSupply.setBangle(bangle);
+        // Add required entity
+        Strand strand;
+        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
+            strand = StrandResourceIT.createEntity(em);
+            em.persist(strand);
+            em.flush();
+        } else {
+            strand = TestUtil.findAll(em, Strand.class).get(0);
+        }
+        bangleSupply.setStrand(strand);
         return bangleSupply;
     }
 
@@ -94,6 +105,16 @@ class BangleSupplyResourceIT {
             bangle = TestUtil.findAll(em, Bangle.class).get(0);
         }
         bangleSupply.setBangle(bangle);
+        // Add required entity
+        Strand strand;
+        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
+            strand = StrandResourceIT.createUpdatedEntity(em);
+            em.persist(strand);
+            em.flush();
+        } else {
+            strand = TestUtil.findAll(em, Strand.class).get(0);
+        }
+        bangleSupply.setStrand(strand);
         return bangleSupply;
     }
 
@@ -410,6 +431,32 @@ class BangleSupplyResourceIT {
 
         // Get all the bangleSupplyList where bangle equals to (bangleId + 1)
         defaultBangleSupplyShouldNotBeFound("bangleId.equals=" + (bangleId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllBangleSuppliesByStrandIsEqualToSomething() throws Exception {
+        // Initialize the database
+        bangleSupplyRepository.saveAndFlush(bangleSupply);
+        Strand strand;
+        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
+            strand = StrandResourceIT.createEntity(em);
+            em.persist(strand);
+            em.flush();
+        } else {
+            strand = TestUtil.findAll(em, Strand.class).get(0);
+        }
+        em.persist(strand);
+        em.flush();
+        bangleSupply.setStrand(strand);
+        bangleSupplyRepository.saveAndFlush(bangleSupply);
+        Long strandId = strand.getId();
+
+        // Get all the bangleSupplyList where strand equals to strandId
+        defaultBangleSupplyShouldBeFound("strandId.equals=" + strandId);
+
+        // Get all the bangleSupplyList where strand equals to (strandId + 1)
+        defaultBangleSupplyShouldNotBeFound("strandId.equals=" + (strandId + 1));
     }
 
     /**

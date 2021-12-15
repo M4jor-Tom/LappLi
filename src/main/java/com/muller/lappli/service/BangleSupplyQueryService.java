@@ -97,6 +97,12 @@ public class BangleSupplyQueryService extends QueryService<BangleSupply> {
                         buildSpecification(criteria.getBangleId(), root -> root.join(BangleSupply_.bangle, JoinType.LEFT).get(Bangle_.id))
                     );
             }
+            if (criteria.getStrandId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getStrandId(), root -> root.join(BangleSupply_.strand, JoinType.LEFT).get(Strand_.id))
+                    );
+            }
         }
         return specification;
     }

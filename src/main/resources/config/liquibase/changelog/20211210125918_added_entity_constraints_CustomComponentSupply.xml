@@ -13,5 +13,11 @@
                                  constraintName="fk_custom_component_supply__custom_component_id"
                                  referencedColumnNames="id"
                                  referencedTableName="custom_component"/>
+
+        <addForeignKeyConstraint baseColumnNames="strand_id"
+                                 baseTableName="custom_component_supply"
+                                 constraintName="fk_custom_component_supply__strand_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="strand"/>
     </changeSet>
 </databaseChangeLog>

@@ -13,5 +13,11 @@
                                  constraintName="fk_bangle_supply__bangle_id"
                                  referencedColumnNames="id"
                                  referencedTableName="bangle"/>
+
+        <addForeignKeyConstraint baseColumnNames="strand_id"
+                                 baseTableName="bangle_supply"
+                                 constraintName="fk_bangle_supply__strand_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="strand"/>
     </changeSet>
 </databaseChangeLog>

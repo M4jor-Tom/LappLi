@@ -30,6 +30,10 @@ export const CustomComponentSupplyDetail = (props: RouteComponentProps<{ id: str
           </dt>
           <dd>{customComponentSupplyEntity.id}</dd>
           <dt>
+            <Translate contentKey="lappLiApp.customComponentSupply.strand">Strand</Translate>
+          </dt>
+          <dd>{customComponentSupplyEntity.strand ? customComponentSupplyEntity.strand.designation : ''}</dd>
+          <dt>
             <span id="apparitions">
               <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
             </span>

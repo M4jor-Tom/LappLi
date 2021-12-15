@@ -30,6 +30,10 @@ export const BangleSupplyDetail = (props: RouteComponentProps<{ id: string }>) =
           </dt>
           <dd>{bangleSupplyEntity.id}</dd>
           <dt>
+            <Translate contentKey="lappLiApp.bangleSupply.strand">Strand</Translate>
+          </dt>
+          <dd>{bangleSupplyEntity.strand ? bangleSupplyEntity.strand.designation : ''}</dd>
+          <dt>
             <span id="apparitions">
               <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
             </span>
