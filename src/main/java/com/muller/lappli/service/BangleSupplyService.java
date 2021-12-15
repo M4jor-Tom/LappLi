@@ -77,7 +77,7 @@ public class BangleSupplyService extends AbstractSpecificationExecutorService<Ba
     @Override
     public Set<BangleSupply> findByStrandId(Long id) {
         Set<BangleSupply> bangleSupplyList = new HashSet<>();
-        for (BangleSupply bangleSupply : bangleSupplyRepository.findAll()) {
+        for (BangleSupply bangleSupply : findAll()) {
             if (bangleSupply.getStrand().getId().equals(id)) {
                 bangleSupplyList.add(bangleSupply);
             }

@@ -73,7 +73,7 @@ public class CustomComponentSupplyServiceImpl
     @Override
     public Set<CustomComponentSupply> findByStrandId(Long id) {
         Set<CustomComponentSupply> customComponentSupplyList = new HashSet<>();
-        for (CustomComponentSupply customComponentSupply : customComponentSupplyRepository.findAll()) {
+        for (CustomComponentSupply customComponentSupply : findAll()) {
             if (customComponentSupply.getStrand().getId().equals(id)) {
                 customComponentSupplyList.add(customComponentSupply);
             }

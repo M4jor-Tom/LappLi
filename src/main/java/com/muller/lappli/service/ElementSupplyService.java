@@ -80,17 +80,12 @@ public class ElementSupplyService extends AbstractLiftedSupplyService<ElementSup
     @Override
     public Set<ElementSupply> findByStrandId(Long id) {
         Set<ElementSupply> elementSupplyList = new HashSet<>();
-        for (ElementSupply elementSupply : elementSupplyRepository.findAll()) {
+        for (ElementSupply elementSupply : findAll()) {
             if (elementSupply.getStrand().getId().equals(id)) {
                 elementSupplyList.add(elementSupply);
             }
         }
 
         return elementSupplyList;
-    }
-
-    @Override
-    protected ElementSupply onDomainObjectGetting(ElementSupply domainObject) {
-        return domainObject;
     }
 }
