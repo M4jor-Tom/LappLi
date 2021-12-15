@@ -2,7 +2,6 @@ package com.muller.lappli.service;
 
 import com.muller.lappli.domain.*; // for static metamodels
 import com.muller.lappli.domain.ElementSupply;
-import com.muller.lappli.repository.ElementSupplyRepository;
 import com.muller.lappli.service.criteria.ElementSupplyCriteria;
 import java.util.List;
 import javax.persistence.criteria.JoinType;
@@ -27,10 +26,10 @@ public class ElementSupplyQueryService extends QueryService<ElementSupply> {
 
     private final Logger log = LoggerFactory.getLogger(ElementSupplyQueryService.class);
 
-    private final ElementSupplyRepository elementSupplyRepository;
+    private final ElementSupplyService elementSupplyService;
 
-    public ElementSupplyQueryService(ElementSupplyRepository elementSupplyRepository) {
-        this.elementSupplyRepository = elementSupplyRepository;
+    public ElementSupplyQueryService(ElementSupplyService elementSupplyService) {
+        this.elementSupplyService = elementSupplyService;
     }
 
     /**
@@ -42,7 +41,7 @@ public class ElementSupplyQueryService extends QueryService<ElementSupply> {
     public List<ElementSupply> findByCriteria(ElementSupplyCriteria criteria) {
         log.debug("find by criteria : {}", criteria);
         final Specification<ElementSupply> specification = createSpecification(criteria);
-        return elementSupplyRepository.findAll(specification);
+        return elementSupplyService.findAll(specification);
     }
 
     /**
@@ -55,7 +54,7 @@ public class ElementSupplyQueryService extends QueryService<ElementSupply> {
     public Page<ElementSupply> findByCriteria(ElementSupplyCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<ElementSupply> specification = createSpecification(criteria);
-        return elementSupplyRepository.findAll(specification, page);
+        return elementSupplyService.findAll(specification, page);
     }
 
     /**
@@ -67,7 +66,7 @@ public class ElementSupplyQueryService extends QueryService<ElementSupply> {
     public long countByCriteria(ElementSupplyCriteria criteria) {
         log.debug("count by criteria : {}", criteria);
         final Specification<ElementSupply> specification = createSpecification(criteria);
-        return elementSupplyRepository.count(specification);
+        return elementSupplyService.count(specification);
     }
 
     /**
