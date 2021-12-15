@@ -149,7 +149,7 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
                           <td>
                             <Button
                               tag={Link}
-                              to={`${match.url}/${customComponentSupply.id}/delete`}
+                              to={`${'custom-component-supply'}/${customComponentSupply.id}/delete`}
                               color="danger"
                               size="sm"
                               data-cy="entityDeleteButton"
@@ -202,7 +202,7 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
                           <td>
                             <Button
                               tag={Link}
-                              to={`${match.url}/${bangleSupply.id}/delete`}
+                              to={`${'bangle-supply'}/${bangleSupply.id}/delete`}
                               color="danger"
                               size="sm"
                               data-cy="entityDeleteButton"
@@ -257,7 +257,7 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
                           <td>
                             <Button
                               tag={Link}
-                              to={`${match.url}/${elementSupply.id}/delete`}
+                              to={`${'element-supply'}/${elementSupply.id}/delete`}
                               color="danger"
                               size="sm"
                               data-cy="entityDeleteButton"
