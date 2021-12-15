@@ -179,17 +179,17 @@ public class ElementKindResource {
         List<ElementKind> elementKindList = elementKindQueryService.findByCriteria(criteria);
 
         //Creating a list for edited ElementKinds
-        ArrayList<ElementKind> editedElementKindList = new ArrayList<ElementKind>();
+        //ArrayList<ElementKind> editedElementKindList = new ArrayList<ElementKind>();
 
-        for (ElementKind elementKind : elementKindList) {
+        /*for (ElementKind elementKind : elementKindList) {
             //Giving an EditionListManager to the ElementKind
             elementKindEditionService.setEditionListManagerTo(elementKind);
 
             //Storing changed entity into a new list that'll be returned
             editedElementKindList.add(elementKind.getAtInstant(elementKind, Instant.now()));
-        }
+        }*/
 
-        return ResponseEntity.ok().body(editedElementKindList);
+        return ResponseEntity.ok().body(elementKindList); //editedElementKindList);
     }
 
     /**
@@ -215,13 +215,13 @@ public class ElementKindResource {
         log.debug("REST request to get ElementKind : {}", id);
         Optional<ElementKind> elementKind = elementKindService.findOne(id);
 
-        if (elementKind.isPresent()) {
+        /*if (elementKind.isPresent()) {
             //Giving an EditionListManager to the ElementKind
             elementKindEditionService.setEditionListManagerTo(elementKind.get());
 
             //Changing the value of the ElementKind depending on its Editions
             elementKind = Optional.of(elementKind.get().getAtInstant(elementKind.get(), Instant.now()));
-        }
+        }*/
 
         return ResponseUtil.wrapOrNotFound(elementKind);
     }
