@@ -5,7 +5,6 @@ import com.muller.lappli.repository.BangleSupplyRepository;
 import com.muller.lappli.service.abstracts.AbstractSpecificationExecutorService;
 import com.muller.lappli.service.interfaces.ISupplyService;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import org.slf4j.Logger;

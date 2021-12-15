@@ -4,7 +4,6 @@ import io.jsonwebtoken.lang.UnknownClassException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import javax.validation.constraints.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;

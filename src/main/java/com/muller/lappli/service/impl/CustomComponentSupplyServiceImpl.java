@@ -2,7 +2,6 @@ package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.CustomComponentSupply;
 import com.muller.lappli.repository.CustomComponentSupplyRepository;
-import com.muller.lappli.repository.LifterRepository;
 import com.muller.lappli.service.CustomComponentSupplyService;
 import com.muller.lappli.service.LifterService;
 import com.muller.lappli.service.abstracts.AbstractLiftedSupplyService;

@@ -5,12 +5,10 @@ import com.muller.lappli.repository.ElementSupplyRepository;
 import com.muller.lappli.service.abstracts.AbstractLiftedSupplyService;
 import com.muller.lappli.service.interfaces.ISupplyService;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

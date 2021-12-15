@@ -7,7 +7,6 @@ import com.muller.lappli.service.CustomComponentSupplyService;
 import com.muller.lappli.service.ElementSupplyService;
 import com.muller.lappli.service.StrandService;
 import com.muller.lappli.service.abstracts.AbstractSpecificationExecutorService;
-import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
