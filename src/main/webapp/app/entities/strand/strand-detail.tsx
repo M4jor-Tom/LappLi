@@ -146,6 +146,20 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
                               </span>
                             </Button>
                           </td>
+                          <td>
+                            <Button
+                              tag={Link}
+                              to={`${match.url}/${customComponentSupply.id}/delete`}
+                              color="danger"
+                              size="sm"
+                              data-cy="entityDeleteButton"
+                            >
+                              <FontAwesomeIcon icon="trash" />{' '}
+                              <span className="d-none d-md-inline">
+                                <Translate contentKey="entity.action.delete">Delete</Translate>
+                              </span>
+                            </Button>
+                          </td>
                         </tr>
                       </>
                     ))}
@@ -182,6 +196,20 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
                               <FontAwesomeIcon icon="pencil-alt" />{' '}
                               <span className="d-none d-md-inline">
                                 <Translate contentKey="entity.action.edit">Edit</Translate>
+                              </span>
+                            </Button>
+                          </td>
+                          <td>
+                            <Button
+                              tag={Link}
+                              to={`${match.url}/${bangleSupply.id}/delete`}
+                              color="danger"
+                              size="sm"
+                              data-cy="entityDeleteButton"
+                            >
+                              <FontAwesomeIcon icon="trash" />{' '}
+                              <span className="d-none d-md-inline">
+                                <Translate contentKey="entity.action.delete">Delete</Translate>
                               </span>
                             </Button>
                           </td>
@@ -223,6 +251,20 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
                               <FontAwesomeIcon icon="pencil-alt" />{' '}
                               <span className="d-none d-md-inline">
                                 <Translate contentKey="entity.action.edit">Edit</Translate>
+                              </span>
+                            </Button>
+                          </td>
+                          <td>
+                            <Button
+                              tag={Link}
+                              to={`${match.url}/${elementSupply.id}/delete`}
+                              color="danger"
+                              size="sm"
+                              data-cy="entityDeleteButton"
+                            >
+                              <FontAwesomeIcon icon="trash" />{' '}
+                              <span className="d-none d-md-inline">
+                                <Translate contentKey="entity.action.delete">Delete</Translate>
                               </span>
                             </Button>
                           </td>
