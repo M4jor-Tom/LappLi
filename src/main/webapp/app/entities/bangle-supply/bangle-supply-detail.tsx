@@ -56,11 +56,11 @@ export const BangleSupplyDetail = (props: RouteComponentProps<{ id: string }>) =
           <dt>
             <Translate contentKey="lappLiApp.dimension.milimeterDiameter">Diameter (mm)</Translate>
           </dt>
-          <dd>{bangleSupplyEntity.bangle.milimeterDiameter}</dd>
+          <dd>{bangleSupplyEntity.bangle?.milimeterDiameter}</dd>
           <dt>
             <Translate contentKey="lappLiApp.dimension.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
           </dt>
-          <dd>{bangleSupplyEntity.bangle.gramPerMeterLinearMass}</dd>
+          <dd>{bangleSupplyEntity.bangle?.gramPerMeterLinearMass}</dd>
           <dt>
             <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Lifter Names</Translate>
           </dt>
