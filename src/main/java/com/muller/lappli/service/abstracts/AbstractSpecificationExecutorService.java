@@ -53,12 +53,15 @@ public abstract class AbstractSpecificationExecutorService<T> {
     private JpaSpecificationExecutor<T> jpaSpecificationExecutor;
     private CrudRepository<T, Long> crudRepository;
 
-    public AbstractSpecificationExecutorService(
-        JpaSpecificationExecutor<T> jpaSpecificationExecutor,
-        CrudRepository<T, Long> crudRepository
-    ) {
-        this.jpaSpecificationExecutor = jpaSpecificationExecutor;
-        this.crudRepository = crudRepository;
+    @SuppressWarnings("unchecked")
+    public AbstractSpecificationExecutorService(JpaSpecificationExecutor<T> repository) {
+        this.jpaSpecificationExecutor = repository;
+
+        if (!(repository instanceof CrudRepository<?, ?>)) {
+            throw new UnknownClassException("repository must as well be a CrudRepository");
+        }
+
+        this.crudRepository = (CrudRepository<T, Long>) repository;
     }
 
     protected abstract T onDomainObjectGetting(T domainObject);

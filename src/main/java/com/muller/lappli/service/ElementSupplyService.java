@@ -26,8 +26,7 @@ public class ElementSupplyService extends AbstractLiftedSupplyService<ElementSup
     private final ElementSupplyRepository elementSupplyRepository;
 
     public ElementSupplyService(ElementSupplyRepository elementSupplyRepository, LifterService lifterService) {
-        super(elementSupplyRepository, elementSupplyRepository, lifterService);
-        //System.out.println("\n\n===========\n\n" + elementSupplyRepository + "\n\n==============\n\n" + ((elementSupplyRepository instanceof JpaSpecificationExecutor<?>) ? "YES" : "NO") + "\n\n==============\n\n");
+        super(elementSupplyRepository, lifterService);
         this.elementSupplyRepository = elementSupplyRepository;
     }
 

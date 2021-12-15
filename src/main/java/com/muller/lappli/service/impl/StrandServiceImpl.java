@@ -37,7 +37,7 @@ public class StrandServiceImpl extends AbstractSpecificationExecutorService<Stra
         CustomComponentSupplyService customComponentSupplyService,
         ElementSupplyService elementSupplyService
     ) {
-        super(strandRepository, strandRepository);
+        super(strandRepository);
         this.strandRepository = strandRepository;
         this.bangleSupplyService = bangleSupplyService;
         this.customComponentSupplyService = customComponentSupplyService;
