@@ -41,12 +41,12 @@ public class ISupplyServiceImpl implements ISupplyService {
                 if (iSupply.getApparitions() != null) {
                     existingISupply.setApparitions(iSupply.getApparitions());
                 }
-                if (iSupply.getMilimeterDiameter() != null) {
+                /*if (iSupply.getMilimeterDiameter() != null) {
                     existingISupply.setMilimeterDiameter(iSupply.getMilimeterDiameter());
                 }
                 if (iSupply.getGramPerMeterLinearMass() != null) {
                     existingISupply.setGramPerMeterLinearMass(iSupply.getGramPerMeterLinearMass());
-                }
+                }*/
 
                 return existingISupply;
             })

@@ -17,7 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "bangle_supply")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class BangleSupply extends AbstractLiftedSupply implements Serializable {
+public class BangleSupply extends AbstractLiftedSupply implements ISupply, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -75,6 +75,7 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    @Override
     public Long getId() {
         return this.id;
     }
@@ -84,6 +85,7 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
         return this;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -126,6 +128,18 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
     public BangleSupply bangle(Bangle bangle) {
         this.setBangle(bangle);
         return this;
+    }
+
+    @Override
+    public Strand getStrand() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void setStrand(Strand strand) {
+        // TODO Auto-generated method stub
+
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

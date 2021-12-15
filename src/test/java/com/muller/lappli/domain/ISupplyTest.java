@@ -10,9 +10,9 @@ class ISupplyTest {
     @Test
     void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(ISupply.class);
-        ISupply iSupply1 = new ISupply();
+        ISupply iSupply1 = new ElementSupply();
         iSupply1.setId(1L);
-        ISupply iSupply2 = new ISupply();
+        ISupply iSupply2 = new ElementSupply();
         iSupply2.setId(iSupply1.getId());
         assertThat(iSupply1).isEqualTo(iSupply2);
         iSupply2.setId(2L);

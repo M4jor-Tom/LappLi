@@ -17,7 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "custom_component_supply")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CustomComponentSupply extends AbstractMarkedLiftedSupply implements Serializable {
+public class CustomComponentSupply extends AbstractMarkedLiftedSupply implements ISupply, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -75,6 +75,7 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply implements
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    @Override
     public Long getId() {
         return this.id;
     }
@@ -84,6 +85,7 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply implements
         return this;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -138,6 +140,18 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply implements
     public CustomComponentSupply customComponent(CustomComponent customComponent) {
         this.setCustomComponent(customComponent);
         return this;
+    }
+
+    @Override
+    public Strand getStrand() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void setStrand(Strand strand) {
+        // TODO Auto-generated method stub
+
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

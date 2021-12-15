@@ -16,7 +16,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element_supply")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ElementSupply extends AbstractMarkedLiftedSupply implements Serializable {
+public class ElementSupply extends AbstractMarkedLiftedSupply implements ISupply, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -92,6 +92,7 @@ public class ElementSupply extends AbstractMarkedLiftedSupply implements Seriali
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    @Override
     public Long getId() {
         return this.id;
     }
@@ -101,6 +102,7 @@ public class ElementSupply extends AbstractMarkedLiftedSupply implements Seriali
         return this;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -157,6 +159,18 @@ public class ElementSupply extends AbstractMarkedLiftedSupply implements Seriali
     public ElementSupply element(Element element) {
         this.setElement(element);
         return this;
+    }
+
+    @Override
+    public Strand getStrand() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void setStrand(Strand strand) {
+        // TODO Auto-generated method stub
+
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

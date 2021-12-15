@@ -82,7 +82,7 @@ public class ISupplyQueryService extends QueryService<ISupply> {
             if (criteria.getDistinct() != null) {
                 specification = specification.and(distinct(criteria.getDistinct()));
             }
-            if (criteria.getId() != null) {
+            /*if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), ISupply_.id));
             }
             if (criteria.getApparitions() != null) {
@@ -100,7 +100,7 @@ public class ISupplyQueryService extends QueryService<ISupply> {
                     specification.and(
                         buildSpecification(criteria.getStrandId(), root -> root.join(ISupply_.strand, JoinType.LEFT).get(Strand_.id))
                     );
-            }
+            }*/
         }
         return specification;
     }

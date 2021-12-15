@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.muller.lappli.IntegrationTest;
+import com.muller.lappli.domain.ElementSupply;
 import com.muller.lappli.domain.ISupply;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.repository.ISupplyRepository;
@@ -36,8 +37,8 @@ class ISupplyResourceIT {
     private static final Long SMALLER_APPARITIONS = 1L - 1L;
 
     private static final Double DEFAULT_MILIMETER_DIAMETER = 1D;
-    private static final Double UPDATED_MILIMETER_DIAMETER = 2D;
-    private static final Double SMALLER_MILIMETER_DIAMETER = 1D - 1D;
+    //private static final Double UPDATED_MILIMETER_DIAMETER = 2D;
+    //private static final Double SMALLER_MILIMETER_DIAMETER = 1D - 1D;
 
     private static final Double DEFAULT_GRAM_PER_METER_LINEAR_MASS = 1D;
     private static final Double UPDATED_GRAM_PER_METER_LINEAR_MASS = 2D;
@@ -67,10 +68,9 @@ class ISupplyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static ISupply createEntity(EntityManager em) {
-        ISupply iSupply = new ISupply()
-            .apparitions(DEFAULT_APPARITIONS)
-            .milimeterDiameter(DEFAULT_MILIMETER_DIAMETER)
-            .gramPerMeterLinearMass(DEFAULT_GRAM_PER_METER_LINEAR_MASS);
+        ISupply iSupply = new ElementSupply().apparitions(DEFAULT_APPARITIONS);
+        //.milimeterDiameter(DEFAULT_MILIMETER_DIAMETER)
+        //.gramPerMeterLinearMass(DEFAULT_GRAM_PER_METER_LINEAR_MASS);
         // Add required entity
         Strand strand;
         if (TestUtil.findAll(em, Strand.class).isEmpty()) {
@@ -91,10 +91,9 @@ class ISupplyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static ISupply createUpdatedEntity(EntityManager em) {
-        ISupply iSupply = new ISupply()
-            .apparitions(UPDATED_APPARITIONS)
-            .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
-            .gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS);
+        ISupply iSupply = new ElementSupply().apparitions(UPDATED_APPARITIONS);
+        //.milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
+        //.gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS);
         // Add required entity
         Strand strand;
         if (TestUtil.findAll(em, Strand.class).isEmpty()) {
@@ -155,40 +154,6 @@ class ISupplyResourceIT {
         int databaseSizeBeforeTest = iSupplyRepository.findAll().size();
         // set the field null
         iSupply.setApparitions(null);
-
-        // Create the ISupply, which fails.
-
-        restISupplyMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(iSupply)))
-            .andExpect(status().isBadRequest());
-
-        List<ISupply> iSupplyList = iSupplyRepository.findAll();
-        assertThat(iSupplyList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkMilimeterDiameterIsRequired() throws Exception {
-        int databaseSizeBeforeTest = iSupplyRepository.findAll().size();
-        // set the field null
-        iSupply.setMilimeterDiameter(null);
-
-        // Create the ISupply, which fails.
-
-        restISupplyMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(iSupply)))
-            .andExpect(status().isBadRequest());
-
-        List<ISupply> iSupplyList = iSupplyRepository.findAll();
-        assertThat(iSupplyList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkGramPerMeterLinearMassIsRequired() throws Exception {
-        int databaseSizeBeforeTest = iSupplyRepository.findAll().size();
-        // set the field null
-        iSupply.setGramPerMeterLinearMass(null);
 
         // Create the ISupply, which fails.
 
@@ -354,110 +319,6 @@ class ISupplyResourceIT {
 
         // Get all the iSupplyList where apparitions is greater than SMALLER_APPARITIONS
         defaultISupplyShouldBeFound("apparitions.greaterThan=" + SMALLER_APPARITIONS);
-    }
-
-    @Test
-    @Transactional
-    void getAllISuppliesByMilimeterDiameterIsEqualToSomething() throws Exception {
-        // Initialize the database
-        iSupplyRepository.saveAndFlush(iSupply);
-
-        // Get all the iSupplyList where milimeterDiameter equals to DEFAULT_MILIMETER_DIAMETER
-        defaultISupplyShouldBeFound("milimeterDiameter.equals=" + DEFAULT_MILIMETER_DIAMETER);
-
-        // Get all the iSupplyList where milimeterDiameter equals to UPDATED_MILIMETER_DIAMETER
-        defaultISupplyShouldNotBeFound("milimeterDiameter.equals=" + UPDATED_MILIMETER_DIAMETER);
-    }
-
-    @Test
-    @Transactional
-    void getAllISuppliesByMilimeterDiameterIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        iSupplyRepository.saveAndFlush(iSupply);
-
-        // Get all the iSupplyList where milimeterDiameter not equals to DEFAULT_MILIMETER_DIAMETER
-        defaultISupplyShouldNotBeFound("milimeterDiameter.notEquals=" + DEFAULT_MILIMETER_DIAMETER);
-
-        // Get all the iSupplyList where milimeterDiameter not equals to UPDATED_MILIMETER_DIAMETER
-        defaultISupplyShouldBeFound("milimeterDiameter.notEquals=" + UPDATED_MILIMETER_DIAMETER);
-    }
-
-    @Test
-    @Transactional
-    void getAllISuppliesByMilimeterDiameterIsInShouldWork() throws Exception {
-        // Initialize the database
-        iSupplyRepository.saveAndFlush(iSupply);
-
-        // Get all the iSupplyList where milimeterDiameter in DEFAULT_MILIMETER_DIAMETER or UPDATED_MILIMETER_DIAMETER
-        defaultISupplyShouldBeFound("milimeterDiameter.in=" + DEFAULT_MILIMETER_DIAMETER + "," + UPDATED_MILIMETER_DIAMETER);
-
-        // Get all the iSupplyList where milimeterDiameter equals to UPDATED_MILIMETER_DIAMETER
-        defaultISupplyShouldNotBeFound("milimeterDiameter.in=" + UPDATED_MILIMETER_DIAMETER);
-    }
-
-    @Test
-    @Transactional
-    void getAllISuppliesByMilimeterDiameterIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        iSupplyRepository.saveAndFlush(iSupply);
-
-        // Get all the iSupplyList where milimeterDiameter is not null
-        defaultISupplyShouldBeFound("milimeterDiameter.specified=true");
-
-        // Get all the iSupplyList where milimeterDiameter is null
-        defaultISupplyShouldNotBeFound("milimeterDiameter.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllISuppliesByMilimeterDiameterIsGreaterThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        iSupplyRepository.saveAndFlush(iSupply);
-
-        // Get all the iSupplyList where milimeterDiameter is greater than or equal to DEFAULT_MILIMETER_DIAMETER
-        defaultISupplyShouldBeFound("milimeterDiameter.greaterThanOrEqual=" + DEFAULT_MILIMETER_DIAMETER);
-
-        // Get all the iSupplyList where milimeterDiameter is greater than or equal to UPDATED_MILIMETER_DIAMETER
-        defaultISupplyShouldNotBeFound("milimeterDiameter.greaterThanOrEqual=" + UPDATED_MILIMETER_DIAMETER);
-    }
-
-    @Test
-    @Transactional
-    void getAllISuppliesByMilimeterDiameterIsLessThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        iSupplyRepository.saveAndFlush(iSupply);
-
-        // Get all the iSupplyList where milimeterDiameter is less than or equal to DEFAULT_MILIMETER_DIAMETER
-        defaultISupplyShouldBeFound("milimeterDiameter.lessThanOrEqual=" + DEFAULT_MILIMETER_DIAMETER);
-
-        // Get all the iSupplyList where milimeterDiameter is less than or equal to SMALLER_MILIMETER_DIAMETER
-        defaultISupplyShouldNotBeFound("milimeterDiameter.lessThanOrEqual=" + SMALLER_MILIMETER_DIAMETER);
-    }
-
-    @Test
-    @Transactional
-    void getAllISuppliesByMilimeterDiameterIsLessThanSomething() throws Exception {
-        // Initialize the database
-        iSupplyRepository.saveAndFlush(iSupply);
-
-        // Get all the iSupplyList where milimeterDiameter is less than DEFAULT_MILIMETER_DIAMETER
-        defaultISupplyShouldNotBeFound("milimeterDiameter.lessThan=" + DEFAULT_MILIMETER_DIAMETER);
-
-        // Get all the iSupplyList where milimeterDiameter is less than UPDATED_MILIMETER_DIAMETER
-        defaultISupplyShouldBeFound("milimeterDiameter.lessThan=" + UPDATED_MILIMETER_DIAMETER);
-    }
-
-    @Test
-    @Transactional
-    void getAllISuppliesByMilimeterDiameterIsGreaterThanSomething() throws Exception {
-        // Initialize the database
-        iSupplyRepository.saveAndFlush(iSupply);
-
-        // Get all the iSupplyList where milimeterDiameter is greater than DEFAULT_MILIMETER_DIAMETER
-        defaultISupplyShouldNotBeFound("milimeterDiameter.greaterThan=" + DEFAULT_MILIMETER_DIAMETER);
-
-        // Get all the iSupplyList where milimeterDiameter is greater than SMALLER_MILIMETER_DIAMETER
-        defaultISupplyShouldBeFound("milimeterDiameter.greaterThan=" + SMALLER_MILIMETER_DIAMETER);
     }
 
     @Test
@@ -641,40 +502,6 @@ class ISupplyResourceIT {
 
     @Test
     @Transactional
-    void putNewISupply() throws Exception {
-        // Initialize the database
-        iSupplyRepository.saveAndFlush(iSupply);
-
-        int databaseSizeBeforeUpdate = iSupplyRepository.findAll().size();
-
-        // Update the iSupply
-        ISupply updatedISupply = iSupplyRepository.findById(iSupply.getId()).get();
-        // Disconnect from session so that the updates on updatedISupply are not directly saved in db
-        em.detach(updatedISupply);
-        updatedISupply
-            .apparitions(UPDATED_APPARITIONS)
-            .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
-            .gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS);
-
-        restISupplyMockMvc
-            .perform(
-                put(ENTITY_API_URL_ID, updatedISupply.getId())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedISupply))
-            )
-            .andExpect(status().isOk());
-
-        // Validate the ISupply in the database
-        List<ISupply> iSupplyList = iSupplyRepository.findAll();
-        assertThat(iSupplyList).hasSize(databaseSizeBeforeUpdate);
-        ISupply testISupply = iSupplyList.get(iSupplyList.size() - 1);
-        assertThat(testISupply.getApparitions()).isEqualTo(UPDATED_APPARITIONS);
-        assertThat(testISupply.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
-        assertThat(testISupply.getGramPerMeterLinearMass()).isEqualTo(UPDATED_GRAM_PER_METER_LINEAR_MASS);
-    }
-
-    @Test
-    @Transactional
     void putNonExistingISupply() throws Exception {
         int databaseSizeBeforeUpdate = iSupplyRepository.findAll().size();
         iSupply.setId(count.incrementAndGet());
@@ -738,7 +565,7 @@ class ISupplyResourceIT {
         int databaseSizeBeforeUpdate = iSupplyRepository.findAll().size();
 
         // Update the iSupply using partial update
-        ISupply partialUpdatedISupply = new ISupply();
+        ISupply partialUpdatedISupply = new ElementSupply();
         partialUpdatedISupply.setId(iSupply.getId());
 
         restISupplyMockMvc
@@ -756,40 +583,6 @@ class ISupplyResourceIT {
         assertThat(testISupply.getApparitions()).isEqualTo(DEFAULT_APPARITIONS);
         assertThat(testISupply.getMilimeterDiameter()).isEqualTo(DEFAULT_MILIMETER_DIAMETER);
         assertThat(testISupply.getGramPerMeterLinearMass()).isEqualTo(DEFAULT_GRAM_PER_METER_LINEAR_MASS);
-    }
-
-    @Test
-    @Transactional
-    void fullUpdateISupplyWithPatch() throws Exception {
-        // Initialize the database
-        iSupplyRepository.saveAndFlush(iSupply);
-
-        int databaseSizeBeforeUpdate = iSupplyRepository.findAll().size();
-
-        // Update the iSupply using partial update
-        ISupply partialUpdatedISupply = new ISupply();
-        partialUpdatedISupply.setId(iSupply.getId());
-
-        partialUpdatedISupply
-            .apparitions(UPDATED_APPARITIONS)
-            .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
-            .gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS);
-
-        restISupplyMockMvc
-            .perform(
-                patch(ENTITY_API_URL_ID, partialUpdatedISupply.getId())
-                    .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedISupply))
-            )
-            .andExpect(status().isOk());
-
-        // Validate the ISupply in the database
-        List<ISupply> iSupplyList = iSupplyRepository.findAll();
-        assertThat(iSupplyList).hasSize(databaseSizeBeforeUpdate);
-        ISupply testISupply = iSupplyList.get(iSupplyList.size() - 1);
-        assertThat(testISupply.getApparitions()).isEqualTo(UPDATED_APPARITIONS);
-        assertThat(testISupply.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
-        assertThat(testISupply.getGramPerMeterLinearMass()).isEqualTo(UPDATED_GRAM_PER_METER_LINEAR_MASS);
     }
 
     @Test

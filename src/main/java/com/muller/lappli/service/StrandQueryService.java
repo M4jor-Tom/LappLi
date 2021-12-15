@@ -91,12 +91,12 @@ public class StrandQueryService extends QueryService<Strand> {
             if (criteria.getHousingOperationType() != null) {
                 specification = specification.and(buildSpecification(criteria.getHousingOperationType(), Strand_.housingOperationType));
             }
-            if (criteria.getSuppliesId() != null) {
+            /*if (criteria.getSuppliesId() != null) {
                 specification =
                     specification.and(
                         buildSpecification(criteria.getSuppliesId(), root -> root.join(Strand_.supplies, JoinType.LEFT).get(ISupply_.id))
                     );
-            }
+            }*/
         }
         return specification;
     }
