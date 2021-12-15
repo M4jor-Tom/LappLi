@@ -2,6 +2,16 @@ filter *
 
 service * with serviceImpl
 
+entity Strand {
+    designation String required
+}
+
+relationship OneToMany {
+	Strand{elementSupplies(designation)} to ElementSupply{strand(designation) required}
+    Strand{bangleSupplies(designation)} to BangleSupply{strand(designation) required}
+    Strand{customComponentSupplies(designation)} to CustomComponentSupply{strand(designation) required}
+}
+
 entity Lifter {
 	index Long unique required
 	minimumMilimeterDiameter Double required
@@ -30,10 +40,6 @@ entity BangleSupply {
     description String
 }
 
-filter BangleSupply
-
-service BangleSupply with serviceClass
-
 entity CustomComponentSupply {
 	apparitions Long required
     description String
@@ -61,10 +67,6 @@ entity ElementSupply {
     markingType MarkingType required
     description String
 }
-
-filter ElementSupply
-
-service ElementSupply with serviceClass
 
 enum MarkingType {
 	LIFTING,

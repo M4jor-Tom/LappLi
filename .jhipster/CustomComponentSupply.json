@@ -25,6 +25,14 @@
       "relationshipValidateRules": "required",
       "relationshipName": "customComponent",
       "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "strand",
+      "otherEntityRelationshipName": "customComponentSupplies",
+      "relationshipValidateRules": "required",
+      "relationshipName": "strand",
+      "otherEntityField": "designation"
     }
   ],
   "entityTableName": "custom_component_supply",

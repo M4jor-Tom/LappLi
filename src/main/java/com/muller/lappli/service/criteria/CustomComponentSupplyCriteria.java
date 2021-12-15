@@ -52,6 +52,8 @@ public class CustomComponentSupplyCriteria implements Serializable, Criteria {
 
     private LongFilter customComponentId;
 
+    private LongFilter strandId;
+
     private Boolean distinct;
 
     public CustomComponentSupplyCriteria() {}
@@ -62,6 +64,7 @@ public class CustomComponentSupplyCriteria implements Serializable, Criteria {
         this.description = other.description == null ? null : other.description.copy();
         this.markingType = other.markingType == null ? null : other.markingType.copy();
         this.customComponentId = other.customComponentId == null ? null : other.customComponentId.copy();
+        this.strandId = other.strandId == null ? null : other.strandId.copy();
         this.distinct = other.distinct;
     }
 
@@ -145,6 +148,21 @@ public class CustomComponentSupplyCriteria implements Serializable, Criteria {
         this.customComponentId = customComponentId;
     }
 
+    public LongFilter getStrandId() {
+        return strandId;
+    }
+
+    public LongFilter strandId() {
+        if (strandId == null) {
+            strandId = new LongFilter();
+        }
+        return strandId;
+    }
+
+    public void setStrandId(LongFilter strandId) {
+        this.strandId = strandId;
+    }
+
     public Boolean getDistinct() {
         return distinct;
     }
@@ -168,13 +186,14 @@ public class CustomComponentSupplyCriteria implements Serializable, Criteria {
             Objects.equals(description, that.description) &&
             Objects.equals(markingType, that.markingType) &&
             Objects.equals(customComponentId, that.customComponentId) &&
+            Objects.equals(strandId, that.strandId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, apparitions, description, markingType, customComponentId, distinct);
+        return Objects.hash(id, apparitions, description, markingType, customComponentId, strandId, distinct);
     }
 
     // prettier-ignore
@@ -186,6 +205,7 @@ public class CustomComponentSupplyCriteria implements Serializable, Criteria {
             (description != null ? "description=" + description + ", " : "") +
             (markingType != null ? "markingType=" + markingType + ", " : "") +
             (customComponentId != null ? "customComponentId=" + customComponentId + ", " : "") +
+            (strandId != null ? "strandId=" + strandId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

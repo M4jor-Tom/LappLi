@@ -103,6 +103,12 @@ public class ElementSupplyQueryService extends QueryService<ElementSupply> {
                         )
                     );
             }
+            if (criteria.getStrandId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getStrandId(), root -> root.join(ElementSupply_.strand, JoinType.LEFT).get(Strand_.id))
+                    );
+            }
         }
         return specification;
     }

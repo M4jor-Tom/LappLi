@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { ICustomComponent } from 'app/shared/model/custom-component.model';
 import { getEntities as getCustomComponents } from 'app/entities/custom-component/custom-component.reducer';
+import { IStrand } from 'app/shared/model/strand.model';
+import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './custom-component-supply.reducer';
 import { ICustomComponentSupply } from 'app/shared/model/custom-component-supply.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -19,6 +21,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ id: str
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
   const customComponents = useAppSelector(state => state.customComponent.entities);
+  const strands = useAppSelector(state => state.strand.entities);
   const customComponentSupplyEntity = useAppSelector(state => state.customComponentSupply.entity);
   const loading = useAppSelector(state => state.customComponentSupply.loading);
   const updating = useAppSelector(state => state.customComponentSupply.updating);
@@ -36,6 +39,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ id: str
     }
 
     dispatch(getCustomComponents({}));
+    dispatch(getStrands({}));
   }, []);
 
   useEffect(() => {
@@ -49,6 +53,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ id: str
       ...customComponentSupplyEntity,
       ...values,
       customComponent: customComponents.find(it => it.id.toString() === values.customComponent.toString()),
+      strand: strands.find(it => it.id.toString() === values.strand.toString()),
     };
 
     if (isNew) {
@@ -65,6 +70,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ id: str
           markingType: 'LIFTING',
           ...customComponentSupplyEntity,
           customComponent: customComponentSupplyEntity?.customComponent?.id,
+          strand: customComponentSupplyEntity?.strand?.id,
         };
 
   return (
@@ -136,6 +142,26 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ id: str
                 <option value="" key="0" />
                 {customComponents
                   ? customComponents.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.designation}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
+              <ValidatedField
+                id="custom-component-supply-strand"
+                name="strand"
+                data-cy="strand"
+                label={translate('lappLiApp.customComponentSupply.strand')}
+                type="select"
+                required
+              >
+                <option value="" key="0" />
+                {strands
+                  ? strands.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.designation}
                       </option>

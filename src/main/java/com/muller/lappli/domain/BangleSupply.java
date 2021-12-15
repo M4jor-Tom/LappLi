@@ -38,6 +38,11 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
     //@JsonIgnoreProperties(value = { "material" }, allowSetters = true)
     private Bangle bangle;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "elementSupplies", "bangleSupplies", "customComponentSupplies" }, allowSetters = true)
+    private Strand strand;
+
     /*public BangleSupply() {
         this(new ArrayList<>(), null, new Bangle());
     }
@@ -125,6 +130,19 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
 
     public BangleSupply bangle(Bangle bangle) {
         this.setBangle(bangle);
+        return this;
+    }
+
+    public Strand getStrand() {
+        return this.strand;
+    }
+
+    public void setStrand(Strand strand) {
+        this.strand = strand;
+    }
+
+    public BangleSupply strand(Strand strand) {
+        this.setStrand(strand);
         return this;
     }
 

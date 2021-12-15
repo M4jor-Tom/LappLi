@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
@@ -41,6 +42,11 @@ public class ElementSupply extends AbstractMarkedLiftedSupply implements Seriali
     @NotNull
     //@JsonIgnoreProperties(value = { "elementKind" }, allowSetters = true)
     private Element element;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "elementSupplies", "bangleSupplies", "customComponentSupplies" }, allowSetters = true)
+    private Strand strand;
 
     public ElementSupply() {
         super();
@@ -156,6 +162,19 @@ public class ElementSupply extends AbstractMarkedLiftedSupply implements Seriali
 
     public ElementSupply element(Element element) {
         this.setElement(element);
+        return this;
+    }
+
+    public Strand getStrand() {
+        return this.strand;
+    }
+
+    public void setStrand(Strand strand) {
+        this.strand = strand;
+    }
+
+    public ElementSupply strand(Strand strand) {
+        this.setStrand(strand);
         return this;
     }
 
