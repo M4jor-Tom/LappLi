@@ -1,6 +1,7 @@
 package com.muller.lappli.service;
 
 import com.muller.lappli.domain.ElementKindEdition;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,16 @@ import java.util.Optional;
  * Service Interface for managing {@link ElementKindEdition}.
  */
 public interface ElementKindEditionService {
+    /**
+     * Finds elementKindEditions for an given elementKind's id
+     * checked out at a given editionDateTime
+     *
+     * @param elementKindId the elementKind's id
+     * @param editionDateTime the instant
+     * @return the checked out elementKind
+     */
+    public List<ElementKindEdition> findByEditedElementKindIdAndEditionDateTimeAfter(Long elementKindId, Instant editionDateTime);
+
     /**
      * Save a elementKindEdition.
      *
