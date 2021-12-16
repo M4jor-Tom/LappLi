@@ -17,7 +17,7 @@ public interface ElementKindEditionService {
      * @param editionDateTime the instant
      * @return the checked out elementKind
      */
-    public List<ElementKindEdition> findByEditedElementKindIdAndEditionDateTimeAfter(Long elementKindId, Instant editionDateTime);
+    public List<ElementKindEdition> findByEditedElementKindIdAndEditionDateTimeBefore(Long elementKindId, Instant editionDateTime);
 
     /**
      * Save a elementKindEdition.

@@ -42,17 +42,10 @@ public class ElementKindResource {
 
     private final ElementKindService elementKindService;
 
-    private final ElementKindEditionService elementKindEditionService;
-
     private final ElementKindQueryService elementKindQueryService;
 
-    public ElementKindResource(
-        ElementKindService elementKindService,
-        ElementKindEditionService elementKindEditionService,
-        ElementKindQueryService elementKindQueryService
-    ) {
+    public ElementKindResource(ElementKindService elementKindService, ElementKindQueryService elementKindQueryService) {
         this.elementKindService = elementKindService;
-        this.elementKindEditionService = elementKindEditionService;
         this.elementKindQueryService = elementKindQueryService;
     }
 

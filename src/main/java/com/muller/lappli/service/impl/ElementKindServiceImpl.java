@@ -1,8 +1,13 @@
 package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.ElementKind;
+import com.muller.lappli.domain.ElementKindEdition;
+import com.muller.lappli.domain.abstracts.AbstractEdition;
+import com.muller.lappli.domain.interfaces.Commitable;
 import com.muller.lappli.repository.ElementKindRepository;
+import com.muller.lappli.service.ElementKindEditionService;
 import com.muller.lappli.service.ElementKindService;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -21,8 +26,14 @@ public class ElementKindServiceImpl implements ElementKindService {
 
     private final ElementKindRepository elementKindRepository;
 
-    public ElementKindServiceImpl(ElementKindRepository elementKindRepository) {
+    private final ElementKindEditionService elementKindEditionService;
+
+    private Instant instant;
+
+    public ElementKindServiceImpl(ElementKindRepository elementKindRepository, ElementKindEditionService elementKindEditionService) {
         this.elementKindRepository = elementKindRepository;
+        this.elementKindEditionService = elementKindEditionService;
+        this.instant = Instant.now();
     }
 
     @Override
@@ -60,19 +71,51 @@ public class ElementKindServiceImpl implements ElementKindService {
     @Transactional(readOnly = true)
     public List<ElementKind> findAll() {
         log.debug("Request to get all ElementKinds");
-        return elementKindRepository.findAll();
+        List<ElementKind> elementKindList = elementKindRepository.findAll();
+
+        for (ElementKind elementKind : elementKindList) {
+            elementKind = onRead(elementKind);
+        }
+
+        return elementKindList;
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<ElementKind> findOne(Long id) {
         log.debug("Request to get ElementKind : {}", id);
-        return elementKindRepository.findById(id);
+        Optional<ElementKind> elementKind = elementKindRepository.findById(id);
+
+        if (elementKind.isPresent()) {
+            elementKind = Optional.of(onRead(elementKind.get()));
+        }
+
+        return elementKind;
     }
 
     @Override
     public void delete(Long id) {
         log.debug("Request to delete ElementKind : {}", id);
         elementKindRepository.deleteById(id);
+    }
+
+    public ElementKindService instant(Instant instant) {
+        this.instant = instant;
+        return this;
+    }
+
+    protected ElementKind onRead(ElementKind domainObject) {
+        for (AbstractEdition<ElementKind> edition : elementKindEditionService.findByEditedElementKindIdAndEditionDateTimeBefore(
+            domainObject.getId(),
+            this.instant
+        )) {
+            domainObject = edition.update(domainObject);
+        }
+
+        return domainObject;
+    }
+
+    protected List<AbstractEdition<ElementKind>> getEditionListTill(ElementKind elementKind, Instant instant) {
+        return null;
     }
 }
