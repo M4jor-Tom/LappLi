@@ -32,7 +32,7 @@
   "entityTableName": "element_kind_edition",
   "dto": "no",
   "pagination": "no",
-  "service": "serviceImpl",
+  "service": "serviceClass",
   "jpaMetamodelFiltering": true,
   "fluentMethods": true,
   "readOnly": false,

@@ -4,7 +4,6 @@ import com.muller.lappli.domain.ElementKindEdition;
 import com.muller.lappli.repository.ElementKindEditionRepository;
 import com.muller.lappli.service.ElementKindEditionQueryService;
 import com.muller.lappli.service.ElementKindEditionService;
-import com.muller.lappli.service.ElementKindQueryService;
 import com.muller.lappli.service.criteria.ElementKindEditionCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -38,21 +37,13 @@ public class ElementKindEditionResource {
 
     private final ElementKindEditionService elementKindEditionService;
 
-    //private final ElementKindEditionRepository elementKindEditionRepository;
-
-    private final ElementKindQueryService elementKindQueryService;
-
     private final ElementKindEditionQueryService elementKindEditionQueryService;
 
     public ElementKindEditionResource(
         ElementKindEditionService elementKindEditionService,
-        //ElementKindEditionRepository elementKindEditionRepository
-        ElementKindQueryService elementKindQueryService,
         ElementKindEditionQueryService elementKindEditionQueryService
     ) {
         this.elementKindEditionService = elementKindEditionService;
-        //this.elementKindEditionRepository = elementKindEditionRepository;
-        this.elementKindQueryService = elementKindQueryService;
         this.elementKindEditionQueryService = elementKindEditionQueryService;
     }
 

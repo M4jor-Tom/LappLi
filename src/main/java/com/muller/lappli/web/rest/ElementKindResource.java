@@ -1,20 +1,12 @@
 package com.muller.lappli.web.rest;
 
-import com.muller.lappli.domain.EditionListManager;
 import com.muller.lappli.domain.ElementKind;
-import com.muller.lappli.domain.ElementKindEdition;
-import com.muller.lappli.repository.ElementKindRepository;
-import com.muller.lappli.service.ElementKindEditionService;
-import com.muller.lappli.service.ElementKindQueryService;
 import com.muller.lappli.service.ElementKindService;
 import com.muller.lappli.service.criteria.ElementKindCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -42,11 +34,8 @@ public class ElementKindResource {
 
     private final ElementKindService elementKindService;
 
-    private final ElementKindQueryService elementKindQueryService;
-
-    public ElementKindResource(ElementKindService elementKindService, ElementKindQueryService elementKindQueryService) {
+    public ElementKindResource(ElementKindService elementKindService) {
         this.elementKindService = elementKindService;
-        this.elementKindQueryService = elementKindQueryService;
     }
 
     /**
@@ -171,7 +160,7 @@ public class ElementKindResource {
         log.debug("REST request to get ElementKinds by criteria: {}", criteria);
 
         //It's more logical to pick the unsorted list, and maybe to apply
-        //a criteria after, becose on filtering, any client would expect
+        //a criteria after, because on filtering, any client would expect
         //Criterias to look for updated data.
         //The problem is that, when using ElementKindQueryService, therefore
         //ElementKindRepository's JHipster native Criteria management,
@@ -180,10 +169,6 @@ public class ElementKindResource {
         //Nevertheless, if we can use the ElementKindCriteria after ElementKindService's findAll(),
         //Everything will be logic
         List<ElementKind> elementKindList = elementKindService.findAll();
-        //elementKindQueryService.findByCriteria(criteria); <--- Shall not use that
-
-        //Creating a list for edited ElementKinds
-        //ArrayList<ElementKind> editedElementKindList = new ArrayList<ElementKind>();
 
         return ResponseEntity.ok().body(elementKindList);
     }
@@ -197,7 +182,7 @@ public class ElementKindResource {
     @GetMapping("/element-kinds/count")
     public ResponseEntity<Long> countElementKinds(ElementKindCriteria criteria) {
         log.debug("REST request to count ElementKinds by criteria: {}", criteria);
-        return ResponseEntity.ok().body(elementKindQueryService.countByCriteria(criteria));
+        return ResponseEntity.ok().body(Long.valueOf(elementKindService.findAll().size()));
     }
 
     /**
