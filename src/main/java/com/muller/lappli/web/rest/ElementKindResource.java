@@ -1,20 +1,12 @@
 package com.muller.lappli.web.rest;
 
-import com.muller.lappli.domain.EditionListManager;
 import com.muller.lappli.domain.ElementKind;
-import com.muller.lappli.domain.ElementKindEdition;
-import com.muller.lappli.repository.ElementKindRepository;
-import com.muller.lappli.service.ElementKindEditionService;
-import com.muller.lappli.service.ElementKindQueryService;
 import com.muller.lappli.service.ElementKindService;
 import com.muller.lappli.service.criteria.ElementKindCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -42,18 +34,8 @@ public class ElementKindResource {
 
     private final ElementKindService elementKindService;
 
-    private final ElementKindEditionService elementKindEditionService;
-
-    private final ElementKindQueryService elementKindQueryService;
-
-    public ElementKindResource(
-        ElementKindService elementKindService,
-        ElementKindEditionService elementKindEditionService,
-        ElementKindQueryService elementKindQueryService
-    ) {
+    public ElementKindResource(ElementKindService elementKindService) {
         this.elementKindService = elementKindService;
-        this.elementKindEditionService = elementKindEditionService;
-        this.elementKindQueryService = elementKindQueryService;
     }
 
     /**
@@ -176,20 +158,19 @@ public class ElementKindResource {
     @GetMapping("/element-kinds")
     public ResponseEntity<List<ElementKind>> getAllElementKinds(ElementKindCriteria criteria) {
         log.debug("REST request to get ElementKinds by criteria: {}", criteria);
-        List<ElementKind> elementKindList = elementKindQueryService.findByCriteria(criteria);
 
-        //Creating a list for edited ElementKinds
-        ArrayList<ElementKind> editedElementKindList = new ArrayList<ElementKind>();
+        //It's more logical to pick the unsorted list, and maybe to apply
+        //a criteria after, because on filtering, any client would expect
+        //Criterias to look for updated data.
+        //The problem is that, when using ElementKindQueryService, therefore
+        //ElementKindRepository's JHipster native Criteria management,
+        //Queries would be done on inital ElementKinds, which may be unanderstandable
+        //It is therefore chosen to disable filtering for Commitable entities such as ElementKind
+        //Nevertheless, if we can use the ElementKindCriteria after ElementKindService's findAll(),
+        //Everything will be logic
+        List<ElementKind> elementKindList = elementKindService.findAll();
 
-        for (ElementKind elementKind : elementKindList) {
-            //Giving an EditionListManager to the ElementKind
-            elementKindEditionService.setEditionListManagerTo(elementKind);
-
-            //Storing changed entity into a new list that'll be returned
-            editedElementKindList.add(elementKind.getAtInstant(elementKind, Instant.now()));
-        }
-
-        return ResponseEntity.ok().body(editedElementKindList);
+        return ResponseEntity.ok().body(elementKindList);
     }
 
     /**
@@ -201,7 +182,7 @@ public class ElementKindResource {
     @GetMapping("/element-kinds/count")
     public ResponseEntity<Long> countElementKinds(ElementKindCriteria criteria) {
         log.debug("REST request to count ElementKinds by criteria: {}", criteria);
-        return ResponseEntity.ok().body(elementKindQueryService.countByCriteria(criteria));
+        return ResponseEntity.ok().body(Long.valueOf(elementKindService.findAll().size()));
     }
 
     /**
@@ -214,14 +195,6 @@ public class ElementKindResource {
     public ResponseEntity<ElementKind> getElementKind(@PathVariable Long id) {
         log.debug("REST request to get ElementKind : {}", id);
         Optional<ElementKind> elementKind = elementKindService.findOne(id);
-
-        if (elementKind.isPresent()) {
-            //Giving an EditionListManager to the ElementKind
-            elementKindEditionService.setEditionListManagerTo(elementKind.get());
-
-            //Changing the value of the ElementKind depending on its Editions
-            elementKind = Optional.of(elementKind.get().getAtInstant(elementKind.get(), Instant.now()));
-        }
 
         return ResponseUtil.wrapOrNotFound(elementKind);
     }
