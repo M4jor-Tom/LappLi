@@ -7,7 +7,7 @@ import java.util.Optional;
 /**
  * Service Interface for managing {@link ElementKind}.
  */
-public interface ElementKindService {
+public interface ElementKindService extends ReadTriggerableService<ElementKind> {
     /**
      * Save a elementKind.
      *

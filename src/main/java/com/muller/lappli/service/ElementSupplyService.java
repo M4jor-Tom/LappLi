@@ -7,7 +7,7 @@ import java.util.Optional;
 /**
  * Service Interface for managing {@link ElementSupply}.
  */
-public interface ElementSupplyService {
+public interface ElementSupplyService extends ReadTriggerableService<ElementSupply> {
     /**
      * Save a elementSupply.
      *

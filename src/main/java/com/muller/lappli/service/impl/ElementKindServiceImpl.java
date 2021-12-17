@@ -1,5 +1,6 @@
 package com.muller.lappli.service.impl;
 
+import com.muller.lappli.domain.EditionListManager;
 import com.muller.lappli.domain.ElementKind;
 import com.muller.lappli.domain.ElementKindEdition;
 import com.muller.lappli.domain.abstracts.AbstractEdition;
@@ -8,6 +9,7 @@ import com.muller.lappli.repository.ElementKindRepository;
 import com.muller.lappli.service.ElementKindEditionService;
 import com.muller.lappli.service.ElementKindService;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -71,26 +73,14 @@ public class ElementKindServiceImpl implements ElementKindService {
     @Transactional(readOnly = true)
     public List<ElementKind> findAll() {
         log.debug("Request to get all ElementKinds");
-        List<ElementKind> elementKindList = elementKindRepository.findAll();
-
-        for (ElementKind elementKind : elementKindList) {
-            elementKind = onRead(elementKind);
-        }
-
-        return elementKindList;
+        return onListRead(elementKindRepository.findAll());
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<ElementKind> findOne(Long id) {
         log.debug("Request to get ElementKind : {}", id);
-        Optional<ElementKind> elementKind = elementKindRepository.findById(id);
-
-        if (elementKind.isPresent()) {
-            elementKind = Optional.of(onRead(elementKind.get()));
-        }
-
-        return elementKind;
+        return onOptionalRead(elementKindRepository.findById(id));
     }
 
     @Override
@@ -104,18 +94,16 @@ public class ElementKindServiceImpl implements ElementKindService {
         return this;
     }
 
-    protected ElementKind onRead(ElementKind domainObject) {
-        for (AbstractEdition<ElementKind> edition : elementKindEditionService.findByEditedElementKindIdAndEditionDateTimeBefore(
-            domainObject.getId(),
-            this.instant
-        )) {
-            domainObject = edition.update(domainObject);
+    @Override
+    public ElementKind onRead(ElementKind domainObject) {
+        EditionListManager<ElementKind> elm = new EditionListManager<ElementKind>(new ArrayList<>());
+
+        for (ElementKindEdition elementKindEdition : elementKindEditionService.findByEditedElementKindId(domainObject.getId())) {
+            elm.getEditionList().add(elementKindEdition);
         }
 
-        return domainObject;
-    }
+        domainObject.setEditionListManager(elm);
 
-    protected List<AbstractEdition<ElementKind>> getEditionListTill(ElementKind elementKind, Instant instant) {
-        return null;
+        return domainObject.copyAtInstant(this.instant);
     }
 }

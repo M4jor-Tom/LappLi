@@ -2,6 +2,7 @@ package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.ElementSupply;
 import com.muller.lappli.repository.ElementSupplyRepository;
+import com.muller.lappli.service.ElementService;
 import com.muller.lappli.service.ElementSupplyService;
 import java.util.List;
 import java.util.Optional;
@@ -21,8 +22,11 @@ public class ElementSupplyServiceImpl implements ElementSupplyService {
 
     private final ElementSupplyRepository elementSupplyRepository;
 
-    public ElementSupplyServiceImpl(ElementSupplyRepository elementSupplyRepository) {
+    private final ElementService elementService;
+
+    public ElementSupplyServiceImpl(ElementSupplyRepository elementSupplyRepository, ElementService elementService) {
         this.elementSupplyRepository = elementSupplyRepository;
+        this.elementService = elementService;
     }
 
     @Override
@@ -57,19 +61,24 @@ public class ElementSupplyServiceImpl implements ElementSupplyService {
     @Transactional(readOnly = true)
     public List<ElementSupply> findAll() {
         log.debug("Request to get all ElementSupplies");
-        return elementSupplyRepository.findAll();
+        return onListRead(elementSupplyRepository.findAll());
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<ElementSupply> findOne(Long id) {
         log.debug("Request to get ElementSupply : {}", id);
-        return elementSupplyRepository.findById(id);
+        return onOptionalRead(elementSupplyRepository.findById(id));
     }
 
     @Override
     public void delete(Long id) {
         log.debug("Request to delete ElementSupply : {}", id);
         elementSupplyRepository.deleteById(id);
+    }
+
+    @Override
+    public ElementSupply onRead(ElementSupply domainObject) {
+        return domainObject.element(elementService.onRead(domainObject.getElement()));
     }
 }

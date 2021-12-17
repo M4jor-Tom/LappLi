@@ -2,6 +2,7 @@ package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.Element;
 import com.muller.lappli.repository.ElementRepository;
+import com.muller.lappli.service.ElementKindService;
 import com.muller.lappli.service.ElementService;
 import java.util.List;
 import java.util.Optional;
@@ -21,8 +22,11 @@ public class ElementServiceImpl implements ElementService {
 
     private final ElementRepository elementRepository;
 
-    public ElementServiceImpl(ElementRepository elementRepository) {
+    private final ElementKindService elementKindService;
+
+    public ElementServiceImpl(ElementRepository elementRepository, ElementKindService elementKindService) {
         this.elementRepository = elementRepository;
+        this.elementKindService = elementKindService;
     }
 
     @Override
@@ -54,19 +58,24 @@ public class ElementServiceImpl implements ElementService {
     @Transactional(readOnly = true)
     public List<Element> findAll() {
         log.debug("Request to get all Elements");
-        return elementRepository.findAll();
+        return onListRead(elementRepository.findAll());
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<Element> findOne(Long id) {
         log.debug("Request to get Element : {}", id);
-        return elementRepository.findById(id);
+        return onOptionalRead(elementRepository.findById(id));
     }
 
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Element : {}", id);
         elementRepository.deleteById(id);
+    }
+
+    @Override
+    public Element onRead(Element element) {
+        return element.elementKind(elementKindService.onRead(element.getElementKind()));
     }
 }
