@@ -24,12 +24,6 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
         </h2>
         <dl className="jh-entity-details">
           <dt>
-            <span id="id">
-              <Translate contentKey="global.field.id">ID</Translate>
-            </span>
-          </dt>
-          <dd>{strandEntity.id}</dd>
-          <dt>
             <span id="designation">
               <Translate contentKey="lappLiApp.strand.designation">Designation</Translate>
             </span>
@@ -42,13 +36,13 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
             <Translate contentKey="entity.action.back">Back</Translate>
           </span>
         </Button>
-        &nbsp;
+        {/* &nbsp;
         <Button tag={Link} to={`/strand/${strandEntity.id}/edit`} replace color="primary">
           <FontAwesomeIcon icon="pencil-alt" />{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.edit">Edit</Translate>
           </span>
-        </Button>
+        </Button>*/}
       </Col>
     </Row>
   );
