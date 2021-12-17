@@ -19,7 +19,7 @@ public abstract class AbstractLiftedSupplyService<T extends AbstractLiftedSupply
 
     @Override
     protected T onDomainObjectGetting(T domainObject) {
-        domainObject.setBestLifterList(lifterService.findBestLifterList(domainObject));
+        //domainObject.setBestLifterList(lifterService.findBestLifterList(domainObject));
         return domainObject;
     }
 

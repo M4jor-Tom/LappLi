@@ -78,9 +78,9 @@ public class StrandServiceImpl extends AbstractSpecificationExecutorService<Stra
     protected Strand onDomainObjectGetting(Strand domainObject) {
         Long strandId = domainObject.getId();
 
-        return domainObject
-            .bangleSupplies(bangleSupplyService.findByStrandId(strandId))
-            .customComponentSupplies(customComponentSupplyService.findByStrandId(strandId))
-            .elementSupplies(elementSupplyService.findByStrandId(strandId));
+        return domainObject;
+        //.bangleSupplies(bangleSupplyService.findByStrandId(strandId))
+        //.customComponentSupplies(customComponentSupplyService.findByStrandId(strandId))
+        //.elementSupplies(elementSupplyService.findByStrandId(strandId));
     }
 }
