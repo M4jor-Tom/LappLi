@@ -3,6 +3,8 @@ package com.muller.lappli.service.impl;
 import com.muller.lappli.domain.BangleSupply;
 import com.muller.lappli.repository.BangleSupplyRepository;
 import com.muller.lappli.service.BangleSupplyService;
+import com.muller.lappli.service.LifterService;
+import com.muller.lappli.service.abstracts.AbstractLiftedSupplyServiceImpl;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -15,53 +17,56 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class BangleSupplyServiceImpl implements BangleSupplyService {
+public class BangleSupplyServiceImpl extends AbstractLiftedSupplyServiceImpl<BangleSupply> implements BangleSupplyService {
 
     private final Logger log = LoggerFactory.getLogger(BangleSupplyServiceImpl.class);
 
     private final BangleSupplyRepository bangleSupplyRepository;
 
-    public BangleSupplyServiceImpl(BangleSupplyRepository bangleSupplyRepository) {
+    public BangleSupplyServiceImpl(LifterService lifterService, BangleSupplyRepository bangleSupplyRepository) {
+        super(lifterService);
         this.bangleSupplyRepository = bangleSupplyRepository;
     }
 
     @Override
     public BangleSupply save(BangleSupply bangleSupply) {
         log.debug("Request to save BangleSupply : {}", bangleSupply);
-        return bangleSupplyRepository.save(bangleSupply);
+        return onRead(bangleSupplyRepository.save(bangleSupply));
     }
 
     @Override
     public Optional<BangleSupply> partialUpdate(BangleSupply bangleSupply) {
         log.debug("Request to partially update BangleSupply : {}", bangleSupply);
 
-        return bangleSupplyRepository
-            .findById(bangleSupply.getId())
-            .map(existingBangleSupply -> {
-                if (bangleSupply.getApparitions() != null) {
-                    existingBangleSupply.setApparitions(bangleSupply.getApparitions());
-                }
-                if (bangleSupply.getDescription() != null) {
-                    existingBangleSupply.setDescription(bangleSupply.getDescription());
-                }
+        return onOptionalRead(
+            bangleSupplyRepository
+                .findById(bangleSupply.getId())
+                .map(existingBangleSupply -> {
+                    if (bangleSupply.getApparitions() != null) {
+                        existingBangleSupply.setApparitions(bangleSupply.getApparitions());
+                    }
+                    if (bangleSupply.getDescription() != null) {
+                        existingBangleSupply.setDescription(bangleSupply.getDescription());
+                    }
 
-                return existingBangleSupply;
-            })
-            .map(bangleSupplyRepository::save);
+                    return existingBangleSupply;
+                })
+                .map(bangleSupplyRepository::save)
+        );
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<BangleSupply> findAll() {
         log.debug("Request to get all BangleSupplies");
-        return bangleSupplyRepository.findAll();
+        return onListRead(bangleSupplyRepository.findAll());
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<BangleSupply> findOne(Long id) {
         log.debug("Request to get BangleSupply : {}", id);
-        return bangleSupplyRepository.findById(id);
+        return onOptionalRead(bangleSupplyRepository.findById(id));
     }
 
     @Override

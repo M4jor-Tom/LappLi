@@ -7,7 +7,7 @@ import java.util.Optional;
 /**
  * Service Interface for managing {@link BangleSupply}.
  */
-public interface BangleSupplyService {
+public interface BangleSupplyService extends ReadTriggerableService<BangleSupply> {
     /**
      * Save a bangleSupply.
      *

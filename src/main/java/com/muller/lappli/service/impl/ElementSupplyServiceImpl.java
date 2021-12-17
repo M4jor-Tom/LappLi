@@ -4,6 +4,8 @@ import com.muller.lappli.domain.ElementSupply;
 import com.muller.lappli.repository.ElementSupplyRepository;
 import com.muller.lappli.service.ElementService;
 import com.muller.lappli.service.ElementSupplyService;
+import com.muller.lappli.service.LifterService;
+import com.muller.lappli.service.abstracts.AbstractLiftedSupplyServiceImpl;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -16,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class ElementSupplyServiceImpl implements ElementSupplyService {
+public class ElementSupplyServiceImpl extends AbstractLiftedSupplyServiceImpl<ElementSupply> implements ElementSupplyService {
 
     private final Logger log = LoggerFactory.getLogger(ElementSupplyServiceImpl.class);
 
@@ -24,7 +26,12 @@ public class ElementSupplyServiceImpl implements ElementSupplyService {
 
     private final ElementService elementService;
 
-    public ElementSupplyServiceImpl(ElementSupplyRepository elementSupplyRepository, ElementService elementService) {
+    public ElementSupplyServiceImpl(
+        LifterService lifterService,
+        ElementSupplyRepository elementSupplyRepository,
+        ElementService elementService
+    ) {
+        super(lifterService);
         this.elementSupplyRepository = elementSupplyRepository;
         this.elementService = elementService;
     }
@@ -32,29 +39,31 @@ public class ElementSupplyServiceImpl implements ElementSupplyService {
     @Override
     public ElementSupply save(ElementSupply elementSupply) {
         log.debug("Request to save ElementSupply : {}", elementSupply);
-        return elementSupplyRepository.save(elementSupply);
+        return onRead(elementSupplyRepository.save(elementSupply));
     }
 
     @Override
     public Optional<ElementSupply> partialUpdate(ElementSupply elementSupply) {
         log.debug("Request to partially update ElementSupply : {}", elementSupply);
 
-        return elementSupplyRepository
-            .findById(elementSupply.getId())
-            .map(existingElementSupply -> {
-                if (elementSupply.getApparitions() != null) {
-                    existingElementSupply.setApparitions(elementSupply.getApparitions());
-                }
-                if (elementSupply.getMarkingType() != null) {
-                    existingElementSupply.setMarkingType(elementSupply.getMarkingType());
-                }
-                if (elementSupply.getDescription() != null) {
-                    existingElementSupply.setDescription(elementSupply.getDescription());
-                }
+        return onOptionalRead(
+            elementSupplyRepository
+                .findById(elementSupply.getId())
+                .map(existingElementSupply -> {
+                    if (elementSupply.getApparitions() != null) {
+                        existingElementSupply.setApparitions(elementSupply.getApparitions());
+                    }
+                    if (elementSupply.getMarkingType() != null) {
+                        existingElementSupply.setMarkingType(elementSupply.getMarkingType());
+                    }
+                    if (elementSupply.getDescription() != null) {
+                        existingElementSupply.setDescription(elementSupply.getDescription());
+                    }
 
-                return existingElementSupply;
-            })
-            .map(elementSupplyRepository::save);
+                    return existingElementSupply;
+                })
+                .map(elementSupplyRepository::save)
+        );
     }
 
     @Override
@@ -79,6 +88,6 @@ public class ElementSupplyServiceImpl implements ElementSupplyService {
 
     @Override
     public ElementSupply onRead(ElementSupply domainObject) {
-        return domainObject.element(elementService.onRead(domainObject.getElement()));
+        return super.onRead(domainObject.element(elementService.onRead(domainObject.getElement())));
     }
 }

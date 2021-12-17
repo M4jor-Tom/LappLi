@@ -7,7 +7,7 @@ import java.util.Optional;
 /**
  * Service Interface for managing {@link CustomComponentSupply}.
  */
-public interface CustomComponentSupplyService {
+public interface CustomComponentSupplyService extends ReadTriggerableService<CustomComponentSupply> {
     /**
      * Save a customComponentSupply.
      *
