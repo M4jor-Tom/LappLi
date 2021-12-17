@@ -1,15 +1,9 @@
-filter * except ElementKind
+filter * except ElementKind, Element, ElementSupply, BangleSupply, CustomComponentSupply
 
 service * with serviceImpl
 
 entity Strand {
     designation String required
-}
-
-relationship OneToMany {
-	Strand{elementSupplies(designation)} to ElementSupply{strand(designation) required}
-    Strand{bangleSupplies(designation)} to BangleSupply{strand(designation) required}
-    Strand{customComponentSupplies(designation)} to CustomComponentSupply{strand(designation) required}
 }
 
 entity Lifter {
@@ -31,10 +25,6 @@ entity LifterRunMeasure {
     hourPreparationTime Double
 }
 
-relationship ManyToOne {
-	LifterRunMeasure{lifter(name) required} to Lifter
-}
-
 entity BangleSupply {
 	apparitions Long required
     description String
@@ -54,6 +44,68 @@ entity CustomComponent {
     surfaceColor Color required
 }
 
+entity ElementSupply {
+	apparitions Long required
+    markingType MarkingType required
+    description String
+}
+
+entity MaterialMarkingStatistic {
+	markingType MarkingType required
+    markingTechnique MarkingTechnique required
+    meterPerHourSpeed Long required
+}
+
+entity Bangle {
+	number Long unique required
+    designation String unique required
+    gramPerMeterLinearMass Double required
+    milimeterDiameter Double required
+}
+
+entity ElementKindEdition {
+	editionDateTime Instant required
+    newGramPerMeterLinearMass Double
+    newMilimeterDiameter Double
+    newInsulationThickness Double
+}
+
+entity Element {
+	number Long unique required
+    color Color required
+}
+
+entity ElementKind {
+	designation String unique required
+    gramPerMeterLinearMass Double required
+    milimeterDiameter Double required
+    insulationThickness Double required
+}
+
+entity Copper {
+	number Long unique required
+	designation String unique required
+}
+
+entity Material {
+	number Long unique required
+	designation String unique required
+}
+
+relationship OneToMany {
+	Strand{elementSupplies(designation)} to ElementSupply{strand(designation) required}
+    Strand{bangleSupplies(designation)} to BangleSupply{strand(designation) required}
+    Strand{customComponentSupplies(designation)} to CustomComponentSupply{strand(designation) required}
+}
+
+relationship OneToMany {
+	Material{materialMarkingStatistics(markingType)} to MaterialMarkingStatistic{material(designation) required}
+}
+
+relationship ManyToOne {
+	LifterRunMeasure{lifter(name) required} to Lifter
+}
+
 relationship ManyToOne {
 	CustomComponentSupply{customComponent(designation) required} to CustomComponent
 }
@@ -62,10 +114,32 @@ relationship ManyToOne {
 	CustomComponent{surfaceMaterial(designation) required} to Material
 }
 
-entity ElementSupply {
-	apparitions Long required
-    markingType MarkingType required
-    description String
+relationship ManyToOne {
+	BangleSupply{bangle(designation) required} to Bangle
+}
+
+relationship ManyToOne {
+	ElementSupply{element(designationWithColor) required} to Element
+}
+
+relationship ManyToOne {
+	Bangle{material(designation) required} to Material
+}
+
+relationship ManyToOne {
+	Element{elementKind(designation) required} to ElementKind
+}
+
+relationship ManyToOne {
+	ElementKindEdition{editedElementKind(designation) required} to ElementKind
+}
+
+relationship ManyToOne {
+	ElementKind{Copper(designation) required} to Copper
+}
+
+relationship ManyToOne {
+	ElementKind{insulationMaterial(designation) required} to Material
 }
 
 enum MarkingType {
@@ -81,82 +155,6 @@ enum MarkingTechnique {
     NONE_SUITABLE,
     INK_JET,
     RSD
-}
-
-entity MaterialMarkingStatistic {
-	markingType MarkingType required
-    markingTechnique MarkingTechnique required
-    meterPerHourSpeed Long required
-}
-
-relationship OneToMany {
-	Material{materialMarkingStatistics(markingType)} to MaterialMarkingStatistic{material(designation) required}
-}
-
-relationship ManyToOne {
-	BangleSupply{bangle(designation) required} to Bangle
-}
-
-relationship ManyToOne {
-	ElementSupply{element(designationWithColor) required} to Element
-}
-
-entity Bangle {
-	number Long unique required
-    designation String unique required
-    gramPerMeterLinearMass Double required
-    milimeterDiameter Double required
-}
-
-relationship ManyToOne {
-	Bangle{material(designation) required} to Material
-}
-
-entity Element {
-	number Long unique required
-    color Color required
-}
-
-relationship ManyToOne {
-	Element{elementKind(designation) required} to ElementKind
-}
-
-entity ElementKindEdition {
-	editionDateTime Instant required
-    newGramPerMeterLinearMass Double
-    newMilimeterDiameter Double
-    newInsulationThickness Double
-}
-
-service ElementKindEdition with serviceClass
-
-relationship ManyToOne {
-	ElementKindEdition{editedElementKind(designation) required} to ElementKind
-}
-
-entity ElementKind {
-	designation String unique required
-    gramPerMeterLinearMass Double required
-    milimeterDiameter Double required
-    insulationThickness Double required
-}
-
-relationship ManyToOne {
-	ElementKind{Copper(designation) required} to Copper
-}
-
-relationship ManyToOne {
-	ElementKind{insulationMaterial(designation) required} to Material
-}
-
-entity Copper {
-	number Long unique required
-	designation String unique required
-}
-
-entity Material {
-	number Long unique required
-	designation String unique required
 }
 
 enum Color {

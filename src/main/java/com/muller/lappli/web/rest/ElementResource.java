@@ -2,9 +2,7 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.Element;
 import com.muller.lappli.repository.ElementRepository;
-import com.muller.lappli.service.ElementQueryService;
 import com.muller.lappli.service.ElementService;
-import com.muller.lappli.service.criteria.ElementCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,12 +37,9 @@ public class ElementResource {
 
     private final ElementRepository elementRepository;
 
-    private final ElementQueryService elementQueryService;
-
-    public ElementResource(ElementService elementService, ElementRepository elementRepository, ElementQueryService elementQueryService) {
+    public ElementResource(ElementService elementService, ElementRepository elementRepository) {
         this.elementService = elementService;
         this.elementRepository = elementRepository;
-        this.elementQueryService = elementQueryService;
     }
 
     /**
@@ -140,26 +135,12 @@ public class ElementResource {
     /**
      * {@code GET  /elements} : get all the elements.
      *
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of elements in body.
      */
     @GetMapping("/elements")
-    public ResponseEntity<List<Element>> getAllElements(ElementCriteria criteria) {
-        log.debug("REST request to get Elements by criteria: {}", criteria);
-        List<Element> entityList = elementQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /elements/count} : count all the elements.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/elements/count")
-    public ResponseEntity<Long> countElements(ElementCriteria criteria) {
-        log.debug("REST request to count Elements by criteria: {}", criteria);
-        return ResponseEntity.ok().body(elementQueryService.countByCriteria(criteria));
+    public List<Element> getAllElements() {
+        log.debug("REST request to get all Elements");
+        return elementService.findAll();
     }
 
     /**

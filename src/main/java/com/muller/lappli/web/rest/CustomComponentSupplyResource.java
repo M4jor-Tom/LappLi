@@ -2,11 +2,7 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.CustomComponentSupply;
 import com.muller.lappli.repository.CustomComponentSupplyRepository;
-import com.muller.lappli.service.CustomComponentSupplyQueryService;
 import com.muller.lappli.service.CustomComponentSupplyService;
-import com.muller.lappli.service.LifterService;
-import com.muller.lappli.service.criteria.CustomComponentSupplyCriteria;
-import com.muller.lappli.web.rest.abstracts.AbstractLiftedSupplyRessource;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,7 +24,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-public class CustomComponentSupplyResource extends AbstractLiftedSupplyRessource<CustomComponentSupply> {
+public class CustomComponentSupplyResource {
 
     private final Logger log = LoggerFactory.getLogger(CustomComponentSupplyResource.class);
 
@@ -41,18 +37,12 @@ public class CustomComponentSupplyResource extends AbstractLiftedSupplyRessource
 
     private final CustomComponentSupplyRepository customComponentSupplyRepository;
 
-    private final CustomComponentSupplyQueryService customComponentSupplyQueryService;
-
     public CustomComponentSupplyResource(
-        LifterService lifterService,
         CustomComponentSupplyService customComponentSupplyService,
-        CustomComponentSupplyRepository customComponentSupplyRepository,
-        CustomComponentSupplyQueryService customComponentSupplyQueryService
+        CustomComponentSupplyRepository customComponentSupplyRepository
     ) {
-        super(lifterService);
         this.customComponentSupplyService = customComponentSupplyService;
         this.customComponentSupplyRepository = customComponentSupplyRepository;
-        this.customComponentSupplyQueryService = customComponentSupplyQueryService;
     }
 
     /**
@@ -150,29 +140,12 @@ public class CustomComponentSupplyResource extends AbstractLiftedSupplyRessource
     /**
      * {@code GET  /custom-component-supplies} : get all the customComponentSupplies.
      *
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of customComponentSupplies in body.
      */
     @GetMapping("/custom-component-supplies")
-    public ResponseEntity<List<CustomComponentSupply>> getAllCustomComponentSupplies(CustomComponentSupplyCriteria criteria) {
-        log.debug("REST request to get CustomComponentSupplies by criteria: {}", criteria);
-        List<CustomComponentSupply> entityList = customComponentSupplyQueryService.findByCriteria(criteria);
-
-        entityList = setBestLifterLists(entityList);
-
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /custom-component-supplies/count} : count all the customComponentSupplies.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/custom-component-supplies/count")
-    public ResponseEntity<Long> countCustomComponentSupplies(CustomComponentSupplyCriteria criteria) {
-        log.debug("REST request to count CustomComponentSupplies by criteria: {}", criteria);
-        return ResponseEntity.ok().body(customComponentSupplyQueryService.countByCriteria(criteria));
+    public List<CustomComponentSupply> getAllCustomComponentSupplies() {
+        log.debug("REST request to get all CustomComponentSupplies");
+        return customComponentSupplyService.findAll();
     }
 
     /**
@@ -185,9 +158,6 @@ public class CustomComponentSupplyResource extends AbstractLiftedSupplyRessource
     public ResponseEntity<CustomComponentSupply> getCustomComponentSupply(@PathVariable Long id) {
         log.debug("REST request to get CustomComponentSupply : {}", id);
         Optional<CustomComponentSupply> customComponentSupply = customComponentSupplyService.findOne(id);
-
-        customComponentSupply = setBestLifterList(customComponentSupply);
-
         return ResponseUtil.wrapOrNotFound(customComponentSupply);
     }
 

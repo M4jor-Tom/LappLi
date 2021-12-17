@@ -37,13 +37,17 @@ public class ElementKindEditionResource {
 
     private final ElementKindEditionService elementKindEditionService;
 
+    private final ElementKindEditionRepository elementKindEditionRepository;
+
     private final ElementKindEditionQueryService elementKindEditionQueryService;
 
     public ElementKindEditionResource(
         ElementKindEditionService elementKindEditionService,
+        ElementKindEditionRepository elementKindEditionRepository,
         ElementKindEditionQueryService elementKindEditionQueryService
     ) {
         this.elementKindEditionService = elementKindEditionService;
+        this.elementKindEditionRepository = elementKindEditionRepository;
         this.elementKindEditionQueryService = elementKindEditionQueryService;
     }
 

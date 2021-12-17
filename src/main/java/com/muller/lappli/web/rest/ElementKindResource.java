@@ -1,12 +1,13 @@
 package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.ElementKind;
+import com.muller.lappli.repository.ElementKindRepository;
 import com.muller.lappli.service.ElementKindService;
-import com.muller.lappli.service.criteria.ElementKindCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -34,8 +35,11 @@ public class ElementKindResource {
 
     private final ElementKindService elementKindService;
 
-    public ElementKindResource(ElementKindService elementKindService) {
+    private final ElementKindRepository elementKindRepository;
+
+    public ElementKindResource(ElementKindService elementKindService, ElementKindRepository elementKindRepository) {
         this.elementKindService = elementKindService;
+        this.elementKindRepository = elementKindRepository;
     }
 
     /**
@@ -85,7 +89,7 @@ public class ElementKindResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        ElementKind result = elementKindRepository.save(elementKind);
+        ElementKind result = elementKindService.save(elementKind);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, elementKind.getId().toString()))
@@ -118,29 +122,11 @@ public class ElementKindResource {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
-        if (!elementKindService.findOne(id).isPresent()) {
+        if (!elementKindRepository.existsById(id)) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<ElementKind> result = elementKindService
-            .findOne(elementKind.getId())
-            .map(existingElementKind -> {
-                if (elementKind.getDesignation() != null) {
-                    existingElementKind.setDesignation(elementKind.getDesignation());
-                }
-                if (elementKind.getGramPerMeterLinearMass() != null) {
-                    existingElementKind.setGramPerMeterLinearMass(elementKind.getGramPerMeterLinearMass());
-                }
-                if (elementKind.getMilimeterDiameter() != null) {
-                    existingElementKind.setMilimeterDiameter(elementKind.getMilimeterDiameter());
-                }
-                if (elementKind.getInsulationThickness() != null) {
-                    existingElementKind.setInsulationThickness(elementKind.getInsulationThickness());
-                }
-
-                return existingElementKind;
-            })
-            .map(elementKindService::save);
+        Optional<ElementKind> result = elementKindService.partialUpdate(elementKind);
 
         return ResponseUtil.wrapOrNotFound(
             result,
@@ -152,25 +138,12 @@ public class ElementKindResource {
     /**
      * {@code GET  /element-kinds} : get all the elementKinds.
      *
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of elementKinds in body.
      */
     @GetMapping("/element-kinds")
-    public ResponseEntity<List<ElementKind>> getAllElementKinds() {
-        log.debug("REST request to get ElementKinds");
-
-        //It's more logical to pick the unsorted list, and maybe to apply
-        //a criteria after, because on filtering, any client would expect
-        //Criterias to look for updated data.
-        //The problem is that, when using ElementKindQueryService, therefore
-        //ElementKindRepository's JHipster native Criteria management,
-        //Queries would be done on inital ElementKinds, which may be unanderstandable
-        //It is therefore chosen to disable filtering for Commitable entities such as ElementKind
-        //Nevertheless, if we can use the ElementKindCriteria after ElementKindService's findAll(),
-        //Everything will be logic
-        List<ElementKind> elementKindList = elementKindService.findAll();
-
-        return ResponseEntity.ok().body(elementKindList);
+    public List<ElementKind> getAllElementKinds() {
+        log.debug("REST request to get all ElementKinds");
+        return elementKindService.findAll();
     }
 
     /**
@@ -180,8 +153,8 @@ public class ElementKindResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
      */
     @GetMapping("/element-kinds/count")
-    public ResponseEntity<Long> countElementKinds(ElementKindCriteria criteria) {
-        log.debug("REST request to count ElementKinds by criteria: {}", criteria);
+    public ResponseEntity<Long> countElementKinds() {
+        log.debug("REST request to count ElementKinds");
         return ResponseEntity.ok().body(Long.valueOf(elementKindService.findAll().size()));
     }
 
@@ -195,7 +168,6 @@ public class ElementKindResource {
     public ResponseEntity<ElementKind> getElementKind(@PathVariable Long id) {
         log.debug("REST request to get ElementKind : {}", id);
         Optional<ElementKind> elementKind = elementKindService.findOne(id);
-
         return ResponseUtil.wrapOrNotFound(elementKind);
     }
 
