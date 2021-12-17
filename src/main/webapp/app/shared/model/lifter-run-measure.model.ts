@@ -8,7 +8,7 @@ export interface ILifterRunMeasure {
   meterPerSecondSpeed?: number | null;
   markingType?: MarkingType;
   markingTechnique?: MarkingTechnique;
-  formatedHourPreparationTime?: number | null;
+  hourPreparationTime?: number | null;
   lifter?: ILifter;
 }
 

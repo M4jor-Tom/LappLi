@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.Bangle;
+import com.muller.lappli.domain.Material;
 import com.muller.lappli.repository.BangleRepository;
 import com.muller.lappli.service.criteria.BangleCriteria;
 import java.util.List;
@@ -74,6 +75,16 @@ class BangleResourceIT {
             .designation(DEFAULT_DESIGNATION)
             .gramPerMeterLinearMass(DEFAULT_GRAM_PER_METER_LINEAR_MASS)
             .milimeterDiameter(DEFAULT_MILIMETER_DIAMETER);
+        // Add required entity
+        Material material;
+        if (TestUtil.findAll(em, Material.class).isEmpty()) {
+            material = MaterialResourceIT.createEntity(em);
+            em.persist(material);
+            em.flush();
+        } else {
+            material = TestUtil.findAll(em, Material.class).get(0);
+        }
+        bangle.setMaterial(material);
         return bangle;
     }
 
@@ -89,6 +100,16 @@ class BangleResourceIT {
             .designation(UPDATED_DESIGNATION)
             .gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS)
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER);
+        // Add required entity
+        Material material;
+        if (TestUtil.findAll(em, Material.class).isEmpty()) {
+            material = MaterialResourceIT.createUpdatedEntity(em);
+            em.persist(material);
+            em.flush();
+        } else {
+            material = TestUtil.findAll(em, Material.class).get(0);
+        }
+        bangle.setMaterial(material);
         return bangle;
     }
 
@@ -646,6 +667,32 @@ class BangleResourceIT {
 
         // Get all the bangleList where milimeterDiameter is greater than SMALLER_MILIMETER_DIAMETER
         defaultBangleShouldBeFound("milimeterDiameter.greaterThan=" + SMALLER_MILIMETER_DIAMETER);
+    }
+
+    @Test
+    @Transactional
+    void getAllBanglesByMaterialIsEqualToSomething() throws Exception {
+        // Initialize the database
+        bangleRepository.saveAndFlush(bangle);
+        Material material;
+        if (TestUtil.findAll(em, Material.class).isEmpty()) {
+            material = MaterialResourceIT.createEntity(em);
+            em.persist(material);
+            em.flush();
+        } else {
+            material = TestUtil.findAll(em, Material.class).get(0);
+        }
+        em.persist(material);
+        em.flush();
+        bangle.setMaterial(material);
+        bangleRepository.saveAndFlush(bangle);
+        Long materialId = material.getId();
+
+        // Get all the bangleList where material equals to materialId
+        defaultBangleShouldBeFound("materialId.equals=" + materialId);
+
+        // Get all the bangleList where material equals to (materialId + 1)
+        defaultBangleShouldNotBeFound("materialId.equals=" + (materialId + 1));
     }
 
     /**

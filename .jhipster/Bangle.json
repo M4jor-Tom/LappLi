@@ -22,7 +22,16 @@
       "fieldValidateRules": ["required"]
     }
   ],
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "material",
+      "otherEntityRelationshipName": "bangle",
+      "relationshipValidateRules": "required",
+      "relationshipName": "material",
+      "otherEntityField": "designation"
+    }
+  ],
   "entityTableName": "bangle",
   "dto": "no",
   "pagination": "no",

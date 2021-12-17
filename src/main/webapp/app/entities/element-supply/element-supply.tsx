@@ -53,7 +53,7 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.elementSupply.markingType">Marking Type</Translate>
+                  <Translate contentKey="lappLiApp.supply.markingType">Marking Type</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.article.number">Article Number</Translate>
@@ -89,7 +89,10 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.supply.formatedHourExecutionTime">Execution Time (h)</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.elementSupply.markingTechnique">Marking Technique</Translate>
+                  <Translate contentKey="lappLiApp.supply.markingTechnique">Marking Technique</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.elementSupply.strand">Strand</Translate>
                 </th>
                 <th />
               </tr>
@@ -118,14 +121,17 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   </td>
                   <td>{elementSupply.description}</td>
                   <td>{elementSupply.meterQuantity}</td>
-                  <td>{elementSupply.milimeterDiameter}</td>
-                  <td>{elementSupply.gramPerMeterLinearMass}</td>
+                  <td>{elementSupply.element.elementKind.milimeterDiameter}</td>
+                  <td>{elementSupply.element.elementKind.gramPerMeterLinearMass}</td>
                   <td>{elementSupply.bestLiftersNames}</td>
-                  <td>{elementSupply.insulationMaterialDesignation}</td>
+                  <td>{elementSupply.element.elementKind.insulationMaterial.designation}</td>
                   <td>{elementSupply.meterPerHourSpeed}</td>
                   <td>{elementSupply.formatedHourPreparationTime}</td>
                   <td>{elementSupply.formatedHourExecutionTime}</td>
                   <td>{elementSupply.markingTechnique}</td>
+                  <td>
+                    {elementSupply.strand ? <Link to={`strand/${elementSupply.strand.id}`}>{elementSupply.strand.designation}</Link> : ''}
+                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${elementSupply.id}`} color="info" size="sm" data-cy="entityDetailsButton">

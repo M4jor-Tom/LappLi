@@ -2,7 +2,6 @@ package com.muller.lappli.domain;
 
 import com.muller.lappli.domain.abstracts.AbstractCableAtom;
 import com.muller.lappli.domain.interfaces.Commitable;
-import com.muller.lappli.domain.interfaces.NotNullForceable;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -15,7 +14,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element_kind")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ElementKind extends AbstractCableAtom implements Commitable<ElementKind>, NotNullForceable<ElementKind>, Serializable {
+public class ElementKind extends AbstractCableAtom implements Commitable<ElementKind>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,13 +45,14 @@ public class ElementKind extends AbstractCableAtom implements Commitable<Element
 
     @ManyToOne(optional = false)
     @NotNull
+    //@JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material insulationMaterial;
 
     @Transient
     private EditionListManager<ElementKind> editionListManager;
 
     public ElementKind() {
-        this("", Double.NaN, Double.NaN, Double.NaN, new Copper(), new Material());
+        //this("", Double.NaN, Double.NaN, Double.NaN, new Copper(), new Material());
     }
 
     public ElementKind(
@@ -71,26 +71,24 @@ public class ElementKind extends AbstractCableAtom implements Commitable<Element
         setInsulationMaterial(insulationMaterial);
     }
 
+    protected ElementKind(ElementKind elementKind) {
+        this(
+            String.valueOf(elementKind.getDesignation()),
+            Double.valueOf(elementKind.getGramPerMeterLinearMass()),
+            Double.valueOf(elementKind.getMilimeterDiameter()),
+            Double.valueOf(elementKind.getInsulationThickness()),
+            (Copper) elementKind.getCopper().copy(),
+            (Material) elementKind.getInsulationMaterial().copy()
+        );
+    }
+
     @Override
-    public ElementKind forceNotNull() {
-        if (getDesignation() == null) {
-            setDesignation("");
-        }
-        if (getGramPerMeterLinearMass() == null) {
-            setGramPerMeterLinearMass(Double.NaN);
-        }
-        if (getMilimeterDiameter() == null) {
-            setMilimeterDiameter(Double.NaN);
-        }
-        if (getInsulationThickness() == null) {
-            setInsulationThickness(Double.NaN);
-        }
-        if (getCopper() == null) {
-            setCopper(new Copper());
-        }
-        if (getInsulationMaterial() == null) {
-            setInsulationMaterial(new Material());
-        }
+    public ElementKind copy() {
+        return new ElementKind(this).id(getId());
+    }
+
+    @Override
+    public ElementKind getThis() {
         return this;
     }
 

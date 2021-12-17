@@ -4,6 +4,8 @@ import { Button, Row, Col, FormText } from 'reactstrap';
 import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { IMaterial } from 'app/shared/model/material.model';
+import { getEntities as getMaterials } from 'app/entities/material/material.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './bangle.reducer';
 import { IBangle } from 'app/shared/model/bangle.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -15,6 +17,7 @@ export const BangleUpdate = (props: RouteComponentProps<{ id: string }>) => {
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
+  const materials = useAppSelector(state => state.material.entities);
   const bangleEntity = useAppSelector(state => state.bangle.entity);
   const loading = useAppSelector(state => state.bangle.loading);
   const updating = useAppSelector(state => state.bangle.updating);
@@ -29,6 +32,8 @@ export const BangleUpdate = (props: RouteComponentProps<{ id: string }>) => {
     } else {
       dispatch(getEntity(props.match.params.id));
     }
+
+    dispatch(getMaterials({}));
   }, []);
 
   useEffect(() => {
@@ -41,6 +46,7 @@ export const BangleUpdate = (props: RouteComponentProps<{ id: string }>) => {
     const entity = {
       ...bangleEntity,
       ...values,
+      material: materials.find(it => it.id.toString() === values.material.toString()),
     };
 
     if (isNew) {
@@ -55,6 +61,7 @@ export const BangleUpdate = (props: RouteComponentProps<{ id: string }>) => {
       ? {}
       : {
           ...bangleEntity,
+          material: bangleEntity?.material?.id,
         };
 
   return (
@@ -125,6 +132,26 @@ export const BangleUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
               />
+              <ValidatedField
+                id="bangle-material"
+                name="material"
+                data-cy="material"
+                label={translate('lappLiApp.bangle.material')}
+                type="select"
+                required
+              >
+                <option value="" key="0" />
+                {materials
+                  ? materials.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.designation}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/bangle" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

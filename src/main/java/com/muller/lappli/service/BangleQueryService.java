@@ -98,6 +98,12 @@ public class BangleQueryService extends QueryService<Bangle> {
             if (criteria.getMilimeterDiameter() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getMilimeterDiameter(), Bangle_.milimeterDiameter));
             }
+            if (criteria.getMaterialId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getMaterialId(), root -> root.join(Bangle_.material, JoinType.LEFT).get(Material_.id))
+                    );
+            }
         }
         return specification;
     }

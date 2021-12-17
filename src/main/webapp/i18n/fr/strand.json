@@ -1,0 +1,27 @@
+{
+  "lappLiApp": {
+    "strand": {
+      "home": {
+        "title": "Strands",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Strand",
+        "createOrEditLabel": "Créer ou éditer un Strand",
+        "notFound": "Aucun Strand trouvé"
+      },
+      "created": "Un nouveau Strand a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Strand avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Strand avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Strand {{ id }} ?"
+      },
+      "detail": {
+        "title": "Strand"
+      },
+      "id": "ID",
+      "designation": "Designation",
+      "elementSupplies": "Element Supplies",
+      "bangleSupplies": "Bangle Supplies",
+      "customComponentSupplies": "Custom Component Supplies"
+    }
+  }
+}

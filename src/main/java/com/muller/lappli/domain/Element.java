@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssemblableAtom;
 import com.muller.lappli.domain.enumeration.Color;
@@ -36,10 +37,10 @@ public class Element extends AbstractAssemblableAtom implements Article, Seriali
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "copper", "insulationMaterial" }, allowSetters = true)
+    //@JsonIgnoreProperties(value = { "copper"/*, "insulationMaterial"*/ }, allowSetters = true)
     private ElementKind elementKind;
 
-    public Element() {
+    /*public Element() {
         this(null, Color.NONE, new ElementKind());
     }
 
@@ -47,34 +48,53 @@ public class Element extends AbstractAssemblableAtom implements Article, Seriali
         setNumber(number);
         setColor(color);
         setElementKind(elementKind);
-    }
+    }*/
 
     @Override
+    @JsonIgnore
     public Double getMilimeterDiameter() {
         return getElementKind().getMilimeterDiameter();
     }
 
     @Override
+    @JsonIgnore
     public Double getGramPerMeterLinearMass() {
         return getElementKind().getGramPerMeterLinearMass();
     }
 
     @Override
+    @JsonIgnore
     public Long getArticleNumber() {
         return getNumber();
     }
 
     @Override
+    @JsonIgnore
     public String getDesignation() {
-        return getElementKind().getDesignation();
+        try {
+            return getElementKind().getDesignation();
+        } catch (NullPointerException e) {
+            return "";
+        }
     }
 
+    @JsonIgnore
+    public String getColorDesignation() {
+        try {
+            return getColor().getDesignation();
+        } catch (NullPointerException e) {
+            return "";
+        }
+    }
+
+    @JsonIgnoreProperties(allowGetters = true)
     public String getNumberWithDesignationWithColor() {
         return getNumber() + " - " + getDesignationWithColor();
     }
 
+    @JsonIgnoreProperties(allowGetters = true)
     public String getDesignationWithColor() {
-        return getElementKind().getDesignation() + " " + getColor().getDesignation();
+        return getDesignation() + " " + getColorDesignation();
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

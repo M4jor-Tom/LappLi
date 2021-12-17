@@ -32,6 +32,8 @@ public class BangleSupplyCriteria implements Serializable, Criteria {
 
     private LongFilter bangleId;
 
+    private LongFilter strandId;
+
     private Boolean distinct;
 
     public BangleSupplyCriteria() {}
@@ -41,6 +43,7 @@ public class BangleSupplyCriteria implements Serializable, Criteria {
         this.apparitions = other.apparitions == null ? null : other.apparitions.copy();
         this.description = other.description == null ? null : other.description.copy();
         this.bangleId = other.bangleId == null ? null : other.bangleId.copy();
+        this.strandId = other.strandId == null ? null : other.strandId.copy();
         this.distinct = other.distinct;
     }
 
@@ -109,6 +112,21 @@ public class BangleSupplyCriteria implements Serializable, Criteria {
         this.bangleId = bangleId;
     }
 
+    public LongFilter getStrandId() {
+        return strandId;
+    }
+
+    public LongFilter strandId() {
+        if (strandId == null) {
+            strandId = new LongFilter();
+        }
+        return strandId;
+    }
+
+    public void setStrandId(LongFilter strandId) {
+        this.strandId = strandId;
+    }
+
     public Boolean getDistinct() {
         return distinct;
     }
@@ -131,13 +149,14 @@ public class BangleSupplyCriteria implements Serializable, Criteria {
             Objects.equals(apparitions, that.apparitions) &&
             Objects.equals(description, that.description) &&
             Objects.equals(bangleId, that.bangleId) &&
+            Objects.equals(strandId, that.strandId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, apparitions, description, bangleId, distinct);
+        return Objects.hash(id, apparitions, description, bangleId, strandId, distinct);
     }
 
     // prettier-ignore
@@ -148,6 +167,7 @@ public class BangleSupplyCriteria implements Serializable, Criteria {
             (apparitions != null ? "apparitions=" + apparitions + ", " : "") +
             (description != null ? "description=" + description + ", " : "") +
             (bangleId != null ? "bangleId=" + bangleId + ", " : "") +
+            (strandId != null ? "strandId=" + strandId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

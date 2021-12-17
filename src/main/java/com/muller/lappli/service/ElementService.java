@@ -7,7 +7,7 @@ import java.util.Optional;
 /**
  * Service Interface for managing {@link Element}.
  */
-public interface ElementService {
+public interface ElementService extends ReadTriggerableService<Element> {
     /**
      * Save a element.
      *

@@ -70,7 +70,7 @@ public class LifterRunMeasureCriteria implements Serializable, Criteria {
 
     private MarkingTechniqueFilter markingTechnique;
 
-    private DoubleFilter formatedHourPreparationTime;
+    private DoubleFilter hourPreparationTime;
 
     private LongFilter lifterId;
 
@@ -84,7 +84,7 @@ public class LifterRunMeasureCriteria implements Serializable, Criteria {
         this.meterPerSecondSpeed = other.meterPerSecondSpeed == null ? null : other.meterPerSecondSpeed.copy();
         this.markingType = other.markingType == null ? null : other.markingType.copy();
         this.markingTechnique = other.markingTechnique == null ? null : other.markingTechnique.copy();
-        this.formatedHourPreparationTime = other.formatedHourPreparationTime == null ? null : other.formatedHourPreparationTime.copy();
+        this.hourPreparationTime = other.hourPreparationTime == null ? null : other.hourPreparationTime.copy();
         this.lifterId = other.lifterId == null ? null : other.lifterId.copy();
         this.distinct = other.distinct;
     }
@@ -169,19 +169,19 @@ public class LifterRunMeasureCriteria implements Serializable, Criteria {
         this.markingTechnique = markingTechnique;
     }
 
-    public DoubleFilter getFormatedHourPreparationTime() {
-        return formatedHourPreparationTime;
+    public DoubleFilter getHourPreparationTime() {
+        return hourPreparationTime;
     }
 
-    public DoubleFilter formatedHourPreparationTime() {
-        if (formatedHourPreparationTime == null) {
-            formatedHourPreparationTime = new DoubleFilter();
+    public DoubleFilter hourPreparationTime() {
+        if (hourPreparationTime == null) {
+            hourPreparationTime = new DoubleFilter();
         }
-        return formatedHourPreparationTime;
+        return hourPreparationTime;
     }
 
-    public void setFormatedHourPreparationTime(DoubleFilter formatedHourPreparationTime) {
-        this.formatedHourPreparationTime = formatedHourPreparationTime;
+    public void setHourPreparationTime(DoubleFilter hourPreparationTime) {
+        this.hourPreparationTime = hourPreparationTime;
     }
 
     public LongFilter getLifterId() {
@@ -222,7 +222,7 @@ public class LifterRunMeasureCriteria implements Serializable, Criteria {
             Objects.equals(meterPerSecondSpeed, that.meterPerSecondSpeed) &&
             Objects.equals(markingType, that.markingType) &&
             Objects.equals(markingTechnique, that.markingTechnique) &&
-            Objects.equals(formatedHourPreparationTime, that.formatedHourPreparationTime) &&
+            Objects.equals(hourPreparationTime, that.hourPreparationTime) &&
             Objects.equals(lifterId, that.lifterId) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -236,7 +236,7 @@ public class LifterRunMeasureCriteria implements Serializable, Criteria {
             meterPerSecondSpeed,
             markingType,
             markingTechnique,
-            formatedHourPreparationTime,
+            hourPreparationTime,
             lifterId,
             distinct
         );
@@ -251,7 +251,7 @@ public class LifterRunMeasureCriteria implements Serializable, Criteria {
             (meterPerSecondSpeed != null ? "meterPerSecondSpeed=" + meterPerSecondSpeed + ", " : "") +
             (markingType != null ? "markingType=" + markingType + ", " : "") +
             (markingTechnique != null ? "markingTechnique=" + markingTechnique + ", " : "") +
-            (formatedHourPreparationTime != null ? "formatedHourPreparationTime=" + formatedHourPreparationTime + ", " : "") +
+            (hourPreparationTime != null ? "hourPreparationTime=" + hourPreparationTime + ", " : "") +
             (lifterId != null ? "lifterId=" + lifterId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

@@ -57,7 +57,7 @@ public class Lifter implements Serializable {
     @Column(name = "supports_rsd_marking_technique", nullable = false)
     private Boolean supportsRsdMarkingTechnique;
 
-    public Lifter() {
+    /*public Lifter() {
         this(null, Double.NaN, Double.NaN, false, false, false);
     }
 
@@ -76,18 +76,24 @@ public class Lifter implements Serializable {
         setSupportsSpirallyColoredMarkingType(supportsSpirallyColoredMarkingType);
         setSupportsLongitudinallyColoredMarkingType(supportsLongitudinallyColoredMarkingType);
         setSupportsNumberedMarkingType(supportsNumberedMarkingType);
-    }
+    }*/
 
     public String getName() {
-        String prefix;
+        try {
+            String prefix;
 
-        prefix = getIndex() >= 10 ? "MR" : "MR0";
+            prefix = getIndex() >= 10 ? "MR" : "MR0";
 
-        return prefix + getIndex();
+            return prefix + getIndex();
+        } catch (NullPointerException e) {
+            return "";
+        }
     }
 
     public Boolean supportsSupply(AbstractLiftedSupply abstractLiftedSupply) throws UnknownClassException {
-        if (abstractLiftedSupply instanceof ElementSupply) {
+        if (abstractLiftedSupply instanceof CustomComponentSupply) {
+            return supportsCustomComponentSupply((CustomComponentSupply) abstractLiftedSupply);
+        } else if (abstractLiftedSupply instanceof ElementSupply) {
             return supportsElementSupply((ElementSupply) abstractLiftedSupply);
         } else if (abstractLiftedSupply instanceof BangleSupply) {
             return supportsBangleSupply((BangleSupply) abstractLiftedSupply);
@@ -96,10 +102,18 @@ public class Lifter implements Serializable {
         throw new UnknownClassException(abstractLiftedSupply.toString());
     }
 
+    public Boolean supportsCustomComponentSupply(CustomComponentSupply customComponentSupply) {
+        return (
+            supportsMarkingType(customComponentSupply.getMarkingType()) &&
+            supportsMilimeterDiameter(customComponentSupply.getMilimeterDiameter()) &&
+            supportsMarkingTechnique(customComponentSupply.getMarkingTechnique())
+        );
+    }
+
     public Boolean supportsElementSupply(ElementSupply elementSupply) {
         return (
             supportsMarkingType(elementSupply.getMarkingType()) &&
-            supportsMilimeterDiameter(elementSupply.getElement().getElementKind().getMilimeterDiameter()) &&
+            supportsMilimeterDiameter(elementSupply.getMilimeterDiameter()) &&
             supportsMarkingTechnique(elementSupply.getMarkingTechnique())
         );
     }

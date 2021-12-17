@@ -25,13 +25,21 @@
       "relationshipValidateRules": "required",
       "relationshipName": "element",
       "otherEntityField": "designationWithColor"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "strand",
+      "otherEntityRelationshipName": "elementSupplies",
+      "relationshipValidateRules": "required",
+      "relationshipName": "strand",
+      "otherEntityField": "designation"
     }
   ],
   "entityTableName": "element_supply",
   "dto": "no",
   "pagination": "no",
-  "service": "serviceClass",
-  "jpaMetamodelFiltering": true,
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,

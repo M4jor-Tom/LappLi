@@ -30,6 +30,21 @@ public class Copper implements Article, Serializable {
     @Column(name = "designation", nullable = false, unique = true)
     private String designation;
 
+    public Copper() {}
+
+    public Copper(Long number, String designation) {
+        setNumber(number);
+        setDesignation(designation);
+    }
+
+    public Copper(Copper copper) {
+        this(Long.valueOf(copper.getNumber()), String.valueOf(copper.getDesignation()));
+    }
+
+    public Copper copy() {
+        return new Copper(this).id(getId());
+    }
+
     @Override
     public Long getArticleNumber() {
         return getNumber();

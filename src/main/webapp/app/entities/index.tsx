@@ -15,6 +15,9 @@ import BangleSupply from './bangle-supply';
 import Bangle from './bangle';
 import ElementKindEdition from './element-kind-edition';
 import MaterialMarkingStatistic from './material-marking-statistic';
+import CustomComponentSupply from './custom-component-supply';
+import CustomComponent from './custom-component';
+import Strand from './strand';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -32,6 +35,9 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}bangle`} component={Bangle} />
       <ErrorBoundaryRoute path={`${match.url}element-kind-edition`} component={ElementKindEdition} />
       <ErrorBoundaryRoute path={`${match.url}material-marking-statistic`} component={MaterialMarkingStatistic} />
+      <ErrorBoundaryRoute path={`${match.url}custom-component-supply`} component={CustomComponentSupply} />
+      <ErrorBoundaryRoute path={`${match.url}custom-component`} component={CustomComponent} />
+      <ErrorBoundaryRoute path={`${match.url}strand`} component={Strand} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>

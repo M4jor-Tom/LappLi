@@ -1,5 +1,7 @@
 package com.muller.lappli.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,9 +35,15 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
+    //@JsonIgnoreProperties(value = { "material" }, allowSetters = true)
     private Bangle bangle;
 
-    public BangleSupply() {
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "elementSupplies", "bangleSupplies", "customComponentSupplies" }, allowSetters = true)
+    private Strand strand;
+
+    /*public BangleSupply() {
         this(new ArrayList<>(), null, new Bangle());
     }
 
@@ -43,21 +51,31 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
         super(bestLifterList);
         setApparitions(apparitions);
         setBangle(bangle);
-    }
+    }*/
 
     @Override
     public Double getMeterPerHourSpeed() {
-        return Double.NaN;
+        return Double.valueOf(LIFTING_METER_PER_HOUR_SPEED);
     }
 
     @Override
+    @JsonIgnore
     public Double getMilimeterDiameter() {
-        return getBangle().getMilimeterDiameter();
+        try {
+            return getBangle().getMilimeterDiameter();
+        } catch (NullPointerException e) {
+            return Double.NaN;
+        }
     }
 
     @Override
+    @JsonIgnore
     public Double getGramPerMeterLinearMass() {
-        return getBangle().getGramPerMeterLinearMass();
+        try {
+            return getBangle().getGramPerMeterLinearMass();
+        } catch (NullPointerException e) {
+            return Double.NaN;
+        }
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -112,6 +130,19 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
 
     public BangleSupply bangle(Bangle bangle) {
         this.setBangle(bangle);
+        return this;
+    }
+
+    public Strand getStrand() {
+        return this.strand;
+    }
+
+    public void setStrand(Strand strand) {
+        this.strand = strand;
+    }
+
+    public BangleSupply strand(Strand strand) {
+        this.setStrand(strand);
         return this;
     }
 

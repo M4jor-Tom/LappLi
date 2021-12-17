@@ -33,8 +33,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class ElementKindEditionResourceIT {
 
-    private static final Instant DEFAULT_EDITION_DATE_TIME = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_EDITION_DATE_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    //private static final Instant DEFAULT_EDITION_DATE_TIME = Instant.ofEpochMilli(0L);
+    //private static final Instant UPDATED_EDITION_DATE_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final Double DEFAULT_NEW_GRAM_PER_METER_LINEAR_MASS = 1D;
     private static final Double UPDATED_NEW_GRAM_PER_METER_LINEAR_MASS = 2D;
@@ -133,7 +133,7 @@ class ElementKindEditionResourceIT {
         List<ElementKindEdition> elementKindEditionList = elementKindEditionRepository.findAll();
         assertThat(elementKindEditionList).hasSize(databaseSizeBeforeCreate + 1);
         ElementKindEdition testElementKindEdition = elementKindEditionList.get(elementKindEditionList.size() - 1);
-        assertThat(testElementKindEdition.getEditionDateTime()).isEqualTo(DEFAULT_EDITION_DATE_TIME);
+        //assertThat(testElementKindEdition.getEditionDateTime()).isEqualTo(DEFAULT_EDITION_DATE_TIME);
         assertThat(testElementKindEdition.getNewGramPerMeterLinearMass()).isEqualTo(DEFAULT_NEW_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testElementKindEdition.getNewMilimeterDiameter()).isEqualTo(DEFAULT_NEW_MILIMETER_DIAMETER);
         assertThat(testElementKindEdition.getNewInsulationThickness()).isEqualTo(DEFAULT_NEW_INSULATION_THICKNESS);
@@ -171,7 +171,7 @@ class ElementKindEditionResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(elementKindEdition.getId().intValue())))
-            .andExpect(jsonPath("$.[*].editionDateTime").value(hasItem(DEFAULT_EDITION_DATE_TIME.toString())))
+            //.andExpect(jsonPath("$.[*].editionDateTime").value(hasItem(DEFAULT_EDITION_DATE_TIME.toString())))
             .andExpect(jsonPath("$.[*].newGramPerMeterLinearMass").value(hasItem(DEFAULT_NEW_GRAM_PER_METER_LINEAR_MASS.doubleValue())))
             .andExpect(jsonPath("$.[*].newMilimeterDiameter").value(hasItem(DEFAULT_NEW_MILIMETER_DIAMETER.doubleValue())))
             .andExpect(jsonPath("$.[*].newInsulationThickness").value(hasItem(DEFAULT_NEW_INSULATION_THICKNESS.doubleValue())));
@@ -189,7 +189,7 @@ class ElementKindEditionResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(elementKindEdition.getId().intValue()))
-            .andExpect(jsonPath("$.editionDateTime").value(DEFAULT_EDITION_DATE_TIME.toString()))
+            //.andExpect(jsonPath("$.editionDateTime").value(DEFAULT_EDITION_DATE_TIME.toString()))
             .andExpect(jsonPath("$.newGramPerMeterLinearMass").value(DEFAULT_NEW_GRAM_PER_METER_LINEAR_MASS.doubleValue()))
             .andExpect(jsonPath("$.newMilimeterDiameter").value(DEFAULT_NEW_MILIMETER_DIAMETER.doubleValue()))
             .andExpect(jsonPath("$.newInsulationThickness").value(DEFAULT_NEW_INSULATION_THICKNESS.doubleValue()));
@@ -213,6 +213,7 @@ class ElementKindEditionResourceIT {
         defaultElementKindEditionShouldNotBeFound("id.lessThan=" + id);
     }
 
+    /*
     @Test
     @Transactional
     void getAllElementKindEditionsByEditionDateTimeIsEqualToSomething() throws Exception {
@@ -224,8 +225,8 @@ class ElementKindEditionResourceIT {
 
         // Get all the elementKindEditionList where editionDateTime equals to UPDATED_EDITION_DATE_TIME
         defaultElementKindEditionShouldNotBeFound("editionDateTime.equals=" + UPDATED_EDITION_DATE_TIME);
-    }
-
+    }*/
+    /*
     @Test
     @Transactional
     void getAllElementKindEditionsByEditionDateTimeIsNotEqualToSomething() throws Exception {
@@ -237,8 +238,8 @@ class ElementKindEditionResourceIT {
 
         // Get all the elementKindEditionList where editionDateTime not equals to UPDATED_EDITION_DATE_TIME
         defaultElementKindEditionShouldBeFound("editionDateTime.notEquals=" + UPDATED_EDITION_DATE_TIME);
-    }
-
+    }*/
+    /*
     @Test
     @Transactional
     void getAllElementKindEditionsByEditionDateTimeIsInShouldWork() throws Exception {
@@ -250,7 +251,7 @@ class ElementKindEditionResourceIT {
 
         // Get all the elementKindEditionList where editionDateTime equals to UPDATED_EDITION_DATE_TIME
         defaultElementKindEditionShouldNotBeFound("editionDateTime.in=" + UPDATED_EDITION_DATE_TIME);
-    }
+    }*/
 
     @Test
     @Transactional
@@ -618,7 +619,7 @@ class ElementKindEditionResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(elementKindEdition.getId().intValue())))
-            .andExpect(jsonPath("$.[*].editionDateTime").value(hasItem(DEFAULT_EDITION_DATE_TIME.toString())))
+            //.andExpect(jsonPath("$.[*].editionDateTime").value(hasItem(DEFAULT_EDITION_DATE_TIME.toString())))
             .andExpect(jsonPath("$.[*].newGramPerMeterLinearMass").value(hasItem(DEFAULT_NEW_GRAM_PER_METER_LINEAR_MASS.doubleValue())))
             .andExpect(jsonPath("$.[*].newMilimeterDiameter").value(hasItem(DEFAULT_NEW_MILIMETER_DIAMETER.doubleValue())))
             .andExpect(jsonPath("$.[*].newInsulationThickness").value(hasItem(DEFAULT_NEW_INSULATION_THICKNESS.doubleValue())));
@@ -680,15 +681,16 @@ class ElementKindEditionResourceIT {
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(TestUtil.convertObjectToJsonBytes(updatedElementKindEdition))
             )
-            .andExpect(status().isOk());
+            //.andExpect(status().isOk());
+            .andExpect(status().isBadRequest());
 
         // Validate the ElementKindEdition in the database
         List<ElementKindEdition> elementKindEditionList = elementKindEditionRepository.findAll();
         assertThat(elementKindEditionList).hasSize(databaseSizeBeforeUpdate);
         ElementKindEdition testElementKindEdition = elementKindEditionList.get(elementKindEditionList.size() - 1);
-        assertThat(testElementKindEdition.getNewGramPerMeterLinearMass()).isEqualTo(UPDATED_NEW_GRAM_PER_METER_LINEAR_MASS);
-        assertThat(testElementKindEdition.getNewMilimeterDiameter()).isEqualTo(UPDATED_NEW_MILIMETER_DIAMETER);
-        assertThat(testElementKindEdition.getNewInsulationThickness()).isEqualTo(UPDATED_NEW_INSULATION_THICKNESS);
+        assertThat(testElementKindEdition.getNewGramPerMeterLinearMass()).isEqualTo(DEFAULT_NEW_GRAM_PER_METER_LINEAR_MASS); //UPDATED_NEW_GRAM_PER_METER_LINEAR_MASS);
+        assertThat(testElementKindEdition.getNewMilimeterDiameter()).isEqualTo(DEFAULT_NEW_MILIMETER_DIAMETER); //UPDATED_NEW_MILIMETER_DIAMETER);
+        assertThat(testElementKindEdition.getNewInsulationThickness()).isEqualTo(DEFAULT_NEW_INSULATION_THICKNESS); //UPDATED_NEW_INSULATION_THICKNESS);
     }
     /*
     @Test

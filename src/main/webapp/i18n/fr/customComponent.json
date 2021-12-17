@@ -1,0 +1,29 @@
+{
+  "lappLiApp": {
+    "customComponent": {
+      "home": {
+        "title": "CustomComponents",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Custom Component",
+        "createOrEditLabel": "Créer ou éditer un Custom Component",
+        "notFound": "Aucun Custom Component trouvé"
+      },
+      "created": "Un nouveau Custom Component a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Custom Component avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Custom Component avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Custom Component {{ id }} ?"
+      },
+      "detail": {
+        "title": "Custom Component"
+      },
+      "id": "ID",
+      "number": "Number",
+      "designation": "Designation",
+      "gramPerMeterLinearMass": "Gram Per Meter Linear Mass",
+      "milimeterDiameter": "Milimeter Diameter",
+      "surfaceColor": "Surface Color",
+      "surfaceMaterial": "Surface Material"
+    }
+  }
+}

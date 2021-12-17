@@ -34,6 +34,8 @@ public class BangleCriteria implements Serializable, Criteria {
 
     private DoubleFilter milimeterDiameter;
 
+    private LongFilter materialId;
+
     private Boolean distinct;
 
     public BangleCriteria() {}
@@ -44,6 +46,7 @@ public class BangleCriteria implements Serializable, Criteria {
         this.designation = other.designation == null ? null : other.designation.copy();
         this.gramPerMeterLinearMass = other.gramPerMeterLinearMass == null ? null : other.gramPerMeterLinearMass.copy();
         this.milimeterDiameter = other.milimeterDiameter == null ? null : other.milimeterDiameter.copy();
+        this.materialId = other.materialId == null ? null : other.materialId.copy();
         this.distinct = other.distinct;
     }
 
@@ -127,6 +130,21 @@ public class BangleCriteria implements Serializable, Criteria {
         this.milimeterDiameter = milimeterDiameter;
     }
 
+    public LongFilter getMaterialId() {
+        return materialId;
+    }
+
+    public LongFilter materialId() {
+        if (materialId == null) {
+            materialId = new LongFilter();
+        }
+        return materialId;
+    }
+
+    public void setMaterialId(LongFilter materialId) {
+        this.materialId = materialId;
+    }
+
     public Boolean getDistinct() {
         return distinct;
     }
@@ -150,13 +168,14 @@ public class BangleCriteria implements Serializable, Criteria {
             Objects.equals(designation, that.designation) &&
             Objects.equals(gramPerMeterLinearMass, that.gramPerMeterLinearMass) &&
             Objects.equals(milimeterDiameter, that.milimeterDiameter) &&
+            Objects.equals(materialId, that.materialId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, number, designation, gramPerMeterLinearMass, milimeterDiameter, distinct);
+        return Objects.hash(id, number, designation, gramPerMeterLinearMass, milimeterDiameter, materialId, distinct);
     }
 
     // prettier-ignore
@@ -168,6 +187,7 @@ public class BangleCriteria implements Serializable, Criteria {
             (designation != null ? "designation=" + designation + ", " : "") +
             (gramPerMeterLinearMass != null ? "gramPerMeterLinearMass=" + gramPerMeterLinearMass + ", " : "") +
             (milimeterDiameter != null ? "milimeterDiameter=" + milimeterDiameter + ", " : "") +
+            (materialId != null ? "materialId=" + materialId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

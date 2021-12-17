@@ -2,11 +2,7 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.ElementSupply;
 import com.muller.lappli.repository.ElementSupplyRepository;
-import com.muller.lappli.service.ElementSupplyQueryService;
 import com.muller.lappli.service.ElementSupplyService;
-import com.muller.lappli.service.LifterService;
-import com.muller.lappli.service.criteria.ElementSupplyCriteria;
-import com.muller.lappli.web.rest.abstracts.AbstractLiftedSupplyRessource;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,7 +24,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-public class ElementSupplyResource extends AbstractLiftedSupplyRessource<ElementSupply> {
+public class ElementSupplyResource {
 
     private final Logger log = LoggerFactory.getLogger(ElementSupplyResource.class);
 
@@ -41,18 +37,9 @@ public class ElementSupplyResource extends AbstractLiftedSupplyRessource<Element
 
     private final ElementSupplyRepository elementSupplyRepository;
 
-    private final ElementSupplyQueryService elementSupplyQueryService;
-
-    public ElementSupplyResource(
-        LifterService lifterService,
-        ElementSupplyService elementSupplyService,
-        ElementSupplyRepository elementSupplyRepository,
-        ElementSupplyQueryService elementSupplyQueryService
-    ) {
-        super(lifterService);
+    public ElementSupplyResource(ElementSupplyService elementSupplyService, ElementSupplyRepository elementSupplyRepository) {
         this.elementSupplyService = elementSupplyService;
         this.elementSupplyRepository = elementSupplyRepository;
-        this.elementSupplyQueryService = elementSupplyQueryService;
     }
 
     /**
@@ -148,29 +135,12 @@ public class ElementSupplyResource extends AbstractLiftedSupplyRessource<Element
     /**
      * {@code GET  /element-supplies} : get all the elementSupplies.
      *
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of elementSupplies in body.
      */
     @GetMapping("/element-supplies")
-    public ResponseEntity<List<ElementSupply>> getAllElementSupplies(ElementSupplyCriteria criteria) {
-        log.debug("REST request to get ElementSupplies by criteria: {}", criteria);
-        List<ElementSupply> entityList = elementSupplyQueryService.findByCriteria(criteria);
-
-        entityList = setBestLifterLists(entityList);
-
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /element-supplies/count} : count all the elementSupplies.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/element-supplies/count")
-    public ResponseEntity<Long> countElementSupplies(ElementSupplyCriteria criteria) {
-        log.debug("REST request to count ElementSupplies by criteria: {}", criteria);
-        return ResponseEntity.ok().body(elementSupplyQueryService.countByCriteria(criteria));
+    public List<ElementSupply> getAllElementSupplies() {
+        log.debug("REST request to get all ElementSupplies");
+        return elementSupplyService.findAll();
     }
 
     /**
@@ -183,9 +153,6 @@ public class ElementSupplyResource extends AbstractLiftedSupplyRessource<Element
     public ResponseEntity<ElementSupply> getElementSupply(@PathVariable Long id) {
         log.debug("REST request to get ElementSupply : {}", id);
         Optional<ElementSupply> elementSupply = elementSupplyService.findOne(id);
-
-        elementSupply = setBestLifterList(elementSupply);
-
         return ResponseUtil.wrapOrNotFound(elementSupply);
     }
 

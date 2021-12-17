@@ -40,13 +40,13 @@ public class LifterRunMeasure implements Serializable {
     private MarkingTechnique markingTechnique;
 
     @Column(name = "hour_preparation_time")
-    private Double formatedHourPreparationTime;
+    private Double hourPreparationTime;
 
     @ManyToOne(optional = false)
     @NotNull
     private Lifter lifter;
 
-    public LifterRunMeasure() {
+    /*public LifterRunMeasure() {
         this(Double.NaN, Double.NaN, MarkingType.LIFTING, Double.NaN, new Lifter());
     }
 
@@ -54,15 +54,15 @@ public class LifterRunMeasure implements Serializable {
         Double milimeterDiameter,
         Double meterPerSecondSpeed,
         MarkingType markingType,
-        Double formatedHourPreparationTime,
+        Double hourPreparationTime,
         Lifter lifter
     ) {
         setMilimeterDiameter(milimeterDiameter);
         setMeterPerSecondSpeed(meterPerSecondSpeed);
         setMarkingType(markingType);
-        setFormatedHourPreparationTime(formatedHourPreparationTime);
+        setHourPreparationTime(hourPreparationTime);
         setLifter(lifter);
-    }
+    }*/
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -131,17 +131,17 @@ public class LifterRunMeasure implements Serializable {
         this.markingTechnique = markingTechnique;
     }
 
-    public Double getFormatedHourPreparationTime() {
-        return this.formatedHourPreparationTime;
+    public Double getHourPreparationTime() {
+        return this.hourPreparationTime;
     }
 
-    public LifterRunMeasure formatedHourPreparationTime(Double formatedHourPreparationTime) {
-        this.setFormatedHourPreparationTime(formatedHourPreparationTime);
+    public LifterRunMeasure hourPreparationTime(Double hourPreparationTime) {
+        this.setHourPreparationTime(hourPreparationTime);
         return this;
     }
 
-    public void setFormatedHourPreparationTime(Double formatedHourPreparationTime) {
-        this.formatedHourPreparationTime = formatedHourPreparationTime;
+    public void setHourPreparationTime(Double hourPreparationTime) {
+        this.hourPreparationTime = hourPreparationTime;
     }
 
     public Lifter getLifter() {
@@ -185,7 +185,7 @@ public class LifterRunMeasure implements Serializable {
             ", meterPerSecondSpeed=" + getMeterPerSecondSpeed() +
             ", markingType='" + getMarkingType() + "'" +
             ", markingTechnique='" + getMarkingTechnique() + "'" +
-            ", formatedHourPreparationTime=" + getFormatedHourPreparationTime() +
+            ", hourPreparationTime=" + getHourPreparationTime() +
             "}";
     }
 }

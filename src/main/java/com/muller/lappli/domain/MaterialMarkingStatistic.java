@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.mapstruct.ap.shaded.freemarker.template.utility.NullArgumentException;
 
 /**
  * A MaterialMarkingStatistic.
@@ -43,7 +44,7 @@ public class MaterialMarkingStatistic implements Serializable {
     @JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material material;
 
-    public MaterialMarkingStatistic() {
+    /*public MaterialMarkingStatistic() {
         this(MarkingType.LIFTING, MarkingTechnique.NONE, null, new Material());
     }
 
@@ -52,7 +53,7 @@ public class MaterialMarkingStatistic implements Serializable {
         setMarkingTechnique(markingTechnique);
         setMeterPerHourSpeed(meterPerHourSpeed);
         setMaterial(material);
-    }
+    }*/
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -83,10 +84,6 @@ public class MaterialMarkingStatistic implements Serializable {
     }
 
     public MarkingTechnique getMarkingTechnique() {
-        if (!getMarkingType().equals(MarkingType.NUMBERED)) {
-            return MarkingTechnique.NONE;
-        }
-
         return this.markingTechnique;
     }
 
@@ -96,26 +93,27 @@ public class MaterialMarkingStatistic implements Serializable {
     }
 
     public void setMarkingTechnique(MarkingTechnique markingTechnique) {
-        if (markingTechnique.equals(MarkingTechnique.NONE_SUITABLE)) {
-            //No control here, NONE_SUITABLE says enough
-            this.markingTechnique = markingTechnique;
-        } else if (getMarkingType().equals(MarkingType.NUMBERED)) {
-            this.markingTechnique = markingTechnique;
-
-            if (markingTechnique.equals(MarkingTechnique.NONE)) {
-                //If marking type is NUMBERED, then marking technique
-                //shall be among RSD, INK_JET, and NONE_SUITABLE
-                (new Exception("NoneMarkingTechniqueForMarkingTypeNumbered")).printStackTrace();
-            }
-        } else {
-            this.markingTechnique = MarkingTechnique.NONE;
-
-            if (!markingTechnique.equals(MarkingTechnique.NONE)) {
-                //If the marking type is not NUMBERED, then
-                //the marking technique must be NONE(_SUITABLE)
-                (new Exception("ExistingMarkingTechniqueForMarkingTypeNotNumbered")).printStackTrace();
-            }
+        if (markingTechnique == null) {
+            (new NullArgumentException("MaterialMarkingStatistic.markingTechnic = null")).printStackTrace();
+        } else if (
+            //NONE_SUITABLE means we don't test anything, it's okay
+            MarkingTechnique.NONE_SUITABLE.equals(markingTechnique)
+        ) {} else if (
+            //NUMBERED markingType means that...
+            MarkingType.NUMBERED.equals(getMarkingType()) &&
+            //markingTechnique must not be NONE
+            MarkingTechnique.NONE.equals(markingTechnique)
+        ) {
+            //If marking type is NUMBERED, then marking technique
+            //shall be among RSD, INK_JET, and NONE_SUITABLE
+            (new Exception("NoneMarkingTechniqueForMarkingTypeNumbered")).printStackTrace();
+        } else if (!MarkingTechnique.NONE.equals(markingTechnique)) {
+            //If the marking type is not NUMBERED, then
+            //the marking technique must be NONE(_SUITABLE)
+            (new Exception("ExistingMarkingTechniqueForMarkingTypeNotNumbered")).printStackTrace();
         }
+
+        this.markingTechnique = markingTechnique;
     }
 
     public Long getMeterPerHourSpeed() {

@@ -1,14 +1,11 @@
 package com.muller.lappli.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
+import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
-import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -20,7 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element_supply")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ElementSupply extends AbstractLiftedSupply implements Serializable {
+public class ElementSupply extends AbstractMarkedLiftedSupply implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,80 +40,58 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "elementKind" }, allowSetters = true)
+    //@JsonIgnoreProperties(value = { "elementKind" }, allowSetters = true)
     private Element element;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "elementSupplies", "bangleSupplies", "customComponentSupplies" }, allowSetters = true)
+    private Strand strand;
+
     public ElementSupply() {
-        this(new ArrayList<>(), null, MarkingType.LIFTING, "", new Element());
+        super();
     }
 
-    public ElementSupply(List<Lifter> bestLifterList, Long apparitions, MarkingType markingType, String description, Element element) {
+    /*public ElementSupply(List<Lifter> bestLifterList, Long apparitions, MarkingType markingType, String description, Element element) {
         super(bestLifterList);
         setApparitions(apparitions);
         setMarkingType(markingType);
         setDescription(description);
         setElement(element);
+    }*/
+
+    @Override
+    @JsonIgnore
+    public Material getSurfaceMaterial() {
+        try {
+            return getElement().getElementKind().getInsulationMaterial();
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     @Override
-    public Double getMeterPerHourSpeed() {
-        if (getMarkingType().equals(MarkingType.LIFTING)) {
-            return Double.valueOf(Math.max(getBestMarkingMaterialStatistic().getMeterPerHourSpeed(), LIFTING_METER_PER_HOUR_SPEED));
+    public Color getSurfaceColor() {
+        try {
+            return getElement().getColor();
+        } catch (NullPointerException e) {
+            return null;
         }
-
-        return Double.valueOf(getBestMarkingMaterialStatistic().getMeterPerHourSpeed());
     }
 
-    private MaterialMarkingStatistic getBestMarkingMaterialStatistic() {
-        //Takes the element supply's element, then
-        return getElement()
-            //Takes its element kind, then
-            .getElementKind()
-            //Takes its insulation material, then
-            .getInsulationMaterial()
-            //Takes its marking statistics, but
-            .getMaterialMarkingStatistics()
-            .stream()
-            //Only those which has our element supply's marking type, then
-            .filter(statistic -> statistic.getMarkingType().equals(getMarkingType()))
-            //INK_JET can't print on black
-            .filter(statistic ->
-                (statistic.getMarkingTechnique().equals(MarkingTechnique.INK_JET) != getElement().getColor().equals(Color.BLACK)) ||
-                statistic.getMarkingTechnique().equals(MarkingTechnique.NONE)
-            )
-            //Takes the fastest to act in a lifter machine, but
-            .max(
-                new Comparator<MaterialMarkingStatistic>() {
-                    @Override
-                    public int compare(MaterialMarkingStatistic o1, MaterialMarkingStatistic o2) {
-                        return o1.getMeterPerHourSpeed().compareTo(o2.getMeterPerHourSpeed());
-                    }
-                }
-            )
-            //If no statistic is found, meaning the lifting operation is unavailable for
-            //those parameters, it means that no marking technique is suitable
-            .orElse(new MaterialMarkingStatistic(getMarkingType(), MarkingTechnique.NONE_SUITABLE, Long.valueOf(0), new Material()));
-    }
-
-    public MarkingTechnique getMarkingTechnique() {
-        if (!getMarkingType().equals(MarkingType.NUMBERED)) {
-            //A marking technique is necessary when something is written only
-            return MarkingTechnique.NONE;
-        }
-
-        return getBestMarkingMaterialStatistic().getMarkingTechnique();
-    }
-
+    @JsonIgnore
     public String getInsulationMaterialDesignation() {
         return getElement().getElementKind().getInsulationMaterial().getDesignation();
     }
 
     @Override
+    @JsonIgnore
     public Double getGramPerMeterLinearMass() {
         return getElement().getElementKind().getGramPerMeterLinearMass();
     }
 
     @Override
+    @JsonIgnore
     public Double getMilimeterDiameter() {
         return getElement().getElementKind().getMilimeterDiameter();
     }
@@ -150,6 +125,7 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
         this.apparitions = apparitions;
     }
 
+    @Override
     public MarkingType getMarkingType() {
         return this.markingType;
     }
@@ -186,6 +162,19 @@ public class ElementSupply extends AbstractLiftedSupply implements Serializable 
 
     public ElementSupply element(Element element) {
         this.setElement(element);
+        return this;
+    }
+
+    public Strand getStrand() {
+        return this.strand;
+    }
+
+    public void setStrand(Strand strand) {
+        this.strand = strand;
+    }
+
+    public ElementSupply strand(Strand strand) {
+        this.setStrand(strand);
         return this;
     }
 

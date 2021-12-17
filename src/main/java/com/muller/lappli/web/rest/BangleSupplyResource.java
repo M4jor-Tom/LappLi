@@ -2,11 +2,7 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.BangleSupply;
 import com.muller.lappli.repository.BangleSupplyRepository;
-import com.muller.lappli.service.BangleSupplyQueryService;
 import com.muller.lappli.service.BangleSupplyService;
-import com.muller.lappli.service.LifterService;
-import com.muller.lappli.service.criteria.BangleSupplyCriteria;
-import com.muller.lappli.web.rest.abstracts.AbstractLiftedSupplyRessource;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,7 +24,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-public class BangleSupplyResource extends AbstractLiftedSupplyRessource<BangleSupply> {
+public class BangleSupplyResource {
 
     private final Logger log = LoggerFactory.getLogger(BangleSupplyResource.class);
 
@@ -41,18 +37,9 @@ public class BangleSupplyResource extends AbstractLiftedSupplyRessource<BangleSu
 
     private final BangleSupplyRepository bangleSupplyRepository;
 
-    private final BangleSupplyQueryService bangleSupplyQueryService;
-
-    public BangleSupplyResource(
-        LifterService lifterService,
-        BangleSupplyService bangleSupplyService,
-        BangleSupplyRepository bangleSupplyRepository,
-        BangleSupplyQueryService bangleSupplyQueryService
-    ) {
-        super(lifterService);
+    public BangleSupplyResource(BangleSupplyService bangleSupplyService, BangleSupplyRepository bangleSupplyRepository) {
         this.bangleSupplyService = bangleSupplyService;
         this.bangleSupplyRepository = bangleSupplyRepository;
-        this.bangleSupplyQueryService = bangleSupplyQueryService;
     }
 
     /**
@@ -148,29 +135,12 @@ public class BangleSupplyResource extends AbstractLiftedSupplyRessource<BangleSu
     /**
      * {@code GET  /bangle-supplies} : get all the bangleSupplies.
      *
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of bangleSupplies in body.
      */
     @GetMapping("/bangle-supplies")
-    public ResponseEntity<List<BangleSupply>> getAllBangleSupplies(BangleSupplyCriteria criteria) {
-        log.debug("REST request to get BangleSupplies by criteria: {}", criteria);
-        List<BangleSupply> entityList = bangleSupplyQueryService.findByCriteria(criteria);
-
-        entityList = setBestLifterLists(entityList);
-
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /bangle-supplies/count} : count all the bangleSupplies.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/bangle-supplies/count")
-    public ResponseEntity<Long> countBangleSupplies(BangleSupplyCriteria criteria) {
-        log.debug("REST request to count BangleSupplies by criteria: {}", criteria);
-        return ResponseEntity.ok().body(bangleSupplyQueryService.countByCriteria(criteria));
+    public List<BangleSupply> getAllBangleSupplies() {
+        log.debug("REST request to get all BangleSupplies");
+        return bangleSupplyService.findAll();
     }
 
     /**
@@ -183,9 +153,6 @@ public class BangleSupplyResource extends AbstractLiftedSupplyRessource<BangleSu
     public ResponseEntity<BangleSupply> getBangleSupply(@PathVariable Long id) {
         log.debug("REST request to get BangleSupply : {}", id);
         Optional<BangleSupply> bangleSupply = bangleSupplyService.findOne(id);
-
-        bangleSupply = setBestLifterList(bangleSupply);
-
         return ResponseUtil.wrapOrNotFound(bangleSupply);
     }
 

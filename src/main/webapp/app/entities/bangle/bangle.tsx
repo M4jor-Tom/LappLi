@@ -61,6 +61,9 @@ export const Bangle = (props: RouteComponentProps<{ url: string }>) => {
                 <th>
                   <Translate contentKey="lappLiApp.dimension.milimeterDiameter">Milimeter Diameter</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="lappLiApp.bangle.material">Material</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -76,6 +79,7 @@ export const Bangle = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{bangle.designation}</td>
                   <td>{bangle.gramPerMeterLinearMass}</td>
                   <td>{bangle.milimeterDiameter}</td>
+                  <td>{bangle.material ? <Link to={`material/${bangle.material.id}`}>{bangle.material.designation}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${bangle.id}`} color="info" size="sm" data-cy="entityDetailsButton">

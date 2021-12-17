@@ -19,13 +19,21 @@
       "relationshipValidateRules": "required",
       "relationshipName": "bangle",
       "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "strand",
+      "otherEntityRelationshipName": "bangleSupplies",
+      "relationshipValidateRules": "required",
+      "relationshipName": "strand",
+      "otherEntityField": "designation"
     }
   ],
   "entityTableName": "bangle_supply",
   "dto": "no",
   "pagination": "no",
-  "service": "serviceClass",
-  "jpaMetamodelFiltering": true,
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,

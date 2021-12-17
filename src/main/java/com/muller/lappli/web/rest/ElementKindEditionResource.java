@@ -4,7 +4,6 @@ import com.muller.lappli.domain.ElementKindEdition;
 import com.muller.lappli.repository.ElementKindEditionRepository;
 import com.muller.lappli.service.ElementKindEditionQueryService;
 import com.muller.lappli.service.ElementKindEditionService;
-import com.muller.lappli.service.ElementKindQueryService;
 import com.muller.lappli.service.criteria.ElementKindEditionCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -38,21 +37,17 @@ public class ElementKindEditionResource {
 
     private final ElementKindEditionService elementKindEditionService;
 
-    //private final ElementKindEditionRepository elementKindEditionRepository;
-
-    private final ElementKindQueryService elementKindQueryService;
+    private final ElementKindEditionRepository elementKindEditionRepository;
 
     private final ElementKindEditionQueryService elementKindEditionQueryService;
 
     public ElementKindEditionResource(
         ElementKindEditionService elementKindEditionService,
-        //ElementKindEditionRepository elementKindEditionRepository
-        ElementKindQueryService elementKindQueryService,
+        ElementKindEditionRepository elementKindEditionRepository,
         ElementKindEditionQueryService elementKindEditionQueryService
     ) {
         this.elementKindEditionService = elementKindEditionService;
-        //this.elementKindEditionRepository = elementKindEditionRepository;
-        this.elementKindQueryService = elementKindQueryService;
+        this.elementKindEditionRepository = elementKindEditionRepository;
         this.elementKindEditionQueryService = elementKindEditionQueryService;
     }
 
@@ -87,7 +82,7 @@ public class ElementKindEditionResource {
      * or with status {@code 500 (Internal Server Error)} if the elementKindEdition couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    //@PutMapping("/element-kind-editions/{id}")
+    @PutMapping("/element-kind-editions/{id}")
     public ResponseEntity<ElementKindEdition> updateElementKindEdition(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody ElementKindEdition elementKindEdition
@@ -109,7 +104,7 @@ public class ElementKindEditionResource {
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, elementKindEdition.getId().toString()))
             .body(result);*/
-        return null;
+        return ResponseEntity.badRequest().body(elementKindEdition);
     }
 
     /**
@@ -123,7 +118,7 @@ public class ElementKindEditionResource {
      * or with status {@code 500 (Internal Server Error)} if the elementKindEdition couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    //@PatchMapping(value = "/element-kind-editions/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PatchMapping(value = "/element-kind-editions/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<ElementKindEdition> partialUpdateElementKindEdition(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody ElementKindEdition elementKindEdition
@@ -146,7 +141,7 @@ public class ElementKindEditionResource {
             result,
             HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, elementKindEdition.getId().toString())
         );*/
-        return null;
+        return ResponseUtil.wrapOrNotFound(Optional.empty());
     }
 
     /**
@@ -185,10 +180,6 @@ public class ElementKindEditionResource {
         log.debug("REST request to get ElementKindEdition : {}", id);
         Optional<ElementKindEdition> elementKindEdition = elementKindEditionService.findOne(id);
 
-        if (elementKindEdition.isPresent()) {
-            elementKindEdition.get().forceNotNull();
-        }
-
         return ResponseUtil.wrapOrNotFound(elementKindEdition);
     }
 
@@ -206,6 +197,6 @@ public class ElementKindEditionResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();*/
-        return null;
+        return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName, "Can't delete", ENTITY_NAME)).build();
     }
 }

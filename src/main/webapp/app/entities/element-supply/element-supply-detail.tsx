@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getEntity } from './element-supply.reducer';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import ElementKind from '../element-kind/element-kind';
 
 export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
@@ -30,6 +31,10 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           </dt>
           <dd>{elementSupplyEntity.id}</dd>
           <dt>
+            <Translate contentKey="lappLiApp.elementSupply.strand">Strand</Translate>
+          </dt>
+          <dd>{elementSupplyEntity.strand ? elementSupplyEntity.strand.designation : ''}</dd>
+          <dt>
             <span id="apparitions">
               <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
             </span>
@@ -37,7 +42,7 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           <dd>{elementSupplyEntity.apparitions}</dd>
           <dt>
             <span id="markingType">
-              <Translate contentKey="lappLiApp.elementSupply.markingType">Marking Type</Translate>
+              <Translate contentKey="lappLiApp.supply.markingType">Marking Type</Translate>
             </span>
           </dt>
           <dd>{elementSupplyEntity.markingType}</dd>
@@ -62,11 +67,11 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           <dt>
             <Translate contentKey="lappLiApp.dimension.milimeterDiameter">Diameter (mm)</Translate>
           </dt>
-          <dd>{elementSupplyEntity.milimeterDiameter}</dd>
+          <dd>{elementSupplyEntity.element?.elementKind.milimeterDiameter}</dd>
           <dt>
             <Translate contentKey="lappLiApp.dimension.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
           </dt>
-          <dd>{elementSupplyEntity.gramPerMeterLinearMass}</dd>
+          <dd>{elementSupplyEntity.element?.elementKind.gramPerMeterLinearMass}</dd>
           <dt>
             <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Lifter Names</Translate>
           </dt>
@@ -74,7 +79,7 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           <dt>
             <Translate contentKey="lappLiApp.elementKind.insulationMaterial">Material</Translate>
           </dt>
-          <dd>{elementSupplyEntity.insulationMaterialDesignation}</dd>
+          <dd>{elementSupplyEntity.element?.elementKind.insulationMaterial.designation}</dd>
           <dt>
             <Translate contentKey="lappLiApp.supply.meterPerHourSpeed">Speed (m/h)</Translate>
           </dt>
@@ -88,7 +93,7 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           </dt>
           <dd>{elementSupplyEntity.formatedHourExecutionTime}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.elementSupply.markingTechnique">Marking Technique</Translate>
+            <Translate contentKey="lappLiApp.supply.markingTechnique">Marking Technique</Translate>
           </dt>
           <dd>{elementSupplyEntity.markingTechnique}</dd>
         </dl>

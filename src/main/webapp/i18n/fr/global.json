@@ -5,7 +5,6 @@
     "menu": {
       "home": "Accueil",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
-      "study-multi-supply-list": "Liste d'approvisionnements",
       "entities": {
         "main": "Entités",
         "element": "Element",
@@ -19,6 +18,9 @@
         "bangle": "Bangle",
         "elementKindEdition": "Element Kind Edition",
         "materialMarkingStatistic": "Material Marking Statistic",
+        "customComponentSupply": "Custom Component Supply",
+        "customComponent": "Custom Component",
+        "strand": "Strand",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

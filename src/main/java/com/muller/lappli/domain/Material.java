@@ -16,7 +16,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "material")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Material implements Article, Serializable {
+public class Material implements Article, Serializable, Cloneable {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,6 +37,26 @@ public class Material implements Article, Serializable {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "material" }, allowSetters = true)
     private Set<MaterialMarkingStatistic> materialMarkingStatistics = new HashSet<>();
+
+    public Material() {}
+
+    public Material(Long number, String designation, Set<MaterialMarkingStatistic> materialMarkingStatistics) {
+        setNumber(number);
+        setDesignation(designation);
+        setMaterialMarkingStatistics(materialMarkingStatistics);
+    }
+
+    protected Material(Material material) {
+        this(
+            Long.valueOf(material.getNumber()),
+            String.valueOf(material.getDesignation()),
+            new HashSet<MaterialMarkingStatistic>(material.getMaterialMarkingStatistics())
+        );
+    }
+
+    public Object copy() {
+        return new Material(this).id(getId());
+    }
 
     @Override
     public Long getArticleNumber() {
