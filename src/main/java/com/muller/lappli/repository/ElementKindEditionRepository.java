@@ -14,4 +14,6 @@ import org.springframework.stereotype.Repository;
 public interface ElementKindEditionRepository
     extends JpaRepository<ElementKindEdition, Long>, JpaSpecificationExecutor<ElementKindEdition> {
     public List<ElementKindEdition> findByEditedElementKindIdAndEditionDateTimeBefore(Long editedElementKindId, Instant editionDateTime);
+
+    public List<ElementKindEdition> findByEditedElementKindId(Long editedElemebtKindId);
 }

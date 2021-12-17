@@ -1,5 +1,7 @@
 package com.muller.lappli.service;
 
+import com.muller.lappli.domain.EditionListManager;
+import com.muller.lappli.domain.ElementKind;
 import com.muller.lappli.domain.ElementKindEdition;
 import java.time.Instant;
 import java.util.List;
@@ -18,6 +20,8 @@ public interface ElementKindEditionService {
      * @return the checked out elementKind
      */
     public List<ElementKindEdition> findByEditedElementKindIdAndEditionDateTimeBefore(Long elementKindId, Instant editionDateTime);
+
+    public List<ElementKindEdition> findByEditedElementKindId(Long id);
 
     /**
      * Save a elementKindEdition.

@@ -1,5 +1,7 @@
 package com.muller.lappli.service.impl;
 
+import com.muller.lappli.domain.EditionListManager;
+import com.muller.lappli.domain.ElementKind;
 import com.muller.lappli.domain.ElementKindEdition;
 import com.muller.lappli.repository.ElementKindEditionRepository;
 import com.muller.lappli.service.ElementKindEditionService;
@@ -29,6 +31,11 @@ public class ElementKindEditionServiceImpl implements ElementKindEditionService 
     @Override
     public List<ElementKindEdition> findByEditedElementKindIdAndEditionDateTimeBefore(Long editedElementKindId, Instant editionDateTime) {
         return elementKindEditionRepository.findByEditedElementKindIdAndEditionDateTimeBefore(editedElementKindId, editionDateTime);
+    }
+
+    @Override
+    public List<ElementKindEdition> findByEditedElementKindId(Long editedElementKindId) {
+        return elementKindEditionRepository.findByEditedElementKindId(editedElementKindId);
     }
 
     @Override
