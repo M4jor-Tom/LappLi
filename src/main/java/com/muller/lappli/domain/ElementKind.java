@@ -1,6 +1,5 @@
 package com.muller.lappli.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractCableAtom;
 import com.muller.lappli.domain.interfaces.Commitable;
 import java.io.Serializable;
@@ -52,8 +51,8 @@ public class ElementKind extends AbstractCableAtom implements Commitable<Element
     @Transient
     private EditionListManager<ElementKind> editionListManager;
 
-    /*public ElementKind() {
-        this("", Double.NaN, Double.NaN, Double.NaN, new Copper(), new Material());
+    public ElementKind() {
+        //this("", Double.NaN, Double.NaN, Double.NaN, new Copper(), new Material());
     }
 
     public ElementKind(
@@ -70,7 +69,28 @@ public class ElementKind extends AbstractCableAtom implements Commitable<Element
         setInsulationThickness(insulationThickness);
         setCopper(copper);
         setInsulationMaterial(insulationMaterial);
-    }*/
+    }
+
+    protected ElementKind(ElementKind elementKind) {
+        this(
+            String.valueOf(elementKind.getDesignation()),
+            Double.valueOf(elementKind.getGramPerMeterLinearMass()),
+            Double.valueOf(elementKind.getMilimeterDiameter()),
+            Double.valueOf(elementKind.getInsulationThickness()),
+            (Copper) elementKind.getCopper().copy(),
+            (Material) elementKind.getInsulationMaterial().copy()
+        );
+    }
+
+    @Override
+    public ElementKind copy() {
+        return new ElementKind(this).id(getId());
+    }
+
+    @Override
+    public ElementKind getThis() {
+        return this;
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 

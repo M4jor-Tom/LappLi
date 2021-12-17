@@ -1,5 +1,6 @@
 package com.muller.lappli.domain.interfaces;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.muller.lappli.domain.EditionListManager;
 import com.muller.lappli.domain.abstracts.AbstractEdition;
 import java.time.Instant;
@@ -16,6 +17,11 @@ import java.util.List;
  */
 public interface Commitable<C extends Commitable<C>> {
     public Long getId();
+
+    @JsonIgnore
+    public C getThis();
+
+    public C copy();
 
     public void setEditionListManager(EditionListManager<C> editionListManager);
 
@@ -46,11 +52,13 @@ public interface Commitable<C extends Commitable<C>> {
      * @param instant the instant before which modifications shall be applied
      * @return an edited version of commitable parameter
      */
-    public default C getAtInstant(C commitable, Instant instant) {
+    public default C copyAtInstant(Instant instant) {
+        C copy = (C) getThis().copy();
+
         for (AbstractEdition<C> edition : getEditionListTill(instant)) {
-            edition.update(commitable);
+            copy = edition.update(copy);
         }
 
-        return commitable;
+        return copy;
     }
 }
