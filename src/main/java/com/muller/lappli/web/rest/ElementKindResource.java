@@ -156,8 +156,8 @@ public class ElementKindResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of elementKinds in body.
      */
     @GetMapping("/element-kinds")
-    public ResponseEntity<List<ElementKind>> getAllElementKinds(ElementKindCriteria criteria) {
-        log.debug("REST request to get ElementKinds by criteria: {}", criteria);
+    public ResponseEntity<List<ElementKind>> getAllElementKinds() {
+        log.debug("REST request to get ElementKinds");
 
         //It's more logical to pick the unsorted list, and maybe to apply
         //a criteria after, because on filtering, any client would expect
