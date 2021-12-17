@@ -7,6 +7,7 @@ import Strand from './strand';
 import StrandDetail from './strand-detail';
 import StrandUpdate from './strand-update';
 import StrandDeleteDialog from './strand-delete-dialog';
+import StrandSubSupply from './strand-sub-supply';
 
 const Routes = ({ match }) => (
   <>
@@ -14,6 +15,9 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute exact path={`${match.url}/new`} component={StrandUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:id/edit`} component={StrandUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:id`} component={StrandDetail} />
+
+      <ErrorBoundaryRoute exact path={`${match.url}/:id/supply`} component={StrandSubSupply} />
+
       <ErrorBoundaryRoute path={match.url} component={Strand} />
     </Switch>
     <ErrorBoundaryRoute exact path={`${match.url}/:id/delete`} component={StrandDeleteDialog} />
