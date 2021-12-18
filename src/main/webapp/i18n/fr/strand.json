@@ -21,7 +21,9 @@
       "designation": "Designation",
       "elementSupplies": "Element Supplies",
       "bangleSupplies": "Bangle Supplies",
-      "customComponentSupplies": "Custom Component Supplies"
+      "customComponentSupplies": "Custom Component Supplies",
+      "subSupplies": "Approvisionnements du toron",
+      "noSuppliesFound": "Aucun approvisionnement trouvé"
     }
   }
 }

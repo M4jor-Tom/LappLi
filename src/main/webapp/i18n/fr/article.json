@@ -1,7 +1,8 @@
 {
   "lappLiApp": {
     "article": {
-      "number": "Numéro d'article"
+      "number": "Numéro d'article",
+      "designation": "Désignation d'article"
     }
   }
 }
