@@ -24,6 +24,7 @@ const Routes = ({ match }) => (
 
       <ErrorBoundaryRoute exact path={`${match.url}/:id/supply`} component={StrandSubSupply} />
 
+      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/custom-component-supply/new`} component={CustomComponentSupplyUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/custom-component-supply/:id/edit`} component={CustomComponentSupplyUpdate} />
       <ErrorBoundaryRoute
         exact
@@ -31,9 +32,11 @@ const Routes = ({ match }) => (
         component={CustomComponentSupplyDeleteDialog}
       />
 
+      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/bangle-supply/new`} component={BangleSupplyUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/bangle-supply/:id/edit`} component={BangleSupplyUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/bangle-supply/:id/delete`} component={BangleSupplyDeleteDialog} />
 
+      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/element-supply/new`} component={ElementSupplyUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/element-supply/:id/edit`} component={ElementSupplyUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/element-supply/:id/delete`} component={ElementSupplyDeleteDialog} />
 

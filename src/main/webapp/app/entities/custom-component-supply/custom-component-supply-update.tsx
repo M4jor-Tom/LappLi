@@ -157,7 +157,18 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ strand_
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
               {_isStrandSupply ? (
-                ''
+                isNew ? (
+                  <ValidatedField
+                    id="custom-component-supply-strand"
+                    name="strand"
+                    data-cy="strand"
+                    type="hidden"
+                    value={props.match.params.strand_id}
+                    required
+                  />
+                ) : (
+                  ''
+                )
               ) : (
                 <>
                   <ValidatedField

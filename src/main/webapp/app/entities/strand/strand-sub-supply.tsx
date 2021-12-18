@@ -256,7 +256,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                 <Translate contentKey="LappLiApp.strand.noSuppliesFound"> No Supplies Found</Translate>
               )}
               <Link
-                to={`bangle-supply/${strandEntity.id}/new`}
+                to={`bangle-supply/new`}
                 className="btn btn-primary jh-create-entity"
                 id="jh-create-entity"
                 data-cy="entityCreateButton"
@@ -266,7 +266,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                 <Translate contentKey="lappLiApp.bangleSupply.home.createLabel">Create new Bangle Supply</Translate>
               </Link>
               <Link
-                to={`custom-component-supply/${strandEntity.id}/new`}
+                to={`custom-component-supply/new`}
                 className="btn btn-primary jh-create-entity"
                 id="jh-create-entity"
                 data-cy="entityCreateButton"
@@ -276,7 +276,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                 <Translate contentKey="lappLiApp.customComponentSupply.home.createLabel">Create new Custom Component Supply</Translate>
               </Link>
               <Link
-                to={`element-supply/${strandEntity.id}/new`}
+                to={`element-supply/new`}
                 className="btn btn-primary jh-create-entity"
                 id="jh-create-entity"
                 data-cy="entityCreateButton"

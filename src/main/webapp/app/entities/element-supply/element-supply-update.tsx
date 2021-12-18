@@ -155,7 +155,18 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ strand_id: stri
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
               {_isStrandSupply ? (
-                ''
+                isNew ? (
+                  <ValidatedField
+                    id="element-supply-strand"
+                    name="strand"
+                    data-cy="strand"
+                    type="hidden"
+                    value={props.match.params.strand_id}
+                    required
+                  />
+                ) : (
+                  ''
+                )
               ) : (
                 <>
                   <ValidatedField
