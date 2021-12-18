@@ -8,7 +8,9 @@
       "formatedHourPreparationTime": "Preparation Time (h)",
       "formatedHourExecutionTime": "Execution Time (h)",
       "markingType": "Marking Type",
-      "markingTechnique": "Marking Technique"
+      "markingTechnique": "Marking Technique",
+      "surfaceMaterial": "Surface Material",
+      "surfaceColor": "Surface Color"
     }
   }
 }

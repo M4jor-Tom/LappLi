@@ -118,7 +118,7 @@ export const LifterRunMeasureUpdate = (props: RouteComponentProps<{ id: string }
               >
                 {markingTypeValues.map(markingType => (
                   <option value={markingType} key={markingType}>
-                    {translate('lappLiApp.MarkingType' + markingType)}
+                    {translate('lappLiApp.MarkingType.' + markingType)}
                   </option>
                 ))}
               </ValidatedField>
@@ -131,7 +131,7 @@ export const LifterRunMeasureUpdate = (props: RouteComponentProps<{ id: string }
               >
                 {markingTechniqueValues.map(markingTechnique => (
                   <option value={markingTechnique} key={markingTechnique}>
-                    {translate('lappLiApp.MarkingTechnique' + markingTechnique)}
+                    {translate('lappLiApp.MarkingTechnique.' + markingTechnique)}
                   </option>
                 ))}
               </ValidatedField>
