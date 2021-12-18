@@ -14,14 +14,16 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { getRedirectionUrl, isStrandSupply } from '../supply/index-management-lib';
+
 export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const [isStrandSupply] = useState(props.match.params && props.match.params.strand_id);
+  const _isStrandSupply = isStrandSupply(props);
 
-  const redirectionUrl = isStrandSupply ? '/strand/' + props.match.params.strand_id + '/supply' : '/bangle-supply';
+  const redirectionUrl = getRedirectionUrl(props, '/bangle-supply');
 
   const bangles = useAppSelector(state => state.bangle.entities);
   const strands = useAppSelector(state => state.strand.entities);
@@ -137,7 +139,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              {isStrandSupply ? (
+              {_isStrandSupply ? (
                 ''
               ) : (
                 <>

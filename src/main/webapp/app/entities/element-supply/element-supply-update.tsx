@@ -14,15 +14,16 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
+import { getRedirectionUrl, isStrandSupply } from '../supply/index-management-lib';
 
 export const ElementSupplyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const [isStrandSupply] = useState(props.match.params && props.match.params.strand_id);
+  const _isStrandSupply = isStrandSupply(props);
 
-  const redirectionUrl = isStrandSupply ? '/strand/' + props.match.params.strand_id + '/supply' : '/element-supply';
+  const redirectionUrl = getRedirectionUrl(props, '/element-supply');
 
   const elements = useAppSelector(state => state.element.entities);
   const strands = useAppSelector(state => state.strand.entities);
@@ -153,7 +154,7 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ strand_id: stri
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              {isStrandSupply ? (
+              {_isStrandSupply ? (
                 ''
               ) : (
                 <>
