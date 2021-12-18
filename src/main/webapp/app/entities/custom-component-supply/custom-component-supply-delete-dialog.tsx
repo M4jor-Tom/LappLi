@@ -6,10 +6,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity, deleteEntity } from './custom-component-supply.reducer';
+import { getRedirectionUrl } from '../supply/index-management-lib';
 
-export const CustomComponentSupplyDeleteDialog = (props: RouteComponentProps<{ id: string }>) => {
+export const CustomComponentSupplyDeleteDialog = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const [loadModal, setLoadModal] = useState(false);
   const dispatch = useAppDispatch();
+
+  const redirectionUrl = getRedirectionUrl(props, '/custom-component-supply');
 
   useEffect(() => {
     dispatch(getEntity(props.match.params.id));
@@ -20,7 +23,7 @@ export const CustomComponentSupplyDeleteDialog = (props: RouteComponentProps<{ i
   const updateSuccess = useAppSelector(state => state.customComponentSupply.updateSuccess);
 
   const handleClose = () => {
-    props.history.push('/custom-component-supply');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {
