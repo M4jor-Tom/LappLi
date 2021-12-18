@@ -132,7 +132,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ strand_
               >
                 {markingTypeValues.map(markingType => (
                   <option value={markingType} key={markingType}>
-                    {translate('lappLiApp.MarkingType' + markingType)}
+                    {translate('lappLiApp.MarkingType.' + markingType)}
                   </option>
                 ))}
               </ValidatedField>

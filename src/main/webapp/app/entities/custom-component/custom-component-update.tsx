@@ -137,7 +137,7 @@ export const CustomComponentUpdate = (props: RouteComponentProps<{ id: string }>
               >
                 {colorValues.map(color => (
                   <option value={color} key={color}>
-                    {translate('lappLiApp.Color' + color)}
+                    {translate('lappLiApp.Color.' + color)}
                   </option>
                 ))}
               </ValidatedField>
