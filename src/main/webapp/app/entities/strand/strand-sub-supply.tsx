@@ -258,7 +258,9 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                   </tbody>
                 </Table>
               ) : (
-                <Translate contentKey="lappLiApp.strand.noSuppliesFound">No Supplies Found</Translate>
+                <div className="alert alert-warning">
+                  <Translate contentKey="lappLiApp.strand.noSuppliesFound">No Supplies Found</Translate>
+                </div>
               )}
               <Link
                 to={`bangle-supply/new`}
