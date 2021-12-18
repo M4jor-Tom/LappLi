@@ -17,8 +17,9 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
 
   const strandEntity = useAppSelector(state => state.strand.entity);
   return (
-    <Row>
-      <Col md="8">
+    <div>
+      <div>
+        {/* md="8">*/}
         <h2 data-cy="strandDetailsHeading">
           <Translate contentKey="lappLiApp.strand.detail.title">Strand</Translate>
         </h2>
@@ -253,7 +254,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                   </tbody>
                 </Table>
               ) : (
-                <Translate contentKey="LappLiApp.strand.noSuppliesFound"> No Supplies Found</Translate>
+                <Translate contentKey="lappLiApp.strand.noSuppliesFound">No Supplies Found</Translate>
               )}
               <Link
                 to={`bangle-supply/new`}
@@ -301,8 +302,8 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
             <Translate contentKey="entity.action.edit">Edit</Translate>
           </span>
         </Button>*/}
-      </Col>
-    </Row>
+      </div>
+    </div>
   );
 };
 
