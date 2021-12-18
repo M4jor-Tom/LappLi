@@ -95,9 +95,13 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                           <td>
                             <Translate contentKey={`lappLiApp.MarkingType.${customComponentSupply.markingType}`} />
                           </td>
-                          <td>{customComponentSupply.customComponent.number}</td>
                           <td>
-                            <Link to={`custom-component/${customComponentSupply.customComponent.id}`}>
+                            <Link to={`/custom-component/${customComponentSupply.customComponent.id}`}>
+                              {customComponentSupply.customComponent.number}
+                            </Link>
+                          </td>
+                          <td>
+                            <Link to={`/custom-component/${customComponentSupply.customComponent.id}`}>
                               {customComponentSupply.customComponent.designation}
                             </Link>
                           </td>
@@ -149,10 +153,10 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                           <td>{bangleSupply.apparitions}</td>
                           <td>{/* MarkingType, absent for bangles */}</td>
                           <td>
-                            <Link to={`bangle/${bangleSupply.bangle.id}`}>{bangleSupply.bangle.number}</Link>
+                            <Link to={`/bangle/${bangleSupply.bangle.id}`}>{bangleSupply.bangle.number}</Link>
                           </td>
                           <td>
-                            <Link to={`bangle/${bangleSupply.bangle.id}`}>{bangleSupply.bangle.designation}</Link>
+                            <Link to={`/bangle/${bangleSupply.bangle.id}`}>{bangleSupply.bangle.designation}</Link>
                           </td>
                           <td>{bangleSupply.description}</td>
                           <td>{bangleSupply.meterQuantity}</td>
@@ -204,10 +208,10 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                             <Translate contentKey={`lappLiApp.MarkingType.${elementSupply.markingType}`} />
                           </td>
                           <td>
-                            <Link to={`element/${elementSupply.element.id}`}>{elementSupply.element.number}</Link>
+                            <Link to={`/element/${elementSupply.element.id}`}>{elementSupply.element.number}</Link>
                           </td>
                           <td>
-                            <Link to={`element/${elementSupply.element.id}`}>{elementSupply.element.designationWithColor}</Link>
+                            <Link to={`/element/${elementSupply.element.id}`}>{elementSupply.element.designationWithColor}</Link>
                           </td>
                           <td>{elementSupply.description}</td>
                           <td>{elementSupply.meterQuantity}</td>
