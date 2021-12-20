@@ -14,7 +14,7 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { getRedirectionUrl, isStrandSupply } from '../supply/index-management-lib';
+import { getRedirectionUrl, isStrandSupply, SupplyKind } from '../supply/index-management-lib';
 
 export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
@@ -23,7 +23,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
 
   const _isStrandSupply = isStrandSupply(props);
 
-  const redirectionUrl = getRedirectionUrl(props, '/bangle-supply');
+  const redirectionUrl = getRedirectionUrl(props, SupplyKind.BANGLE);
 
   const bangles = useAppSelector(state => state.bangle.entities);
   const strands = useAppSelector(state => state.strand.entities);
