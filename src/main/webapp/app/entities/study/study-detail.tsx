@@ -46,7 +46,7 @@ export const StudyDetail = (props: RouteComponentProps<{ id: string }>) => {
           <dt>
             <Translate contentKey="lappLiApp.study.author">Author</Translate>
           </dt>
-          <dd>{studyEntity.author ? studyEntity.author.login : ''}</dd>
+          <dd>{studyEntity.author ? studyEntity.author.user.login : ''}</dd>
         </dl>
         <Button tag={Link} to="/study" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

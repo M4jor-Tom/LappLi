@@ -118,7 +118,7 @@ export const StudyUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 {userData
                   ? userData.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.login}
+                        {otherEntity.user.login}
                       </option>
                     ))
                   : null}

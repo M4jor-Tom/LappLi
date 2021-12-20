@@ -73,7 +73,7 @@ export const Study = (props: RouteComponentProps<{ url: string }>) => {
                   <td>
                     {study.creationInstant ? <TextFormat type="date" value={study.creationInstant} format={APP_DATE_FORMAT} /> : null}
                   </td>
-                  <td>{study.author ? <Link to={`user-data/${study.author.id}`}>{study.author.login}</Link> : ''}</td>
+                  <td>{study.author ? <Link to={`user-data/${study.author.id}`}>{study.author.user.login}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${study.id}`} color="info" size="sm" data-cy="entityDetailsButton">
