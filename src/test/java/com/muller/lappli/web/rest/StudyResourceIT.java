@@ -65,7 +65,7 @@ class StudyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Study createEntity(EntityManager em) {
-        Study study = new Study().number(DEFAULT_NUMBER).lastEditionInstant(DEFAULT_LAST_EDITION_INSTANT);
+        Study study = new Study().number(DEFAULT_NUMBER);
         // Add required entity
         UserData userData;
         if (TestUtil.findAll(em, UserData.class).isEmpty()) {
@@ -86,7 +86,7 @@ class StudyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Study createUpdatedEntity(EntityManager em) {
-        Study study = new Study().number(UPDATED_NUMBER).lastEditionInstant(UPDATED_LAST_EDITION_INSTANT);
+        Study study = new Study().number(UPDATED_NUMBER); //.lastEditionInstant(UPDATED_LAST_EDITION_INSTANT);
         // Add required entity
         UserData userData;
         if (TestUtil.findAll(em, UserData.class).isEmpty()) {
@@ -140,7 +140,7 @@ class StudyResourceIT {
         assertThat(studyList).hasSize(databaseSizeBeforeCreate);
     }
 
-    @Test
+    /*@Test
     @Transactional
     void checkLastEditionInstantIsRequired() throws Exception {
         int databaseSizeBeforeTest = studyRepository.findAll().size();
@@ -155,7 +155,7 @@ class StudyResourceIT {
 
         List<Study> studyList = studyRepository.findAll();
         assertThat(studyList).hasSize(databaseSizeBeforeTest);
-    }
+    }*/
 
     @Test
     @Transactional
@@ -473,7 +473,7 @@ class StudyResourceIT {
         Study updatedStudy = studyRepository.findById(study.getId()).get();
         // Disconnect from session so that the updates on updatedStudy are not directly saved in db
         em.detach(updatedStudy);
-        updatedStudy.number(UPDATED_NUMBER).lastEditionInstant(UPDATED_LAST_EDITION_INSTANT);
+        updatedStudy.number(UPDATED_NUMBER);
 
         restStudyMockMvc
             .perform(
@@ -559,7 +559,7 @@ class StudyResourceIT {
         Study partialUpdatedStudy = new Study();
         partialUpdatedStudy.setId(study.getId());
 
-        partialUpdatedStudy.number(UPDATED_NUMBER).lastEditionInstant(UPDATED_LAST_EDITION_INSTANT);
+        partialUpdatedStudy.number(UPDATED_NUMBER);
 
         restStudyMockMvc
             .perform(
@@ -589,7 +589,7 @@ class StudyResourceIT {
         Study partialUpdatedStudy = new Study();
         partialUpdatedStudy.setId(study.getId());
 
-        partialUpdatedStudy.number(UPDATED_NUMBER).lastEditionInstant(UPDATED_LAST_EDITION_INSTANT);
+        partialUpdatedStudy.number(UPDATED_NUMBER);
 
         restStudyMockMvc
             .perform(

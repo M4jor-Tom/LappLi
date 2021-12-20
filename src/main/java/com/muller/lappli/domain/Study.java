@@ -42,6 +42,14 @@ public class Study implements Serializable {
     @JsonIgnoreProperties(value = { "studies" }, allowSetters = true)
     private UserData author;
 
+    public Study() {
+        actualize();
+    }
+
+    public Study actualize() {
+        return lastEditionInstant(Instant.now());
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -74,12 +82,12 @@ public class Study implements Serializable {
         return this.lastEditionInstant;
     }
 
-    public Study lastEditionInstant(Instant lastEditionInstant) {
+    private Study lastEditionInstant(Instant lastEditionInstant) {
         this.setLastEditionInstant(lastEditionInstant);
         return this;
     }
 
-    public void setLastEditionInstant(Instant lastEditionInstant) {
+    private void setLastEditionInstant(Instant lastEditionInstant) {
         this.lastEditionInstant = lastEditionInstant;
     }
 
@@ -94,7 +102,7 @@ public class Study implements Serializable {
         if (strandSupplies != null) {
             strandSupplies.forEach(i -> i.setStudy(this));
         }
-        this.strandSupplies = strandSupplies;
+        actualize().strandSupplies = strandSupplies;
     }
 
     public Study strandSupplies(Set<StrandSupply> strandSupplies) {
@@ -105,13 +113,13 @@ public class Study implements Serializable {
     public Study addStrandSupplies(StrandSupply strandSupply) {
         this.strandSupplies.add(strandSupply);
         strandSupply.setStudy(this);
-        return this;
+        return actualize();
     }
 
     public Study removeStrandSupplies(StrandSupply strandSupply) {
         this.strandSupplies.remove(strandSupply);
         strandSupply.setStudy(null);
-        return this;
+        return actualize();
     }
 
     public UserData getAuthor() {
