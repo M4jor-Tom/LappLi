@@ -183,6 +183,7 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ id: string }>)
                 data-cy="surfaceMaterial"
                 label={translate('lappLiApp.oneStudySupply.surfaceMaterial')}
                 type="select"
+                required
               >
                 <option value="" key="0" />
                 {materials
@@ -193,6 +194,9 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ id: string }>)
                     ))
                   : null}
               </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
               <ValidatedField
                 id="one-study-supply-strand"
                 name="strand"

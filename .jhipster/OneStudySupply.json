@@ -45,6 +45,7 @@
       "relationshipType": "many-to-one",
       "otherEntityName": "material",
       "otherEntityRelationshipName": "oneStudySupply",
+      "relationshipValidateRules": "required",
       "relationshipName": "surfaceMaterial",
       "otherEntityField": "designation"
     },

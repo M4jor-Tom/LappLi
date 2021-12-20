@@ -96,6 +96,16 @@ class OneStudySupplyResourceIT {
             .milimeterDiameter(DEFAULT_MILIMETER_DIAMETER)
             .surfaceColor(DEFAULT_SURFACE_COLOR);
         // Add required entity
+        Material material;
+        if (TestUtil.findAll(em, Material.class).isEmpty()) {
+            material = MaterialResourceIT.createEntity(em);
+            em.persist(material);
+            em.flush();
+        } else {
+            material = TestUtil.findAll(em, Material.class).get(0);
+        }
+        oneStudySupply.setSurfaceMaterial(material);
+        // Add required entity
         Strand strand;
         if (TestUtil.findAll(em, Strand.class).isEmpty()) {
             strand = StrandResourceIT.createEntity(em);
@@ -124,6 +134,16 @@ class OneStudySupplyResourceIT {
             .gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS)
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
             .surfaceColor(UPDATED_SURFACE_COLOR);
+        // Add required entity
+        Material material;
+        if (TestUtil.findAll(em, Material.class).isEmpty()) {
+            material = MaterialResourceIT.createUpdatedEntity(em);
+            em.persist(material);
+            em.flush();
+        } else {
+            material = TestUtil.findAll(em, Material.class).get(0);
+        }
+        oneStudySupply.setSurfaceMaterial(material);
         // Add required entity
         Strand strand;
         if (TestUtil.findAll(em, Strand.class).isEmpty()) {

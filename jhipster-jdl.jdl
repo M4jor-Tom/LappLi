@@ -111,7 +111,7 @@ relationship OneToMany {
 }
 
 relationship ManyToOne {
-	OneStudySupply{surfaceMaterial(designation)} to Material
+	OneStudySupply{surfaceMaterial(designation) required} to Material
 }
 
 relationship OneToMany {

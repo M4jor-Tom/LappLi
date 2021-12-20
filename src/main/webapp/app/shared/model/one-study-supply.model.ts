@@ -13,7 +13,7 @@ export interface IOneStudySupply {
   gramPerMeterLinearMass?: number;
   milimeterDiameter?: number;
   surfaceColor?: Color;
-  surfaceMaterial?: IMaterial | null;
+  surfaceMaterial?: IMaterial;
   strand?: IStrand;
 }
 
