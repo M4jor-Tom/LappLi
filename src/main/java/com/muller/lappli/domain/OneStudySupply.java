@@ -56,7 +56,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply implements Serial
     private Color surfaceColor;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
+    //@JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material surfaceMaterial;
 
     @ManyToOne(optional = false)
