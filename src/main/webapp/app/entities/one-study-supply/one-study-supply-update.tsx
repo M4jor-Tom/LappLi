@@ -15,11 +15,16 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 import { Color } from 'app/shared/model/enumerations/color.model';
+import { getRedirectionUrl, getStrandValidateField, isStrandSupply, SupplyKind } from '../supply/index-management-lib';
 
-export const OneStudySupplyUpdate = (props: RouteComponentProps<{ id: string }>) => {
+export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
+
+  const _isStrandSupply = isStrandSupply(props);
+
+  const redirectionUrl = getRedirectionUrl(props, SupplyKind.ONE_STUDY_SUPPLY);
 
   const materials = useAppSelector(state => state.material.entities);
   const strands = useAppSelector(state => state.strand.entities);
@@ -30,7 +35,7 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ id: string }>)
   const markingTypeValues = Object.keys(MarkingType);
   const colorValues = Object.keys(Color);
   const handleClose = () => {
-    props.history.push('/one-study-supply');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {
@@ -64,6 +69,8 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ id: string }>)
       dispatch(updateEntity(entity));
     }
   };
+
+  const strandValidateField = getStrandValidateField(props, strands, SupplyKind.ONE_STUDY_SUPPLY);
 
   const defaultValues = () =>
     isNew
@@ -197,27 +204,8 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ id: string }>)
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              <ValidatedField
-                id="one-study-supply-strand"
-                name="strand"
-                data-cy="strand"
-                label={translate('lappLiApp.oneStudySupply.strand')}
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {strands
-                  ? strands.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.designation}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/one-study-supply" replace color="info">
+              {strandValidateField}
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">

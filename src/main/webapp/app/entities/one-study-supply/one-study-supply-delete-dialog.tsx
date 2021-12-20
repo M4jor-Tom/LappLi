@@ -6,8 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity, deleteEntity } from './one-study-supply.reducer';
+import { getRedirectionUrl, SupplyKind } from '../supply/index-management-lib';
 
-export const OneStudySupplyDeleteDialog = (props: RouteComponentProps<{ id: string }>) => {
+export const OneStudySupplyDeleteDialog = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const [loadModal, setLoadModal] = useState(false);
   const dispatch = useAppDispatch();
 
@@ -16,11 +17,13 @@ export const OneStudySupplyDeleteDialog = (props: RouteComponentProps<{ id: stri
     setLoadModal(true);
   }, []);
 
+  const redirectionUrl = getRedirectionUrl(props, SupplyKind.ONE_STUDY_SUPPLY);
+
   const oneStudySupplyEntity = useAppSelector(state => state.oneStudySupply.entity);
   const updateSuccess = useAppSelector(state => state.oneStudySupply.updateSuccess);
 
   const handleClose = () => {
-    props.history.push('/one-study-supply');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {
