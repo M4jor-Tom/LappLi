@@ -63,11 +63,11 @@ public class CacheConfiguration {
             createCache(cm, com.muller.lappli.domain.CustomComponentSupply.class.getName());
             createCache(cm, com.muller.lappli.domain.CustomComponent.class.getName());
             createCache(cm, com.muller.lappli.domain.Strand.class.getName());
-            createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".elementSupplies");
-            createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".bangleSupplies");
-            createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".customComponentSupplies");
-            createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".oneStudySupplies");
             createCache(cm, com.muller.lappli.domain.OneStudySupply.class.getName());
+            //createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".elementSupplies");
+            //createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".bangleSupplies");
+            //createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".customComponentSupplies");
+            //createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".oneStudySupplies");
             // jhipster-needle-ehcache-add-entry
         };
     }

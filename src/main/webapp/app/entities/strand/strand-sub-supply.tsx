@@ -111,39 +111,47 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                           <td>{customComponentSupply.customComponent.milimeterDiameter}</td>
                           <td>{customComponentSupply.customComponent.gramPerMeterLinearMass}</td>
                           <td>{customComponentSupply.bestLiftersNames}</td>
-                          <td>{customComponentSupply.customComponent.surfaceMaterial?.designation}</td>
+                          <td>
+                            {customComponentSupply.customComponent.surfaceMaterial ? (
+                              <Link to={`/material/${customComponentSupply.customComponent.surfaceMaterial.id}`}>
+                                {customComponentSupply.customComponent.surfaceMaterial.designation}
+                              </Link>
+                            ) : (
+                              ''
+                            )}
+                          </td>
                           <td>{customComponentSupply.customComponent.surfaceColor}</td>
                           <td>{customComponentSupply.meterPerHourSpeed}</td>
                           <td>{customComponentSupply.formatedHourPreparationTime}</td>
                           <td>{customComponentSupply.formatedHourExecutionTime}</td>
                           <td>{customComponentSupply.markingTechnique}</td>
                           <td>
-                            <Button
-                              tag={Link}
-                              to={`${'custom-component-supply'}/${customComponentSupply.id}/edit`}
-                              color="primary"
-                              size="sm"
-                              data-cy="entityEditButton"
-                            >
-                              <FontAwesomeIcon icon="pencil-alt" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.edit">Edit</Translate>
-                              </span>
-                            </Button>
-                          </td>
-                          <td>
-                            <Button
-                              tag={Link}
-                              to={`${'custom-component-supply'}/${customComponentSupply.id}/delete`}
-                              color="danger"
-                              size="sm"
-                              data-cy="entityDeleteButton"
-                            >
-                              <FontAwesomeIcon icon="trash" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.delete">Delete</Translate>
-                              </span>
-                            </Button>
+                            <div className="btn-group flex-btn-group-container">
+                              <Button
+                                tag={Link}
+                                to={`${'custom-component-supply'}/${customComponentSupply.id}/edit`}
+                                color="primary"
+                                size="sm"
+                                data-cy="entityEditButton"
+                              >
+                                <FontAwesomeIcon icon="pencil-alt" />{' '}
+                                <span className="d-none d-md-inline">
+                                  <Translate contentKey="entity.action.edit">Edit</Translate>
+                                </span>
+                              </Button>
+                              <Button
+                                tag={Link}
+                                to={`${'custom-component-supply'}/${customComponentSupply.id}/delete`}
+                                color="danger"
+                                size="sm"
+                                data-cy="entityDeleteButton"
+                              >
+                                <FontAwesomeIcon icon="trash" />{' '}
+                                <span className="d-none d-md-inline">
+                                  <Translate contentKey="entity.action.delete">Delete</Translate>
+                                </span>
+                              </Button>
+                            </div>
                           </td>
                         </tr>
                       </>
@@ -164,39 +172,45 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                           <td>{bangleSupply.bangle.milimeterDiameter}</td>
                           <td>{bangleSupply.bangle.gramPerMeterLinearMass}</td>
                           <td>{bangleSupply.bestLiftersNames}</td>
-                          <td>{bangleSupply.bangle.material.designation}</td>
+                          <td>
+                            {bangleSupply.bangle.material ? (
+                              <Link to={`/material/${bangleSupply.bangle.material.id}`}>{bangleSupply.bangle.material.designation}</Link>
+                            ) : (
+                              ''
+                            )}
+                          </td>
                           <td>{/* surfaceColor, absent for bangles */}</td>
                           <td>{bangleSupply.meterPerHourSpeed}</td>
                           <td>{bangleSupply.formatedHourPreparationTime}</td>
                           <td>{bangleSupply.formatedHourExecutionTime}</td>
                           <td>{/* MarkingTechnique, absent for bangles */}</td>
                           <td>
-                            <Button
-                              tag={Link}
-                              to={`${/* bangleSupplyImport.bangleSupplyMatchUrl */ 'bangle-supply'}/${bangleSupply.id}/edit`}
-                              color="primary"
-                              size="sm"
-                              data-cy="entityEditButton"
-                            >
-                              <FontAwesomeIcon icon="pencil-alt" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.edit">Edit</Translate>
-                              </span>
-                            </Button>
-                          </td>
-                          <td>
-                            <Button
-                              tag={Link}
-                              to={`${'bangle-supply'}/${bangleSupply.id}/delete`}
-                              color="danger"
-                              size="sm"
-                              data-cy="entityDeleteButton"
-                            >
-                              <FontAwesomeIcon icon="trash" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.delete">Delete</Translate>
-                              </span>
-                            </Button>
+                            <div className="btn-group flex-btn-group-container">
+                              <Button
+                                tag={Link}
+                                to={`bangle-supply/${bangleSupply.id}/edit`}
+                                color="primary"
+                                size="sm"
+                                data-cy="entityEditButton"
+                              >
+                                <FontAwesomeIcon icon="pencil-alt" />{' '}
+                                <span className="d-none d-md-inline">
+                                  <Translate contentKey="entity.action.edit">Edit</Translate>
+                                </span>
+                              </Button>
+                              <Button
+                                tag={Link}
+                                to={`bangle-supply/${bangleSupply.id}/delete`}
+                                color="danger"
+                                size="sm"
+                                data-cy="entityDeleteButton"
+                              >
+                                <FontAwesomeIcon icon="trash" />{' '}
+                                <span className="d-none d-md-inline">
+                                  <Translate contentKey="entity.action.delete">Delete</Translate>
+                                </span>
+                              </Button>
+                            </div>
                           </td>
                         </tr>
                       </>
@@ -219,39 +233,47 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                           <td>{elementSupply.element.elementKind.milimeterDiameter}</td>
                           <td>{elementSupply.element.elementKind.gramPerMeterLinearMass}</td>
                           <td>{elementSupply.bestLiftersNames}</td>
-                          <td>{elementSupply.element.elementKind.insulationMaterial.designation}</td>
+                          <td>
+                            {elementSupply.element.elementKind.insulationMaterial ? (
+                              <Link to={`/material/${elementSupply.element.elementKind.insulationMaterial.id}`}>
+                                {elementSupply.element.elementKind.insulationMaterial.designation}
+                              </Link>
+                            ) : (
+                              ''
+                            )}
+                          </td>
                           <td>{elementSupply.element.color}</td>
                           <td>{elementSupply.meterPerHourSpeed}</td>
                           <td>{elementSupply.formatedHourPreparationTime}</td>
                           <td>{elementSupply.formatedHourExecutionTime}</td>
                           <td>{elementSupply.markingTechnique}</td>
                           <td>
-                            <Button
-                              tag={Link}
-                              to={`${'element-supply'}/${elementSupply.id}/edit`}
-                              color="primary"
-                              size="sm"
-                              data-cy="entityEditButton"
-                            >
-                              <FontAwesomeIcon icon="pencil-alt" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.edit">Edit</Translate>
-                              </span>
-                            </Button>
-                          </td>
-                          <td>
-                            <Button
-                              tag={Link}
-                              to={`${'element-supply'}/${elementSupply.id}/delete`}
-                              color="danger"
-                              size="sm"
-                              data-cy="entityDeleteButton"
-                            >
-                              <FontAwesomeIcon icon="trash" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.delete">Delete</Translate>
-                              </span>
-                            </Button>
+                            <div className="btn-group flex-btn-group-container">
+                              <Button
+                                tag={Link}
+                                to={`element-supply/${elementSupply.id}/edit`}
+                                color="primary"
+                                size="sm"
+                                data-cy="entityEditButton"
+                              >
+                                <FontAwesomeIcon icon="pencil-alt" />{' '}
+                                <span className="d-none d-md-inline">
+                                  <Translate contentKey="entity.action.edit">Edit</Translate>
+                                </span>
+                              </Button>
+                              <Button
+                                tag={Link}
+                                to={`${'element-supply'}/${elementSupply.id}/delete`}
+                                color="danger"
+                                size="sm"
+                                data-cy="entityDeleteButton"
+                              >
+                                <FontAwesomeIcon icon="trash" />{' '}
+                                <span className="d-none d-md-inline">
+                                  <Translate contentKey="entity.action.delete">Delete</Translate>
+                                </span>
+                              </Button>
+                            </div>
                           </td>
                         </tr>
                       </>
