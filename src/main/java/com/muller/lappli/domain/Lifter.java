@@ -97,6 +97,8 @@ public class Lifter implements Serializable {
             return supportsElementSupply((ElementSupply) abstractLiftedSupply);
         } else if (abstractLiftedSupply instanceof BangleSupply) {
             return supportsBangleSupply((BangleSupply) abstractLiftedSupply);
+        } else if (abstractLiftedSupply instanceof OneStudySupply) {
+            return supportsOneStudySupply((OneStudySupply) abstractLiftedSupply);
         }
 
         throw new UnknownClassException(abstractLiftedSupply.toString());
@@ -120,6 +122,14 @@ public class Lifter implements Serializable {
 
     public Boolean supportsBangleSupply(BangleSupply bangleSupply) {
         return (supportsMilimeterDiameter(bangleSupply.getMilimeterDiameter()));
+    }
+
+    private Boolean supportsOneStudySupply(OneStudySupply oneStudySupply) {
+        return (
+            supportsMarkingType(oneStudySupply.getMarkingType()) &&
+            supportsMilimeterDiameter(oneStudySupply.getMilimeterDiameter()) &&
+            supportsMarkingTechnique(oneStudySupply.getMarkingTechnique())
+        );
     }
 
     public Boolean supportsMilimeterDiameter(Double milimeterDiameter) {
