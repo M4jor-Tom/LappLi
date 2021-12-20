@@ -31,7 +31,7 @@ public class UserData implements Serializable {
 
     @OneToMany(mappedBy = "author")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "strandSupplies", "author" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "strandSupplies" }, allowSetters = true)
     private Set<Study> studies = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

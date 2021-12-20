@@ -34,12 +34,12 @@ public class Study implements Serializable {
 
     @OneToMany(mappedBy = "study")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "strand", "study" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "study" }, allowSetters = true)
     private Set<StrandSupply> strandSupplies = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "user", "studies" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "studies" }, allowSetters = true)
     private UserData author;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
