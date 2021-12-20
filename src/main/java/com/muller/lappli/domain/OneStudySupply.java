@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
@@ -15,7 +16,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "one_study_supply")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class OneStudySupply implements Serializable {
+public class OneStudySupply extends AbstractMarkedLiftedSupply implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -81,6 +82,7 @@ public class OneStudySupply implements Serializable {
         this.id = id;
     }
 
+    @Override
     public Long getApparitions() {
         return this.apparitions;
     }
@@ -133,6 +135,7 @@ public class OneStudySupply implements Serializable {
         this.description = description;
     }
 
+    @Override
     public MarkingType getMarkingType() {
         return this.markingType;
     }
@@ -159,6 +162,7 @@ public class OneStudySupply implements Serializable {
         this.gramPerMeterLinearMass = gramPerMeterLinearMass;
     }
 
+    @Override
     public Double getMilimeterDiameter() {
         return this.milimeterDiameter;
     }
@@ -172,6 +176,7 @@ public class OneStudySupply implements Serializable {
         this.milimeterDiameter = milimeterDiameter;
     }
 
+    @Override
     public Color getSurfaceColor() {
         return this.surfaceColor;
     }
@@ -185,6 +190,7 @@ public class OneStudySupply implements Serializable {
         this.surfaceColor = surfaceColor;
     }
 
+    @Override
     public Material getSurfaceMaterial() {
         return this.surfaceMaterial;
     }
