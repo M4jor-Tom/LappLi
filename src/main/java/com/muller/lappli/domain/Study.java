@@ -44,11 +44,11 @@ public class Study implements Serializable {
 
     public Study() {
         actualize();
-        setAuthor(null);
+        setAuthor(new UserData());
     }
 
     public Boolean isAuthored() {
-        return getAuthor() == null;
+        return getAuthor().getId() != null;
     }
 
     public Study actualize() {

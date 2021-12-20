@@ -36,7 +36,7 @@ public class StudyServiceImpl implements StudyService {
     public Study save(Study study) throws SaveException {
         log.debug("Request to save Study : {}", study);
 
-        if (study.getAuthor() == null && SecurityUtils.getCurrentUserLogin().isPresent()) {
+        if (!study.isAuthored() && SecurityUtils.getCurrentUserLogin().isPresent()) {
             Optional<UserData> userDataOptional = userDataService.findUserDataByLogin(SecurityUtils.getCurrentUserLogin().get());
 
             if (userDataOptional.isPresent()) {

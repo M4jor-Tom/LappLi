@@ -43,12 +43,9 @@ export const StudyUpdate = (props: RouteComponentProps<{ id: string }>) => {
   }, [updateSuccess]);
 
   const saveEntity = values => {
-    values.lastEditionInstant = convertDateTimeToServer(values.lastEditionInstant);
-
     const entity = {
       ...studyEntity,
       ...values,
-      author: userData.find(it => it.id.toString() === values.author.toString()),
     };
 
     if (isNew) {
@@ -60,13 +57,9 @@ export const StudyUpdate = (props: RouteComponentProps<{ id: string }>) => {
 
   const defaultValues = () =>
     isNew
-      ? {
-          lastEditionInstant: displayDefaultDateTime(),
-        }
+      ? {}
       : {
           ...studyEntity,
-          lastEditionInstant: convertDateTimeFromServer(studyEntity.lastEditionInstant),
-          author: studyEntity?.author?.id,
         };
 
   return (
@@ -84,48 +77,7 @@ export const StudyUpdate = (props: RouteComponentProps<{ id: string }>) => {
             <p>Loading...</p>
           ) : (
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
-              {!isNew ? (
-                <ValidatedField
-                  name="id"
-                  required
-                  readOnly
-                  id="study-id"
-                  label={translate('global.field.id')}
-                  validate={{ required: true }}
-                />
-              ) : null}
               <ValidatedField label={translate('lappLiApp.study.number')} id="study-number" name="number" data-cy="number" type="text" />
-              <ValidatedField
-                label={translate('lappLiApp.study.lastEditionInstant')}
-                id="study-lastEditionInstant"
-                name="lastEditionInstant"
-                data-cy="lastEditionInstant"
-                type="datetime-local"
-                placeholder="YYYY-MM-DD HH:mm"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                }}
-              />
-              <ValidatedField
-                id="study-author"
-                name="author"
-                data-cy="author"
-                label={translate('lappLiApp.study.author')}
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {userData
-                  ? userData.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.user.login}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/study" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

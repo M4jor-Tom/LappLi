@@ -1,6 +1,7 @@
 package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.Study;
+import com.muller.lappli.domain.UserData;
 import com.muller.lappli.repository.StudyRepository;
 import com.muller.lappli.service.SaveException;
 import com.muller.lappli.service.StudyQueryService;
@@ -60,7 +61,7 @@ public class StudyResource {
         log.debug("REST request to save Study : {}", study);
         if (study.getId() != null) {
             throw new BadRequestAlertException("A new study cannot already have an ID", ENTITY_NAME, "idexists");
-        } else if (study.getAuthor() != null) {
+        } else if (study.isAuthored()) {
             throw new BadRequestAlertException("A new study cannot already have an author", ENTITY_NAME, "authorexists");
         }
 
