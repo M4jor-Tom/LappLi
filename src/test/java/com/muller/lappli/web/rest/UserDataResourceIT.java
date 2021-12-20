@@ -57,6 +57,11 @@ class UserDataResourceIT {
      */
     public static UserData createEntity(EntityManager em) {
         UserData userData = new UserData();
+        // Add required entity
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+        em.flush();
+        userData.setUser(user);
         return userData;
     }
 
@@ -68,6 +73,11 @@ class UserDataResourceIT {
      */
     public static UserData createUpdatedEntity(EntityManager em) {
         UserData userData = new UserData();
+        // Add required entity
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+        em.flush();
+        userData.setUser(user);
         return userData;
     }
 
@@ -158,19 +168,8 @@ class UserDataResourceIT {
     @Test
     @Transactional
     void getAllUserDataByUserIsEqualToSomething() throws Exception {
-        // Initialize the database
-        userDataRepository.saveAndFlush(userData);
-        User user;
-        if (TestUtil.findAll(em, User.class).isEmpty()) {
-            user = UserResourceIT.createEntity(em);
-            em.persist(user);
-            em.flush();
-        } else {
-            user = TestUtil.findAll(em, User.class).get(0);
-        }
-        em.persist(user);
-        em.flush();
-        userData.setUser(user);
+        // Get already existing entity
+        User user = userData.getUser();
         userDataRepository.saveAndFlush(userData);
         Long userId = user.getId();
 

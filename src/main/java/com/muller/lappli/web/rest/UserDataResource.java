@@ -11,6 +11,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,7 +59,7 @@ public class UserDataResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/user-data")
-    public ResponseEntity<UserData> createUserData(@RequestBody UserData userData) throws URISyntaxException {
+    public ResponseEntity<UserData> createUserData(@Valid @RequestBody UserData userData) throws URISyntaxException {
         log.debug("REST request to save UserData : {}", userData);
         if (userData.getId() != null) {
             throw new BadRequestAlertException("A new userData cannot already have an ID", ENTITY_NAME, "idexists");
@@ -82,7 +84,7 @@ public class UserDataResource {
     @PutMapping("/user-data/{id}")
     public ResponseEntity<UserData> updateUserData(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody UserData userData
+        @Valid @RequestBody UserData userData
     ) throws URISyntaxException {
         log.debug("REST request to update UserData : {}, {}", id, userData);
         if (userData.getId() == null) {
@@ -117,7 +119,7 @@ public class UserDataResource {
     @PatchMapping(value = "/user-data/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<UserData> partialUpdateUserData(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody UserData userData
+        @NotNull @RequestBody UserData userData
     ) throws URISyntaxException {
         log.debug("REST request to partial update UserData partially : {}, {}", id, userData);
         if (userData.getId() == null) {

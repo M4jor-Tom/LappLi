@@ -6,6 +6,7 @@
       "relationshipType": "one-to-one",
       "otherEntityName": "user",
       "otherEntityRelationshipName": "userData",
+      "relationshipValidateRules": "required",
       "relationshipName": "user",
       "otherEntityField": "login",
       "ownerSide": true

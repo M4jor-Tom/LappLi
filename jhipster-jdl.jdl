@@ -119,7 +119,7 @@ entity UserData {
 }
 
 relationship OneToOne {
-	UserData{user(login)} to User
+	UserData{user(login) required} to User
 }
 
 relationship OneToMany {

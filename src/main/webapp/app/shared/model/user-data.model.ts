@@ -3,7 +3,7 @@ import { IStudy } from 'app/shared/model/study.model';
 
 export interface IUserData {
   id?: number;
-  user?: IUser | null;
+  user?: IUser;
   studies?: IStudy[] | null;
 }
 

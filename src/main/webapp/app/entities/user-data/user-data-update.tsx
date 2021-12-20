@@ -89,7 +89,14 @@ export const UserDataUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   validate={{ required: true }}
                 />
               ) : null}
-              <ValidatedField id="user-data-user" name="user" data-cy="user" label={translate('lappLiApp.userData.user')} type="select">
+              <ValidatedField
+                id="user-data-user"
+                name="user"
+                data-cy="user"
+                label={translate('lappLiApp.userData.user')}
+                type="select"
+                required
+              >
                 <option value="" key="0" />
                 {users
                   ? users.map(otherEntity => (
@@ -99,6 +106,9 @@ export const UserDataUpdate = (props: RouteComponentProps<{ id: string }>) => {
                     ))
                   : null}
               </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/user-data" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
