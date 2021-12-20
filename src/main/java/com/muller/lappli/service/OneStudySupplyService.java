@@ -7,7 +7,7 @@ import java.util.Optional;
 /**
  * Service Interface for managing {@link OneStudySupply}.
  */
-public interface OneStudySupplyService {
+public interface OneStudySupplyService extends ReadTriggerableService<OneStudySupply> {
     /**
      * Save a oneStudySupply.
      *
