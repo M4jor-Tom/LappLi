@@ -14,7 +14,7 @@ public interface StudyService {
      * @param study the entity to save.
      * @return the persisted entity.
      */
-    Study save(Study study) throws SaveException;
+    Study save(Study study, Boolean shouldBeAuthored) throws SaveException;
 
     /**
      * Partially updates a study.

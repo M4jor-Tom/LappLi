@@ -33,10 +33,10 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
-    public Study save(Study study) throws SaveException {
+    public Study save(Study study, Boolean shouldBeAuthored) throws SaveException {
         log.debug("Request to save Study : {}", study);
 
-        if (!study.isAuthored() && SecurityUtils.getCurrentUserLogin().isPresent()) {
+        if (study.isAuthored() == shouldBeAuthored && SecurityUtils.getCurrentUserLogin().isPresent()) {
             Optional<UserData> userDataOptional = userDataService.findUserDataByLogin(SecurityUtils.getCurrentUserLogin().get());
 
             if (userDataOptional.isPresent()) {

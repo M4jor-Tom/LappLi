@@ -66,7 +66,7 @@ public class StudyResource {
         }
 
         try {
-            Study result = studyService.save(study);
+            Study result = studyService.save(study, false);
             return ResponseEntity
                 .created(new URI("/api/studies/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -105,7 +105,7 @@ public class StudyResource {
         }
 
         try {
-            Study result = studyService.save(study);
+            Study result = studyService.save(study, true);
             return ResponseEntity
                 .ok()
                 .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, study.getId().toString()))
