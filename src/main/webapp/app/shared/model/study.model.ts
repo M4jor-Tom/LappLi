@@ -5,7 +5,7 @@ import { IUserData } from 'app/shared/model/user-data.model';
 export interface IStudy {
   id?: number;
   number?: number | null;
-  creationInstant?: string;
+  lastEditionInstant?: string;
   strandSupplies?: IStrandSupply[] | null;
   author?: IUserData;
 }

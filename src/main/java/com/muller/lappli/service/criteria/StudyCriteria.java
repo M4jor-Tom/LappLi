@@ -29,7 +29,7 @@ public class StudyCriteria implements Serializable, Criteria {
 
     private LongFilter number;
 
-    private InstantFilter creationInstant;
+    private InstantFilter lastEditionInstant;
 
     private LongFilter strandSuppliesId;
 
@@ -42,7 +42,7 @@ public class StudyCriteria implements Serializable, Criteria {
     public StudyCriteria(StudyCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.number = other.number == null ? null : other.number.copy();
-        this.creationInstant = other.creationInstant == null ? null : other.creationInstant.copy();
+        this.lastEditionInstant = other.lastEditionInstant == null ? null : other.lastEditionInstant.copy();
         this.strandSuppliesId = other.strandSuppliesId == null ? null : other.strandSuppliesId.copy();
         this.authorId = other.authorId == null ? null : other.authorId.copy();
         this.distinct = other.distinct;
@@ -83,19 +83,19 @@ public class StudyCriteria implements Serializable, Criteria {
         this.number = number;
     }
 
-    public InstantFilter getCreationInstant() {
-        return creationInstant;
+    public InstantFilter getLastEditionInstant() {
+        return lastEditionInstant;
     }
 
-    public InstantFilter creationInstant() {
-        if (creationInstant == null) {
-            creationInstant = new InstantFilter();
+    public InstantFilter lastEditionInstant() {
+        if (lastEditionInstant == null) {
+            lastEditionInstant = new InstantFilter();
         }
-        return creationInstant;
+        return lastEditionInstant;
     }
 
-    public void setCreationInstant(InstantFilter creationInstant) {
-        this.creationInstant = creationInstant;
+    public void setLastEditionInstant(InstantFilter lastEditionInstant) {
+        this.lastEditionInstant = lastEditionInstant;
     }
 
     public LongFilter getStrandSuppliesId() {
@@ -148,7 +148,7 @@ public class StudyCriteria implements Serializable, Criteria {
         return (
             Objects.equals(id, that.id) &&
             Objects.equals(number, that.number) &&
-            Objects.equals(creationInstant, that.creationInstant) &&
+            Objects.equals(lastEditionInstant, that.lastEditionInstant) &&
             Objects.equals(strandSuppliesId, that.strandSuppliesId) &&
             Objects.equals(authorId, that.authorId) &&
             Objects.equals(distinct, that.distinct)
@@ -157,7 +157,7 @@ public class StudyCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, number, creationInstant, strandSuppliesId, authorId, distinct);
+        return Objects.hash(id, number, lastEditionInstant, strandSuppliesId, authorId, distinct);
     }
 
     // prettier-ignore
@@ -166,7 +166,7 @@ public class StudyCriteria implements Serializable, Criteria {
         return "StudyCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
             (number != null ? "number=" + number + ", " : "") +
-            (creationInstant != null ? "creationInstant=" + creationInstant + ", " : "") +
+            (lastEditionInstant != null ? "lastEditionInstant=" + lastEditionInstant + ", " : "") +
             (strandSuppliesId != null ? "strandSuppliesId=" + strandSuppliesId + ", " : "") +
             (authorId != null ? "authorId=" + authorId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +

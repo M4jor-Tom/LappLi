@@ -8,7 +8,7 @@ entity Strand {
 
 entity Study {
 	number Long
-	creationInstant Instant required
+	lastEditionInstant Instant required
 }
 
 entity StrandSupply {

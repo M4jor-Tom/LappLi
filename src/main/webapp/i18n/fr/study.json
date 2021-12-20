@@ -19,7 +19,7 @@
       },
       "id": "ID",
       "number": "Number",
-      "creationInstant": "Creation Instant",
+      "lastEditionInstant": "Last Edition Instant",
       "strandSupplies": "Strand Supplies",
       "author": "Author"
     }

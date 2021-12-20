@@ -88,8 +88,8 @@ public class StudyQueryService extends QueryService<Study> {
             if (criteria.getNumber() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getNumber(), Study_.number));
             }
-            if (criteria.getCreationInstant() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getCreationInstant(), Study_.creationInstant));
+            if (criteria.getLastEditionInstant() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getLastEditionInstant(), Study_.lastEditionInstant));
             }
             if (criteria.getStrandSuppliesId() != null) {
                 specification =

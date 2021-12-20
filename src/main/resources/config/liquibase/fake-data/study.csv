@@ -1,4 +1,4 @@
-id;number;creation_instant;author_id
+id;number;last_edition_instant;author_id
 1;22450;2021-12-20T01:27:51;1
 2;48820;2021-12-19T19:30:05;2
 3;68899;2021-12-19T22:04:15;2

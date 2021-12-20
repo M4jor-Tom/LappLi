@@ -36,12 +36,14 @@ export const StudyDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{studyEntity.number}</dd>
           <dt>
-            <span id="creationInstant">
-              <Translate contentKey="lappLiApp.study.creationInstant">Creation Instant</Translate>
+            <span id="lastEditionInstant">
+              <Translate contentKey="lappLiApp.study.lastEditionInstant">Last Edition Instant</Translate>
             </span>
           </dt>
           <dd>
-            {studyEntity.creationInstant ? <TextFormat value={studyEntity.creationInstant} type="date" format={APP_DATE_FORMAT} /> : null}
+            {studyEntity.lastEditionInstant ? (
+              <TextFormat value={studyEntity.lastEditionInstant} type="date" format={APP_DATE_FORMAT} />
+            ) : null}
           </dd>
           <dt>
             <Translate contentKey="lappLiApp.study.author">Author</Translate>

@@ -41,8 +41,8 @@ public class StudyServiceImpl implements StudyService {
                 if (study.getNumber() != null) {
                     existingStudy.setNumber(study.getNumber());
                 }
-                if (study.getCreationInstant() != null) {
-                    existingStudy.setCreationInstant(study.getCreationInstant());
+                if (study.getLastEditionInstant() != null) {
+                    existingStudy.setLastEditionInstant(study.getLastEditionInstant());
                 }
 
                 return existingStudy;

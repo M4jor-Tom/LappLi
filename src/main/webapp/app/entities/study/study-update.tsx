@@ -43,7 +43,7 @@ export const StudyUpdate = (props: RouteComponentProps<{ id: string }>) => {
   }, [updateSuccess]);
 
   const saveEntity = values => {
-    values.creationInstant = convertDateTimeToServer(values.creationInstant);
+    values.lastEditionInstant = convertDateTimeToServer(values.lastEditionInstant);
 
     const entity = {
       ...studyEntity,
@@ -61,11 +61,11 @@ export const StudyUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const defaultValues = () =>
     isNew
       ? {
-          creationInstant: displayDefaultDateTime(),
+          lastEditionInstant: displayDefaultDateTime(),
         }
       : {
           ...studyEntity,
-          creationInstant: convertDateTimeFromServer(studyEntity.creationInstant),
+          lastEditionInstant: convertDateTimeFromServer(studyEntity.lastEditionInstant),
           author: studyEntity?.author?.id,
         };
 
@@ -96,10 +96,10 @@ export const StudyUpdate = (props: RouteComponentProps<{ id: string }>) => {
               ) : null}
               <ValidatedField label={translate('lappLiApp.study.number')} id="study-number" name="number" data-cy="number" type="text" />
               <ValidatedField
-                label={translate('lappLiApp.study.creationInstant')}
-                id="study-creationInstant"
-                name="creationInstant"
-                data-cy="creationInstant"
+                label={translate('lappLiApp.study.lastEditionInstant')}
+                id="study-lastEditionInstant"
+                name="lastEditionInstant"
+                data-cy="lastEditionInstant"
                 type="datetime-local"
                 placeholder="YYYY-MM-DD HH:mm"
                 validate={{

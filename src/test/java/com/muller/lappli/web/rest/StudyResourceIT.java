@@ -38,8 +38,8 @@ class StudyResourceIT {
     private static final Long UPDATED_NUMBER = 2L;
     private static final Long SMALLER_NUMBER = 1L - 1L;
 
-    private static final Instant DEFAULT_CREATION_INSTANT = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_CREATION_INSTANT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final Instant DEFAULT_LAST_EDITION_INSTANT = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_LAST_EDITION_INSTANT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final String ENTITY_API_URL = "/api/studies";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -65,7 +65,7 @@ class StudyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Study createEntity(EntityManager em) {
-        Study study = new Study().number(DEFAULT_NUMBER).creationInstant(DEFAULT_CREATION_INSTANT);
+        Study study = new Study().number(DEFAULT_NUMBER).lastEditionInstant(DEFAULT_LAST_EDITION_INSTANT);
         // Add required entity
         UserData userData;
         if (TestUtil.findAll(em, UserData.class).isEmpty()) {
@@ -86,7 +86,7 @@ class StudyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Study createUpdatedEntity(EntityManager em) {
-        Study study = new Study().number(UPDATED_NUMBER).creationInstant(UPDATED_CREATION_INSTANT);
+        Study study = new Study().number(UPDATED_NUMBER).lastEditionInstant(UPDATED_LAST_EDITION_INSTANT);
         // Add required entity
         UserData userData;
         if (TestUtil.findAll(em, UserData.class).isEmpty()) {
@@ -119,7 +119,7 @@ class StudyResourceIT {
         assertThat(studyList).hasSize(databaseSizeBeforeCreate + 1);
         Study testStudy = studyList.get(studyList.size() - 1);
         assertThat(testStudy.getNumber()).isEqualTo(DEFAULT_NUMBER);
-        assertThat(testStudy.getCreationInstant()).isEqualTo(DEFAULT_CREATION_INSTANT);
+        assertThat(testStudy.getLastEditionInstant()).isEqualTo(DEFAULT_LAST_EDITION_INSTANT);
     }
 
     @Test
@@ -142,10 +142,10 @@ class StudyResourceIT {
 
     @Test
     @Transactional
-    void checkCreationInstantIsRequired() throws Exception {
+    void checkLastEditionInstantIsRequired() throws Exception {
         int databaseSizeBeforeTest = studyRepository.findAll().size();
         // set the field null
-        study.setCreationInstant(null);
+        study.setLastEditionInstant(null);
 
         // Create the Study, which fails.
 
@@ -170,7 +170,7 @@ class StudyResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(study.getId().intValue())))
             .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER.intValue())))
-            .andExpect(jsonPath("$.[*].creationInstant").value(hasItem(DEFAULT_CREATION_INSTANT.toString())));
+            .andExpect(jsonPath("$.[*].lastEditionInstant").value(hasItem(DEFAULT_LAST_EDITION_INSTANT.toString())));
     }
 
     @Test
@@ -186,7 +186,7 @@ class StudyResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(study.getId().intValue()))
             .andExpect(jsonPath("$.number").value(DEFAULT_NUMBER.intValue()))
-            .andExpect(jsonPath("$.creationInstant").value(DEFAULT_CREATION_INSTANT.toString()));
+            .andExpect(jsonPath("$.lastEditionInstant").value(DEFAULT_LAST_EDITION_INSTANT.toString()));
     }
 
     @Test
@@ -313,54 +313,54 @@ class StudyResourceIT {
 
     @Test
     @Transactional
-    void getAllStudiesByCreationInstantIsEqualToSomething() throws Exception {
+    void getAllStudiesByLastEditionInstantIsEqualToSomething() throws Exception {
         // Initialize the database
         studyRepository.saveAndFlush(study);
 
-        // Get all the studyList where creationInstant equals to DEFAULT_CREATION_INSTANT
-        defaultStudyShouldBeFound("creationInstant.equals=" + DEFAULT_CREATION_INSTANT);
+        // Get all the studyList where lastEditionInstant equals to DEFAULT_LAST_EDITION_INSTANT
+        defaultStudyShouldBeFound("lastEditionInstant.equals=" + DEFAULT_LAST_EDITION_INSTANT);
 
-        // Get all the studyList where creationInstant equals to UPDATED_CREATION_INSTANT
-        defaultStudyShouldNotBeFound("creationInstant.equals=" + UPDATED_CREATION_INSTANT);
+        // Get all the studyList where lastEditionInstant equals to UPDATED_LAST_EDITION_INSTANT
+        defaultStudyShouldNotBeFound("lastEditionInstant.equals=" + UPDATED_LAST_EDITION_INSTANT);
     }
 
     @Test
     @Transactional
-    void getAllStudiesByCreationInstantIsNotEqualToSomething() throws Exception {
+    void getAllStudiesByLastEditionInstantIsNotEqualToSomething() throws Exception {
         // Initialize the database
         studyRepository.saveAndFlush(study);
 
-        // Get all the studyList where creationInstant not equals to DEFAULT_CREATION_INSTANT
-        defaultStudyShouldNotBeFound("creationInstant.notEquals=" + DEFAULT_CREATION_INSTANT);
+        // Get all the studyList where lastEditionInstant not equals to DEFAULT_LAST_EDITION_INSTANT
+        defaultStudyShouldNotBeFound("lastEditionInstant.notEquals=" + DEFAULT_LAST_EDITION_INSTANT);
 
-        // Get all the studyList where creationInstant not equals to UPDATED_CREATION_INSTANT
-        defaultStudyShouldBeFound("creationInstant.notEquals=" + UPDATED_CREATION_INSTANT);
+        // Get all the studyList where lastEditionInstant not equals to UPDATED_LAST_EDITION_INSTANT
+        defaultStudyShouldBeFound("lastEditionInstant.notEquals=" + UPDATED_LAST_EDITION_INSTANT);
     }
 
     @Test
     @Transactional
-    void getAllStudiesByCreationInstantIsInShouldWork() throws Exception {
+    void getAllStudiesByLastEditionInstantIsInShouldWork() throws Exception {
         // Initialize the database
         studyRepository.saveAndFlush(study);
 
-        // Get all the studyList where creationInstant in DEFAULT_CREATION_INSTANT or UPDATED_CREATION_INSTANT
-        defaultStudyShouldBeFound("creationInstant.in=" + DEFAULT_CREATION_INSTANT + "," + UPDATED_CREATION_INSTANT);
+        // Get all the studyList where lastEditionInstant in DEFAULT_LAST_EDITION_INSTANT or UPDATED_LAST_EDITION_INSTANT
+        defaultStudyShouldBeFound("lastEditionInstant.in=" + DEFAULT_LAST_EDITION_INSTANT + "," + UPDATED_LAST_EDITION_INSTANT);
 
-        // Get all the studyList where creationInstant equals to UPDATED_CREATION_INSTANT
-        defaultStudyShouldNotBeFound("creationInstant.in=" + UPDATED_CREATION_INSTANT);
+        // Get all the studyList where lastEditionInstant equals to UPDATED_LAST_EDITION_INSTANT
+        defaultStudyShouldNotBeFound("lastEditionInstant.in=" + UPDATED_LAST_EDITION_INSTANT);
     }
 
     @Test
     @Transactional
-    void getAllStudiesByCreationInstantIsNullOrNotNull() throws Exception {
+    void getAllStudiesByLastEditionInstantIsNullOrNotNull() throws Exception {
         // Initialize the database
         studyRepository.saveAndFlush(study);
 
-        // Get all the studyList where creationInstant is not null
-        defaultStudyShouldBeFound("creationInstant.specified=true");
+        // Get all the studyList where lastEditionInstant is not null
+        defaultStudyShouldBeFound("lastEditionInstant.specified=true");
 
-        // Get all the studyList where creationInstant is null
-        defaultStudyShouldNotBeFound("creationInstant.specified=false");
+        // Get all the studyList where lastEditionInstant is null
+        defaultStudyShouldNotBeFound("lastEditionInstant.specified=false");
     }
 
     @Test
@@ -425,7 +425,7 @@ class StudyResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(study.getId().intValue())))
             .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER.intValue())))
-            .andExpect(jsonPath("$.[*].creationInstant").value(hasItem(DEFAULT_CREATION_INSTANT.toString())));
+            .andExpect(jsonPath("$.[*].lastEditionInstant").value(hasItem(DEFAULT_LAST_EDITION_INSTANT.toString())));
 
         // Check, that the count call also returns 1
         restStudyMockMvc
@@ -473,7 +473,7 @@ class StudyResourceIT {
         Study updatedStudy = studyRepository.findById(study.getId()).get();
         // Disconnect from session so that the updates on updatedStudy are not directly saved in db
         em.detach(updatedStudy);
-        updatedStudy.number(UPDATED_NUMBER).creationInstant(UPDATED_CREATION_INSTANT);
+        updatedStudy.number(UPDATED_NUMBER).lastEditionInstant(UPDATED_LAST_EDITION_INSTANT);
 
         restStudyMockMvc
             .perform(
@@ -488,7 +488,7 @@ class StudyResourceIT {
         assertThat(studyList).hasSize(databaseSizeBeforeUpdate);
         Study testStudy = studyList.get(studyList.size() - 1);
         assertThat(testStudy.getNumber()).isEqualTo(UPDATED_NUMBER);
-        assertThat(testStudy.getCreationInstant()).isEqualTo(UPDATED_CREATION_INSTANT);
+        assertThat(testStudy.getLastEditionInstant()).isEqualTo(UPDATED_LAST_EDITION_INSTANT);
     }
 
     @Test
@@ -559,7 +559,7 @@ class StudyResourceIT {
         Study partialUpdatedStudy = new Study();
         partialUpdatedStudy.setId(study.getId());
 
-        partialUpdatedStudy.number(UPDATED_NUMBER).creationInstant(UPDATED_CREATION_INSTANT);
+        partialUpdatedStudy.number(UPDATED_NUMBER).lastEditionInstant(UPDATED_LAST_EDITION_INSTANT);
 
         restStudyMockMvc
             .perform(
@@ -574,7 +574,7 @@ class StudyResourceIT {
         assertThat(studyList).hasSize(databaseSizeBeforeUpdate);
         Study testStudy = studyList.get(studyList.size() - 1);
         assertThat(testStudy.getNumber()).isEqualTo(UPDATED_NUMBER);
-        assertThat(testStudy.getCreationInstant()).isEqualTo(UPDATED_CREATION_INSTANT);
+        assertThat(testStudy.getLastEditionInstant()).isEqualTo(UPDATED_LAST_EDITION_INSTANT);
     }
 
     @Test
@@ -589,7 +589,7 @@ class StudyResourceIT {
         Study partialUpdatedStudy = new Study();
         partialUpdatedStudy.setId(study.getId());
 
-        partialUpdatedStudy.number(UPDATED_NUMBER).creationInstant(UPDATED_CREATION_INSTANT);
+        partialUpdatedStudy.number(UPDATED_NUMBER).lastEditionInstant(UPDATED_LAST_EDITION_INSTANT);
 
         restStudyMockMvc
             .perform(
@@ -604,7 +604,7 @@ class StudyResourceIT {
         assertThat(studyList).hasSize(databaseSizeBeforeUpdate);
         Study testStudy = studyList.get(studyList.size() - 1);
         assertThat(testStudy.getNumber()).isEqualTo(UPDATED_NUMBER);
-        assertThat(testStudy.getCreationInstant()).isEqualTo(UPDATED_CREATION_INSTANT);
+        assertThat(testStudy.getLastEditionInstant()).isEqualTo(UPDATED_LAST_EDITION_INSTANT);
     }
 
     @Test

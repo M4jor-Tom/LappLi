@@ -29,8 +29,8 @@ public class Study implements Serializable {
     private Long number;
 
     @NotNull
-    @Column(name = "creation_instant", nullable = false)
-    private Instant creationInstant;
+    @Column(name = "last_edition_instant", nullable = false)
+    private Instant lastEditionInstant;
 
     @OneToMany(mappedBy = "study")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -70,17 +70,17 @@ public class Study implements Serializable {
         this.number = number;
     }
 
-    public Instant getCreationInstant() {
-        return this.creationInstant;
+    public Instant getLastEditionInstant() {
+        return this.lastEditionInstant;
     }
 
-    public Study creationInstant(Instant creationInstant) {
-        this.setCreationInstant(creationInstant);
+    public Study lastEditionInstant(Instant lastEditionInstant) {
+        this.setLastEditionInstant(lastEditionInstant);
         return this;
     }
 
-    public void setCreationInstant(Instant creationInstant) {
-        this.creationInstant = creationInstant;
+    public void setLastEditionInstant(Instant lastEditionInstant) {
+        this.lastEditionInstant = lastEditionInstant;
     }
 
     public Set<StrandSupply> getStrandSupplies() {
@@ -152,7 +152,7 @@ public class Study implements Serializable {
         return "Study{" +
             "id=" + getId() +
             ", number=" + getNumber() +
-            ", creationInstant='" + getCreationInstant() + "'" +
+            ", lastEditionInstant='" + getLastEditionInstant() + "'" +
             "}";
     }
 }

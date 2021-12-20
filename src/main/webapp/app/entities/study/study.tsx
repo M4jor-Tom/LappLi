@@ -53,7 +53,7 @@ export const Study = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.study.number">Number</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.study.creationInstant">Creation Instant</Translate>
+                  <Translate contentKey="lappLiApp.study.lastEditionInstant">Last Edition Instant</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.study.author">Author</Translate>
@@ -71,7 +71,7 @@ export const Study = (props: RouteComponentProps<{ url: string }>) => {
                   </td>
                   <td>{study.number}</td>
                   <td>
-                    {study.creationInstant ? <TextFormat type="date" value={study.creationInstant} format={APP_DATE_FORMAT} /> : null}
+                    {study.lastEditionInstant ? <TextFormat type="date" value={study.lastEditionInstant} format={APP_DATE_FORMAT} /> : null}
                   </td>
                   <td>{study.author ? <Link to={`user-data/${study.author.id}`}>{study.author.user.login}</Link> : ''}</td>
                   <td className="text-right">
