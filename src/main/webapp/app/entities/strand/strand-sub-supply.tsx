@@ -110,7 +110,15 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                           <td>{customComponentSupply.customComponent.milimeterDiameter}</td>
                           <td>{customComponentSupply.customComponent.gramPerMeterLinearMass}</td>
                           <td>{customComponentSupply.bestLiftersNames}</td>
-                          <td>{customComponentSupply.customComponent.surfaceMaterial?.designation}</td>
+                          <td>
+                            {customComponentSupply.customComponent.surfaceMaterial ? (
+                              <Link to={`/material/${customComponentSupply.customComponent.surfaceMaterial.id}`}>
+                                {customComponentSupply.customComponent.surfaceMaterial.designation}
+                              </Link>
+                            ) : (
+                              ''
+                            )}
+                          </td>
                           <td>{customComponentSupply.customComponent.surfaceColor}</td>
                           <td>{customComponentSupply.meterPerHourSpeed}</td>
                           <td>{customComponentSupply.formatedHourPreparationTime}</td>
@@ -163,7 +171,13 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                           <td>{bangleSupply.bangle.milimeterDiameter}</td>
                           <td>{bangleSupply.bangle.gramPerMeterLinearMass}</td>
                           <td>{bangleSupply.bestLiftersNames}</td>
-                          <td>{bangleSupply.bangle.material.designation}</td>
+                          <td>
+                            {bangleSupply.bangle.material ? (
+                              <Link to={`/material/${bangleSupply.bangle.material.id}`}>{bangleSupply.bangle.material.designation}</Link>
+                            ) : (
+                              ''
+                            )}
+                          </td>
                           <td>{/* surfaceColor, absent for bangles */}</td>
                           <td>{bangleSupply.meterPerHourSpeed}</td>
                           <td>{bangleSupply.formatedHourPreparationTime}</td>
@@ -172,7 +186,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                           <td>
                             <Button
                               tag={Link}
-                              to={`${/* bangleSupplyImport.bangleSupplyMatchUrl */ 'bangle-supply'}/${bangleSupply.id}/edit`}
+                              to={`bangle-supply/${bangleSupply.id}/edit`}
                               color="primary"
                               size="sm"
                               data-cy="entityEditButton"
@@ -186,7 +200,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                           <td>
                             <Button
                               tag={Link}
-                              to={`${'bangle-supply'}/${bangleSupply.id}/delete`}
+                              to={`bangle-supply/${bangleSupply.id}/delete`}
                               color="danger"
                               size="sm"
                               data-cy="entityDeleteButton"
@@ -218,7 +232,15 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                           <td>{elementSupply.element.elementKind.milimeterDiameter}</td>
                           <td>{elementSupply.element.elementKind.gramPerMeterLinearMass}</td>
                           <td>{elementSupply.bestLiftersNames}</td>
-                          <td>{elementSupply.element.elementKind.insulationMaterial.designation}</td>
+                          <td>
+                            {elementSupply.element.elementKind.insulationMaterial ? (
+                              <Link to={`/material/${elementSupply.element.elementKind.insulationMaterial.id}`}>
+                                {elementSupply.element.elementKind.insulationMaterial.designation}
+                              </Link>
+                            ) : (
+                              ''
+                            )}
+                          </td>
                           <td>{elementSupply.element.color}</td>
                           <td>{elementSupply.meterPerHourSpeed}</td>
                           <td>{elementSupply.formatedHourPreparationTime}</td>
@@ -227,7 +249,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                           <td>
                             <Button
                               tag={Link}
-                              to={`${'element-supply'}/${elementSupply.id}/edit`}
+                              to={`element-supply/${elementSupply.id}/edit`}
                               color="primary"
                               size="sm"
                               data-cy="entityEditButton"
