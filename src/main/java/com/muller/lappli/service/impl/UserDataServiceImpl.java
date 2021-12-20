@@ -1,5 +1,6 @@
 package com.muller.lappli.service.impl;
 
+import com.muller.lappli.domain.User;
 import com.muller.lappli.domain.UserData;
 import com.muller.lappli.repository.UserDataRepository;
 import com.muller.lappli.service.UserDataService;
@@ -61,5 +62,16 @@ public class UserDataServiceImpl implements UserDataService {
     public void delete(Long id) {
         log.debug("Request to delete UserData : {}", id);
         userDataRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<UserData> findUserDataByLogin(String userLogin) {
+        for (UserData userData : findAll()) {
+            if (userData.getUser().getLogin().equals(userLogin)) {
+                return Optional.of(userData);
+            }
+        }
+
+        return Optional.empty();
     }
 }

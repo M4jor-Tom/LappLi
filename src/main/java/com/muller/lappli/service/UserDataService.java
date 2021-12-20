@@ -1,5 +1,6 @@
 package com.muller.lappli.service;
 
+import com.muller.lappli.domain.User;
 import com.muller.lappli.domain.UserData;
 import java.util.List;
 import java.util.Optional;
@@ -45,4 +46,12 @@ public interface UserDataService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     * Finds an UserData from an User
+     *
+     * @param userLogin the user's login
+     * @return the userData of the user
+     */
+    Optional<UserData> findUserDataByLogin(String userLogin);
 }
