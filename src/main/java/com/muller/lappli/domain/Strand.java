@@ -44,8 +44,8 @@ public class Strand implements Serializable {
     private Set<CustomComponentSupply> customComponentSupplies = new HashSet<>();
 
     @OneToMany(mappedBy = "strand")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "surfaceMaterial", "strand" }, allowSetters = true)
+    //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
     private Set<OneStudySupply> oneStudySupplies = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
