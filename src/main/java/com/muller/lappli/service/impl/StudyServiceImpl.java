@@ -1,8 +1,12 @@
 package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.Study;
+import com.muller.lappli.domain.UserData;
 import com.muller.lappli.repository.StudyRepository;
+import com.muller.lappli.security.SecurityUtils;
+import com.muller.lappli.service.SaveException;
 import com.muller.lappli.service.StudyService;
+import com.muller.lappli.service.UserDataService;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -21,14 +25,27 @@ public class StudyServiceImpl implements StudyService {
 
     private final StudyRepository studyRepository;
 
-    public StudyServiceImpl(StudyRepository studyRepository) {
+    private final UserDataService userDataService;
+
+    public StudyServiceImpl(StudyRepository studyRepository, UserDataService userDataService) {
         this.studyRepository = studyRepository;
+        this.userDataService = userDataService;
     }
 
     @Override
-    public Study save(Study study) {
+    public Study save(Study study) throws SaveException {
         log.debug("Request to save Study : {}", study);
-        return studyRepository.save(study);
+
+        if (study.getAuthor() == null && SecurityUtils.getCurrentUserLogin().isPresent()) {
+            Optional<UserData> userDataOptional = userDataService.findUserDataByLogin(SecurityUtils.getCurrentUserLogin().get());
+
+            if (userDataOptional.isPresent()) {
+                study.setAuthor(userDataOptional.get());
+                return studyRepository.save(study);
+            }
+        }
+
+        throw new SaveException();
     }
 
     @Override
