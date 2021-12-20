@@ -44,6 +44,11 @@ public class Study implements Serializable {
 
     public Study() {
         actualize();
+        setAuthor(null);
+    }
+
+    public Boolean isAuthored() {
+        return getAuthor() == null;
     }
 
     public Study actualize() {
