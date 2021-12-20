@@ -1,0 +1,28 @@
+{
+  "lappLiApp": {
+    "strandSupply": {
+      "home": {
+        "title": "StrandSupplies",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Strand Supply",
+        "createOrEditLabel": "Créer ou éditer un Strand Supply",
+        "notFound": "Aucun Strand Supply trouvé"
+      },
+      "created": "Un nouveau Strand Supply a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Strand Supply avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Strand Supply avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Strand Supply {{ id }} ?"
+      },
+      "detail": {
+        "title": "Strand Supply"
+      },
+      "id": "ID",
+      "apparitions": "Apparitions",
+      "markingType": "Marking Type",
+      "description": "Description",
+      "strand": "Strand",
+      "study": "Study"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+    <!--
+        Added the constraints for entity StrandSupply.
+    -->
+    <changeSet id="20211220164533-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="strand_id"
+                                 baseTableName="strand_supply"
+                                 constraintName="fk_strand_supply__strand_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="strand"/>
+
+        <addForeignKeyConstraint baseColumnNames="study_id"
+                                 baseTableName="strand_supply"
+                                 constraintName="fk_strand_supply__study_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="study"/>
+    </changeSet>
+</databaseChangeLog>

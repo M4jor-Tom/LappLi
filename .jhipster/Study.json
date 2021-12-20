@@ -1,0 +1,41 @@
+{
+  "name": "Study",
+  "fields": [
+    {
+      "fieldName": "number",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "creationInstant",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "strandSupply",
+      "otherEntityRelationshipName": "study",
+      "relationshipName": "strandSupplies",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "userData",
+      "otherEntityRelationshipName": "studies",
+      "relationshipValidateRules": "required",
+      "relationshipName": "author",
+      "otherEntityField": "login"
+    }
+  ],
+  "entityTableName": "study",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211220164532"
+}
