@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity OneStudySupply.
+    -->
+    <changeSet id="20211220084855-1" author="jhipster">
+        <createTable tableName="one_study_supply">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="apparitions" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="number" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="designation" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="description" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="marking_type" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="gram_per_meter_linear_mass" type="double">
+                <constraints nullable="false" />
+            </column>
+            <column name="milimeter_diameter" type="double">
+                <constraints nullable="false" />
+            </column>
+            <column name="surface_color" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="surface_material_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="strand_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20211220084855-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/one_study_supply.csv"
+                  separator=";"
+                  tableName="one_study_supply"
+                  usePreparedStatements="true">
+            <column name="id" type="numeric"/>
+            <column name="apparitions" type="numeric"/>
+            <column name="number" type="numeric"/>
+            <column name="designation" type="string"/>
+            <column name="description" type="string"/>
+            <column name="marking_type" type="string"/>
+            <column name="gram_per_meter_linear_mass" type="numeric"/>
+            <column name="milimeter_diameter" type="numeric"/>
+            <column name="surface_color" type="string"/>
+            <column name="surface_material_id" type="numeric"/>
+            <column name="strand_id" type="numeric"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

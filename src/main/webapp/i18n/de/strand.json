@@ -23,7 +23,8 @@
       "bangleSupplies": "Bangle Supplies",
       "customComponentSupplies": "Custom Component Supplies",
       "subSupplies": "Sub Supplies",
-      "noSuppliesFound": "No Supplies Found"
+      "noSuppliesFound": "No Supplies Found",
+      "oneStudySupplies": "One Study Supplies"
     }
   }
 }

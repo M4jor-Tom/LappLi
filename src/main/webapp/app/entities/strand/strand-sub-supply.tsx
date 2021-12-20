@@ -35,7 +35,8 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
               {/* [DUPLICATE] */}
               {(strandEntity.customComponentSupplies && strandEntity.customComponentSupplies.length > 0) ||
               (strandEntity.bangleSupplies && strandEntity.bangleSupplies.length > 0) ||
-              (strandEntity.elementSupplies && strandEntity.elementSupplies.length > 0) ? (
+              (strandEntity.elementSupplies && strandEntity.elementSupplies.length > 0) ||
+              (strandEntity.oneStudySupplies && strandEntity.oneStudySupplies.length > 0) ? (
                 <Table responsive>
                   <thead>
                     <tr>
@@ -277,6 +278,67 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                         </tr>
                       </>
                     ))}
+                    {strandEntity.oneStudySupplies.map((oneStudySupply, i) => (
+                      <tr key={`entity-${i}`} data-cy="entityTable">
+                        <td>{oneStudySupply.apparitions}</td>
+                        <td>
+                          <Translate contentKey={`lappLiApp.MarkingType.${oneStudySupply.markingType}`} />
+                        </td>
+                        <td>
+                          <Link to={`/one-study-supply/${oneStudySupply.id}`}>{oneStudySupply.number}</Link>
+                        </td>
+                        <td>
+                          <Link to={`/one-study-supply/${oneStudySupply.id}`}>{oneStudySupply.designation}</Link>
+                        </td>
+                        <td>{oneStudySupply.description}</td>
+                        <td>{oneStudySupply.meterQuantity}</td>
+                        <td>{oneStudySupply.milimeterDiameter}</td>
+                        <td>{oneStudySupply.gramPerMeterLinearMass}</td>
+                        <td>{oneStudySupply.bestLiftersNames}</td>
+                        <td>
+                          {oneStudySupply.surfaceMaterial ? (
+                            <Link to={`/material/${oneStudySupply.surfaceMaterial.id}`}>{oneStudySupply.surfaceMaterial.designation}</Link>
+                          ) : (
+                            ''
+                          )}
+                        </td>
+                        <td>
+                          <Translate contentKey={`lappLiApp.Color.${oneStudySupply.surfaceColor}`} />
+                        </td>
+                        <td>{oneStudySupply.meterPerHourSpeed}</td>
+                        <td>{oneStudySupply.formatedHourPreparationTime}</td>
+                        <td>{oneStudySupply.formatedHourExecutionTime}</td>
+                        <td>{oneStudySupply.markingTechnique}</td>
+                        <td className="text-right">
+                          <div className="btn-group flex-btn-group-container">
+                            <Button
+                              tag={Link}
+                              to={`one-study-supply/${oneStudySupply.id}/edit`}
+                              color="primary"
+                              size="sm"
+                              data-cy="entityEditButton"
+                            >
+                              <FontAwesomeIcon icon="pencil-alt" />{' '}
+                              <span className="d-none d-md-inline">
+                                <Translate contentKey="entity.action.edit">Edit</Translate>
+                              </span>
+                            </Button>
+                            <Button
+                              tag={Link}
+                              to={`one-study-supply/${oneStudySupply.id}/delete`}
+                              color="danger"
+                              size="sm"
+                              data-cy="entityDeleteButton"
+                            >
+                              <FontAwesomeIcon icon="trash" />{' '}
+                              <span className="d-none d-md-inline">
+                                <Translate contentKey="entity.action.delete">Delete</Translate>
+                              </span>
+                            </Button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </Table>
               ) : (
@@ -313,6 +375,16 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                 <FontAwesomeIcon icon="plus" />
                 &nbsp;
                 <Translate contentKey="lappLiApp.elementSupply.home.createLabel">Create new Element Supply</Translate>
+              </Link>
+              <Link
+                to={`one-study-supply/new`}
+                className="btn btn-primary jh-create-entity"
+                id="jh-create-entity"
+                data-cy="entityCreateButton"
+              >
+                <FontAwesomeIcon icon="plus" />
+                &nbsp;
+                <Translate contentKey="lappLiApp.oneStudySupply.home.createLabel">Create new One Study Supply</Translate>
               </Link>
             </div>
           </dd>

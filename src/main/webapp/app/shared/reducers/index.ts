@@ -39,6 +39,8 @@ import customComponentSupply from 'app/entities/custom-component-supply/custom-c
 import customComponent from 'app/entities/custom-component/custom-component.reducer';
 // prettier-ignore
 import strand from 'app/entities/strand/strand.reducer';
+// prettier-ignore
+import oneStudySupply from 'app/entities/one-study-supply/one-study-supply.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -66,6 +68,7 @@ const rootReducer = {
   customComponentSupply,
   customComponent,
   strand,
+  oneStudySupply,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };

@@ -25,6 +25,17 @@ entity LifterRunMeasure {
     hourPreparationTime Double
 }
 
+entity OneStudySupply {
+	apparitions Long
+	number Long
+    designation String
+    description String
+    markingType MarkingType required
+    gramPerMeterLinearMass Double required
+    milimeterDiameter Double required
+    surfaceColor Color required
+}
+
 entity BangleSupply {
 	apparitions Long required
     description String
@@ -38,7 +49,7 @@ entity CustomComponentSupply {
 
 entity CustomComponent {
 	number Long
-    designation String,
+    designation String
     gramPerMeterLinearMass Double required
     milimeterDiameter Double required
     surfaceColor Color required
@@ -96,6 +107,11 @@ relationship OneToMany {
 	Strand{elementSupplies(designation)} to ElementSupply{strand(designation) required}
     Strand{bangleSupplies(designation)} to BangleSupply{strand(designation) required}
     Strand{customComponentSupplies(designation)} to CustomComponentSupply{strand(designation) required}
+	Strand{oneStudySupplies(designation)} to OneStudySupply{strand(designation) required}
+}
+
+relationship ManyToOne {
+	OneStudySupply{surfaceMaterial(designation) required} to Material
 }
 
 relationship OneToMany {

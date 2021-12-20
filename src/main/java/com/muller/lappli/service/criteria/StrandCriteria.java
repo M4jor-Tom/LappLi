@@ -34,6 +34,8 @@ public class StrandCriteria implements Serializable, Criteria {
 
     private LongFilter customComponentSuppliesId;
 
+    private LongFilter oneStudySuppliesId;
+
     private Boolean distinct;
 
     public StrandCriteria() {}
@@ -44,6 +46,7 @@ public class StrandCriteria implements Serializable, Criteria {
         this.elementSuppliesId = other.elementSuppliesId == null ? null : other.elementSuppliesId.copy();
         this.bangleSuppliesId = other.bangleSuppliesId == null ? null : other.bangleSuppliesId.copy();
         this.customComponentSuppliesId = other.customComponentSuppliesId == null ? null : other.customComponentSuppliesId.copy();
+        this.oneStudySuppliesId = other.oneStudySuppliesId == null ? null : other.oneStudySuppliesId.copy();
         this.distinct = other.distinct;
     }
 
@@ -127,6 +130,21 @@ public class StrandCriteria implements Serializable, Criteria {
         this.customComponentSuppliesId = customComponentSuppliesId;
     }
 
+    public LongFilter getOneStudySuppliesId() {
+        return oneStudySuppliesId;
+    }
+
+    public LongFilter oneStudySuppliesId() {
+        if (oneStudySuppliesId == null) {
+            oneStudySuppliesId = new LongFilter();
+        }
+        return oneStudySuppliesId;
+    }
+
+    public void setOneStudySuppliesId(LongFilter oneStudySuppliesId) {
+        this.oneStudySuppliesId = oneStudySuppliesId;
+    }
+
     public Boolean getDistinct() {
         return distinct;
     }
@@ -150,13 +168,14 @@ public class StrandCriteria implements Serializable, Criteria {
             Objects.equals(elementSuppliesId, that.elementSuppliesId) &&
             Objects.equals(bangleSuppliesId, that.bangleSuppliesId) &&
             Objects.equals(customComponentSuppliesId, that.customComponentSuppliesId) &&
+            Objects.equals(oneStudySuppliesId, that.oneStudySuppliesId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, designation, elementSuppliesId, bangleSuppliesId, customComponentSuppliesId, distinct);
+        return Objects.hash(id, designation, elementSuppliesId, bangleSuppliesId, customComponentSuppliesId, oneStudySuppliesId, distinct);
     }
 
     // prettier-ignore
@@ -168,6 +187,7 @@ public class StrandCriteria implements Serializable, Criteria {
             (elementSuppliesId != null ? "elementSuppliesId=" + elementSuppliesId + ", " : "") +
             (bangleSuppliesId != null ? "bangleSuppliesId=" + bangleSuppliesId + ", " : "") +
             (customComponentSuppliesId != null ? "customComponentSuppliesId=" + customComponentSuppliesId + ", " : "") +
+            (oneStudySuppliesId != null ? "oneStudySuppliesId=" + oneStudySuppliesId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }
