@@ -3,6 +3,7 @@ package com.muller.lappli.domain;
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
+import com.muller.lappli.domain.exception.UnknownSupplyException;
 import io.jsonwebtoken.lang.UnknownClassException;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -90,16 +91,19 @@ public class Lifter implements Serializable {
         }
     }
 
-    public Boolean supportsSupply(AbstractLiftedSupply abstractLiftedSupply) throws UnknownClassException {
+    public Boolean supportsSupply(AbstractLiftedSupply abstractLiftedSupply) {
         if (abstractLiftedSupply instanceof CustomComponentSupply) {
             return supportsCustomComponentSupply((CustomComponentSupply) abstractLiftedSupply);
         } else if (abstractLiftedSupply instanceof ElementSupply) {
             return supportsElementSupply((ElementSupply) abstractLiftedSupply);
         } else if (abstractLiftedSupply instanceof BangleSupply) {
             return supportsBangleSupply((BangleSupply) abstractLiftedSupply);
+        } else if (abstractLiftedSupply instanceof OneStudySupply) {
+            return supportsOneStudySupply((OneStudySupply) abstractLiftedSupply);
         }
 
-        throw new UnknownClassException(abstractLiftedSupply.toString());
+        (new UnknownSupplyException(abstractLiftedSupply.toString())).printStackTrace();
+        return false;
     }
 
     public Boolean supportsCustomComponentSupply(CustomComponentSupply customComponentSupply) {
@@ -120,6 +124,14 @@ public class Lifter implements Serializable {
 
     public Boolean supportsBangleSupply(BangleSupply bangleSupply) {
         return (supportsMilimeterDiameter(bangleSupply.getMilimeterDiameter()));
+    }
+
+    private Boolean supportsOneStudySupply(OneStudySupply oneStudySupply) {
+        return (
+            supportsMarkingType(oneStudySupply.getMarkingType()) &&
+            supportsMilimeterDiameter(oneStudySupply.getMilimeterDiameter()) &&
+            supportsMarkingTechnique(oneStudySupply.getMarkingTechnique())
+        );
     }
 
     public Boolean supportsMilimeterDiameter(Double milimeterDiameter) {

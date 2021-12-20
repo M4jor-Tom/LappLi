@@ -21,6 +21,7 @@
         "customComponentSupply": "Custom Component Supply",
         "customComponent": "Custom Component",
         "strand": "Strand",
+        "oneStudySupply": "One Study Supply",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

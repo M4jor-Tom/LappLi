@@ -14,6 +14,8 @@ import BangleSupplyUpdate from '../bangle-supply/bangle-supply-update';
 import BangleSupplyDeleteDialog from '../bangle-supply/bangle-supply-delete-dialog';
 import ElementSupplyUpdate from '../element-supply/element-supply-update';
 import ElementSupplyDeleteDialog from '../element-supply/element-supply-delete-dialog';
+import OneStudySupplyUpdate from '../one-study-supply/one-study-supply-update';
+import OneStudySupplyDeleteDialog from '../one-study-supply/one-study-supply-delete-dialog';
 
 const Routes = ({ match }) => (
   <>
@@ -39,6 +41,10 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/element-supply/new`} component={ElementSupplyUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/element-supply/:id/edit`} component={ElementSupplyUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/element-supply/:id/delete`} component={ElementSupplyDeleteDialog} />
+
+      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/one-study-supply/new`} component={OneStudySupplyUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/one-study-supply/:id/edit`} component={OneStudySupplyUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/one-study-supply/:id/delete`} component={OneStudySupplyDeleteDialog} />
 
       <ErrorBoundaryRoute path={match.url} component={Strand} />
     </Switch>

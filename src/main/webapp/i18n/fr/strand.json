@@ -23,7 +23,8 @@
       "bangleSupplies": "Bangle Supplies",
       "customComponentSupplies": "Custom Component Supplies",
       "subSupplies": "Approvisionnements du toron",
-      "noSuppliesFound": "Aucun approvisionnement trouvé"
+      "noSuppliesFound": "Aucun approvisionnement trouvé",
+      "oneStudySupplies": "One Study Supplies"
     }
   }
 }

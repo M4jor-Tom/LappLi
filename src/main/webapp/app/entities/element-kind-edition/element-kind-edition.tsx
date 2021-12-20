@@ -84,9 +84,13 @@ export const ElementKindEdition = (props: RouteComponentProps<{ url: string }>) 
                   <td>{elementKindEdition.newMilimeterDiameter}</td>
                   <td>{elementKindEdition.newInsulationThickness}</td>
                   <td>
-                    <Link to={`element-kind/${elementKindEdition.editedElementKind.id}`}>
-                      {elementKindEdition.editedElementKind.designation}
-                    </Link>
+                    {elementKindEdition.editedElementKind ? (
+                      <Link to={`element-kind/${elementKindEdition.editedElementKind.id}`}>
+                        {elementKindEdition.editedElementKind.designation}
+                      </Link>
+                    ) : (
+                      ''
+                    )}
                   </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

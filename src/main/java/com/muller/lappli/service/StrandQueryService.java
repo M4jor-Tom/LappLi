@@ -115,6 +115,15 @@ public class StrandQueryService extends QueryService<Strand> {
                         )
                     );
             }
+            if (criteria.getOneStudySuppliesId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getOneStudySuppliesId(),
+                            root -> root.join(Strand_.oneStudySupplies, JoinType.LEFT).get(OneStudySupply_.id)
+                        )
+                    );
+            }
         }
         return specification;
     }

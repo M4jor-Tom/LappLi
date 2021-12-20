@@ -5,22 +5,22 @@ import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-import { getEntity, deleteEntity } from './custom-component-supply.reducer';
+import { getEntity, deleteEntity } from './one-study-supply.reducer';
 import { getRedirectionUrl, SupplyKind } from '../supply/index-management-lib';
 
-export const CustomComponentSupplyDeleteDialog = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
+export const OneStudySupplyDeleteDialog = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const [loadModal, setLoadModal] = useState(false);
   const dispatch = useAppDispatch();
-
-  const redirectionUrl = getRedirectionUrl(props, SupplyKind.CUSTOM_COMPONENT);
 
   useEffect(() => {
     dispatch(getEntity(props.match.params.id));
     setLoadModal(true);
   }, []);
 
-  const customComponentSupplyEntity = useAppSelector(state => state.customComponentSupply.entity);
-  const updateSuccess = useAppSelector(state => state.customComponentSupply.updateSuccess);
+  const redirectionUrl = getRedirectionUrl(props, SupplyKind.ONE_STUDY_SUPPLY);
+
+  const oneStudySupplyEntity = useAppSelector(state => state.oneStudySupply.entity);
+  const updateSuccess = useAppSelector(state => state.oneStudySupply.updateSuccess);
 
   const handleClose = () => {
     props.history.push(redirectionUrl);
@@ -34,17 +34,17 @@ export const CustomComponentSupplyDeleteDialog = (props: RouteComponentProps<{ s
   }, [updateSuccess]);
 
   const confirmDelete = () => {
-    dispatch(deleteEntity(customComponentSupplyEntity.id));
+    dispatch(deleteEntity(oneStudySupplyEntity.id));
   };
 
   return (
     <Modal isOpen toggle={handleClose}>
-      <ModalHeader toggle={handleClose} data-cy="customComponentSupplyDeleteDialogHeading">
+      <ModalHeader toggle={handleClose} data-cy="oneStudySupplyDeleteDialogHeading">
         <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
       </ModalHeader>
-      <ModalBody id="lappLiApp.customComponentSupply.delete.question">
-        <Translate contentKey="lappLiApp.customComponentSupply.delete.question" interpolate={{ id: customComponentSupplyEntity.id }}>
-          Are you sure you want to delete this CustomComponentSupply?
+      <ModalBody id="lappLiApp.oneStudySupply.delete.question">
+        <Translate contentKey="lappLiApp.oneStudySupply.delete.question" interpolate={{ id: oneStudySupplyEntity.id }}>
+          Are you sure you want to delete this OneStudySupply?
         </Translate>
       </ModalBody>
       <ModalFooter>
@@ -53,7 +53,7 @@ export const CustomComponentSupplyDeleteDialog = (props: RouteComponentProps<{ s
           &nbsp;
           <Translate contentKey="entity.action.cancel">Cancel</Translate>
         </Button>
-        <Button id="jhi-confirm-delete-customComponentSupply" data-cy="entityConfirmDeleteButton" color="danger" onClick={confirmDelete}>
+        <Button id="jhi-confirm-delete-oneStudySupply" data-cy="entityConfirmDeleteButton" color="danger" onClick={confirmDelete}>
           <FontAwesomeIcon icon="trash" />
           &nbsp;
           <Translate contentKey="entity.action.delete">Delete</Translate>
@@ -63,4 +63,4 @@ export const CustomComponentSupplyDeleteDialog = (props: RouteComponentProps<{ s
   );
 };
 
-export default CustomComponentSupplyDeleteDialog;
+export default OneStudySupplyDeleteDialog;

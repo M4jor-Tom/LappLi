@@ -35,7 +35,8 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
               {/* [DUPLICATE] */}
               {(strandEntity.customComponentSupplies && strandEntity.customComponentSupplies.length > 0) ||
               (strandEntity.bangleSupplies && strandEntity.bangleSupplies.length > 0) ||
-              (strandEntity.elementSupplies && strandEntity.elementSupplies.length > 0) ? (
+              (strandEntity.elementSupplies && strandEntity.elementSupplies.length > 0) ||
+              (strandEntity.oneStudySupplies && strandEntity.oneStudySupplies.length > 0) ? (
                 <Table responsive>
                   <thead>
                     <tr>
@@ -110,39 +111,47 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                           <td>{customComponentSupply.customComponent.milimeterDiameter}</td>
                           <td>{customComponentSupply.customComponent.gramPerMeterLinearMass}</td>
                           <td>{customComponentSupply.bestLiftersNames}</td>
-                          <td>{customComponentSupply.customComponent.surfaceMaterial?.designation}</td>
+                          <td>
+                            {customComponentSupply.customComponent.surfaceMaterial ? (
+                              <Link to={`/material/${customComponentSupply.customComponent.surfaceMaterial.id}`}>
+                                {customComponentSupply.customComponent.surfaceMaterial.designation}
+                              </Link>
+                            ) : (
+                              ''
+                            )}
+                          </td>
                           <td>{customComponentSupply.customComponent.surfaceColor}</td>
                           <td>{customComponentSupply.meterPerHourSpeed}</td>
                           <td>{customComponentSupply.formatedHourPreparationTime}</td>
                           <td>{customComponentSupply.formatedHourExecutionTime}</td>
                           <td>{customComponentSupply.markingTechnique}</td>
                           <td>
-                            <Button
-                              tag={Link}
-                              to={`${'custom-component-supply'}/${customComponentSupply.id}/edit`}
-                              color="primary"
-                              size="sm"
-                              data-cy="entityEditButton"
-                            >
-                              <FontAwesomeIcon icon="pencil-alt" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.edit">Edit</Translate>
-                              </span>
-                            </Button>
-                          </td>
-                          <td>
-                            <Button
-                              tag={Link}
-                              to={`${'custom-component-supply'}/${customComponentSupply.id}/delete`}
-                              color="danger"
-                              size="sm"
-                              data-cy="entityDeleteButton"
-                            >
-                              <FontAwesomeIcon icon="trash" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.delete">Delete</Translate>
-                              </span>
-                            </Button>
+                            <div className="btn-group flex-btn-group-container">
+                              <Button
+                                tag={Link}
+                                to={`${'custom-component-supply'}/${customComponentSupply.id}/edit`}
+                                color="primary"
+                                size="sm"
+                                data-cy="entityEditButton"
+                              >
+                                <FontAwesomeIcon icon="pencil-alt" />{' '}
+                                <span className="d-none d-md-inline">
+                                  <Translate contentKey="entity.action.edit">Edit</Translate>
+                                </span>
+                              </Button>
+                              <Button
+                                tag={Link}
+                                to={`${'custom-component-supply'}/${customComponentSupply.id}/delete`}
+                                color="danger"
+                                size="sm"
+                                data-cy="entityDeleteButton"
+                              >
+                                <FontAwesomeIcon icon="trash" />{' '}
+                                <span className="d-none d-md-inline">
+                                  <Translate contentKey="entity.action.delete">Delete</Translate>
+                                </span>
+                              </Button>
+                            </div>
                           </td>
                         </tr>
                       </>
@@ -163,39 +172,45 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                           <td>{bangleSupply.bangle.milimeterDiameter}</td>
                           <td>{bangleSupply.bangle.gramPerMeterLinearMass}</td>
                           <td>{bangleSupply.bestLiftersNames}</td>
-                          <td>{bangleSupply.bangle.material.designation}</td>
+                          <td>
+                            {bangleSupply.bangle.material ? (
+                              <Link to={`/material/${bangleSupply.bangle.material.id}`}>{bangleSupply.bangle.material.designation}</Link>
+                            ) : (
+                              ''
+                            )}
+                          </td>
                           <td>{/* surfaceColor, absent for bangles */}</td>
                           <td>{bangleSupply.meterPerHourSpeed}</td>
                           <td>{bangleSupply.formatedHourPreparationTime}</td>
                           <td>{bangleSupply.formatedHourExecutionTime}</td>
                           <td>{/* MarkingTechnique, absent for bangles */}</td>
                           <td>
-                            <Button
-                              tag={Link}
-                              to={`${/* bangleSupplyImport.bangleSupplyMatchUrl */ 'bangle-supply'}/${bangleSupply.id}/edit`}
-                              color="primary"
-                              size="sm"
-                              data-cy="entityEditButton"
-                            >
-                              <FontAwesomeIcon icon="pencil-alt" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.edit">Edit</Translate>
-                              </span>
-                            </Button>
-                          </td>
-                          <td>
-                            <Button
-                              tag={Link}
-                              to={`${'bangle-supply'}/${bangleSupply.id}/delete`}
-                              color="danger"
-                              size="sm"
-                              data-cy="entityDeleteButton"
-                            >
-                              <FontAwesomeIcon icon="trash" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.delete">Delete</Translate>
-                              </span>
-                            </Button>
+                            <div className="btn-group flex-btn-group-container">
+                              <Button
+                                tag={Link}
+                                to={`bangle-supply/${bangleSupply.id}/edit`}
+                                color="primary"
+                                size="sm"
+                                data-cy="entityEditButton"
+                              >
+                                <FontAwesomeIcon icon="pencil-alt" />{' '}
+                                <span className="d-none d-md-inline">
+                                  <Translate contentKey="entity.action.edit">Edit</Translate>
+                                </span>
+                              </Button>
+                              <Button
+                                tag={Link}
+                                to={`bangle-supply/${bangleSupply.id}/delete`}
+                                color="danger"
+                                size="sm"
+                                data-cy="entityDeleteButton"
+                              >
+                                <FontAwesomeIcon icon="trash" />{' '}
+                                <span className="d-none d-md-inline">
+                                  <Translate contentKey="entity.action.delete">Delete</Translate>
+                                </span>
+                              </Button>
+                            </div>
                           </td>
                         </tr>
                       </>
@@ -218,16 +233,87 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                           <td>{elementSupply.element.elementKind.milimeterDiameter}</td>
                           <td>{elementSupply.element.elementKind.gramPerMeterLinearMass}</td>
                           <td>{elementSupply.bestLiftersNames}</td>
-                          <td>{elementSupply.element.elementKind.insulationMaterial.designation}</td>
+                          <td>
+                            {elementSupply.element.elementKind.insulationMaterial ? (
+                              <Link to={`/material/${elementSupply.element.elementKind.insulationMaterial.id}`}>
+                                {elementSupply.element.elementKind.insulationMaterial.designation}
+                              </Link>
+                            ) : (
+                              ''
+                            )}
+                          </td>
                           <td>{elementSupply.element.color}</td>
                           <td>{elementSupply.meterPerHourSpeed}</td>
                           <td>{elementSupply.formatedHourPreparationTime}</td>
                           <td>{elementSupply.formatedHourExecutionTime}</td>
                           <td>{elementSupply.markingTechnique}</td>
                           <td>
+                            <div className="btn-group flex-btn-group-container">
+                              <Button
+                                tag={Link}
+                                to={`element-supply/${elementSupply.id}/edit`}
+                                color="primary"
+                                size="sm"
+                                data-cy="entityEditButton"
+                              >
+                                <FontAwesomeIcon icon="pencil-alt" />{' '}
+                                <span className="d-none d-md-inline">
+                                  <Translate contentKey="entity.action.edit">Edit</Translate>
+                                </span>
+                              </Button>
+                              <Button
+                                tag={Link}
+                                to={`${'element-supply'}/${elementSupply.id}/delete`}
+                                color="danger"
+                                size="sm"
+                                data-cy="entityDeleteButton"
+                              >
+                                <FontAwesomeIcon icon="trash" />{' '}
+                                <span className="d-none d-md-inline">
+                                  <Translate contentKey="entity.action.delete">Delete</Translate>
+                                </span>
+                              </Button>
+                            </div>
+                          </td>
+                        </tr>
+                      </>
+                    ))}
+                    {strandEntity.oneStudySupplies.map((oneStudySupply, i) => (
+                      <tr key={`entity-${i}`} data-cy="entityTable">
+                        <td>{oneStudySupply.apparitions}</td>
+                        <td>
+                          <Translate contentKey={`lappLiApp.MarkingType.${oneStudySupply.markingType}`} />
+                        </td>
+                        <td>
+                          <Link to={`/one-study-supply/${oneStudySupply.id}`}>{oneStudySupply.number}</Link>
+                        </td>
+                        <td>
+                          <Link to={`/one-study-supply/${oneStudySupply.id}`}>{oneStudySupply.designation}</Link>
+                        </td>
+                        <td>{oneStudySupply.description}</td>
+                        <td>{oneStudySupply.meterQuantity}</td>
+                        <td>{oneStudySupply.milimeterDiameter}</td>
+                        <td>{oneStudySupply.gramPerMeterLinearMass}</td>
+                        <td>{oneStudySupply.bestLiftersNames}</td>
+                        <td>
+                          {oneStudySupply.surfaceMaterial ? (
+                            <Link to={`/material/${oneStudySupply.surfaceMaterial.id}`}>{oneStudySupply.surfaceMaterial.designation}</Link>
+                          ) : (
+                            ''
+                          )}
+                        </td>
+                        <td>
+                          <Translate contentKey={`lappLiApp.Color.${oneStudySupply.surfaceColor}`} />
+                        </td>
+                        <td>{oneStudySupply.meterPerHourSpeed}</td>
+                        <td>{oneStudySupply.formatedHourPreparationTime}</td>
+                        <td>{oneStudySupply.formatedHourExecutionTime}</td>
+                        <td>{oneStudySupply.markingTechnique}</td>
+                        <td className="text-right">
+                          <div className="btn-group flex-btn-group-container">
                             <Button
                               tag={Link}
-                              to={`${'element-supply'}/${elementSupply.id}/edit`}
+                              to={`one-study-supply/${oneStudySupply.id}/edit`}
                               color="primary"
                               size="sm"
                               data-cy="entityEditButton"
@@ -237,11 +323,9 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                                 <Translate contentKey="entity.action.edit">Edit</Translate>
                               </span>
                             </Button>
-                          </td>
-                          <td>
                             <Button
                               tag={Link}
-                              to={`${'element-supply'}/${elementSupply.id}/delete`}
+                              to={`one-study-supply/${oneStudySupply.id}/delete`}
                               color="danger"
                               size="sm"
                               data-cy="entityDeleteButton"
@@ -251,9 +335,9 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                                 <Translate contentKey="entity.action.delete">Delete</Translate>
                               </span>
                             </Button>
-                          </td>
-                        </tr>
-                      </>
+                          </div>
+                        </td>
+                      </tr>
                     ))}
                   </tbody>
                 </Table>
@@ -291,6 +375,16 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                 <FontAwesomeIcon icon="plus" />
                 &nbsp;
                 <Translate contentKey="lappLiApp.elementSupply.home.createLabel">Create new Element Supply</Translate>
+              </Link>
+              <Link
+                to={`one-study-supply/new`}
+                className="btn btn-primary jh-create-entity"
+                id="jh-create-entity"
+                data-cy="entityCreateButton"
+              >
+                <FontAwesomeIcon icon="plus" />
+                &nbsp;
+                <Translate contentKey="lappLiApp.oneStudySupply.home.createLabel">Create new One Study Supply</Translate>
               </Link>
             </div>
           </dd>
