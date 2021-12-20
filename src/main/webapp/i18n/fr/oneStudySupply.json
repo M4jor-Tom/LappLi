@@ -1,0 +1,33 @@
+{
+  "lappLiApp": {
+    "oneStudySupply": {
+      "home": {
+        "title": "OneStudySupplies",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau One Study Supply",
+        "createOrEditLabel": "Créer ou éditer un One Study Supply",
+        "notFound": "Aucun One Study Supply trouvé"
+      },
+      "created": "Un nouveau One Study Supply a été créé avec l'identifiant {{ param }}",
+      "updated": "Le One Study Supply avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le One Study Supply avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le One Study Supply {{ id }} ?"
+      },
+      "detail": {
+        "title": "One Study Supply"
+      },
+      "id": "ID",
+      "apparitions": "Apparitions",
+      "number": "Number",
+      "designation": "Designation",
+      "description": "Description",
+      "markingType": "Marking Type",
+      "gramPerMeterLinearMass": "Gram Per Meter Linear Mass",
+      "milimeterDiameter": "Milimeter Diameter",
+      "surfaceColor": "Surface Color",
+      "surfaceMaterial": "Surface Material",
+      "strand": "Strand"
+    }
+  }
+}

@@ -43,6 +43,11 @@ public class Strand implements Serializable {
     @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
     private Set<CustomComponentSupply> customComponentSupplies = new HashSet<>();
 
+    @OneToMany(mappedBy = "strand")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "surfaceMaterial", "strand" }, allowSetters = true)
+    private Set<OneStudySupply> oneStudySupplies = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -161,6 +166,37 @@ public class Strand implements Serializable {
     public Strand removeCustomComponentSupplies(CustomComponentSupply customComponentSupply) {
         this.customComponentSupplies.remove(customComponentSupply);
         customComponentSupply.setStrand(null);
+        return this;
+    }
+
+    public Set<OneStudySupply> getOneStudySupplies() {
+        return this.oneStudySupplies;
+    }
+
+    public void setOneStudySupplies(Set<OneStudySupply> oneStudySupplies) {
+        if (this.oneStudySupplies != null) {
+            this.oneStudySupplies.forEach(i -> i.setStrand(null));
+        }
+        if (oneStudySupplies != null) {
+            oneStudySupplies.forEach(i -> i.setStrand(this));
+        }
+        this.oneStudySupplies = oneStudySupplies;
+    }
+
+    public Strand oneStudySupplies(Set<OneStudySupply> oneStudySupplies) {
+        this.setOneStudySupplies(oneStudySupplies);
+        return this;
+    }
+
+    public Strand addOneStudySupplies(OneStudySupply oneStudySupply) {
+        this.oneStudySupplies.add(oneStudySupply);
+        oneStudySupply.setStrand(this);
+        return this;
+    }
+
+    public Strand removeOneStudySupplies(OneStudySupply oneStudySupply) {
+        this.oneStudySupplies.remove(oneStudySupply);
+        oneStudySupply.setStrand(null);
         return this;
     }
 

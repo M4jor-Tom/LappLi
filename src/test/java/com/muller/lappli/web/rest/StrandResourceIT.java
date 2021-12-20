@@ -9,6 +9,7 @@ import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.BangleSupply;
 import com.muller.lappli.domain.CustomComponentSupply;
 import com.muller.lappli.domain.ElementSupply;
+import com.muller.lappli.domain.OneStudySupply;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.repository.StrandRepository;
 import com.muller.lappli.service.criteria.StrandCriteria;
@@ -333,6 +334,32 @@ class StrandResourceIT {
 
         // Get all the strandList where customComponentSupplies equals to (customComponentSuppliesId + 1)
         defaultStrandShouldNotBeFound("customComponentSuppliesId.equals=" + (customComponentSuppliesId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllStrandsByOneStudySuppliesIsEqualToSomething() throws Exception {
+        // Initialize the database
+        strandRepository.saveAndFlush(strand);
+        OneStudySupply oneStudySupplies;
+        if (TestUtil.findAll(em, OneStudySupply.class).isEmpty()) {
+            oneStudySupplies = OneStudySupplyResourceIT.createEntity(em);
+            em.persist(oneStudySupplies);
+            em.flush();
+        } else {
+            oneStudySupplies = TestUtil.findAll(em, OneStudySupply.class).get(0);
+        }
+        em.persist(oneStudySupplies);
+        em.flush();
+        strand.addOneStudySupplies(oneStudySupplies);
+        strandRepository.saveAndFlush(strand);
+        Long oneStudySuppliesId = oneStudySupplies.getId();
+
+        // Get all the strandList where oneStudySupplies equals to oneStudySuppliesId
+        defaultStrandShouldBeFound("oneStudySuppliesId.equals=" + oneStudySuppliesId);
+
+        // Get all the strandList where oneStudySupplies equals to (oneStudySuppliesId + 1)
+        defaultStrandShouldNotBeFound("oneStudySuppliesId.equals=" + (oneStudySuppliesId + 1));
     }
 
     /**

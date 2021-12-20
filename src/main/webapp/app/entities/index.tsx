@@ -18,6 +18,7 @@ import MaterialMarkingStatistic from './material-marking-statistic';
 import CustomComponentSupply from './custom-component-supply';
 import CustomComponent from './custom-component';
 import Strand from './strand';
+import OneStudySupply from './one-study-supply';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -38,6 +39,7 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}custom-component-supply`} component={CustomComponentSupply} />
       <ErrorBoundaryRoute path={`${match.url}custom-component`} component={CustomComponent} />
       <ErrorBoundaryRoute path={`${match.url}strand`} component={Strand} />
+      <ErrorBoundaryRoute path={`${match.url}one-study-supply`} component={OneStudySupply} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>

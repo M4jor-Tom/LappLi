@@ -28,6 +28,13 @@
       "otherEntityRelationshipName": "strand",
       "relationshipName": "customComponentSupplies",
       "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "oneStudySupply",
+      "otherEntityRelationshipName": "strand",
+      "relationshipName": "oneStudySupplies",
+      "otherEntityField": "designation"
     }
   ],
   "entityTableName": "strand",
