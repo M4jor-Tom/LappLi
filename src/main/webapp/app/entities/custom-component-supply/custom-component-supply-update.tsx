@@ -14,7 +14,7 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
-import { getRedirectionUrl, isStrandSupply, SupplyKind } from '../supply/index-management-lib';
+import { getRedirectionUrl, getStrandValidateField, isStrandSupply, SupplyKind } from '../supply/index-management-lib';
 
 export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
@@ -67,6 +67,8 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ strand_
       dispatch(updateEntity(entity));
     }
   };
+
+  const strandValidateField = getStrandValidateField(props, strands, SupplyKind.CUSTOM_COMPONENT);
 
   const defaultValues = () =>
     isNew
@@ -156,43 +158,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ strand_
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              {_isStrandSupply ? (
-                isNew ? (
-                  <ValidatedField
-                    id="custom-component-supply-strand"
-                    name="strand"
-                    data-cy="strand"
-                    type="hidden"
-                    value={props.match.params.strand_id}
-                    required
-                  />
-                ) : (
-                  ''
-                )
-              ) : (
-                <>
-                  <ValidatedField
-                    id="custom-component-supply-strand"
-                    name="strand"
-                    data-cy="strand"
-                    label={translate('lappLiApp.customComponentSupply.strand')}
-                    type="select"
-                    required
-                  >
-                    <option value="" key="0" />
-                    {strands
-                      ? strands.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.designation}
-                          </option>
-                        ))
-                      : null}
-                  </ValidatedField>
-                  <FormText>
-                    <Translate contentKey="entity.validation.required">This field is required.</Translate>
-                  </FormText>
-                </>
-              )}
+              {strandValidateField}
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
