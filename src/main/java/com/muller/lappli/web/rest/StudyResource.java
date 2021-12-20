@@ -2,6 +2,7 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.Study;
 import com.muller.lappli.repository.StudyRepository;
+import com.muller.lappli.service.SaveException;
 import com.muller.lappli.service.StudyQueryService;
 import com.muller.lappli.service.StudyService;
 import com.muller.lappli.service.criteria.StudyCriteria;
@@ -59,12 +60,22 @@ public class StudyResource {
         log.debug("REST request to save Study : {}", study);
         if (study.getId() != null) {
             throw new BadRequestAlertException("A new study cannot already have an ID", ENTITY_NAME, "idexists");
+        } else if (study.getAuthor() != null) {
+            throw new BadRequestAlertException("A new study cannot already have an author", ENTITY_NAME, "authorexists");
         }
-        Study result = studyService.save(study);
-        return ResponseEntity
-            .created(new URI("/api/studies/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+
+        try {
+            Study result = studyService.save(study);
+            return ResponseEntity
+                .created(new URI("/api/studies/" + result.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+                .body(result);
+        } catch (SaveException e) {
+            return ResponseEntity
+                .badRequest()
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, "Session error"))
+                .body(new Study());
+        }
     }
 
     /**
@@ -92,11 +103,18 @@ public class StudyResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Study result = studyService.save(study);
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, study.getId().toString()))
-            .body(result);
+        try {
+            Study result = studyService.save(study);
+            return ResponseEntity
+                .ok()
+                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, study.getId().toString()))
+                .body(result);
+        } catch (SaveException e) {
+            return ResponseEntity
+                .badRequest()
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, "Session error"))
+                .body(new Study());
+        }
     }
 
     /**

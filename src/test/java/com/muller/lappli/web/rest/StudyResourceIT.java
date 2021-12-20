@@ -109,17 +109,30 @@ class StudyResourceIT {
     @Transactional
     void createStudy() throws Exception {
         int databaseSizeBeforeCreate = studyRepository.findAll().size();
+
+        int expectedDatabaseSizeAfterCreate = databaseSizeBeforeCreate;
+
         // Create the Study
-        restStudyMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(study)))
-            .andExpect(status().isCreated());
+        if (study.isAuthored()) {
+            restStudyMockMvc
+                .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(study)))
+                .andExpect(status().isCreated());
+
+            expectedDatabaseSizeAfterCreate += 1;
+        } else {
+            restStudyMockMvc
+                .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(study)))
+                .andExpect(status().isBadRequest());
+        }
 
         // Validate the Study in the database
         List<Study> studyList = studyRepository.findAll();
-        assertThat(studyList).hasSize(databaseSizeBeforeCreate + 1);
-        Study testStudy = studyList.get(studyList.size() - 1);
-        assertThat(testStudy.getNumber()).isEqualTo(DEFAULT_NUMBER);
-        //assertThat(testStudy.getLastEditionInstant()).isEqualTo(DEFAULT_LAST_EDITION_INSTANT);
+        assertThat(studyList).hasSize(expectedDatabaseSizeAfterCreate);
+        if (studyList.size() > 0) {
+            Study testStudy = studyList.get(studyList.size() - 1);
+            assertThat(testStudy.getNumber()).isEqualTo(DEFAULT_NUMBER);
+            //assertThat(testStudy.getLastEditionInstant()).isEqualTo(DEFAULT_LAST_EDITION_INSTANT);
+        }
     }
 
     @Test
@@ -475,20 +488,30 @@ class StudyResourceIT {
         em.detach(updatedStudy);
         updatedStudy.number(UPDATED_NUMBER);
 
-        restStudyMockMvc
-            .perform(
-                put(ENTITY_API_URL_ID, updatedStudy.getId())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedStudy))
-            )
-            .andExpect(status().isOk());
+        if (updatedStudy.isAuthored()) {
+            restStudyMockMvc
+                .perform(
+                    put(ENTITY_API_URL_ID, updatedStudy.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtil.convertObjectToJsonBytes(updatedStudy))
+                )
+                .andExpect(status().isOk());
 
-        // Validate the Study in the database
-        List<Study> studyList = studyRepository.findAll();
-        assertThat(studyList).hasSize(databaseSizeBeforeUpdate);
-        Study testStudy = studyList.get(studyList.size() - 1);
-        assertThat(testStudy.getNumber()).isEqualTo(UPDATED_NUMBER);
-        //assertThat(testStudy.getLastEditionInstant()).isEqualTo(UPDATED_LAST_EDITION_INSTANT);
+            // Validate the Study in the database
+            List<Study> studyList = studyRepository.findAll();
+            assertThat(studyList).hasSize(databaseSizeBeforeUpdate);
+            Study testStudy = studyList.get(studyList.size() - 1);
+            assertThat(testStudy.getNumber()).isEqualTo(UPDATED_NUMBER);
+            //assertThat(testStudy.getLastEditionInstant()).isEqualTo(UPDATED_LAST_EDITION_INSTANT);
+        } else {
+            restStudyMockMvc
+                .perform(
+                    put(ENTITY_API_URL_ID, updatedStudy.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtil.convertObjectToJsonBytes(updatedStudy))
+                )
+                .andExpect(status().isBadRequest());
+        }
     }
 
     @Test
