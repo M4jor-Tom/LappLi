@@ -43,7 +43,7 @@ public class Strand implements Serializable {
     @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
     private Set<CustomComponentSupply> customComponentSupplies = new HashSet<>();
 
-    @OneToMany(mappedBy = "strand")
+    @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
     //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
     private Set<OneStudySupply> oneStudySupplies = new HashSet<>();
