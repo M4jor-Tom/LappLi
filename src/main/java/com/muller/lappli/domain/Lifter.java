@@ -3,6 +3,7 @@ package com.muller.lappli.domain;
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
+import com.muller.lappli.domain.exception.UnknownSupplyException;
 import io.jsonwebtoken.lang.UnknownClassException;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -90,7 +91,7 @@ public class Lifter implements Serializable {
         }
     }
 
-    public Boolean supportsSupply(AbstractLiftedSupply abstractLiftedSupply) throws UnknownClassException {
+    public Boolean supportsSupply(AbstractLiftedSupply abstractLiftedSupply) {
         if (abstractLiftedSupply instanceof CustomComponentSupply) {
             return supportsCustomComponentSupply((CustomComponentSupply) abstractLiftedSupply);
         } else if (abstractLiftedSupply instanceof ElementSupply) {
@@ -101,7 +102,8 @@ public class Lifter implements Serializable {
             return supportsOneStudySupply((OneStudySupply) abstractLiftedSupply);
         }
 
-        throw new UnknownClassException(abstractLiftedSupply.toString());
+        (new UnknownSupplyException(abstractLiftedSupply.toString())).printStackTrace();
+        return false;
     }
 
     public Boolean supportsCustomComponentSupply(CustomComponentSupply customComponentSupply) {
