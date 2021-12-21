@@ -14,13 +14,20 @@ enum SupplyKind {
   STRAND = 'strand',
 }
 
+enum SupplyOwner {
+  STRAND = 'strand',
+  STUDY = 'study',
+}
+
 function isStudySupply(props: RouteComponentProps<{ study_id: string; id: string }>): string {
   const [ret] = useState(props.match.params && props.match.params.study_id);
   return ret;
 }
 
-function getStudySupplyRedirectionUrl(props: RouteComponentProps<{ study_id: string; id: string }>): string {
-  return isStudySupply(props) ? '/strand/' + props.match.params.study_id + '/supply' : '/' + 'strand-supply';
+function getStudySupplyRedirectionUrl(props: RouteComponentProps<{ study_id: string; id: string }>, supplyOwner: SupplyOwner): string {
+  return isStudySupply(props)
+    ? '/' + supplyOwner + '/' + props.match.params.study_id + '/study-supplies'
+    : '/' + SupplyKind.STRAND + '-supply';
 }
 
 function isStrandSupply(props: RouteComponentProps<{ strand_id: string; id: string }>): string {
@@ -29,7 +36,17 @@ function isStrandSupply(props: RouteComponentProps<{ strand_id: string; id: stri
 }
 
 function getStrandSupplyRedirectionUrl(props: RouteComponentProps<{ strand_id: string; id: string }>, supplyKind: SupplyKind): string {
-  return isStrandSupply(props) ? '/strand/' + props.match.params.strand_id + '/supply' : '/' + supplyKind + '-supply';
+  return isStrandSupply(props) ? '/' + SupplyOwner.STRAND + '/' + props.match.params.strand_id + '/supply' : '/' + supplyKind + '-supply';
+}
+
+function getSupplyOwner(props: RouteComponentProps<{ study_id: string | null; strand_id: string | null; id: string }>): SupplyOwner {
+  return props.match.params.study_id == null ? SupplyOwner.STRAND : SupplyOwner.STUDY;
+}
+
+function getStrandSupplyUpdateComponentRedirectionUrl(
+  props: RouteComponentProps<{ study_id: string | null; strand_id: string | null; id: string }>
+): string {
+  return getStudySupplyRedirectionUrl(props, getSupplyOwner(props));
 }
 
 function getStudyValidateField(props: RouteComponentProps<{ study_id: string | null; id: string }>, studies: readonly IStudy[]) {
@@ -113,7 +130,7 @@ export {
   SupplyKind,
   isStrandSupply,
   getStrandSupplyRedirectionUrl,
-  getStudySupplyRedirectionUrl,
+  getStrandSupplyUpdateComponentRedirectionUrl,
   getStrandValidateField,
   getStudyValidateField,
 };
