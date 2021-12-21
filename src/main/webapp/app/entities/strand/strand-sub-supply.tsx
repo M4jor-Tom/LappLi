@@ -356,6 +356,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                 &nbsp;
                 <Translate contentKey="lappLiApp.bangleSupply.home.createLabel">Create new Bangle Supply</Translate>
               </Link>
+              &nbsp;
               <Link
                 to={`custom-component-supply/new`}
                 className="btn btn-primary jh-create-entity"
@@ -366,6 +367,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                 &nbsp;
                 <Translate contentKey="lappLiApp.customComponentSupply.home.createLabel">Create new Custom Component Supply</Translate>
               </Link>
+              &nbsp;
               <Link
                 to={`element-supply/new`}
                 className="btn btn-primary jh-create-entity"
@@ -376,6 +378,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                 &nbsp;
                 <Translate contentKey="lappLiApp.elementSupply.home.createLabel">Create new Element Supply</Translate>
               </Link>
+              &nbsp;
               <Link
                 to={`one-study-supply/new`}
                 className="btn btn-primary jh-create-entity"
