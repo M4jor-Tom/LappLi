@@ -14,7 +14,7 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
-import { getRedirectionUrl, getStrandValidateField, isStrandSupply, SupplyKind } from '../supply/index-management-lib';
+import { getStrandSupplyRedirectionUrl, getStrandValidateField, isStrandSupply, SupplyKind } from '../supply/index-management-lib';
 
 export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
@@ -23,7 +23,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ strand_
 
   const _isStrandSupply = isStrandSupply(props);
 
-  const redirectionUrl = getRedirectionUrl(props, SupplyKind.CUSTOM_COMPONENT);
+  const redirectionUrl = getStrandSupplyRedirectionUrl(props, SupplyKind.CUSTOM_COMPONENT);
 
   const customComponents = useAppSelector(state => state.customComponent.entities);
   const strands = useAppSelector(state => state.strand.entities);
