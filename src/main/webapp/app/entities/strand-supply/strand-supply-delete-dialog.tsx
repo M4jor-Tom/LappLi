@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity, deleteEntity } from './strand-supply.reducer';
+import { handleClosePolicy } from 'app/app-config/handle-close-policy';
 
 export const StrandSupplyDeleteDialog = (props: RouteComponentProps<{ id: string }>) => {
   const [loadModal, setLoadModal] = useState(false);
@@ -19,9 +20,7 @@ export const StrandSupplyDeleteDialog = (props: RouteComponentProps<{ id: string
   const strandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
   const updateSuccess = useAppSelector(state => state.strandSupply.updateSuccess);
 
-  const handleClose = () => {
-    props.history.push('/strand-supply');
-  };
+  const handleClose = () => handleClosePolicy(props);
 
   useEffect(() => {
     if (updateSuccess && loadModal) {

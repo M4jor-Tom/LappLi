@@ -14,11 +14,15 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
+import { getStrandSupplyUpdateComponentRedirectionUrl, getStudyValidateField, SupplyKind } from '../supply/index-management-lib';
+import { handleClosePolicy } from 'app/app-config/handle-close-policy';
 
-export const StrandSupplyUpdate = (props: RouteComponentProps<{ id: string }>) => {
+export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: string | null; study_id: string | null; id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
+
+  //  const redirectionUrl = getStrandSupplyUpdateComponentRedirectionUrl(props);
 
   const strands = useAppSelector(state => state.strand.entities);
   const studies = useAppSelector(state => state.study.entities);
@@ -27,9 +31,15 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
   const updating = useAppSelector(state => state.strandSupply.updating);
   const updateSuccess = useAppSelector(state => state.strandSupply.updateSuccess);
   const markingTypeValues = Object.keys(MarkingType);
-  const handleClose = () => {
-    props.history.push('/strand-supply');
-  };
+  const handleClose =
+    props.match.params.study_id == null
+      ? () => handleClosePolicy(props)
+      : () => {
+          //  props.history.push("path/to/operations");
+          props.history.push('/study/' + props.match.params.study_id + '/study-supplies');
+        };
+
+  const studyValidateField = getStudyValidateField(props, studies);
 
   useEffect(() => {
     if (isNew) {
@@ -135,6 +145,7 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
                 data-cy="strand"
                 label={translate('lappLiApp.strandSupply.strand')}
                 type="select"
+                value={strands ? strands.length : ''}
                 required
               >
                 <option value="" key="0" />
@@ -149,33 +160,20 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              <ValidatedField
-                id="strand-supply-study"
-                name="study"
-                data-cy="study"
-                label={translate('lappLiApp.strandSupply.study')}
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {studies
-                  ? studies.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.number}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/strand-supply" replace color="info">
+              {studyValidateField}
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" onClick={props.history.goBack} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
                   <Translate contentKey="entity.action.back">Back</Translate>
                 </span>
               </Button>
+              &nbsp;
+              <Link to={`strand/new`} className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
+                <FontAwesomeIcon icon="plus" />
+                &nbsp;
+                <Translate contentKey="lappLiApp.strand.home.createLabel">Create Strand</Translate>
+              </Link>
               &nbsp;
               <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
                 <FontAwesomeIcon icon="save" />

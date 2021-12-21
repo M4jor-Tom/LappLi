@@ -69,7 +69,7 @@ public class CacheConfiguration {
             //createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".customComponentSupplies");
             //createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".oneStudySupplies");
             createCache(cm, com.muller.lappli.domain.Study.class.getName());
-            createCache(cm, com.muller.lappli.domain.Study.class.getName() + ".strandSupplies");
+            //createCache(cm, com.muller.lappli.domain.Study.class.getName() + ".strandSupplies");
             createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName());
             createCache(cm, com.muller.lappli.domain.UserData.class.getName());
             createCache(cm, com.muller.lappli.domain.UserData.class.getName() + ".studies");

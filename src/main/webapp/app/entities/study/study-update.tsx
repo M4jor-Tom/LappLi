@@ -11,6 +11,7 @@ import { IStudy } from 'app/shared/model/study.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { handleClosePolicy } from 'app/app-config/handle-close-policy';
 
 export const StudyUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
@@ -22,9 +23,7 @@ export const StudyUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const loading = useAppSelector(state => state.study.loading);
   const updating = useAppSelector(state => state.study.updating);
   const updateSuccess = useAppSelector(state => state.study.updateSuccess);
-  const handleClose = () => {
-    props.history.push('/study');
-  };
+  const handleClose = () => handleClosePolicy(props);
 
   useEffect(() => {
     if (isNew) {
