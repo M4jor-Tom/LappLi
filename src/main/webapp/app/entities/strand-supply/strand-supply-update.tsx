@@ -31,7 +31,13 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
   const updating = useAppSelector(state => state.strandSupply.updating);
   const updateSuccess = useAppSelector(state => state.strandSupply.updateSuccess);
   const markingTypeValues = Object.keys(MarkingType);
-  const handleClose = () => handleClosePolicy(props);
+  const handleClose =
+    props.match.params.study_id == null
+      ? () => handleClosePolicy(props)
+      : () => {
+          //  props.history.push("path/to/operations");
+          props.history.push('/study/' + props.match.params.study_id + '/study-supplies');
+        };
 
   const studyValidateField = getStudyValidateField(props, studies);
 
