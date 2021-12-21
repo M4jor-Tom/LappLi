@@ -32,8 +32,8 @@ public class Study implements Serializable {
     @Column(name = "last_edition_instant", nullable = false)
     private Instant lastEditionInstant;
 
-    @OneToMany(mappedBy = "study")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @OneToMany(mappedBy = "study", fetch = FetchType.EAGER)
+    //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "study" }, allowSetters = true)
     private Set<StrandSupply> strandSupplies = new HashSet<>();
 
