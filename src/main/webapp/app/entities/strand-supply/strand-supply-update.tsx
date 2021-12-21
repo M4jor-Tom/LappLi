@@ -22,7 +22,7 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const redirectionUrl = getStrandSupplyUpdateComponentRedirectionUrl(props);
+  //  const redirectionUrl = getStrandSupplyUpdateComponentRedirectionUrl(props);
 
   const strands = useAppSelector(state => state.strand.entities);
   const studies = useAppSelector(state => state.study.entities);
@@ -154,7 +154,7 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
               {studyValidateField}
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" onClick={props.history.goBack} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
