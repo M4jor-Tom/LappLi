@@ -46,6 +46,7 @@ export const StudyUpdate = (props: RouteComponentProps<{ id: string }>) => {
     const entity = {
       ...studyEntity,
       ...values,
+      author: { id: null },
     };
 
     if (isNew) {

@@ -104,8 +104,14 @@ public class StudyResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
+        //Should not find author because even if for that study there shall be one,
+        //No author shall be sent
+        if (study.isAuthored()) {
+            throw new BadRequestAlertException("Should not find author", ENTITY_NAME, "authorsent");
+        }
+
         try {
-            Study result = studyService.save(study, true);
+            Study result = studyService.save(study, false);
             return ResponseEntity
                 .ok()
                 .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, study.getId().toString()))

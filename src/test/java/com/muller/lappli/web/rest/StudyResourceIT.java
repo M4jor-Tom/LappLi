@@ -113,7 +113,7 @@ class StudyResourceIT {
         int expectedDatabaseSizeAfterCreate = databaseSizeBeforeCreate;
 
         // Create the Study
-        if (study.isAuthored()) {
+        if (!study.isAuthored()) {
             restStudyMockMvc
                 .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(study)))
                 .andExpect(status().isCreated());
@@ -483,17 +483,17 @@ class StudyResourceIT {
         int databaseSizeBeforeUpdate = studyRepository.findAll().size();
 
         // Update the study
-        Study updatedStudy = studyRepository.findById(study.getId()).get();
-        // Disconnect from session so that the updates on updatedStudy are not directly saved in db
-        em.detach(updatedStudy);
-        updatedStudy.number(UPDATED_NUMBER);
+        Study httpSentUpdatedStudy = studyRepository.findById(study.getId()).get();
+        // Disconnect from session so that the updates on httpSentUpdatedStudy are not directly saved in db
+        em.detach(httpSentUpdatedStudy);
+        httpSentUpdatedStudy.number(UPDATED_NUMBER);
 
-        if (updatedStudy.isAuthored()) {
+        if (!httpSentUpdatedStudy.isAuthored()) {
             restStudyMockMvc
                 .perform(
-                    put(ENTITY_API_URL_ID, updatedStudy.getId())
+                    put(ENTITY_API_URL_ID, httpSentUpdatedStudy.getId())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(TestUtil.convertObjectToJsonBytes(updatedStudy))
+                        .content(TestUtil.convertObjectToJsonBytes(httpSentUpdatedStudy))
                 )
                 .andExpect(status().isOk());
 
@@ -506,9 +506,9 @@ class StudyResourceIT {
         } else {
             restStudyMockMvc
                 .perform(
-                    put(ENTITY_API_URL_ID, updatedStudy.getId())
+                    put(ENTITY_API_URL_ID, httpSentUpdatedStudy.getId())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(TestUtil.convertObjectToJsonBytes(updatedStudy))
+                        .content(TestUtil.convertObjectToJsonBytes(httpSentUpdatedStudy))
                 )
                 .andExpect(status().isBadRequest());
         }
