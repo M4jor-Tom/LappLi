@@ -67,9 +67,6 @@ export const StudyDetail = (props: RouteComponentProps<{ study_id: string }>) =>
                       <th>
                         <Translate contentKey="lappLiApp.strandSupply.strand">Strand</Translate>
                       </th>
-                      <th>
-                        <Translate contentKey="lappLiApp.strandSupply.study">Study</Translate>
-                      </th>
                       <th />
                     </tr>
                   </thead>
@@ -88,7 +85,6 @@ export const StudyDetail = (props: RouteComponentProps<{ study_id: string }>) =>
                             ''
                           )}
                         </td>
-                        <td>{strandSupply.study ? <Link to={`study/${strandSupply.study.id}`}>{strandSupply.study.number}</Link> : ''}</td>
                         <td className="text-right">
                           <div className="btn-group flex-btn-group-container">
                             <Button
