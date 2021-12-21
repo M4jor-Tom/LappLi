@@ -57,6 +57,13 @@ export const StudyDetail = (props: RouteComponentProps<{ id: string }>) => {
           </span>
         </Button>
         &nbsp;
+        <Button tag={Link} to={`/study/${studyEntity.id}/study-supplies`} replace color="primary">
+          <FontAwesomeIcon icon="pencil-alt" />{' '}
+          <span className="d-none d-md-inline">
+            <Translate contentKey="lappLiApp.study.strandSupplies">Strands supplies</Translate>
+          </span>
+        </Button>
+        &nbsp;
         <Button tag={Link} to={`/study/${studyEntity.id}/edit`} replace color="primary">
           <FontAwesomeIcon icon="pencil-alt" />{' '}
           <span className="d-none d-md-inline">

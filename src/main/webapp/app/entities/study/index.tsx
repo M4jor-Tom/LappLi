@@ -7,6 +7,7 @@ import Study from './study';
 import StudyDetail from './study-detail';
 import StudyUpdate from './study-update';
 import StudyDeleteDialog from './study-delete-dialog';
+import StudyStrandSupply from './study-strand-supply';
 
 const Routes = ({ match }) => (
   <>
@@ -14,6 +15,9 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute exact path={`${match.url}/new`} component={StudyUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:id/edit`} component={StudyUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:id`} component={StudyDetail} />
+
+      <ErrorBoundaryRoute exact path={`${match.url}/:id/study-supplies`} component={StudyStrandSupply} />
+
       <ErrorBoundaryRoute path={match.url} component={Study} />
     </Switch>
     <ErrorBoundaryRoute exact path={`${match.url}/:id/delete`} component={StudyDeleteDialog} />

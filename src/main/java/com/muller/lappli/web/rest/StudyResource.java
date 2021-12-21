@@ -1,5 +1,6 @@
 package com.muller.lappli.web.rest;
 
+import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.Study;
 import com.muller.lappli.domain.UserData;
 import com.muller.lappli.repository.StudyRepository;
@@ -195,6 +196,7 @@ public class StudyResource {
     public ResponseEntity<Study> getStudy(@PathVariable Long id) {
         log.debug("REST request to get Study : {}", id);
         Optional<Study> study = studyService.findOne(id);
+
         return ResponseUtil.wrapOrNotFound(study);
     }
 
