@@ -14,11 +14,20 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
+import {
+  getStrandSupplyRedirectionUrl,
+  getStudySupplyRedirectionUrl,
+  getStudyValidateField,
+  SupplyKind,
+} from '../supply/index-management-lib';
 
-export const StrandSupplyUpdate = (props: RouteComponentProps<{ id: string }>) => {
+export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: string | null; study_id: string | null; id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
+
+  const strandSupplyRedirectionUrl = getStrandSupplyRedirectionUrl(props, SupplyKind.STRAND);
+  const studySupplyRedirectionUrl = getStudySupplyRedirectionUrl(props);
 
   const strands = useAppSelector(state => state.strand.entities);
   const studies = useAppSelector(state => state.study.entities);
@@ -30,6 +39,8 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
   const handleClose = () => {
     props.history.push('/strand-supply');
   };
+
+  const studyValidateField = getStudyValidateField(props, studies);
 
   useEffect(() => {
     if (isNew) {
@@ -149,26 +160,7 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              <ValidatedField
-                id="strand-supply-study"
-                name="study"
-                data-cy="study"
-                label={translate('lappLiApp.strandSupply.study')}
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {studies
-                  ? studies.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.number}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
+              {studyValidateField}
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/strand-supply" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
