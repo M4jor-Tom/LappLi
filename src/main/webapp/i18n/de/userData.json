@@ -1,0 +1,25 @@
+{
+  "lappLiApp": {
+    "userData": {
+      "home": {
+        "title": "User Data",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "User Data erstellen",
+        "createOrEditLabel": "User Data erstellen oder bearbeiten",
+        "notFound": "Keine User Data gefunden"
+      },
+      "created": "User Data erstellt mit ID {{ param }}",
+      "updated": "User Data aktualisiert mit ID {{ param }}",
+      "deleted": "User Data gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll User Data {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "User Data"
+      },
+      "id": "ID",
+      "user": "User",
+      "studies": "Studies"
+    }
+  }
+}

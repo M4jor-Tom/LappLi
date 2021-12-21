@@ -1,0 +1,27 @@
+{
+  "lappLiApp": {
+    "study": {
+      "home": {
+        "title": "Studies",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Study erstellen",
+        "createOrEditLabel": "Study erstellen oder bearbeiten",
+        "notFound": "Keine Studies gefunden"
+      },
+      "created": "Study erstellt mit ID {{ param }}",
+      "updated": "Study aktualisiert mit ID {{ param }}",
+      "deleted": "Study gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Study {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Study"
+      },
+      "id": "ID",
+      "number": "Number",
+      "lastEditionInstant": "Last Edition Instant",
+      "strandSupplies": "Strand Supplies",
+      "author": "Author"
+    }
+  }
+}

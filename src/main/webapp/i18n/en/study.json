@@ -1,0 +1,27 @@
+{
+  "lappLiApp": {
+    "study": {
+      "home": {
+        "title": "Studies",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Study",
+        "createOrEditLabel": "Create or edit a Study",
+        "notFound": "No Studies found"
+      },
+      "created": "A new Study is created with identifier {{ param }}",
+      "updated": "A Study is updated with identifier {{ param }}",
+      "deleted": "A Study is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Study {{ id }}?"
+      },
+      "detail": {
+        "title": "Study"
+      },
+      "id": "ID",
+      "number": "Number",
+      "lastEditionInstant": "Last Edition Instant",
+      "strandSupplies": "Strand Supplies",
+      "author": "Author"
+    }
+  }
+}

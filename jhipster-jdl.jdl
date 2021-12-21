@@ -6,6 +6,17 @@ entity Strand {
     designation String required
 }
 
+entity Study {
+	number Long
+	lastEditionInstant Instant required
+}
+
+entity StrandSupply {
+	apparitions Long required
+    markingType MarkingType required
+    description String
+}
+
 entity Lifter {
 	index Long unique required
 	minimumMilimeterDiameter Double required
@@ -103,11 +114,31 @@ entity Material {
 	designation String unique required
 }
 
+entity UserData {
+
+}
+
+relationship OneToOne {
+	UserData{user(login) required} to User
+}
+
+relationship OneToMany {
+	UserData{studies(number)} to Study{author(login) required}
+}
+
+relationship OneToMany {
+	Study{strandSupplies(designation)} to StrandSupply{study(number) required}
+}
+
 relationship OneToMany {
 	Strand{elementSupplies(designation)} to ElementSupply{strand(designation) required}
     Strand{bangleSupplies(designation)} to BangleSupply{strand(designation) required}
     Strand{customComponentSupplies(designation)} to CustomComponentSupply{strand(designation) required}
 	Strand{oneStudySupplies(designation)} to OneStudySupply{strand(designation) required}
+}
+
+relationship ManyToOne {
+	StrandSupply{strand(designation) required} to Strand
 }
 
 relationship ManyToOne {
