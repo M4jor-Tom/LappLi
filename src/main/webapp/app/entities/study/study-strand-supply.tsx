@@ -8,11 +8,11 @@ import { getEntity } from './study.reducer';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-export const StudyDetail = (props: RouteComponentProps<{ id: string }>) => {
+export const StudyDetail = (props: RouteComponentProps<{ study_id: string }>) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getEntity(props.match.params.id));
+    dispatch(getEntity(props.match.params.study_id));
   }, []);
 
   const studyEntity = useAppSelector(state => state.study.entity);
@@ -83,7 +83,7 @@ export const StudyDetail = (props: RouteComponentProps<{ id: string }>) => {
                         <td>{strandSupply.description}</td>
                         <td>
                           {strandSupply.strand ? (
-                            <Link to={`strand/${strandSupply.strand.id}`}>{strandSupply.strand.designation}</Link>
+                            <Link to={`/strand/${strandSupply.strand.id}`}>{strandSupply.strand.designation}</Link>
                           ) : (
                             ''
                           )}
@@ -141,12 +141,18 @@ export const StudyDetail = (props: RouteComponentProps<{ id: string }>) => {
             </div>
           </dd>
         </dl>
-        <Button tag={Link} to={'/study/' + props.match.params.id} replace color="info" data-cy="entityDetailsBackButton">
+        <Button tag={Link} to={'/study/' + props.match.params.study_id} replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.back">Back</Translate>
           </span>
         </Button>
+        &nbsp;
+        <Link to={`study-supplies/new`} className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
+          <FontAwesomeIcon icon="plus" />
+          &nbsp;
+          <Translate contentKey="lappLiApp.strandSupply.home.createLabel">Create new Strand Supply</Translate>
+        </Link>
       </div>
     </div>
   );
