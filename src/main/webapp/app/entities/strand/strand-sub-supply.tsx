@@ -389,7 +389,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
             </div>
           </dd>
         </dl>
-        <Button tag={Link} to="/strand" replace color="info" data-cy="entityDetailsBackButton">
+        <Button tag={Link} onClick={props.history.goBack} replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.back">Back</Translate>
