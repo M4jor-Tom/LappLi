@@ -162,6 +162,12 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
                 </span>
               </Button>
               &nbsp;
+              <Link to={`strand/new`} className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
+                <FontAwesomeIcon icon="plus" />
+                &nbsp;
+                <Translate contentKey="lappLiApp.strand.home.createLabel">Create Strand</Translate>
+              </Link>
+              &nbsp;
               <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
                 <FontAwesomeIcon icon="save" />
                 &nbsp;
