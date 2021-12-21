@@ -8,7 +8,7 @@ import { getEntity } from './study.reducer';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-export const StudyDetail = (props: RouteComponentProps<{ study_id: string }>) => {
+export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string }>) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -154,4 +154,4 @@ export const StudyDetail = (props: RouteComponentProps<{ study_id: string }>) =>
   );
 };
 
-export default StudyDetail;
+export default StudyStrandSupply;
