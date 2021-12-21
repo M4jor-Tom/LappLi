@@ -15,6 +15,7 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 import { getStrandSupplyUpdateComponentRedirectionUrl, getStudyValidateField, SupplyKind } from '../supply/index-management-lib';
+import { handleClosePolicy } from 'app/app-config/handle-close-policy';
 
 export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: string | null; study_id: string | null; id: string }>) => {
   const dispatch = useAppDispatch();
@@ -30,9 +31,7 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
   const updating = useAppSelector(state => state.strandSupply.updating);
   const updateSuccess = useAppSelector(state => state.strandSupply.updateSuccess);
   const markingTypeValues = Object.keys(MarkingType);
-  const handleClose = () => {
-    props.history.push(redirectionUrl);
-  };
+  const handleClose = () => handleClosePolicy(props);
 
   const studyValidateField = getStudyValidateField(props, studies);
 
