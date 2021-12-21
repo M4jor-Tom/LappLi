@@ -24,6 +24,8 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/:id/edit`} component={StrandSupplyUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/:id/delete`} component={StrandSupplyDeleteDialog} />
 
+      <ErrorBoundaryRoute exact path={`${match.url}/:study_id/strand/new`} component={StrandUpdate} />
+
       {/* Creating directly a Strand in a StrandSupply sub menu */}
       <ErrorBoundaryRoute exact path={`/study/:study_id/study-supplies/strand/new`} component={StrandUpdate} />
       <ErrorBoundaryRoute exact path={`/study/:study_id/study-supplies/:strand_supply_id/strand/new`} component={StrandUpdate} />

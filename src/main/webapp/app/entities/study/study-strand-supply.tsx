@@ -143,11 +143,17 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
             <Translate contentKey="entity.action.back">Back</Translate>
           </span>
         </Button>
-        &nbsp;
+        {/* &nbsp;
         <Link to={`study-supplies/new`} className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
           <FontAwesomeIcon icon="plus" />
           &nbsp;
           <Translate contentKey="lappLiApp.strandSupply.home.createLabel">Create new Strand Supply</Translate>
+        </Link>*/}
+        &nbsp;
+        <Link to={`strand/new`} className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
+          <FontAwesomeIcon icon="plus" />
+          &nbsp;
+          <Translate contentKey="lappLiApp.strand.home.createLabel">Create new Strand</Translate>
         </Link>
       </div>
     </div>
