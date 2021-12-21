@@ -145,7 +145,7 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
               >
                 {markingTypeValues.map(markingType => (
                   <option value={markingType} key={markingType}>
-                    {translate('lappLiApp.MarkingType' + markingType)}
+                    {translate('lappLiApp.MarkingType.' + markingType)}
                   </option>
                 ))}
               </ValidatedField>
