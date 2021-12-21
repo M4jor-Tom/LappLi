@@ -11,7 +11,7 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { handleClosePolicy } from 'app/app-config/handle-close-policy';
 
-export const StrandUpdate = (props: RouteComponentProps<{ id: string }>) => {
+export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
@@ -20,7 +20,12 @@ export const StrandUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const loading = useAppSelector(state => state.strand.loading);
   const updating = useAppSelector(state => state.strand.updating);
   const updateSuccess = useAppSelector(state => state.strand.updateSuccess);
-  const handleClose = () => handleClosePolicy(props);
+  const handleClose =
+    props.match.params.study_id == null
+      ? () => handleClosePolicy(props)
+      : () => {
+          props.history.push('/study/' + props.match.params.study_id + '/study-supplies/new');
+        };
 
   useEffect(() => {
     if (isNew) {
