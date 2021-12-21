@@ -10,6 +10,7 @@ import StudyDeleteDialog from './study-delete-dialog';
 import StudyStrandSupply from './study-strand-supply';
 import StrandSupplyUpdate from '../strand-supply/strand-supply-update';
 import StrandSupplyDeleteDialog from '../strand-supply/strand-supply-delete-dialog';
+import StrandUpdate from '../strand/strand-update';
 
 const Routes = ({ match }) => (
   <>
@@ -22,6 +23,10 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/new`} component={StrandSupplyUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/:id/edit`} component={StrandSupplyUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/:id/delete`} component={StrandSupplyDeleteDialog} />
+
+      {/* Creating directly a Strand in a StrandSupply sub menu */}
+      <ErrorBoundaryRoute exact path={`/study/:study_id/study-supplies/strand/new`} component={StrandUpdate} />
+      <ErrorBoundaryRoute exact path={`/study/:study_id/study-supplies/:strand_supply_id/strand/new`} component={StrandUpdate} />
 
       <ErrorBoundaryRoute path={match.url} component={Study} />
     </Switch>
