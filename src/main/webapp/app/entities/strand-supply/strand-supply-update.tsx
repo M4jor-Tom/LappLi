@@ -139,6 +139,7 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
                 data-cy="strand"
                 label={translate('lappLiApp.strandSupply.strand')}
                 type="select"
+                value={strands ? strands.length : ''}
                 required
               >
                 <option value="" key="0" />
