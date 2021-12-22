@@ -87,7 +87,7 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                         </td>
                         <td className="text-right">
                           <div className="btn-group flex-btn-group-container">
-                            <Button
+                            {/* <Button
                               tag={Link}
                               to={`/strand-supply/${strandSupply.id}`}
                               color="info"
@@ -98,7 +98,7 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                               <span className="d-none d-md-inline">
                                 <Translate contentKey="entity.action.view">View</Translate>
                               </span>
-                            </Button>
+                            </Button>*/}
                             <Button
                               tag={Link}
                               to={`/strand-supply/${strandSupply.id}/edit`}
