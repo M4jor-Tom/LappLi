@@ -2,9 +2,8 @@ package com.muller.lappli.service.abstracts;
 
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import com.muller.lappli.service.LifterService;
-import com.muller.lappli.service.ReadTriggerableService;
 
-public abstract class AbstractLiftedSupplyServiceImpl<T extends AbstractLiftedSupply> { // implements ReadTriggerableService<T> {
+public abstract class AbstractLiftedSupplyServiceImpl<T extends AbstractLiftedSupply> {
 
     LifterService lifterService;
 
@@ -12,7 +11,6 @@ public abstract class AbstractLiftedSupplyServiceImpl<T extends AbstractLiftedSu
         this.lifterService = lifterService;
     }
 
-    //@Override
     public T onRead(T domainObject) {
         domainObject.setBestLifterList(lifterService.findBestLifterList(domainObject));
 
