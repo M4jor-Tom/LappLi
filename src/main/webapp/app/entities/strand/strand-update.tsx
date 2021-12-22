@@ -4,6 +4,8 @@ import { Button, Row, Col, FormText } from 'reactstrap';
 import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { ICentralAssembly } from 'app/shared/model/central-assembly.model';
+import { getEntities as getCentralAssemblies } from 'app/entities/central-assembly/central-assembly.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './strand.reducer';
 import { IStrand } from 'app/shared/model/strand.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -16,6 +18,7 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
+  const centralAssemblies = useAppSelector(state => state.centralAssembly.entities);
   const strandEntity = useAppSelector(state => state.strand.entity);
   const loading = useAppSelector(state => state.strand.loading);
   const updating = useAppSelector(state => state.strand.updating);
@@ -33,6 +36,8 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
     } else {
       dispatch(getEntity(props.match.params.id));
     }
+
+    dispatch(getCentralAssemblies({}));
   }, []);
 
   useEffect(() => {
@@ -45,6 +50,7 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
     const entity = {
       ...strandEntity,
       ...values,
+      centralAssembly: centralAssemblies.find(it => it.id.toString() === values.centralAssembly.toString()),
     };
 
     if (isNew) {
@@ -59,6 +65,7 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
       ? {}
       : {
           ...strandEntity,
+          centralAssembly: strandEntity?.centralAssembly?.id,
         };
 
   return (
@@ -96,6 +103,22 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
               />
+              <ValidatedField
+                id="strand-centralAssembly"
+                name="centralAssembly"
+                data-cy="centralAssembly"
+                label={translate('lappLiApp.strand.centralAssembly')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {centralAssemblies
+                  ? centralAssemblies.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.productionStep}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" onClick={props.history.goBack} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

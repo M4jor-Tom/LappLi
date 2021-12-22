@@ -1,0 +1,25 @@
+{
+  "lappLiApp": {
+    "intersticeAssembly": {
+      "home": {
+        "title": "IntersticeAssemblies",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Interstice Assembly",
+        "createOrEditLabel": "Créer ou éditer un Interstice Assembly",
+        "notFound": "Aucun Interstice Assembly trouvé"
+      },
+      "created": "Un nouveau Interstice Assembly a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Interstice Assembly avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Interstice Assembly avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Interstice Assembly {{ id }} ?"
+      },
+      "detail": {
+        "title": "Interstice Assembly"
+      },
+      "id": "ID",
+      "productionStep": "Production Step",
+      "strand": "Strand"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "lappLiApp": {
+    "centralAssembly": {
+      "home": {
+        "title": "CentralAssemblies",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Central Assembly",
+        "createOrEditLabel": "Créer ou éditer un Central Assembly",
+        "notFound": "Aucun Central Assembly trouvé"
+      },
+      "created": "Un nouveau Central Assembly a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Central Assembly avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Central Assembly avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Central Assembly {{ id }} ?"
+      },
+      "detail": {
+        "title": "Central Assembly"
+      },
+      "id": "ID",
+      "productionStep": "Production Step",
+      "strand": "Strand"
+    }
+  }
+}

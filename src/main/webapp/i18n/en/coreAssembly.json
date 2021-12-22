@@ -1,0 +1,27 @@
+{
+  "lappLiApp": {
+    "coreAssembly": {
+      "home": {
+        "title": "Core Assemblies",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Core Assembly",
+        "createOrEditLabel": "Create or edit a Core Assembly",
+        "notFound": "No Core Assemblies found"
+      },
+      "created": "A new Core Assembly is created with identifier {{ param }}",
+      "updated": "A Core Assembly is updated with identifier {{ param }}",
+      "deleted": "A Core Assembly is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Core Assembly {{ id }}?"
+      },
+      "detail": {
+        "title": "Core Assembly"
+      },
+      "id": "ID",
+      "productionStep": "Production Step",
+      "assemblyStep": "Assembly Step",
+      "assemblyMean": "Assembly Mean",
+      "strand": "Strand"
+    }
+  }
+}

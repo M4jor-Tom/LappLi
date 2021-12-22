@@ -61,8 +61,11 @@
       "OneStudySupply",
       "Study",
       "StrandSupply",
-      "UserData"
+      "UserData",
+      "CentralAssembly",
+      "CoreAssembly",
+      "IntersticeAssembly"
     ],
-    "lastLiquibaseTimestamp": 1640018734000
+    "lastLiquibaseTimestamp": 1640187510000
   }
 }

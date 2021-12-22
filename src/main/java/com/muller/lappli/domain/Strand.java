@@ -28,6 +28,21 @@ public class Strand implements Serializable {
     @Column(name = "designation", nullable = false)
     private String designation;
 
+    @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
+    @OneToOne
+    @JoinColumn(unique = true)
+    private CentralAssembly centralAssembly;
+
+    @OneToMany(mappedBy = "strand")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
+    private Set<CoreAssembly> coreAssemblies = new HashSet<>();
+
+    @OneToMany(mappedBy = "strand")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
+    private Set<IntersticeAssembly> intersticialAssemblies = new HashSet<>();
+
     @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
     //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
@@ -74,6 +89,81 @@ public class Strand implements Serializable {
 
     public void setDesignation(String designation) {
         this.designation = designation;
+    }
+
+    public CentralAssembly getCentralAssembly() {
+        return this.centralAssembly;
+    }
+
+    public void setCentralAssembly(CentralAssembly centralAssembly) {
+        this.centralAssembly = centralAssembly;
+    }
+
+    public Strand centralAssembly(CentralAssembly centralAssembly) {
+        this.setCentralAssembly(centralAssembly);
+        return this;
+    }
+
+    public Set<CoreAssembly> getCoreAssemblies() {
+        return this.coreAssemblies;
+    }
+
+    public void setCoreAssemblies(Set<CoreAssembly> coreAssemblies) {
+        if (this.coreAssemblies != null) {
+            this.coreAssemblies.forEach(i -> i.setStrand(null));
+        }
+        if (coreAssemblies != null) {
+            coreAssemblies.forEach(i -> i.setStrand(this));
+        }
+        this.coreAssemblies = coreAssemblies;
+    }
+
+    public Strand coreAssemblies(Set<CoreAssembly> coreAssemblies) {
+        this.setCoreAssemblies(coreAssemblies);
+        return this;
+    }
+
+    public Strand addCoreAssemblies(CoreAssembly coreAssembly) {
+        this.coreAssemblies.add(coreAssembly);
+        coreAssembly.setStrand(this);
+        return this;
+    }
+
+    public Strand removeCoreAssemblies(CoreAssembly coreAssembly) {
+        this.coreAssemblies.remove(coreAssembly);
+        coreAssembly.setStrand(null);
+        return this;
+    }
+
+    public Set<IntersticeAssembly> getIntersticialAssemblies() {
+        return this.intersticialAssemblies;
+    }
+
+    public void setIntersticialAssemblies(Set<IntersticeAssembly> intersticeAssemblies) {
+        if (this.intersticialAssemblies != null) {
+            this.intersticialAssemblies.forEach(i -> i.setStrand(null));
+        }
+        if (intersticeAssemblies != null) {
+            intersticeAssemblies.forEach(i -> i.setStrand(this));
+        }
+        this.intersticialAssemblies = intersticeAssemblies;
+    }
+
+    public Strand intersticialAssemblies(Set<IntersticeAssembly> intersticeAssemblies) {
+        this.setIntersticialAssemblies(intersticeAssemblies);
+        return this;
+    }
+
+    public Strand addIntersticialAssemblies(IntersticeAssembly intersticeAssembly) {
+        this.intersticialAssemblies.add(intersticeAssembly);
+        intersticeAssembly.setStrand(this);
+        return this;
+    }
+
+    public Strand removeIntersticialAssemblies(IntersticeAssembly intersticeAssembly) {
+        this.intersticialAssemblies.remove(intersticeAssembly);
+        intersticeAssembly.setStrand(null);
+        return this;
     }
 
     public Set<ElementSupply> getElementSupplies() {

@@ -1,0 +1,29 @@
+{
+  "name": "IntersticeAssembly",
+  "fields": [
+    {
+      "fieldName": "productionStep",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "strand",
+      "otherEntityRelationshipName": "intersticialAssemblies",
+      "relationshipValidateRules": "required",
+      "relationshipName": "strand"
+    }
+  ],
+  "entityTableName": "interstice_assembly",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211222153830"
+}

@@ -1,0 +1,30 @@
+{
+  "name": "CentralAssembly",
+  "fields": [
+    {
+      "fieldName": "productionStep",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "strand",
+      "otherEntityRelationshipName": "centralAssembly",
+      "relationshipValidateRules": "required",
+      "relationshipName": "strand",
+      "ownerSide": false
+    }
+  ],
+  "entityTableName": "central_assembly",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211222153828"
+}

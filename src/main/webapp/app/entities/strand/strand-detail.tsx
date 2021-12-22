@@ -35,6 +35,10 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
             </span>
           </dt>
           <dd>{strandEntity.designation}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.strand.centralAssembly">Central Assembly</Translate>
+          </dt>
+          <dd>{strandEntity.centralAssembly ? strandEntity.centralAssembly.productionStep : ''}</dd>
         </dl>
         <Button tag={Link} to={`/strand/${strandEntity.id}/supply`} replace color="primary">
           <FontAwesomeIcon icon="pencil-alt" />{' '}

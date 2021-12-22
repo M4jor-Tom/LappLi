@@ -9,6 +9,28 @@
   ],
   "relationships": [
     {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "centralAssembly",
+      "otherEntityRelationshipName": "strand",
+      "relationshipName": "centralAssembly",
+      "otherEntityField": "productionStep",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "coreAssembly",
+      "otherEntityRelationshipName": "strand",
+      "relationshipName": "coreAssemblies",
+      "otherEntityField": "productionStep"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "intersticeAssembly",
+      "otherEntityRelationshipName": "strand",
+      "relationshipName": "intersticialAssemblies",
+      "otherEntityField": "productionStep"
+    },
+    {
       "relationshipType": "one-to-many",
       "otherEntityName": "elementSupply",
       "otherEntityRelationshipName": "strand",
