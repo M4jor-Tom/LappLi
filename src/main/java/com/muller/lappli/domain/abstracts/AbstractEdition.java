@@ -2,11 +2,13 @@ package com.muller.lappli.domain.abstracts;
 
 import com.muller.lappli.domain.interfaces.Commitable;
 import java.time.Instant;
+import javax.persistence.MappedSuperclass;
 
 /**
  * This abstract class must be extends by domain edition classes
  * to edit domain objects of the type parameter class
  */
+@MappedSuperclass
 public abstract class AbstractEdition<C extends Commitable<C>> {
 
     public AbstractEdition() {

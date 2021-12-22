@@ -7,7 +7,9 @@ import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import java.util.Comparator;
+import javax.persistence.MappedSuperclass;
 
+@MappedSuperclass
 public abstract class AbstractMarkedLiftedSupply extends AbstractLiftedSupply {
 
     public abstract Material getSurfaceMaterial();
