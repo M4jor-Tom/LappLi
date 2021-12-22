@@ -34,12 +34,12 @@ public class Strand implements Serializable {
     private CentralAssembly centralAssembly;
 
     @OneToMany(mappedBy = "strand")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
     private Set<CoreAssembly> coreAssemblies = new HashSet<>();
 
     @OneToMany(mappedBy = "strand")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
     private Set<IntersticeAssembly> intersticialAssemblies = new HashSet<>();
 
