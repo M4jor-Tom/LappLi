@@ -40,7 +40,7 @@ public class Strand implements Serializable {
 
     @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
     //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "element", "strand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
     private Set<ElementSupply> elementSupplies = new HashSet<>();
 
     @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)

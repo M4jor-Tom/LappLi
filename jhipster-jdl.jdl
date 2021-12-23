@@ -1,4 +1,4 @@
-filter * except ElementKind, Element, ElementSupply, BangleSupply, CustomComponentSupply
+filter * except ElementKind, Element, ElementSupply, BangleSupply, CustomComponentSupply, LifterRunMeasure
 
 service * with serviceImpl
 
