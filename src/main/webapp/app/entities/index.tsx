@@ -22,6 +22,9 @@ import OneStudySupply from './one-study-supply';
 import Study from './study';
 import StrandSupply from './strand-supply';
 import UserData from './user-data';
+import CentralAssembly from './central-assembly';
+import CoreAssembly from './core-assembly';
+import IntersticeAssembly from './interstice-assembly';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -46,6 +49,9 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}study`} component={Study} />
       <ErrorBoundaryRoute path={`${match.url}strand-supply`} component={StrandSupply} />
       <ErrorBoundaryRoute path={`${match.url}user-data`} component={UserData} />
+      <ErrorBoundaryRoute path={`${match.url}central-assembly`} component={CentralAssembly} />
+      <ErrorBoundaryRoute path={`${match.url}core-assembly`} component={CoreAssembly} />
+      <ErrorBoundaryRoute path={`${match.url}interstice-assembly`} component={IntersticeAssembly} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>

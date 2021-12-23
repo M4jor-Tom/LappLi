@@ -1,0 +1,27 @@
+{
+  "lappLiApp": {
+    "coreAssembly": {
+      "home": {
+        "title": "Core Assemblies",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Core Assembly erstellen",
+        "createOrEditLabel": "Core Assembly erstellen oder bearbeiten",
+        "notFound": "Keine Core Assemblies gefunden"
+      },
+      "created": "Core Assembly erstellt mit ID {{ param }}",
+      "updated": "Core Assembly aktualisiert mit ID {{ param }}",
+      "deleted": "Core Assembly gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Core Assembly {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Core Assembly"
+      },
+      "id": "ID",
+      "productionStep": "Production Step",
+      "assemblyStep": "Assembly Step",
+      "assemblyMean": "Assembly Mean",
+      "strand": "Strand"
+    }
+  }
+}

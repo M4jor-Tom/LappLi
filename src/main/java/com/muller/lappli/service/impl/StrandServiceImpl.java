@@ -5,6 +5,8 @@ import com.muller.lappli.repository.StrandRepository;
 import com.muller.lappli.service.StrandService;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -52,6 +54,19 @@ public class StrandServiceImpl implements StrandService {
     public List<Strand> findAll() {
         log.debug("Request to get all Strands");
         return strandRepository.findAll();
+    }
+
+    /**
+     *  Get all the strands where CentralAssembly is {@code null}.
+     *  @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<Strand> findAllWhereCentralAssemblyIsNull() {
+        log.debug("Request to get all strands where CentralAssembly is null");
+        return StreamSupport
+            .stream(strandRepository.findAll().spliterator(), false)
+            .filter(strand -> strand.getCentralAssembly() == null)
+            .collect(Collectors.toList());
     }
 
     @Override

@@ -4,6 +4,8 @@ import { Button, Row, Col, FormText } from 'reactstrap';
 import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { ICentralAssembly } from 'app/shared/model/central-assembly.model';
+import { getEntities as getCentralAssemblies } from 'app/entities/central-assembly/central-assembly.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './strand.reducer';
 import { IStrand } from 'app/shared/model/strand.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -16,6 +18,7 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
+  const centralAssemblies = useAppSelector(state => state.centralAssembly.entities);
   const strandEntity = useAppSelector(state => state.strand.entity);
   const loading = useAppSelector(state => state.strand.loading);
   const updating = useAppSelector(state => state.strand.updating);
@@ -33,6 +36,8 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
     } else {
       dispatch(getEntity(props.match.params.id));
     }
+
+    dispatch(getCentralAssemblies({}));
   }, []);
 
   useEffect(() => {

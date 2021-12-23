@@ -99,6 +99,9 @@ class UserDataResourceIT {
         List<UserData> userDataList = userDataRepository.findAll();
         assertThat(userDataList).hasSize(databaseSizeBeforeCreate + 1);
         UserData testUserData = userDataList.get(userDataList.size() - 1);
+
+        // Validate the id for MapsId, the ids must be same
+        assertThat(testUserData.getId()).isEqualTo(testUserData.getUser().getId());
     }
 
     @Test
@@ -117,6 +120,46 @@ class UserDataResourceIT {
         // Validate the UserData in the database
         List<UserData> userDataList = userDataRepository.findAll();
         assertThat(userDataList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    void updateUserDataMapsIdAssociationWithNewId() throws Exception {
+        // Initialize the database
+        userDataRepository.saveAndFlush(userData);
+        int databaseSizeBeforeCreate = userDataRepository.findAll().size();
+
+        // Add a new parent entity
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+        em.flush();
+
+        // Load the userData
+        UserData updatedUserData = userDataRepository.findById(userData.getId()).get();
+        assertThat(updatedUserData).isNotNull();
+        // Disconnect from session so that the updates on updatedUserData are not directly saved in db
+        em.detach(updatedUserData);
+
+        // Update the User with new association value
+        updatedUserData.setUser(user);
+
+        // Update the entity
+        restUserDataMockMvc
+            .perform(
+                put(ENTITY_API_URL_ID, updatedUserData.getId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(updatedUserData))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the UserData in the database
+        List<UserData> userDataList = userDataRepository.findAll();
+        assertThat(userDataList).hasSize(databaseSizeBeforeCreate);
+        UserData testUserData = userDataList.get(userDataList.size() - 1);
+        // Validate the id for MapsId, the ids must be same
+        // Uncomment the following line for assertion. However, please note that there is a known issue and uncommenting will fail the test.
+        // Please look at https://github.com/jhipster/generator-jhipster/issues/9100. You can modify this test as necessary.
+        // assertThat(testUserData.getId()).isEqualTo(testUserData.getUser().getId());
     }
 
     @Test

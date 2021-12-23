@@ -2,6 +2,20 @@ filter * except ElementKind, Element, ElementSupply, BangleSupply, CustomCompone
 
 service * with serviceImpl
 
+entity CentralAssembly {
+	productionStep Long required
+}
+
+entity CoreAssembly {
+	productionStep Long required
+	assemblyStep Double required
+    assemblyMean AssemblyMean required
+}
+
+entity IntersticeAssembly {
+	productionStep Long required
+}
+
 entity Strand {
     designation String required
 }
@@ -119,7 +133,16 @@ entity UserData {
 }
 
 relationship OneToOne {
-	UserData{user(login) required} to User
+	CentralAssembly{strand(designation) required} to Strand{centralAssembly(productionStep)} with jpaDerivedIdentifier
+}
+
+relationship OneToMany {
+	Strand{coreAssemblies(productionStep)} to CoreAssembly{strand(designation) required}
+	Strand{intersticialAssemblies(productionStep)} to IntersticeAssembly{strand(designation) required}
+}
+
+relationship OneToOne {
+	UserData{user(login) required} to User with jpaDerivedIdentifier
 }
 
 relationship OneToMany {
@@ -187,6 +210,12 @@ relationship ManyToOne {
 
 relationship ManyToOne {
 	ElementKind{insulationMaterial(designation) required} to Material
+}
+
+enum AssemblyMean {
+	RIGHT,
+    LEFT,
+    STRAIGHT
 }
 
 enum MarkingType {

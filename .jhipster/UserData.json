@@ -9,7 +9,9 @@
       "relationshipValidateRules": "required",
       "relationshipName": "user",
       "otherEntityField": "login",
-      "ownerSide": true
+      "ownerSide": true,
+      "useJPADerivedIdentifier": true,
+      "id": true
     },
     {
       "relationshipType": "one-to-many",
