@@ -14,7 +14,10 @@
       "otherEntityRelationshipName": "centralAssembly",
       "relationshipValidateRules": "required",
       "relationshipName": "strand",
-      "ownerSide": false
+      "otherEntityField": "designation",
+      "ownerSide": true,
+      "useJPADerivedIdentifier": true,
+      "id": true
     }
   ],
   "entityTableName": "central_assembly",

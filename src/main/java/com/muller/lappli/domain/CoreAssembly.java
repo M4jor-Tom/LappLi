@@ -40,13 +40,13 @@ public class CoreAssembly implements Serializable {
     @NotNull
     @JsonIgnoreProperties(
         value = {
-            "centralAssembly",
             "coreAssemblies",
             "intersticialAssemblies",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",
             "oneStudySupplies",
+            "centralAssembly",
         },
         allowSetters = true
     )

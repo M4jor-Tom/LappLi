@@ -18,7 +18,6 @@ public class CentralAssembly implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -28,17 +27,20 @@ public class CentralAssembly implements Serializable {
 
     @JsonIgnoreProperties(
         value = {
-            "centralAssembly",
             "coreAssemblies",
             "intersticialAssemblies",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",
             "oneStudySupplies",
+            "centralAssembly",
         },
         allowSetters = true
     )
-    @OneToOne(mappedBy = "centralAssembly")
+    @OneToOne(optional = false)
+    @NotNull
+    @MapsId
+    @JoinColumn(name = "id")
     private Strand strand;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -74,12 +76,6 @@ public class CentralAssembly implements Serializable {
     }
 
     public void setStrand(Strand strand) {
-        if (this.strand != null) {
-            this.strand.setCentralAssembly(null);
-        }
-        if (strand != null) {
-            strand.setCentralAssembly(this);
-        }
         this.strand = strand;
     }
 

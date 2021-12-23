@@ -3,6 +3,7 @@ package com.muller.lappli.service.impl;
 import com.muller.lappli.domain.User;
 import com.muller.lappli.domain.UserData;
 import com.muller.lappli.repository.UserDataRepository;
+import com.muller.lappli.repository.UserRepository;
 import com.muller.lappli.service.UserDataService;
 import java.util.List;
 import java.util.Optional;
@@ -22,13 +23,18 @@ public class UserDataServiceImpl implements UserDataService {
 
     private final UserDataRepository userDataRepository;
 
-    public UserDataServiceImpl(UserDataRepository userDataRepository) {
+    private final UserRepository userRepository;
+
+    public UserDataServiceImpl(UserDataRepository userDataRepository, UserRepository userRepository) {
         this.userDataRepository = userDataRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
     public UserData save(UserData userData) {
         log.debug("Request to save UserData : {}", userData);
+        Long userId = userData.getUser().getId();
+        userRepository.findById(userId).ifPresent(userData::user);
         return userDataRepository.save(userData);
     }
 

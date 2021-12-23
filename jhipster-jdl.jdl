@@ -133,16 +133,16 @@ entity UserData {
 }
 
 relationship OneToOne {
-	Strand{centralAssembly(productionStep)} to CentralAssembly{strand required}
+	CentralAssembly{strand(designation) required} to Strand{centralAssembly(productionStep)} with jpaDerivedIdentifier
 }
 
 relationship OneToMany {
-	Strand{coreAssemblies(productionStep)} to CoreAssembly{strand required}
-	Strand{intersticialAssemblies(productionStep)} to IntersticeAssembly{strand required}
+	Strand{coreAssemblies(productionStep)} to CoreAssembly{strand(designation) required}
+	Strand{intersticialAssemblies(productionStep)} to IntersticeAssembly{strand(designation) required}
 }
 
 relationship OneToOne {
-	UserData{user(login) required} to User
+	UserData{user(login) required} to User with jpaDerivedIdentifier
 }
 
 relationship OneToMany {

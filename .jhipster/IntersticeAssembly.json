@@ -13,7 +13,8 @@
       "otherEntityName": "strand",
       "otherEntityRelationshipName": "intersticialAssemblies",
       "relationshipValidateRules": "required",
-      "relationshipName": "strand"
+      "relationshipName": "strand",
+      "otherEntityField": "designation"
     }
   ],
   "entityTableName": "interstice_assembly",

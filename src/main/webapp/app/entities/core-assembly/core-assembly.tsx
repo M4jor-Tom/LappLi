@@ -77,7 +77,9 @@ export const CoreAssembly = (props: RouteComponentProps<{ url: string }>) => {
                   <td>
                     <Translate contentKey={`lappLiApp.AssemblyMean.${coreAssembly.assemblyMean}`} />
                   </td>
-                  <td>{coreAssembly.strand ? <Link to={`strand/${coreAssembly.strand.id}`}>{coreAssembly.strand.id}</Link> : ''}</td>
+                  <td>
+                    {coreAssembly.strand ? <Link to={`strand/${coreAssembly.strand.id}`}>{coreAssembly.strand.designation}</Link> : ''}
+                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${coreAssembly.id}`} color="info" size="sm" data-cy="entityDetailsButton">

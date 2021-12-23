@@ -64,6 +64,9 @@ public class UserDataResource {
         if (userData.getId() != null) {
             throw new BadRequestAlertException("A new userData cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        if (Objects.isNull(userData.getUser())) {
+            throw new BadRequestAlertException("Invalid association value provided", ENTITY_NAME, "null");
+        }
         UserData result = userDataService.save(userData);
         return ResponseEntity
             .created(new URI("/api/user-data/" + result.getId()))

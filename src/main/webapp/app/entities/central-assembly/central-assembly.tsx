@@ -52,6 +52,9 @@ export const CentralAssembly = (props: RouteComponentProps<{ url: string }>) => 
                 <th>
                   <Translate contentKey="lappLiApp.centralAssembly.productionStep">Production Step</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="lappLiApp.centralAssembly.strand">Strand</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -64,6 +67,13 @@ export const CentralAssembly = (props: RouteComponentProps<{ url: string }>) => 
                     </Button>
                   </td>
                   <td>{centralAssembly.productionStep}</td>
+                  <td>
+                    {centralAssembly.strand ? (
+                      <Link to={`strand/${centralAssembly.strand.id}`}>{centralAssembly.strand.designation}</Link>
+                    ) : (
+                      ''
+                    )}
+                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${centralAssembly.id}`} color="info" size="sm" data-cy="entityDetailsButton">

@@ -28,11 +28,7 @@ public class Strand implements Serializable {
     @Column(name = "designation", nullable = false)
     private String designation;
 
-    @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
-    @OneToOne
-    @JoinColumn(unique = true)
-    private CentralAssembly centralAssembly;
-
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
     //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
@@ -64,6 +60,9 @@ public class Strand implements Serializable {
     private Set<OneStudySupply> oneStudySupplies = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+    @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
+    @OneToOne(mappedBy = "strand")
+    private CentralAssembly centralAssembly;
 
     public Long getId() {
         return this.id;
@@ -89,19 +88,6 @@ public class Strand implements Serializable {
 
     public void setDesignation(String designation) {
         this.designation = designation;
-    }
-
-    public CentralAssembly getCentralAssembly() {
-        return this.centralAssembly;
-    }
-
-    public void setCentralAssembly(CentralAssembly centralAssembly) {
-        this.centralAssembly = centralAssembly;
-    }
-
-    public Strand centralAssembly(CentralAssembly centralAssembly) {
-        this.setCentralAssembly(centralAssembly);
-        return this;
     }
 
     public Set<CoreAssembly> getCoreAssemblies() {
@@ -291,6 +277,24 @@ public class Strand implements Serializable {
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+    public CentralAssembly getCentralAssembly() {
+        return this.centralAssembly;
+    }
+
+    public void setCentralAssembly(CentralAssembly centralAssembly) {
+        if (this.centralAssembly != null) {
+            this.centralAssembly.setStrand(null);
+        }
+        if (centralAssembly != null) {
+            centralAssembly.setStrand(this);
+        }
+        this.centralAssembly = centralAssembly;
+    }
+
+    public Strand centralAssembly(CentralAssembly centralAssembly) {
+        this.setCentralAssembly(centralAssembly);
+        return this;
+    }
 
     @Override
     public boolean equals(Object o) {

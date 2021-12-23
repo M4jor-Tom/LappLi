@@ -139,7 +139,7 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ id: string }>) =
                 {strands
                   ? strands.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {otherEntity.designation}
                       </option>
                     ))
                   : null}

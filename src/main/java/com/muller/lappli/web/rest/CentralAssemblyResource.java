@@ -11,7 +11,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -65,6 +64,9 @@ public class CentralAssemblyResource {
         log.debug("REST request to save CentralAssembly : {}", centralAssembly);
         if (centralAssembly.getId() != null) {
             throw new BadRequestAlertException("A new centralAssembly cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        if (Objects.isNull(centralAssembly.getStrand())) {
+            throw new BadRequestAlertException("Invalid association value provided", ENTITY_NAME, "null");
         }
         CentralAssembly result = centralAssemblyService.save(centralAssembly);
         return ResponseEntity

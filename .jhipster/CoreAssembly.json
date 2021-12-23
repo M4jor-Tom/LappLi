@@ -24,7 +24,8 @@
       "otherEntityName": "strand",
       "otherEntityRelationshipName": "coreAssemblies",
       "relationshipValidateRules": "required",
-      "relationshipName": "strand"
+      "relationshipName": "strand",
+      "otherEntityField": "designation"
     }
   ],
   "entityTableName": "core_assembly",

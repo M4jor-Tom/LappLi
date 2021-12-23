@@ -20,13 +20,13 @@ public class UserData implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
     @OneToOne(optional = false)
     @NotNull
-    @JoinColumn(unique = true)
+    @MapsId
+    @JoinColumn(name = "id")
     private User user;
 
     @OneToMany(mappedBy = "author")

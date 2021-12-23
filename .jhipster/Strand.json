@@ -9,14 +9,6 @@
   ],
   "relationships": [
     {
-      "relationshipType": "one-to-one",
-      "otherEntityName": "centralAssembly",
-      "otherEntityRelationshipName": "strand",
-      "relationshipName": "centralAssembly",
-      "otherEntityField": "productionStep",
-      "ownerSide": true
-    },
-    {
       "relationshipType": "one-to-many",
       "otherEntityName": "coreAssembly",
       "otherEntityRelationshipName": "strand",
@@ -57,6 +49,14 @@
       "otherEntityRelationshipName": "strand",
       "relationshipName": "oneStudySupplies",
       "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "centralAssembly",
+      "otherEntityRelationshipName": "strand",
+      "relationshipName": "centralAssembly",
+      "otherEntityField": "productionStep",
+      "ownerSide": false
     }
   ],
   "entityTableName": "strand",

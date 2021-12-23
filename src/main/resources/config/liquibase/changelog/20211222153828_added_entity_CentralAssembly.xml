@@ -11,7 +11,7 @@
     -->
     <changeSet id="20211222153828-1" author="jhipster">
         <createTable tableName="central_assembly">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="production_step" type="bigint">

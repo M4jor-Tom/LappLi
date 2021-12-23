@@ -30,12 +30,6 @@ public interface CentralAssemblyService {
      * @return the list of entities.
      */
     List<CentralAssembly> findAll();
-    /**
-     * Get all the CentralAssembly where Strand is {@code null}.
-     *
-     * @return the {@link List} of entities.
-     */
-    List<CentralAssembly> findAllWhereStrandIsNull();
 
     /**
      * Get the "id" centralAssembly.

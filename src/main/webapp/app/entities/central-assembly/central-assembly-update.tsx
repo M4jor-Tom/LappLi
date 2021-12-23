@@ -46,6 +46,7 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ id: string }>
     const entity = {
       ...centralAssemblyEntity,
       ...values,
+      strand: strands.find(it => it.id.toString() === values.strand.toString()),
     };
 
     if (isNew) {
@@ -60,6 +61,7 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ id: string }>
       ? {}
       : {
           ...centralAssemblyEntity,
+          strand: centralAssemblyEntity?.strand?.id,
         };
 
   return (
@@ -98,6 +100,26 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ id: string }>
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
               />
+              <ValidatedField
+                id="central-assembly-strand"
+                name="strand"
+                data-cy="strand"
+                label={translate('lappLiApp.centralAssembly.strand')}
+                type="select"
+                required
+              >
+                <option value="" key="0" />
+                {strands
+                  ? strands.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.designation}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/central-assembly" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

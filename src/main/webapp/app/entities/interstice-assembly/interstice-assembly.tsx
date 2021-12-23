@@ -69,7 +69,7 @@ export const IntersticeAssembly = (props: RouteComponentProps<{ url: string }>) 
                   <td>{intersticeAssembly.productionStep}</td>
                   <td>
                     {intersticeAssembly.strand ? (
-                      <Link to={`strand/${intersticeAssembly.strand.id}`}>{intersticeAssembly.strand.id}</Link>
+                      <Link to={`strand/${intersticeAssembly.strand.id}`}>{intersticeAssembly.strand.designation}</Link>
                     ) : (
                       ''
                     )}

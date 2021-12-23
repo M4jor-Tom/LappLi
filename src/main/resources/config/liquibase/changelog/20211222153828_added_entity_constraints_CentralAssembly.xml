@@ -4,14 +4,14 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
     <!--
-        Added the constraints for entity UserData.
+        Added the constraints for entity CentralAssembly.
     -->
-    <changeSet id="20211220164534-2" author="jhipster">
+    <changeSet id="20211222153828-2" author="jhipster">
 
         <addForeignKeyConstraint baseColumnNames="id"
-                                 baseTableName="user_data"
-                                 constraintName="fk_user_data__user_id"
+                                 baseTableName="central_assembly"
+                                 constraintName="fk_central_assembly__strand_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="jhi_user"/>
+                                 referencedTableName="strand"/>
     </changeSet>
 </databaseChangeLog>

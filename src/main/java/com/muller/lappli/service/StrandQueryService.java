@@ -88,15 +88,6 @@ public class StrandQueryService extends QueryService<Strand> {
             if (criteria.getDesignation() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDesignation(), Strand_.designation));
             }
-            if (criteria.getCentralAssemblyId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getCentralAssemblyId(),
-                            root -> root.join(Strand_.centralAssembly, JoinType.LEFT).get(CentralAssembly_.id)
-                        )
-                    );
-            }
             if (criteria.getCoreAssembliesId() != null) {
                 specification =
                     specification.and(
@@ -148,6 +139,15 @@ public class StrandQueryService extends QueryService<Strand> {
                         buildSpecification(
                             criteria.getOneStudySuppliesId(),
                             root -> root.join(Strand_.oneStudySupplies, JoinType.LEFT).get(OneStudySupply_.id)
+                        )
+                    );
+            }
+            if (criteria.getCentralAssemblyId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getCentralAssemblyId(),
+                            root -> root.join(Strand_.centralAssembly, JoinType.LEFT).get(CentralAssembly_.id)
                         )
                     );
             }
