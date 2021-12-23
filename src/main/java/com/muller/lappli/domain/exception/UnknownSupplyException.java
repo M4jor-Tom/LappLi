@@ -10,7 +10,7 @@ public class UnknownSupplyException extends Exception {
         this(message, null);
     }
 
-    public UnknownSupplyException(String message, Throwable throwable) {
-        super(message, throwable);
+    public UnknownSupplyException(String message, Throwable cause) {
+        super(message, cause);
     }
 }
