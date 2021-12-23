@@ -73,8 +73,8 @@ public class CacheConfiguration {
             createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName());
             createCache(cm, com.muller.lappli.domain.UserData.class.getName());
             createCache(cm, com.muller.lappli.domain.UserData.class.getName() + ".studies");
-            //createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".coreAssemblies");
-            //createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".intersticialAssemblies");
+            createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".coreAssemblies");
+            createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".intersticialAssemblies");
             createCache(cm, com.muller.lappli.domain.CentralAssembly.class.getName());
             createCache(cm, com.muller.lappli.domain.CoreAssembly.class.getName());
             createCache(cm, com.muller.lappli.domain.IntersticeAssembly.class.getName());
