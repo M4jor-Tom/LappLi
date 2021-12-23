@@ -1,12 +1,6 @@
 {
   "name": "Strand",
-  "fields": [
-    {
-      "fieldName": "designation",
-      "fieldType": "String",
-      "fieldValidateRules": ["required"]
-    }
-  ],
+  "fields": [],
   "relationships": [
     {
       "relationshipType": "one-to-many",

@@ -91,16 +91,6 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
                   validate={{ required: true }}
                 />
               ) : null}
-              <ValidatedField
-                label={translate('lappLiApp.strand.designation')}
-                id="strand-designation"
-                name="designation"
-                data-cy="designation"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                }}
-              />
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" onClick={props.history.goBack} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

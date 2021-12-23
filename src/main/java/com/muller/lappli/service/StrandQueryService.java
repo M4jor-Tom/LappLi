@@ -85,9 +85,6 @@ public class StrandQueryService extends QueryService<Strand> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), Strand_.id));
             }
-            if (criteria.getDesignation() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getDesignation(), Strand_.designation));
-            }
             if (criteria.getCoreAssembliesId() != null) {
                 specification =
                     specification.and(

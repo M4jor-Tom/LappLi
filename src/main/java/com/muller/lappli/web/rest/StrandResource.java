@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -56,7 +54,7 @@ public class StrandResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/strands")
-    public ResponseEntity<Strand> createStrand(@Valid @RequestBody Strand strand) throws URISyntaxException {
+    public ResponseEntity<Strand> createStrand(@RequestBody Strand strand) throws URISyntaxException {
         log.debug("REST request to save Strand : {}", strand);
         if (strand.getId() != null) {
             throw new BadRequestAlertException("A new strand cannot already have an ID", ENTITY_NAME, "idexists");
@@ -79,10 +77,8 @@ public class StrandResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/strands/{id}")
-    public ResponseEntity<Strand> updateStrand(
-        @PathVariable(value = "id", required = false) final Long id,
-        @Valid @RequestBody Strand strand
-    ) throws URISyntaxException {
+    public ResponseEntity<Strand> updateStrand(@PathVariable(value = "id", required = false) final Long id, @RequestBody Strand strand)
+        throws URISyntaxException {
         log.debug("REST request to update Strand : {}, {}", id, strand);
         if (strand.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -116,7 +112,7 @@ public class StrandResource {
     @PatchMapping(value = "/strands/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<Strand> partialUpdateStrand(
         @PathVariable(value = "id", required = false) final Long id,
-        @NotNull @RequestBody Strand strand
+        @RequestBody Strand strand
     ) throws URISyntaxException {
         log.debug("REST request to partial update Strand partially : {}, {}", id, strand);
         if (strand.getId() == null) {

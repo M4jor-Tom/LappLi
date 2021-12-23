@@ -17,7 +17,7 @@ entity IntersticeAssembly {
 }
 
 entity Strand {
-    designation String required
+
 }
 
 entity Study {

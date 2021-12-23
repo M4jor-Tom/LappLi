@@ -26,9 +26,6 @@ public class Strand implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "designation", nullable = false)
-    private String designation;
-
     @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
@@ -89,16 +86,7 @@ public class Strand implements Serializable {
     }
 
     public String getDesignation() {
-        return this.designation;
-    }
-
-    public Strand designation(String designation) {
-        this.setDesignation(designation);
-        return this;
-    }
-
-    public void setDesignation(String designation) {
-        this.designation = designation;
+        return "[DESIGNATION OF " + getId() + "]";
     }
 
     public Set<CoreAssembly> getCoreAssemblies() {

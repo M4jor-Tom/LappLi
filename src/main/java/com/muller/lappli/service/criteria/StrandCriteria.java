@@ -26,8 +26,6 @@ public class StrandCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
-    private StringFilter designation;
-
     private LongFilter coreAssembliesId;
 
     private LongFilter intersticialAssembliesId;
@@ -48,7 +46,6 @@ public class StrandCriteria implements Serializable, Criteria {
 
     public StrandCriteria(StrandCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
-        this.designation = other.designation == null ? null : other.designation.copy();
         this.coreAssembliesId = other.coreAssembliesId == null ? null : other.coreAssembliesId.copy();
         this.intersticialAssembliesId = other.intersticialAssembliesId == null ? null : other.intersticialAssembliesId.copy();
         this.elementSuppliesId = other.elementSuppliesId == null ? null : other.elementSuppliesId.copy();
@@ -77,21 +74,6 @@ public class StrandCriteria implements Serializable, Criteria {
 
     public void setId(LongFilter id) {
         this.id = id;
-    }
-
-    public StringFilter getDesignation() {
-        return designation;
-    }
-
-    public StringFilter designation() {
-        if (designation == null) {
-            designation = new StringFilter();
-        }
-        return designation;
-    }
-
-    public void setDesignation(StringFilter designation) {
-        this.designation = designation;
     }
 
     public LongFilter getCoreAssembliesId() {
@@ -218,7 +200,6 @@ public class StrandCriteria implements Serializable, Criteria {
         final StrandCriteria that = (StrandCriteria) o;
         return (
             Objects.equals(id, that.id) &&
-            Objects.equals(designation, that.designation) &&
             Objects.equals(coreAssembliesId, that.coreAssembliesId) &&
             Objects.equals(intersticialAssembliesId, that.intersticialAssembliesId) &&
             Objects.equals(elementSuppliesId, that.elementSuppliesId) &&
@@ -234,7 +215,6 @@ public class StrandCriteria implements Serializable, Criteria {
     public int hashCode() {
         return Objects.hash(
             id,
-            designation,
             coreAssembliesId,
             intersticialAssembliesId,
             elementSuppliesId,
@@ -251,7 +231,6 @@ public class StrandCriteria implements Serializable, Criteria {
     public String toString() {
         return "StrandCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
-            (designation != null ? "designation=" + designation + ", " : "") +
             (coreAssembliesId != null ? "coreAssembliesId=" + coreAssembliesId + ", " : "") +
             (intersticialAssembliesId != null ? "intersticialAssembliesId=" + intersticialAssembliesId + ", " : "") +
             (elementSuppliesId != null ? "elementSuppliesId=" + elementSuppliesId + ", " : "") +

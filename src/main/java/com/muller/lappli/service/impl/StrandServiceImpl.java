@@ -40,10 +40,6 @@ public class StrandServiceImpl implements StrandService {
         return strandRepository
             .findById(strand.getId())
             .map(existingStrand -> {
-                if (strand.getDesignation() != null) {
-                    existingStrand.setDesignation(strand.getDesignation());
-                }
-
                 return existingStrand;
             })
             .map(strandRepository::save);
