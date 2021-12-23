@@ -55,6 +55,12 @@ export const IntersticeAssembly = (props: RouteComponentProps<{ url: string }>) 
                 <th>
                   <Translate contentKey="lappLiApp.intersticeAssembly.strand">Strand</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="lappLiApp.nonCentralAssembly.assemblyStep">Assembly Step</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.nonCentralAssembly.assemblyMean">Assembly Mean</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -73,6 +79,10 @@ export const IntersticeAssembly = (props: RouteComponentProps<{ url: string }>) 
                     ) : (
                       ''
                     )}
+                  </td>
+                  <td>{intersticeAssembly.assemblyStep}</td>
+                  <td>
+                    <Translate contentKey={'lappLiApp.AssemblyMean.' + intersticeAssembly.assemblyMean} />
                   </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

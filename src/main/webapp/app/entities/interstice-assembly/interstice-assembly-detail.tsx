@@ -39,6 +39,14 @@ export const IntersticeAssemblyDetail = (props: RouteComponentProps<{ id: string
             <Translate contentKey="lappLiApp.intersticeAssembly.strand">Strand</Translate>
           </dt>
           <dd>{intersticeAssemblyEntity.strand ? intersticeAssemblyEntity.strand.designation : ''}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.nonCentralAssembly.assemblyStep">Assembly Step</Translate>
+          </dt>
+          <dd>{intersticeAssemblyEntity.assemblyStep}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.nonCentralAssembly.assemblyMean">Assembly Mean</Translate>
+          </dt>
+          <dd>{intersticeAssemblyEntity.assemblyMean}</dd>
         </dl>
         <Button tag={Link} to="/interstice-assembly" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

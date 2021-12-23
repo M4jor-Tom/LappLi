@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.exception.NoIntersticeAvailableException;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,7 +29,7 @@ public class Strand implements Serializable {
     @Column(name = "designation", nullable = false)
     private String designation;
 
-    @OneToMany(mappedBy = "strand")
+    @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
     private Set<CoreAssembly> coreAssemblies = new HashSet<>();
@@ -61,6 +62,16 @@ public class Strand implements Serializable {
     @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
     @OneToOne(mappedBy = "strand")
     private CentralAssembly centralAssembly;
+
+    public CoreAssembly getLastCoreAssembly() {
+        CoreAssembly lastCoreAssembly = null;
+
+        for (CoreAssembly coreAssembly : getCoreAssemblies()) {
+            lastCoreAssembly = coreAssembly;
+        }
+
+        return lastCoreAssembly;
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -125,7 +136,10 @@ public class Strand implements Serializable {
         return this.intersticialAssemblies;
     }
 
-    public void setIntersticialAssemblies(Set<IntersticeAssembly> intersticeAssemblies) {
+    public void setIntersticialAssemblies(Set<IntersticeAssembly> intersticeAssemblies) throws NoIntersticeAvailableException {
+        if (getCoreAssemblies() == null) {
+            throw new NoIntersticeAvailableException("No CoreAssembly found in strand");
+        }
         if (this.intersticialAssemblies != null) {
             this.intersticialAssemblies.forEach(i -> i.setStrand(null));
         }
@@ -135,7 +149,7 @@ public class Strand implements Serializable {
         this.intersticialAssemblies = intersticeAssemblies;
     }
 
-    public Strand intersticialAssemblies(Set<IntersticeAssembly> intersticeAssemblies) {
+    public Strand intersticialAssemblies(Set<IntersticeAssembly> intersticeAssemblies) throws NoIntersticeAvailableException {
         this.setIntersticialAssemblies(intersticeAssemblies);
         return this;
     }

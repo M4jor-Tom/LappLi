@@ -1,11 +1,8 @@
 import { IStrand } from 'app/shared/model/strand.model';
-import { AssemblyMean } from 'app/shared/model/enumerations/assembly-mean.model';
+import { IAbstractNonCentralAssembly } from './abstract-non-central-assembly.model';
 
-export interface ICoreAssembly {
+export interface ICoreAssembly extends IAbstractNonCentralAssembly {
   id?: number;
-  productionStep?: number;
-  assemblyStep?: number;
-  assemblyMean?: AssemblyMean;
   strand?: IStrand;
 }
 

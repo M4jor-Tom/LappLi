@@ -1,6 +1,8 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
+import com.muller.lappli.domain.enumeration.AssemblyMean;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -13,7 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "interstice_assembly")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class IntersticeAssembly implements Serializable {
+public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAssembly> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,25 +24,38 @@ public class IntersticeAssembly implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @NotNull
-    @Column(name = "production_step", nullable = false)
-    private Long productionStep;
-
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
         value = {
-            "coreAssemblies",
-            "intersticialAssemblies",
-            "elementSupplies",
-            "bangleSupplies",
-            "customComponentSupplies",
-            "oneStudySupplies",
-            "centralAssembly",
+            "intersticialAssemblies", "elementSupplies", "bangleSupplies", "customComponentSupplies", "oneStudySupplies", "centralAssembly",
         },
         allowSetters = true
     )
     private Strand strand;
+
+    @Override
+    public IntersticeAssembly getThis() {
+        return this;
+    }
+
+    @Override
+    public Double getAssemblyStep() {
+        try {
+            return getStrand().getLastCoreAssembly().getAssemblyStep();
+        } catch (NullPointerException e) {
+            return Double.NaN;
+        }
+    }
+
+    @Override
+    public AssemblyMean getAssemblyMean() {
+        try {
+            return getStrand().getLastCoreAssembly().getAssemblyMean();
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -55,19 +70,6 @@ public class IntersticeAssembly implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getProductionStep() {
-        return this.productionStep;
-    }
-
-    public IntersticeAssembly productionStep(Long productionStep) {
-        this.setProductionStep(productionStep);
-        return this;
-    }
-
-    public void setProductionStep(Long productionStep) {
-        this.productionStep = productionStep;
     }
 
     public Strand getStrand() {
