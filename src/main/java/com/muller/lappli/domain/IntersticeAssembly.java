@@ -1,6 +1,8 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
+import com.muller.lappli.domain.enumeration.AssemblyMean;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -13,7 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "interstice_assembly")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class IntersticeAssembly implements Serializable {
+public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAssembly> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,17 +32,26 @@ public class IntersticeAssembly implements Serializable {
     @NotNull
     @JsonIgnoreProperties(
         value = {
-            "coreAssemblies",
-            "intersticialAssemblies",
-            "elementSupplies",
-            "bangleSupplies",
-            "customComponentSupplies",
-            "oneStudySupplies",
-            "centralAssembly",
+            "intersticialAssemblies", "elementSupplies", "bangleSupplies", "customComponentSupplies", "oneStudySupplies", "centralAssembly",
         },
         allowSetters = true
     )
     private Strand strand;
+
+    @Override
+    public IntersticeAssembly getThis() {
+        return this;
+    }
+
+    @Override
+    public Double getAssemblyStep() {
+        return getStrand().getLastCoreAssembly().getAssemblyStep();
+    }
+
+    @Override
+    public AssemblyMean getAssemblyMean() {
+        return getStrand().getLastCoreAssembly().getAssemblyMean();
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
