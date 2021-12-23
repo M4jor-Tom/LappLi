@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractAssembly;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -13,17 +14,13 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "central_assembly")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CentralAssembly implements Serializable {
+public class CentralAssembly extends AbstractAssembly<CentralAssembly> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "id")
     private Long id;
-
-    @NotNull
-    @Column(name = "production_step", nullable = false)
-    private Long productionStep;
 
     @JsonIgnoreProperties(
         value = {
@@ -43,6 +40,11 @@ public class CentralAssembly implements Serializable {
     @JoinColumn(name = "id")
     private Strand strand;
 
+    @Override
+    public CentralAssembly getThis() {
+        return this;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -56,19 +58,6 @@ public class CentralAssembly implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getProductionStep() {
-        return this.productionStep;
-    }
-
-    public CentralAssembly productionStep(Long productionStep) {
-        this.setProductionStep(productionStep);
-        return this;
-    }
-
-    public void setProductionStep(Long productionStep) {
-        this.productionStep = productionStep;
     }
 
     public Strand getStrand() {
