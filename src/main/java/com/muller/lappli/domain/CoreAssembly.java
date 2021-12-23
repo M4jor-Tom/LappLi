@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -14,7 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "core_assembly")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CoreAssembly implements Serializable {
+public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,10 +23,6 @@ public class CoreAssembly implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
-    @NotNull
-    @Column(name = "production_step", nullable = false)
-    private Long productionStep;
 
     @NotNull
     @Column(name = "assembly_step", nullable = false)
@@ -47,10 +44,16 @@ public class CoreAssembly implements Serializable {
             "customComponentSupplies",
             "oneStudySupplies",
             "centralAssembly",
+            "lastCoreAssembly",
         },
         allowSetters = true
     )
     private Strand strand;
+
+    @Override
+    public CoreAssembly getThis() {
+        return this;
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -67,19 +70,7 @@ public class CoreAssembly implements Serializable {
         this.id = id;
     }
 
-    public Long getProductionStep() {
-        return this.productionStep;
-    }
-
-    public CoreAssembly productionStep(Long productionStep) {
-        this.setProductionStep(productionStep);
-        return this;
-    }
-
-    public void setProductionStep(Long productionStep) {
-        this.productionStep = productionStep;
-    }
-
+    @Override
     public Double getAssemblyStep() {
         return this.assemblyStep;
     }
@@ -93,6 +84,7 @@ public class CoreAssembly implements Serializable {
         this.assemblyStep = assemblyStep;
     }
 
+    @Override
     public AssemblyMean getAssemblyMean() {
         return this.assemblyMean;
     }
