@@ -82,6 +82,10 @@ export const OneStudySupplyDetail = (props: RouteComponentProps<{ id: string }>)
           </dt>
           <dd>{oneStudySupplyEntity.surfaceMaterial ? oneStudySupplyEntity.surfaceMaterial.designation : ''}</dd>
           <dt>
+            <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Lifters</Translate>
+          </dt>
+          <dd>{oneStudySupplyEntity.bestLiftersNames}</dd>
+          <dt>
             <Translate contentKey="lappLiApp.oneStudySupply.strand">Strand</Translate>
           </dt>
           <dd>{oneStudySupplyEntity.strand ? oneStudySupplyEntity.strand.designation : ''}</dd>

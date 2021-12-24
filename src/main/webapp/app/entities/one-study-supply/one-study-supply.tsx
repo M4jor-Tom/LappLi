@@ -77,6 +77,9 @@ export const OneStudySupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.oneStudySupply.surfaceMaterial">Surface Material</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Lifters</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.oneStudySupply.strand">Strand</Translate>
                 </th>
                 <th />
@@ -109,6 +112,7 @@ export const OneStudySupply = (props: RouteComponentProps<{ url: string }>) => {
                       ''
                     )}
                   </td>
+                  <td>{oneStudySupply.bestLiftersNames}</td>
                   <td>
                     {oneStudySupply.strand ? (
                       <Link to={`strand/${oneStudySupply.strand.id}`}>{oneStudySupply.strand.designation}</Link>
