@@ -17,7 +17,7 @@ export const OneStudySupplyDeleteDialog = (props: RouteComponentProps<{ strand_i
     setLoadModal(true);
   }, []);
 
-  const redirectionUrl = getStrandSupplyRedirectionUrl(props, SupplyKind.ONE_STUDY_SUPPLY);
+  const redirectionUrl = getStrandSupplyRedirectionUrl(props, SupplyKind.ONE_STUDY);
 
   const oneStudySupplyEntity = useAppSelector(state => state.oneStudySupply.entity);
   const updateSuccess = useAppSelector(state => state.oneStudySupply.updateSuccess);

@@ -10,7 +10,7 @@ enum SupplyKind {
   BANGLE = 'bangle',
   CUSTOM_COMPONENT = 'custom-component',
   ELEMENT = 'element',
-  ONE_STUDY_SUPPLY = 'one-study-supply',
+  ONE_STUDY = 'one-study',
   STRAND = 'strand',
 }
 

@@ -24,7 +24,7 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
 
   const _isStrandSupply = isStrandSupply(props);
 
-  const redirectionUrl = getStrandSupplyRedirectionUrl(props, SupplyKind.ONE_STUDY_SUPPLY);
+  const redirectionUrl = getStrandSupplyRedirectionUrl(props, SupplyKind.ONE_STUDY);
 
   const materials = useAppSelector(state => state.material.entities);
   const strands = useAppSelector(state => state.strand.entities);
@@ -70,7 +70,7 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
     }
   };
 
-  const strandValidateField = getStrandValidateField(props, strands, SupplyKind.ONE_STUDY_SUPPLY);
+  const strandValidateField = getStrandValidateField(props, strands, SupplyKind.ONE_STUDY);
 
   const defaultValues = () =>
     isNew
