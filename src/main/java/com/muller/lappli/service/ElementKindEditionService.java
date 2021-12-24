@@ -1,7 +1,5 @@
 package com.muller.lappli.service;
 
-import com.muller.lappli.domain.EditionListManager;
-import com.muller.lappli.domain.ElementKind;
 import com.muller.lappli.domain.ElementKindEdition;
 import java.time.Instant;
 import java.util.List;

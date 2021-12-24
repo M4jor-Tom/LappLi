@@ -26,7 +26,9 @@ public class StrandCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
-    private StringFilter designation;
+    private LongFilter coreAssembliesId;
+
+    private LongFilter intersticialAssembliesId;
 
     private LongFilter elementSuppliesId;
 
@@ -36,17 +38,21 @@ public class StrandCriteria implements Serializable, Criteria {
 
     private LongFilter oneStudySuppliesId;
 
+    private LongFilter centralAssemblyId;
+
     private Boolean distinct;
 
     public StrandCriteria() {}
 
     public StrandCriteria(StrandCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
-        this.designation = other.designation == null ? null : other.designation.copy();
+        this.coreAssembliesId = other.coreAssembliesId == null ? null : other.coreAssembliesId.copy();
+        this.intersticialAssembliesId = other.intersticialAssembliesId == null ? null : other.intersticialAssembliesId.copy();
         this.elementSuppliesId = other.elementSuppliesId == null ? null : other.elementSuppliesId.copy();
         this.bangleSuppliesId = other.bangleSuppliesId == null ? null : other.bangleSuppliesId.copy();
         this.customComponentSuppliesId = other.customComponentSuppliesId == null ? null : other.customComponentSuppliesId.copy();
         this.oneStudySuppliesId = other.oneStudySuppliesId == null ? null : other.oneStudySuppliesId.copy();
+        this.centralAssemblyId = other.centralAssemblyId == null ? null : other.centralAssemblyId.copy();
         this.distinct = other.distinct;
     }
 
@@ -70,19 +76,34 @@ public class StrandCriteria implements Serializable, Criteria {
         this.id = id;
     }
 
-    public StringFilter getDesignation() {
-        return designation;
+    public LongFilter getCoreAssembliesId() {
+        return coreAssembliesId;
     }
 
-    public StringFilter designation() {
-        if (designation == null) {
-            designation = new StringFilter();
+    public LongFilter coreAssembliesId() {
+        if (coreAssembliesId == null) {
+            coreAssembliesId = new LongFilter();
         }
-        return designation;
+        return coreAssembliesId;
     }
 
-    public void setDesignation(StringFilter designation) {
-        this.designation = designation;
+    public void setCoreAssembliesId(LongFilter coreAssembliesId) {
+        this.coreAssembliesId = coreAssembliesId;
+    }
+
+    public LongFilter getIntersticialAssembliesId() {
+        return intersticialAssembliesId;
+    }
+
+    public LongFilter intersticialAssembliesId() {
+        if (intersticialAssembliesId == null) {
+            intersticialAssembliesId = new LongFilter();
+        }
+        return intersticialAssembliesId;
+    }
+
+    public void setIntersticialAssembliesId(LongFilter intersticialAssembliesId) {
+        this.intersticialAssembliesId = intersticialAssembliesId;
     }
 
     public LongFilter getElementSuppliesId() {
@@ -145,6 +166,21 @@ public class StrandCriteria implements Serializable, Criteria {
         this.oneStudySuppliesId = oneStudySuppliesId;
     }
 
+    public LongFilter getCentralAssemblyId() {
+        return centralAssemblyId;
+    }
+
+    public LongFilter centralAssemblyId() {
+        if (centralAssemblyId == null) {
+            centralAssemblyId = new LongFilter();
+        }
+        return centralAssemblyId;
+    }
+
+    public void setCentralAssemblyId(LongFilter centralAssemblyId) {
+        this.centralAssemblyId = centralAssemblyId;
+    }
+
     public Boolean getDistinct() {
         return distinct;
     }
@@ -164,18 +200,30 @@ public class StrandCriteria implements Serializable, Criteria {
         final StrandCriteria that = (StrandCriteria) o;
         return (
             Objects.equals(id, that.id) &&
-            Objects.equals(designation, that.designation) &&
+            Objects.equals(coreAssembliesId, that.coreAssembliesId) &&
+            Objects.equals(intersticialAssembliesId, that.intersticialAssembliesId) &&
             Objects.equals(elementSuppliesId, that.elementSuppliesId) &&
             Objects.equals(bangleSuppliesId, that.bangleSuppliesId) &&
             Objects.equals(customComponentSuppliesId, that.customComponentSuppliesId) &&
             Objects.equals(oneStudySuppliesId, that.oneStudySuppliesId) &&
+            Objects.equals(centralAssemblyId, that.centralAssemblyId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, designation, elementSuppliesId, bangleSuppliesId, customComponentSuppliesId, oneStudySuppliesId, distinct);
+        return Objects.hash(
+            id,
+            coreAssembliesId,
+            intersticialAssembliesId,
+            elementSuppliesId,
+            bangleSuppliesId,
+            customComponentSuppliesId,
+            oneStudySuppliesId,
+            centralAssemblyId,
+            distinct
+        );
     }
 
     // prettier-ignore
@@ -183,11 +231,13 @@ public class StrandCriteria implements Serializable, Criteria {
     public String toString() {
         return "StrandCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
-            (designation != null ? "designation=" + designation + ", " : "") +
+            (coreAssembliesId != null ? "coreAssembliesId=" + coreAssembliesId + ", " : "") +
+            (intersticialAssembliesId != null ? "intersticialAssembliesId=" + intersticialAssembliesId + ", " : "") +
             (elementSuppliesId != null ? "elementSuppliesId=" + elementSuppliesId + ", " : "") +
             (bangleSuppliesId != null ? "bangleSuppliesId=" + bangleSuppliesId + ", " : "") +
             (customComponentSuppliesId != null ? "customComponentSuppliesId=" + customComponentSuppliesId + ", " : "") +
             (oneStudySuppliesId != null ? "oneStudySuppliesId=" + oneStudySuppliesId + ", " : "") +
+            (centralAssemblyId != null ? "centralAssemblyId=" + centralAssemblyId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

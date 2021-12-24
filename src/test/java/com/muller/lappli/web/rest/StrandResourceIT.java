@@ -7,8 +7,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.BangleSupply;
+import com.muller.lappli.domain.CentralAssembly;
+import com.muller.lappli.domain.CoreAssembly;
 import com.muller.lappli.domain.CustomComponentSupply;
 import com.muller.lappli.domain.ElementSupply;
+import com.muller.lappli.domain.IntersticeAssembly;
 import com.muller.lappli.domain.OneStudySupply;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.repository.StrandRepository;
@@ -34,9 +37,6 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class StrandResourceIT {
 
-    private static final String DEFAULT_DESIGNATION = "AAAAAAAAAA";
-    private static final String UPDATED_DESIGNATION = "BBBBBBBBBB";
-
     private static final String ENTITY_API_URL = "/api/strands";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -61,7 +61,7 @@ class StrandResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Strand createEntity(EntityManager em) {
-        Strand strand = new Strand().designation(DEFAULT_DESIGNATION);
+        Strand strand = new Strand();
         return strand;
     }
 
@@ -72,7 +72,7 @@ class StrandResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Strand createUpdatedEntity(EntityManager em) {
-        Strand strand = new Strand().designation(UPDATED_DESIGNATION);
+        Strand strand = new Strand();
         return strand;
     }
 
@@ -94,7 +94,6 @@ class StrandResourceIT {
         List<Strand> strandList = strandRepository.findAll();
         assertThat(strandList).hasSize(databaseSizeBeforeCreate + 1);
         Strand testStrand = strandList.get(strandList.size() - 1);
-        assertThat(testStrand.getDesignation()).isEqualTo(DEFAULT_DESIGNATION);
     }
 
     @Test
@@ -117,23 +116,6 @@ class StrandResourceIT {
 
     @Test
     @Transactional
-    void checkDesignationIsRequired() throws Exception {
-        int databaseSizeBeforeTest = strandRepository.findAll().size();
-        // set the field null
-        strand.setDesignation(null);
-
-        // Create the Strand, which fails.
-
-        restStrandMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(strand)))
-            .andExpect(status().isBadRequest());
-
-        List<Strand> strandList = strandRepository.findAll();
-        assertThat(strandList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllStrands() throws Exception {
         // Initialize the database
         strandRepository.saveAndFlush(strand);
@@ -143,8 +125,7 @@ class StrandResourceIT {
             .perform(get(ENTITY_API_URL + "?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(strand.getId().intValue())))
-            .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(strand.getId().intValue())));
     }
 
     @Test
@@ -158,8 +139,7 @@ class StrandResourceIT {
             .perform(get(ENTITY_API_URL_ID, strand.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(strand.getId().intValue()))
-            .andExpect(jsonPath("$.designation").value(DEFAULT_DESIGNATION));
+            .andExpect(jsonPath("$.id").value(strand.getId().intValue()));
     }
 
     @Test
@@ -182,80 +162,54 @@ class StrandResourceIT {
 
     @Test
     @Transactional
-    void getAllStrandsByDesignationIsEqualToSomething() throws Exception {
+    void getAllStrandsByCoreAssembliesIsEqualToSomething() throws Exception {
         // Initialize the database
         strandRepository.saveAndFlush(strand);
+        CoreAssembly coreAssemblies;
+        if (TestUtil.findAll(em, CoreAssembly.class).isEmpty()) {
+            coreAssemblies = CoreAssemblyResourceIT.createEntity(em);
+            em.persist(coreAssemblies);
+            em.flush();
+        } else {
+            coreAssemblies = TestUtil.findAll(em, CoreAssembly.class).get(0);
+        }
+        em.persist(coreAssemblies);
+        em.flush();
+        strand.addCoreAssemblies(coreAssemblies);
+        strandRepository.saveAndFlush(strand);
+        Long coreAssembliesId = coreAssemblies.getId();
 
-        // Get all the strandList where designation equals to DEFAULT_DESIGNATION
-        defaultStrandShouldBeFound("designation.equals=" + DEFAULT_DESIGNATION);
+        // Get all the strandList where coreAssemblies equals to coreAssembliesId
+        defaultStrandShouldBeFound("coreAssembliesId.equals=" + coreAssembliesId);
 
-        // Get all the strandList where designation equals to UPDATED_DESIGNATION
-        defaultStrandShouldNotBeFound("designation.equals=" + UPDATED_DESIGNATION);
+        // Get all the strandList where coreAssemblies equals to (coreAssembliesId + 1)
+        defaultStrandShouldNotBeFound("coreAssembliesId.equals=" + (coreAssembliesId + 1));
     }
 
     @Test
     @Transactional
-    void getAllStrandsByDesignationIsNotEqualToSomething() throws Exception {
+    void getAllStrandsByIntersticialAssembliesIsEqualToSomething() throws Exception {
         // Initialize the database
         strandRepository.saveAndFlush(strand);
-
-        // Get all the strandList where designation not equals to DEFAULT_DESIGNATION
-        defaultStrandShouldNotBeFound("designation.notEquals=" + DEFAULT_DESIGNATION);
-
-        // Get all the strandList where designation not equals to UPDATED_DESIGNATION
-        defaultStrandShouldBeFound("designation.notEquals=" + UPDATED_DESIGNATION);
-    }
-
-    @Test
-    @Transactional
-    void getAllStrandsByDesignationIsInShouldWork() throws Exception {
-        // Initialize the database
+        IntersticeAssembly intersticialAssemblies;
+        if (TestUtil.findAll(em, IntersticeAssembly.class).isEmpty()) {
+            intersticialAssemblies = IntersticeAssemblyResourceIT.createEntity(em);
+            em.persist(intersticialAssemblies);
+            em.flush();
+        } else {
+            intersticialAssemblies = TestUtil.findAll(em, IntersticeAssembly.class).get(0);
+        }
+        em.persist(intersticialAssemblies);
+        em.flush();
+        strand.addIntersticialAssemblies(intersticialAssemblies);
         strandRepository.saveAndFlush(strand);
+        Long intersticialAssembliesId = intersticialAssemblies.getId();
 
-        // Get all the strandList where designation in DEFAULT_DESIGNATION or UPDATED_DESIGNATION
-        defaultStrandShouldBeFound("designation.in=" + DEFAULT_DESIGNATION + "," + UPDATED_DESIGNATION);
+        // Get all the strandList where intersticialAssemblies equals to intersticialAssembliesId
+        defaultStrandShouldBeFound("intersticialAssembliesId.equals=" + intersticialAssembliesId);
 
-        // Get all the strandList where designation equals to UPDATED_DESIGNATION
-        defaultStrandShouldNotBeFound("designation.in=" + UPDATED_DESIGNATION);
-    }
-
-    @Test
-    @Transactional
-    void getAllStrandsByDesignationIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        strandRepository.saveAndFlush(strand);
-
-        // Get all the strandList where designation is not null
-        defaultStrandShouldBeFound("designation.specified=true");
-
-        // Get all the strandList where designation is null
-        defaultStrandShouldNotBeFound("designation.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllStrandsByDesignationContainsSomething() throws Exception {
-        // Initialize the database
-        strandRepository.saveAndFlush(strand);
-
-        // Get all the strandList where designation contains DEFAULT_DESIGNATION
-        defaultStrandShouldBeFound("designation.contains=" + DEFAULT_DESIGNATION);
-
-        // Get all the strandList where designation contains UPDATED_DESIGNATION
-        defaultStrandShouldNotBeFound("designation.contains=" + UPDATED_DESIGNATION);
-    }
-
-    @Test
-    @Transactional
-    void getAllStrandsByDesignationNotContainsSomething() throws Exception {
-        // Initialize the database
-        strandRepository.saveAndFlush(strand);
-
-        // Get all the strandList where designation does not contain DEFAULT_DESIGNATION
-        defaultStrandShouldNotBeFound("designation.doesNotContain=" + DEFAULT_DESIGNATION);
-
-        // Get all the strandList where designation does not contain UPDATED_DESIGNATION
-        defaultStrandShouldBeFound("designation.doesNotContain=" + UPDATED_DESIGNATION);
+        // Get all the strandList where intersticialAssemblies equals to (intersticialAssembliesId + 1)
+        defaultStrandShouldNotBeFound("intersticialAssembliesId.equals=" + (intersticialAssembliesId + 1));
     }
 
     @Test
@@ -362,6 +316,33 @@ class StrandResourceIT {
         defaultStrandShouldNotBeFound("oneStudySuppliesId.equals=" + (oneStudySuppliesId + 1));
     }
 
+    @Test
+    @Transactional
+    void getAllStrandsByCentralAssemblyIsEqualToSomething() throws Exception {
+        // Initialize the database
+        strandRepository.saveAndFlush(strand);
+        CentralAssembly centralAssembly;
+        if (TestUtil.findAll(em, CentralAssembly.class).isEmpty()) {
+            centralAssembly = CentralAssemblyResourceIT.createEntity(em);
+            em.persist(centralAssembly);
+            em.flush();
+        } else {
+            centralAssembly = TestUtil.findAll(em, CentralAssembly.class).get(0);
+        }
+        em.persist(centralAssembly);
+        em.flush();
+        strand.setCentralAssembly(centralAssembly);
+        centralAssembly.setStrand(strand);
+        strandRepository.saveAndFlush(strand);
+        Long centralAssemblyId = centralAssembly.getId();
+
+        // Get all the strandList where centralAssembly equals to centralAssemblyId
+        defaultStrandShouldBeFound("centralAssemblyId.equals=" + centralAssemblyId);
+
+        // Get all the strandList where centralAssembly equals to (centralAssemblyId + 1)
+        defaultStrandShouldNotBeFound("centralAssemblyId.equals=" + (centralAssemblyId + 1));
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned.
      */
@@ -370,8 +351,7 @@ class StrandResourceIT {
             .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(strand.getId().intValue())))
-            .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(strand.getId().intValue())));
 
         // Check, that the count call also returns 1
         restStrandMockMvc
@@ -419,7 +399,6 @@ class StrandResourceIT {
         Strand updatedStrand = strandRepository.findById(strand.getId()).get();
         // Disconnect from session so that the updates on updatedStrand are not directly saved in db
         em.detach(updatedStrand);
-        updatedStrand.designation(UPDATED_DESIGNATION);
 
         restStrandMockMvc
             .perform(
@@ -433,7 +412,6 @@ class StrandResourceIT {
         List<Strand> strandList = strandRepository.findAll();
         assertThat(strandList).hasSize(databaseSizeBeforeUpdate);
         Strand testStrand = strandList.get(strandList.size() - 1);
-        assertThat(testStrand.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
     }
 
     @Test
@@ -504,8 +482,6 @@ class StrandResourceIT {
         Strand partialUpdatedStrand = new Strand();
         partialUpdatedStrand.setId(strand.getId());
 
-        partialUpdatedStrand.designation(UPDATED_DESIGNATION);
-
         restStrandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedStrand.getId())
@@ -518,7 +494,6 @@ class StrandResourceIT {
         List<Strand> strandList = strandRepository.findAll();
         assertThat(strandList).hasSize(databaseSizeBeforeUpdate);
         Strand testStrand = strandList.get(strandList.size() - 1);
-        assertThat(testStrand.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
     }
 
     @Test
@@ -533,8 +508,6 @@ class StrandResourceIT {
         Strand partialUpdatedStrand = new Strand();
         partialUpdatedStrand.setId(strand.getId());
 
-        partialUpdatedStrand.designation(UPDATED_DESIGNATION);
-
         restStrandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedStrand.getId())
@@ -547,7 +520,6 @@ class StrandResourceIT {
         List<Strand> strandList = strandRepository.findAll();
         assertThat(strandList).hasSize(databaseSizeBeforeUpdate);
         Strand testStrand = strandList.get(strandList.size() - 1);
-        assertThat(testStrand.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
     }
 
     @Test

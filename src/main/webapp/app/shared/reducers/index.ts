@@ -41,6 +41,18 @@ import customComponent from 'app/entities/custom-component/custom-component.redu
 import strand from 'app/entities/strand/strand.reducer';
 // prettier-ignore
 import oneStudySupply from 'app/entities/one-study-supply/one-study-supply.reducer';
+// prettier-ignore
+import study from 'app/entities/study/study.reducer';
+// prettier-ignore
+import strandSupply from 'app/entities/strand-supply/strand-supply.reducer';
+// prettier-ignore
+import userData from 'app/entities/user-data/user-data.reducer';
+// prettier-ignore
+import centralAssembly from 'app/entities/central-assembly/central-assembly.reducer';
+// prettier-ignore
+import coreAssembly from 'app/entities/core-assembly/core-assembly.reducer';
+// prettier-ignore
+import intersticeAssembly from 'app/entities/interstice-assembly/interstice-assembly.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -69,6 +81,12 @@ const rootReducer = {
   customComponent,
   strand,
   oneStudySupply,
+  study,
+  strandSupply,
+  userData,
+  centralAssembly,
+  coreAssembly,
+  intersticeAssembly,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };

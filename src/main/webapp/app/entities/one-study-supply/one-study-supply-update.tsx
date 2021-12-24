@@ -15,7 +15,7 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 import { Color } from 'app/shared/model/enumerations/color.model';
-import { getRedirectionUrl, getStrandValidateField, isStrandSupply, SupplyKind } from '../supply/index-management-lib';
+import { getStrandSupplyRedirectionUrl, getStrandValidateField, isStrandSupply, SupplyKind } from '../supply/index-management-lib';
 
 export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
@@ -24,7 +24,7 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
 
   const _isStrandSupply = isStrandSupply(props);
 
-  const redirectionUrl = getRedirectionUrl(props, SupplyKind.ONE_STUDY_SUPPLY);
+  const redirectionUrl = getStrandSupplyRedirectionUrl(props, SupplyKind.ONE_STUDY);
 
   const materials = useAppSelector(state => state.material.entities);
   const strands = useAppSelector(state => state.strand.entities);
@@ -70,7 +70,7 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
     }
   };
 
-  const strandValidateField = getStrandValidateField(props, strands, SupplyKind.ONE_STUDY_SUPPLY);
+  const strandValidateField = getStrandValidateField(props, strands, SupplyKind.ONE_STUDY);
 
   const defaultValues = () =>
     isNew
@@ -145,7 +145,7 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
               >
                 {markingTypeValues.map(markingType => (
                   <option value={markingType} key={markingType}>
-                    {translate('lappLiApp.MarkingType' + markingType)}
+                    {translate('lappLiApp.MarkingType.' + markingType)}
                   </option>
                 ))}
               </ValidatedField>
@@ -180,7 +180,7 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
               >
                 {colorValues.map(color => (
                   <option value={color} key={color}>
-                    {translate('lappLiApp.Color' + color)}
+                    {translate('lappLiApp.Color.' + color)}
                   </option>
                 ))}
               </ValidatedField>

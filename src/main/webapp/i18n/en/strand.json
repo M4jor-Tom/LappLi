@@ -19,6 +19,8 @@
       },
       "id": "ID",
       "designation": "Designation",
+      "coreAssemblies": "Core Assemblies",
+      "intersticialAssemblies": "Intersticial Assemblies",
       "elementSupplies": "Element Supplies",
       "bangleSupplies": "Bangle Supplies",
       "customComponentSupplies": "Custom Component Supplies",

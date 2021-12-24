@@ -1,11 +1,11 @@
 id;number;designation;gram_per_meter_linear_mass;milimeter_diameter;surface_color;surface_material_id
-1;38152;copying;21036;92517;YELLOW;1
-2;18867;Usability adapter Global;20275;6713;BLUE;2
-3;2763;eyeballs Dynamic;13760;5084;WHITE_BLACK;3
-4;72794;Senior;39073;27869;PINK_RED;4
-5;85984;Territory;18637;67892;PINK_RED;5
-6;55109;Response;17197;24302;GREEN;6
-7;41107;SSL Fantastic;37881;45611;YELLOW_GREEN_BLACK;7
-8;9202;harness;13400;67500;BROWN_RED;8
-9;15152;maroon;1044;1866;GREY_PINK_BLACK;9
-10;34907;action-items iterate calculating;92891;72571;WHITE_BLACK;10
+1;38152;TubeX;0.8;5;YELLOW;1
+2;18867;FiberX;0.8;5;BLUE;2
+3;2763;RSD_TEST_CUSTOM;0.8;5;BLACK;19
+4;72794;Senior;0.8;5;PINK_RED;4
+5;85984;Territory;0.8;5;PINK_RED;5
+6;55109;Response;0.8;5;GREEN;6
+7;41107;SSL Fantastic;0.8;5;YELLOW_GREEN_BLACK;7
+8;9202;harness;0.8;5;BROWN_RED;8
+9;15152;maroon;0.8;5;GREY_PINK_BLACK;9
+10;34907;action-items iterate calculating;0.8;5;WHITE_BLACK;10

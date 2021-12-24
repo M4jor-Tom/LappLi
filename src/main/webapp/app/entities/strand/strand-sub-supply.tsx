@@ -41,6 +41,9 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                   <thead>
                     <tr>
                       <th>
+                        <Translate contentKey="lappLiApp.supply.type">Type</Translate>
+                      </th>
+                      <th>
                         <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
                       </th>
                       <th>
@@ -92,6 +95,9 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                     {strandEntity.customComponentSupplies.map((customComponentSupply, i) => (
                       <>
                         <tr>
+                          <td>
+                            <Translate contentKey="global.menu.entities.customComponentSupply" />
+                          </td>
                           <td>{customComponentSupply.apparitions}</td>
                           <td>
                             <Translate contentKey={`lappLiApp.MarkingType.${customComponentSupply.markingType}`} />
@@ -159,6 +165,9 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                     {strandEntity.bangleSupplies.map((bangleSupply, i) => (
                       <>
                         <tr>
+                          <td>
+                            <Translate contentKey="global.menu.entities.bangleSupply" />
+                          </td>
                           <td>{bangleSupply.apparitions}</td>
                           <td>{/* MarkingType, absent for bangles */}</td>
                           <td>
@@ -218,6 +227,9 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                     {strandEntity.elementSupplies.map((elementSupply, i) => (
                       <>
                         <tr>
+                          <td>
+                            <Translate contentKey="global.menu.entities.elementSupply" />
+                          </td>
                           <td>{elementSupply.apparitions}</td>
                           <td>
                             <Translate contentKey={`lappLiApp.MarkingType.${elementSupply.markingType}`} />
@@ -280,6 +292,9 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                     ))}
                     {strandEntity.oneStudySupplies.map((oneStudySupply, i) => (
                       <tr key={`entity-${i}`} data-cy="entityTable">
+                        <td>
+                          <Translate contentKey="global.menu.entities.oneStudySupply" />
+                        </td>
                         <td>{oneStudySupply.apparitions}</td>
                         <td>
                           <Translate contentKey={`lappLiApp.MarkingType.${oneStudySupply.markingType}`} />
@@ -356,6 +371,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                 &nbsp;
                 <Translate contentKey="lappLiApp.bangleSupply.home.createLabel">Create new Bangle Supply</Translate>
               </Link>
+              &nbsp;
               <Link
                 to={`custom-component-supply/new`}
                 className="btn btn-primary jh-create-entity"
@@ -366,6 +382,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                 &nbsp;
                 <Translate contentKey="lappLiApp.customComponentSupply.home.createLabel">Create new Custom Component Supply</Translate>
               </Link>
+              &nbsp;
               <Link
                 to={`element-supply/new`}
                 className="btn btn-primary jh-create-entity"
@@ -376,6 +393,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                 &nbsp;
                 <Translate contentKey="lappLiApp.elementSupply.home.createLabel">Create new Element Supply</Translate>
               </Link>
+              &nbsp;
               <Link
                 to={`one-study-supply/new`}
                 className="btn btn-primary jh-create-entity"
@@ -389,7 +407,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
             </div>
           </dd>
         </dl>
-        <Button tag={Link} to="/strand" replace color="info" data-cy="entityDetailsBackButton">
+        <Button tag={Link} onClick={props.history.goBack} replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.back">Back</Translate>

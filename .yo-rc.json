@@ -58,8 +58,14 @@
       "CustomComponentSupply",
       "CustomComponent",
       "Strand",
-      "OneStudySupply"
+      "OneStudySupply",
+      "Study",
+      "StrandSupply",
+      "UserData",
+      "CentralAssembly",
+      "CoreAssembly",
+      "IntersticeAssembly"
     ],
-    "lastLiquibaseTimestamp": 1639990135000
+    "lastLiquibaseTimestamp": 1640254762000
   }
 }

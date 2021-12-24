@@ -22,6 +22,12 @@
         "customComponent": "Custom Component",
         "strand": "Strand",
         "oneStudySupply": "One Study Supply",
+        "study": "Study",
+        "strandSupply": "Strand Supply",
+        "userData": "User Data",
+        "centralAssembly": "Central Assembly",
+        "coreAssembly": "Core Assembly",
+        "intersticeAssembly": "Interstice Assembly",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

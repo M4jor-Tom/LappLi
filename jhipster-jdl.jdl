@@ -1,9 +1,34 @@
-filter * except ElementKind, Element, ElementSupply, BangleSupply, CustomComponentSupply
+filter * except ElementKind, Element, ElementSupply, BangleSupply, CustomComponentSupply, LifterRunMeasure
 
 service * with serviceImpl
 
+entity CentralAssembly {
+	productionStep Long required
+}
+
+entity CoreAssembly {
+	productionStep Long required
+	assemblyStep Double required
+    assemblyMean AssemblyMean required
+}
+
+entity IntersticeAssembly {
+	productionStep Long required
+}
+
 entity Strand {
-    designation String required
+
+}
+
+entity Study {
+	number Long
+	lastEditionInstant Instant required
+}
+
+entity StrandSupply {
+	apparitions Long required
+    markingType MarkingType required
+    description String
 }
 
 entity Lifter {
@@ -103,11 +128,40 @@ entity Material {
 	designation String unique required
 }
 
+entity UserData {
+
+}
+
+relationship OneToOne {
+	CentralAssembly{strand(designation) required} to Strand{centralAssembly(productionStep)} with jpaDerivedIdentifier
+}
+
+relationship OneToMany {
+	Strand{coreAssemblies(productionStep)} to CoreAssembly{strand(designation) required}
+	Strand{intersticialAssemblies(productionStep)} to IntersticeAssembly{strand(designation) required}
+}
+
+relationship OneToOne {
+	UserData{user(login) required} to User with jpaDerivedIdentifier
+}
+
+relationship OneToMany {
+	UserData{studies(number)} to Study{author(login) required}
+}
+
+relationship OneToMany {
+	Study{strandSupplies(designation)} to StrandSupply{study(number) required}
+}
+
 relationship OneToMany {
 	Strand{elementSupplies(designation)} to ElementSupply{strand(designation) required}
     Strand{bangleSupplies(designation)} to BangleSupply{strand(designation) required}
     Strand{customComponentSupplies(designation)} to CustomComponentSupply{strand(designation) required}
 	Strand{oneStudySupplies(designation)} to OneStudySupply{strand(designation) required}
+}
+
+relationship ManyToOne {
+	StrandSupply{strand(designation) required} to Strand
 }
 
 relationship ManyToOne {
@@ -156,6 +210,12 @@ relationship ManyToOne {
 
 relationship ManyToOne {
 	ElementKind{insulationMaterial(designation) required} to Material
+}
+
+enum AssemblyMean {
+	RIGHT,
+    LEFT,
+    STRAIGHT
 }
 
 enum MarkingType {

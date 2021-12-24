@@ -2,9 +2,7 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.LifterRunMeasure;
 import com.muller.lappli.repository.LifterRunMeasureRepository;
-import com.muller.lappli.service.LifterRunMeasureQueryService;
 import com.muller.lappli.service.LifterRunMeasureService;
-import com.muller.lappli.service.criteria.LifterRunMeasureCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,16 +37,12 @@ public class LifterRunMeasureResource {
 
     private final LifterRunMeasureRepository lifterRunMeasureRepository;
 
-    private final LifterRunMeasureQueryService lifterRunMeasureQueryService;
-
     public LifterRunMeasureResource(
         LifterRunMeasureService lifterRunMeasureService,
-        LifterRunMeasureRepository lifterRunMeasureRepository,
-        LifterRunMeasureQueryService lifterRunMeasureQueryService
+        LifterRunMeasureRepository lifterRunMeasureRepository
     ) {
         this.lifterRunMeasureService = lifterRunMeasureService;
         this.lifterRunMeasureRepository = lifterRunMeasureRepository;
-        this.lifterRunMeasureQueryService = lifterRunMeasureQueryService;
     }
 
     /**
@@ -145,26 +139,12 @@ public class LifterRunMeasureResource {
     /**
      * {@code GET  /lifter-run-measures} : get all the lifterRunMeasures.
      *
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of lifterRunMeasures in body.
      */
     @GetMapping("/lifter-run-measures")
-    public ResponseEntity<List<LifterRunMeasure>> getAllLifterRunMeasures(LifterRunMeasureCriteria criteria) {
-        log.debug("REST request to get LifterRunMeasures by criteria: {}", criteria);
-        List<LifterRunMeasure> entityList = lifterRunMeasureQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /lifter-run-measures/count} : count all the lifterRunMeasures.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/lifter-run-measures/count")
-    public ResponseEntity<Long> countLifterRunMeasures(LifterRunMeasureCriteria criteria) {
-        log.debug("REST request to count LifterRunMeasures by criteria: {}", criteria);
-        return ResponseEntity.ok().body(lifterRunMeasureQueryService.countByCriteria(criteria));
+    public List<LifterRunMeasure> getAllLifterRunMeasures() {
+        log.debug("REST request to get all LifterRunMeasures");
+        return lifterRunMeasureService.findAll();
     }
 
     /**

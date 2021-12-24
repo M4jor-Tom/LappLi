@@ -85,8 +85,23 @@ public class StrandQueryService extends QueryService<Strand> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), Strand_.id));
             }
-            if (criteria.getDesignation() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getDesignation(), Strand_.designation));
+            if (criteria.getCoreAssembliesId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getCoreAssembliesId(),
+                            root -> root.join(Strand_.coreAssemblies, JoinType.LEFT).get(CoreAssembly_.id)
+                        )
+                    );
+            }
+            if (criteria.getIntersticialAssembliesId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getIntersticialAssembliesId(),
+                            root -> root.join(Strand_.intersticialAssemblies, JoinType.LEFT).get(IntersticeAssembly_.id)
+                        )
+                    );
             }
             if (criteria.getElementSuppliesId() != null) {
                 specification =
@@ -121,6 +136,15 @@ public class StrandQueryService extends QueryService<Strand> {
                         buildSpecification(
                             criteria.getOneStudySuppliesId(),
                             root -> root.join(Strand_.oneStudySupplies, JoinType.LEFT).get(OneStudySupply_.id)
+                        )
+                    );
+            }
+            if (criteria.getCentralAssemblyId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getCentralAssemblyId(),
+                            root -> root.join(Strand_.centralAssembly, JoinType.LEFT).get(CentralAssembly_.id)
                         )
                     );
             }
