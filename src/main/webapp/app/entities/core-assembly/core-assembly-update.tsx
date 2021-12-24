@@ -123,7 +123,7 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ id: string }>) =
               >
                 {assemblyMeanValues.map(assemblyMean => (
                   <option value={assemblyMean} key={assemblyMean}>
-                    {translate('lappLiApp.AssemblyMean' + assemblyMean)}
+                    {translate('lappLiApp.AssemblyMean.' + assemblyMean)}
                   </option>
                 ))}
               </ValidatedField>

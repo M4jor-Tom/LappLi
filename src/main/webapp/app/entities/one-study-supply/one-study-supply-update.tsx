@@ -180,7 +180,7 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
               >
                 {colorValues.map(color => (
                   <option value={color} key={color}>
-                    {translate('lappLiApp.Color' + color)}
+                    {translate('lappLiApp.Color.' + color)}
                   </option>
                 ))}
               </ValidatedField>
