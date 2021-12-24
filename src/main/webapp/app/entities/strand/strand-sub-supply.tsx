@@ -41,6 +41,9 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                   <thead>
                     <tr>
                       <th>
+                        <Translate contentKey="lappLiApp.supply.type">Type</Translate>
+                      </th>
+                      <th>
                         <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
                       </th>
                       <th>
@@ -92,6 +95,9 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                     {strandEntity.customComponentSupplies.map((customComponentSupply, i) => (
                       <>
                         <tr>
+                          <td>
+                            <Translate contentKey="global.menu.entities.customComponentSupply" />
+                          </td>
                           <td>{customComponentSupply.apparitions}</td>
                           <td>
                             <Translate contentKey={`lappLiApp.MarkingType.${customComponentSupply.markingType}`} />
@@ -159,6 +165,9 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                     {strandEntity.bangleSupplies.map((bangleSupply, i) => (
                       <>
                         <tr>
+                          <td>
+                            <Translate contentKey="global.menu.entities.bangleSupply" />
+                          </td>
                           <td>{bangleSupply.apparitions}</td>
                           <td>{/* MarkingType, absent for bangles */}</td>
                           <td>
@@ -218,6 +227,9 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                     {strandEntity.elementSupplies.map((elementSupply, i) => (
                       <>
                         <tr>
+                          <td>
+                            <Translate contentKey="global.menu.entities.elementSupply" />
+                          </td>
                           <td>{elementSupply.apparitions}</td>
                           <td>
                             <Translate contentKey={`lappLiApp.MarkingType.${elementSupply.markingType}`} />
@@ -280,6 +292,9 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                     ))}
                     {strandEntity.oneStudySupplies.map((oneStudySupply, i) => (
                       <tr key={`entity-${i}`} data-cy="entityTable">
+                        <td>
+                          <Translate contentKey="global.menu.entities.oneStudySupply" />
+                        </td>
                         <td>{oneStudySupply.apparitions}</td>
                         <td>
                           <Translate contentKey={`lappLiApp.MarkingType.${oneStudySupply.markingType}`} />

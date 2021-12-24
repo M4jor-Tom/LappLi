@@ -10,7 +10,8 @@
       "markingType": "Marking Type",
       "markingTechnique": "Marking Technique",
       "surfaceMaterial": "Surface Material",
-      "surfaceColor": "Surface Color"
+      "surfaceColor": "Surface Color",
+      "type": "Type"
     }
   }
 }
