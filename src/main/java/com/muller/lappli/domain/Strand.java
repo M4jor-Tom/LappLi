@@ -37,22 +37,22 @@ public class Strand implements Serializable {
     private Set<IntersticeAssembly> intersticialAssemblies = new HashSet<>();
 
     @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
-    //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
     private Set<ElementSupply> elementSupplies = new HashSet<>();
 
     @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
-    //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
     private Set<BangleSupply> bangleSupplies = new HashSet<>();
 
     @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
-    //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
     private Set<CustomComponentSupply> customComponentSupplies = new HashSet<>();
 
     @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
-    //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "surfaceMaterial", "strand" }, allowSetters = true)
     private Set<OneStudySupply> oneStudySupplies = new HashSet<>();
 
