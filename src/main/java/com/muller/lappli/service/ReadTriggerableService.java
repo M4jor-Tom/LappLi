@@ -1,8 +1,10 @@
 package com.muller.lappli.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Must be implemented on Spring Service classes which
@@ -54,6 +56,22 @@ public interface ReadTriggerableService<T> {
         }
 
         return editedDomainObjectList;
+    }
+
+    /**
+     * Changes an Set upon reading
+     *
+     * @param domainObjectHashSet the Set to read
+     * @return the read Set
+     */
+    public default Set<T> onSetRead(Set<T> domainObjectSet) {
+        HashSet<T> editedDomainObjectHashSet = new HashSet<T>();
+
+        for (T domainObject : domainObjectSet) {
+            editedDomainObjectHashSet.add(onRead(domainObject));
+        }
+
+        return editedDomainObjectHashSet;
     }
 
     /**
