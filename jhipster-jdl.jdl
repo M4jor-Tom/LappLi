@@ -136,13 +136,13 @@ relationship OneToOne {
 	CentralAssembly{strand(designation) required} to Strand{centralAssembly(productionStep)} with jpaDerivedIdentifier
 }
 
+relationship OneToOne {
+	UserData{user(login) required} to User with jpaDerivedIdentifier
+}
+
 relationship OneToMany {
 	Strand{coreAssemblies(productionStep)} to CoreAssembly{strand(designation) required}
 	Strand{intersticialAssemblies(productionStep)} to IntersticeAssembly{strand(designation) required}
-}
-
-relationship OneToOne {
-	UserData{user(login) required} to User with jpaDerivedIdentifier
 }
 
 relationship OneToMany {
@@ -150,14 +150,18 @@ relationship OneToMany {
 }
 
 relationship OneToMany {
+    //Supplies owned in a Study as UNDIVIDED
 	Study{strandSupplies(designation)} to StrandSupply{study(number) required}
-}
 
-relationship OneToMany {
+    //Supplies owned in a Strand as DIVIED_UNPLACED
 	Strand{elementSupplies(designation)} to ElementSupply{strand(designation) required}
     Strand{bangleSupplies(designation)} to BangleSupply{strand(designation) required}
     Strand{customComponentSupplies(designation)} to CustomComponentSupply{strand(designation) required}
 	Strand{oneStudySupplies(designation)} to OneStudySupply{strand(designation) required}
+}
+
+relationship OneToMany {
+	Material{materialMarkingStatistics(markingType)} to MaterialMarkingStatistic{material(designation) required}
 }
 
 relationship ManyToOne {
@@ -166,10 +170,6 @@ relationship ManyToOne {
 
 relationship ManyToOne {
 	OneStudySupply{surfaceMaterial(designation) required} to Material
-}
-
-relationship OneToMany {
-	Material{materialMarkingStatistics(markingType)} to MaterialMarkingStatistic{material(designation) required}
 }
 
 relationship ManyToOne {
