@@ -53,7 +53,7 @@ public class Strand implements Serializable {
 
     @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "surfaceMaterial", "strand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
     private Set<OneStudySupply> oneStudySupplies = new HashSet<>();
 
     @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
