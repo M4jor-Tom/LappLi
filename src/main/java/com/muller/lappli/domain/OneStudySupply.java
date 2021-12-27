@@ -243,10 +243,10 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply implements Serial
 
     public void setPosition(Position position) {
         if (this.position != null) {
-            this.position.forceOneStudySupply(null);
+            this.position.setOneStudySupply(null);
         }
         if (position != null) {
-            position.forceOneStudySupply(this);
+            position.setOneStudySupply(this);
         }
         this.position = position;
     }

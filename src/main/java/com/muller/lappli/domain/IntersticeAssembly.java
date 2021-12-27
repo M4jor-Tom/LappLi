@@ -3,7 +3,6 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
-import com.muller.lappli.domain.exception.PositionAlreadyInAssemblyException;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -103,10 +102,10 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
 
     public void setPositions(Set<Position> positions) {
         if (this.positions != null) {
-            this.positions.forEach(i -> i.forceOwnerIntersticeAssembly(null));
+            this.positions.forEach(i -> i.setOwnerIntersticeAssembly(null));
         }
         if (positions != null) {
-            positions.forEach(i -> i.forceOwnerIntersticeAssembly(this));
+            positions.forEach(i -> i.setOwnerIntersticeAssembly(this));
         }
         this.positions = positions;
     }
@@ -116,13 +115,13 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         return this;
     }
 
-    public IntersticeAssembly addPositions(Position position) throws PositionAlreadyInAssemblyException {
+    public IntersticeAssembly addPositions(Position position) {
         this.positions.add(position);
         position.setOwnerIntersticeAssembly(this);
         return this;
     }
 
-    public IntersticeAssembly removePositions(Position position) throws PositionAlreadyInAssemblyException {
+    public IntersticeAssembly removePositions(Position position) {
         this.positions.remove(position);
         position.setOwnerIntersticeAssembly(null);
         return this;

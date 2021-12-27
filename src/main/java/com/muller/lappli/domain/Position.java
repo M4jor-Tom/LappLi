@@ -120,24 +120,15 @@ public class Position implements Serializable {
         return this.elementSupply;
     }
 
-    public void setElementSupply(ElementSupply elementSupply) throws PositionAlreadyHasSupplyException {
+    public void setElementSupply(ElementSupply elementSupply) {
         if (isOfBangleSupply() || isOfCustomComponentSupply() || isOfOneStudySupply()) {
-            throw new PositionAlreadyHasSupplyException();
+            (new PositionAlreadyHasSupplyException()).printStackTrace();
         }
         this.elementSupply = elementSupply;
     }
 
-    public Position elementSupply(ElementSupply elementSupply) throws PositionAlreadyHasSupplyException {
+    public Position elementSupply(ElementSupply elementSupply) {
         this.setElementSupply(elementSupply);
-        return this;
-    }
-
-    public Position forceElementSupply(ElementSupply elementSupply) {
-        try {
-            setElementSupply(elementSupply);
-        } catch (PositionAlreadyHasSupplyException e) {
-            e.printStackTrace();
-        }
         return this;
     }
 
@@ -145,24 +136,15 @@ public class Position implements Serializable {
         return this.bangleSupply;
     }
 
-    public void setBangleSupply(BangleSupply bangleSupply) throws PositionAlreadyHasSupplyException {
+    public void setBangleSupply(BangleSupply bangleSupply) {
         if (isOfCustomComponentSupply() || isOfElementSupply() || isOfOneStudySupply()) {
-            throw new PositionAlreadyHasSupplyException();
+            (new PositionAlreadyHasSupplyException()).printStackTrace();
         }
         this.bangleSupply = bangleSupply;
     }
 
-    public Position bangleSupply(BangleSupply bangleSupply) throws PositionAlreadyHasSupplyException {
+    public Position bangleSupply(BangleSupply bangleSupply) {
         this.setBangleSupply(bangleSupply);
-        return this;
-    }
-
-    public Position forceBangleSupply(BangleSupply bangleSupply) {
-        try {
-            setBangleSupply(bangleSupply);
-        } catch (PositionAlreadyHasSupplyException e) {
-            e.printStackTrace();
-        }
         return this;
     }
 
@@ -170,24 +152,15 @@ public class Position implements Serializable {
         return this.customComponentSupply;
     }
 
-    public void setCustomComponentSupply(CustomComponentSupply customComponentSupply) throws PositionAlreadyHasSupplyException {
+    public void setCustomComponentSupply(CustomComponentSupply customComponentSupply) {
         if (isOfBangleSupply() || isOfElementSupply() || isOfOneStudySupply()) {
-            throw new PositionAlreadyHasSupplyException();
+            (new PositionAlreadyHasSupplyException()).printStackTrace();
         }
         this.customComponentSupply = customComponentSupply;
     }
 
-    public Position customComponentSupply(CustomComponentSupply customComponentSupply) throws PositionAlreadyHasSupplyException {
+    public Position customComponentSupply(CustomComponentSupply customComponentSupply) {
         this.setCustomComponentSupply(customComponentSupply);
-        return this;
-    }
-
-    public Position forceCustomComponentSupply(CustomComponentSupply customComponentSupply) {
-        try {
-            setCustomComponentSupply(customComponentSupply);
-        } catch (PositionAlreadyHasSupplyException e) {
-            e.printStackTrace();
-        }
         return this;
     }
 
@@ -195,24 +168,15 @@ public class Position implements Serializable {
         return this.oneStudySupply;
     }
 
-    public void setOneStudySupply(OneStudySupply oneStudySupply) throws PositionAlreadyHasSupplyException {
+    public void setOneStudySupply(OneStudySupply oneStudySupply) {
         if (isOfBangleSupply() || isOfCustomComponentSupply() || isOfElementSupply()) {
-            throw new PositionAlreadyHasSupplyException();
+            (new PositionAlreadyHasSupplyException()).printStackTrace();
         }
         this.oneStudySupply = oneStudySupply;
     }
 
-    public Position oneStudySupply(OneStudySupply oneStudySupply) throws PositionAlreadyHasSupplyException {
+    public Position oneStudySupply(OneStudySupply oneStudySupply) {
         this.setOneStudySupply(oneStudySupply);
-        return this;
-    }
-
-    public Position forceOneStudySupply(OneStudySupply oneStudySupply) {
-        try {
-            setOneStudySupply(oneStudySupply);
-        } catch (PositionAlreadyHasSupplyException e) {
-            e.printStackTrace();
-        }
         return this;
     }
 
@@ -220,27 +184,15 @@ public class Position implements Serializable {
         return this.ownerCentralAssembly;
     }
 
-    public void setOwnerCentralAssembly(CentralAssembly centralAssembly) throws PositionAlreadyInAssemblyException {
+    public void setOwnerCentralAssembly(CentralAssembly centralAssembly) {
         if (isInCoreAssembly() || isInIntersticeAssembly()) {
-            throw new PositionAlreadyInAssemblyException();
+            (new PositionAlreadyInAssemblyException()).printStackTrace();
         }
         this.ownerCentralAssembly = centralAssembly;
     }
 
-    public Position ownerCentralAssembly(CentralAssembly centralAssembly) throws PositionAlreadyInAssemblyException {
+    public Position ownerCentralAssembly(CentralAssembly centralAssembly) {
         this.setOwnerCentralAssembly(centralAssembly);
-        return this;
-    }
-
-    public Position forceOwnerCentralAssembly(CentralAssembly centralAssembly) {
-        try {
-            setOwnerCentralAssembly(centralAssembly);
-            setOwnerCoreAssembly(null);
-            setOwnerIntersticeAssembly(null);
-        } catch (PositionAlreadyInAssemblyException e) {
-            e.printStackTrace();
-        }
-
         return this;
     }
 
@@ -248,27 +200,15 @@ public class Position implements Serializable {
         return this.ownerCoreAssembly;
     }
 
-    public void setOwnerCoreAssembly(CoreAssembly coreAssembly) throws PositionAlreadyInAssemblyException {
+    public void setOwnerCoreAssembly(CoreAssembly coreAssembly) {
         if (isInCentralAssembly() || isInIntersticeAssembly()) {
-            throw new PositionAlreadyInAssemblyException();
+            (new PositionAlreadyInAssemblyException()).printStackTrace();
         }
         this.ownerCoreAssembly = coreAssembly;
     }
 
-    public Position ownerCoreAssembly(CoreAssembly coreAssembly) throws PositionAlreadyInAssemblyException {
+    public Position ownerCoreAssembly(CoreAssembly coreAssembly) {
         this.setOwnerCoreAssembly(coreAssembly);
-        return this;
-    }
-
-    public Position forceOwnerCoreAssembly(CoreAssembly coreAssembly) {
-        try {
-            setOwnerCentralAssembly(null);
-            setOwnerCoreAssembly(coreAssembly);
-            setOwnerIntersticeAssembly(null);
-        } catch (PositionAlreadyInAssemblyException e) {
-            e.printStackTrace();
-        }
-
         return this;
     }
 
@@ -276,27 +216,15 @@ public class Position implements Serializable {
         return this.ownerIntersticeAssembly;
     }
 
-    public void setOwnerIntersticeAssembly(IntersticeAssembly intersticeAssembly) throws PositionAlreadyInAssemblyException {
+    public void setOwnerIntersticeAssembly(IntersticeAssembly intersticeAssembly) {
         if (isInCentralAssembly() || isInCoreAssembly()) {
-            throw new PositionAlreadyInAssemblyException();
+            (new PositionAlreadyInAssemblyException()).printStackTrace();
         }
         this.ownerIntersticeAssembly = intersticeAssembly;
     }
 
-    public Position ownerIntersticeAssembly(IntersticeAssembly intersticeAssembly) throws PositionAlreadyInAssemblyException {
+    public Position ownerIntersticeAssembly(IntersticeAssembly intersticeAssembly) {
         this.setOwnerIntersticeAssembly(intersticeAssembly);
-        return this;
-    }
-
-    public Position forceOwnerIntersticeAssembly(IntersticeAssembly intersticeAssembly) {
-        try {
-            setOwnerCentralAssembly(null);
-            setOwnerCoreAssembly(null);
-            setOwnerIntersticeAssembly(intersticeAssembly);
-        } catch (PositionAlreadyInAssemblyException e) {
-            e.printStackTrace();
-        }
-
         return this;
     }
 

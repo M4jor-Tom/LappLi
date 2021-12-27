@@ -3,7 +3,6 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
-import com.muller.lappli.domain.exception.PositionAlreadyInAssemblyException;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -123,10 +122,10 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     public void setPositions(Set<Position> positions) {
         if (this.positions != null) {
-            this.positions.forEach(i -> i.forceOwnerCoreAssembly(null));
+            this.positions.forEach(i -> i.setOwnerCoreAssembly(null));
         }
         if (positions != null) {
-            positions.forEach(i -> i.forceOwnerCoreAssembly(this));
+            positions.forEach(i -> i.setOwnerCoreAssembly(this));
         }
         this.positions = positions;
     }
@@ -136,13 +135,13 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         return this;
     }
 
-    public CoreAssembly addPositions(Position position) throws PositionAlreadyInAssemblyException {
+    public CoreAssembly addPositions(Position position) {
         this.positions.add(position);
         position.setOwnerCoreAssembly(this);
         return this;
     }
 
-    public CoreAssembly removePositions(Position position) throws PositionAlreadyInAssemblyException {
+    public CoreAssembly removePositions(Position position) {
         this.positions.remove(position);
         position.setOwnerCoreAssembly(null);
         return this;
