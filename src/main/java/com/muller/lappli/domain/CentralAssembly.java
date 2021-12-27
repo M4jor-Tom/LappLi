@@ -68,7 +68,9 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @Override
     public Set<Position> getPositions() {
         HashSet<Position> positions = new HashSet<Position>();
-        positions.add(getPosition());
+        if (getPosition() != null) {
+            positions.add(getPosition());
+        }
         return positions;
     }
 
