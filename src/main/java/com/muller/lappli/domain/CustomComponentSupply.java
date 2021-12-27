@@ -18,7 +18,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "custom_component_supply")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CustomComponentSupply extends AbstractMarkedLiftedSupply implements Serializable {
+public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComponentSupply> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

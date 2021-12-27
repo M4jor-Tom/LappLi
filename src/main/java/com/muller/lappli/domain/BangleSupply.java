@@ -18,7 +18,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "bangle_supply")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class BangleSupply extends AbstractLiftedSupply implements Serializable {
+public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

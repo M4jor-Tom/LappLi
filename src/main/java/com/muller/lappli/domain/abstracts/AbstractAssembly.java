@@ -11,7 +11,7 @@ import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 @MappedSuperclass
-public abstract class AbstractAssembly<T extends AbstractAssembly<T>> {
+public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends AbstractDomainObject<T> {
 
     @NotNull
     @Column(name = "production_step", nullable = false)
