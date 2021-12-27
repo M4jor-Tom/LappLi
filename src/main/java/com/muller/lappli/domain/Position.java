@@ -63,9 +63,23 @@ public class Position implements Serializable {
     private IntersticeAssembly ownerIntersticeAssembly;
 
     public Boolean isRight() {
+        return isAssemblyRight() && isSupplyRight();
+    }
+
+    public Boolean isAssemblyRight() {
         try {
-            checkRight();
-        } catch (PositionInSeveralAssemblyException | PositionHasSeveralSupplyException e) {
+            checkAssemblyIsRight();
+        } catch (PositionInSeveralAssemblyException e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public Boolean isSupplyRight() {
+        try {
+            checkSupplyIsRight();
+        } catch (PositionHasSeveralSupplyException e) {
             return false;
         }
 
@@ -73,6 +87,11 @@ public class Position implements Serializable {
     }
 
     public void checkRight() throws PositionInSeveralAssemblyException, PositionHasSeveralSupplyException {
+        checkAssemblyIsRight();
+        checkSupplyIsRight();
+    }
+
+    public void checkAssemblyIsRight() throws PositionInSeveralAssemblyException {
         Long ownerAssemblyCount = Long.valueOf(0);
         if (isInCentralAssembly()) {
             ownerAssemblyCount++;
@@ -87,7 +106,9 @@ public class Position implements Serializable {
         if (ownerAssemblyCount > Long.valueOf(1)) {
             throw new PositionInSeveralAssemblyException();
         }
+    }
 
+    public void checkSupplyIsRight() throws PositionHasSeveralSupplyException {
         Long containedSupplyCount = Long.valueOf(0);
         if (isOfBangleSupply()) {
             containedSupplyCount++;
@@ -232,6 +253,9 @@ public class Position implements Serializable {
     }
 
     public void setOwnerCentralAssembly(CentralAssembly centralAssembly) {
+        if (isInCoreAssembly() || isInIntersticeAssembly()) {
+            (new PositionAlreadyInAssemblyException()).printStackTrace();
+        }
         if (this.ownerCentralAssembly != null) {
             this.ownerCentralAssembly.setPosition(null);
         }
