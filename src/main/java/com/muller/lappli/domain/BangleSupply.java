@@ -3,6 +3,7 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
+import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,15 +70,10 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
     )
     private Strand strand;
 
-    /*public BangleSupply() {
-        this(new ArrayList<>(), null, new Bangle());
+    @Override
+    public CylindricComponent getCylindricComponent() {
+        return getBangle();
     }
-
-    public BangleSupply(List<Lifter> bestLifterList, Long apparitions, Bangle bangle) {
-        super(bestLifterList);
-        setApparitions(apparitions);
-        setBangle(bangle);
-    }*/
 
     @Override
     public Double getMeterPerHourSpeed() {

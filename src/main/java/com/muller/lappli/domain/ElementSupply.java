@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
+import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -78,13 +79,10 @@ public class ElementSupply extends AbstractMarkedLiftedSupply implements Seriali
         super();
     }
 
-    /*public ElementSupply(List<Lifter> bestLifterList, Long apparitions, MarkingType markingType, String description, Element element) {
-        super(bestLifterList);
-        setApparitions(apparitions);
-        setMarkingType(markingType);
-        setDescription(description);
-        setElement(element);
-    }*/
+    @Override
+    public CylindricComponent getCylindricComponent() {
+        return getElement();
+    }
 
     @Override
     @JsonIgnore

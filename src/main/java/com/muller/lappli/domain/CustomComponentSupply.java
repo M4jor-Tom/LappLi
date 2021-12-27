@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
+import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -73,6 +74,11 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply implements
         allowSetters = true
     )
     private Strand strand;
+
+    @Override
+    public CylindricComponent getCylindricComponent() {
+        return getCustomComponent();
+    }
 
     @Override
     public Material getSurfaceMaterial() {
