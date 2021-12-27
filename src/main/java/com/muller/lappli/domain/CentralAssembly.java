@@ -3,8 +3,6 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -42,8 +40,6 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @JoinColumn(name = "id")
     private Strand strand;
 
-    @OneToMany(mappedBy = "ownerCentralAssembly")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
         value = {
             "elementSupply",
@@ -56,7 +52,9 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         },
         allowSetters = true
     )
-    private Set<Position> positions = new HashSet<>();
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Position position;
 
     @Override
     public CentralAssembly getThis() {
@@ -92,34 +90,16 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         return this;
     }
 
-    public Set<Position> getPositions() {
-        return this.positions;
+    public Position getPosition() {
+        return this.position;
     }
 
-    public void setPositions(Set<Position> positions) {
-        if (this.positions != null) {
-            this.positions.forEach(i -> i.setOwnerCentralAssembly(null));
-        }
-        if (positions != null) {
-            positions.forEach(i -> i.setOwnerCentralAssembly(this));
-        }
-        this.positions = positions;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
-    public CentralAssembly positions(Set<Position> positions) {
-        this.setPositions(positions);
-        return this;
-    }
-
-    public CentralAssembly addPositions(Position position) {
-        this.positions.add(position);
-        position.setOwnerCentralAssembly(this);
-        return this;
-    }
-
-    public CentralAssembly removePositions(Position position) {
-        this.positions.remove(position);
-        position.setOwnerCentralAssembly(null);
+    public CentralAssembly position(Position position) {
+        this.setPosition(position);
         return this;
     }
 

@@ -171,9 +171,13 @@ relationship OneToMany {
 	Strand{oneStudySupplies(designation)} to OneStudySupply{strand(designation) required}
 
     //Supplies owned in a Strand as PLACED
-	CentralAssembly{positions(value)} to Position{ownerCentralAssembly(designation)}
     CoreAssembly{positions(value)} to Position{ownerCoreAssembly(designation)}
     IntersticeAssembly{positions(value)} to Position{ownerIntersticeAssembly(designation)}
+}
+
+relationship OneToOne {
+    //Supplies owned in a Strand as PLACED
+	CentralAssembly{position(value)} to Position{ownerCentralAssembly(designation)}
 }
 
 relationship OneToMany {

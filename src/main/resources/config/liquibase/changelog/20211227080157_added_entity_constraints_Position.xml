@@ -32,12 +32,6 @@
                                  referencedColumnNames="id"
                                  referencedTableName="one_study_supply"/>
 
-        <addForeignKeyConstraint baseColumnNames="owner_central_assembly_id"
-                                 baseTableName="position"
-                                 constraintName="fk_position__owner_central_assembly_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="central_assembly"/>
-
         <addForeignKeyConstraint baseColumnNames="owner_core_assembly_id"
                                  baseTableName="position"
                                  constraintName="fk_position__owner_core_assembly_id"

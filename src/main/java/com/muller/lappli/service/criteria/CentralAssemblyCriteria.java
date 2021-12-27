@@ -30,7 +30,7 @@ public class CentralAssemblyCriteria implements Serializable, Criteria {
 
     private LongFilter strandId;
 
-    private LongFilter positionsId;
+    private LongFilter positionId;
 
     private Boolean distinct;
 
@@ -40,7 +40,7 @@ public class CentralAssemblyCriteria implements Serializable, Criteria {
         this.id = other.id == null ? null : other.id.copy();
         this.productionStep = other.productionStep == null ? null : other.productionStep.copy();
         this.strandId = other.strandId == null ? null : other.strandId.copy();
-        this.positionsId = other.positionsId == null ? null : other.positionsId.copy();
+        this.positionId = other.positionId == null ? null : other.positionId.copy();
         this.distinct = other.distinct;
     }
 
@@ -94,19 +94,19 @@ public class CentralAssemblyCriteria implements Serializable, Criteria {
         this.strandId = strandId;
     }
 
-    public LongFilter getPositionsId() {
-        return positionsId;
+    public LongFilter getPositionId() {
+        return positionId;
     }
 
-    public LongFilter positionsId() {
-        if (positionsId == null) {
-            positionsId = new LongFilter();
+    public LongFilter positionId() {
+        if (positionId == null) {
+            positionId = new LongFilter();
         }
-        return positionsId;
+        return positionId;
     }
 
-    public void setPositionsId(LongFilter positionsId) {
-        this.positionsId = positionsId;
+    public void setPositionId(LongFilter positionId) {
+        this.positionId = positionId;
     }
 
     public Boolean getDistinct() {
@@ -130,14 +130,14 @@ public class CentralAssemblyCriteria implements Serializable, Criteria {
             Objects.equals(id, that.id) &&
             Objects.equals(productionStep, that.productionStep) &&
             Objects.equals(strandId, that.strandId) &&
-            Objects.equals(positionsId, that.positionsId) &&
+            Objects.equals(positionId, that.positionId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, productionStep, strandId, positionsId, distinct);
+        return Objects.hash(id, productionStep, strandId, positionId, distinct);
     }
 
     // prettier-ignore
@@ -147,7 +147,7 @@ public class CentralAssemblyCriteria implements Serializable, Criteria {
             (id != null ? "id=" + id + ", " : "") +
             (productionStep != null ? "productionStep=" + productionStep + ", " : "") +
             (strandId != null ? "strandId=" + strandId + ", " : "") +
-            (positionsId != null ? "positionsId=" + positionsId + ", " : "") +
+            (positionId != null ? "positionId=" + positionId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

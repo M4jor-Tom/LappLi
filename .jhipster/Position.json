@@ -41,11 +41,12 @@
       "ownerSide": true
     },
     {
-      "relationshipType": "many-to-one",
+      "relationshipType": "one-to-one",
       "otherEntityName": "centralAssembly",
-      "otherEntityRelationshipName": "positions",
+      "otherEntityRelationshipName": "position",
       "relationshipName": "ownerCentralAssembly",
-      "otherEntityField": "designation"
+      "otherEntityField": "designation",
+      "ownerSide": false
     },
     {
       "relationshipType": "many-to-one",

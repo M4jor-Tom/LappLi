@@ -30,6 +30,12 @@ public interface PositionService {
      * @return the list of entities.
      */
     List<Position> findAll();
+    /**
+     * Get all the Position where OwnerCentralAssembly is {@code null}.
+     *
+     * @return the {@link List} of entities.
+     */
+    List<Position> findAllWhereOwnerCentralAssemblyIsNull();
 
     /**
      * Get the "id" position.

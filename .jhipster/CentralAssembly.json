@@ -20,11 +20,12 @@
       "id": true
     },
     {
-      "relationshipType": "one-to-many",
+      "relationshipType": "one-to-one",
       "otherEntityName": "position",
       "otherEntityRelationshipName": "ownerCentralAssembly",
-      "relationshipName": "positions",
-      "otherEntityField": "value"
+      "relationshipName": "position",
+      "otherEntityField": "value",
+      "ownerSide": true
     }
   ],
   "entityTableName": "central_assembly",

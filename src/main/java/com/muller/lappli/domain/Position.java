@@ -50,8 +50,8 @@ public class Position implements Serializable {
     @JoinColumn(unique = true)
     private OneStudySupply oneStudySupply;
 
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "strand", "positions" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "strand", "position" }, allowSetters = true)
+    @OneToOne(mappedBy = "position")
     private CentralAssembly ownerCentralAssembly;
 
     @ManyToOne
@@ -232,8 +232,11 @@ public class Position implements Serializable {
     }
 
     public void setOwnerCentralAssembly(CentralAssembly centralAssembly) {
-        if (isInCoreAssembly() || isInIntersticeAssembly()) {
-            (new PositionAlreadyInAssemblyException()).printStackTrace();
+        if (this.ownerCentralAssembly != null) {
+            this.ownerCentralAssembly.setPosition(null);
+        }
+        if (centralAssembly != null) {
+            centralAssembly.setPosition(this);
         }
         this.ownerCentralAssembly = centralAssembly;
     }

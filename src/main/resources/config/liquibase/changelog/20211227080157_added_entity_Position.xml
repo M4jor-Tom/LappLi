@@ -29,9 +29,6 @@
             <column name="one_study_supply_id" type="bigint">
                 <constraints nullable="true" unique="true" uniqueConstraintName="ux_position__one_study_supply_id" />
             </column>
-            <column name="owner_central_assembly_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <column name="owner_core_assembly_id" type="bigint">
                 <constraints nullable="true" />
             </column>

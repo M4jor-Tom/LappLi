@@ -39,6 +39,10 @@ export const CentralAssemblyDetail = (props: RouteComponentProps<{ id: string }>
             <Translate contentKey="lappLiApp.centralAssembly.strand">Strand</Translate>
           </dt>
           <dd>{centralAssemblyEntity.strand ? centralAssemblyEntity.strand.designation : ''}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.centralAssembly.position">Position</Translate>
+          </dt>
+          <dd>{centralAssemblyEntity.position ? centralAssemblyEntity.position.value : ''}</dd>
         </dl>
         <Button tag={Link} to="/central-assembly" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

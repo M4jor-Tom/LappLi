@@ -408,6 +408,7 @@ class PositionResourceIT {
         em.persist(ownerCentralAssembly);
         em.flush();
         position.setOwnerCentralAssembly(ownerCentralAssembly);
+        ownerCentralAssembly.setPosition(position);
         positionRepository.saveAndFlush(position);
         Long ownerCentralAssemblyId = ownerCentralAssembly.getId();
 
