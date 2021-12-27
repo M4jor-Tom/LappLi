@@ -1,10 +1,14 @@
 package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.Position;
+import com.muller.lappli.domain.exception.PositionHasSeveralSupplyException;
+import com.muller.lappli.domain.exception.PositionInSeveralAssemblyException;
 import com.muller.lappli.repository.PositionRepository;
+import com.muller.lappli.service.IPositionCheckingService;
 import com.muller.lappli.service.PositionQueryService;
 import com.muller.lappli.service.PositionService;
 import com.muller.lappli.service.criteria.PositionCriteria;
+import com.muller.lappli.web.rest.abstracts.AbstractPositionCheckingResource;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -27,7 +31,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-public class PositionResource {
+public class PositionResource extends AbstractPositionCheckingResource<Position> {
 
     private final Logger log = LoggerFactory.getLogger(PositionResource.class);
 
@@ -52,6 +56,16 @@ public class PositionResource {
         this.positionQueryService = positionQueryService;
     }
 
+    @Override
+    protected IPositionCheckingService<Position> getPositionCheckingService() {
+        return positionService;
+    }
+
+    @Override
+    protected String getSpineCasePluralEntityName() {
+        return "positions";
+    }
+
     /**
      * {@code POST  /positions} : Create a new position.
      *
@@ -65,11 +79,8 @@ public class PositionResource {
         if (position.getId() != null) {
             throw new BadRequestAlertException("A new position cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Position result = positionService.save(position);
-        return ResponseEntity
-            .created(new URI("/api/positions/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+
+        return onSave(position, applicationName, ENTITY_NAME);
     }
 
     /**
@@ -99,11 +110,7 @@ public class PositionResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Position result = positionService.save(position);
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, position.getId().toString()))
-            .body(result);
+        return onSave(position, applicationName, ENTITY_NAME);
     }
 
     /**
@@ -134,12 +141,7 @@ public class PositionResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Position> result = positionService.partialUpdate(position);
-
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, position.getId().toString())
-        );
+        return onPartialUpdate(position, applicationName, ENTITY_NAME);
     }
 
     /**

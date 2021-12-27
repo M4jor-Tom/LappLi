@@ -56,12 +56,12 @@ public class CentralAssemblyResource extends AbstractAssemblyResource<CentralAss
     }
 
     @Override
-    protected IAssemblyService<CentralAssembly> getAssemblyService() {
+    protected IAssemblyService<CentralAssembly> getPositionCheckingService() {
         return centralAssemblyService;
     }
 
     @Override
-    protected String getSpineCaseEntityName() {
+    protected String getSpineCasePluralEntityName() {
         return "central-assemblies";
     }
 

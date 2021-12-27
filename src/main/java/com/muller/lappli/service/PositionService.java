@@ -7,23 +7,7 @@ import java.util.Optional;
 /**
  * Service Interface for managing {@link Position}.
  */
-public interface PositionService {
-    /**
-     * Save a position.
-     *
-     * @param position the entity to save.
-     * @return the persisted entity.
-     */
-    Position save(Position position);
-
-    /**
-     * Partially updates a position.
-     *
-     * @param position the entity to update partially.
-     * @return the persisted entity.
-     */
-    Optional<Position> partialUpdate(Position position);
-
+public interface PositionService extends IPositionCheckingService<Position> {
     /**
      * Get all the positions.
      *

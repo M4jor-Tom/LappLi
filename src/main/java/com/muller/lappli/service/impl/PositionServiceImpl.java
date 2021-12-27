@@ -1,6 +1,8 @@
 package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.Position;
+import com.muller.lappli.domain.exception.PositionHasSeveralSupplyException;
+import com.muller.lappli.domain.exception.PositionInSeveralAssemblyException;
 import com.muller.lappli.repository.PositionRepository;
 import com.muller.lappli.service.PositionService;
 import java.util.List;
@@ -28,14 +30,18 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
-    public Position save(Position position) {
+    public Position save(Position position) throws PositionInSeveralAssemblyException, PositionHasSeveralSupplyException {
         log.debug("Request to save Position : {}", position);
+        position.checkRight();
         return positionRepository.save(position);
     }
 
     @Override
-    public Optional<Position> partialUpdate(Position position) {
+    public Optional<Position> partialUpdate(Position position)
+        throws PositionInSeveralAssemblyException, PositionHasSeveralSupplyException {
         log.debug("Request to partially update Position : {}", position);
+
+        position.checkRight();
 
         return positionRepository
             .findById(position.getId())

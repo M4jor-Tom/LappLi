@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.exception.PositionAlreadyHasSupplyException;
 import com.muller.lappli.domain.exception.PositionAlreadyInAssemblyException;
 import com.muller.lappli.domain.exception.PositionHasSeveralSupplyException;
@@ -17,7 +18,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "position")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Position implements Serializable {
+public class Position extends AbstractDomainObject<Position> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -50,7 +51,7 @@ public class Position implements Serializable {
     @JoinColumn(unique = true)
     private OneStudySupply oneStudySupply;
 
-    @JsonIgnoreProperties(value = { "strand", "position" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "strand", "position", "positions" }, allowSetters = true)
     @OneToOne(mappedBy = "position")
     private CentralAssembly ownerCentralAssembly;
 

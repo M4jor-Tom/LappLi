@@ -54,12 +54,12 @@ public class IntersticeAssemblyResource extends AbstractAssemblyResource<Interst
     }
 
     @Override
-    protected IAssemblyService<IntersticeAssembly> getAssemblyService() {
+    protected IAssemblyService<IntersticeAssembly> getPositionCheckingService() {
         return intersticeAssemblyService;
     }
 
     @Override
-    protected String getSpineCaseEntityName() {
+    protected String getSpineCasePluralEntityName() {
         return "interstice-assemblies";
     }
 
