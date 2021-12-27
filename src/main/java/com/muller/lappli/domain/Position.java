@@ -1,6 +1,8 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.exception.PositionAlreadyHasSupplyException;
+import com.muller.lappli.domain.exception.PositionAlreadyInAssemblyException;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -61,6 +63,34 @@ public class Position implements Serializable {
     @JsonIgnoreProperties(value = { "positions", "strand" }, allowSetters = true)
     private IntersticeAssembly ownerIntersticeAssembly;
 
+    public Boolean isOfElementSupply() {
+        return getElementSupply() != null;
+    }
+
+    public Boolean isOfBangleSupply() {
+        return getBangleSupply() != null;
+    }
+
+    public Boolean isOfCustomComponentSupply() {
+        return getCustomComponentSupply() != null;
+    }
+
+    public Boolean isOfOneStudySupply() {
+        return getOneStudySupply() != null;
+    }
+
+    public Boolean isInCentralAssembly() {
+        return getOwnerCentralAssembly() != null;
+    }
+
+    public Boolean isInCoreAssembly() {
+        return getOwnerCoreAssembly() != null;
+    }
+
+    public Boolean isInIntersticeAssembly() {
+        return getOwnerIntersticeAssembly() != null;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -94,6 +124,9 @@ public class Position implements Serializable {
     }
 
     public void setElementSupply(ElementSupply elementSupply) {
+        if (isOfBangleSupply() || isOfCustomComponentSupply() || isOfOneStudySupply()) {
+            (new PositionAlreadyHasSupplyException()).printStackTrace();
+        }
         this.elementSupply = elementSupply;
     }
 
@@ -107,6 +140,9 @@ public class Position implements Serializable {
     }
 
     public void setBangleSupply(BangleSupply bangleSupply) {
+        if (isOfCustomComponentSupply() || isOfElementSupply() || isOfOneStudySupply()) {
+            (new PositionAlreadyHasSupplyException()).printStackTrace();
+        }
         this.bangleSupply = bangleSupply;
     }
 
@@ -120,6 +156,9 @@ public class Position implements Serializable {
     }
 
     public void setCustomComponentSupply(CustomComponentSupply customComponentSupply) {
+        if (isOfBangleSupply() || isOfElementSupply() || isOfOneStudySupply()) {
+            (new PositionAlreadyHasSupplyException()).printStackTrace();
+        }
         this.customComponentSupply = customComponentSupply;
     }
 
@@ -133,6 +172,9 @@ public class Position implements Serializable {
     }
 
     public void setOneStudySupply(OneStudySupply oneStudySupply) {
+        if (isOfBangleSupply() || isOfCustomComponentSupply() || isOfElementSupply()) {
+            (new PositionAlreadyHasSupplyException()).printStackTrace();
+        }
         this.oneStudySupply = oneStudySupply;
     }
 
@@ -146,6 +188,9 @@ public class Position implements Serializable {
     }
 
     public void setOwnerCentralAssembly(CentralAssembly centralAssembly) {
+        if (isInCoreAssembly() || isInIntersticeAssembly()) {
+            (new PositionAlreadyInAssemblyException()).printStackTrace();
+        }
         this.ownerCentralAssembly = centralAssembly;
     }
 
@@ -159,6 +204,9 @@ public class Position implements Serializable {
     }
 
     public void setOwnerCoreAssembly(CoreAssembly coreAssembly) {
+        if (isInCentralAssembly() || isInIntersticeAssembly()) {
+            (new PositionAlreadyInAssemblyException()).printStackTrace();
+        }
         this.ownerCoreAssembly = coreAssembly;
     }
 
@@ -172,6 +220,9 @@ public class Position implements Serializable {
     }
 
     public void setOwnerIntersticeAssembly(IntersticeAssembly intersticeAssembly) {
+        if (isInCentralAssembly() || isInCoreAssembly()) {
+            (new PositionAlreadyInAssemblyException()).printStackTrace();
+        }
         this.ownerIntersticeAssembly = intersticeAssembly;
     }
 
