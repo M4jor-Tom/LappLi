@@ -4,4 +4,4 @@ import com.muller.lappli.domain.interfaces.Assemblable;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class AbstractAssemblableAtom extends AbstractCableAtom implements Assemblable {}
+public abstract class AbstractAssemblableAtom<T> extends AbstractCableAtom<T> implements Assemblable {}

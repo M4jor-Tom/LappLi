@@ -10,7 +10,7 @@ import java.util.Comparator;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class AbstractMarkedLiftedSupply extends AbstractLiftedSupply {
+public abstract class AbstractMarkedLiftedSupply<T> extends AbstractLiftedSupply<T> {
 
     public abstract Material getSurfaceMaterial();
 

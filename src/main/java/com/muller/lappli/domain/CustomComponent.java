@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
@@ -15,7 +16,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "custom_component")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CustomComponent implements CylindricComponent, Serializable {
+public class CustomComponent extends AbstractDomainObject<CustomComponent> implements CylindricComponent, Serializable {
 
     private static final long serialVersionUID = 1L;
 

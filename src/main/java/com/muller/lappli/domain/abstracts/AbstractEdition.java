@@ -9,7 +9,7 @@ import javax.persistence.MappedSuperclass;
  * to edit domain objects of the type parameter class
  */
 @MappedSuperclass
-public abstract class AbstractEdition<C extends Commitable<C>> {
+public abstract class AbstractEdition<C extends Commitable<C>> extends AbstractDomainObject<AbstractEdition<C>> {
 
     public AbstractEdition() {
         setEditionInstant(Instant.now());

@@ -11,7 +11,7 @@ import javax.persistence.MappedSuperclass;
  * inside a Strand or Cable
  */
 @MappedSuperclass
-public abstract class AbstractSupply {
+public abstract class AbstractSupply<T> {
 
     /**
      * The unity length which Muller uses to measure cables statistics
