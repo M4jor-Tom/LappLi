@@ -94,11 +94,11 @@ public class CoreAssemblyQueryService extends QueryService<CoreAssembly> {
             if (criteria.getAssemblyMean() != null) {
                 specification = specification.and(buildSpecification(criteria.getAssemblyMean(), CoreAssembly_.assemblyMean));
             }
-            if (criteria.getPositionId() != null) {
+            if (criteria.getPositionsId() != null) {
                 specification =
                     specification.and(
                         buildSpecification(
-                            criteria.getPositionId(),
+                            criteria.getPositionsId(),
                             root -> root.join(CoreAssembly_.positions, JoinType.LEFT).get(Position_.id)
                         )
                     );

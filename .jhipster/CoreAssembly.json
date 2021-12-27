@@ -23,7 +23,7 @@
       "relationshipType": "one-to-many",
       "otherEntityName": "position",
       "otherEntityRelationshipName": "ownerCoreAssembly",
-      "relationshipName": "position",
+      "relationshipName": "positions",
       "otherEntityField": "value"
     },
     {

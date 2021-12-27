@@ -140,13 +140,13 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         return this;
     }
 
-    public CoreAssembly addPosition(Position position) {
+    public CoreAssembly addPositions(Position position) {
         this.positions.add(position);
         position.setOwnerCoreAssembly(this);
         return this;
     }
 
-    public CoreAssembly removePosition(Position position) {
+    public CoreAssembly removePositions(Position position) {
         this.positions.remove(position);
         position.setOwnerCoreAssembly(null);
         return this;

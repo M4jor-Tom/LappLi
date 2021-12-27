@@ -66,36 +66,6 @@ class PositionResourceIT {
      */
     public static Position createEntity(EntityManager em) {
         Position position = new Position().value(DEFAULT_VALUE);
-        // Add required entity
-        CentralAssembly centralAssembly;
-        if (TestUtil.findAll(em, CentralAssembly.class).isEmpty()) {
-            centralAssembly = CentralAssemblyResourceIT.createEntity(em);
-            em.persist(centralAssembly);
-            em.flush();
-        } else {
-            centralAssembly = TestUtil.findAll(em, CentralAssembly.class).get(0);
-        }
-        position.setOwnerCentralAssembly(centralAssembly);
-        // Add required entity
-        CoreAssembly coreAssembly;
-        if (TestUtil.findAll(em, CoreAssembly.class).isEmpty()) {
-            coreAssembly = CoreAssemblyResourceIT.createEntity(em);
-            em.persist(coreAssembly);
-            em.flush();
-        } else {
-            coreAssembly = TestUtil.findAll(em, CoreAssembly.class).get(0);
-        }
-        position.setOwnerCoreAssembly(coreAssembly);
-        // Add required entity
-        IntersticeAssembly intersticeAssembly;
-        if (TestUtil.findAll(em, IntersticeAssembly.class).isEmpty()) {
-            intersticeAssembly = IntersticeAssemblyResourceIT.createEntity(em);
-            em.persist(intersticeAssembly);
-            em.flush();
-        } else {
-            intersticeAssembly = TestUtil.findAll(em, IntersticeAssembly.class).get(0);
-        }
-        position.setOwnerIntersticeAssembly(intersticeAssembly);
         return position;
     }
 
@@ -107,36 +77,6 @@ class PositionResourceIT {
      */
     public static Position createUpdatedEntity(EntityManager em) {
         Position position = new Position().value(UPDATED_VALUE);
-        // Add required entity
-        CentralAssembly centralAssembly;
-        if (TestUtil.findAll(em, CentralAssembly.class).isEmpty()) {
-            centralAssembly = CentralAssemblyResourceIT.createUpdatedEntity(em);
-            em.persist(centralAssembly);
-            em.flush();
-        } else {
-            centralAssembly = TestUtil.findAll(em, CentralAssembly.class).get(0);
-        }
-        position.setOwnerCentralAssembly(centralAssembly);
-        // Add required entity
-        CoreAssembly coreAssembly;
-        if (TestUtil.findAll(em, CoreAssembly.class).isEmpty()) {
-            coreAssembly = CoreAssemblyResourceIT.createUpdatedEntity(em);
-            em.persist(coreAssembly);
-            em.flush();
-        } else {
-            coreAssembly = TestUtil.findAll(em, CoreAssembly.class).get(0);
-        }
-        position.setOwnerCoreAssembly(coreAssembly);
-        // Add required entity
-        IntersticeAssembly intersticeAssembly;
-        if (TestUtil.findAll(em, IntersticeAssembly.class).isEmpty()) {
-            intersticeAssembly = IntersticeAssemblyResourceIT.createUpdatedEntity(em);
-            em.persist(intersticeAssembly);
-            em.flush();
-        } else {
-            intersticeAssembly = TestUtil.findAll(em, IntersticeAssembly.class).get(0);
-        }
-        position.setOwnerIntersticeAssembly(intersticeAssembly);
         return position;
     }
 

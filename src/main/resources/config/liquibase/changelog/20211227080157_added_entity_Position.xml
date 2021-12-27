@@ -30,13 +30,13 @@
                 <constraints nullable="true" unique="true" uniqueConstraintName="ux_position__one_study_supply_id" />
             </column>
             <column name="owner_central_assembly_id" type="bigint">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="owner_core_assembly_id" type="bigint">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="owner_interstice_assembly_id" type="bigint">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
@@ -60,9 +60,6 @@
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="value" type="numeric"/>
-            <column name="owner_central_assembly_id" type="numeric"/>
-            <column name="owner_core_assembly_id" type="numeric"/>
-            <column name="owner_interstice_assembly_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

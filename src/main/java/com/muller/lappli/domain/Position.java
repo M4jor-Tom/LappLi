@@ -48,18 +48,15 @@ public class Position implements Serializable {
     @JoinColumn(unique = true)
     private OneStudySupply oneStudySupply;
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @ManyToOne
     @JsonIgnoreProperties(value = { "strand", "positions" }, allowSetters = true)
     private CentralAssembly ownerCentralAssembly;
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @ManyToOne
     @JsonIgnoreProperties(value = { "positions", "strand" }, allowSetters = true)
     private CoreAssembly ownerCoreAssembly;
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @ManyToOne
     @JsonIgnoreProperties(value = { "positions", "strand" }, allowSetters = true)
     private IntersticeAssembly ownerIntersticeAssembly;
 

@@ -115,13 +115,13 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         return this;
     }
 
-    public CentralAssembly addPosition(Position position) {
+    public CentralAssembly addPositions(Position position) {
         this.positions.add(position);
         position.setOwnerCentralAssembly(this);
         return this;
     }
 
-    public CentralAssembly removePosition(Position position) {
+    public CentralAssembly removePositions(Position position) {
         this.positions.remove(position);
         position.setOwnerCentralAssembly(null);
         return this;

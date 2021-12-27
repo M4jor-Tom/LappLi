@@ -97,11 +97,11 @@ public class CentralAssemblyQueryService extends QueryService<CentralAssembly> {
                         )
                     );
             }
-            if (criteria.getPositionId() != null) {
+            if (criteria.getPositionsId() != null) {
                 specification =
                     specification.and(
                         buildSpecification(
-                            criteria.getPositionId(),
+                            criteria.getPositionsId(),
                             root -> root.join(CentralAssembly_.positions, JoinType.LEFT).get(Position_.id)
                         )
                     );

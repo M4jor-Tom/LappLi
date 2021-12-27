@@ -369,28 +369,28 @@ class CentralAssemblyResourceIT {
 
     @Test
     @Transactional
-    void getAllCentralAssembliesByPositionIsEqualToSomething() throws Exception {
+    void getAllCentralAssembliesByPositionsIsEqualToSomething() throws Exception {
         // Initialize the database
         centralAssemblyRepository.saveAndFlush(centralAssembly);
-        Position position;
+        Position positions;
         if (TestUtil.findAll(em, Position.class).isEmpty()) {
-            position = PositionResourceIT.createEntity(em);
-            em.persist(position);
+            positions = PositionResourceIT.createEntity(em);
+            em.persist(positions);
             em.flush();
         } else {
-            position = TestUtil.findAll(em, Position.class).get(0);
+            positions = TestUtil.findAll(em, Position.class).get(0);
         }
-        em.persist(position);
+        em.persist(positions);
         em.flush();
-        centralAssembly.addPosition(position);
+        centralAssembly.addPositions(positions);
         centralAssemblyRepository.saveAndFlush(centralAssembly);
-        Long positionId = position.getId();
+        Long positionsId = positions.getId();
 
-        // Get all the centralAssemblyList where position equals to positionId
-        defaultCentralAssemblyShouldBeFound("positionId.equals=" + positionId);
+        // Get all the centralAssemblyList where positions equals to positionsId
+        defaultCentralAssemblyShouldBeFound("positionsId.equals=" + positionsId);
 
-        // Get all the centralAssemblyList where position equals to (positionId + 1)
-        defaultCentralAssemblyShouldNotBeFound("positionId.equals=" + (positionId + 1));
+        // Get all the centralAssemblyList where positions equals to (positionsId + 1)
+        defaultCentralAssemblyShouldNotBeFound("positionsId.equals=" + (positionsId + 1));
     }
 
     /**

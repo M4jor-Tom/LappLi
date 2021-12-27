@@ -311,28 +311,28 @@ class IntersticeAssemblyResourceIT {
 
     @Test
     @Transactional
-    void getAllIntersticeAssembliesByPositionIsEqualToSomething() throws Exception {
+    void getAllIntersticeAssembliesByPositionsIsEqualToSomething() throws Exception {
         // Initialize the database
         intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
-        Position position;
+        Position positions;
         if (TestUtil.findAll(em, Position.class).isEmpty()) {
-            position = PositionResourceIT.createEntity(em);
-            em.persist(position);
+            positions = PositionResourceIT.createEntity(em);
+            em.persist(positions);
             em.flush();
         } else {
-            position = TestUtil.findAll(em, Position.class).get(0);
+            positions = TestUtil.findAll(em, Position.class).get(0);
         }
-        em.persist(position);
+        em.persist(positions);
         em.flush();
-        intersticeAssembly.addPosition(position);
+        intersticeAssembly.addPositions(positions);
         intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
-        Long positionId = position.getId();
+        Long positionsId = positions.getId();
 
-        // Get all the intersticeAssemblyList where position equals to positionId
-        defaultIntersticeAssemblyShouldBeFound("positionId.equals=" + positionId);
+        // Get all the intersticeAssemblyList where positions equals to positionsId
+        defaultIntersticeAssemblyShouldBeFound("positionsId.equals=" + positionsId);
 
-        // Get all the intersticeAssemblyList where position equals to (positionId + 1)
-        defaultIntersticeAssemblyShouldNotBeFound("positionId.equals=" + (positionId + 1));
+        // Get all the intersticeAssemblyList where positions equals to (positionsId + 1)
+        defaultIntersticeAssemblyShouldNotBeFound("positionsId.equals=" + (positionsId + 1));
     }
 
     @Test

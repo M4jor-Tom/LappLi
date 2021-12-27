@@ -206,7 +206,6 @@ export const PositionUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 data-cy="ownerCentralAssembly"
                 label={translate('lappLiApp.position.ownerCentralAssembly')}
                 type="select"
-                required
               >
                 <option value="" key="0" />
                 {centralAssemblies
@@ -217,16 +216,12 @@ export const PositionUpdate = (props: RouteComponentProps<{ id: string }>) => {
                     ))
                   : null}
               </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
               <ValidatedField
                 id="position-ownerCoreAssembly"
                 name="ownerCoreAssembly"
                 data-cy="ownerCoreAssembly"
                 label={translate('lappLiApp.position.ownerCoreAssembly')}
                 type="select"
-                required
               >
                 <option value="" key="0" />
                 {coreAssemblies
@@ -237,16 +232,12 @@ export const PositionUpdate = (props: RouteComponentProps<{ id: string }>) => {
                     ))
                   : null}
               </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
               <ValidatedField
                 id="position-ownerIntersticeAssembly"
                 name="ownerIntersticeAssembly"
                 data-cy="ownerIntersticeAssembly"
                 label={translate('lappLiApp.position.ownerIntersticeAssembly')}
                 type="select"
-                required
               >
                 <option value="" key="0" />
                 {intersticeAssemblies
@@ -257,9 +248,6 @@ export const PositionUpdate = (props: RouteComponentProps<{ id: string }>) => {
                     ))
                   : null}
               </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/position" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

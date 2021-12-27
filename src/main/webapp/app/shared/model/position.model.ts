@@ -13,9 +13,9 @@ export interface IPosition {
   bangleSupply?: IBangleSupply | null;
   customComponentSupply?: ICustomComponentSupply | null;
   oneStudySupply?: IOneStudySupply | null;
-  ownerCentralAssembly?: ICentralAssembly;
-  ownerCoreAssembly?: ICoreAssembly;
-  ownerIntersticeAssembly?: IIntersticeAssembly;
+  ownerCentralAssembly?: ICentralAssembly | null;
+  ownerCoreAssembly?: ICoreAssembly | null;
+  ownerIntersticeAssembly?: IIntersticeAssembly | null;
 }
 
 export const defaultValue: Readonly<IPosition> = {};

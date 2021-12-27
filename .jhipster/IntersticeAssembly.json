@@ -12,7 +12,7 @@
       "relationshipType": "one-to-many",
       "otherEntityName": "position",
       "otherEntityRelationshipName": "ownerIntersticeAssembly",
-      "relationshipName": "position",
+      "relationshipName": "positions",
       "otherEntityField": "value"
     },
     {

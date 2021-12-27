@@ -50,7 +50,7 @@ public class CoreAssemblyCriteria implements Serializable, Criteria {
 
     private AssemblyMeanFilter assemblyMean;
 
-    private LongFilter positionId;
+    private LongFilter positionsId;
 
     private LongFilter strandId;
 
@@ -63,7 +63,7 @@ public class CoreAssemblyCriteria implements Serializable, Criteria {
         this.productionStep = other.productionStep == null ? null : other.productionStep.copy();
         this.assemblyStep = other.assemblyStep == null ? null : other.assemblyStep.copy();
         this.assemblyMean = other.assemblyMean == null ? null : other.assemblyMean.copy();
-        this.positionId = other.positionId == null ? null : other.positionId.copy();
+        this.positionsId = other.positionsId == null ? null : other.positionsId.copy();
         this.strandId = other.strandId == null ? null : other.strandId.copy();
         this.distinct = other.distinct;
     }
@@ -133,19 +133,19 @@ public class CoreAssemblyCriteria implements Serializable, Criteria {
         this.assemblyMean = assemblyMean;
     }
 
-    public LongFilter getPositionId() {
-        return positionId;
+    public LongFilter getPositionsId() {
+        return positionsId;
     }
 
-    public LongFilter positionId() {
-        if (positionId == null) {
-            positionId = new LongFilter();
+    public LongFilter positionsId() {
+        if (positionsId == null) {
+            positionsId = new LongFilter();
         }
-        return positionId;
+        return positionsId;
     }
 
-    public void setPositionId(LongFilter positionId) {
-        this.positionId = positionId;
+    public void setPositionsId(LongFilter positionsId) {
+        this.positionsId = positionsId;
     }
 
     public LongFilter getStrandId() {
@@ -185,7 +185,7 @@ public class CoreAssemblyCriteria implements Serializable, Criteria {
             Objects.equals(productionStep, that.productionStep) &&
             Objects.equals(assemblyStep, that.assemblyStep) &&
             Objects.equals(assemblyMean, that.assemblyMean) &&
-            Objects.equals(positionId, that.positionId) &&
+            Objects.equals(positionsId, that.positionsId) &&
             Objects.equals(strandId, that.strandId) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -193,7 +193,7 @@ public class CoreAssemblyCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, productionStep, assemblyStep, assemblyMean, positionId, strandId, distinct);
+        return Objects.hash(id, productionStep, assemblyStep, assemblyMean, positionsId, strandId, distinct);
     }
 
     // prettier-ignore
@@ -204,7 +204,7 @@ public class CoreAssemblyCriteria implements Serializable, Criteria {
             (productionStep != null ? "productionStep=" + productionStep + ", " : "") +
             (assemblyStep != null ? "assemblyStep=" + assemblyStep + ", " : "") +
             (assemblyMean != null ? "assemblyMean=" + assemblyMean + ", " : "") +
-            (positionId != null ? "positionId=" + positionId + ", " : "") +
+            (positionsId != null ? "positionsId=" + positionsId + ", " : "") +
             (strandId != null ? "strandId=" + strandId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

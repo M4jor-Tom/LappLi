@@ -515,28 +515,28 @@ class CoreAssemblyResourceIT {
 
     @Test
     @Transactional
-    void getAllCoreAssembliesByPositionIsEqualToSomething() throws Exception {
+    void getAllCoreAssembliesByPositionsIsEqualToSomething() throws Exception {
         // Initialize the database
         coreAssemblyRepository.saveAndFlush(coreAssembly);
-        Position position;
+        Position positions;
         if (TestUtil.findAll(em, Position.class).isEmpty()) {
-            position = PositionResourceIT.createEntity(em);
-            em.persist(position);
+            positions = PositionResourceIT.createEntity(em);
+            em.persist(positions);
             em.flush();
         } else {
-            position = TestUtil.findAll(em, Position.class).get(0);
+            positions = TestUtil.findAll(em, Position.class).get(0);
         }
-        em.persist(position);
+        em.persist(positions);
         em.flush();
-        coreAssembly.addPosition(position);
+        coreAssembly.addPositions(positions);
         coreAssemblyRepository.saveAndFlush(coreAssembly);
-        Long positionId = position.getId();
+        Long positionsId = positions.getId();
 
-        // Get all the coreAssemblyList where position equals to positionId
-        defaultCoreAssemblyShouldBeFound("positionId.equals=" + positionId);
+        // Get all the coreAssemblyList where positions equals to positionsId
+        defaultCoreAssemblyShouldBeFound("positionsId.equals=" + positionsId);
 
-        // Get all the coreAssemblyList where position equals to (positionId + 1)
-        defaultCoreAssemblyShouldNotBeFound("positionId.equals=" + (positionId + 1));
+        // Get all the coreAssemblyList where positions equals to (positionsId + 1)
+        defaultCoreAssemblyShouldNotBeFound("positionsId.equals=" + (positionsId + 1));
     }
 
     @Test

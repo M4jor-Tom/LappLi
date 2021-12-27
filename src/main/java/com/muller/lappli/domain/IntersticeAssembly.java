@@ -120,13 +120,13 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         return this;
     }
 
-    public IntersticeAssembly addPosition(Position position) {
+    public IntersticeAssembly addPositions(Position position) {
         this.positions.add(position);
         position.setOwnerIntersticeAssembly(this);
         return this;
     }
 
-    public IntersticeAssembly removePosition(Position position) {
+    public IntersticeAssembly removePositions(Position position) {
         this.positions.remove(position);
         position.setOwnerIntersticeAssembly(null);
         return this;
