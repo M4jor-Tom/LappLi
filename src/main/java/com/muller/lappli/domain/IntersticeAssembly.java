@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -24,11 +26,37 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     @Column(name = "id")
     private Long id;
 
+    @NotNull
+    @Column(name = "production_step", nullable = false)
+    private Long productionStep;
+
+    @OneToMany(mappedBy = "ownerIntersticeAssembly")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(
+        value = {
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "ownerCentralAssembly",
+            "ownerCoreAssembly",
+            "ownerIntersticeAssembly",
+        },
+        allowSetters = true
+    )
+    private Set<Position> positions = new HashSet<>();
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
         value = {
-            "intersticialAssemblies", "elementSupplies", "bangleSupplies", "customComponentSupplies", "oneStudySupplies", "centralAssembly",
+            "coreAssemblies",
+            "intersticialAssemblies",
+            "elementSupplies",
+            "bangleSupplies",
+            "customComponentSupplies",
+            "oneStudySupplies",
+            "centralAssembly",
         },
         allowSetters = true
     )
@@ -70,6 +98,50 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getProductionStep() {
+        return this.productionStep;
+    }
+
+    public IntersticeAssembly productionStep(Long productionStep) {
+        this.setProductionStep(productionStep);
+        return this;
+    }
+
+    public void setProductionStep(Long productionStep) {
+        this.productionStep = productionStep;
+    }
+
+    public Set<Position> getPositions() {
+        return this.positions;
+    }
+
+    public void setPositions(Set<Position> positions) {
+        if (this.positions != null) {
+            this.positions.forEach(i -> i.setOwnerIntersticeAssembly(null));
+        }
+        if (positions != null) {
+            positions.forEach(i -> i.setOwnerIntersticeAssembly(this));
+        }
+        this.positions = positions;
+    }
+
+    public IntersticeAssembly positions(Set<Position> positions) {
+        this.setPositions(positions);
+        return this;
+    }
+
+    public IntersticeAssembly addPosition(Position position) {
+        this.positions.add(position);
+        position.setOwnerIntersticeAssembly(this);
+        return this;
+    }
+
+    public IntersticeAssembly removePosition(Position position) {
+        this.positions.remove(position);
+        position.setOwnerIntersticeAssembly(null);
+        return this;
     }
 
     public Strand getStrand() {

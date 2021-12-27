@@ -8,6 +8,8 @@ import com.muller.lappli.service.LifterService;
 import com.muller.lappli.service.abstracts.AbstractLiftedSupplyServiceImpl;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -71,6 +73,19 @@ public class ElementSupplyServiceImpl extends AbstractLiftedSupplyServiceImpl<El
     public List<ElementSupply> findAll() {
         log.debug("Request to get all ElementSupplies");
         return onListRead(elementSupplyRepository.findAll());
+    }
+
+    /**
+     *  Get all the elementSupplies where Position is {@code null}.
+     *  @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<ElementSupply> findAllWherePositionIsNull() {
+        log.debug("Request to get all elementSupplies where Position is null");
+        return StreamSupport
+            .stream(elementSupplyRepository.findAll().spliterator(), false)
+            .filter(elementSupply -> elementSupply.getPosition() == null)
+            .collect(Collectors.toList());
     }
 
     @Override

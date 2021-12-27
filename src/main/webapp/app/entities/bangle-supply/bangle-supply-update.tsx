@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IBangle } from 'app/shared/model/bangle.model';
 import { getEntities as getBangles } from 'app/entities/bangle/bangle.reducer';
+import { IPosition } from 'app/shared/model/position.model';
+import { getEntities as getPositions } from 'app/entities/position/position.reducer';
 import { IStrand } from 'app/shared/model/strand.model';
 import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './bangle-supply.reducer';
@@ -13,6 +15,7 @@ import { IBangleSupply } from 'app/shared/model/bangle-supply.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { getStudyValidateField } from '../supply/index-management-lib';
 
 import { getStrandSupplyRedirectionUrl, getStrandValidateField, isStrandSupply, SupplyKind } from '../supply/index-management-lib';
 
@@ -26,6 +29,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
   const redirectionUrl = getStrandSupplyRedirectionUrl(props, SupplyKind.BANGLE);
 
   const bangles = useAppSelector(state => state.bangle.entities);
+  const positions = useAppSelector(state => state.position.entities);
   const strands = useAppSelector(state => state.strand.entities);
   const bangleSupplyEntity = useAppSelector(state => state.bangleSupply.entity);
   const loading = useAppSelector(state => state.bangleSupply.loading);
@@ -43,6 +47,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
     }
 
     dispatch(getBangles({}));
+    dispatch(getPositions({}));
     dispatch(getStrands({}));
   }, []);
 

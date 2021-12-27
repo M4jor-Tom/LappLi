@@ -80,6 +80,8 @@ public class OneStudySupplyCriteria implements Serializable, Criteria {
 
     private LongFilter surfaceMaterialId;
 
+    private LongFilter positionId;
+
     private LongFilter strandId;
 
     private Boolean distinct;
@@ -97,6 +99,7 @@ public class OneStudySupplyCriteria implements Serializable, Criteria {
         this.milimeterDiameter = other.milimeterDiameter == null ? null : other.milimeterDiameter.copy();
         this.surfaceColor = other.surfaceColor == null ? null : other.surfaceColor.copy();
         this.surfaceMaterialId = other.surfaceMaterialId == null ? null : other.surfaceMaterialId.copy();
+        this.positionId = other.positionId == null ? null : other.positionId.copy();
         this.strandId = other.strandId == null ? null : other.strandId.copy();
         this.distinct = other.distinct;
     }
@@ -256,6 +259,21 @@ public class OneStudySupplyCriteria implements Serializable, Criteria {
         this.surfaceMaterialId = surfaceMaterialId;
     }
 
+    public LongFilter getPositionId() {
+        return positionId;
+    }
+
+    public LongFilter positionId() {
+        if (positionId == null) {
+            positionId = new LongFilter();
+        }
+        return positionId;
+    }
+
+    public void setPositionId(LongFilter positionId) {
+        this.positionId = positionId;
+    }
+
     public LongFilter getStrandId() {
         return strandId;
     }
@@ -299,6 +317,7 @@ public class OneStudySupplyCriteria implements Serializable, Criteria {
             Objects.equals(milimeterDiameter, that.milimeterDiameter) &&
             Objects.equals(surfaceColor, that.surfaceColor) &&
             Objects.equals(surfaceMaterialId, that.surfaceMaterialId) &&
+            Objects.equals(positionId, that.positionId) &&
             Objects.equals(strandId, that.strandId) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -317,6 +336,7 @@ public class OneStudySupplyCriteria implements Serializable, Criteria {
             milimeterDiameter,
             surfaceColor,
             surfaceMaterialId,
+            positionId,
             strandId,
             distinct
         );
@@ -336,6 +356,7 @@ public class OneStudySupplyCriteria implements Serializable, Criteria {
             (milimeterDiameter != null ? "milimeterDiameter=" + milimeterDiameter + ", " : "") +
             (surfaceColor != null ? "surfaceColor=" + surfaceColor + ", " : "") +
             (surfaceMaterialId != null ? "surfaceMaterialId=" + surfaceMaterialId + ", " : "") +
+            (positionId != null ? "positionId=" + positionId + ", " : "") +
             (strandId != null ? "strandId=" + strandId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -25,6 +27,10 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     private Long id;
 
     @NotNull
+    @Column(name = "production_step", nullable = false)
+    private Long productionStep;
+
+    @NotNull
     @Column(name = "assembly_step", nullable = false)
     private Double assemblyStep;
 
@@ -32,6 +38,22 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     @Enumerated(EnumType.STRING)
     @Column(name = "assembly_mean", nullable = false)
     private AssemblyMean assemblyMean;
+
+    @OneToMany(mappedBy = "ownerCoreAssembly")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(
+        value = {
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "ownerCentralAssembly",
+            "ownerCoreAssembly",
+            "ownerIntersticeAssembly",
+        },
+        allowSetters = true
+    )
+    private Set<Position> positions = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
@@ -70,6 +92,19 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         this.id = id;
     }
 
+    public Long getProductionStep() {
+        return this.productionStep;
+    }
+
+    public CoreAssembly productionStep(Long productionStep) {
+        this.setProductionStep(productionStep);
+        return this;
+    }
+
+    public void setProductionStep(Long productionStep) {
+        this.productionStep = productionStep;
+    }
+
     @Override
     public Double getAssemblyStep() {
         return this.assemblyStep;
@@ -96,6 +131,37 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     public void setAssemblyMean(AssemblyMean assemblyMean) {
         this.assemblyMean = assemblyMean;
+    }
+
+    public Set<Position> getPositions() {
+        return this.positions;
+    }
+
+    public void setPositions(Set<Position> positions) {
+        if (this.positions != null) {
+            this.positions.forEach(i -> i.setOwnerCoreAssembly(null));
+        }
+        if (positions != null) {
+            positions.forEach(i -> i.setOwnerCoreAssembly(this));
+        }
+        this.positions = positions;
+    }
+
+    public CoreAssembly positions(Set<Position> positions) {
+        this.setPositions(positions);
+        return this;
+    }
+
+    public CoreAssembly addPosition(Position position) {
+        this.positions.add(position);
+        position.setOwnerCoreAssembly(this);
+        return this;
+    }
+
+    public CoreAssembly removePosition(Position position) {
+        this.positions.remove(position);
+        position.setOwnerCoreAssembly(null);
+        return this;
     }
 
     public Strand getStrand() {

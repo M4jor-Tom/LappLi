@@ -2,6 +2,10 @@ filter * except ElementKind, Element, ElementSupply, BangleSupply, CustomCompone
 
 service * with serviceImpl
 
+entity Position {
+    value Long required
+}
+
 entity CentralAssembly {
 	productionStep Long required
 }
@@ -140,6 +144,13 @@ relationship OneToOne {
 	UserData{user(login) required} to User with jpaDerivedIdentifier
 }
 
+relationship OneToOne {
+	Position{elementSupply(designation)} to ElementSupply{position(value)}
+    Position{bangleSupply(designation)} to BangleSupply{position(value)}
+    Position{customComponentSupply(designation)} to CustomComponentSupply{position(value)}
+	Position{oneStudySupply(designation)} to OneStudySupply{position(value)}
+}
+
 relationship OneToMany {
 	Strand{coreAssemblies(productionStep)} to CoreAssembly{strand(designation) required}
 	Strand{intersticialAssemblies(productionStep)} to IntersticeAssembly{strand(designation) required}
@@ -158,6 +169,11 @@ relationship OneToMany {
     Strand{bangleSupplies(designation)} to BangleSupply{strand(designation) required}
     Strand{customComponentSupplies(designation)} to CustomComponentSupply{strand(designation) required}
 	Strand{oneStudySupplies(designation)} to OneStudySupply{strand(designation) required}
+
+    //Supplies owned in a Strand as PLACED
+	CentralAssembly{position(value)} to Position{ownerCentralAssembly(designation) required}
+    CoreAssembly{position(value)} to Position{ownerCoreAssembly(designation) required}
+    IntersticeAssembly{position(value)} to Position{ownerIntersticeAssembly(designation) required}
 }
 
 relationship OneToMany {

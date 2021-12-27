@@ -43,9 +43,35 @@ public class ElementSupply extends AbstractMarkedLiftedSupply implements Seriali
     //@JsonIgnoreProperties(value = { "elementKind" }, allowSetters = true)
     private Element element;
 
+    @JsonIgnoreProperties(
+        value = {
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "ownerCentralAssembly",
+            "ownerCoreAssembly",
+            "ownerIntersticeAssembly",
+        },
+        allowSetters = true
+    )
+    @OneToOne(mappedBy = "elementSupply")
+    private Position position;
+
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "elementSupplies", "bangleSupplies", "customComponentSupplies" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = {
+            "coreAssemblies",
+            "intersticialAssemblies",
+            "elementSupplies",
+            "bangleSupplies",
+            "customComponentSupplies",
+            "oneStudySupplies",
+            "centralAssembly",
+        },
+        allowSetters = true
+    )
     private Strand strand;
 
     public ElementSupply() {
@@ -162,6 +188,25 @@ public class ElementSupply extends AbstractMarkedLiftedSupply implements Seriali
 
     public ElementSupply element(Element element) {
         this.setElement(element);
+        return this;
+    }
+
+    public Position getPosition() {
+        return this.position;
+    }
+
+    public void setPosition(Position position) {
+        if (this.position != null) {
+            this.position.setElementSupply(null);
+        }
+        if (position != null) {
+            position.setElementSupply(this);
+        }
+        this.position = position;
+    }
+
+    public ElementSupply position(Position position) {
+        this.setPosition(position);
         return this;
     }
 

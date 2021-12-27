@@ -9,6 +9,13 @@
   ],
   "relationships": [
     {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "position",
+      "otherEntityRelationshipName": "ownerIntersticeAssembly",
+      "relationshipName": "position",
+      "otherEntityField": "value"
+    },
+    {
       "relationshipType": "many-to-one",
       "otherEntityName": "strand",
       "otherEntityRelationshipName": "intersticialAssemblies",

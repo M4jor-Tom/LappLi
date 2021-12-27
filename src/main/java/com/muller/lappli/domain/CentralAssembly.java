@@ -3,6 +3,8 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -22,6 +24,10 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @Column(name = "id")
     private Long id;
 
+    @NotNull
+    @Column(name = "production_step", nullable = false)
+    private Long productionStep;
+
     @JsonIgnoreProperties(
         value = {
             "coreAssemblies",
@@ -39,6 +45,22 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @MapsId
     @JoinColumn(name = "id")
     private Strand strand;
+
+    @OneToMany(mappedBy = "ownerCentralAssembly")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(
+        value = {
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "ownerCentralAssembly",
+            "ownerCoreAssembly",
+            "ownerIntersticeAssembly",
+        },
+        allowSetters = true
+    )
+    private Set<Position> positions = new HashSet<>();
 
     @Override
     public CentralAssembly getThis() {
@@ -60,6 +82,19 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         this.id = id;
     }
 
+    public Long getProductionStep() {
+        return this.productionStep;
+    }
+
+    public CentralAssembly productionStep(Long productionStep) {
+        this.setProductionStep(productionStep);
+        return this;
+    }
+
+    public void setProductionStep(Long productionStep) {
+        this.productionStep = productionStep;
+    }
+
     public Strand getStrand() {
         return this.strand;
     }
@@ -70,6 +105,37 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
 
     public CentralAssembly strand(Strand strand) {
         this.setStrand(strand);
+        return this;
+    }
+
+    public Set<Position> getPositions() {
+        return this.positions;
+    }
+
+    public void setPositions(Set<Position> positions) {
+        if (this.positions != null) {
+            this.positions.forEach(i -> i.setOwnerCentralAssembly(null));
+        }
+        if (positions != null) {
+            positions.forEach(i -> i.setOwnerCentralAssembly(this));
+        }
+        this.positions = positions;
+    }
+
+    public CentralAssembly positions(Set<Position> positions) {
+        this.setPositions(positions);
+        return this;
+    }
+
+    public CentralAssembly addPosition(Position position) {
+        this.positions.add(position);
+        position.setOwnerCentralAssembly(this);
+        return this;
+    }
+
+    public CentralAssembly removePosition(Position position) {
+        this.positions.remove(position);
+        position.setOwnerCentralAssembly(null);
         return this;
     }
 

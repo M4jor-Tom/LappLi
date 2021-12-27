@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+    <!--
+        Added the constraints for entity Position.
+    -->
+    <changeSet id="20211227080157-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="element_supply_id"
+                                 baseTableName="position"
+                                 constraintName="fk_position__element_supply_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="element_supply"/>
+
+        <addForeignKeyConstraint baseColumnNames="bangle_supply_id"
+                                 baseTableName="position"
+                                 constraintName="fk_position__bangle_supply_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="bangle_supply"/>
+
+        <addForeignKeyConstraint baseColumnNames="custom_component_supply_id"
+                                 baseTableName="position"
+                                 constraintName="fk_position__custom_component_supply_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="custom_component_supply"/>
+
+        <addForeignKeyConstraint baseColumnNames="one_study_supply_id"
+                                 baseTableName="position"
+                                 constraintName="fk_position__one_study_supply_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="one_study_supply"/>
+
+        <addForeignKeyConstraint baseColumnNames="owner_central_assembly_id"
+                                 baseTableName="position"
+                                 constraintName="fk_position__owner_central_assembly_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="central_assembly"/>
+
+        <addForeignKeyConstraint baseColumnNames="owner_core_assembly_id"
+                                 baseTableName="position"
+                                 constraintName="fk_position__owner_core_assembly_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="core_assembly"/>
+
+        <addForeignKeyConstraint baseColumnNames="owner_interstice_assembly_id"
+                                 baseTableName="position"
+                                 constraintName="fk_position__owner_interstice_assembly_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="interstice_assembly"/>
+    </changeSet>
+</databaseChangeLog>

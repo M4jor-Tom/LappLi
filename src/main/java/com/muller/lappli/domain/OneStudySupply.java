@@ -60,10 +60,33 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply implements Serial
     //@JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material surfaceMaterial;
 
+    @JsonIgnoreProperties(
+        value = {
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "ownerCentralAssembly",
+            "ownerCoreAssembly",
+            "ownerIntersticeAssembly",
+        },
+        allowSetters = true
+    )
+    @OneToOne(mappedBy = "oneStudySupply")
+    private Position position;
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = { "elementSupplies", "bangleSupplies", "customComponentSupplies", "oneStudySupplies" },
+        value = {
+            "coreAssemblies",
+            "intersticialAssemblies",
+            "elementSupplies",
+            "bangleSupplies",
+            "customComponentSupplies",
+            "oneStudySupplies",
+            "centralAssembly",
+        },
         allowSetters = true
     )
     private Strand strand;
@@ -202,6 +225,25 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply implements Serial
 
     public OneStudySupply surfaceMaterial(Material material) {
         this.setSurfaceMaterial(material);
+        return this;
+    }
+
+    public Position getPosition() {
+        return this.position;
+    }
+
+    public void setPosition(Position position) {
+        if (this.position != null) {
+            this.position.setOneStudySupply(null);
+        }
+        if (position != null) {
+            position.setOneStudySupply(this);
+        }
+        this.position = position;
+    }
+
+    public OneStudySupply position(Position position) {
+        this.setPosition(position);
         return this;
     }
 

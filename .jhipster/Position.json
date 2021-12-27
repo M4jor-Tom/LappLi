@@ -1,0 +1,78 @@
+{
+  "name": "Position",
+  "fields": [
+    {
+      "fieldName": "value",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "elementSupply",
+      "otherEntityRelationshipName": "position",
+      "relationshipName": "elementSupply",
+      "otherEntityField": "designation",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "bangleSupply",
+      "otherEntityRelationshipName": "position",
+      "relationshipName": "bangleSupply",
+      "otherEntityField": "designation",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "customComponentSupply",
+      "otherEntityRelationshipName": "position",
+      "relationshipName": "customComponentSupply",
+      "otherEntityField": "designation",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "oneStudySupply",
+      "otherEntityRelationshipName": "position",
+      "relationshipName": "oneStudySupply",
+      "otherEntityField": "designation",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "centralAssembly",
+      "otherEntityRelationshipName": "position",
+      "relationshipValidateRules": "required",
+      "relationshipName": "ownerCentralAssembly",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "coreAssembly",
+      "otherEntityRelationshipName": "position",
+      "relationshipValidateRules": "required",
+      "relationshipName": "ownerCoreAssembly",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "intersticeAssembly",
+      "otherEntityRelationshipName": "position",
+      "relationshipValidateRules": "required",
+      "relationshipName": "ownerIntersticeAssembly",
+      "otherEntityField": "designation"
+    }
+  ],
+  "entityTableName": "position",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211227080157"
+}

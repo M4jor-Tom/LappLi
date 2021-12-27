@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.CentralAssembly;
+import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.repository.CentralAssemblyRepository;
 import com.muller.lappli.service.criteria.CentralAssemblyCriteria;
@@ -364,6 +365,32 @@ class CentralAssemblyResourceIT {
 
         // Get all the centralAssemblyList where strand equals to (strandId + 1)
         defaultCentralAssemblyShouldNotBeFound("strandId.equals=" + (strandId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllCentralAssembliesByPositionIsEqualToSomething() throws Exception {
+        // Initialize the database
+        centralAssemblyRepository.saveAndFlush(centralAssembly);
+        Position position;
+        if (TestUtil.findAll(em, Position.class).isEmpty()) {
+            position = PositionResourceIT.createEntity(em);
+            em.persist(position);
+            em.flush();
+        } else {
+            position = TestUtil.findAll(em, Position.class).get(0);
+        }
+        em.persist(position);
+        em.flush();
+        centralAssembly.addPosition(position);
+        centralAssemblyRepository.saveAndFlush(centralAssembly);
+        Long positionId = position.getId();
+
+        // Get all the centralAssemblyList where position equals to positionId
+        defaultCentralAssemblyShouldBeFound("positionId.equals=" + positionId);
+
+        // Get all the centralAssemblyList where position equals to (positionId + 1)
+        defaultCentralAssemblyShouldNotBeFound("positionId.equals=" + (positionId + 1));
     }
 
     /**

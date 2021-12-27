@@ -122,6 +122,15 @@ public class OneStudySupplyQueryService extends QueryService<OneStudySupply> {
                         )
                     );
             }
+            if (criteria.getPositionId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getPositionId(),
+                            root -> root.join(OneStudySupply_.position, JoinType.LEFT).get(Position_.id)
+                        )
+                    );
+            }
             if (criteria.getStrandId() != null) {
                 specification =
                     specification.and(

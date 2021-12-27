@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.IntersticeAssembly;
+import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.repository.IntersticeAssemblyRepository;
 import com.muller.lappli.service.criteria.IntersticeAssemblyCriteria;
@@ -306,6 +307,32 @@ class IntersticeAssemblyResourceIT {
 
         // Get all the intersticeAssemblyList where productionStep is greater than SMALLER_PRODUCTION_STEP
         defaultIntersticeAssemblyShouldBeFound("productionStep.greaterThan=" + SMALLER_PRODUCTION_STEP);
+    }
+
+    @Test
+    @Transactional
+    void getAllIntersticeAssembliesByPositionIsEqualToSomething() throws Exception {
+        // Initialize the database
+        intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
+        Position position;
+        if (TestUtil.findAll(em, Position.class).isEmpty()) {
+            position = PositionResourceIT.createEntity(em);
+            em.persist(position);
+            em.flush();
+        } else {
+            position = TestUtil.findAll(em, Position.class).get(0);
+        }
+        em.persist(position);
+        em.flush();
+        intersticeAssembly.addPosition(position);
+        intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
+        Long positionId = position.getId();
+
+        // Get all the intersticeAssemblyList where position equals to positionId
+        defaultIntersticeAssemblyShouldBeFound("positionId.equals=" + positionId);
+
+        // Get all the intersticeAssemblyList where position equals to (positionId + 1)
+        defaultIntersticeAssemblyShouldNotBeFound("positionId.equals=" + (positionId + 1));
     }
 
     @Test

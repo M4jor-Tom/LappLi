@@ -18,6 +18,13 @@
       "ownerSide": true,
       "useJPADerivedIdentifier": true,
       "id": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "position",
+      "otherEntityRelationshipName": "ownerCentralAssembly",
+      "relationshipName": "position",
+      "otherEntityField": "value"
     }
   ],
   "entityTableName": "central_assembly",

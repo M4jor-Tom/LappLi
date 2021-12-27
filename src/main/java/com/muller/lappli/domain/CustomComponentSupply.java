@@ -43,9 +43,35 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply implements
     //@JsonIgnoreProperties(value = { "surfaceMaterial" }, allowSetters = true)
     private CustomComponent customComponent;
 
+    @JsonIgnoreProperties(
+        value = {
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "ownerCentralAssembly",
+            "ownerCoreAssembly",
+            "ownerIntersticeAssembly",
+        },
+        allowSetters = true
+    )
+    @OneToOne(mappedBy = "customComponentSupply")
+    private Position position;
+
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "elementSupplies", "bangleSupplies", "customComponentSupplies" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = {
+            "coreAssemblies",
+            "intersticialAssemblies",
+            "elementSupplies",
+            "bangleSupplies",
+            "customComponentSupplies",
+            "oneStudySupplies",
+            "centralAssembly",
+        },
+        allowSetters = true
+    )
     private Strand strand;
 
     @Override
@@ -142,6 +168,25 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply implements
 
     public CustomComponentSupply customComponent(CustomComponent customComponent) {
         this.setCustomComponent(customComponent);
+        return this;
+    }
+
+    public Position getPosition() {
+        return this.position;
+    }
+
+    public void setPosition(Position position) {
+        if (this.position != null) {
+            this.position.setCustomComponentSupply(null);
+        }
+        if (position != null) {
+            position.setCustomComponentSupply(this);
+        }
+        this.position = position;
+    }
+
+    public CustomComponentSupply position(Position position) {
+        this.setPosition(position);
         return this;
     }
 

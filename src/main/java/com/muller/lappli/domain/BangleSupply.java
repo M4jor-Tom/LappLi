@@ -38,9 +38,35 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
     //@JsonIgnoreProperties(value = { "material" }, allowSetters = true)
     private Bangle bangle;
 
+    @JsonIgnoreProperties(
+        value = {
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "ownerCentralAssembly",
+            "ownerCoreAssembly",
+            "ownerIntersticeAssembly",
+        },
+        allowSetters = true
+    )
+    @OneToOne(mappedBy = "bangleSupply")
+    private Position position;
+
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "elementSupplies", "bangleSupplies", "customComponentSupplies" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = {
+            "coreAssemblies",
+            "intersticialAssemblies",
+            "elementSupplies",
+            "bangleSupplies",
+            "customComponentSupplies",
+            "oneStudySupplies",
+            "centralAssembly",
+        },
+        allowSetters = true
+    )
     private Strand strand;
 
     /*public BangleSupply() {
@@ -130,6 +156,25 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
 
     public BangleSupply bangle(Bangle bangle) {
         this.setBangle(bangle);
+        return this;
+    }
+
+    public Position getPosition() {
+        return this.position;
+    }
+
+    public void setPosition(Position position) {
+        if (this.position != null) {
+            this.position.setBangleSupply(null);
+        }
+        if (position != null) {
+            position.setBangleSupply(this);
+        }
+        this.position = position;
+    }
+
+    public BangleSupply position(Position position) {
+        this.setPosition(position);
         return this;
     }
 

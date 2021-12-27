@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.CoreAssembly;
+import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.repository.CoreAssemblyRepository;
@@ -510,6 +511,32 @@ class CoreAssemblyResourceIT {
 
         // Get all the coreAssemblyList where assemblyMean is null
         defaultCoreAssemblyShouldNotBeFound("assemblyMean.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllCoreAssembliesByPositionIsEqualToSomething() throws Exception {
+        // Initialize the database
+        coreAssemblyRepository.saveAndFlush(coreAssembly);
+        Position position;
+        if (TestUtil.findAll(em, Position.class).isEmpty()) {
+            position = PositionResourceIT.createEntity(em);
+            em.persist(position);
+            em.flush();
+        } else {
+            position = TestUtil.findAll(em, Position.class).get(0);
+        }
+        em.persist(position);
+        em.flush();
+        coreAssembly.addPosition(position);
+        coreAssemblyRepository.saveAndFlush(coreAssembly);
+        Long positionId = position.getId();
+
+        // Get all the coreAssemblyList where position equals to positionId
+        defaultCoreAssemblyShouldBeFound("positionId.equals=" + positionId);
+
+        // Get all the coreAssemblyList where position equals to (positionId + 1)
+        defaultCoreAssemblyShouldNotBeFound("positionId.equals=" + (positionId + 1));
     }
 
     @Test
