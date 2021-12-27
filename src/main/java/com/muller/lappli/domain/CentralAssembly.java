@@ -24,10 +24,6 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @Column(name = "id")
     private Long id;
 
-    @NotNull
-    @Column(name = "production_step", nullable = false)
-    private Long productionStep;
-
     @JsonIgnoreProperties(
         value = {
             "coreAssemblies",
@@ -80,19 +76,6 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getProductionStep() {
-        return this.productionStep;
-    }
-
-    public CentralAssembly productionStep(Long productionStep) {
-        this.setProductionStep(productionStep);
-        return this;
-    }
-
-    public void setProductionStep(Long productionStep) {
-        this.productionStep = productionStep;
     }
 
     public Strand getStrand() {

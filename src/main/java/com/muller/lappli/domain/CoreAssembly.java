@@ -27,10 +27,6 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     private Long id;
 
     @NotNull
-    @Column(name = "production_step", nullable = false)
-    private Long productionStep;
-
-    @NotNull
     @Column(name = "assembly_step", nullable = false)
     private Double assemblyStep;
 
@@ -90,19 +86,6 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getProductionStep() {
-        return this.productionStep;
-    }
-
-    public CoreAssembly productionStep(Long productionStep) {
-        this.setProductionStep(productionStep);
-        return this;
-    }
-
-    public void setProductionStep(Long productionStep) {
-        this.productionStep = productionStep;
     }
 
     @Override
