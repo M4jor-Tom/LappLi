@@ -3,6 +3,8 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.exception.PositionAlreadyHasSupplyException;
 import com.muller.lappli.domain.exception.PositionAlreadyInAssemblyException;
+import com.muller.lappli.domain.exception.PositionHasSeveralSupplyException;
+import com.muller.lappli.domain.exception.PositionInSeveralAssemblyException;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -59,6 +61,51 @@ public class Position implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = { "positions", "strand" }, allowSetters = true)
     private IntersticeAssembly ownerIntersticeAssembly;
+
+    public Boolean isRight() {
+        try {
+            checkRight();
+        } catch (PositionInSeveralAssemblyException | PositionHasSeveralSupplyException e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public void checkRight() throws PositionInSeveralAssemblyException, PositionHasSeveralSupplyException {
+        Long ownerAssemblyCount = Long.valueOf(0);
+        if (isInCentralAssembly()) {
+            ownerAssemblyCount++;
+        }
+        if (isInCoreAssembly()) {
+            ownerAssemblyCount++;
+        }
+        if (isInIntersticeAssembly()) {
+            ownerAssemblyCount++;
+        }
+
+        if (ownerAssemblyCount > Long.valueOf(1)) {
+            throw new PositionInSeveralAssemblyException();
+        }
+
+        Long containedSupplyCount = Long.valueOf(0);
+        if (isOfBangleSupply()) {
+            containedSupplyCount++;
+        }
+        if (isOfCustomComponentSupply()) {
+            containedSupplyCount++;
+        }
+        if (isOfElementSupply()) {
+            containedSupplyCount++;
+        }
+        if (isOfOneStudySupply()) {
+            containedSupplyCount++;
+        }
+
+        if (containedSupplyCount > Long.valueOf(1)) {
+            throw new PositionHasSeveralSupplyException();
+        }
+    }
 
     public Boolean isOfElementSupply() {
         return getElementSupply() != null;
