@@ -86,7 +86,11 @@ public class ElementSupply extends AbstractMarkedLiftedSupply implements Seriali
 
     @Override
     public String getDesignation() {
-        return getElement().getDesignationWithColor();
+        try {
+            return getElement().getDesignationWithColor();
+        } catch (NullPointerException e) {
+            return "";
+        }
     }
 
     @Override
