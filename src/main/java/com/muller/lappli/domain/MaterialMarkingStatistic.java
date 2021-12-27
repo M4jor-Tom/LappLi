@@ -107,7 +107,7 @@ public class MaterialMarkingStatistic implements Serializable {
             //If marking type is NUMBERED, then marking technique
             //shall be among RSD, INK_JET, and NONE_SUITABLE
             (new Exception("NoneMarkingTechniqueForMarkingTypeNumbered")).printStackTrace();
-        } else if (!MarkingTechnique.NONE.equals(markingTechnique)) {
+        } else if (!MarkingType.NUMBERED.equals(getMarkingType()) && !MarkingTechnique.NONE.equals(markingTechnique)) {
             //If the marking type is not NUMBERED, then
             //the marking technique must be NONE(_SUITABLE)
             (new Exception("ExistingMarkingTechniqueForMarkingTypeNotNumbered")).printStackTrace();
