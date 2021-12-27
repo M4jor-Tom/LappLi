@@ -69,6 +69,11 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     private Strand strand;
 
     @Override
+    public String getDesignation() {
+        return getStrand().getDesignation();
+    }
+
+    @Override
     public CoreAssembly getThis() {
         return this;
     }

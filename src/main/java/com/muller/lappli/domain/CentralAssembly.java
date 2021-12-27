@@ -63,6 +63,11 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         return this;
     }
 
+    @Override
+    public String getDesignation() {
+        return getStrand().getDesignation();
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {

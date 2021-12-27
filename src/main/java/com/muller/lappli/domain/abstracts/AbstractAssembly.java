@@ -15,6 +15,11 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> {
     @JsonIgnore
     public abstract T getThis();
 
+    /**
+     * @return the designation of the owner strand
+     */
+    public abstract String getDesignation();
+
     public Long getProductionStep() {
         return this.productionStep;
     }

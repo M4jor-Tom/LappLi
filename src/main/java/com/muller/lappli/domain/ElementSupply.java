@@ -85,6 +85,11 @@ public class ElementSupply extends AbstractMarkedLiftedSupply implements Seriali
     }
 
     @Override
+    public String getDesignation() {
+        return getElement().getDesignationWithColor();
+    }
+
+    @Override
     @JsonIgnore
     public Material getSurfaceMaterial() {
         try {

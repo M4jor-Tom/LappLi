@@ -59,6 +59,11 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     private Strand strand;
 
     @Override
+    public String getDesignation() {
+        return getStrand().getDesignation();
+    }
+
+    @Override
     public IntersticeAssembly getThis() {
         return this;
     }
