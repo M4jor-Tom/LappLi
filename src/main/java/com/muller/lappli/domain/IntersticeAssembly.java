@@ -132,6 +132,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         return this;
     }
 
+    @Override
     public Strand getStrand() {
         return this.strand;
     }
