@@ -7,23 +7,7 @@ import java.util.Optional;
 /**
  * Service Interface for managing {@link IntersticeAssembly}.
  */
-public interface IntersticeAssemblyService {
-    /**
-     * Save a intersticeAssembly.
-     *
-     * @param intersticeAssembly the entity to save.
-     * @return the persisted entity.
-     */
-    IntersticeAssembly save(IntersticeAssembly intersticeAssembly);
-
-    /**
-     * Partially updates a intersticeAssembly.
-     *
-     * @param intersticeAssembly the entity to update partially.
-     * @return the persisted entity.
-     */
-    Optional<IntersticeAssembly> partialUpdate(IntersticeAssembly intersticeAssembly);
-
+public interface IntersticeAssemblyService extends IAssemblyService<IntersticeAssembly> {
     /**
      * Get all the intersticeAssemblies.
      *
