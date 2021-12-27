@@ -79,7 +79,7 @@ public class CoreAssemblyResource extends AbstractAssemblyResource<CoreAssembly>
             throw new BadRequestAlertException("A new coreAssembly cannot already have an ID", ENTITY_NAME, "idexists");
         }
 
-        return onSave(coreAssembly, applicationName, ENTITY_NAME);
+        return onSave(coreAssembly, applicationName, ENTITY_NAME, true);
     }
 
     /**
@@ -109,7 +109,7 @@ public class CoreAssemblyResource extends AbstractAssemblyResource<CoreAssembly>
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        return onSave(coreAssembly, applicationName, ENTITY_NAME);
+        return onSave(coreAssembly, applicationName, ENTITY_NAME, false);
     }
 
     /**

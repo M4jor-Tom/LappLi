@@ -78,7 +78,7 @@ public class IntersticeAssemblyResource extends AbstractAssemblyResource<Interst
             throw new BadRequestAlertException("A new intersticeAssembly cannot already have an ID", ENTITY_NAME, "idexists");
         }
 
-        return onSave(intersticeAssembly, applicationName, ENTITY_NAME);
+        return onSave(intersticeAssembly, applicationName, ENTITY_NAME, true);
     }
 
     /**
@@ -108,7 +108,7 @@ public class IntersticeAssemblyResource extends AbstractAssemblyResource<Interst
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        return onSave(intersticeAssembly, applicationName, ENTITY_NAME);
+        return onSave(intersticeAssembly, applicationName, ENTITY_NAME, false);
     }
 
     /**

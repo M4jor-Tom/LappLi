@@ -83,7 +83,7 @@ public class CentralAssemblyResource extends AbstractAssemblyResource<CentralAss
             throw new BadRequestAlertException("Invalid association value provided", ENTITY_NAME, "null");
         }
 
-        return onSave(centralAssembly, applicationName, ENTITY_NAME);
+        return onSave(centralAssembly, applicationName, ENTITY_NAME, true);
     }
 
     /**
@@ -113,7 +113,7 @@ public class CentralAssemblyResource extends AbstractAssemblyResource<CentralAss
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        return onSave(centralAssembly, applicationName, ENTITY_NAME);
+        return onSave(centralAssembly, applicationName, ENTITY_NAME, false);
     }
 
     /**

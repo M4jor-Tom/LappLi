@@ -10,6 +10,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Optional;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
@@ -23,11 +24,15 @@ public abstract class AbstractPositionCheckingResource<T extends AbstractDomainO
         return "/api/" + getSpineCasePluralEntityName() + "/";
     }
 
-    protected ResponseEntity<T> onSave(T domainObject, String applicationName, String entityName) throws URISyntaxException {
+    protected ResponseEntity<T> onSave(T domainObject, String applicationName, String entityName, Boolean postNotPut)
+        throws URISyntaxException {
         try {
             T result = getPositionCheckingService().save(domainObject);
-            return ResponseEntity
-                .created(new URI(onCreatedURIPrefixBeforeId() + result.getId()))
+            BodyBuilder status = postNotPut
+                ? ResponseEntity.created(new URI(onCreatedURIPrefixBeforeId() + result.getId()))
+                : ResponseEntity.ok();
+
+            return status
                 .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, entityName, result.getId().toString()))
                 .body(result);
         } catch (PositionHasSeveralSupplyException | PositionInSeveralAssemblyException e) {

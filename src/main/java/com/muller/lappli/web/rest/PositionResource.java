@@ -80,7 +80,7 @@ public class PositionResource extends AbstractPositionCheckingResource<Position>
             throw new BadRequestAlertException("A new position cannot already have an ID", ENTITY_NAME, "idexists");
         }
 
-        return onSave(position, applicationName, ENTITY_NAME);
+        return onSave(position, applicationName, ENTITY_NAME, true);
     }
 
     /**
@@ -110,7 +110,7 @@ public class PositionResource extends AbstractPositionCheckingResource<Position>
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        return onSave(position, applicationName, ENTITY_NAME);
+        return onSave(position, applicationName, ENTITY_NAME, false);
     }
 
     /**
