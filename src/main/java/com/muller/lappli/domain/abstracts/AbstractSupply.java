@@ -50,7 +50,11 @@ public abstract class AbstractSupply {
      * @return the designation of the representated component
      */
     public String getDesignation() {
-        return getCylindricComponent().getDesignation();
+        try {
+            return getCylindricComponent().getDesignation();
+        } catch (NullPointerException e) {
+            return "";
+        }
     }
 
     /**
