@@ -2,9 +2,11 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.IntersticeAssembly;
 import com.muller.lappli.repository.IntersticeAssemblyRepository;
+import com.muller.lappli.service.IAssemblyService;
 import com.muller.lappli.service.IntersticeAssemblyQueryService;
 import com.muller.lappli.service.IntersticeAssemblyService;
 import com.muller.lappli.service.criteria.IntersticeAssemblyCriteria;
+import com.muller.lappli.web.rest.abstracts.AbstractAssemblyResource;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -26,7 +28,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-public class IntersticeAssemblyResource {
+public class IntersticeAssemblyResource extends AbstractAssemblyResource<IntersticeAssembly> {
 
     private final Logger log = LoggerFactory.getLogger(IntersticeAssemblyResource.class);
 
@@ -51,6 +53,16 @@ public class IntersticeAssemblyResource {
         this.intersticeAssemblyQueryService = intersticeAssemblyQueryService;
     }
 
+    @Override
+    protected IAssemblyService<IntersticeAssembly> getAssemblyService() {
+        return intersticeAssemblyService;
+    }
+
+    @Override
+    protected String getSpineCaseEntityName() {
+        return "interstice-assemblies";
+    }
+
     /**
      * {@code POST  /interstice-assemblies} : Create a new intersticeAssembly.
      *
@@ -65,11 +77,8 @@ public class IntersticeAssemblyResource {
         if (intersticeAssembly.getId() != null) {
             throw new BadRequestAlertException("A new intersticeAssembly cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        IntersticeAssembly result = intersticeAssemblyService.save(intersticeAssembly);
-        return ResponseEntity
-            .created(new URI("/api/interstice-assemblies/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+
+        return onSave(intersticeAssembly, applicationName, ENTITY_NAME);
     }
 
     /**
@@ -99,11 +108,7 @@ public class IntersticeAssemblyResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        IntersticeAssembly result = intersticeAssemblyService.save(intersticeAssembly);
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, intersticeAssembly.getId().toString()))
-            .body(result);
+        return onSave(intersticeAssembly, applicationName, ENTITY_NAME);
     }
 
     /**
@@ -134,12 +139,7 @@ public class IntersticeAssemblyResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<IntersticeAssembly> result = intersticeAssemblyService.partialUpdate(intersticeAssembly);
-
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, intersticeAssembly.getId().toString())
-        );
+        return onPartialUpdate(intersticeAssembly, applicationName, ENTITY_NAME);
     }
 
     /**

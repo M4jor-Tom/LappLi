@@ -1,6 +1,8 @@
 package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.CentralAssembly;
+import com.muller.lappli.domain.exception.PositionHasSeveralSupplyException;
+import com.muller.lappli.domain.exception.PositionInSeveralAssemblyException;
 import com.muller.lappli.repository.CentralAssemblyRepository;
 import com.muller.lappli.repository.StrandRepository;
 import com.muller.lappli.service.CentralAssemblyService;
@@ -30,18 +32,23 @@ public class CentralAssemblyServiceImpl implements CentralAssemblyService {
     }
 
     @Override
-    public CentralAssembly save(CentralAssembly centralAssembly) {
+    public CentralAssembly save(CentralAssembly centralAssembly)
+        throws PositionInSeveralAssemblyException, PositionHasSeveralSupplyException {
         log.debug("Request to save CentralAssembly : {}", centralAssembly);
         Long strandId = centralAssembly.getStrand().getId();
         strandRepository.findById(strandId).ifPresent(centralAssembly::strand);
+
+        centralAssembly.checkPositions();
+
         return centralAssemblyRepository.save(centralAssembly);
     }
 
     @Override
-    public Optional<CentralAssembly> partialUpdate(CentralAssembly centralAssembly) {
+    public Optional<CentralAssembly> partialUpdate(CentralAssembly centralAssembly)
+        throws PositionInSeveralAssemblyException, PositionHasSeveralSupplyException {
         log.debug("Request to partially update CentralAssembly : {}", centralAssembly);
 
-        return centralAssemblyRepository
+        Optional<CentralAssembly> foundCentralAssembly = centralAssemblyRepository
             .findById(centralAssembly.getId())
             .map(existingCentralAssembly -> {
                 if (centralAssembly.getProductionStep() != null) {
@@ -51,6 +58,10 @@ public class CentralAssemblyServiceImpl implements CentralAssemblyService {
                 return existingCentralAssembly;
             })
             .map(centralAssemblyRepository::save);
+
+        centralAssembly.checkPositions();
+
+        return foundCentralAssembly;
     }
 
     @Override

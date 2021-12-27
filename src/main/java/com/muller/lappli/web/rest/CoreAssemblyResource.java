@@ -1,10 +1,14 @@
 package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.CoreAssembly;
+import com.muller.lappli.domain.exception.PositionHasSeveralSupplyException;
+import com.muller.lappli.domain.exception.PositionInSeveralAssemblyException;
 import com.muller.lappli.repository.CoreAssemblyRepository;
 import com.muller.lappli.service.CoreAssemblyQueryService;
 import com.muller.lappli.service.CoreAssemblyService;
+import com.muller.lappli.service.IAssemblyService;
 import com.muller.lappli.service.criteria.CoreAssemblyCriteria;
+import com.muller.lappli.web.rest.abstracts.AbstractAssemblyResource;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -26,7 +30,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-public class CoreAssemblyResource {
+public class CoreAssemblyResource extends AbstractAssemblyResource<CoreAssembly> {
 
     private final Logger log = LoggerFactory.getLogger(CoreAssemblyResource.class);
 
@@ -51,6 +55,16 @@ public class CoreAssemblyResource {
         this.coreAssemblyQueryService = coreAssemblyQueryService;
     }
 
+    @Override
+    protected IAssemblyService<CoreAssembly> getAssemblyService() {
+        return coreAssemblyService;
+    }
+
+    @Override
+    protected String getSpineCaseEntityName() {
+        return "core-assemblies";
+    }
+
     /**
      * {@code POST  /core-assemblies} : Create a new coreAssembly.
      *
@@ -64,11 +78,8 @@ public class CoreAssemblyResource {
         if (coreAssembly.getId() != null) {
             throw new BadRequestAlertException("A new coreAssembly cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        CoreAssembly result = coreAssemblyService.save(coreAssembly);
-        return ResponseEntity
-            .created(new URI("/api/core-assemblies/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+
+        return onSave(coreAssembly, applicationName, ENTITY_NAME);
     }
 
     /**
@@ -98,11 +109,7 @@ public class CoreAssemblyResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        CoreAssembly result = coreAssemblyService.save(coreAssembly);
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, coreAssembly.getId().toString()))
-            .body(result);
+        return onSave(coreAssembly, applicationName, ENTITY_NAME);
     }
 
     /**
@@ -133,12 +140,7 @@ public class CoreAssemblyResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<CoreAssembly> result = coreAssemblyService.partialUpdate(coreAssembly);
-
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, coreAssembly.getId().toString())
-        );
+        return onPartialUpdate(coreAssembly, applicationName, ENTITY_NAME);
     }
 
     /**

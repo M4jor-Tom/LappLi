@@ -1,10 +1,14 @@
 package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.CentralAssembly;
+import com.muller.lappli.domain.exception.PositionHasSeveralSupplyException;
+import com.muller.lappli.domain.exception.PositionInSeveralAssemblyException;
 import com.muller.lappli.repository.CentralAssemblyRepository;
 import com.muller.lappli.service.CentralAssemblyQueryService;
 import com.muller.lappli.service.CentralAssemblyService;
+import com.muller.lappli.service.IAssemblyService;
 import com.muller.lappli.service.criteria.CentralAssemblyCriteria;
+import com.muller.lappli.web.rest.abstracts.AbstractAssemblyResource;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -26,7 +30,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-public class CentralAssemblyResource {
+public class CentralAssemblyResource extends AbstractAssemblyResource<CentralAssembly> {
 
     private final Logger log = LoggerFactory.getLogger(CentralAssemblyResource.class);
 
@@ -51,6 +55,16 @@ public class CentralAssemblyResource {
         this.centralAssemblyQueryService = centralAssemblyQueryService;
     }
 
+    @Override
+    protected IAssemblyService<CentralAssembly> getAssemblyService() {
+        return centralAssemblyService;
+    }
+
+    @Override
+    protected String getSpineCaseEntityName() {
+        return "central-assemblies";
+    }
+
     /**
      * {@code POST  /central-assemblies} : Create a new centralAssembly.
      *
@@ -68,11 +82,8 @@ public class CentralAssemblyResource {
         if (Objects.isNull(centralAssembly.getStrand())) {
             throw new BadRequestAlertException("Invalid association value provided", ENTITY_NAME, "null");
         }
-        CentralAssembly result = centralAssemblyService.save(centralAssembly);
-        return ResponseEntity
-            .created(new URI("/api/central-assemblies/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+
+        return onSave(centralAssembly, applicationName, ENTITY_NAME);
     }
 
     /**
@@ -102,11 +113,7 @@ public class CentralAssemblyResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        CentralAssembly result = centralAssemblyService.save(centralAssembly);
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, centralAssembly.getId().toString()))
-            .body(result);
+        return onSave(centralAssembly, applicationName, ENTITY_NAME);
     }
 
     /**
@@ -137,12 +144,7 @@ public class CentralAssemblyResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<CentralAssembly> result = centralAssemblyService.partialUpdate(centralAssembly);
-
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, centralAssembly.getId().toString())
-        );
+        return onPartialUpdate(centralAssembly, applicationName, ENTITY_NAME);
     }
 
     /**
