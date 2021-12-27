@@ -32,6 +32,16 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends Ab
         }
     }
 
+    public Boolean positionsAreRight() {
+        try {
+            checkPositions();
+        } catch (PositionInSeveralAssemblyException | PositionHasSeveralSupplyException e) {
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * @return the designation of the owner strand
      */
