@@ -183,10 +183,10 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply implements
 
     public void setPosition(Position position) {
         if (this.position != null) {
-            this.position.setCustomComponentSupply(null);
+            this.position.forceCustomComponentSupply(null);
         }
         if (position != null) {
-            position.setCustomComponentSupply(this);
+            position.forceCustomComponentSupply(this);
         }
         this.position = position;
     }

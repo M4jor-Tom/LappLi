@@ -3,6 +3,7 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
+import com.muller.lappli.domain.exception.PositionAlreadyHasSupplyException;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -159,7 +160,7 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
         return this.position;
     }
 
-    public void setPosition(Position position) {
+    public void setPosition(Position position) throws PositionAlreadyHasSupplyException {
         if (this.position != null) {
             this.position.setBangleSupply(null);
         }
@@ -169,7 +170,7 @@ public class BangleSupply extends AbstractLiftedSupply implements Serializable {
         this.position = position;
     }
 
-    public BangleSupply position(Position position) {
+    public BangleSupply position(Position position) throws PositionAlreadyHasSupplyException {
         this.setPosition(position);
         return this;
     }

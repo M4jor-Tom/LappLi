@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
+import com.muller.lappli.domain.exception.PositionAlreadyInAssemblyException;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -98,10 +99,10 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
 
     public void setPositions(Set<Position> positions) {
         if (this.positions != null) {
-            this.positions.forEach(i -> i.setOwnerCentralAssembly(null));
+            this.positions.forEach(i -> i.forceOwnerCentralAssembly(null));
         }
         if (positions != null) {
-            positions.forEach(i -> i.setOwnerCentralAssembly(this));
+            positions.forEach(i -> i.forceOwnerCentralAssembly(this));
         }
         this.positions = positions;
     }
@@ -111,13 +112,13 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         return this;
     }
 
-    public CentralAssembly addPositions(Position position) {
+    public CentralAssembly addPositions(Position position) throws PositionAlreadyInAssemblyException {
         this.positions.add(position);
         position.setOwnerCentralAssembly(this);
         return this;
     }
 
-    public CentralAssembly removePositions(Position position) {
+    public CentralAssembly removePositions(Position position) throws PositionAlreadyInAssemblyException {
         this.positions.remove(position);
         position.setOwnerCentralAssembly(null);
         return this;

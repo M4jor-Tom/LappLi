@@ -204,10 +204,10 @@ public class ElementSupply extends AbstractMarkedLiftedSupply implements Seriali
 
     public void setPosition(Position position) {
         if (this.position != null) {
-            this.position.setElementSupply(null);
+            this.position.forceElementSupply(null);
         }
         if (position != null) {
-            position.setElementSupply(this);
+            position.forceElementSupply(this);
         }
         this.position = position;
     }
