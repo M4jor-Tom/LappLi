@@ -1,7 +1,11 @@
 package com.muller.lappli.domain.abstracts;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.exception.PositionHasSeveralSupplyException;
+import com.muller.lappli.domain.exception.PositionInSeveralAssemblyException;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
@@ -17,6 +21,16 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> {
     public abstract T getThis();
 
     public abstract Strand getStrand();
+
+    public abstract Long getId();
+
+    public abstract Set<Position> getPositions();
+
+    public void checkPositions() throws PositionInSeveralAssemblyException, PositionHasSeveralSupplyException {
+        for (Position position : getPositions()) {
+            position.checkRight();
+        }
+    }
 
     /**
      * @return the designation of the owner strand

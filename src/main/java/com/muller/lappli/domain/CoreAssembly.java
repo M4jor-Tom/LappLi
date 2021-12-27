@@ -75,6 +75,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    @Override
     public Long getId() {
         return this.id;
     }
@@ -116,6 +117,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         this.assemblyMean = assemblyMean;
     }
 
+    @Override
     public Set<Position> getPositions() {
         return this.positions;
     }

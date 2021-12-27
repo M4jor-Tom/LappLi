@@ -3,6 +3,10 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -61,8 +65,16 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         return this;
     }
 
+    @Override
+    public Set<Position> getPositions() {
+        HashSet<Position> positions = new HashSet<Position>();
+        positions.add(getPosition());
+        return positions;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    @Override
     public Long getId() {
         return this.id;
     }

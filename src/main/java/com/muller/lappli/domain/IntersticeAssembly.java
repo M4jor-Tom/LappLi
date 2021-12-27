@@ -83,6 +83,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    @Override
     public Long getId() {
         return this.id;
     }
@@ -96,6 +97,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         this.id = id;
     }
 
+    @Override
     public Set<Position> getPositions() {
         return this.positions;
     }
