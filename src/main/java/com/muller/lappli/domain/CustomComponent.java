@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.enumeration.Color;
+import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -14,7 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "custom_component")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CustomComponent implements Serializable {
+public class CustomComponent implements CylindricComponent, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -75,6 +76,7 @@ public class CustomComponent implements Serializable {
         this.number = number;
     }
 
+    @Override
     public String getDesignation() {
         return this.designation;
     }
@@ -88,6 +90,7 @@ public class CustomComponent implements Serializable {
         this.designation = designation;
     }
 
+    @Override
     public Double getGramPerMeterLinearMass() {
         return this.gramPerMeterLinearMass;
     }
@@ -101,6 +104,7 @@ public class CustomComponent implements Serializable {
         this.gramPerMeterLinearMass = gramPerMeterLinearMass;
     }
 
+    @Override
     public Double getMilimeterDiameter() {
         return this.milimeterDiameter;
     }
