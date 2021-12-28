@@ -3,7 +3,9 @@
     "assembly": {
       "operationLayer": "Couche d'Opération",
       "productionStep": "Etape de Production",
-      "position": "Position"
+      "position": "Position",
+      "diameterAssemblyStep": "Pas d'Assemblage (D)",
+      "assemblyMean": "Sens d'Assemblage"
     }
   }
 }
