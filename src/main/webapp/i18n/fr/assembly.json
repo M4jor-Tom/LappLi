@@ -1,6 +1,9 @@
 {
   "lappLiApp": {
     "assembly": {
+      "home": {
+        "notFound": "Aucun asseblage trouvé"
+      },
       "operationLayer": "Couche d'Opération",
       "productionStep": "Etape de Production",
       "position": "Position",

@@ -205,7 +205,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
           </Table>
         ) : (
           <div className="alert alert-warning">
-            <Translate contentKey="lappLiApp.centralAssembly.home.notFound">No Central Assemblies found</Translate>
+            <Translate contentKey="lappLiApp.assembly.home.notFound">No Assemblies found</Translate>
           </div>
         )}
       </div>
