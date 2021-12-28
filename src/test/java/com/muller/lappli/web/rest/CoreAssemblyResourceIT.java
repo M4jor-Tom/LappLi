@@ -756,7 +756,11 @@ class CoreAssemblyResourceIT {
         CoreAssembly updatedCoreAssembly = coreAssemblyRepository.findById(coreAssembly.getId()).get();
         // Disconnect from session so that the updates on updatedCoreAssembly are not directly saved in db
         em.detach(updatedCoreAssembly);
-        updatedCoreAssembly.productionStep(UPDATED_PRODUCTION_STEP).assemblyStep(UPDATED_ASSEMBLY_STEP).assemblyMean(UPDATED_ASSEMBLY_MEAN);
+        updatedCoreAssembly
+            .operationLayer(UPDATED_OPERATION_LAYER)
+            .productionStep(UPDATED_PRODUCTION_STEP)
+            .assemblyStep(UPDATED_ASSEMBLY_STEP)
+            .assemblyMean(UPDATED_ASSEMBLY_MEAN);
 
         ResultMatcher expectedResult = updatedCoreAssembly.positionsAreRight() ? status().isOk() : status().isBadRequest();
 
