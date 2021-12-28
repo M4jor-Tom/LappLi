@@ -28,7 +28,7 @@ public class StrandCriteria implements Serializable, Criteria {
 
     private LongFilter coreAssembliesId;
 
-    private LongFilter intersticialAssembliesId;
+    private LongFilter intersticeAssembliesId;
 
     private LongFilter elementSuppliesId;
 
@@ -47,7 +47,7 @@ public class StrandCriteria implements Serializable, Criteria {
     public StrandCriteria(StrandCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.coreAssembliesId = other.coreAssembliesId == null ? null : other.coreAssembliesId.copy();
-        this.intersticialAssembliesId = other.intersticialAssembliesId == null ? null : other.intersticialAssembliesId.copy();
+        this.intersticeAssembliesId = other.intersticeAssembliesId == null ? null : other.intersticeAssembliesId.copy();
         this.elementSuppliesId = other.elementSuppliesId == null ? null : other.elementSuppliesId.copy();
         this.bangleSuppliesId = other.bangleSuppliesId == null ? null : other.bangleSuppliesId.copy();
         this.customComponentSuppliesId = other.customComponentSuppliesId == null ? null : other.customComponentSuppliesId.copy();
@@ -91,19 +91,19 @@ public class StrandCriteria implements Serializable, Criteria {
         this.coreAssembliesId = coreAssembliesId;
     }
 
-    public LongFilter getIntersticialAssembliesId() {
-        return intersticialAssembliesId;
+    public LongFilter getIntersticeAssembliesId() {
+        return intersticeAssembliesId;
     }
 
-    public LongFilter intersticialAssembliesId() {
-        if (intersticialAssembliesId == null) {
-            intersticialAssembliesId = new LongFilter();
+    public LongFilter intersticeAssembliesId() {
+        if (intersticeAssembliesId == null) {
+            intersticeAssembliesId = new LongFilter();
         }
-        return intersticialAssembliesId;
+        return intersticeAssembliesId;
     }
 
-    public void setIntersticialAssembliesId(LongFilter intersticialAssembliesId) {
-        this.intersticialAssembliesId = intersticialAssembliesId;
+    public void setIntersticeAssembliesId(LongFilter intersticeAssembliesId) {
+        this.intersticeAssembliesId = intersticeAssembliesId;
     }
 
     public LongFilter getElementSuppliesId() {
@@ -201,7 +201,7 @@ public class StrandCriteria implements Serializable, Criteria {
         return (
             Objects.equals(id, that.id) &&
             Objects.equals(coreAssembliesId, that.coreAssembliesId) &&
-            Objects.equals(intersticialAssembliesId, that.intersticialAssembliesId) &&
+            Objects.equals(intersticeAssembliesId, that.intersticeAssembliesId) &&
             Objects.equals(elementSuppliesId, that.elementSuppliesId) &&
             Objects.equals(bangleSuppliesId, that.bangleSuppliesId) &&
             Objects.equals(customComponentSuppliesId, that.customComponentSuppliesId) &&
@@ -216,7 +216,7 @@ public class StrandCriteria implements Serializable, Criteria {
         return Objects.hash(
             id,
             coreAssembliesId,
-            intersticialAssembliesId,
+            intersticeAssembliesId,
             elementSuppliesId,
             bangleSuppliesId,
             customComponentSuppliesId,
@@ -232,7 +232,7 @@ public class StrandCriteria implements Serializable, Criteria {
         return "StrandCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
             (coreAssembliesId != null ? "coreAssembliesId=" + coreAssembliesId + ", " : "") +
-            (intersticialAssembliesId != null ? "intersticialAssembliesId=" + intersticialAssembliesId + ", " : "") +
+            (intersticeAssembliesId != null ? "intersticeAssembliesId=" + intersticeAssembliesId + ", " : "") +
             (elementSuppliesId != null ? "elementSuppliesId=" + elementSuppliesId + ", " : "") +
             (bangleSuppliesId != null ? "bangleSuppliesId=" + bangleSuppliesId + ", " : "") +
             (customComponentSuppliesId != null ? "customComponentSuppliesId=" + customComponentSuppliesId + ", " : "") +

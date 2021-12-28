@@ -56,7 +56,7 @@ export const CoreAssembly = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.coreAssembly.productionStep">Production Step</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.coreAssembly.assemblyStep">Assembly Step</Translate>
+                  <Translate contentKey="lappLiApp.coreAssembly.diameterAssemblyStep">Diameter Assembly Step</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.coreAssembly.assemblyMean">Assembly Mean</Translate>
@@ -77,7 +77,7 @@ export const CoreAssembly = (props: RouteComponentProps<{ url: string }>) => {
                   </td>
                   <td>{coreAssembly.operationLayer}</td>
                   <td>{coreAssembly.productionStep}</td>
-                  <td>{coreAssembly.assemblyStep}</td>
+                  <td>{coreAssembly.diameterAssemblyStep}</td>
                   <td>
                     <Translate contentKey={`lappLiApp.AssemblyMean.${coreAssembly.assemblyMean}`} />
                   </td>

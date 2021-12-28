@@ -42,11 +42,11 @@ export const CoreAssemblyDetail = (props: RouteComponentProps<{ id: string }>) =
           </dt>
           <dd>{coreAssemblyEntity.productionStep}</dd>
           <dt>
-            <span id="assemblyStep">
-              <Translate contentKey="lappLiApp.coreAssembly.assemblyStep">Assembly Step</Translate>
+            <span id="diameterAssemblyStep">
+              <Translate contentKey="lappLiApp.coreAssembly.diameterAssemblyStep">Diameter Assembly Step</Translate>
             </span>
           </dt>
-          <dd>{coreAssemblyEntity.assemblyStep}</dd>
+          <dd>{coreAssemblyEntity.diameterAssemblyStep}</dd>
           <dt>
             <span id="assemblyMean">
               <Translate contentKey="lappLiApp.coreAssembly.assemblyMean">Assembly Mean</Translate>

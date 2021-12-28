@@ -13,7 +13,7 @@ entity CentralAssembly {
 entity CoreAssembly {
 	operationLayer Long required
 	productionStep Long required
-	assemblyStep Double required
+	diameterAssemblyStep Double required
     assemblyMean AssemblyMean required
 }
 
@@ -154,7 +154,7 @@ relationship OneToOne {
 
 relationship OneToMany {
 	Strand{coreAssemblies(productionStep)} to CoreAssembly{strand(designation) required}
-	Strand{intersticialAssemblies(productionStep)} to IntersticeAssembly{strand(designation) required}
+	Strand{intersticeAssemblies(productionStep)} to IntersticeAssembly{strand(designation) required}
 }
 
 relationship OneToMany {

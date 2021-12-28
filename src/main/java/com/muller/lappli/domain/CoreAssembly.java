@@ -31,8 +31,8 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     private Long operationLayer;
 
     @NotNull
-    @Column(name = "assembly_step", nullable = false)
-    private Double assemblyStep;
+    @Column(name = "diameter_assembly_step", nullable = false)
+    private Double diameterAssemblyStep;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -60,7 +60,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     @JsonIgnoreProperties(
         value = {
             "coreAssemblies",
-            "intersticialAssemblies",
+            "intersticeAssemblies",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",
@@ -107,17 +107,17 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         this.operationLayer = operationLayer;
     }
 
-    public Double getAssemblyStep() {
-        return this.assemblyStep;
+    public Double getDiameterAssemblyStep() {
+        return this.diameterAssemblyStep;
     }
 
-    public CoreAssembly assemblyStep(Double assemblyStep) {
-        this.setAssemblyStep(assemblyStep);
+    public CoreAssembly diameterAssemblyStep(Double diameterAssemblyStep) {
+        this.setDiameterAssemblyStep(diameterAssemblyStep);
         return this;
     }
 
-    public void setAssemblyStep(Double assemblyStep) {
-        this.assemblyStep = assemblyStep;
+    public void setDiameterAssemblyStep(Double diameterAssemblyStep) {
+        this.diameterAssemblyStep = diameterAssemblyStep;
     }
 
     @Override
@@ -206,7 +206,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
             "id=" + getId() +
             ", operationLayer=" + getOperationLayer() +
             ", productionStep=" + getProductionStep() +
-            ", assemblyStep=" + getAssemblyStep() +
+            ", diameterAssemblyStep=" + getDiameterAssemblyStep() +
             ", assemblyMean='" + getAssemblyMean() + "'" +
             "}";
     }

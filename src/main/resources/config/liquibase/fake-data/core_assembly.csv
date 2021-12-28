@@ -1,4 +1,4 @@
-id;operation_layer;production_step;assembly_step;assembly_mean;strand_id
+id;operation_layer;production_step;diameter_assembly_step;assembly_mean;strand_id
 1;1;100;10;RIGHT;1
 2;1;100;10;LEFT;2
 3;1;100;10;LEFT;3

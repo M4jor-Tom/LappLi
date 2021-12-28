@@ -34,7 +34,7 @@ public class Strand implements Serializable {
     @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
-    private Set<IntersticeAssembly> intersticialAssemblies = new HashSet<>();
+    private Set<IntersticeAssembly> intersticeAssemblies = new HashSet<>();
 
     @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -120,36 +120,36 @@ public class Strand implements Serializable {
         return this;
     }
 
-    public Set<IntersticeAssembly> getIntersticialAssemblies() {
-        return this.intersticialAssemblies;
+    public Set<IntersticeAssembly> getIntersticeAssemblies() {
+        return this.intersticeAssemblies;
     }
 
-    public void setIntersticialAssemblies(Set<IntersticeAssembly> intersticeAssemblies) throws NoIntersticeAvailableException {
+    public void setIntersticeAssemblies(Set<IntersticeAssembly> intersticeAssemblies) throws NoIntersticeAvailableException {
         if (getCoreAssemblies() == null) {
             throw new NoIntersticeAvailableException("No CoreAssembly found in strand");
         }
-        if (this.intersticialAssemblies != null) {
-            this.intersticialAssemblies.forEach(i -> i.setStrand(null));
+        if (this.intersticeAssemblies != null) {
+            this.intersticeAssemblies.forEach(i -> i.setStrand(null));
         }
         if (intersticeAssemblies != null) {
             intersticeAssemblies.forEach(i -> i.setStrand(this));
         }
-        this.intersticialAssemblies = intersticeAssemblies;
+        this.intersticeAssemblies = intersticeAssemblies;
     }
 
-    public Strand intersticialAssemblies(Set<IntersticeAssembly> intersticeAssemblies) throws NoIntersticeAvailableException {
-        this.setIntersticialAssemblies(intersticeAssemblies);
+    public Strand intersticeAssemblies(Set<IntersticeAssembly> intersticeAssemblies) throws NoIntersticeAvailableException {
+        this.setIntersticeAssemblies(intersticeAssemblies);
         return this;
     }
 
-    public Strand addIntersticialAssemblies(IntersticeAssembly intersticeAssembly) {
-        this.intersticialAssemblies.add(intersticeAssembly);
+    public Strand addIntersticeAssemblies(IntersticeAssembly intersticeAssembly) {
+        this.intersticeAssemblies.add(intersticeAssembly);
         intersticeAssembly.setStrand(this);
         return this;
     }
 
-    public Strand removeIntersticialAssemblies(IntersticeAssembly intersticeAssembly) {
-        this.intersticialAssemblies.remove(intersticeAssembly);
+    public Strand removeIntersticeAssemblies(IntersticeAssembly intersticeAssembly) {
+        this.intersticeAssemblies.remove(intersticeAssembly);
         intersticeAssembly.setStrand(null);
         return this;
     }

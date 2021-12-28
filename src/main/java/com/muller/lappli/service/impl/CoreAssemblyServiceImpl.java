@@ -52,8 +52,8 @@ public class CoreAssemblyServiceImpl implements CoreAssemblyService {
                 if (coreAssembly.getProductionStep() != null) {
                     existingCoreAssembly.setProductionStep(coreAssembly.getProductionStep());
                 }
-                if (coreAssembly.getAssemblyStep() != null) {
-                    existingCoreAssembly.setAssemblyStep(coreAssembly.getAssemblyStep());
+                if (coreAssembly.getDiameterAssemblyStep() != null) {
+                    existingCoreAssembly.setDiameterAssemblyStep(coreAssembly.getDiameterAssemblyStep());
                 }
                 if (coreAssembly.getAssemblyMean() != null) {
                     existingCoreAssembly.setAssemblyMean(coreAssembly.getAssemblyMean());

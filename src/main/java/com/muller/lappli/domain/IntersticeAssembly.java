@@ -47,7 +47,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     @JsonIgnoreProperties(
         value = {
             "coreAssemblies",
-            "intersticialAssemblies",
+            "intersticeAssemblies",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",
@@ -64,9 +64,9 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     }
 
     @Override
-    public Double getAssemblyStep() {
+    public Double getDiameterAssemblyStep() {
         try {
-            return getStrand().getLastCoreAssembly().getAssemblyStep();
+            return getStrand().getLastCoreAssembly().getDiameterAssemblyStep();
         } catch (NullPointerException e) {
             return Double.NaN;
         }

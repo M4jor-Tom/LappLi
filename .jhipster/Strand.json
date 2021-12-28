@@ -13,7 +13,7 @@
       "relationshipType": "one-to-many",
       "otherEntityName": "intersticeAssembly",
       "otherEntityRelationshipName": "strand",
-      "relationshipName": "intersticialAssemblies",
+      "relationshipName": "intersticeAssemblies",
       "otherEntityField": "productionStep"
     },
     {

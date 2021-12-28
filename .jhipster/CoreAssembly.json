@@ -12,7 +12,7 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "assemblyStep",
+      "fieldName": "diameterAssemblyStep",
       "fieldType": "Double",
       "fieldValidateRules": ["required"]
     },
