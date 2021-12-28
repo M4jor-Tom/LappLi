@@ -97,6 +97,110 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                   </td>
                 </tr>
               }
+              {strandEntity.coreAssemblies
+                ? strandEntity.coreAssemblies.map((coreAssembly, i) => (
+                    <tr key={`entity-core-assembly-${i}`} data-cy="entityTable">
+                      <td>{coreAssembly.operationLayer}</td>
+                      <td>{coreAssembly.productionStep}</td>
+                      <td>
+                        {coreAssembly.position ? (
+                          <Link to={`position/${coreAssembly.position.id}`}>{coreAssembly.position.value}</Link>
+                        ) : (
+                          ''
+                        )}
+                      </td>
+                      <td className="text-right">
+                        <div className="btn-group flex-btn-group-container">
+                          <Button tag={Link} to={`${match.url}/${coreAssembly.id}`} color="info" size="sm" data-cy="entityDetailsButton">
+                            <FontAwesomeIcon icon="eye" />{' '}
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.view">View</Translate>
+                            </span>
+                          </Button>
+                          <Button
+                            tag={Link}
+                            to={`${match.url}/${coreAssembly.id}/edit`}
+                            color="primary"
+                            size="sm"
+                            data-cy="entityEditButton"
+                          >
+                            <FontAwesomeIcon icon="pencil-alt" />{' '}
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.edit">Edit</Translate>
+                            </span>
+                          </Button>
+                          <Button
+                            tag={Link}
+                            to={`${match.url}/${coreAssembly.id}/delete`}
+                            color="danger"
+                            size="sm"
+                            data-cy="entityDeleteButton"
+                          >
+                            <FontAwesomeIcon icon="trash" />{' '}
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.delete">Delete</Translate>
+                            </span>
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                : ''}
+              {strandEntity.intersticialAssemblies
+                ? strandEntity.intersticialAssemblies.map((intersticialAssembly, i) => (
+                    <tr key={`entity-${i}`} data-cy="entityTable">
+                      <td>{intersticialAssembly.operationLayer}</td>
+                      <td>{intersticialAssembly.productionStep}</td>
+                      <td>
+                        {intersticialAssembly.position ? (
+                          <Link to={`position/${intersticialAssembly.position.id}`}>{intersticialAssembly.position.value}</Link>
+                        ) : (
+                          ''
+                        )}
+                      </td>
+                      <td className="text-right">
+                        <div className="btn-group flex-btn-group-container">
+                          <Button
+                            tag={Link}
+                            to={`${match.url}/${intersticialAssembly.id}`}
+                            color="info"
+                            size="sm"
+                            data-cy="entityDetailsButton"
+                          >
+                            <FontAwesomeIcon icon="eye" />{' '}
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.view">View</Translate>
+                            </span>
+                          </Button>
+                          <Button
+                            tag={Link}
+                            to={`${match.url}/${intersticialAssembly.id}/edit`}
+                            color="primary"
+                            size="sm"
+                            data-cy="entityEditButton"
+                          >
+                            <FontAwesomeIcon icon="pencil-alt" />{' '}
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.edit">Edit</Translate>
+                            </span>
+                          </Button>
+                          <Button
+                            tag={Link}
+                            to={`${match.url}/${intersticialAssembly.id}/delete`}
+                            color="danger"
+                            size="sm"
+                            data-cy="entityDeleteButton"
+                          >
+                            <FontAwesomeIcon icon="trash" />{' '}
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.delete">Delete</Translate>
+                            </span>
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                : ''}
             </tbody>
           </Table>
         ) : (
