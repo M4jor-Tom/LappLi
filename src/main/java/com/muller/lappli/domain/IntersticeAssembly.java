@@ -90,6 +90,15 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         }
     }
 
+    @Override
+    public Double getAfterThisMilimeterDiameter() {
+        try {
+            return getStrand().getLastCoreAssembly().getAfterThisMilimeterDiameter();
+        } catch (NullPointerException e) {
+            return Double.NaN;
+        }
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override

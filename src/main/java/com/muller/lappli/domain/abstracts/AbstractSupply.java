@@ -1,6 +1,7 @@
 package com.muller.lappli.domain.abstracts;
 
 import com.muller.lappli.domain.DomainManager;
+import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.text.DecimalFormat;
 import javax.persistence.MappedSuperclass;
@@ -25,6 +26,8 @@ public abstract class AbstractSupply<T> {
      * The speed at which a lifter is supposed to run at maximum
      */
     protected static final Long LIFTING_METER_PER_HOUR_SPEED = Long.valueOf(5000);
+
+    public abstract Position getPosition();
 
     /**
      * @return the apparitions of the CylindricComponent inside the final Cable

@@ -177,6 +177,7 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
         return this;
     }
 
+    @Override
     public Position getPosition() {
         return this.position;
     }
