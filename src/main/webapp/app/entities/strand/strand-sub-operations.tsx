@@ -39,6 +39,12 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                   <Translate contentKey="lappLiApp.assembly.productionStep">Production Step</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.assembly.diameterAssemblyStep">Assembly Step (D)</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.assembly.assemblyMean">Assembly Mean</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.assembly.position">Position</Translate>
                 </th>
                 <th />
@@ -54,6 +60,8 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                     <Translate contentKey="lappLiApp.centralAssembly.centralOperationLayer" />
                   </td>
                   <td>{strandEntity.centralAssembly.productionStep}</td>
+                  <td>{/* NO ASSEMBLY STEP (CENTRAL ASSEMBLY) */}</td>
+                  <td>{/* NO ASSEMBLY MEAN (CENTRAL ASSEMBLY) */}</td>
                   <td>
                     {strandEntity.centralAssembly.position ? (
                       <Link to={`position/${strandEntity.centralAssembly.position.id}`}>{strandEntity.centralAssembly.position.value}</Link>
@@ -111,6 +119,8 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                       </td>
                       <td>{coreAssembly.operationLayer}</td>
                       <td>{coreAssembly.productionStep}</td>
+                      <td>{coreAssembly.diameterAssemblyStep}</td>
+                      <td>{coreAssembly.assemblyMean}</td>
                       <td>
                         {coreAssembly.position ? (
                           <Link to={`position/${coreAssembly.position.id}`}>{coreAssembly.position.value}</Link>
@@ -163,6 +173,8 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                       </td>
                       <td>{intersticialAssembly.operationLayer}</td>
                       <td>{intersticialAssembly.productionStep}</td>
+                      <td>{intersticialAssembly.diameterAssemblyStep}</td>
+                      <td>{intersticialAssembly.assemblyMean}</td>
                       <td>
                         {intersticialAssembly.position ? (
                           <Link to={`position/${intersticialAssembly.position.id}`}>{intersticialAssembly.position.value}</Link>
