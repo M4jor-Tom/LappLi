@@ -155,6 +155,7 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
         return this;
     }
 
+    @Override
     public Position getPosition() {
         return this.position;
     }
