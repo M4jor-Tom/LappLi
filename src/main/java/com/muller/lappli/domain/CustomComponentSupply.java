@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
+import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -43,10 +44,41 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
     //@JsonIgnoreProperties(value = { "surfaceMaterial" }, allowSetters = true)
     private CustomComponent customComponent;
 
+    @JsonIgnoreProperties(
+        value = {
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "ownerCentralAssembly",
+            "ownerCoreAssembly",
+            "ownerIntersticeAssembly",
+        },
+        allowSetters = true
+    )
+    @OneToOne(mappedBy = "customComponentSupply")
+    private Position position;
+
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "elementSupplies", "bangleSupplies", "customComponentSupplies" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = {
+            "coreAssemblies",
+            "intersticialAssemblies",
+            "elementSupplies",
+            "bangleSupplies",
+            "customComponentSupplies",
+            "oneStudySupplies",
+            "centralAssembly",
+        },
+        allowSetters = true
+    )
     private Strand strand;
+
+    @Override
+    public CylindricComponent getCylindricComponent() {
+        return getCustomComponent();
+    }
 
     @Override
     public Material getSurfaceMaterial() {
@@ -142,6 +174,25 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
 
     public CustomComponentSupply customComponent(CustomComponent customComponent) {
         this.setCustomComponent(customComponent);
+        return this;
+    }
+
+    public Position getPosition() {
+        return this.position;
+    }
+
+    public void setPosition(Position position) {
+        if (this.position != null) {
+            this.position.setCustomComponentSupply(null);
+        }
+        if (position != null) {
+            position.setCustomComponentSupply(this);
+        }
+        this.position = position;
+    }
+
+    public CustomComponentSupply position(Position position) {
+        this.setPosition(position);
         return this;
     }
 

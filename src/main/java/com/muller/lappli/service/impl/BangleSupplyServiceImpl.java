@@ -7,6 +7,8 @@ import com.muller.lappli.service.LifterService;
 import com.muller.lappli.service.abstracts.AbstractLiftedSupplyServiceImpl;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -60,6 +62,19 @@ public class BangleSupplyServiceImpl extends AbstractLiftedSupplyServiceImpl<Ban
     public List<BangleSupply> findAll() {
         log.debug("Request to get all BangleSupplies");
         return onListRead(bangleSupplyRepository.findAll());
+    }
+
+    /**
+     *  Get all the bangleSupplies where Position is {@code null}.
+     *  @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<BangleSupply> findAllWherePositionIsNull() {
+        log.debug("Request to get all bangleSupplies where Position is null");
+        return StreamSupport
+            .stream(bangleSupplyRepository.findAll().spliterator(), false)
+            .filter(bangleSupply -> bangleSupply.getPosition() == null)
+            .collect(Collectors.toList());
     }
 
     @Override

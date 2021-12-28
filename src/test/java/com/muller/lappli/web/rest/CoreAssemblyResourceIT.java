@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.CoreAssembly;
+import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.repository.CoreAssemblyRepository;
@@ -22,6 +23,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -514,6 +516,32 @@ class CoreAssemblyResourceIT {
 
     @Test
     @Transactional
+    void getAllCoreAssembliesByPositionsIsEqualToSomething() throws Exception {
+        // Initialize the database
+        coreAssemblyRepository.saveAndFlush(coreAssembly);
+        Position positions;
+        if (TestUtil.findAll(em, Position.class).isEmpty()) {
+            positions = PositionResourceIT.createEntity(em);
+            em.persist(positions);
+            em.flush();
+        } else {
+            positions = TestUtil.findAll(em, Position.class).get(0);
+        }
+        em.persist(positions);
+        em.flush();
+        coreAssembly.addPositions(positions);
+        coreAssemblyRepository.saveAndFlush(coreAssembly);
+        Long positionsId = positions.getId();
+
+        // Get all the coreAssemblyList where positions equals to positionsId
+        defaultCoreAssemblyShouldBeFound("positionsId.equals=" + positionsId);
+
+        // Get all the coreAssemblyList where positions equals to (positionsId + 1)
+        defaultCoreAssemblyShouldNotBeFound("positionsId.equals=" + (positionsId + 1));
+    }
+
+    @Test
+    @Transactional
     void getAllCoreAssembliesByStrandIsEqualToSomething() throws Exception {
         // Initialize the database
         coreAssemblyRepository.saveAndFlush(coreAssembly);
@@ -599,13 +627,15 @@ class CoreAssemblyResourceIT {
         em.detach(updatedCoreAssembly);
         updatedCoreAssembly.productionStep(UPDATED_PRODUCTION_STEP).assemblyStep(UPDATED_ASSEMBLY_STEP).assemblyMean(UPDATED_ASSEMBLY_MEAN);
 
+        ResultMatcher expectedResult = updatedCoreAssembly.positionsAreRight() ? status().isOk() : status().isBadRequest();
+
         restCoreAssemblyMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, updatedCoreAssembly.getId())
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(TestUtil.convertObjectToJsonBytes(updatedCoreAssembly))
             )
-            .andExpect(status().isOk());
+            .andExpect(expectedResult);
 
         // Validate the CoreAssembly in the database
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();

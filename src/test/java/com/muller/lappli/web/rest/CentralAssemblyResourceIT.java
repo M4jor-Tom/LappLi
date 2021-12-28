@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.CentralAssembly;
+import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.repository.CentralAssemblyRepository;
 import com.muller.lappli.service.criteria.CentralAssemblyCriteria;
@@ -21,6 +22,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -104,11 +106,12 @@ class CentralAssemblyResourceIT {
     void createCentralAssembly() throws Exception {
         int databaseSizeBeforeCreate = centralAssemblyRepository.findAll().size();
         // Create the CentralAssembly
+        ResultMatcher expectedResult = centralAssembly.positionsAreRight() ? status().isCreated() : status().isBadRequest();
         restCentralAssemblyMockMvc
             .perform(
                 post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(centralAssembly))
             )
-            .andExpect(status().isCreated());
+            .andExpect(expectedResult);
 
         // Validate the CentralAssembly in the database
         List<CentralAssembly> centralAssemblyList = centralAssemblyRepository.findAll();
@@ -161,6 +164,8 @@ class CentralAssemblyResourceIT {
         // Update the Strand with new association value
         updatedCentralAssembly.setStrand(strand);
 
+        ResultMatcher expectedResult = updatedCentralAssembly.positionsAreRight() ? status().isOk() : status().isBadRequest();
+
         // Update the entity
         restCentralAssemblyMockMvc
             .perform(
@@ -168,7 +173,7 @@ class CentralAssemblyResourceIT {
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(TestUtil.convertObjectToJsonBytes(updatedCentralAssembly))
             )
-            .andExpect(status().isOk());
+            .andExpect(expectedResult);
 
         // Validate the CentralAssembly in the database
         List<CentralAssembly> centralAssemblyList = centralAssemblyRepository.findAll();
@@ -366,6 +371,32 @@ class CentralAssemblyResourceIT {
         defaultCentralAssemblyShouldNotBeFound("strandId.equals=" + (strandId + 1));
     }
 
+    @Test
+    @Transactional
+    void getAllCentralAssembliesByPositionIsEqualToSomething() throws Exception {
+        // Initialize the database
+        centralAssemblyRepository.saveAndFlush(centralAssembly);
+        Position position;
+        if (TestUtil.findAll(em, Position.class).isEmpty()) {
+            position = PositionResourceIT.createEntity(em);
+            em.persist(position);
+            em.flush();
+        } else {
+            position = TestUtil.findAll(em, Position.class).get(0);
+        }
+        em.persist(position);
+        em.flush();
+        centralAssembly.setPosition(position);
+        centralAssemblyRepository.saveAndFlush(centralAssembly);
+        Long positionId = position.getId();
+
+        // Get all the centralAssemblyList where position equals to positionId
+        defaultCentralAssemblyShouldBeFound("positionId.equals=" + positionId);
+
+        // Get all the centralAssemblyList where position equals to (positionId + 1)
+        defaultCentralAssemblyShouldNotBeFound("positionId.equals=" + (positionId + 1));
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned.
      */
@@ -425,13 +456,15 @@ class CentralAssemblyResourceIT {
         em.detach(updatedCentralAssembly);
         updatedCentralAssembly.productionStep(UPDATED_PRODUCTION_STEP);
 
+        ResultMatcher expectedResult = updatedCentralAssembly.positionsAreRight() ? status().isOk() : status().isBadRequest();
+
         restCentralAssemblyMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, updatedCentralAssembly.getId())
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(TestUtil.convertObjectToJsonBytes(updatedCentralAssembly))
             )
-            .andExpect(status().isOk());
+            .andExpect(expectedResult);
 
         // Validate the CentralAssembly in the database
         List<CentralAssembly> centralAssemblyList = centralAssemblyRepository.findAll();

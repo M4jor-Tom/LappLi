@@ -21,6 +21,14 @@
       "otherEntityField": "designation"
     },
     {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "position",
+      "otherEntityRelationshipName": "bangleSupply",
+      "relationshipName": "position",
+      "otherEntityField": "value",
+      "ownerSide": false
+    },
+    {
       "relationshipType": "many-to-one",
       "otherEntityName": "strand",
       "otherEntityRelationshipName": "bangleSupplies",

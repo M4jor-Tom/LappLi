@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.Material;
 import com.muller.lappli.domain.OneStudySupply;
+import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
@@ -1047,6 +1048,33 @@ class OneStudySupplyResourceIT {
 
         // Get all the oneStudySupplyList where surfaceMaterial equals to (surfaceMaterialId + 1)
         defaultOneStudySupplyShouldNotBeFound("surfaceMaterialId.equals=" + (surfaceMaterialId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllOneStudySuppliesByPositionIsEqualToSomething() throws Exception {
+        // Initialize the database
+        oneStudySupplyRepository.saveAndFlush(oneStudySupply);
+        Position position;
+        if (TestUtil.findAll(em, Position.class).isEmpty()) {
+            position = PositionResourceIT.createEntity(em);
+            em.persist(position);
+            em.flush();
+        } else {
+            position = TestUtil.findAll(em, Position.class).get(0);
+        }
+        em.persist(position);
+        em.flush();
+        oneStudySupply.setPosition(position);
+        position.setOneStudySupply(oneStudySupply);
+        oneStudySupplyRepository.saveAndFlush(oneStudySupply);
+        Long positionId = position.getId();
+
+        // Get all the oneStudySupplyList where position equals to positionId
+        defaultOneStudySupplyShouldBeFound("positionId.equals=" + positionId);
+
+        // Get all the oneStudySupplyList where position equals to (positionId + 1)
+        defaultOneStudySupplyShouldNotBeFound("positionId.equals=" + (positionId + 1));
     }
 
     @Test

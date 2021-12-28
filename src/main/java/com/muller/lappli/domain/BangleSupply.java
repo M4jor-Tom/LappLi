@@ -3,6 +3,7 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
+import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,20 +39,41 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     //@JsonIgnoreProperties(value = { "material" }, allowSetters = true)
     private Bangle bangle;
 
+    @JsonIgnoreProperties(
+        value = {
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "ownerCentralAssembly",
+            "ownerCoreAssembly",
+            "ownerIntersticeAssembly",
+        },
+        allowSetters = true
+    )
+    @OneToOne(mappedBy = "bangleSupply")
+    private Position position;
+
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "elementSupplies", "bangleSupplies", "customComponentSupplies" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = {
+            "coreAssemblies",
+            "intersticialAssemblies",
+            "elementSupplies",
+            "bangleSupplies",
+            "customComponentSupplies",
+            "oneStudySupplies",
+            "centralAssembly",
+        },
+        allowSetters = true
+    )
     private Strand strand;
 
-    /*public BangleSupply() {
-        this(new ArrayList<>(), null, new Bangle());
+    @Override
+    public CylindricComponent getCylindricComponent() {
+        return getBangle();
     }
-
-    public BangleSupply(List<Lifter> bestLifterList, Long apparitions, Bangle bangle) {
-        super(bestLifterList);
-        setApparitions(apparitions);
-        setBangle(bangle);
-    }*/
 
     @Override
     public Double getMeterPerHourSpeed() {
@@ -130,6 +152,25 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
 
     public BangleSupply bangle(Bangle bangle) {
         this.setBangle(bangle);
+        return this;
+    }
+
+    public Position getPosition() {
+        return this.position;
+    }
+
+    public void setPosition(Position position) {
+        if (this.position != null) {
+            this.position.setBangleSupply(null);
+        }
+        if (position != null) {
+            position.setBangleSupply(this);
+        }
+        this.position = position;
+    }
+
+    public BangleSupply position(Position position) {
+        this.setPosition(position);
         return this;
     }
 

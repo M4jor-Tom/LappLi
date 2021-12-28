@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IStrand } from 'app/shared/model/strand.model';
 import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
+import { IPosition } from 'app/shared/model/position.model';
+import { getEntities as getPositions } from 'app/entities/position/position.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './central-assembly.reducer';
 import { ICentralAssembly } from 'app/shared/model/central-assembly.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -18,6 +20,7 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ id: string }>
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
   const strands = useAppSelector(state => state.strand.entities);
+  const positions = useAppSelector(state => state.position.entities);
   const centralAssemblyEntity = useAppSelector(state => state.centralAssembly.entity);
   const loading = useAppSelector(state => state.centralAssembly.loading);
   const updating = useAppSelector(state => state.centralAssembly.updating);
@@ -34,6 +37,7 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ id: string }>
     }
 
     dispatch(getStrands({}));
+    dispatch(getPositions({}));
   }, []);
 
   useEffect(() => {
@@ -47,6 +51,7 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ id: string }>
       ...centralAssemblyEntity,
       ...values,
       strand: strands.find(it => it.id.toString() === values.strand.toString()),
+      position: positions.find(it => it.id.toString() === values.position.toString()),
     };
 
     if (isNew) {
@@ -62,6 +67,7 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ id: string }>
       : {
           ...centralAssemblyEntity,
           strand: centralAssemblyEntity?.strand?.id,
+          position: centralAssemblyEntity?.position?.id,
         };
 
   return (
@@ -120,6 +126,22 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ id: string }>
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
+              <ValidatedField
+                id="central-assembly-position"
+                name="position"
+                data-cy="position"
+                label={translate('lappLiApp.centralAssembly.position')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {positions
+                  ? positions.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.value}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/central-assembly" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

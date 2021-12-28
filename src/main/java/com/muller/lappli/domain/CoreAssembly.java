@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -33,6 +35,22 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     @Column(name = "assembly_mean", nullable = false)
     private AssemblyMean assemblyMean;
 
+    @OneToMany(mappedBy = "ownerCoreAssembly")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(
+        value = {
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "ownerCentralAssembly",
+            "ownerCoreAssembly",
+            "ownerIntersticeAssembly",
+        },
+        allowSetters = true
+    )
+    private Set<Position> positions = new HashSet<>();
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
@@ -57,6 +75,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    @Override
     public Long getId() {
         return this.id;
     }
@@ -98,6 +117,39 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         this.assemblyMean = assemblyMean;
     }
 
+    @Override
+    public Set<Position> getPositions() {
+        return this.positions;
+    }
+
+    public void setPositions(Set<Position> positions) {
+        if (this.positions != null) {
+            this.positions.forEach(i -> i.setOwnerCoreAssembly(null));
+        }
+        if (positions != null) {
+            positions.forEach(i -> i.setOwnerCoreAssembly(this));
+        }
+        this.positions = positions;
+    }
+
+    public CoreAssembly positions(Set<Position> positions) {
+        this.setPositions(positions);
+        return this;
+    }
+
+    public CoreAssembly addPositions(Position position) {
+        this.positions.add(position);
+        position.setOwnerCoreAssembly(this);
+        return this;
+    }
+
+    public CoreAssembly removePositions(Position position) {
+        this.positions.remove(position);
+        position.setOwnerCoreAssembly(null);
+        return this;
+    }
+
+    @Override
     public Strand getStrand() {
         return this.strand;
     }

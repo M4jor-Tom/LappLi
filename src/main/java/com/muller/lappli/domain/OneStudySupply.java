@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
+import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -60,15 +61,46 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply implements Serial
     //@JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material surfaceMaterial;
 
+    @JsonIgnoreProperties(
+        value = {
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "ownerCentralAssembly",
+            "ownerCoreAssembly",
+            "ownerIntersticeAssembly",
+        },
+        allowSetters = true
+    )
+    @OneToOne(mappedBy = "oneStudySupply")
+    private Position position;
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = { "elementSupplies", "bangleSupplies", "customComponentSupplies", "oneStudySupplies" },
+        value = {
+            "coreAssemblies",
+            "intersticialAssemblies",
+            "elementSupplies",
+            "bangleSupplies",
+            "customComponentSupplies",
+            "oneStudySupplies",
+            "centralAssembly",
+        },
         allowSetters = true
     )
     private Strand strand;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    @Override
+    public CylindricComponent getCylindricComponent() {
+        return new OneStudyComponent()
+            .designation(getDesignation())
+            .milimeterDiameter(getMilimeterDiameter())
+            .gramPerMeterLinearMass(getGramPerMeterLinearMass());
+    }
 
     public Long getId() {
         return this.id;
@@ -205,6 +237,25 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply implements Serial
         return this;
     }
 
+    public Position getPosition() {
+        return this.position;
+    }
+
+    public void setPosition(Position position) {
+        if (this.position != null) {
+            this.position.setOneStudySupply(null);
+        }
+        if (position != null) {
+            position.setOneStudySupply(this);
+        }
+        this.position = position;
+    }
+
+    public OneStudySupply position(Position position) {
+        this.setPosition(position);
+        return this;
+    }
+
     public Strand getStrand() {
         return this.strand;
     }
@@ -251,5 +302,56 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply implements Serial
             ", milimeterDiameter=" + getMilimeterDiameter() +
             ", surfaceColor='" + getSurfaceColor() + "'" +
             "}";
+    }
+
+    private class OneStudyComponent implements CylindricComponent {
+
+        private String designation;
+
+        private Double milimeterDiameter;
+
+        private Double gramPerMeterLinearMass;
+
+        @Override
+        public String getDesignation() {
+            return designation;
+        }
+
+        public void setDesignation(String designation) {
+            this.designation = designation;
+        }
+
+        public OneStudyComponent designation(String designation) {
+            setDesignation(designation);
+            return this;
+        }
+
+        @Override
+        public Double getMilimeterDiameter() {
+            return milimeterDiameter;
+        }
+
+        public void setMilimeterDiameter(Double milimeterDiameter) {
+            this.milimeterDiameter = milimeterDiameter;
+        }
+
+        public OneStudyComponent milimeterDiameter(Double milimeterDiameter) {
+            setMilimeterDiameter(milimeterDiameter);
+            return this;
+        }
+
+        @Override
+        public Double getGramPerMeterLinearMass() {
+            return gramPerMeterLinearMass;
+        }
+
+        public void setGramPerMeterLinearMass(Double gramPerMeterLinearMass) {
+            this.gramPerMeterLinearMass = gramPerMeterLinearMass;
+        }
+
+        public OneStudyComponent gramPerMeterLinearMass(Double gramPerMeterLinearMass) {
+            setGramPerMeterLinearMass(gramPerMeterLinearMass);
+            return this;
+        }
     }
 }

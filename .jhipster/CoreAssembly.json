@@ -20,6 +20,13 @@
   ],
   "relationships": [
     {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "position",
+      "otherEntityRelationshipName": "ownerCoreAssembly",
+      "relationshipName": "positions",
+      "otherEntityField": "value"
+    },
+    {
       "relationshipType": "many-to-one",
       "otherEntityName": "strand",
       "otherEntityRelationshipName": "coreAssemblies",

@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.IntersticeAssembly;
+import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.repository.IntersticeAssemblyRepository;
 import com.muller.lappli.service.criteria.IntersticeAssemblyCriteria;
@@ -21,6 +22,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -310,6 +312,32 @@ class IntersticeAssemblyResourceIT {
 
     @Test
     @Transactional
+    void getAllIntersticeAssembliesByPositionsIsEqualToSomething() throws Exception {
+        // Initialize the database
+        intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
+        Position positions;
+        if (TestUtil.findAll(em, Position.class).isEmpty()) {
+            positions = PositionResourceIT.createEntity(em);
+            em.persist(positions);
+            em.flush();
+        } else {
+            positions = TestUtil.findAll(em, Position.class).get(0);
+        }
+        em.persist(positions);
+        em.flush();
+        intersticeAssembly.addPositions(positions);
+        intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
+        Long positionsId = positions.getId();
+
+        // Get all the intersticeAssemblyList where positions equals to positionsId
+        defaultIntersticeAssemblyShouldBeFound("positionsId.equals=" + positionsId);
+
+        // Get all the intersticeAssemblyList where positions equals to (positionsId + 1)
+        defaultIntersticeAssemblyShouldNotBeFound("positionsId.equals=" + (positionsId + 1));
+    }
+
+    @Test
+    @Transactional
     void getAllIntersticeAssembliesByStrandIsEqualToSomething() throws Exception {
         // Initialize the database
         intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
@@ -393,13 +421,15 @@ class IntersticeAssemblyResourceIT {
         em.detach(updatedIntersticeAssembly);
         updatedIntersticeAssembly.productionStep(UPDATED_PRODUCTION_STEP);
 
+        ResultMatcher expectedResult = updatedIntersticeAssembly.positionsAreRight() ? status().isOk() : status().isBadRequest();
+
         restIntersticeAssemblyMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, updatedIntersticeAssembly.getId())
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(TestUtil.convertObjectToJsonBytes(updatedIntersticeAssembly))
             )
-            .andExpect(status().isOk());
+            .andExpect(expectedResult);
 
         // Validate the IntersticeAssembly in the database
         List<IntersticeAssembly> intersticeAssemblyList = intersticeAssemblyRepository.findAll();

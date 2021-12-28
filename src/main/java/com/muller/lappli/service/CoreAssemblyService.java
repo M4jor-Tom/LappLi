@@ -7,23 +7,7 @@ import java.util.Optional;
 /**
  * Service Interface for managing {@link CoreAssembly}.
  */
-public interface CoreAssemblyService {
-    /**
-     * Save a coreAssembly.
-     *
-     * @param coreAssembly the entity to save.
-     * @return the persisted entity.
-     */
-    CoreAssembly save(CoreAssembly coreAssembly);
-
-    /**
-     * Partially updates a coreAssembly.
-     *
-     * @param coreAssembly the entity to update partially.
-     * @return the persisted entity.
-     */
-    Optional<CoreAssembly> partialUpdate(CoreAssembly coreAssembly);
-
+public interface CoreAssemblyService extends IAssemblyService<CoreAssembly> {
     /**
      * Get all the coreAssemblies.
      *

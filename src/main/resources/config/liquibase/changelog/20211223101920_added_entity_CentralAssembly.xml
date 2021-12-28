@@ -17,6 +17,9 @@
             <column name="production_step" type="bigint">
                 <constraints nullable="false" />
             </column>
+            <column name="position_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_central_assembly__position_id" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>

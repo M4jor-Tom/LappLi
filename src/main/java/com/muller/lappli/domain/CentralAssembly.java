@@ -3,6 +3,10 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -40,13 +44,39 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @JoinColumn(name = "id")
     private Strand strand;
 
+    @JsonIgnoreProperties(
+        value = {
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "ownerCentralAssembly",
+            "ownerCoreAssembly",
+            "ownerIntersticeAssembly",
+        },
+        allowSetters = true
+    )
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Position position;
+
     @Override
     public CentralAssembly getThis() {
         return this;
     }
 
+    @Override
+    public Set<Position> getPositions() {
+        HashSet<Position> positions = new HashSet<Position>();
+        if (getPosition() != null) {
+            positions.add(getPosition());
+        }
+        return positions;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    @Override
     public Long getId() {
         return this.id;
     }
@@ -60,6 +90,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         this.id = id;
     }
 
+    @Override
     public Strand getStrand() {
         return this.strand;
     }
@@ -70,6 +101,19 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
 
     public CentralAssembly strand(Strand strand) {
         this.setStrand(strand);
+        return this;
+    }
+
+    public Position getPosition() {
+        return this.position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public CentralAssembly position(Position position) {
+        this.setPosition(position);
         return this;
     }
 

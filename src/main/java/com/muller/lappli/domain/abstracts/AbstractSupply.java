@@ -1,6 +1,7 @@
 package com.muller.lappli.domain.abstracts;
 
 import com.muller.lappli.domain.DomainManager;
+import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.text.DecimalFormat;
 import javax.persistence.MappedSuperclass;
 
@@ -39,6 +40,22 @@ public abstract class AbstractSupply<T> {
      * @return the linear mass in grams per meter of the CylindricComponent
      */
     public abstract Double getGramPerMeterLinearMass();
+
+    /**
+     * @return the representated component
+     */
+    public abstract CylindricComponent getCylindricComponent();
+
+    /**
+     * @return the designation of the representated component
+     */
+    public String getDesignation() {
+        try {
+            return getCylindricComponent().getDesignation();
+        } catch (NullPointerException e) {
+            return "";
+        }
+    }
 
     /**
      * Will determine how hours are display along Supply entities

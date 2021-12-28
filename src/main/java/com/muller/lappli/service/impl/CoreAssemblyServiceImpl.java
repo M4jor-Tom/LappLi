@@ -1,6 +1,8 @@
 package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.CoreAssembly;
+import com.muller.lappli.domain.exception.PositionHasSeveralSupplyException;
+import com.muller.lappli.domain.exception.PositionInSeveralAssemblyException;
 import com.muller.lappli.repository.CoreAssemblyRepository;
 import com.muller.lappli.service.CoreAssemblyService;
 import java.util.List;
@@ -26,16 +28,20 @@ public class CoreAssemblyServiceImpl implements CoreAssemblyService {
     }
 
     @Override
-    public CoreAssembly save(CoreAssembly coreAssembly) {
+    public CoreAssembly save(CoreAssembly coreAssembly) throws PositionInSeveralAssemblyException, PositionHasSeveralSupplyException {
         log.debug("Request to save CoreAssembly : {}", coreAssembly);
+
+        coreAssembly.checkPositions();
+
         return coreAssemblyRepository.save(coreAssembly);
     }
 
     @Override
-    public Optional<CoreAssembly> partialUpdate(CoreAssembly coreAssembly) {
+    public Optional<CoreAssembly> partialUpdate(CoreAssembly coreAssembly)
+        throws PositionInSeveralAssemblyException, PositionHasSeveralSupplyException {
         log.debug("Request to partially update CoreAssembly : {}", coreAssembly);
 
-        return coreAssemblyRepository
+        Optional<CoreAssembly> foundCoreAssembly = coreAssemblyRepository
             .findById(coreAssembly.getId())
             .map(existingCoreAssembly -> {
                 if (coreAssembly.getProductionStep() != null) {
@@ -51,6 +57,10 @@ public class CoreAssemblyServiceImpl implements CoreAssemblyService {
                 return existingCoreAssembly;
             })
             .map(coreAssemblyRepository::save);
+
+        coreAssembly.checkPositions();
+
+        return foundCoreAssembly;
     }
 
     @Override
