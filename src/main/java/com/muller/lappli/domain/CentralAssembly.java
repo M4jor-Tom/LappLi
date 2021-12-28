@@ -79,6 +79,15 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         return Long.valueOf(0);
     }
 
+    @Override
+    public Double getAfterThisMilimeterDiameter() {
+        try {
+            return getPosition().getSupply().getMilimeterDiameter();
+        } catch (NullPointerException e) {
+            return Double.NaN;
+        }
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override
