@@ -30,6 +30,9 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
             <thead>
               <tr>
                 <th>
+                  <Translate contentKey="lappLiApp.strand.operationKind">Operation Kind</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.assembly.operationLayer">Operation Layer</Translate>
                 </th>
                 <th>
@@ -44,6 +47,9 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
             <tbody>
               {
                 <tr data-cy="entityTable">
+                  <td>
+                    <Translate contentKey="lappLiApp.centralAssembly.home.title" />
+                  </td>
                   <td>
                     <Translate contentKey="lappLiApp.centralAssembly.centralOperationLayer" />
                   </td>
@@ -100,6 +106,9 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
               {strandEntity.coreAssemblies
                 ? strandEntity.coreAssemblies.map((coreAssembly, i) => (
                     <tr key={`entity-core-assembly-${i}`} data-cy="entityTable">
+                      <td>
+                        <Translate contentKey="lappLiApp.coreAssembly.home.title" />
+                      </td>
                       <td>{coreAssembly.operationLayer}</td>
                       <td>{coreAssembly.productionStep}</td>
                       <td>
@@ -149,6 +158,9 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
               {strandEntity.intersticialAssemblies
                 ? strandEntity.intersticialAssemblies.map((intersticialAssembly, i) => (
                     <tr key={`entity-${i}`} data-cy="entityTable">
+                      <td>
+                        <Translate contentKey="lappLiApp.intersticialAssembly.home.title" />
+                      </td>
                       <td>{intersticialAssembly.operationLayer}</td>
                       <td>{intersticialAssembly.productionStep}</td>
                       <td>
