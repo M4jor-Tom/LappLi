@@ -2,13 +2,14 @@
   "lappLiApp": {
     "assembly": {
       "home": {
-        "notFound": "No assembly founc"
+        "notFound": "No assembly found"
       },
       "operationLayer": "Operation Layer",
       "productionStep": "Production Step",
       "position": "Position",
       "diameterAssemblyStep": "Assembly Step (D)",
-      "assemblyMean": "Assembly Mean"
+      "assemblyMean": "Assembly Mean",
+      "subSupply": "Assembly Supply"
     }
   }
 }

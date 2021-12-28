@@ -8,7 +8,8 @@
       "productionStep": "Etape de Production",
       "position": "Position",
       "diameterAssemblyStep": "Pas d'Assemblage (D)",
-      "assemblyMean": "Sens d'Assemblage"
+      "assemblyMean": "Sens d'Assemblage",
+      "subSupply": "Approvisionnement de couche"
     }
   }
 }
