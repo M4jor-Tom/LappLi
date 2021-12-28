@@ -27,7 +27,9 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
         <Translate contentKey="lappLiApp.strand.detail.title">Strand</Translate>
       </h2>
       <div className="table-responsive">
-        {strandEntity.centralAssembly ? (
+        {strandEntity.centralAssembly ||
+        (strandEntity.coreAssemblies && strandEntity.coreAssemblies.length > 0) ||
+        (strandEntity.intersticeAssemblies && strandEntity.intersticeAssemblies.length > 0) ? (
           <Table responsive>
             <thead>
               <tr>
