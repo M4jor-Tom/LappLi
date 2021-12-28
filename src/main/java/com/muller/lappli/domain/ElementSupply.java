@@ -198,6 +198,7 @@ public class ElementSupply extends AbstractMarkedLiftedSupply implements Seriali
         return this;
     }
 
+    @Override
     public Position getPosition() {
         return this.position;
     }

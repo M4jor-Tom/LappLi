@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
@@ -16,7 +17,7 @@ import org.mapstruct.ap.shaded.freemarker.template.utility.NullArgumentException
 @Entity
 @Table(name = "material_marking_statistic")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class MaterialMarkingStatistic implements Serializable {
+public class MaterialMarkingStatistic extends AbstractDomainObject<MaterialMarkingStatistic> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

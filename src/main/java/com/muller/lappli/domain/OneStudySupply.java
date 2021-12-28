@@ -17,7 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "one_study_supply")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class OneStudySupply extends AbstractMarkedLiftedSupply implements Serializable {
+public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -237,6 +237,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply implements Serial
         return this;
     }
 
+    @Override
     public Position getPosition() {
         return this.position;
     }
