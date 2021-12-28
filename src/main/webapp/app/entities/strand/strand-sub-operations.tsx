@@ -37,10 +37,13 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
             <thead>
               <tr>
                 <th>
-                  <Translate contentKey="lappLiApp.centralAssembly.productionStep">Production Step</Translate>
+                  <Translate contentKey="lappLiApp.assembly.operationLayer">Operation Layer</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.centralAssembly.position">Position</Translate>
+                  <Translate contentKey="lappLiApp.assembly.productionStep">Production Step</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.assembly.position">Position</Translate>
                 </th>
                 <th />
               </tr>
@@ -48,6 +51,9 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
             <tbody>
               {
                 <tr data-cy="entityTable">
+                  <td>
+                    <Translate contentKey="lappLiApp.centralAssembly.centralOperationLayer" />
+                  </td>
                   <td>{strandEntity.centralAssembly.productionStep}</td>
                   <td>
                     {strandEntity.centralAssembly.position ? (
