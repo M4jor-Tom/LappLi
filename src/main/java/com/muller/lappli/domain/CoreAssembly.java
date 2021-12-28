@@ -77,6 +77,11 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         return this;
     }
 
+    @Override
+    public Double getAfterThisMilimeterDiameter() {
+        return Double.NaN;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override
