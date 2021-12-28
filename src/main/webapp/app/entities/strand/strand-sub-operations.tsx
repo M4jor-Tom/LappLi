@@ -21,15 +21,8 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
 
   return (
     <div>
-      <h2 id="central-assembly-heading" data-cy="CentralAssemblyHeading">
-        <Translate contentKey="lappLiApp.centralAssembly.home.title">Central Assemblies</Translate>
-        <div className="d-flex justify-content-end">
-          <Link to={`${match.url}/new`} className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
-            <FontAwesomeIcon icon="plus" />
-            &nbsp;
-            <Translate contentKey="lappLiApp.centralAssembly.home.createLabel">Create new Central Assembly</Translate>
-          </Link>
-        </div>
+      <h2 data-cy="strandDetailsHeading">
+        <Translate contentKey="lappLiApp.strand.detail.title">Strand</Translate>
       </h2>
       <div className="table-responsive">
         {strandEntity.centralAssembly ? (
