@@ -31,7 +31,7 @@ public class Strand implements Serializable {
     @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
     private Set<CoreAssembly> coreAssemblies = new HashSet<>();
 
-    @OneToMany(mappedBy = "strand")
+    @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
     private Set<IntersticeAssembly> intersticialAssemblies = new HashSet<>();
