@@ -1,7 +1,9 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractAssembly;
 import com.muller.lappli.domain.abstracts.AbstractDomainObject;
+import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.exception.PositionAlreadyHasSupplyException;
 import com.muller.lappli.domain.exception.PositionAlreadyInAssemblyException;
 import com.muller.lappli.domain.exception.PositionHasSeveralSupplyException;
@@ -62,6 +64,34 @@ public class Position extends AbstractDomainObject<Position> implements Serializ
     @ManyToOne
     @JsonIgnoreProperties(value = { "positions", "strand" }, allowSetters = true)
     private IntersticeAssembly ownerIntersticeAssembly;
+
+    @JsonIgnoreProperties(value = { "position", "strand" })
+    public AbstractSupply<?> getSupply() {
+        if (isOfBangleSupply()) {
+            return getBangleSupply();
+        } else if (isOfCustomComponentSupply()) {
+            return getCustomComponentSupply();
+        } else if (isOfElementSupply()) {
+            return getElementSupply();
+        } else if (isOfOneStudySupply()) {
+            return getOneStudySupply();
+        }
+
+        return null;
+    }
+
+    @JsonIgnoreProperties(value = { "position", "positions", "strand" })
+    public AbstractAssembly<?> getOwnerAssembly() {
+        if (isInCentralAssembly()) {
+            return getOwnerCentralAssembly();
+        } else if (isInCoreAssembly()) {
+            return getOwnerCoreAssembly();
+        } else if (isInIntersticeAssembly()) {
+            return getOwnerIntersticeAssembly();
+        }
+
+        return null;
+    }
 
     public Boolean isRight() {
         return isAssemblyRight() && isSupplyRight();
