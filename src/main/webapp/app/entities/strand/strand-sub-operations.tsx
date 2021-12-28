@@ -44,9 +44,6 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                 <th>
                   <Translate contentKey="lappLiApp.assembly.assemblyMean">Assembly Mean</Translate>
                 </th>
-                <th>
-                  <Translate contentKey="lappLiApp.assembly.position">Position</Translate>
-                </th>
                 <th />
               </tr>
             </thead>
@@ -62,13 +59,6 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                   <td>{strandEntity.centralAssembly.productionStep}</td>
                   <td>{/* NO ASSEMBLY STEP (CENTRAL ASSEMBLY) */}</td>
                   <td>{/* NO ASSEMBLY MEAN (CENTRAL ASSEMBLY) */}</td>
-                  <td>
-                    {strandEntity.centralAssembly.position ? (
-                      <Link to={`position/${strandEntity.centralAssembly.position.id}`}>{strandEntity.centralAssembly.position.value}</Link>
-                    ) : (
-                      ''
-                    )}
-                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button
@@ -121,13 +111,6 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                       <td>{coreAssembly.productionStep}</td>
                       <td>{coreAssembly.diameterAssemblyStep}</td>
                       <td>{coreAssembly.assemblyMean}</td>
-                      <td>
-                        {coreAssembly.position ? (
-                          <Link to={`position/${coreAssembly.position.id}`}>{coreAssembly.position.value}</Link>
-                        ) : (
-                          ''
-                        )}
-                      </td>
                       <td className="text-right">
                         <div className="btn-group flex-btn-group-container">
                           <Button tag={Link} to={`${match.url}/${coreAssembly.id}`} color="info" size="sm" data-cy="entityDetailsButton">
@@ -175,13 +158,6 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                       <td>{intersticialAssembly.productionStep}</td>
                       <td>{intersticialAssembly.diameterAssemblyStep}</td>
                       <td>{intersticialAssembly.assemblyMean}</td>
-                      <td>
-                        {intersticialAssembly.position ? (
-                          <Link to={`position/${intersticialAssembly.position.id}`}>{intersticialAssembly.position.value}</Link>
-                        ) : (
-                          ''
-                        )}
-                      </td>
                       <td className="text-right">
                         <div className="btn-group flex-btn-group-container">
                           <Button
