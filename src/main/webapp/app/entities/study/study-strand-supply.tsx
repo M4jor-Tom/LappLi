@@ -101,6 +101,19 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                             </Button>*/}
                             <Button
                               tag={Link}
+                              to={`/strand/${strandSupply.strand.id}/operation`}
+                              color="primary"
+                              size="sm"
+                              data-cy="entityEditButton"
+                            >
+                              <FontAwesomeIcon icon="pencil-alt" />{' '}
+                              <span className="d-none d-md-inline">
+                                <Translate contentKey="lappLiApp.strand.operations">Operations</Translate>
+                              </span>
+                            </Button>
+                            &nbsp;
+                            <Button
+                              tag={Link}
                               to={`/strand/${strandSupply.strand.id}/supply`}
                               color="primary"
                               size="sm"

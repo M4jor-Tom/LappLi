@@ -2,6 +2,11 @@
   "name": "CoreAssembly",
   "fields": [
     {
+      "fieldName": "operationLayer",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "productionStep",
       "fieldType": "Long",
       "fieldValidateRules": ["required"]

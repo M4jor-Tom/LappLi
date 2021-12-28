@@ -42,7 +42,9 @@ public class IntersticeAssemblyServiceImpl implements IntersticeAssemblyService 
         throws PositionInSeveralAssemblyException, PositionHasSeveralSupplyException {
         log.debug("Request to partially update IntersticeAssembly : {}", intersticeAssembly);
 
-        Optional<IntersticeAssembly> foundIntersiceAssembly = intersticeAssemblyRepository
+        intersticeAssembly.checkPositions();
+
+        return intersticeAssemblyRepository
             .findById(intersticeAssembly.getId())
             .map(existingIntersticeAssembly -> {
                 if (intersticeAssembly.getProductionStep() != null) {
@@ -52,10 +54,6 @@ public class IntersticeAssemblyServiceImpl implements IntersticeAssemblyService 
                 return existingIntersticeAssembly;
             })
             .map(intersticeAssemblyRepository::save);
-
-        intersticeAssembly.checkPositions();
-
-        return foundIntersiceAssembly;
     }
 
     @Override

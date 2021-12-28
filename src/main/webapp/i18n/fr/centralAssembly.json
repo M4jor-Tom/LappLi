@@ -19,7 +19,8 @@
       },
       "id": "ID",
       "productionStep": "Production Step",
-      "strand": "Strand"
+      "strand": "Strand",
+      "centralOperationLayer": "Couche d'opération centrale"
     }
   }
 }

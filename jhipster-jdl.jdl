@@ -11,6 +11,7 @@ entity CentralAssembly {
 }
 
 entity CoreAssembly {
+	operationLayer Long required
 	productionStep Long required
 	assemblyStep Double required
     assemblyMean AssemblyMean required

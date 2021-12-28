@@ -50,6 +50,9 @@ export const CoreAssembly = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.coreAssembly.id">ID</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.coreAssembly.operationLayer">Operation Layer</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.coreAssembly.productionStep">Production Step</Translate>
                 </th>
                 <th>
@@ -72,6 +75,7 @@ export const CoreAssembly = (props: RouteComponentProps<{ url: string }>) => {
                       {coreAssembly.id}
                     </Button>
                   </td>
+                  <td>{coreAssembly.operationLayer}</td>
                   <td>{coreAssembly.productionStep}</td>
                   <td>{coreAssembly.assemblyStep}</td>
                   <td>

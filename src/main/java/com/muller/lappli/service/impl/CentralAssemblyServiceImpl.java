@@ -48,7 +48,9 @@ public class CentralAssemblyServiceImpl implements CentralAssemblyService {
         throws PositionInSeveralAssemblyException, PositionHasSeveralSupplyException {
         log.debug("Request to partially update CentralAssembly : {}", centralAssembly);
 
-        Optional<CentralAssembly> foundCentralAssembly = centralAssemblyRepository
+        centralAssembly.checkPositions();
+
+        return centralAssemblyRepository
             .findById(centralAssembly.getId())
             .map(existingCentralAssembly -> {
                 if (centralAssembly.getProductionStep() != null) {
@@ -58,10 +60,6 @@ public class CentralAssemblyServiceImpl implements CentralAssemblyService {
                 return existingCentralAssembly;
             })
             .map(centralAssemblyRepository::save);
-
-        centralAssembly.checkPositions();
-
-        return foundCentralAssembly;
     }
 
     @Override
