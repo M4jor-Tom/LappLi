@@ -81,6 +81,15 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         }
     }
 
+    @Override
+    public Long getOperationLayer() {
+        try {
+            return getStrand().getLastCoreAssembly().getOperationLayer();
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override

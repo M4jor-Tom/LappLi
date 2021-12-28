@@ -26,6 +26,8 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends Ab
 
     public abstract Set<Position> getPositions();
 
+    public abstract Long getOperationLayer();
+
     public void checkPositions() throws PositionInSeveralAssemblyException, PositionHasSeveralSupplyException {
         for (Position position : getPositions()) {
             position.checkRight();
