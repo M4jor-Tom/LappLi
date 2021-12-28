@@ -14,7 +14,7 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
-import { getStrandSupplyUpdateComponentRedirectionUrl, getStudyValidateField, SupplyKind } from '../supply/index-management-lib';
+import { getStrandSupplyUpdateComponentRedirectionUrl, getStudyValidateField, SupplyKind } from '../index-management/index-management-lib';
 import { handleClosePolicy } from 'app/app-config/handle-close-policy';
 
 export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: string | null; study_id: string | null; id: string }>) => {
