@@ -48,7 +48,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
               </tr>
             </thead>
             <tbody>
-              {
+              {strandEntity.centralAssembly ? (
                 <tr data-cy="entityTable">
                   <td>
                     <Translate contentKey="lappLiApp.centralAssembly.home.title" />
@@ -100,7 +100,9 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                     </div>
                   </td>
                 </tr>
-              }
+              ) : (
+                ''
+              )}
               {strandEntity.coreAssemblies
                 ? strandEntity.coreAssemblies.map((coreAssembly, i) => (
                     <tr key={`entity-core-assembly-${i}`} data-cy="entityTable">
