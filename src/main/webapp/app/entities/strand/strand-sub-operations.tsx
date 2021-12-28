@@ -63,18 +63,6 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                     <div className="btn-group flex-btn-group-container">
                       <Button
                         tag={Link}
-                        to={`${match.url}/${strandEntity.centralAssembly.id}`}
-                        color="info"
-                        size="sm"
-                        data-cy="entityDetailsButton"
-                      >
-                        <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.view">View</Translate>
-                        </span>
-                      </Button>
-                      <Button
-                        tag={Link}
                         to={`${match.url}/${strandEntity.centralAssembly.id}/edit`}
                         color="primary"
                         size="sm"
@@ -115,12 +103,6 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                       <td>{coreAssembly.assemblyMean}</td>
                       <td className="text-right">
                         <div className="btn-group flex-btn-group-container">
-                          <Button tag={Link} to={`${match.url}/${coreAssembly.id}`} color="info" size="sm" data-cy="entityDetailsButton">
-                            <FontAwesomeIcon icon="eye" />{' '}
-                            <span className="d-none d-md-inline">
-                              <Translate contentKey="entity.action.view">View</Translate>
-                            </span>
-                          </Button>
                           <Button
                             tag={Link}
                             to={`${match.url}/${coreAssembly.id}/edit`}
@@ -162,18 +144,6 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                       <td>{intersticialAssembly.assemblyMean}</td>
                       <td className="text-right">
                         <div className="btn-group flex-btn-group-container">
-                          <Button
-                            tag={Link}
-                            to={`${match.url}/${intersticialAssembly.id}`}
-                            color="info"
-                            size="sm"
-                            data-cy="entityDetailsButton"
-                          >
-                            <FontAwesomeIcon icon="eye" />{' '}
-                            <span className="d-none d-md-inline">
-                              <Translate contentKey="entity.action.view">View</Translate>
-                            </span>
-                          </Button>
                           <Button
                             tag={Link}
                             to={`${match.url}/${intersticialAssembly.id}/edit`}
