@@ -159,7 +159,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                 ? strandEntity.intersticialAssemblies.map((intersticialAssembly, i) => (
                     <tr key={`entity-${i}`} data-cy="entityTable">
                       <td>
-                        <Translate contentKey="lappLiApp.intersticialAssembly.home.title" />
+                        <Translate contentKey="lappLiApp.intersticeAssembly.home.title" />
                       </td>
                       <td>{intersticialAssembly.operationLayer}</td>
                       <td>{intersticialAssembly.productionStep}</td>

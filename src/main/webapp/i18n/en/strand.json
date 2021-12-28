@@ -26,6 +26,7 @@
       "customComponentSupplies": "Custom Component Supplies",
       "subSupplies": "Sub Supplies",
       "operations": "Operations",
+      "operationKind": "OperationKind",
       "noSuppliesFound": "No Supplies Found",
       "oneStudySupplies": "One Study Supplies"
     }
