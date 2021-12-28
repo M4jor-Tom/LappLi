@@ -27,6 +27,10 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     private Long id;
 
     @NotNull
+    @Column(name = "operation_layer", nullable = false)
+    private Long operationLayer;
+
+    @NotNull
     @Column(name = "assembly_step", nullable = false)
     private Double assemblyStep;
 
@@ -89,7 +93,19 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         this.id = id;
     }
 
-    @Override
+    public Long getOperationLayer() {
+        return this.operationLayer;
+    }
+
+    public CoreAssembly operationLayer(Long operationLayer) {
+        this.setOperationLayer(operationLayer);
+        return this;
+    }
+
+    public void setOperationLayer(Long operationLayer) {
+        this.operationLayer = operationLayer;
+    }
+
     public Double getAssemblyStep() {
         return this.assemblyStep;
     }
@@ -187,6 +203,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     public String toString() {
         return "CoreAssembly{" +
             "id=" + getId() +
+            ", operationLayer=" + getOperationLayer() +
             ", productionStep=" + getProductionStep() +
             ", assemblyStep=" + getAssemblyStep() +
             ", assemblyMean='" + getAssemblyMean() + "'" +

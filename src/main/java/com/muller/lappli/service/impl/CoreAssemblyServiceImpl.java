@@ -41,9 +41,14 @@ public class CoreAssemblyServiceImpl implements CoreAssemblyService {
         throws PositionInSeveralAssemblyException, PositionHasSeveralSupplyException {
         log.debug("Request to partially update CoreAssembly : {}", coreAssembly);
 
-        Optional<CoreAssembly> foundCoreAssembly = coreAssemblyRepository
+        coreAssembly.positionsAreRight();
+
+        return coreAssemblyRepository
             .findById(coreAssembly.getId())
             .map(existingCoreAssembly -> {
+                if (coreAssembly.getOperationLayer() != null) {
+                    existingCoreAssembly.setOperationLayer(coreAssembly.getOperationLayer());
+                }
                 if (coreAssembly.getProductionStep() != null) {
                     existingCoreAssembly.setProductionStep(coreAssembly.getProductionStep());
                 }
@@ -57,10 +62,6 @@ public class CoreAssemblyServiceImpl implements CoreAssemblyService {
                 return existingCoreAssembly;
             })
             .map(coreAssemblyRepository::save);
-
-        coreAssembly.checkPositions();
-
-        return foundCoreAssembly;
     }
 
     @Override
