@@ -210,6 +210,28 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
             <Translate contentKey="lappLiApp.assembly.home.notFound">No Assemblies found</Translate>
           </div>
         )}
+        <Link to={`central-assembly/new`} className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
+          <FontAwesomeIcon icon="plus" />
+          &nbsp;
+          <Translate contentKey="lappLiApp.centralAssembly.home.createLabel">Create new Central Assembly</Translate>
+        </Link>
+        &nbsp;
+        <Link to={`core-assembly/new`} className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
+          <FontAwesomeIcon icon="plus" />
+          &nbsp;
+          <Translate contentKey="lappLiApp.coreAssembly.home.createLabel">Create new Core Assembly</Translate>
+        </Link>
+        &nbsp;
+        <Link
+          to={`interstice-assembly/new`}
+          className="btn btn-primary jh-create-entity"
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+        >
+          <FontAwesomeIcon icon="plus" />
+          &nbsp;
+          <Translate contentKey="lappLiApp.coreAssembly.home.createLabel">Create new Core Assembly</Translate>
+        </Link>
       </div>
     </div>
   );
