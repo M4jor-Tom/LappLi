@@ -101,7 +101,7 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                             </Button>*/}
                             <Button
                               tag={Link}
-                              to={`/strand/${strandSupply.strand.id}/supply`}
+                              to={`/strand/${strandSupply.strand.id}/operation`}
                               color="primary"
                               size="sm"
                               data-cy="entityEditButton"

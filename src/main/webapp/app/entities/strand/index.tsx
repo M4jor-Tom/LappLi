@@ -16,6 +16,7 @@ import ElementSupplyUpdate from '../element-supply/element-supply-update';
 import ElementSupplyDeleteDialog from '../element-supply/element-supply-delete-dialog';
 import OneStudySupplyUpdate from '../one-study-supply/one-study-supply-update';
 import OneStudySupplyDeleteDialog from '../one-study-supply/one-study-supply-delete-dialog';
+import StrandSubOperation from './strand-sub-operations';
 
 const Routes = ({ match }) => (
   <>
@@ -25,6 +26,7 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute exact path={`${match.url}/:id`} component={StrandDetail} />
 
       <ErrorBoundaryRoute exact path={`${match.url}/:id/supply`} component={StrandSubSupply} />
+      <ErrorBoundaryRoute exact path={`${match.url}/:id/operation`} component={StrandSubOperation} />
 
       <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/custom-component-supply/new`} component={CustomComponentSupplyUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/custom-component-supply/:id/edit`} component={CustomComponentSupplyUpdate} />
