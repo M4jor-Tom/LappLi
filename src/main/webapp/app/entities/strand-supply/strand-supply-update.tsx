@@ -14,8 +14,12 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
-import { getStrandSupplyUpdateComponentRedirectionUrl, getStudyValidateField, SupplyKind } from '../index-management/index-management-lib';
-import { handleClosePolicy } from 'app/app-config/handle-close-policy';
+import {
+  getOut,
+  getStrandSupplyUpdateComponentRedirectionUrl,
+  getStudyValidateField,
+  SupplyKind,
+} from '../index-management/index-management-lib';
 
 export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: string | null; study_id: string | null; id: string }>) => {
   const dispatch = useAppDispatch();
@@ -33,7 +37,9 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
   const markingTypeValues = Object.keys(MarkingType);
   const handleClose =
     props.match.params.study_id == null
-      ? () => handleClosePolicy(props)
+      ? () => {
+          props.history.push('/strand-supply');
+        }
       : () => {
           //  props.history.push("path/to/operations");
           props.history.push('/study/' + props.match.params.study_id + '/study-supplies');
@@ -161,7 +167,7 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
               {studyValidateField}
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" onClick={props.history.goBack} replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={getOut(props.match.url)} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">

@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getEntity } from './strand.reducer';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { getOut } from '../index-management/index-management-lib';
 
 export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
@@ -407,7 +408,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
             </div>
           </dd>
         </dl>
-        <Button tag={Link} onClick={props.history.goBack} replace color="info" data-cy="entityDetailsBackButton">
+        <Button tag={Link} to={getOut(props.match.url)} replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.back">Back</Translate>

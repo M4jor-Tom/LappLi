@@ -19,6 +19,10 @@ enum SupplyOwner {
   STUDY = 'study',
 }
 
+function getOut(url: string): string {
+  return url.substring(0, url.lastIndexOf('/'));
+}
+
 function isStudySupply(props: RouteComponentProps<{ study_id: string; id: string }>): string {
   const [ret] = useState(props.match.params && props.match.params.study_id);
   return ret;
@@ -128,6 +132,7 @@ function getStrandValidateField(
 
 export {
   SupplyKind,
+  getOut,
   isStrandSupply,
   getStrandSupplyRedirectionUrl,
   getStrandSupplyUpdateComponentRedirectionUrl,
