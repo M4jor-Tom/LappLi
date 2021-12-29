@@ -11,6 +11,18 @@ import StudyStrandSupply from './study-strand-supply';
 import StrandSupplyUpdate from '../strand-supply/strand-supply-update';
 import StrandSupplyDeleteDialog from '../strand-supply/strand-supply-delete-dialog';
 import StrandUpdate from '../strand/strand-update';
+import StrandSubSupply from '../strand/strand-sub-supply';
+import StrandSubOperation from '../strand/strand-sub-operations';
+import CustomComponentSupplyUpdate from '../custom-component-supply/custom-component-supply-update';
+import CustomComponentSupplyDeleteDialog from '../custom-component-supply/custom-component-supply-delete-dialog';
+import BangleSupplyUpdate from '../bangle-supply/bangle-supply-update';
+import BangleSupplyDeleteDialog from '../bangle-supply/bangle-supply-delete-dialog';
+import ElementSupplyUpdate from '../element-supply/element-supply-update';
+import ElementSupplyDeleteDialog from '../element-supply/element-supply-delete-dialog';
+import OneStudySupplyUpdate from '../one-study-supply/one-study-supply-update';
+import OneStudySupplyDeleteDialog from '../one-study-supply/one-study-supply-delete-dialog';
+
+const StrandZoneUrlPefixToStrandId = '/:study_id/study-supplies/strand';
 
 const Routes = ({ match }) => (
   <>
@@ -27,10 +39,80 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/:id/edit`} component={StrandSupplyUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/:id/delete`} component={StrandSupplyDeleteDialog} />
 
-      {/* Creating directly a Strand in a StrandSupply sub menu */}
+      {/* (3): Creating directly a Strand in a StrandSupply sub menu */}
       <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies`} component={StudyStrandSupply} />
       {/* <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/strand/new`} component={StrandUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/:strand_supply_id/strand/new`} component={StrandUpdate} />*/}
+
+      {/* STRAND'S SUB SUPPLY ZONE */}
+
+      {/* (4): Strand's sub-supply and sub-operations observing */}
+      <ErrorBoundaryRoute exact path={`${match.url + StrandZoneUrlPefixToStrandId}/:id/supply`} component={StrandSubSupply} />
+      <ErrorBoundaryRoute exact path={`${match.url + StrandZoneUrlPefixToStrandId}/:id/operation`} component={StrandSubOperation} />
+
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + StrandZoneUrlPefixToStrandId}/:strand_id/supply/custom-component-supply/new`}
+        component={CustomComponentSupplyUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + StrandZoneUrlPefixToStrandId}/:strand_id/supply/custom-component-supply/:id/edit`}
+        component={CustomComponentSupplyUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + StrandZoneUrlPefixToStrandId}/:strand_id/supply/custom-component-supply/:id/delete`}
+        component={CustomComponentSupplyDeleteDialog}
+      />
+
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + StrandZoneUrlPefixToStrandId}/:strand_id/supply/bangle-supply/new`}
+        component={BangleSupplyUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + StrandZoneUrlPefixToStrandId}/:strand_id/supply/bangle-supply/:id/edit`}
+        component={BangleSupplyUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + StrandZoneUrlPefixToStrandId}/:strand_id/supply/bangle-supply/:id/delete`}
+        component={BangleSupplyDeleteDialog}
+      />
+
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + StrandZoneUrlPefixToStrandId}/:strand_id/supply/element-supply/new`}
+        component={ElementSupplyUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + StrandZoneUrlPefixToStrandId}/:strand_id/supply/element-supply/:id/edit`}
+        component={ElementSupplyUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + StrandZoneUrlPefixToStrandId}/:strand_id/supply/element-supply/:id/delete`}
+        component={ElementSupplyDeleteDialog}
+      />
+
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + StrandZoneUrlPefixToStrandId}/:strand_id/supply/one-study-supply/new`}
+        component={OneStudySupplyUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + StrandZoneUrlPefixToStrandId}/:strand_id/supply/one-study-supply/:id/edit`}
+        component={OneStudySupplyUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + StrandZoneUrlPefixToStrandId}/:strand_id/supply/one-study-supply/:id/delete`}
+        component={OneStudySupplyDeleteDialog}
+      />
 
       <ErrorBoundaryRoute path={match.url} component={Study} />
     </Switch>
