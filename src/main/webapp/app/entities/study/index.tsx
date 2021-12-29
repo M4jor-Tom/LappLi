@@ -44,9 +44,15 @@ const Routes = ({ match }) => (
       {/* <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/strand/new`} component={StrandUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/:strand_supply_id/strand/new`} component={StrandUpdate} />*/}
 
+      {/* STRAND SUPPLY ZONE */}
+
+      {/* (4): Creating directly a Strand in a StrandSupply sub menu */}
+      <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/strand/new`} component={StrandUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/:strand_supply_id/strand/new`} component={StrandUpdate} />
+
       {/* STRAND'S SUB SUPPLY ZONE */}
 
-      {/* (4): Strand's sub-supply and sub-operations observing */}
+      {/* (5): Strand's sub-supply and sub-operations observing */}
       <ErrorBoundaryRoute exact path={`${match.url + StrandZoneUrlPefixToStrandId}/:id/supply`} component={StrandSubSupply} />
       <ErrorBoundaryRoute exact path={`${match.url + StrandZoneUrlPefixToStrandId}/:id/operation`} component={StrandSubOperation} />
 
