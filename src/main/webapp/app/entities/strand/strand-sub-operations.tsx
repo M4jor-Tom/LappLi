@@ -7,8 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getEntity } from './strand.reducer';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { getOut } from '../index-management/index-management-lib';
 
-export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) => {
+export const StrandSubOperation = (props: RouteComponentProps<{ id: string; study_id: string }>) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -20,6 +21,8 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
   const { match } = props;
 
   const crudBaseUrl = '/strand/' + props.match.params.id;
+
+  const getOutCount: number = props.match.params.study_id ? 2 : 0;
 
   return (
     <div>
@@ -220,6 +223,13 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
             <Translate contentKey="lappLiApp.assembly.home.notFound">No Assemblies found</Translate>
           </div>
         )}
+        <Button tag={Link} to={getOut(props.match.url, getOutCount)} replace color="info" data-cy="entityDetailsBackButton">
+          <FontAwesomeIcon icon="arrow-left" />{' '}
+          <span className="d-none d-md-inline">
+            <Translate contentKey="entity.action.back">Back</Translate>
+          </span>
+        </Button>
+        &nbsp;
         {strandEntity.centralAssembly ? (
           ''
         ) : (
