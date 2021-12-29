@@ -91,7 +91,7 @@ public class Lifter extends AbstractDomainObject<Lifter> implements Serializable
         }
     }
 
-    public Boolean supportsSupply(AbstractLiftedSupply abstractLiftedSupply) {
+    public Boolean supportsSupply(AbstractLiftedSupply<?> abstractLiftedSupply) {
         if (abstractLiftedSupply instanceof CustomComponentSupply) {
             return supportsCustomComponentSupply((CustomComponentSupply) abstractLiftedSupply);
         } else if (abstractLiftedSupply instanceof ElementSupply) {
