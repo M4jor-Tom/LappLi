@@ -64,7 +64,7 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
     @JsonIgnoreProperties(
         value = {
             "coreAssemblies",
-            "intersticialAssemblies",
+            "intersticeAssemblies",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",

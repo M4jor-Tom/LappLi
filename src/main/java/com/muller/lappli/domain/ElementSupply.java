@@ -64,7 +64,7 @@ public class ElementSupply extends AbstractMarkedLiftedSupply implements Seriali
     @JsonIgnoreProperties(
         value = {
             "coreAssemblies",
-            "intersticialAssemblies",
+            "intersticeAssemblies",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",

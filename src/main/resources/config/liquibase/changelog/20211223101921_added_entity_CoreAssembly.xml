@@ -14,9 +14,6 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="operation_layer" type="bigint">
-                <constraints nullable="false" />
-            </column>
             <column name="production_step" type="bigint">
                 <constraints nullable="false" />
             </column>
@@ -50,7 +47,6 @@
                   tableName="core_assembly"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
-            <column name="operation_layer" type="numeric"/>
             <column name="production_step" type="numeric"/>
             <column name="diameter_assembly_step" type="numeric"/>
             <column name="assembly_mean" type="string"/>

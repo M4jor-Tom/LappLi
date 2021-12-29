@@ -44,8 +44,6 @@ public class CoreAssemblyCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
-    private LongFilter operationLayer;
-
     private LongFilter productionStep;
 
     private DoubleFilter diameterAssemblyStep;
@@ -62,7 +60,6 @@ public class CoreAssemblyCriteria implements Serializable, Criteria {
 
     public CoreAssemblyCriteria(CoreAssemblyCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
-        this.operationLayer = other.operationLayer == null ? null : other.operationLayer.copy();
         this.productionStep = other.productionStep == null ? null : other.productionStep.copy();
         this.diameterAssemblyStep = other.diameterAssemblyStep == null ? null : other.diameterAssemblyStep.copy();
         this.assemblyMean = other.assemblyMean == null ? null : other.assemblyMean.copy();
@@ -89,21 +86,6 @@ public class CoreAssemblyCriteria implements Serializable, Criteria {
 
     public void setId(LongFilter id) {
         this.id = id;
-    }
-
-    public LongFilter getOperationLayer() {
-        return operationLayer;
-    }
-
-    public LongFilter operationLayer() {
-        if (operationLayer == null) {
-            operationLayer = new LongFilter();
-        }
-        return operationLayer;
-    }
-
-    public void setOperationLayer(LongFilter operationLayer) {
-        this.operationLayer = operationLayer;
     }
 
     public LongFilter getProductionStep() {
@@ -200,7 +182,6 @@ public class CoreAssemblyCriteria implements Serializable, Criteria {
         final CoreAssemblyCriteria that = (CoreAssemblyCriteria) o;
         return (
             Objects.equals(id, that.id) &&
-            Objects.equals(operationLayer, that.operationLayer) &&
             Objects.equals(productionStep, that.productionStep) &&
             Objects.equals(diameterAssemblyStep, that.diameterAssemblyStep) &&
             Objects.equals(assemblyMean, that.assemblyMean) &&
@@ -212,7 +193,7 @@ public class CoreAssemblyCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, operationLayer, productionStep, diameterAssemblyStep, assemblyMean, positionsId, strandId, distinct);
+        return Objects.hash(id, productionStep, diameterAssemblyStep, assemblyMean, positionsId, strandId, distinct);
     }
 
     // prettier-ignore
@@ -220,7 +201,6 @@ public class CoreAssemblyCriteria implements Serializable, Criteria {
     public String toString() {
         return "CoreAssemblyCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
-            (operationLayer != null ? "operationLayer=" + operationLayer + ", " : "") +
             (productionStep != null ? "productionStep=" + productionStep + ", " : "") +
             (diameterAssemblyStep != null ? "diameterAssemblyStep=" + diameterAssemblyStep + ", " : "") +
             (assemblyMean != null ? "assemblyMean=" + assemblyMean + ", " : "") +

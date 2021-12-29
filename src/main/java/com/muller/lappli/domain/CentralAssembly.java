@@ -29,7 +29,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @JsonIgnoreProperties(
         value = {
             "coreAssemblies",
-            "intersticialAssemblies",
+            "intersticeAssemblies",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",

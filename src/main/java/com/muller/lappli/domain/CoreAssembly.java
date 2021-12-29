@@ -27,10 +27,6 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     private Long id;
 
     @NotNull
-    @Column(name = "operation_layer", nullable = false)
-    private Long operationLayer;
-
-    @NotNull
     @Column(name = "diameter_assembly_step", nullable = false)
     private Double diameterAssemblyStep;
 
@@ -100,16 +96,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     @Override
     public Long getOperationLayer() {
-        return this.operationLayer;
-    }
-
-    public CoreAssembly operationLayer(Long operationLayer) {
-        this.setOperationLayer(operationLayer);
-        return this;
-    }
-
-    public void setOperationLayer(Long operationLayer) {
-        this.operationLayer = operationLayer;
+        return null;
     }
 
     public Double getDiameterAssemblyStep() {

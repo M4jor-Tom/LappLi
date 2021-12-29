@@ -34,10 +34,6 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class CoreAssemblyResourceIT {
 
-    private static final Long DEFAULT_OPERATION_LAYER = 1L;
-    private static final Long UPDATED_OPERATION_LAYER = 2L;
-    private static final Long SMALLER_OPERATION_LAYER = 1L - 1L;
-
     private static final Long DEFAULT_PRODUCTION_STEP = 1L;
     private static final Long UPDATED_PRODUCTION_STEP = 2L;
     private static final Long SMALLER_PRODUCTION_STEP = 1L - 1L;
@@ -74,7 +70,6 @@ class CoreAssemblyResourceIT {
      */
     public static CoreAssembly createEntity(EntityManager em) {
         CoreAssembly coreAssembly = new CoreAssembly()
-            .operationLayer(DEFAULT_OPERATION_LAYER)
             .productionStep(DEFAULT_PRODUCTION_STEP)
             .diameterAssemblyStep(DEFAULT_DIAMETER_ASSEMBLY_STEP)
             .assemblyMean(DEFAULT_ASSEMBLY_MEAN);
@@ -99,7 +94,6 @@ class CoreAssemblyResourceIT {
      */
     public static CoreAssembly createUpdatedEntity(EntityManager em) {
         CoreAssembly coreAssembly = new CoreAssembly()
-            .operationLayer(UPDATED_OPERATION_LAYER)
             .productionStep(UPDATED_PRODUCTION_STEP)
             .diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP)
             .assemblyMean(UPDATED_ASSEMBLY_MEAN);
@@ -134,7 +128,6 @@ class CoreAssemblyResourceIT {
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeCreate + 1);
         CoreAssembly testCoreAssembly = coreAssemblyList.get(coreAssemblyList.size() - 1);
-        assertThat(testCoreAssembly.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testCoreAssembly.getProductionStep()).isEqualTo(DEFAULT_PRODUCTION_STEP);
         assertThat(testCoreAssembly.getDiameterAssemblyStep()).isEqualTo(DEFAULT_DIAMETER_ASSEMBLY_STEP);
         assertThat(testCoreAssembly.getAssemblyMean()).isEqualTo(DEFAULT_ASSEMBLY_MEAN);
@@ -156,23 +149,6 @@ class CoreAssemblyResourceIT {
         // Validate the CoreAssembly in the database
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeCreate);
-    }
-
-    @Test
-    @Transactional
-    void checkOperationLayerIsRequired() throws Exception {
-        int databaseSizeBeforeTest = coreAssemblyRepository.findAll().size();
-        // set the field null
-        coreAssembly.setOperationLayer(null);
-
-        // Create the CoreAssembly, which fails.
-
-        restCoreAssemblyMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(coreAssembly)))
-            .andExpect(status().isBadRequest());
-
-        List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
-        assertThat(coreAssemblyList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -238,7 +214,6 @@ class CoreAssemblyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(coreAssembly.getId().intValue())))
-            .andExpect(jsonPath("$.[*].operationLayer").value(hasItem(DEFAULT_OPERATION_LAYER.intValue())))
             .andExpect(jsonPath("$.[*].productionStep").value(hasItem(DEFAULT_PRODUCTION_STEP.intValue())))
             .andExpect(jsonPath("$.[*].diameterAssemblyStep").value(hasItem(DEFAULT_DIAMETER_ASSEMBLY_STEP.doubleValue())))
             .andExpect(jsonPath("$.[*].assemblyMean").value(hasItem(DEFAULT_ASSEMBLY_MEAN.toString())));
@@ -256,7 +231,6 @@ class CoreAssemblyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(coreAssembly.getId().intValue()))
-            .andExpect(jsonPath("$.operationLayer").value(DEFAULT_OPERATION_LAYER.intValue()))
             .andExpect(jsonPath("$.productionStep").value(DEFAULT_PRODUCTION_STEP.intValue()))
             .andExpect(jsonPath("$.diameterAssemblyStep").value(DEFAULT_DIAMETER_ASSEMBLY_STEP.doubleValue()))
             .andExpect(jsonPath("$.assemblyMean").value(DEFAULT_ASSEMBLY_MEAN.toString()));
@@ -278,110 +252,6 @@ class CoreAssemblyResourceIT {
 
         defaultCoreAssemblyShouldBeFound("id.lessThanOrEqual=" + id);
         defaultCoreAssemblyShouldNotBeFound("id.lessThan=" + id);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByOperationLayerIsEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where operationLayer equals to DEFAULT_OPERATION_LAYER
-        defaultCoreAssemblyShouldBeFound("operationLayer.equals=" + DEFAULT_OPERATION_LAYER);
-
-        // Get all the coreAssemblyList where operationLayer equals to UPDATED_OPERATION_LAYER
-        defaultCoreAssemblyShouldNotBeFound("operationLayer.equals=" + UPDATED_OPERATION_LAYER);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByOperationLayerIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where operationLayer not equals to DEFAULT_OPERATION_LAYER
-        defaultCoreAssemblyShouldNotBeFound("operationLayer.notEquals=" + DEFAULT_OPERATION_LAYER);
-
-        // Get all the coreAssemblyList where operationLayer not equals to UPDATED_OPERATION_LAYER
-        defaultCoreAssemblyShouldBeFound("operationLayer.notEquals=" + UPDATED_OPERATION_LAYER);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByOperationLayerIsInShouldWork() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where operationLayer in DEFAULT_OPERATION_LAYER or UPDATED_OPERATION_LAYER
-        defaultCoreAssemblyShouldBeFound("operationLayer.in=" + DEFAULT_OPERATION_LAYER + "," + UPDATED_OPERATION_LAYER);
-
-        // Get all the coreAssemblyList where operationLayer equals to UPDATED_OPERATION_LAYER
-        defaultCoreAssemblyShouldNotBeFound("operationLayer.in=" + UPDATED_OPERATION_LAYER);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByOperationLayerIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where operationLayer is not null
-        defaultCoreAssemblyShouldBeFound("operationLayer.specified=true");
-
-        // Get all the coreAssemblyList where operationLayer is null
-        defaultCoreAssemblyShouldNotBeFound("operationLayer.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByOperationLayerIsGreaterThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where operationLayer is greater than or equal to DEFAULT_OPERATION_LAYER
-        defaultCoreAssemblyShouldBeFound("operationLayer.greaterThanOrEqual=" + DEFAULT_OPERATION_LAYER);
-
-        // Get all the coreAssemblyList where operationLayer is greater than or equal to UPDATED_OPERATION_LAYER
-        defaultCoreAssemblyShouldNotBeFound("operationLayer.greaterThanOrEqual=" + UPDATED_OPERATION_LAYER);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByOperationLayerIsLessThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where operationLayer is less than or equal to DEFAULT_OPERATION_LAYER
-        defaultCoreAssemblyShouldBeFound("operationLayer.lessThanOrEqual=" + DEFAULT_OPERATION_LAYER);
-
-        // Get all the coreAssemblyList where operationLayer is less than or equal to SMALLER_OPERATION_LAYER
-        defaultCoreAssemblyShouldNotBeFound("operationLayer.lessThanOrEqual=" + SMALLER_OPERATION_LAYER);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByOperationLayerIsLessThanSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where operationLayer is less than DEFAULT_OPERATION_LAYER
-        defaultCoreAssemblyShouldNotBeFound("operationLayer.lessThan=" + DEFAULT_OPERATION_LAYER);
-
-        // Get all the coreAssemblyList where operationLayer is less than UPDATED_OPERATION_LAYER
-        defaultCoreAssemblyShouldBeFound("operationLayer.lessThan=" + UPDATED_OPERATION_LAYER);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByOperationLayerIsGreaterThanSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where operationLayer is greater than DEFAULT_OPERATION_LAYER
-        defaultCoreAssemblyShouldNotBeFound("operationLayer.greaterThan=" + DEFAULT_OPERATION_LAYER);
-
-        // Get all the coreAssemblyList where operationLayer is greater than SMALLER_OPERATION_LAYER
-        defaultCoreAssemblyShouldBeFound("operationLayer.greaterThan=" + SMALLER_OPERATION_LAYER);
     }
 
     @Test
@@ -707,7 +577,6 @@ class CoreAssemblyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(coreAssembly.getId().intValue())))
-            .andExpect(jsonPath("$.[*].operationLayer").value(hasItem(DEFAULT_OPERATION_LAYER.intValue())))
             .andExpect(jsonPath("$.[*].productionStep").value(hasItem(DEFAULT_PRODUCTION_STEP.intValue())))
             .andExpect(jsonPath("$.[*].diameterAssemblyStep").value(hasItem(DEFAULT_DIAMETER_ASSEMBLY_STEP.doubleValue())))
             .andExpect(jsonPath("$.[*].assemblyMean").value(hasItem(DEFAULT_ASSEMBLY_MEAN.toString())));
@@ -759,7 +628,6 @@ class CoreAssemblyResourceIT {
         // Disconnect from session so that the updates on updatedCoreAssembly are not directly saved in db
         em.detach(updatedCoreAssembly);
         updatedCoreAssembly
-            .operationLayer(UPDATED_OPERATION_LAYER)
             .productionStep(UPDATED_PRODUCTION_STEP)
             .diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP)
             .assemblyMean(UPDATED_ASSEMBLY_MEAN);
@@ -778,7 +646,6 @@ class CoreAssemblyResourceIT {
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeUpdate);
         CoreAssembly testCoreAssembly = coreAssemblyList.get(coreAssemblyList.size() - 1);
-        assertThat(testCoreAssembly.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
         assertThat(testCoreAssembly.getProductionStep()).isEqualTo(UPDATED_PRODUCTION_STEP);
         assertThat(testCoreAssembly.getDiameterAssemblyStep()).isEqualTo(UPDATED_DIAMETER_ASSEMBLY_STEP);
         assertThat(testCoreAssembly.getAssemblyMean()).isEqualTo(UPDATED_ASSEMBLY_MEAN);
@@ -852,8 +719,6 @@ class CoreAssemblyResourceIT {
         CoreAssembly partialUpdatedCoreAssembly = new CoreAssembly();
         partialUpdatedCoreAssembly.setId(coreAssembly.getId());
 
-        partialUpdatedCoreAssembly.assemblyMean(UPDATED_ASSEMBLY_MEAN);
-
         restCoreAssemblyMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedCoreAssembly.getId())
@@ -866,10 +731,9 @@ class CoreAssemblyResourceIT {
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeUpdate);
         CoreAssembly testCoreAssembly = coreAssemblyList.get(coreAssemblyList.size() - 1);
-        assertThat(testCoreAssembly.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testCoreAssembly.getProductionStep()).isEqualTo(DEFAULT_PRODUCTION_STEP);
         assertThat(testCoreAssembly.getDiameterAssemblyStep()).isEqualTo(DEFAULT_DIAMETER_ASSEMBLY_STEP);
-        assertThat(testCoreAssembly.getAssemblyMean()).isEqualTo(UPDATED_ASSEMBLY_MEAN);
+        assertThat(testCoreAssembly.getAssemblyMean()).isEqualTo(DEFAULT_ASSEMBLY_MEAN);
     }
 
     @Test
@@ -885,7 +749,6 @@ class CoreAssemblyResourceIT {
         partialUpdatedCoreAssembly.setId(coreAssembly.getId());
 
         partialUpdatedCoreAssembly
-            .operationLayer(UPDATED_OPERATION_LAYER)
             .productionStep(UPDATED_PRODUCTION_STEP)
             .diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP)
             .assemblyMean(UPDATED_ASSEMBLY_MEAN);
@@ -902,7 +765,6 @@ class CoreAssemblyResourceIT {
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeUpdate);
         CoreAssembly testCoreAssembly = coreAssemblyList.get(coreAssemblyList.size() - 1);
-        assertThat(testCoreAssembly.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
         assertThat(testCoreAssembly.getProductionStep()).isEqualTo(UPDATED_PRODUCTION_STEP);
         assertThat(testCoreAssembly.getDiameterAssemblyStep()).isEqualTo(UPDATED_DIAMETER_ASSEMBLY_STEP);
         assertThat(testCoreAssembly.getAssemblyMean()).isEqualTo(UPDATED_ASSEMBLY_MEAN);

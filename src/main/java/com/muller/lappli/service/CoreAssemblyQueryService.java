@@ -85,9 +85,6 @@ public class CoreAssemblyQueryService extends QueryService<CoreAssembly> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), CoreAssembly_.id));
             }
-            if (criteria.getOperationLayer() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getOperationLayer(), CoreAssembly_.operationLayer));
-            }
             if (criteria.getProductionStep() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getProductionStep(), CoreAssembly_.productionStep));
             }

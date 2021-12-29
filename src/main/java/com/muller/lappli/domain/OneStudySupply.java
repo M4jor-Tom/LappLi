@@ -81,7 +81,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     @JsonIgnoreProperties(
         value = {
             "coreAssemblies",
-            "intersticialAssemblies",
+            "intersticeAssemblies",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",
