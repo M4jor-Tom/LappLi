@@ -13,11 +13,14 @@ import { ICentralAssembly } from 'app/shared/model/central-assembly.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { getOutFromStudySupplyStrandAssemblyComponent } from '../index-management/index-management-lib';
 
 export const CentralAssemblyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
+
+  const redirectionUrl = getOutFromStudySupplyStrandAssemblyComponent(props.match.url, isNew);
 
   const strands = useAppSelector(state => state.strand.entities);
   const positions = useAppSelector(state => state.position.entities);
@@ -26,7 +29,7 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ strand_id: st
   const updating = useAppSelector(state => state.centralAssembly.updating);
   const updateSuccess = useAppSelector(state => state.centralAssembly.updateSuccess);
   const handleClose = () => {
-    props.history.push('/central-assembly');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {
@@ -142,7 +145,7 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ strand_id: st
                     ))
                   : null}
               </ValidatedField>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/central-assembly" replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">

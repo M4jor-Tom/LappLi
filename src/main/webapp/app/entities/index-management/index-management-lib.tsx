@@ -19,6 +19,14 @@ enum SupplyOwner {
   STUDY = 'study',
 }
 
+function getOutFromStudySupplyStrandAssemblyComponent(url: string, isNew: boolean): string {
+  if (isNew != null && isNew) {
+    return getOut(url, 1);
+  }
+
+  return getOut(url, 2);
+}
+
 function getOutFromStudySupplyStrandSupplyComponent(url: string, isNew: boolean): string {
   if (isNew != null && isNew) {
     return getOut(url, 1);
@@ -149,6 +157,7 @@ function getStrandValidateField(
 
 export {
   SupplyKind,
+  getOutFromStudySupplyStrandAssemblyComponent,
   getOutFromStudySupplyStrandSupplyComponent,
   getOut,
   isStrandSupply,

@@ -11,11 +11,14 @@ import { IIntersticeAssembly } from 'app/shared/model/interstice-assembly.model'
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { getOutFromStudySupplyStrandAssemblyComponent } from '../index-management/index-management-lib';
 
 export const IntersticeAssemblyUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
+
+  const redirectionUrl = getOutFromStudySupplyStrandAssemblyComponent(props.match.url, isNew);
 
   const strands = useAppSelector(state => state.strand.entities);
   const intersticeAssemblyEntity = useAppSelector(state => state.intersticeAssembly.entity);
@@ -23,7 +26,7 @@ export const IntersticeAssemblyUpdate = (props: RouteComponentProps<{ id: string
   const updating = useAppSelector(state => state.intersticeAssembly.updating);
   const updateSuccess = useAppSelector(state => state.intersticeAssembly.updateSuccess);
   const handleClose = () => {
-    props.history.push('/interstice-assembly');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {
@@ -120,7 +123,7 @@ export const IntersticeAssemblyUpdate = (props: RouteComponentProps<{ id: string
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/interstice-assembly" replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">

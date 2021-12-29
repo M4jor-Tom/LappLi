@@ -12,11 +12,14 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { AssemblyMean } from 'app/shared/model/enumerations/assembly-mean.model';
+import { getOutFromStudySupplyStrandAssemblyComponent } from '../index-management/index-management-lib';
 
 export const CoreAssemblyUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
+
+  const redirectionUrl = getOutFromStudySupplyStrandAssemblyComponent(props.match.url, isNew);
 
   const strands = useAppSelector(state => state.strand.entities);
   const coreAssemblyEntity = useAppSelector(state => state.coreAssembly.entity);
@@ -25,7 +28,7 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ id: string }>) =
   const updateSuccess = useAppSelector(state => state.coreAssembly.updateSuccess);
   const assemblyMeanValues = Object.keys(AssemblyMean);
   const handleClose = () => {
-    props.history.push('/core-assembly');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {
@@ -158,7 +161,7 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ id: string }>) =
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/core-assembly" replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
