@@ -11,7 +11,7 @@ import { IStrand } from 'app/shared/model/strand.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-import { getOut } from '../supply/index-management-lib';
+import { getOut } from '../index-management/index-management-lib';
 
 export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: string }>) => {
   const dispatch = useAppDispatch();

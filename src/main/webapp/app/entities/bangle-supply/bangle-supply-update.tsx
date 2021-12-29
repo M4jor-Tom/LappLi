@@ -15,9 +15,14 @@ import { IBangleSupply } from 'app/shared/model/bangle-supply.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-import { getStudyValidateField } from '../supply/index-management-lib';
+import { getStudyValidateField } from '../index-management/index-management-lib';
 
-import { getStrandSupplyRedirectionUrl, getStrandValidateField, isStrandSupply, SupplyKind } from '../supply/index-management-lib';
+import {
+  getStrandSupplyRedirectionUrl,
+  getStrandValidateField,
+  isStrandSupply,
+  SupplyKind,
+} from '../index-management/index-management-lib';
 
 export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();

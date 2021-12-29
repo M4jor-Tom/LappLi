@@ -14,7 +14,12 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
-import { getOut, getStrandSupplyUpdateComponentRedirectionUrl, getStudyValidateField, SupplyKind } from '../supply/index-management-lib';
+import {
+  getOut,
+  getStrandSupplyUpdateComponentRedirectionUrl,
+  getStudyValidateField,
+  SupplyKind,
+} from '../index-management/index-management-lib';
 
 export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: string | null; study_id: string | null; id: string }>) => {
   const dispatch = useAppDispatch();

@@ -17,7 +17,12 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 import { Color } from 'app/shared/model/enumerations/color.model';
-import { getStrandSupplyRedirectionUrl, getStrandValidateField, isStrandSupply, SupplyKind } from '../supply/index-management-lib';
+import {
+  getStrandSupplyRedirectionUrl,
+  getStrandValidateField,
+  isStrandSupply,
+  SupplyKind,
+} from '../index-management/index-management-lib';
 
 export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();

@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getEntity } from './strand.reducer';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-import { getOut } from '../supply/index-management-lib';
+import { getOut } from '../index-management/index-management-lib';
 import { toNumber } from 'lodash';
 
 export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; strand_id: string; id: string }>) => {
