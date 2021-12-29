@@ -96,7 +96,19 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     @Override
     public Long getOperationLayer() {
-        return null;
+        Long operationLayer = Long.valueOf(1);
+
+        if (getStrand() != null) {
+            for (CoreAssembly coreAssembly : getStrand().getCoreAssemblies()) {
+                if (coreAssembly.equals(this)) {
+                    return operationLayer;
+                }
+
+                operationLayer++;
+            }
+        }
+
+        return DomainManager.ERROR_LONG_POSITIVE_VALUE;
     }
 
     public Double getDiameterAssemblyStep() {
