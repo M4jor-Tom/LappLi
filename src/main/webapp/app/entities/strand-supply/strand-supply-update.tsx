@@ -167,7 +167,7 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
               {studyValidateField}
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={getOut(props.match.url)} replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={getOut(props.match.url, 0)} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">

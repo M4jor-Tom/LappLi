@@ -94,7 +94,7 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
                   validate={{ required: true }}
                 />
               ) : null}
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={getOut(props.match.url)} replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={getOut(props.match.url, 0)} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">

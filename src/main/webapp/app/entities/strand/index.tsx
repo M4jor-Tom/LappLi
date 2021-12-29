@@ -31,7 +31,7 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute exact path={`${match.url}/:id/edit`} component={StrandUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:id`} component={StrandDetail} />
 
-      <ErrorBoundaryRoute exact path={`${match.url}/:id/supply`} component={StrandSubSupply} />
+      {/* <ErrorBoundaryRoute exact path={`${match.url}/:id/supply`} component={StrandSubSupply} />
       <ErrorBoundaryRoute exact path={`${match.url}/:id/operation`} component={StrandSubOperation} />
 
       <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/custom-component-supply/new`} component={CustomComponentSupplyUpdate} />
@@ -42,17 +42,17 @@ const Routes = ({ match }) => (
         component={CustomComponentSupplyDeleteDialog}
       />
 
-      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/bangle-supply/new`} component={BangleSupplyUpdate} />
-      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/bangle-supply/:id/edit`} component={BangleSupplyUpdate} />
-      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/bangle-supply/:id/delete`} component={BangleSupplyDeleteDialog} />
+      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/supply/bangle-supply/new`} component={BangleSupplyUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/supply/bangle-supply/:id/edit`} component={BangleSupplyUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/supply/bangle-supply/:id/delete`} component={BangleSupplyDeleteDialog} />
 
-      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/element-supply/new`} component={ElementSupplyUpdate} />
-      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/element-supply/:id/edit`} component={ElementSupplyUpdate} />
-      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/element-supply/:id/delete`} component={ElementSupplyDeleteDialog} />
+      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/supply/element-supply/new`} component={ElementSupplyUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/supply/element-supply/:id/edit`} component={ElementSupplyUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/supply/element-supply/:id/delete`} component={ElementSupplyDeleteDialog} />
 
-      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/one-study-supply/new`} component={OneStudySupplyUpdate} />
-      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/one-study-supply/:id/edit`} component={OneStudySupplyUpdate} />
-      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/one-study-supply/:id/delete`} component={OneStudySupplyDeleteDialog} />
+      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/supply/one-study-supply/new`} component={OneStudySupplyUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/supply/one-study-supply/:id/edit`} component={OneStudySupplyUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/supply/one-study-supply/:id/delete`} component={OneStudySupplyDeleteDialog} />*/}
 
       <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/central-assembly/new`} component={CentralAssemblyUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/central-assembly/:id/edit`} component={CentralAssemblyUpdate} />

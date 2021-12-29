@@ -80,7 +80,7 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                         <td>{strandSupply.description}</td>
                         <td>
                           {strandSupply.strand ? (
-                            <Link to={`/strand/${strandSupply.strand.id}`}>{strandSupply.strand.designation}</Link>
+                            <Link to={`${props.match.url}/strand/${strandSupply.strand.id}`}>{strandSupply.strand.designation}</Link>
                           ) : (
                             ''
                           )}
@@ -101,7 +101,7 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                             </Button>*/}
                             <Button
                               tag={Link}
-                              to={`/strand/${strandSupply.strand.id}/operation`}
+                              to={`${props.match.url}/strand/${strandSupply.strand.id}/operation`}
                               color="primary"
                               size="sm"
                               data-cy="entityEditButton"
@@ -114,7 +114,7 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                             &nbsp;
                             <Button
                               tag={Link}
-                              to={`/strand/${strandSupply.strand.id}/supply`}
+                              to={`${props.match.url}/strand/${strandSupply.strand.id}/supply`}
                               color="primary"
                               size="sm"
                               data-cy="entityEditButton"
@@ -177,7 +177,12 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
           <Translate contentKey="lappLiApp.strandSupply.home.createLabel">Create new Strand Supply</Translate>
         </Link>*/}
         &nbsp;
-        <Link to={`strand/new`} className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
+        <Link
+          to={`${props.match.url}/strand/new`}
+          className="btn btn-primary jh-create-entity"
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+        >
           <FontAwesomeIcon icon="plus" />
           &nbsp;
           <Translate contentKey="lappLiApp.strand.home.createLabel">Create new Strand</Translate>
