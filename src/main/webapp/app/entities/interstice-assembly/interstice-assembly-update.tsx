@@ -13,7 +13,7 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getOutFromStudySupplyStrandAssemblyComponent } from '../index-management/index-management-lib';
 
-export const IntersticeAssemblyUpdate = (props: RouteComponentProps<{ id: string }>) => {
+export const IntersticeAssemblyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);

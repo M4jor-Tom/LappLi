@@ -14,7 +14,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { AssemblyMean } from 'app/shared/model/enumerations/assembly-mean.model';
 import { getOutFromStudySupplyStrandAssemblyComponent } from '../index-management/index-management-lib';
 
-export const CoreAssemblyUpdate = (props: RouteComponentProps<{ id: string }>) => {
+export const CoreAssemblyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
