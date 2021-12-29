@@ -7,8 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getEntity } from './strand.reducer';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { getOut } from '../index-management/index-management-lib';
 
-export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) => {
+export const StrandSubOperation = (props: RouteComponentProps<{ id: string; study_id: string }>) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -19,13 +20,17 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
 
   const { match } = props;
 
+  const getOutCount: number = props.match.params.study_id ? 2 : 0;
+
   return (
     <div>
       <h2 data-cy="strandDetailsHeading">
         <Translate contentKey="lappLiApp.strand.detail.title">Strand</Translate>
       </h2>
       <div className="table-responsive">
-        {strandEntity.centralAssembly ? (
+        {strandEntity.centralAssembly ||
+        (strandEntity.coreAssemblies && strandEntity.coreAssemblies.length > 0) ||
+        (strandEntity.intersticeAssemblies && strandEntity.intersticeAssemblies.length > 0) ? (
           <Table responsive>
             <thead>
               <tr>
@@ -39,13 +44,16 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                   <Translate contentKey="lappLiApp.assembly.productionStep">Production Step</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.assembly.position">Position</Translate>
+                  <Translate contentKey="lappLiApp.assembly.diameterAssemblyStep">Assembly Step (D)</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.assembly.assemblyMean">Assembly Mean</Translate>
                 </th>
                 <th />
               </tr>
             </thead>
             <tbody>
-              {
+              {strandEntity.centralAssembly ? (
                 <tr data-cy="entityTable">
                   <td>
                     <Translate contentKey="lappLiApp.centralAssembly.home.title" />
@@ -54,30 +62,25 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                     <Translate contentKey="lappLiApp.centralAssembly.centralOperationLayer" />
                   </td>
                   <td>{strandEntity.centralAssembly.productionStep}</td>
-                  <td>
-                    {strandEntity.centralAssembly.position ? (
-                      <Link to={`position/${strandEntity.centralAssembly.position.id}`}>{strandEntity.centralAssembly.position.value}</Link>
-                    ) : (
-                      ''
-                    )}
-                  </td>
+                  <td>{/* NO ASSEMBLY STEP (CENTRAL ASSEMBLY) */}</td>
+                  <td>{/* NO ASSEMBLY MEAN (CENTRAL ASSEMBLY) */}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button
                         tag={Link}
-                        to={`${match.url}/${strandEntity.centralAssembly.id}`}
-                        color="info"
+                        to={`${props.match.url}/central-assembly/${strandEntity.centralAssembly.id}/supply`}
+                        color="primary"
                         size="sm"
-                        data-cy="entityDetailsButton"
+                        data-cy="entityEditButton"
                       >
-                        <FontAwesomeIcon icon="eye" />{' '}
+                        <FontAwesomeIcon icon="pencil-alt" />{' '}
                         <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.view">View</Translate>
+                          <Translate contentKey="lappLiApp.assembly.subSupply">Assembly Supply</Translate>
                         </span>
                       </Button>
                       <Button
                         tag={Link}
-                        to={`${match.url}/${strandEntity.centralAssembly.id}/edit`}
+                        to={`${props.match.url}/central-assembly/${strandEntity.centralAssembly.id}/edit`}
                         color="primary"
                         size="sm"
                         data-cy="entityEditButton"
@@ -89,7 +92,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                       </Button>
                       <Button
                         tag={Link}
-                        to={`${match.url}/${strandEntity.centralAssembly.id}/delete`}
+                        to={`${props.match.url}/central-assembly/${strandEntity.centralAssembly.id}/delete`}
                         color="danger"
                         size="sm"
                         data-cy="entityDeleteButton"
@@ -102,7 +105,9 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                     </div>
                   </td>
                 </tr>
-              }
+              ) : (
+                ''
+              )}
               {strandEntity.coreAssemblies
                 ? strandEntity.coreAssemblies.map((coreAssembly, i) => (
                     <tr key={`entity-core-assembly-${i}`} data-cy="entityTable">
@@ -111,24 +116,25 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                       </td>
                       <td>{coreAssembly.operationLayer}</td>
                       <td>{coreAssembly.productionStep}</td>
-                      <td>
-                        {coreAssembly.position ? (
-                          <Link to={`position/${coreAssembly.position.id}`}>{coreAssembly.position.value}</Link>
-                        ) : (
-                          ''
-                        )}
-                      </td>
+                      <td>{coreAssembly.diameterAssemblyStep}</td>
+                      <td>{coreAssembly.assemblyMean}</td>
                       <td className="text-right">
                         <div className="btn-group flex-btn-group-container">
-                          <Button tag={Link} to={`${match.url}/${coreAssembly.id}`} color="info" size="sm" data-cy="entityDetailsButton">
-                            <FontAwesomeIcon icon="eye" />{' '}
+                          <Button
+                            tag={Link}
+                            to={`${props.match.url}/core-assembly/${coreAssembly.id}/supply`}
+                            color="primary"
+                            size="sm"
+                            data-cy="entityEditButton"
+                          >
+                            <FontAwesomeIcon icon="pencil-alt" />{' '}
                             <span className="d-none d-md-inline">
-                              <Translate contentKey="entity.action.view">View</Translate>
+                              <Translate contentKey="lappLiApp.assembly.subSupply">Assembly Supply</Translate>
                             </span>
                           </Button>
                           <Button
                             tag={Link}
-                            to={`${match.url}/${coreAssembly.id}/edit`}
+                            to={`${props.match.url}/core-assembly/${coreAssembly.id}/edit`}
                             color="primary"
                             size="sm"
                             data-cy="entityEditButton"
@@ -140,7 +146,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                           </Button>
                           <Button
                             tag={Link}
-                            to={`${match.url}/${coreAssembly.id}/delete`}
+                            to={`${props.match.url}/core-assembly/${coreAssembly.id}/delete`}
                             color="danger"
                             size="sm"
                             data-cy="entityDeleteButton"
@@ -163,30 +169,25 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                       </td>
                       <td>{intersticialAssembly.operationLayer}</td>
                       <td>{intersticialAssembly.productionStep}</td>
-                      <td>
-                        {intersticialAssembly.position ? (
-                          <Link to={`position/${intersticialAssembly.position.id}`}>{intersticialAssembly.position.value}</Link>
-                        ) : (
-                          ''
-                        )}
-                      </td>
+                      <td>{intersticialAssembly.diameterAssemblyStep}</td>
+                      <td>{intersticialAssembly.assemblyMean}</td>
                       <td className="text-right">
                         <div className="btn-group flex-btn-group-container">
                           <Button
                             tag={Link}
-                            to={`${match.url}/${intersticialAssembly.id}`}
-                            color="info"
+                            to={`${props.match.url}/interstice-assembly/${intersticialAssembly.id}/supply`}
+                            color="primary"
                             size="sm"
-                            data-cy="entityDetailsButton"
+                            data-cy="entityEditButton"
                           >
-                            <FontAwesomeIcon icon="eye" />{' '}
+                            <FontAwesomeIcon icon="pencil-alt" />{' '}
                             <span className="d-none d-md-inline">
-                              <Translate contentKey="entity.action.view">View</Translate>
+                              <Translate contentKey="lappLiApp.assembly.subSupply">Assembly Supply</Translate>
                             </span>
                           </Button>
                           <Button
                             tag={Link}
-                            to={`${match.url}/${intersticialAssembly.id}/edit`}
+                            to={`${props.match.url}/interstice-assembly/${intersticialAssembly.id}/edit`}
                             color="primary"
                             size="sm"
                             data-cy="entityEditButton"
@@ -198,7 +199,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
                           </Button>
                           <Button
                             tag={Link}
-                            to={`${match.url}/${intersticialAssembly.id}/delete`}
+                            to={`${props.match.url}/interstice-assembly/${intersticialAssembly.id}/delete`}
                             color="danger"
                             size="sm"
                             data-cy="entityDeleteButton"
@@ -217,9 +218,54 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string }>) =
           </Table>
         ) : (
           <div className="alert alert-warning">
-            <Translate contentKey="lappLiApp.centralAssembly.home.notFound">No Central Assemblies found</Translate>
+            <Translate contentKey="lappLiApp.assembly.home.notFound">No Assemblies found</Translate>
           </div>
         )}
+        <Button tag={Link} to={getOut(props.match.url, getOutCount)} replace color="info" data-cy="entityDetailsBackButton">
+          <FontAwesomeIcon icon="arrow-left" />{' '}
+          <span className="d-none d-md-inline">
+            <Translate contentKey="entity.action.back">Back</Translate>
+          </span>
+        </Button>
+        &nbsp;
+        {strandEntity.centralAssembly ? (
+          ''
+        ) : (
+          <>
+            <Link
+              to={`${props.match.url}/central-assembly/new`}
+              className="btn btn-primary jh-create-entity"
+              id="jh-create-entity"
+              data-cy="entityCreateButton"
+            >
+              <FontAwesomeIcon icon="plus" />
+              &nbsp;
+              <Translate contentKey="lappLiApp.centralAssembly.home.createLabel">Create new Central Assembly</Translate>
+            </Link>
+            &nbsp;
+          </>
+        )}
+        <Link
+          to={`${props.match.url}/core-assembly/new`}
+          className="btn btn-primary jh-create-entity"
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+        >
+          <FontAwesomeIcon icon="plus" />
+          &nbsp;
+          <Translate contentKey="lappLiApp.coreAssembly.home.createLabel">Create new Core Assembly</Translate>
+        </Link>
+        &nbsp;
+        <Link
+          to={`${props.match.url}/interstice-assembly/new`}
+          className="btn btn-primary jh-create-entity"
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+        >
+          <FontAwesomeIcon icon="plus" />
+          &nbsp;
+          <Translate contentKey="lappLiApp.intersticeAssembly.home.createLabel">Create new Interstice Assembly</Translate>
+        </Link>
       </div>
     </div>
   );

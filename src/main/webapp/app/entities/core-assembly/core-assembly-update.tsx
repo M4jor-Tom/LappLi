@@ -12,11 +12,18 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { AssemblyMean } from 'app/shared/model/enumerations/assembly-mean.model';
+import {
+  AssemblyKind,
+  getAssemblyStrandValidatedField,
+  getOutFromStudySupplyStrandAssemblyComponent,
+} from '../index-management/index-management-lib';
 
-export const CoreAssemblyUpdate = (props: RouteComponentProps<{ id: string }>) => {
+export const CoreAssemblyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
+
+  const redirectionUrl = getOutFromStudySupplyStrandAssemblyComponent(props.match.url, isNew);
 
   const strands = useAppSelector(state => state.strand.entities);
   const coreAssemblyEntity = useAppSelector(state => state.coreAssembly.entity);
@@ -25,8 +32,10 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ id: string }>) =
   const updateSuccess = useAppSelector(state => state.coreAssembly.updateSuccess);
   const assemblyMeanValues = Object.keys(AssemblyMean);
   const handleClose = () => {
-    props.history.push('/core-assembly');
+    props.history.push(redirectionUrl);
   };
+
+  const strandValidatedField = getAssemblyStrandValidatedField(props, strands, AssemblyKind.CORE);
 
   useEffect(() => {
     if (isNew) {
@@ -138,27 +147,8 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ id: string }>) =
                   </option>
                 ))}
               </ValidatedField>
-              <ValidatedField
-                id="core-assembly-strand"
-                name="strand"
-                data-cy="strand"
-                label={translate('lappLiApp.coreAssembly.strand')}
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {strands
-                  ? strands.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.designation}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/core-assembly" replace color="info">
+              {strandValidatedField}
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
