@@ -6,13 +6,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity, deleteEntity } from './bangle-supply.reducer';
-import { getStrandSupplyRedirectionUrl, SupplyKind } from '../index-management/index-management-lib';
+import {
+  getOut,
+  getOutFromStudySupplyStrandSupplyComponent,
+  getStrandSupplyRedirectionUrl,
+  SupplyKind,
+} from '../index-management/index-management-lib';
 
 export const BangleSupplyDeleteDialog = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const [loadModal, setLoadModal] = useState(false);
   const dispatch = useAppDispatch();
 
-  const redirectionUrl = getStrandSupplyRedirectionUrl(props, SupplyKind.BANGLE);
+  //  const redirectionUrl = getStrandSupplyRedirectionUrl(props, SupplyKind.BANGLE);
 
   useEffect(() => {
     dispatch(getEntity(props.match.params.id));
@@ -23,7 +28,8 @@ export const BangleSupplyDeleteDialog = (props: RouteComponentProps<{ strand_id:
   const updateSuccess = useAppSelector(state => state.bangleSupply.updateSuccess);
 
   const handleClose = () => {
-    props.history.push(redirectionUrl);
+    //  props.history.push(redirectionUrl);
+    props.history.push(getOutFromStudySupplyStrandSupplyComponent(props.match.url, null));
   };
 
   useEffect(() => {

@@ -17,6 +17,8 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 import {
+  getOut,
+  getOutFromStudySupplyStrandSupplyComponent,
   getStrandSupplyRedirectionUrl,
   getStrandValidateField,
   isStrandSupply,
@@ -30,7 +32,7 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ strand_id: stri
 
   const _isStrandSupply = isStrandSupply(props);
 
-  const redirectionUrl = getStrandSupplyRedirectionUrl(props, SupplyKind.ELEMENT);
+  const redirectionUrl = getOutFromStudySupplyStrandSupplyComponent(props.match.url, isNew);
 
   const elements = useAppSelector(state => state.element.entities);
   const positions = useAppSelector(state => state.position.entities);

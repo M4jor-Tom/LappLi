@@ -15,7 +15,7 @@ import { IBangleSupply } from 'app/shared/model/bangle-supply.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-import { getStudyValidateField } from '../index-management/index-management-lib';
+import { getOutFromStudySupplyStrandSupplyComponent, getStudyValidateField } from '../index-management/index-management-lib';
 
 import {
   getStrandSupplyRedirectionUrl,
@@ -29,9 +29,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const _isStrandSupply = isStrandSupply(props);
-
-  const redirectionUrl = getStrandSupplyRedirectionUrl(props, SupplyKind.BANGLE);
+  const redirectionUrl = getOutFromStudySupplyStrandSupplyComponent(props.match.url, isNew);
 
   const bangles = useAppSelector(state => state.bangle.entities);
   const positions = useAppSelector(state => state.position.entities);

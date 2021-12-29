@@ -19,8 +19,8 @@ enum SupplyOwner {
   STUDY = 'study',
 }
 
-function getOutFromStudySupplyStrandSupplyComponent(url: string, isNew: string): string {
-  if (isNew) {
+function getOutFromStudySupplyStrandSupplyComponent(url: string, isNew: boolean): string {
+  if (isNew != null && isNew) {
     return getOut(url, 1);
   }
 
