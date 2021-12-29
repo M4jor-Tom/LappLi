@@ -1,12 +1,6 @@
 {
   "name": "IntersticeAssembly",
-  "fields": [
-    {
-      "fieldName": "productionStep",
-      "fieldType": "Long",
-      "fieldValidateRules": ["required"]
-    }
-  ],
+  "fields": [],
   "relationships": [
     {
       "relationshipType": "one-to-many",

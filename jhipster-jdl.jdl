@@ -8,19 +8,19 @@ entity Position {
 
 entity CentralAssembly {
 	//@Readonly operationLayer Long required
-	productionStep Long required
+	//@Readonly productionStep Long required
 }
 
 entity CoreAssembly {
 	//@Readonly operationLayer Long required
-	productionStep Long required
+	//@Readonly productionStep Long required
 	diameterAssemblyStep Double required
     assemblyMean AssemblyMean required
 }
 
 entity IntersticeAssembly {
 	//@Readonly operationLayer Long required
-	productionStep Long required
+	//@Readonly productionStep Long required
 }
 
 entity Strand {

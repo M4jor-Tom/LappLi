@@ -26,8 +26,6 @@ public class IntersticeAssemblyCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
-    private LongFilter productionStep;
-
     private LongFilter positionsId;
 
     private LongFilter strandId;
@@ -38,7 +36,6 @@ public class IntersticeAssemblyCriteria implements Serializable, Criteria {
 
     public IntersticeAssemblyCriteria(IntersticeAssemblyCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
-        this.productionStep = other.productionStep == null ? null : other.productionStep.copy();
         this.positionsId = other.positionsId == null ? null : other.positionsId.copy();
         this.strandId = other.strandId == null ? null : other.strandId.copy();
         this.distinct = other.distinct;
@@ -62,21 +59,6 @@ public class IntersticeAssemblyCriteria implements Serializable, Criteria {
 
     public void setId(LongFilter id) {
         this.id = id;
-    }
-
-    public LongFilter getProductionStep() {
-        return productionStep;
-    }
-
-    public LongFilter productionStep() {
-        if (productionStep == null) {
-            productionStep = new LongFilter();
-        }
-        return productionStep;
-    }
-
-    public void setProductionStep(LongFilter productionStep) {
-        this.productionStep = productionStep;
     }
 
     public LongFilter getPositionsId() {
@@ -128,7 +110,6 @@ public class IntersticeAssemblyCriteria implements Serializable, Criteria {
         final IntersticeAssemblyCriteria that = (IntersticeAssemblyCriteria) o;
         return (
             Objects.equals(id, that.id) &&
-            Objects.equals(productionStep, that.productionStep) &&
             Objects.equals(positionsId, that.positionsId) &&
             Objects.equals(strandId, that.strandId) &&
             Objects.equals(distinct, that.distinct)
@@ -137,7 +118,7 @@ public class IntersticeAssemblyCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, productionStep, positionsId, strandId, distinct);
+        return Objects.hash(id, positionsId, strandId, distinct);
     }
 
     // prettier-ignore
@@ -145,7 +126,6 @@ public class IntersticeAssemblyCriteria implements Serializable, Criteria {
     public String toString() {
         return "IntersticeAssemblyCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
-            (productionStep != null ? "productionStep=" + productionStep + ", " : "") +
             (positionsId != null ? "positionsId=" + positionsId + ", " : "") +
             (strandId != null ? "strandId=" + strandId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +

@@ -14,9 +14,6 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="production_step" type="bigint">
-                <constraints nullable="false" />
-            </column>
             <column name="strand_id" type="bigint">
                 <constraints nullable="false" />
             </column>
@@ -41,7 +38,6 @@
                   tableName="interstice_assembly"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
-            <column name="production_step" type="numeric"/>
             <column name="strand_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

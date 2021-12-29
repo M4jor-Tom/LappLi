@@ -2,11 +2,6 @@
   "name": "CoreAssembly",
   "fields": [
     {
-      "fieldName": "productionStep",
-      "fieldType": "Long",
-      "fieldValidateRules": ["required"]
-    },
-    {
       "fieldName": "diameterAssemblyStep",
       "fieldType": "Double",
       "fieldValidateRules": ["required"]

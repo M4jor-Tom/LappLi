@@ -104,17 +104,6 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ strand_id: st
                   validate={{ required: true }}
                 />
               ) : null}
-              <ValidatedField
-                label={translate('lappLiApp.centralAssembly.productionStep')}
-                id="central-assembly-productionStep"
-                name="productionStep"
-                data-cy="productionStep"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
-              />
               {strandValidatedField}
               <ValidatedField
                 id="central-assembly-position"

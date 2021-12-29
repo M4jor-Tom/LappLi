@@ -98,17 +98,6 @@ export const IntersticeAssemblyUpdate = (props: RouteComponentProps<{ strand_id:
                   validate={{ required: true }}
                 />
               ) : null}
-              <ValidatedField
-                label={translate('lappLiApp.intersticeAssembly.productionStep')}
-                id="interstice-assembly-productionStep"
-                name="productionStep"
-                data-cy="productionStep"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
-              />
               {strandValidatedField}
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />

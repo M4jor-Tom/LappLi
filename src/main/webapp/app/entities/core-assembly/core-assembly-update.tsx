@@ -102,17 +102,6 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ strand_id: strin
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.coreAssembly.productionStep')}
-                id="core-assembly-productionStep"
-                name="productionStep"
-                data-cy="productionStep"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
-              />
-              <ValidatedField
                 label={translate('lappLiApp.coreAssembly.diameterAssemblyStep')}
                 id="core-assembly-diameterAssemblyStep"
                 name="diameterAssemblyStep"

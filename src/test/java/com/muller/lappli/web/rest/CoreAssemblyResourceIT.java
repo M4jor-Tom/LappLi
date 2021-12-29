@@ -34,10 +34,6 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class CoreAssemblyResourceIT {
 
-    private static final Long DEFAULT_PRODUCTION_STEP = 1L;
-    private static final Long UPDATED_PRODUCTION_STEP = 2L;
-    private static final Long SMALLER_PRODUCTION_STEP = 1L - 1L;
-
     private static final Double DEFAULT_DIAMETER_ASSEMBLY_STEP = 1D;
     private static final Double UPDATED_DIAMETER_ASSEMBLY_STEP = 2D;
     private static final Double SMALLER_DIAMETER_ASSEMBLY_STEP = 1D - 1D;
@@ -70,7 +66,6 @@ class CoreAssemblyResourceIT {
      */
     public static CoreAssembly createEntity(EntityManager em) {
         CoreAssembly coreAssembly = new CoreAssembly()
-            .productionStep(DEFAULT_PRODUCTION_STEP)
             .diameterAssemblyStep(DEFAULT_DIAMETER_ASSEMBLY_STEP)
             .assemblyMean(DEFAULT_ASSEMBLY_MEAN);
         // Add required entity
@@ -94,7 +89,6 @@ class CoreAssemblyResourceIT {
      */
     public static CoreAssembly createUpdatedEntity(EntityManager em) {
         CoreAssembly coreAssembly = new CoreAssembly()
-            .productionStep(UPDATED_PRODUCTION_STEP)
             .diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP)
             .assemblyMean(UPDATED_ASSEMBLY_MEAN);
         // Add required entity
@@ -128,7 +122,6 @@ class CoreAssemblyResourceIT {
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeCreate + 1);
         CoreAssembly testCoreAssembly = coreAssemblyList.get(coreAssemblyList.size() - 1);
-        assertThat(testCoreAssembly.getProductionStep()).isEqualTo(DEFAULT_PRODUCTION_STEP);
         assertThat(testCoreAssembly.getDiameterAssemblyStep()).isEqualTo(DEFAULT_DIAMETER_ASSEMBLY_STEP);
         assertThat(testCoreAssembly.getAssemblyMean()).isEqualTo(DEFAULT_ASSEMBLY_MEAN);
     }
@@ -149,23 +142,6 @@ class CoreAssemblyResourceIT {
         // Validate the CoreAssembly in the database
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeCreate);
-    }
-
-    @Test
-    @Transactional
-    void checkProductionStepIsRequired() throws Exception {
-        int databaseSizeBeforeTest = coreAssemblyRepository.findAll().size();
-        // set the field null
-        coreAssembly.setProductionStep(null);
-
-        // Create the CoreAssembly, which fails.
-
-        restCoreAssemblyMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(coreAssembly)))
-            .andExpect(status().isBadRequest());
-
-        List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
-        assertThat(coreAssemblyList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -214,7 +190,6 @@ class CoreAssemblyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(coreAssembly.getId().intValue())))
-            .andExpect(jsonPath("$.[*].productionStep").value(hasItem(DEFAULT_PRODUCTION_STEP.intValue())))
             .andExpect(jsonPath("$.[*].diameterAssemblyStep").value(hasItem(DEFAULT_DIAMETER_ASSEMBLY_STEP.doubleValue())))
             .andExpect(jsonPath("$.[*].assemblyMean").value(hasItem(DEFAULT_ASSEMBLY_MEAN.toString())));
     }
@@ -231,7 +206,6 @@ class CoreAssemblyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(coreAssembly.getId().intValue()))
-            .andExpect(jsonPath("$.productionStep").value(DEFAULT_PRODUCTION_STEP.intValue()))
             .andExpect(jsonPath("$.diameterAssemblyStep").value(DEFAULT_DIAMETER_ASSEMBLY_STEP.doubleValue()))
             .andExpect(jsonPath("$.assemblyMean").value(DEFAULT_ASSEMBLY_MEAN.toString()));
     }
@@ -252,110 +226,6 @@ class CoreAssemblyResourceIT {
 
         defaultCoreAssemblyShouldBeFound("id.lessThanOrEqual=" + id);
         defaultCoreAssemblyShouldNotBeFound("id.lessThan=" + id);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByProductionStepIsEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where productionStep equals to DEFAULT_PRODUCTION_STEP
-        defaultCoreAssemblyShouldBeFound("productionStep.equals=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the coreAssemblyList where productionStep equals to UPDATED_PRODUCTION_STEP
-        defaultCoreAssemblyShouldNotBeFound("productionStep.equals=" + UPDATED_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByProductionStepIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where productionStep not equals to DEFAULT_PRODUCTION_STEP
-        defaultCoreAssemblyShouldNotBeFound("productionStep.notEquals=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the coreAssemblyList where productionStep not equals to UPDATED_PRODUCTION_STEP
-        defaultCoreAssemblyShouldBeFound("productionStep.notEquals=" + UPDATED_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByProductionStepIsInShouldWork() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where productionStep in DEFAULT_PRODUCTION_STEP or UPDATED_PRODUCTION_STEP
-        defaultCoreAssemblyShouldBeFound("productionStep.in=" + DEFAULT_PRODUCTION_STEP + "," + UPDATED_PRODUCTION_STEP);
-
-        // Get all the coreAssemblyList where productionStep equals to UPDATED_PRODUCTION_STEP
-        defaultCoreAssemblyShouldNotBeFound("productionStep.in=" + UPDATED_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByProductionStepIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where productionStep is not null
-        defaultCoreAssemblyShouldBeFound("productionStep.specified=true");
-
-        // Get all the coreAssemblyList where productionStep is null
-        defaultCoreAssemblyShouldNotBeFound("productionStep.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByProductionStepIsGreaterThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where productionStep is greater than or equal to DEFAULT_PRODUCTION_STEP
-        defaultCoreAssemblyShouldBeFound("productionStep.greaterThanOrEqual=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the coreAssemblyList where productionStep is greater than or equal to UPDATED_PRODUCTION_STEP
-        defaultCoreAssemblyShouldNotBeFound("productionStep.greaterThanOrEqual=" + UPDATED_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByProductionStepIsLessThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where productionStep is less than or equal to DEFAULT_PRODUCTION_STEP
-        defaultCoreAssemblyShouldBeFound("productionStep.lessThanOrEqual=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the coreAssemblyList where productionStep is less than or equal to SMALLER_PRODUCTION_STEP
-        defaultCoreAssemblyShouldNotBeFound("productionStep.lessThanOrEqual=" + SMALLER_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByProductionStepIsLessThanSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where productionStep is less than DEFAULT_PRODUCTION_STEP
-        defaultCoreAssemblyShouldNotBeFound("productionStep.lessThan=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the coreAssemblyList where productionStep is less than UPDATED_PRODUCTION_STEP
-        defaultCoreAssemblyShouldBeFound("productionStep.lessThan=" + UPDATED_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByProductionStepIsGreaterThanSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where productionStep is greater than DEFAULT_PRODUCTION_STEP
-        defaultCoreAssemblyShouldNotBeFound("productionStep.greaterThan=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the coreAssemblyList where productionStep is greater than SMALLER_PRODUCTION_STEP
-        defaultCoreAssemblyShouldBeFound("productionStep.greaterThan=" + SMALLER_PRODUCTION_STEP);
     }
 
     @Test
@@ -577,7 +447,6 @@ class CoreAssemblyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(coreAssembly.getId().intValue())))
-            .andExpect(jsonPath("$.[*].productionStep").value(hasItem(DEFAULT_PRODUCTION_STEP.intValue())))
             .andExpect(jsonPath("$.[*].diameterAssemblyStep").value(hasItem(DEFAULT_DIAMETER_ASSEMBLY_STEP.doubleValue())))
             .andExpect(jsonPath("$.[*].assemblyMean").value(hasItem(DEFAULT_ASSEMBLY_MEAN.toString())));
 
@@ -627,10 +496,7 @@ class CoreAssemblyResourceIT {
         CoreAssembly updatedCoreAssembly = coreAssemblyRepository.findById(coreAssembly.getId()).get();
         // Disconnect from session so that the updates on updatedCoreAssembly are not directly saved in db
         em.detach(updatedCoreAssembly);
-        updatedCoreAssembly
-            .productionStep(UPDATED_PRODUCTION_STEP)
-            .diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP)
-            .assemblyMean(UPDATED_ASSEMBLY_MEAN);
+        updatedCoreAssembly.diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP).assemblyMean(UPDATED_ASSEMBLY_MEAN);
 
         ResultMatcher expectedResult = updatedCoreAssembly.positionsAreRight() ? status().isOk() : status().isBadRequest();
 
@@ -646,7 +512,6 @@ class CoreAssemblyResourceIT {
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeUpdate);
         CoreAssembly testCoreAssembly = coreAssemblyList.get(coreAssemblyList.size() - 1);
-        assertThat(testCoreAssembly.getProductionStep()).isEqualTo(UPDATED_PRODUCTION_STEP);
         assertThat(testCoreAssembly.getDiameterAssemblyStep()).isEqualTo(UPDATED_DIAMETER_ASSEMBLY_STEP);
         assertThat(testCoreAssembly.getAssemblyMean()).isEqualTo(UPDATED_ASSEMBLY_MEAN);
     }
@@ -731,7 +596,6 @@ class CoreAssemblyResourceIT {
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeUpdate);
         CoreAssembly testCoreAssembly = coreAssemblyList.get(coreAssemblyList.size() - 1);
-        assertThat(testCoreAssembly.getProductionStep()).isEqualTo(DEFAULT_PRODUCTION_STEP);
         assertThat(testCoreAssembly.getDiameterAssemblyStep()).isEqualTo(DEFAULT_DIAMETER_ASSEMBLY_STEP);
         assertThat(testCoreAssembly.getAssemblyMean()).isEqualTo(DEFAULT_ASSEMBLY_MEAN);
     }
@@ -748,10 +612,7 @@ class CoreAssemblyResourceIT {
         CoreAssembly partialUpdatedCoreAssembly = new CoreAssembly();
         partialUpdatedCoreAssembly.setId(coreAssembly.getId());
 
-        partialUpdatedCoreAssembly
-            .productionStep(UPDATED_PRODUCTION_STEP)
-            .diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP)
-            .assemblyMean(UPDATED_ASSEMBLY_MEAN);
+        partialUpdatedCoreAssembly.diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP).assemblyMean(UPDATED_ASSEMBLY_MEAN);
 
         restCoreAssemblyMockMvc
             .perform(
@@ -765,7 +626,6 @@ class CoreAssemblyResourceIT {
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeUpdate);
         CoreAssembly testCoreAssembly = coreAssemblyList.get(coreAssemblyList.size() - 1);
-        assertThat(testCoreAssembly.getProductionStep()).isEqualTo(UPDATED_PRODUCTION_STEP);
         assertThat(testCoreAssembly.getDiameterAssemblyStep()).isEqualTo(UPDATED_DIAMETER_ASSEMBLY_STEP);
         assertThat(testCoreAssembly.getAssemblyMean()).isEqualTo(UPDATED_ASSEMBLY_MEAN);
     }

@@ -85,9 +85,6 @@ public class CentralAssemblyQueryService extends QueryService<CentralAssembly> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), CentralAssembly_.id));
             }
-            if (criteria.getProductionStep() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getProductionStep(), CentralAssembly_.productionStep));
-            }
             if (criteria.getStrandId() != null) {
                 specification =
                     specification.and(

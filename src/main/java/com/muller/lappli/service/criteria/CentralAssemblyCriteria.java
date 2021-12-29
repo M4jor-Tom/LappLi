@@ -26,8 +26,6 @@ public class CentralAssemblyCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
-    private LongFilter productionStep;
-
     private LongFilter strandId;
 
     private LongFilter positionId;
@@ -38,7 +36,6 @@ public class CentralAssemblyCriteria implements Serializable, Criteria {
 
     public CentralAssemblyCriteria(CentralAssemblyCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
-        this.productionStep = other.productionStep == null ? null : other.productionStep.copy();
         this.strandId = other.strandId == null ? null : other.strandId.copy();
         this.positionId = other.positionId == null ? null : other.positionId.copy();
         this.distinct = other.distinct;
@@ -62,21 +59,6 @@ public class CentralAssemblyCriteria implements Serializable, Criteria {
 
     public void setId(LongFilter id) {
         this.id = id;
-    }
-
-    public LongFilter getProductionStep() {
-        return productionStep;
-    }
-
-    public LongFilter productionStep() {
-        if (productionStep == null) {
-            productionStep = new LongFilter();
-        }
-        return productionStep;
-    }
-
-    public void setProductionStep(LongFilter productionStep) {
-        this.productionStep = productionStep;
     }
 
     public LongFilter getStrandId() {
@@ -128,7 +110,6 @@ public class CentralAssemblyCriteria implements Serializable, Criteria {
         final CentralAssemblyCriteria that = (CentralAssemblyCriteria) o;
         return (
             Objects.equals(id, that.id) &&
-            Objects.equals(productionStep, that.productionStep) &&
             Objects.equals(strandId, that.strandId) &&
             Objects.equals(positionId, that.positionId) &&
             Objects.equals(distinct, that.distinct)
@@ -137,7 +118,7 @@ public class CentralAssemblyCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, productionStep, strandId, positionId, distinct);
+        return Objects.hash(id, strandId, positionId, distinct);
     }
 
     // prettier-ignore
@@ -145,7 +126,6 @@ public class CentralAssemblyCriteria implements Serializable, Criteria {
     public String toString() {
         return "CentralAssemblyCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
-            (productionStep != null ? "productionStep=" + productionStep + ", " : "") +
             (strandId != null ? "strandId=" + strandId + ", " : "") +
             (positionId != null ? "positionId=" + positionId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +

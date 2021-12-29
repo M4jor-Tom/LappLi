@@ -33,10 +33,6 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class IntersticeAssemblyResourceIT {
 
-    private static final Long DEFAULT_PRODUCTION_STEP = 1L;
-    private static final Long UPDATED_PRODUCTION_STEP = 2L;
-    private static final Long SMALLER_PRODUCTION_STEP = 1L - 1L;
-
     private static final String ENTITY_API_URL = "/api/interstice-assemblies";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -61,7 +57,7 @@ class IntersticeAssemblyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static IntersticeAssembly createEntity(EntityManager em) {
-        IntersticeAssembly intersticeAssembly = new IntersticeAssembly().productionStep(DEFAULT_PRODUCTION_STEP);
+        IntersticeAssembly intersticeAssembly = new IntersticeAssembly();
         // Add required entity
         Strand strand;
         if (TestUtil.findAll(em, Strand.class).isEmpty()) {
@@ -82,7 +78,7 @@ class IntersticeAssemblyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static IntersticeAssembly createUpdatedEntity(EntityManager em) {
-        IntersticeAssembly intersticeAssembly = new IntersticeAssembly().productionStep(UPDATED_PRODUCTION_STEP);
+        IntersticeAssembly intersticeAssembly = new IntersticeAssembly();
         // Add required entity
         Strand strand;
         if (TestUtil.findAll(em, Strand.class).isEmpty()) {
@@ -116,7 +112,6 @@ class IntersticeAssemblyResourceIT {
         List<IntersticeAssembly> intersticeAssemblyList = intersticeAssemblyRepository.findAll();
         assertThat(intersticeAssemblyList).hasSize(databaseSizeBeforeCreate + 1);
         IntersticeAssembly testIntersticeAssembly = intersticeAssemblyList.get(intersticeAssemblyList.size() - 1);
-        assertThat(testIntersticeAssembly.getProductionStep()).isEqualTo(DEFAULT_PRODUCTION_STEP);
     }
 
     @Test
@@ -141,25 +136,6 @@ class IntersticeAssemblyResourceIT {
 
     @Test
     @Transactional
-    void checkProductionStepIsRequired() throws Exception {
-        int databaseSizeBeforeTest = intersticeAssemblyRepository.findAll().size();
-        // set the field null
-        intersticeAssembly.setProductionStep(null);
-
-        // Create the IntersticeAssembly, which fails.
-
-        restIntersticeAssemblyMockMvc
-            .perform(
-                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(intersticeAssembly))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<IntersticeAssembly> intersticeAssemblyList = intersticeAssemblyRepository.findAll();
-        assertThat(intersticeAssemblyList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllIntersticeAssemblies() throws Exception {
         // Initialize the database
         intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
@@ -169,8 +145,7 @@ class IntersticeAssemblyResourceIT {
             .perform(get(ENTITY_API_URL + "?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(intersticeAssembly.getId().intValue())))
-            .andExpect(jsonPath("$.[*].productionStep").value(hasItem(DEFAULT_PRODUCTION_STEP.intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(intersticeAssembly.getId().intValue())));
     }
 
     @Test
@@ -184,8 +159,7 @@ class IntersticeAssemblyResourceIT {
             .perform(get(ENTITY_API_URL_ID, intersticeAssembly.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(intersticeAssembly.getId().intValue()))
-            .andExpect(jsonPath("$.productionStep").value(DEFAULT_PRODUCTION_STEP.intValue()));
+            .andExpect(jsonPath("$.id").value(intersticeAssembly.getId().intValue()));
     }
 
     @Test
@@ -204,110 +178,6 @@ class IntersticeAssemblyResourceIT {
 
         defaultIntersticeAssemblyShouldBeFound("id.lessThanOrEqual=" + id);
         defaultIntersticeAssemblyShouldNotBeFound("id.lessThan=" + id);
-    }
-
-    @Test
-    @Transactional
-    void getAllIntersticeAssembliesByProductionStepIsEqualToSomething() throws Exception {
-        // Initialize the database
-        intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
-
-        // Get all the intersticeAssemblyList where productionStep equals to DEFAULT_PRODUCTION_STEP
-        defaultIntersticeAssemblyShouldBeFound("productionStep.equals=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the intersticeAssemblyList where productionStep equals to UPDATED_PRODUCTION_STEP
-        defaultIntersticeAssemblyShouldNotBeFound("productionStep.equals=" + UPDATED_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllIntersticeAssembliesByProductionStepIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
-
-        // Get all the intersticeAssemblyList where productionStep not equals to DEFAULT_PRODUCTION_STEP
-        defaultIntersticeAssemblyShouldNotBeFound("productionStep.notEquals=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the intersticeAssemblyList where productionStep not equals to UPDATED_PRODUCTION_STEP
-        defaultIntersticeAssemblyShouldBeFound("productionStep.notEquals=" + UPDATED_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllIntersticeAssembliesByProductionStepIsInShouldWork() throws Exception {
-        // Initialize the database
-        intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
-
-        // Get all the intersticeAssemblyList where productionStep in DEFAULT_PRODUCTION_STEP or UPDATED_PRODUCTION_STEP
-        defaultIntersticeAssemblyShouldBeFound("productionStep.in=" + DEFAULT_PRODUCTION_STEP + "," + UPDATED_PRODUCTION_STEP);
-
-        // Get all the intersticeAssemblyList where productionStep equals to UPDATED_PRODUCTION_STEP
-        defaultIntersticeAssemblyShouldNotBeFound("productionStep.in=" + UPDATED_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllIntersticeAssembliesByProductionStepIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
-
-        // Get all the intersticeAssemblyList where productionStep is not null
-        defaultIntersticeAssemblyShouldBeFound("productionStep.specified=true");
-
-        // Get all the intersticeAssemblyList where productionStep is null
-        defaultIntersticeAssemblyShouldNotBeFound("productionStep.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllIntersticeAssembliesByProductionStepIsGreaterThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
-
-        // Get all the intersticeAssemblyList where productionStep is greater than or equal to DEFAULT_PRODUCTION_STEP
-        defaultIntersticeAssemblyShouldBeFound("productionStep.greaterThanOrEqual=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the intersticeAssemblyList where productionStep is greater than or equal to UPDATED_PRODUCTION_STEP
-        defaultIntersticeAssemblyShouldNotBeFound("productionStep.greaterThanOrEqual=" + UPDATED_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllIntersticeAssembliesByProductionStepIsLessThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
-
-        // Get all the intersticeAssemblyList where productionStep is less than or equal to DEFAULT_PRODUCTION_STEP
-        defaultIntersticeAssemblyShouldBeFound("productionStep.lessThanOrEqual=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the intersticeAssemblyList where productionStep is less than or equal to SMALLER_PRODUCTION_STEP
-        defaultIntersticeAssemblyShouldNotBeFound("productionStep.lessThanOrEqual=" + SMALLER_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllIntersticeAssembliesByProductionStepIsLessThanSomething() throws Exception {
-        // Initialize the database
-        intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
-
-        // Get all the intersticeAssemblyList where productionStep is less than DEFAULT_PRODUCTION_STEP
-        defaultIntersticeAssemblyShouldNotBeFound("productionStep.lessThan=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the intersticeAssemblyList where productionStep is less than UPDATED_PRODUCTION_STEP
-        defaultIntersticeAssemblyShouldBeFound("productionStep.lessThan=" + UPDATED_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllIntersticeAssembliesByProductionStepIsGreaterThanSomething() throws Exception {
-        // Initialize the database
-        intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
-
-        // Get all the intersticeAssemblyList where productionStep is greater than DEFAULT_PRODUCTION_STEP
-        defaultIntersticeAssemblyShouldNotBeFound("productionStep.greaterThan=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the intersticeAssemblyList where productionStep is greater than SMALLER_PRODUCTION_STEP
-        defaultIntersticeAssemblyShouldBeFound("productionStep.greaterThan=" + SMALLER_PRODUCTION_STEP);
     }
 
     @Test
@@ -370,8 +240,7 @@ class IntersticeAssemblyResourceIT {
             .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(intersticeAssembly.getId().intValue())))
-            .andExpect(jsonPath("$.[*].productionStep").value(hasItem(DEFAULT_PRODUCTION_STEP.intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(intersticeAssembly.getId().intValue())));
 
         // Check, that the count call also returns 1
         restIntersticeAssemblyMockMvc
@@ -419,7 +288,6 @@ class IntersticeAssemblyResourceIT {
         IntersticeAssembly updatedIntersticeAssembly = intersticeAssemblyRepository.findById(intersticeAssembly.getId()).get();
         // Disconnect from session so that the updates on updatedIntersticeAssembly are not directly saved in db
         em.detach(updatedIntersticeAssembly);
-        updatedIntersticeAssembly.productionStep(UPDATED_PRODUCTION_STEP);
 
         ResultMatcher expectedResult = updatedIntersticeAssembly.positionsAreRight() ? status().isOk() : status().isBadRequest();
 
@@ -435,7 +303,6 @@ class IntersticeAssemblyResourceIT {
         List<IntersticeAssembly> intersticeAssemblyList = intersticeAssemblyRepository.findAll();
         assertThat(intersticeAssemblyList).hasSize(databaseSizeBeforeUpdate);
         IntersticeAssembly testIntersticeAssembly = intersticeAssemblyList.get(intersticeAssemblyList.size() - 1);
-        assertThat(testIntersticeAssembly.getProductionStep()).isEqualTo(UPDATED_PRODUCTION_STEP);
     }
 
     @Test
@@ -520,7 +387,6 @@ class IntersticeAssemblyResourceIT {
         List<IntersticeAssembly> intersticeAssemblyList = intersticeAssemblyRepository.findAll();
         assertThat(intersticeAssemblyList).hasSize(databaseSizeBeforeUpdate);
         IntersticeAssembly testIntersticeAssembly = intersticeAssemblyList.get(intersticeAssemblyList.size() - 1);
-        assertThat(testIntersticeAssembly.getProductionStep()).isEqualTo(DEFAULT_PRODUCTION_STEP);
     }
 
     @Test
@@ -535,8 +401,6 @@ class IntersticeAssemblyResourceIT {
         IntersticeAssembly partialUpdatedIntersticeAssembly = new IntersticeAssembly();
         partialUpdatedIntersticeAssembly.setId(intersticeAssembly.getId());
 
-        partialUpdatedIntersticeAssembly.productionStep(UPDATED_PRODUCTION_STEP);
-
         restIntersticeAssemblyMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedIntersticeAssembly.getId())
@@ -549,7 +413,6 @@ class IntersticeAssemblyResourceIT {
         List<IntersticeAssembly> intersticeAssemblyList = intersticeAssemblyRepository.findAll();
         assertThat(intersticeAssemblyList).hasSize(databaseSizeBeforeUpdate);
         IntersticeAssembly testIntersticeAssembly = intersticeAssemblyList.get(intersticeAssemblyList.size() - 1);
-        assertThat(testIntersticeAssembly.getProductionStep()).isEqualTo(UPDATED_PRODUCTION_STEP);
     }
 
     @Test

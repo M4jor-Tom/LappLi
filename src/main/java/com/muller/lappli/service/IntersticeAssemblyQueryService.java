@@ -85,10 +85,6 @@ public class IntersticeAssemblyQueryService extends QueryService<IntersticeAssem
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), IntersticeAssembly_.id));
             }
-            if (criteria.getProductionStep() != null) {
-                specification =
-                    specification.and(buildRangeSpecification(criteria.getProductionStep(), IntersticeAssembly_.productionStep));
-            }
             if (criteria.getPositionsId() != null) {
                 specification =
                     specification.and(

@@ -46,9 +46,6 @@ public class CoreAssemblyServiceImpl implements CoreAssemblyService {
         return coreAssemblyRepository
             .findById(coreAssembly.getId())
             .map(existingCoreAssembly -> {
-                if (coreAssembly.getProductionStep() != null) {
-                    existingCoreAssembly.setProductionStep(coreAssembly.getProductionStep());
-                }
                 if (coreAssembly.getDiameterAssemblyStep() != null) {
                     existingCoreAssembly.setDiameterAssemblyStep(coreAssembly.getDiameterAssemblyStep());
                 }
