@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.interfaces.Article;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -16,7 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "material")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Material implements Article, Serializable, Cloneable {
+public class Material extends AbstractDomainObject<Material> implements Article, Serializable, Cloneable {
 
     private static final long serialVersionUID = 1L;
 

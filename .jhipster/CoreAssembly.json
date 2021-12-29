@@ -2,12 +2,17 @@
   "name": "CoreAssembly",
   "fields": [
     {
+      "fieldName": "operationLayer",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "productionStep",
       "fieldType": "Long",
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "assemblyStep",
+      "fieldName": "diameterAssemblyStep",
       "fieldType": "Double",
       "fieldValidateRules": ["required"]
     },
@@ -19,6 +24,13 @@
     }
   ],
   "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "position",
+      "otherEntityRelationshipName": "ownerCoreAssembly",
+      "relationshipName": "positions",
+      "otherEntityField": "value"
+    },
     {
       "relationshipType": "many-to-one",
       "otherEntityName": "strand",

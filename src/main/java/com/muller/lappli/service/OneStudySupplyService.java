@@ -30,6 +30,12 @@ public interface OneStudySupplyService extends ReadTriggerableService<OneStudySu
      * @return the list of entities.
      */
     List<OneStudySupply> findAll();
+    /**
+     * Get all the OneStudySupply where Position is {@code null}.
+     *
+     * @return the {@link List} of entities.
+     */
+    List<OneStudySupply> findAllWherePositionIsNull();
 
     /**
      * Get the "id" oneStudySupply.

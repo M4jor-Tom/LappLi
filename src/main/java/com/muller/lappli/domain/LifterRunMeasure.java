@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
@@ -14,7 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "lifter_run_measure")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class LifterRunMeasure implements Serializable {
+public class LifterRunMeasure extends AbstractDomainObject<LifterRunMeasure> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

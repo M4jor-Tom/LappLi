@@ -1,6 +1,8 @@
 package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.CoreAssembly;
+import com.muller.lappli.domain.exception.PositionHasSeveralSupplyException;
+import com.muller.lappli.domain.exception.PositionInSeveralAssemblyException;
 import com.muller.lappli.repository.CoreAssemblyRepository;
 import com.muller.lappli.service.CoreAssemblyService;
 import java.util.List;
@@ -26,23 +28,32 @@ public class CoreAssemblyServiceImpl implements CoreAssemblyService {
     }
 
     @Override
-    public CoreAssembly save(CoreAssembly coreAssembly) {
+    public CoreAssembly save(CoreAssembly coreAssembly) throws PositionInSeveralAssemblyException, PositionHasSeveralSupplyException {
         log.debug("Request to save CoreAssembly : {}", coreAssembly);
+
+        coreAssembly.checkPositions();
+
         return coreAssemblyRepository.save(coreAssembly);
     }
 
     @Override
-    public Optional<CoreAssembly> partialUpdate(CoreAssembly coreAssembly) {
+    public Optional<CoreAssembly> partialUpdate(CoreAssembly coreAssembly)
+        throws PositionInSeveralAssemblyException, PositionHasSeveralSupplyException {
         log.debug("Request to partially update CoreAssembly : {}", coreAssembly);
+
+        coreAssembly.positionsAreRight();
 
         return coreAssemblyRepository
             .findById(coreAssembly.getId())
             .map(existingCoreAssembly -> {
+                if (coreAssembly.getOperationLayer() != null) {
+                    existingCoreAssembly.setOperationLayer(coreAssembly.getOperationLayer());
+                }
                 if (coreAssembly.getProductionStep() != null) {
                     existingCoreAssembly.setProductionStep(coreAssembly.getProductionStep());
                 }
-                if (coreAssembly.getAssemblyStep() != null) {
-                    existingCoreAssembly.setAssemblyStep(coreAssembly.getAssemblyStep());
+                if (coreAssembly.getDiameterAssemblyStep() != null) {
+                    existingCoreAssembly.setDiameterAssemblyStep(coreAssembly.getDiameterAssemblyStep());
                 }
                 if (coreAssembly.getAssemblyMean() != null) {
                     existingCoreAssembly.setAssemblyMean(coreAssembly.getAssemblyMean());

@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IMaterial } from 'app/shared/model/material.model';
 import { getEntities as getMaterials } from 'app/entities/material/material.reducer';
+import { IPosition } from 'app/shared/model/position.model';
+import { getEntities as getPositions } from 'app/entities/position/position.reducer';
 import { IStrand } from 'app/shared/model/strand.model';
 import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './one-study-supply.reducer';
@@ -15,18 +17,23 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 import { Color } from 'app/shared/model/enumerations/color.model';
-import { getStrandSupplyRedirectionUrl, getStrandValidateField, isStrandSupply, SupplyKind } from '../supply/index-management-lib';
+import {
+  getOutFromStudySupplyStrandSupplyComponent,
+  getStrandSupplyRedirectionUrl,
+  getStrandValidateField,
+  isStrandSupply,
+  SupplyKind,
+} from '../index-management/index-management-lib';
 
 export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const _isStrandSupply = isStrandSupply(props);
-
-  const redirectionUrl = getStrandSupplyRedirectionUrl(props, SupplyKind.ONE_STUDY);
+  const redirectionUrl = getOutFromStudySupplyStrandSupplyComponent(props.match.url, isNew);
 
   const materials = useAppSelector(state => state.material.entities);
+  const positions = useAppSelector(state => state.position.entities);
   const strands = useAppSelector(state => state.strand.entities);
   const oneStudySupplyEntity = useAppSelector(state => state.oneStudySupply.entity);
   const loading = useAppSelector(state => state.oneStudySupply.loading);
@@ -46,6 +53,7 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
     }
 
     dispatch(getMaterials({}));
+    dispatch(getPositions({}));
     dispatch(getStrands({}));
   }, []);
 

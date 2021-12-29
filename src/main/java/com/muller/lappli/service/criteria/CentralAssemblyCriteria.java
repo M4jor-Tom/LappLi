@@ -30,6 +30,8 @@ public class CentralAssemblyCriteria implements Serializable, Criteria {
 
     private LongFilter strandId;
 
+    private LongFilter positionId;
+
     private Boolean distinct;
 
     public CentralAssemblyCriteria() {}
@@ -38,6 +40,7 @@ public class CentralAssemblyCriteria implements Serializable, Criteria {
         this.id = other.id == null ? null : other.id.copy();
         this.productionStep = other.productionStep == null ? null : other.productionStep.copy();
         this.strandId = other.strandId == null ? null : other.strandId.copy();
+        this.positionId = other.positionId == null ? null : other.positionId.copy();
         this.distinct = other.distinct;
     }
 
@@ -91,6 +94,21 @@ public class CentralAssemblyCriteria implements Serializable, Criteria {
         this.strandId = strandId;
     }
 
+    public LongFilter getPositionId() {
+        return positionId;
+    }
+
+    public LongFilter positionId() {
+        if (positionId == null) {
+            positionId = new LongFilter();
+        }
+        return positionId;
+    }
+
+    public void setPositionId(LongFilter positionId) {
+        this.positionId = positionId;
+    }
+
     public Boolean getDistinct() {
         return distinct;
     }
@@ -112,13 +130,14 @@ public class CentralAssemblyCriteria implements Serializable, Criteria {
             Objects.equals(id, that.id) &&
             Objects.equals(productionStep, that.productionStep) &&
             Objects.equals(strandId, that.strandId) &&
+            Objects.equals(positionId, that.positionId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, productionStep, strandId, distinct);
+        return Objects.hash(id, productionStep, strandId, positionId, distinct);
     }
 
     // prettier-ignore
@@ -128,6 +147,7 @@ public class CentralAssemblyCriteria implements Serializable, Criteria {
             (id != null ? "id=" + id + ", " : "") +
             (productionStep != null ? "productionStep=" + productionStep + ", " : "") +
             (strandId != null ? "strandId=" + strandId + ", " : "") +
+            (positionId != null ? "positionId=" + positionId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
+import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -43,22 +44,54 @@ public class ElementSupply extends AbstractMarkedLiftedSupply implements Seriali
     //@JsonIgnoreProperties(value = { "elementKind" }, allowSetters = true)
     private Element element;
 
+    @JsonIgnoreProperties(
+        value = {
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "ownerCentralAssembly",
+            "ownerCoreAssembly",
+            "ownerIntersticeAssembly",
+        },
+        allowSetters = true
+    )
+    @OneToOne(mappedBy = "elementSupply")
+    private Position position;
+
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "elementSupplies", "bangleSupplies", "customComponentSupplies" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = {
+            "coreAssemblies",
+            "intersticialAssemblies",
+            "elementSupplies",
+            "bangleSupplies",
+            "customComponentSupplies",
+            "oneStudySupplies",
+            "centralAssembly",
+        },
+        allowSetters = true
+    )
     private Strand strand;
 
     public ElementSupply() {
         super();
     }
 
-    /*public ElementSupply(List<Lifter> bestLifterList, Long apparitions, MarkingType markingType, String description, Element element) {
-        super(bestLifterList);
-        setApparitions(apparitions);
-        setMarkingType(markingType);
-        setDescription(description);
-        setElement(element);
-    }*/
+    @Override
+    public CylindricComponent getCylindricComponent() {
+        return getElement();
+    }
+
+    @Override
+    public String getDesignation() {
+        try {
+            return getElement().getDesignationWithColor();
+        } catch (NullPointerException e) {
+            return "";
+        }
+    }
 
     @Override
     @JsonIgnore
@@ -162,6 +195,26 @@ public class ElementSupply extends AbstractMarkedLiftedSupply implements Seriali
 
     public ElementSupply element(Element element) {
         this.setElement(element);
+        return this;
+    }
+
+    @Override
+    public Position getPosition() {
+        return this.position;
+    }
+
+    public void setPosition(Position position) {
+        if (this.position != null) {
+            this.position.setElementSupply(null);
+        }
+        if (position != null) {
+            position.setElementSupply(this);
+        }
+        this.position = position;
+    }
+
+    public ElementSupply position(Position position) {
+        this.setPosition(position);
         return this;
     }
 

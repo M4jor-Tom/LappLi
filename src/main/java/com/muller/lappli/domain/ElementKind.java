@@ -14,7 +14,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element_kind")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ElementKind extends AbstractCableAtom implements Commitable<ElementKind>, Serializable {
+public class ElementKind extends AbstractCableAtom<ElementKind> implements Commitable<ElementKind>, Serializable {
 
     private static final long serialVersionUID = 1L;
 

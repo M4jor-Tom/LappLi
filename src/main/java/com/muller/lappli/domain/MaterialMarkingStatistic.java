@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import java.io.Serializable;
@@ -16,7 +17,7 @@ import org.mapstruct.ap.shaded.freemarker.template.utility.NullArgumentException
 @Entity
 @Table(name = "material_marking_statistic")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class MaterialMarkingStatistic implements Serializable {
+public class MaterialMarkingStatistic extends AbstractDomainObject<MaterialMarkingStatistic> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -107,7 +108,7 @@ public class MaterialMarkingStatistic implements Serializable {
             //If marking type is NUMBERED, then marking technique
             //shall be among RSD, INK_JET, and NONE_SUITABLE
             (new Exception("NoneMarkingTechniqueForMarkingTypeNumbered")).printStackTrace();
-        } else if (!MarkingTechnique.NONE.equals(markingTechnique)) {
+        } else if (!MarkingType.NUMBERED.equals(getMarkingType()) && !MarkingTechnique.NONE.equals(markingTechnique)) {
             //If the marking type is not NUMBERED, then
             //the marking technique must be NONE(_SUITABLE)
             (new Exception("ExistingMarkingTechniqueForMarkingTypeNotNumbered")).printStackTrace();

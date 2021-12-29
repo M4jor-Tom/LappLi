@@ -1,0 +1,9 @@
+{
+  "lappLiApp": {
+    "assembly": {
+      "operationLayer": "Operation Layer",
+      "productionStep": "Production Step",
+      "position": "Position"
+    }
+  }
+}

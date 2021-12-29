@@ -1,0 +1,31 @@
+{
+  "lappLiApp": {
+    "position": {
+      "home": {
+        "title": "Positions",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Position erstellen",
+        "createOrEditLabel": "Position erstellen oder bearbeiten",
+        "notFound": "Keine Positions gefunden"
+      },
+      "created": "Position erstellt mit ID {{ param }}",
+      "updated": "Position aktualisiert mit ID {{ param }}",
+      "deleted": "Position gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Position {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Position"
+      },
+      "id": "ID",
+      "value": "Value",
+      "elementSupply": "Element Supply",
+      "bangleSupply": "Bangle Supply",
+      "customComponentSupply": "Custom Component Supply",
+      "oneStudySupply": "One Study Supply",
+      "ownerCentralAssembly": "Owner Central Assembly",
+      "ownerCoreAssembly": "Owner Core Assembly",
+      "ownerIntersticeAssembly": "Owner Interstice Assembly"
+    }
+  }
+}

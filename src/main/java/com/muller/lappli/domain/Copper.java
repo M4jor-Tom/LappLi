@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.interfaces.Article;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "copper")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Copper implements Article, Serializable {
+public class Copper extends AbstractDomainObject<Copper> implements Article, Serializable {
 
     private static final long serialVersionUID = 1L;
 

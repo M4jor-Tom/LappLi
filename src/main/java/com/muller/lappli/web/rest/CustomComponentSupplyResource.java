@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -140,10 +141,15 @@ public class CustomComponentSupplyResource {
     /**
      * {@code GET  /custom-component-supplies} : get all the customComponentSupplies.
      *
+     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of customComponentSupplies in body.
      */
     @GetMapping("/custom-component-supplies")
-    public List<CustomComponentSupply> getAllCustomComponentSupplies() {
+    public List<CustomComponentSupply> getAllCustomComponentSupplies(@RequestParam(required = false) String filter) {
+        if ("position-is-null".equals(filter)) {
+            log.debug("REST request to get all CustomComponentSupplys where position is null");
+            return customComponentSupplyService.findAllWherePositionIsNull();
+        }
         log.debug("REST request to get all CustomComponentSupplies");
         return customComponentSupplyService.findAll();
     }

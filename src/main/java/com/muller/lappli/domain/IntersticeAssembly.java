@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -24,11 +26,33 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     @Column(name = "id")
     private Long id;
 
+    @OneToMany(mappedBy = "ownerIntersticeAssembly")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(
+        value = {
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "ownerCentralAssembly",
+            "ownerCoreAssembly",
+            "ownerIntersticeAssembly",
+        },
+        allowSetters = true
+    )
+    private Set<Position> positions = new HashSet<>();
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
         value = {
-            "intersticialAssemblies", "elementSupplies", "bangleSupplies", "customComponentSupplies", "oneStudySupplies", "centralAssembly",
+            "coreAssemblies",
+            "intersticeAssemblies",
+            "elementSupplies",
+            "bangleSupplies",
+            "customComponentSupplies",
+            "oneStudySupplies",
+            "centralAssembly",
         },
         allowSetters = true
     )
@@ -40,9 +64,9 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     }
 
     @Override
-    public Double getAssemblyStep() {
+    public Double getDiameterAssemblyStep() {
         try {
-            return getStrand().getLastCoreAssembly().getAssemblyStep();
+            return getStrand().getLastCoreAssembly().getDiameterAssemblyStep();
         } catch (NullPointerException e) {
             return Double.NaN;
         }
@@ -57,8 +81,27 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         }
     }
 
+    @Override
+    public Long getOperationLayer() {
+        try {
+            return getStrand().getLastCoreAssembly().getOperationLayer();
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Double getAfterThisMilimeterDiameter() {
+        try {
+            return getStrand().getLastCoreAssembly().getAfterThisMilimeterDiameter();
+        } catch (NullPointerException e) {
+            return Double.NaN;
+        }
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    @Override
     public Long getId() {
         return this.id;
     }
@@ -72,6 +115,39 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         this.id = id;
     }
 
+    @Override
+    public Set<Position> getPositions() {
+        return this.positions;
+    }
+
+    public void setPositions(Set<Position> positions) {
+        if (this.positions != null) {
+            this.positions.forEach(i -> i.setOwnerIntersticeAssembly(null));
+        }
+        if (positions != null) {
+            positions.forEach(i -> i.setOwnerIntersticeAssembly(this));
+        }
+        this.positions = positions;
+    }
+
+    public IntersticeAssembly positions(Set<Position> positions) {
+        this.setPositions(positions);
+        return this;
+    }
+
+    public IntersticeAssembly addPositions(Position position) {
+        this.positions.add(position);
+        position.setOwnerIntersticeAssembly(this);
+        return this;
+    }
+
+    public IntersticeAssembly removePositions(Position position) {
+        this.positions.remove(position);
+        position.setOwnerIntersticeAssembly(null);
+        return this;
+    }
+
+    @Override
     public Strand getStrand() {
         return this.strand;
     }

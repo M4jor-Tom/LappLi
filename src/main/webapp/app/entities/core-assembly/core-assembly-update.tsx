@@ -93,6 +93,17 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ id: string }>) =
                 />
               ) : null}
               <ValidatedField
+                label={translate('lappLiApp.coreAssembly.operationLayer')}
+                id="core-assembly-operationLayer"
+                name="operationLayer"
+                data-cy="operationLayer"
+                type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
+              />
+              <ValidatedField
                 label={translate('lappLiApp.coreAssembly.productionStep')}
                 id="core-assembly-productionStep"
                 name="productionStep"
@@ -104,10 +115,10 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ id: string }>) =
                 }}
               />
               <ValidatedField
-                label={translate('lappLiApp.coreAssembly.assemblyStep')}
-                id="core-assembly-assemblyStep"
-                name="assemblyStep"
-                data-cy="assemblyStep"
+                label={translate('lappLiApp.coreAssembly.diameterAssemblyStep')}
+                id="core-assembly-diameterAssemblyStep"
+                name="diameterAssemblyStep"
+                data-cy="diameterAssemblyStep"
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },

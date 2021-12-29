@@ -44,11 +44,15 @@ public class CoreAssemblyCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
+    private LongFilter operationLayer;
+
     private LongFilter productionStep;
 
-    private DoubleFilter assemblyStep;
+    private DoubleFilter diameterAssemblyStep;
 
     private AssemblyMeanFilter assemblyMean;
+
+    private LongFilter positionsId;
 
     private LongFilter strandId;
 
@@ -58,9 +62,11 @@ public class CoreAssemblyCriteria implements Serializable, Criteria {
 
     public CoreAssemblyCriteria(CoreAssemblyCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
+        this.operationLayer = other.operationLayer == null ? null : other.operationLayer.copy();
         this.productionStep = other.productionStep == null ? null : other.productionStep.copy();
-        this.assemblyStep = other.assemblyStep == null ? null : other.assemblyStep.copy();
+        this.diameterAssemblyStep = other.diameterAssemblyStep == null ? null : other.diameterAssemblyStep.copy();
         this.assemblyMean = other.assemblyMean == null ? null : other.assemblyMean.copy();
+        this.positionsId = other.positionsId == null ? null : other.positionsId.copy();
         this.strandId = other.strandId == null ? null : other.strandId.copy();
         this.distinct = other.distinct;
     }
@@ -85,6 +91,21 @@ public class CoreAssemblyCriteria implements Serializable, Criteria {
         this.id = id;
     }
 
+    public LongFilter getOperationLayer() {
+        return operationLayer;
+    }
+
+    public LongFilter operationLayer() {
+        if (operationLayer == null) {
+            operationLayer = new LongFilter();
+        }
+        return operationLayer;
+    }
+
+    public void setOperationLayer(LongFilter operationLayer) {
+        this.operationLayer = operationLayer;
+    }
+
     public LongFilter getProductionStep() {
         return productionStep;
     }
@@ -100,19 +121,19 @@ public class CoreAssemblyCriteria implements Serializable, Criteria {
         this.productionStep = productionStep;
     }
 
-    public DoubleFilter getAssemblyStep() {
-        return assemblyStep;
+    public DoubleFilter getDiameterAssemblyStep() {
+        return diameterAssemblyStep;
     }
 
-    public DoubleFilter assemblyStep() {
-        if (assemblyStep == null) {
-            assemblyStep = new DoubleFilter();
+    public DoubleFilter diameterAssemblyStep() {
+        if (diameterAssemblyStep == null) {
+            diameterAssemblyStep = new DoubleFilter();
         }
-        return assemblyStep;
+        return diameterAssemblyStep;
     }
 
-    public void setAssemblyStep(DoubleFilter assemblyStep) {
-        this.assemblyStep = assemblyStep;
+    public void setDiameterAssemblyStep(DoubleFilter diameterAssemblyStep) {
+        this.diameterAssemblyStep = diameterAssemblyStep;
     }
 
     public AssemblyMeanFilter getAssemblyMean() {
@@ -128,6 +149,21 @@ public class CoreAssemblyCriteria implements Serializable, Criteria {
 
     public void setAssemblyMean(AssemblyMeanFilter assemblyMean) {
         this.assemblyMean = assemblyMean;
+    }
+
+    public LongFilter getPositionsId() {
+        return positionsId;
+    }
+
+    public LongFilter positionsId() {
+        if (positionsId == null) {
+            positionsId = new LongFilter();
+        }
+        return positionsId;
+    }
+
+    public void setPositionsId(LongFilter positionsId) {
+        this.positionsId = positionsId;
     }
 
     public LongFilter getStrandId() {
@@ -164,9 +200,11 @@ public class CoreAssemblyCriteria implements Serializable, Criteria {
         final CoreAssemblyCriteria that = (CoreAssemblyCriteria) o;
         return (
             Objects.equals(id, that.id) &&
+            Objects.equals(operationLayer, that.operationLayer) &&
             Objects.equals(productionStep, that.productionStep) &&
-            Objects.equals(assemblyStep, that.assemblyStep) &&
+            Objects.equals(diameterAssemblyStep, that.diameterAssemblyStep) &&
             Objects.equals(assemblyMean, that.assemblyMean) &&
+            Objects.equals(positionsId, that.positionsId) &&
             Objects.equals(strandId, that.strandId) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -174,7 +212,7 @@ public class CoreAssemblyCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, productionStep, assemblyStep, assemblyMean, strandId, distinct);
+        return Objects.hash(id, operationLayer, productionStep, diameterAssemblyStep, assemblyMean, positionsId, strandId, distinct);
     }
 
     // prettier-ignore
@@ -182,9 +220,11 @@ public class CoreAssemblyCriteria implements Serializable, Criteria {
     public String toString() {
         return "CoreAssemblyCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
+            (operationLayer != null ? "operationLayer=" + operationLayer + ", " : "") +
             (productionStep != null ? "productionStep=" + productionStep + ", " : "") +
-            (assemblyStep != null ? "assemblyStep=" + assemblyStep + ", " : "") +
+            (diameterAssemblyStep != null ? "diameterAssemblyStep=" + diameterAssemblyStep + ", " : "") +
             (assemblyMean != null ? "assemblyMean=" + assemblyMean + ", " : "") +
+            (positionsId != null ? "positionsId=" + positionsId + ", " : "") +
             (strandId != null ? "strandId=" + strandId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

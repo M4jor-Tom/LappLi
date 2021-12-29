@@ -20,11 +20,13 @@
       "id": "ID",
       "designation": "Designation",
       "coreAssemblies": "Core Assemblies",
-      "intersticialAssemblies": "Intersticial Assemblies",
+      "intersticeAssemblies": "Interstice Assemblies",
       "elementSupplies": "Element Supplies",
       "bangleSupplies": "Bangle Supplies",
       "customComponentSupplies": "Custom Component Supplies",
       "subSupplies": "Sub Supplies",
+      "operations": "Operations",
+      "operationKind": "OperationKind",
       "noSuppliesFound": "No Supplies Found",
       "oneStudySupplies": "One Study Supplies"
     }

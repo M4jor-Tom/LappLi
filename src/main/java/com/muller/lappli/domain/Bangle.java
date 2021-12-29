@@ -15,7 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "bangle")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Bangle extends AbstractAssemblableAtom implements Article, Serializable {
+public class Bangle extends AbstractAssemblableAtom<Bangle> implements Article, Serializable {
 
     private static final long serialVersionUID = 1L;
 

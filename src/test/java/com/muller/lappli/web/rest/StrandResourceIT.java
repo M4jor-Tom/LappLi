@@ -188,28 +188,28 @@ class StrandResourceIT {
 
     @Test
     @Transactional
-    void getAllStrandsByIntersticialAssembliesIsEqualToSomething() throws Exception {
+    void getAllStrandsByIntersticeAssembliesIsEqualToSomething() throws Exception {
         // Initialize the database
         strandRepository.saveAndFlush(strand);
-        IntersticeAssembly intersticialAssemblies;
+        IntersticeAssembly intersticeAssemblies;
         if (TestUtil.findAll(em, IntersticeAssembly.class).isEmpty()) {
-            intersticialAssemblies = IntersticeAssemblyResourceIT.createEntity(em);
-            em.persist(intersticialAssemblies);
+            intersticeAssemblies = IntersticeAssemblyResourceIT.createEntity(em);
+            em.persist(intersticeAssemblies);
             em.flush();
         } else {
-            intersticialAssemblies = TestUtil.findAll(em, IntersticeAssembly.class).get(0);
+            intersticeAssemblies = TestUtil.findAll(em, IntersticeAssembly.class).get(0);
         }
-        em.persist(intersticialAssemblies);
+        em.persist(intersticeAssemblies);
         em.flush();
-        strand.addIntersticialAssemblies(intersticialAssemblies);
+        strand.addIntersticeAssemblies(intersticeAssemblies);
         strandRepository.saveAndFlush(strand);
-        Long intersticialAssembliesId = intersticialAssemblies.getId();
+        Long intersticeAssembliesId = intersticeAssemblies.getId();
 
-        // Get all the strandList where intersticialAssemblies equals to intersticialAssembliesId
-        defaultStrandShouldBeFound("intersticialAssembliesId.equals=" + intersticialAssembliesId);
+        // Get all the strandList where intersticeAssemblies equals to intersticeAssembliesId
+        defaultStrandShouldBeFound("intersticeAssembliesId.equals=" + intersticeAssembliesId);
 
-        // Get all the strandList where intersticialAssemblies equals to (intersticialAssembliesId + 1)
-        defaultStrandShouldNotBeFound("intersticialAssembliesId.equals=" + (intersticialAssembliesId + 1));
+        // Get all the strandList where intersticeAssemblies equals to (intersticeAssembliesId + 1)
+        defaultStrandShouldNotBeFound("intersticeAssembliesId.equals=" + (intersticeAssembliesId + 1));
     }
 
     @Test

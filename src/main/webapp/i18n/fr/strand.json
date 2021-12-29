@@ -20,11 +20,13 @@
       "id": "ID",
       "designation": "Designation",
       "coreAssemblies": "Core Assemblies",
-      "intersticialAssemblies": "Intersticial Assemblies",
+      "intersticeAssemblies": "Interstice Assemblies",
       "elementSupplies": "Element Supplies",
       "bangleSupplies": "Bangle Supplies",
       "customComponentSupplies": "Custom Component Supplies",
       "subSupplies": "Approvisionnements du toron",
+      "operations": "Opérations",
+      "operationKind": "Genre d'Opération",
       "noSuppliesFound": "Aucun approvisionnement trouvé",
       "oneStudySupplies": "One Study Supplies"
     }

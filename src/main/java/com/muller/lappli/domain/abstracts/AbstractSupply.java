@@ -1,6 +1,8 @@
 package com.muller.lappli.domain.abstracts;
 
 import com.muller.lappli.domain.DomainManager;
+import com.muller.lappli.domain.Position;
+import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.text.DecimalFormat;
 import javax.persistence.MappedSuperclass;
 
@@ -11,7 +13,7 @@ import javax.persistence.MappedSuperclass;
  * inside a Strand or Cable
  */
 @MappedSuperclass
-public abstract class AbstractSupply {
+public abstract class AbstractSupply<T> {
 
     /**
      * The unity length which Muller uses to measure cables statistics
@@ -24,6 +26,8 @@ public abstract class AbstractSupply {
      * The speed at which a lifter is supposed to run at maximum
      */
     protected static final Long LIFTING_METER_PER_HOUR_SPEED = Long.valueOf(5000);
+
+    public abstract Position getPosition();
 
     /**
      * @return the apparitions of the CylindricComponent inside the final Cable
@@ -39,6 +43,22 @@ public abstract class AbstractSupply {
      * @return the linear mass in grams per meter of the CylindricComponent
      */
     public abstract Double getGramPerMeterLinearMass();
+
+    /**
+     * @return the representated component
+     */
+    public abstract CylindricComponent getCylindricComponent();
+
+    /**
+     * @return the designation of the representated component
+     */
+    public String getDesignation() {
+        try {
+            return getCylindricComponent().getDesignation();
+        } catch (NullPointerException e) {
+            return "";
+        }
+    }
 
     /**
      * Will determine how hours are display along Supply entities

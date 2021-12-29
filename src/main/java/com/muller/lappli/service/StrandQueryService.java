@@ -94,12 +94,12 @@ public class StrandQueryService extends QueryService<Strand> {
                         )
                     );
             }
-            if (criteria.getIntersticialAssembliesId() != null) {
+            if (criteria.getIntersticeAssembliesId() != null) {
                 specification =
                     specification.and(
                         buildSpecification(
-                            criteria.getIntersticialAssembliesId(),
-                            root -> root.join(Strand_.intersticialAssemblies, JoinType.LEFT).get(IntersticeAssembly_.id)
+                            criteria.getIntersticeAssembliesId(),
+                            root -> root.join(Strand_.intersticeAssemblies, JoinType.LEFT).get(IntersticeAssembly_.id)
                         )
                     );
             }

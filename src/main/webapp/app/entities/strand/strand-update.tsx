@@ -11,7 +11,7 @@ import { IStrand } from 'app/shared/model/strand.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-import { handleClosePolicy } from 'app/app-config/handle-close-policy';
+import { getOut } from '../index-management/index-management-lib';
 
 export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
@@ -23,9 +23,12 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
   const loading = useAppSelector(state => state.strand.loading);
   const updating = useAppSelector(state => state.strand.updating);
   const updateSuccess = useAppSelector(state => state.strand.updateSuccess);
+
   const handleClose =
     props.match.params.study_id == null
-      ? () => handleClosePolicy(props)
+      ? () => {
+          props.history.push('/strand');
+        }
       : () => {
           props.history.push('/study/' + props.match.params.study_id + '/study-supplies/new');
         };
@@ -91,7 +94,7 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
                   validate={{ required: true }}
                 />
               ) : null}
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" onClick={props.history.goBack} replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={getOut(props.match.url, 0)} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">

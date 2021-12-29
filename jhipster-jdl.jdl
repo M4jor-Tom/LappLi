@@ -2,13 +2,18 @@ filter * except ElementKind, Element, ElementSupply, BangleSupply, CustomCompone
 
 service * with serviceImpl
 
+entity Position {
+    value Long required
+}
+
 entity CentralAssembly {
 	productionStep Long required
 }
 
 entity CoreAssembly {
+	operationLayer Long required
 	productionStep Long required
-	assemblyStep Double required
+	diameterAssemblyStep Double required
     assemblyMean AssemblyMean required
 }
 
@@ -136,13 +141,20 @@ relationship OneToOne {
 	CentralAssembly{strand(designation) required} to Strand{centralAssembly(productionStep)} with jpaDerivedIdentifier
 }
 
-relationship OneToMany {
-	Strand{coreAssemblies(productionStep)} to CoreAssembly{strand(designation) required}
-	Strand{intersticialAssemblies(productionStep)} to IntersticeAssembly{strand(designation) required}
+relationship OneToOne {
+	UserData{user(login) required} to User with jpaDerivedIdentifier
 }
 
 relationship OneToOne {
-	UserData{user(login) required} to User with jpaDerivedIdentifier
+	Position{elementSupply(designation)} to ElementSupply{position(value)}
+    Position{bangleSupply(designation)} to BangleSupply{position(value)}
+    Position{customComponentSupply(designation)} to CustomComponentSupply{position(value)}
+	Position{oneStudySupply(designation)} to OneStudySupply{position(value)}
+}
+
+relationship OneToMany {
+	Strand{coreAssemblies(productionStep)} to CoreAssembly{strand(designation) required}
+	Strand{intersticeAssemblies(productionStep)} to IntersticeAssembly{strand(designation) required}
 }
 
 relationship OneToMany {
@@ -150,14 +162,27 @@ relationship OneToMany {
 }
 
 relationship OneToMany {
+    //Supplies owned in a Study as UNDIVIDED
 	Study{strandSupplies(designation)} to StrandSupply{study(number) required}
-}
 
-relationship OneToMany {
+    //Supplies owned in a Strand as DIVIED_UNPLACED
 	Strand{elementSupplies(designation)} to ElementSupply{strand(designation) required}
     Strand{bangleSupplies(designation)} to BangleSupply{strand(designation) required}
     Strand{customComponentSupplies(designation)} to CustomComponentSupply{strand(designation) required}
 	Strand{oneStudySupplies(designation)} to OneStudySupply{strand(designation) required}
+
+    //Supplies owned in a Strand as PLACED
+    CoreAssembly{positions(value)} to Position{ownerCoreAssembly(designation)}
+    IntersticeAssembly{positions(value)} to Position{ownerIntersticeAssembly(designation)}
+}
+
+relationship OneToOne {
+    //Supplies owned in a Strand as PLACED
+	CentralAssembly{position(value)} to Position{ownerCentralAssembly(designation)}
+}
+
+relationship OneToMany {
+	Material{materialMarkingStatistics(markingType)} to MaterialMarkingStatistic{material(designation) required}
 }
 
 relationship ManyToOne {
@@ -166,10 +191,6 @@ relationship ManyToOne {
 
 relationship ManyToOne {
 	OneStudySupply{surfaceMaterial(designation) required} to Material
-}
-
-relationship OneToMany {
-	Material{materialMarkingStatistics(markingType)} to MaterialMarkingStatistic{material(designation) required}
 }
 
 relationship ManyToOne {

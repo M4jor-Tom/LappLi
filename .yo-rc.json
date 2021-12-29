@@ -64,8 +64,9 @@
       "UserData",
       "CentralAssembly",
       "CoreAssembly",
-      "IntersticeAssembly"
+      "IntersticeAssembly",
+      "Position"
     ],
-    "lastLiquibaseTimestamp": 1640254762000
+    "lastLiquibaseTimestamp": 1640592117000
   }
 }

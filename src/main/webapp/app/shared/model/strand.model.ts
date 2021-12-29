@@ -10,7 +10,7 @@ export interface IStrand {
   id?: number;
   designation?: string;
   coreAssemblies?: ICoreAssembly[] | null;
-  intersticialAssemblies?: IIntersticeAssembly[] | null;
+  intersticeAssemblies?: IIntersticeAssembly[] | null;
   elementSupplies?: IElementSupply[] | null;
   bangleSupplies?: IBangleSupply[] | null;
   customComponentSupplies?: ICustomComponentSupply[] | null;

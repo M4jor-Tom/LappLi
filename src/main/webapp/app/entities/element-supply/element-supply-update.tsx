@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IElement } from 'app/shared/model/element.model';
 import { getEntities as getElements } from 'app/entities/element/element.reducer';
+import { IPosition } from 'app/shared/model/position.model';
+import { getEntities as getPositions } from 'app/entities/position/position.reducer';
 import { IStrand } from 'app/shared/model/strand.model';
 import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './element-supply.reducer';
@@ -14,7 +16,14 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
-import { getStrandSupplyRedirectionUrl, getStrandValidateField, isStrandSupply, SupplyKind } from '../supply/index-management-lib';
+import {
+  getOut,
+  getOutFromStudySupplyStrandSupplyComponent,
+  getStrandSupplyRedirectionUrl,
+  getStrandValidateField,
+  isStrandSupply,
+  SupplyKind,
+} from '../index-management/index-management-lib';
 
 export const ElementSupplyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
@@ -23,9 +32,10 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ strand_id: stri
 
   const _isStrandSupply = isStrandSupply(props);
 
-  const redirectionUrl = getStrandSupplyRedirectionUrl(props, SupplyKind.ELEMENT);
+  const redirectionUrl = getOutFromStudySupplyStrandSupplyComponent(props.match.url, isNew);
 
   const elements = useAppSelector(state => state.element.entities);
+  const positions = useAppSelector(state => state.position.entities);
   const strands = useAppSelector(state => state.strand.entities);
   const elementSupplyEntity = useAppSelector(state => state.elementSupply.entity);
   const loading = useAppSelector(state => state.elementSupply.loading);
@@ -44,6 +54,7 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ strand_id: stri
     }
 
     dispatch(getElements({}));
+    dispatch(getPositions({}));
     dispatch(getStrands({}));
   }, []);
 

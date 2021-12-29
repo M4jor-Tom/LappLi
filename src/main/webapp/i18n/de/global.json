@@ -28,6 +28,7 @@
         "centralAssembly": "Central Assembly",
         "coreAssembly": "Core Assembly",
         "intersticeAssembly": "Interstice Assembly",
+        "position": "Position",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

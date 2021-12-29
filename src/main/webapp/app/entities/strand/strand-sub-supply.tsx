@@ -7,13 +7,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getEntity } from './strand.reducer';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { getOut } from '../index-management/index-management-lib';
+import { toNumber } from 'lodash';
 
-export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
+export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getEntity(props.match.params.id));
   }, []);
+
+  const getOutCount: number = props.match.params.study_id ? 2 : 0;
 
   const strandEntity = useAppSelector(state => state.strand.entity);
   return (
@@ -135,7 +139,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                             <div className="btn-group flex-btn-group-container">
                               <Button
                                 tag={Link}
-                                to={`${'custom-component-supply'}/${customComponentSupply.id}/edit`}
+                                to={`${props.match.url}/custom-component-supply/${customComponentSupply.id}/edit`}
                                 color="primary"
                                 size="sm"
                                 data-cy="entityEditButton"
@@ -147,7 +151,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                               </Button>
                               <Button
                                 tag={Link}
-                                to={`${'custom-component-supply'}/${customComponentSupply.id}/delete`}
+                                to={`${props.match.url}/custom-component-supply/${customComponentSupply.id}/delete`}
                                 color="danger"
                                 size="sm"
                                 data-cy="entityDeleteButton"
@@ -197,7 +201,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                             <div className="btn-group flex-btn-group-container">
                               <Button
                                 tag={Link}
-                                to={`bangle-supply/${bangleSupply.id}/edit`}
+                                to={`${props.match.url}/bangle-supply/${bangleSupply.id}/edit`}
                                 color="primary"
                                 size="sm"
                                 data-cy="entityEditButton"
@@ -209,7 +213,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                               </Button>
                               <Button
                                 tag={Link}
-                                to={`bangle-supply/${bangleSupply.id}/delete`}
+                                to={`${props.match.url}/bangle-supply/${bangleSupply.id}/delete`}
                                 color="danger"
                                 size="sm"
                                 data-cy="entityDeleteButton"
@@ -263,7 +267,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                             <div className="btn-group flex-btn-group-container">
                               <Button
                                 tag={Link}
-                                to={`element-supply/${elementSupply.id}/edit`}
+                                to={`${props.match.url}/element-supply/${elementSupply.id}/edit`}
                                 color="primary"
                                 size="sm"
                                 data-cy="entityEditButton"
@@ -275,7 +279,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                               </Button>
                               <Button
                                 tag={Link}
-                                to={`${'element-supply'}/${elementSupply.id}/delete`}
+                                to={`${props.match.url}/element-supply/${elementSupply.id}/delete`}
                                 color="danger"
                                 size="sm"
                                 data-cy="entityDeleteButton"
@@ -300,10 +304,10 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                           <Translate contentKey={`lappLiApp.MarkingType.${oneStudySupply.markingType}`} />
                         </td>
                         <td>
-                          <Link to={`/one-study-supply/${oneStudySupply.id}`}>{oneStudySupply.number}</Link>
+                          <Link to={`${props.match.url}/one-study-supply/${oneStudySupply.id}`}>{oneStudySupply.number}</Link>
                         </td>
                         <td>
-                          <Link to={`/one-study-supply/${oneStudySupply.id}`}>{oneStudySupply.designation}</Link>
+                          <Link to={`${props.match.url}/one-study-supply/${oneStudySupply.id}`}>{oneStudySupply.designation}</Link>
                         </td>
                         <td>{oneStudySupply.description}</td>
                         <td>{oneStudySupply.meterQuantity}</td>
@@ -328,7 +332,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                           <div className="btn-group flex-btn-group-container">
                             <Button
                               tag={Link}
-                              to={`one-study-supply/${oneStudySupply.id}/edit`}
+                              to={`${props.match.url}/one-study-supply/${oneStudySupply.id}/edit`}
                               color="primary"
                               size="sm"
                               data-cy="entityEditButton"
@@ -340,7 +344,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                             </Button>
                             <Button
                               tag={Link}
-                              to={`one-study-supply/${oneStudySupply.id}/delete`}
+                              to={`${props.match.url}/one-study-supply/${oneStudySupply.id}/delete`}
                               color="danger"
                               size="sm"
                               data-cy="entityDeleteButton"
@@ -362,7 +366,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
                 </div>
               )}
               <Link
-                to={`bangle-supply/new`}
+                to={`${props.match.url}/bangle-supply/new`}
                 className="btn btn-primary jh-create-entity"
                 id="jh-create-entity"
                 data-cy="entityCreateButton"
@@ -373,7 +377,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
               </Link>
               &nbsp;
               <Link
-                to={`custom-component-supply/new`}
+                to={`${props.match.url}/custom-component-supply/new`}
                 className="btn btn-primary jh-create-entity"
                 id="jh-create-entity"
                 data-cy="entityCreateButton"
@@ -384,7 +388,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
               </Link>
               &nbsp;
               <Link
-                to={`element-supply/new`}
+                to={`${props.match.url}/element-supply/new`}
                 className="btn btn-primary jh-create-entity"
                 id="jh-create-entity"
                 data-cy="entityCreateButton"
@@ -395,7 +399,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
               </Link>
               &nbsp;
               <Link
-                to={`one-study-supply/new`}
+                to={`${props.match.url}/one-study-supply/new`}
                 className="btn btn-primary jh-create-entity"
                 id="jh-create-entity"
                 data-cy="entityCreateButton"
@@ -407,7 +411,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ id: string }>) => {
             </div>
           </dd>
         </dl>
-        <Button tag={Link} onClick={props.history.goBack} replace color="info" data-cy="entityDetailsBackButton">
+        <Button tag={Link} to={getOut(props.match.url, getOutCount)} replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.back">Back</Translate>

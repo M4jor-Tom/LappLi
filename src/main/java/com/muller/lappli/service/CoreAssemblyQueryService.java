@@ -85,14 +85,27 @@ public class CoreAssemblyQueryService extends QueryService<CoreAssembly> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), CoreAssembly_.id));
             }
+            if (criteria.getOperationLayer() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getOperationLayer(), CoreAssembly_.operationLayer));
+            }
             if (criteria.getProductionStep() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getProductionStep(), CoreAssembly_.productionStep));
             }
-            if (criteria.getAssemblyStep() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getAssemblyStep(), CoreAssembly_.assemblyStep));
+            if (criteria.getDiameterAssemblyStep() != null) {
+                specification =
+                    specification.and(buildRangeSpecification(criteria.getDiameterAssemblyStep(), CoreAssembly_.diameterAssemblyStep));
             }
             if (criteria.getAssemblyMean() != null) {
                 specification = specification.and(buildSpecification(criteria.getAssemblyMean(), CoreAssembly_.assemblyMean));
+            }
+            if (criteria.getPositionsId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getPositionsId(),
+                            root -> root.join(CoreAssembly_.positions, JoinType.LEFT).get(Position_.id)
+                        )
+                    );
             }
             if (criteria.getStrandId() != null) {
                 specification =

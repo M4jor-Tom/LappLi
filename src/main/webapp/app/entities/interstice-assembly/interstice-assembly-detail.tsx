@@ -42,7 +42,7 @@ export const IntersticeAssemblyDetail = (props: RouteComponentProps<{ id: string
           <dt>
             <Translate contentKey="lappLiApp.nonCentralAssembly.assemblyStep">Assembly Step</Translate>
           </dt>
-          <dd>{intersticeAssemblyEntity.assemblyStep}</dd>
+          <dd>{intersticeAssemblyEntity.diameterAssemblyStep}</dd>
           <dt>
             <Translate contentKey="lappLiApp.nonCentralAssembly.assemblyMean">Assembly Mean</Translate>
           </dt>

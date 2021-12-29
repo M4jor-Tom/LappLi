@@ -80,7 +80,7 @@ export const IntersticeAssembly = (props: RouteComponentProps<{ url: string }>) 
                       ''
                     )}
                   </td>
-                  <td>{intersticeAssembly.assemblyStep}</td>
+                  <td>{intersticeAssembly.diameterAssemblyStep}</td>
                   <td>
                     <Translate contentKey={'lappLiApp.AssemblyMean.' + intersticeAssembly.assemblyMean} />
                   </td>
