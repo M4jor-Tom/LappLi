@@ -78,6 +78,12 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         return Double.NaN;
     }
 
+    @Override
+    public Long getProductionStep() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override

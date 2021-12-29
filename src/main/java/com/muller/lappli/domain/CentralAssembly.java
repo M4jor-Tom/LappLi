@@ -88,6 +88,12 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         }
     }
 
+    @Override
+    public Long getProductionStep() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override

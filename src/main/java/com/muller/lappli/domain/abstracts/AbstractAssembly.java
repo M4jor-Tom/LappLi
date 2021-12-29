@@ -6,16 +6,10 @@ import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.exception.PositionHasSeveralSupplyException;
 import com.muller.lappli.domain.exception.PositionInSeveralAssemblyException;
 import java.util.Set;
-import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotNull;
 
 @MappedSuperclass
 public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends AbstractOperation<T> {
-
-    @NotNull
-    @Column(name = "production_step", nullable = false)
-    private Long productionStep;
 
     @JsonIgnore
     public abstract T getThis();
@@ -27,6 +21,8 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends Ab
     public abstract Set<Position> getPositions();
 
     public abstract Long getOperationLayer();
+
+    public abstract Long getProductionStep();
 
     public void checkPositions() throws PositionInSeveralAssemblyException, PositionHasSeveralSupplyException {
         if (getPositions() != null) {
@@ -55,18 +51,5 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends Ab
         } catch (NullPointerException e) {
             return "";
         }
-    }
-
-    public Long getProductionStep() {
-        return this.productionStep;
-    }
-
-    public T productionStep(Long productionStep) {
-        this.setProductionStep(productionStep);
-        return getThis();
-    }
-
-    public void setProductionStep(Long productionStep) {
-        this.productionStep = productionStep;
     }
 }
