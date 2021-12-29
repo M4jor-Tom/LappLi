@@ -1,6 +1,5 @@
 package com.muller.lappli.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssemblableAtom;
 import com.muller.lappli.domain.interfaces.Article;
 import java.io.Serializable;

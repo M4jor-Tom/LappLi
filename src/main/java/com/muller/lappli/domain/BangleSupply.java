@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;

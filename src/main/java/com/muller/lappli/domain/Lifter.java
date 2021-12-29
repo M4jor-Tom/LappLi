@@ -5,7 +5,6 @@ import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.domain.exception.UnknownSupplyException;
-import io.jsonwebtoken.lang.UnknownClassException;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
