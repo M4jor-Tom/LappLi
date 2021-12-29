@@ -19,6 +19,14 @@ enum SupplyOwner {
   STUDY = 'study',
 }
 
+function getOutFromStudySupplyStrandSupplyComponent(url: string, isNew: string): string {
+  if (isNew) {
+    return getOut(url, 1);
+  }
+
+  return getOut(url, 2);
+}
+
 function getOut(url: string, getOutCount: number): string {
   //  Remove 1 directory from url
   url = url.substring(0, url.lastIndexOf('/'));
@@ -141,6 +149,7 @@ function getStrandValidateField(
 
 export {
   SupplyKind,
+  getOutFromStudySupplyStrandSupplyComponent,
   getOut,
   isStrandSupply,
   getStrandSupplyRedirectionUrl,
