@@ -20,8 +20,6 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
 
   const { match } = props;
 
-  const crudBaseUrl = '/strand/' + props.match.params.id;
-
   const getOutCount: number = props.match.params.study_id ? 2 : 0;
 
   return (
@@ -70,7 +68,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
                     <div className="btn-group flex-btn-group-container">
                       <Button
                         tag={Link}
-                        to={`${crudBaseUrl}/central-assembly/${strandEntity.centralAssembly.id}/supply`}
+                        to={`${props.match.url}/central-assembly/${strandEntity.centralAssembly.id}/supply`}
                         color="primary"
                         size="sm"
                         data-cy="entityEditButton"
@@ -82,7 +80,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
                       </Button>
                       <Button
                         tag={Link}
-                        to={`${crudBaseUrl}/central-assembly/${strandEntity.centralAssembly.id}/edit`}
+                        to={`${props.match.url}/central-assembly/${strandEntity.centralAssembly.id}/edit`}
                         color="primary"
                         size="sm"
                         data-cy="entityEditButton"
@@ -94,7 +92,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
                       </Button>
                       <Button
                         tag={Link}
-                        to={`${crudBaseUrl}/central-assembly/${strandEntity.centralAssembly.id}/delete`}
+                        to={`${props.match.url}/central-assembly/${strandEntity.centralAssembly.id}/delete`}
                         color="danger"
                         size="sm"
                         data-cy="entityDeleteButton"
@@ -124,7 +122,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
                         <div className="btn-group flex-btn-group-container">
                           <Button
                             tag={Link}
-                            to={`${crudBaseUrl}/core-assembly/${coreAssembly.id}/supply`}
+                            to={`${props.match.url}/core-assembly/${coreAssembly.id}/supply`}
                             color="primary"
                             size="sm"
                             data-cy="entityEditButton"
@@ -136,7 +134,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
                           </Button>
                           <Button
                             tag={Link}
-                            to={`${crudBaseUrl}/core-assembly/${coreAssembly.id}/edit`}
+                            to={`${props.match.url}/core-assembly/${coreAssembly.id}/edit`}
                             color="primary"
                             size="sm"
                             data-cy="entityEditButton"
@@ -148,7 +146,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
                           </Button>
                           <Button
                             tag={Link}
-                            to={`${crudBaseUrl}/core-assembly/${coreAssembly.id}/delete`}
+                            to={`${props.match.url}/core-assembly/${coreAssembly.id}/delete`}
                             color="danger"
                             size="sm"
                             data-cy="entityDeleteButton"
@@ -177,7 +175,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
                         <div className="btn-group flex-btn-group-container">
                           <Button
                             tag={Link}
-                            to={`${crudBaseUrl}/interstice-assembly/${intersticialAssembly.id}/supply`}
+                            to={`${props.match.url}/interstice-assembly/${intersticialAssembly.id}/supply`}
                             color="primary"
                             size="sm"
                             data-cy="entityEditButton"
@@ -189,7 +187,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
                           </Button>
                           <Button
                             tag={Link}
-                            to={`${crudBaseUrl}/interstice-assembly/${intersticialAssembly.id}/edit`}
+                            to={`${props.match.url}/interstice-assembly/${intersticialAssembly.id}/edit`}
                             color="primary"
                             size="sm"
                             data-cy="entityEditButton"
@@ -201,7 +199,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
                           </Button>
                           <Button
                             tag={Link}
-                            to={`${crudBaseUrl}/interstice-assembly/${intersticialAssembly.id}/delete`}
+                            to={`${props.match.url}/interstice-assembly/${intersticialAssembly.id}/delete`}
                             color="danger"
                             size="sm"
                             data-cy="entityDeleteButton"
@@ -235,7 +233,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
         ) : (
           <>
             <Link
-              to={`central-assembly/new`}
+              to={`${props.match.url}/central-assembly/new`}
               className="btn btn-primary jh-create-entity"
               id="jh-create-entity"
               data-cy="entityCreateButton"
@@ -247,14 +245,19 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
             &nbsp;
           </>
         )}
-        <Link to={`core-assembly/new`} className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
+        <Link
+          to={`${props.match.url}/core-assembly/new`}
+          className="btn btn-primary jh-create-entity"
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+        >
           <FontAwesomeIcon icon="plus" />
           &nbsp;
           <Translate contentKey="lappLiApp.coreAssembly.home.createLabel">Create new Core Assembly</Translate>
         </Link>
         &nbsp;
         <Link
-          to={`interstice-assembly/new`}
+          to={`${props.match.url}/interstice-assembly/new`}
           className="btn btn-primary jh-create-entity"
           id="jh-create-entity"
           data-cy="entityCreateButton"

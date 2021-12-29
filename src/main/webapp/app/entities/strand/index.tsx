@@ -54,7 +54,7 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/supply/one-study-supply/:id/edit`} component={OneStudySupplyUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/supply/one-study-supply/:id/delete`} component={OneStudySupplyDeleteDialog} />*/}
 
-      <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/central-assembly/new`} component={CentralAssemblyUpdate} />
+      {/* <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/central-assembly/new`} component={CentralAssemblyUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/central-assembly/:id/edit`} component={CentralAssemblyUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:strand_id/central-assembly/:id/delete`} component={CentralAssemblyDeleteDialog} />
 
@@ -68,7 +68,7 @@ const Routes = ({ match }) => (
         exact
         path={`${match.url}/:strand_id/interstice-assembly/:id/delete`}
         component={IntersticeAssemblyDeleteDialog}
-      />
+      />*/}
 
       <ErrorBoundaryRoute path={match.url} component={Strand} />
     </Switch>
