@@ -19,8 +19,25 @@ enum SupplyOwner {
   STUDY = 'study',
 }
 
-function getOut(url: string): string {
-  return url.substring(0, url.lastIndexOf('/'));
+function getOutFromStudySupplyStrandSupplyComponent(url: string, isNew: boolean): string {
+  if (isNew != null && isNew) {
+    return getOut(url, 1);
+  }
+
+  return getOut(url, 2);
+}
+
+function getOut(url: string, getOutCount: number): string {
+  //  Remove 1 directory from url
+  url = url.substring(0, url.lastIndexOf('/'));
+
+  if (getOutCount > 0) {
+    //  Remove getOutCount directories to url by recursion
+    return getOut(url, getOutCount - 1);
+  }
+
+  //  Recursion leaf, get out normaly
+  return url;
 }
 
 function isStudySupply(props: RouteComponentProps<{ study_id: string; id: string }>): string {
@@ -132,6 +149,7 @@ function getStrandValidateField(
 
 export {
   SupplyKind,
+  getOutFromStudySupplyStrandSupplyComponent,
   getOut,
   isStrandSupply,
   getStrandSupplyRedirectionUrl,
