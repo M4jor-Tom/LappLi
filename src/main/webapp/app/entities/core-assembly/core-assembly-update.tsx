@@ -12,7 +12,11 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { AssemblyMean } from 'app/shared/model/enumerations/assembly-mean.model';
-import { getOutFromStudySupplyStrandAssemblyComponent } from '../index-management/index-management-lib';
+import {
+  AssemblyKind,
+  getAssemblyStrandValidatedField,
+  getOutFromStudySupplyStrandAssemblyComponent,
+} from '../index-management/index-management-lib';
 
 export const CoreAssemblyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
@@ -30,6 +34,8 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ strand_id: strin
   const handleClose = () => {
     props.history.push(redirectionUrl);
   };
+
+  const strandValidatedField = getAssemblyStrandValidatedField(props, strands, AssemblyKind.CORE);
 
   useEffect(() => {
     if (isNew) {
@@ -141,26 +147,7 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ strand_id: strin
                   </option>
                 ))}
               </ValidatedField>
-              <ValidatedField
-                id="core-assembly-strand"
-                name="strand"
-                data-cy="strand"
-                label={translate('lappLiApp.coreAssembly.strand')}
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {strands
-                  ? strands.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.designation}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
+              {strandValidatedField}
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

@@ -11,7 +11,11 @@ import { IIntersticeAssembly } from 'app/shared/model/interstice-assembly.model'
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-import { getOutFromStudySupplyStrandAssemblyComponent } from '../index-management/index-management-lib';
+import {
+  AssemblyKind,
+  getAssemblyStrandValidatedField,
+  getOutFromStudySupplyStrandAssemblyComponent,
+} from '../index-management/index-management-lib';
 
 export const IntersticeAssemblyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
@@ -28,6 +32,8 @@ export const IntersticeAssemblyUpdate = (props: RouteComponentProps<{ strand_id:
   const handleClose = () => {
     props.history.push(redirectionUrl);
   };
+
+  const strandValidatedField = getAssemblyStrandValidatedField(props, strands, AssemblyKind.INTERSTICE);
 
   useEffect(() => {
     if (isNew) {
@@ -103,26 +109,7 @@ export const IntersticeAssemblyUpdate = (props: RouteComponentProps<{ strand_id:
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
               />
-              <ValidatedField
-                id="interstice-assembly-strand"
-                name="strand"
-                data-cy="strand"
-                label={translate('lappLiApp.intersticeAssembly.strand')}
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {strands
-                  ? strands.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.designation}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
+              {strandValidatedField}
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

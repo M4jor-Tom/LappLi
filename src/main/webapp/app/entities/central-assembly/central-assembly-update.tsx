@@ -13,7 +13,11 @@ import { ICentralAssembly } from 'app/shared/model/central-assembly.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-import { getOutFromStudySupplyStrandAssemblyComponent } from '../index-management/index-management-lib';
+import {
+  AssemblyKind,
+  getAssemblyStrandValidatedField,
+  getOutFromStudySupplyStrandAssemblyComponent,
+} from '../index-management/index-management-lib';
 
 export const CentralAssemblyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
@@ -31,6 +35,8 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ strand_id: st
   const handleClose = () => {
     props.history.push(redirectionUrl);
   };
+
+  const strandValidatedField = getAssemblyStrandValidatedField(props, strands, AssemblyKind.CENTRAL);
 
   useEffect(() => {
     if (isNew) {
@@ -109,26 +115,7 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ strand_id: st
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
               />
-              <ValidatedField
-                id="central-assembly-strand"
-                name="strand"
-                data-cy="strand"
-                label={translate('lappLiApp.centralAssembly.strand')}
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {strands
-                  ? strands.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.designation}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
+              {strandValidatedField}
               <ValidatedField
                 id="central-assembly-position"
                 name="position"

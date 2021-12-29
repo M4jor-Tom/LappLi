@@ -165,6 +165,7 @@ function getAssemblyStrandValidatedField(
 
 export {
   SupplyKind,
+  AssemblyKind,
   getOutFromStudySupplyStrandAssemblyComponent,
   getOutFromStudySupplyStrandSupplyComponent,
   getSupplyStrandValidatedField,
