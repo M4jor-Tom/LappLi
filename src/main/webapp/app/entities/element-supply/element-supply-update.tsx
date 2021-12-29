@@ -20,7 +20,7 @@ import {
   getOut,
   getOutFromStudySupplyStrandSupplyComponent,
   getStrandSupplyRedirectionUrl,
-  getStrandValidateField,
+  getSupplyStrandValidatedField,
   isStrandSupply,
   SupplyKind,
 } from '../index-management/index-management-lib';
@@ -79,7 +79,7 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ strand_id: stri
     }
   };
 
-  const strandValidateField = getStrandValidateField(props, strands, SupplyKind.ELEMENT);
+  const strandValidateField = getSupplyStrandValidatedField(props, strands, SupplyKind.ELEMENT);
 
   const defaultValues = () =>
     isNew

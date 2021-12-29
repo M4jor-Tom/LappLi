@@ -19,7 +19,7 @@ import { getOutFromStudySupplyStrandSupplyComponent, getStudyValidateField } fro
 
 import {
   getStrandSupplyRedirectionUrl,
-  getStrandValidateField,
+  getSupplyStrandValidatedField,
   isStrandSupply,
   SupplyKind,
 } from '../index-management/index-management-lib';
@@ -75,7 +75,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
     }
   };
 
-  const strandValidateField = getStrandValidateField(props, strands, SupplyKind.BANGLE);
+  const strandValidateField = getSupplyStrandValidatedField(props, strands, SupplyKind.BANGLE);
 
   const defaultValues = () =>
     isNew
