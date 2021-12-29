@@ -82,6 +82,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
                           <Translate contentKey="lappLiApp.assembly.subSupply">Assembly Supply</Translate>
                         </span>
                       </Button>
+                      &nbsp;
                       <Button
                         tag={Link}
                         to={`${props.match.url}/central-assembly/${strandEntity.centralAssembly.id}/edit`}
@@ -94,6 +95,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
                           <Translate contentKey="entity.action.edit">Edit</Translate>
                         </span>
                       </Button>
+                      &nbsp;
                       <Button
                         tag={Link}
                         to={`${props.match.url}/central-assembly/${strandEntity.centralAssembly.id}/delete`}
@@ -137,6 +139,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
                               <Translate contentKey="lappLiApp.assembly.subSupply">Assembly Supply</Translate>
                             </span>
                           </Button>
+                          &nbsp;
                           <Button
                             tag={Link}
                             to={`${props.match.url}/core-assembly/${coreAssembly.id}/edit`}
@@ -149,6 +152,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
                               <Translate contentKey="entity.action.edit">Edit</Translate>
                             </span>
                           </Button>
+                          &nbsp;
                           <Button
                             tag={Link}
                             to={`${props.match.url}/core-assembly/${coreAssembly.id}/delete`}
@@ -191,6 +195,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
                               <Translate contentKey="lappLiApp.assembly.subSupply">Assembly Supply</Translate>
                             </span>
                           </Button>
+                          &nbsp;
                           <Button
                             tag={Link}
                             to={`${props.match.url}/interstice-assembly/${intersticialAssembly.id}/edit`}
@@ -203,6 +208,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
                               <Translate contentKey="entity.action.edit">Edit</Translate>
                             </span>
                           </Button>
+                          &nbsp;
                           <Button
                             tag={Link}
                             to={`${props.match.url}/interstice-assembly/${intersticialAssembly.id}/delete`}
