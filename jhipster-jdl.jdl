@@ -152,6 +152,11 @@ relationship OneToOne {
 	Position{oneStudySupply(designation)} to OneStudySupply{position(value)}
 }
 
+relationship OneToOne {
+    //Supplies owned in a Strand as PLACED
+	CentralAssembly{position(value)} to Position{ownerCentralAssembly(designation)}
+}
+
 relationship OneToMany {
 	Strand{coreAssemblies(productionStep)} to CoreAssembly{strand(designation) required}
 	Strand{intersticeAssemblies(productionStep)} to IntersticeAssembly{strand(designation) required}
@@ -174,11 +179,6 @@ relationship OneToMany {
     //Supplies owned in a Strand as PLACED
     CoreAssembly{positions(value)} to Position{ownerCoreAssembly(designation)}
     IntersticeAssembly{positions(value)} to Position{ownerIntersticeAssembly(designation)}
-}
-
-relationship OneToOne {
-    //Supplies owned in a Strand as PLACED
-	CentralAssembly{position(value)} to Position{ownerCentralAssembly(designation)}
 }
 
 relationship OneToMany {
