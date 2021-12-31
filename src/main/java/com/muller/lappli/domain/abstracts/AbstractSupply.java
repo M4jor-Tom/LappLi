@@ -3,6 +3,7 @@ package com.muller.lappli.domain.abstracts;
 import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.enumeration.SupplyState;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.text.DecimalFormat;
 import javax.persistence.MappedSuperclass;
@@ -51,6 +52,19 @@ public abstract class AbstractSupply<T> {
      * @return the representated component
      */
     public abstract CylindricComponent getCylindricComponent();
+
+    /**
+     * @return the representative SupplyState
+     */
+    public SupplyState getSupplyState() {
+        if (getPosition() != null) {
+            return SupplyState.PLACED;
+        } else if (getStrand() != null) {
+            return SupplyState.DIVIDED_UNPLACED;
+        }
+
+        return SupplyState.UNDIVIED;
+    }
 
     /**
      * @return the designation of the representated component
