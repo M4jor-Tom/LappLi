@@ -73,25 +73,25 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
         return getThis();
     }
 
-    /**
-     * @param strandSupply the divider StrandSupply
-     * @return the apparitions of this into strandSupply
-     * @throws IllegalStrandSupplyException if the StrandSupply doesn't own this
-     */
-    public Long getDividedApparitions(StrandSupply strandSupply) throws IllegalStrandSupplyException {
-        Boolean legalStrandSupply = false;
-
-        for (AbstractSupply<?> supply : strandSupply.getStrand().getSupplies()) {
-            if (supply.equals(this)) {
-                legalStrandSupply = true;
+    public StrandSupply getObserverStrandSupply() {
+        for (StrandSupply strandSupply : getObserverStudy().getStrandSupplies()) {
+            if (strandSupply.getStrand().getSupplies().contains(this)) {
+                return strandSupply;
             }
         }
 
-        if (!legalStrandSupply) {
-            throw new IllegalStrandSupplyException();
-        }
+        return null;
+    }
 
-        return getApparitions() / strandSupply.getApparitions();
+    /**
+     * @return the apparitions of this into its observerStrandSupply
+     */
+    public Long getDividedApparitions() {
+        try {
+            return getApparitions() / getObserverStrandSupply().getApparitions();
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     /**
