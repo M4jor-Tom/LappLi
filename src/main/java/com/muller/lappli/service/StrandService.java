@@ -41,6 +41,15 @@ public interface StrandService extends ReadTriggerableService<Strand> {
      * Get the "id" strand.
      *
      * @param id the id of the entity.
+     * @param strandSupplyId the id of the strandSupply
+     * @return the entity.
+     */
+    public Optional<Strand> findOneByStrandSupplyId(Long strandSupplyId);
+
+    /**
+     * Get the "id" strand.
+     *
+     * @param id the id of the entity.
      * @return the entity.
      */
     Optional<Strand> findOne(Long id);
