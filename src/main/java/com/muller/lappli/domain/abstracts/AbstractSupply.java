@@ -4,10 +4,12 @@ import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.StrandSupply;
+import com.muller.lappli.domain.Study;
 import com.muller.lappli.domain.exception.IllegalStrandSupplyException;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.text.DecimalFormat;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 
 /**
  * An abstract mother class for each Supply class
@@ -17,6 +19,9 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
+
+    @Transient
+    private Study observerStudy;
 
     /**
      * The unity length which Muller uses to measure cables statistics
@@ -53,6 +58,20 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      * @return the representated component
      */
     public abstract CylindricComponent getCylindricComponent();
+
+    public Study getObserverStudy() {
+        return observerStudy;
+    }
+
+    public void setObserverStudy(Study observerStudy) {
+        this.observerStudy = observerStudy;
+    }
+
+    public T observerStudy(Study observerStudy) {
+        setObserverStudy(observerStudy);
+
+        return getThis();
+    }
 
     /**
      * @param strandSupply the divider StrandSupply
