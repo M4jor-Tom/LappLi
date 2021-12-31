@@ -257,6 +257,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         return this;
     }
 
+    @Override
     public Strand getStrand() {
         return this.strand;
     }
