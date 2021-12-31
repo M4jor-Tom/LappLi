@@ -1,15 +1,12 @@
 package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.Strand;
-import com.muller.lappli.domain.StrandSupply;
-import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.repository.StrandRepository;
 import com.muller.lappli.service.BangleSupplyService;
 import com.muller.lappli.service.CustomComponentSupplyService;
 import com.muller.lappli.service.ElementSupplyService;
 import com.muller.lappli.service.OneStudySupplyService;
 import com.muller.lappli.service.StrandService;
-import com.muller.lappli.service.StrandSupplyService;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,22 +35,18 @@ public class StrandServiceImpl implements StrandService {
 
     private final OneStudySupplyService oneStudySupplyService;
 
-    private final StrandSupplyService strandSupplyService;
-
     public StrandServiceImpl(
         StrandRepository strandRepository,
         BangleSupplyService bangleSupplyService,
         CustomComponentSupplyService customComponentSupplyService,
         ElementSupplyService elementSupplyService,
-        OneStudySupplyService oneStudySupplyService,
-        StrandSupplyService strandSupplyService
+        OneStudySupplyService oneStudySupplyService
     ) {
         this.strandRepository = strandRepository;
         this.bangleSupplyService = bangleSupplyService;
         this.customComponentSupplyService = customComponentSupplyService;
         this.elementSupplyService = elementSupplyService;
         this.oneStudySupplyService = oneStudySupplyService;
-        this.strandSupplyService = strandSupplyService;
     }
 
     @Override
@@ -96,26 +89,6 @@ public class StrandServiceImpl implements StrandService {
                 .filter(strand -> strand.getCentralAssembly() == null)
                 .collect(Collectors.toList())
         );
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<Strand> findOneByStrandSupplyId(Long strandSupplyId) {
-        Optional<StrandSupply> strandSupplyOptional = strandSupplyService.findOne(strandSupplyId);
-
-        Optional<Strand> strandOptional = Optional.empty();
-
-        if (strandSupplyOptional.isPresent()) {
-            strandOptional = findOne(strandSupplyOptional.get().getStrand().getId());
-
-            if (strandOptional.isPresent()) {
-                for (AbstractSupply<?> supply : strandOptional.get().getSupplies()) {
-                    supply.setObserverStrandSupply(strandSupplyOptional.get());
-                }
-            }
-        }
-
-        return strandOptional;
     }
 
     @Override
