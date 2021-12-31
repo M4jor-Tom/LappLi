@@ -3,6 +3,8 @@ package com.muller.lappli.domain.abstracts;
 import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.StrandSupply;
+import com.muller.lappli.domain.exception.IllegalStrandSupplyException;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.text.DecimalFormat;
 import javax.persistence.MappedSuperclass;
@@ -51,6 +53,27 @@ public abstract class AbstractSupply<T> {
      * @return the representated component
      */
     public abstract CylindricComponent getCylindricComponent();
+
+    /**
+     * @param strandSupply the divider StrandSupply
+     * @return the apparitions of this into strandSupply
+     * @throws IllegalStrandSupplyException if the StrandSupply doesn't own this
+     */
+    public Long getDividedApparitions(StrandSupply strandSupply) throws IllegalStrandSupplyException {
+        Boolean legalStrandSupply = false;
+
+        for (AbstractSupply<?> supply : strandSupply.getStrand().getSupplies()) {
+            if (supply.equals(this)) {
+                legalStrandSupply = true;
+            }
+        }
+
+        if (!legalStrandSupply) {
+            throw new IllegalStrandSupplyException();
+        }
+
+        return getApparitions() / strandSupply.getApparitions();
+    }
 
     /**
      * Tells if the Supply is placed into a Strand's Assembly
