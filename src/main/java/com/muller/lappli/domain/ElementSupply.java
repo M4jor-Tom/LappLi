@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
+import com.muller.lappli.domain.enumeration.SupplyState;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -82,6 +83,11 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
     @Override
     public CylindricComponent getCylindricComponent() {
         return getElement();
+    }
+
+    @Override
+    public SupplyState getSupplyState() {
+        return super.getSupplyState();
     }
 
     @Override

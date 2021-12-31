@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
+import com.muller.lappli.domain.enumeration.SupplyState;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -100,6 +101,11 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
             .designation(getDesignation())
             .milimeterDiameter(getMilimeterDiameter())
             .gramPerMeterLinearMass(getGramPerMeterLinearMass());
+    }
+
+    @Override
+    public SupplyState getSupplyState() {
+        return super.getSupplyState();
     }
 
     public Long getId() {

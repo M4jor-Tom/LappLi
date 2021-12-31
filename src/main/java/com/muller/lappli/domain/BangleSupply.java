@@ -3,6 +3,7 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
+import com.muller.lappli.domain.enumeration.SupplyState;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -71,6 +72,11 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     @Override
     public CylindricComponent getCylindricComponent() {
         return getBangle();
+    }
+
+    @Override
+    public SupplyState getSupplyState() {
+        return super.getSupplyState();
     }
 
     @Override
