@@ -9,4 +9,4 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface BangleRepository extends JpaRepository<Bangle, Long>, JpaSpecificationExecutor<Bangle> {}
+public interface BangleRepository extends JpaRepository<Bangle, Long> {}

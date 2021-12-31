@@ -9,4 +9,4 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface StudyRepository extends JpaRepository<Study, Long>, JpaSpecificationExecutor<Study> {}
+public interface StudyRepository extends JpaRepository<Study, Long> {}

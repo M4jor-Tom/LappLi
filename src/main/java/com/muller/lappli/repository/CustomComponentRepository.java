@@ -9,4 +9,4 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface CustomComponentRepository extends JpaRepository<CustomComponent, Long>, JpaSpecificationExecutor<CustomComponent> {}
+public interface CustomComponentRepository extends JpaRepository<CustomComponent, Long> {}

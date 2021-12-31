@@ -2,9 +2,7 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.repository.StrandSupplyRepository;
-import com.muller.lappli.service.StrandSupplyQueryService;
 import com.muller.lappli.service.StrandSupplyService;
-import com.muller.lappli.service.criteria.StrandSupplyCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,16 +37,9 @@ public class StrandSupplyResource {
 
     private final StrandSupplyRepository strandSupplyRepository;
 
-    private final StrandSupplyQueryService strandSupplyQueryService;
-
-    public StrandSupplyResource(
-        StrandSupplyService strandSupplyService,
-        StrandSupplyRepository strandSupplyRepository,
-        StrandSupplyQueryService strandSupplyQueryService
-    ) {
+    public StrandSupplyResource(StrandSupplyService strandSupplyService, StrandSupplyRepository strandSupplyRepository) {
         this.strandSupplyService = strandSupplyService;
         this.strandSupplyRepository = strandSupplyRepository;
-        this.strandSupplyQueryService = strandSupplyQueryService;
     }
 
     /**
@@ -144,26 +135,12 @@ public class StrandSupplyResource {
     /**
      * {@code GET  /strand-supplies} : get all the strandSupplies.
      *
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of strandSupplies in body.
      */
     @GetMapping("/strand-supplies")
-    public ResponseEntity<List<StrandSupply>> getAllStrandSupplies(StrandSupplyCriteria criteria) {
-        log.debug("REST request to get StrandSupplies by criteria: {}", criteria);
-        List<StrandSupply> entityList = strandSupplyQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /strand-supplies/count} : count all the strandSupplies.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/strand-supplies/count")
-    public ResponseEntity<Long> countStrandSupplies(StrandSupplyCriteria criteria) {
-        log.debug("REST request to count StrandSupplies by criteria: {}", criteria);
-        return ResponseEntity.ok().body(strandSupplyQueryService.countByCriteria(criteria));
+    public List<StrandSupply> getAllStrandSupplies() {
+        log.debug("REST request to get all StrandSupplies");
+        return strandSupplyService.findAll();
     }
 
     /**

@@ -3,7 +3,6 @@ package com.muller.lappli.service.impl;
 import com.muller.lappli.domain.Lifter;
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import com.muller.lappli.repository.LifterRepository;
-import com.muller.lappli.service.LifterQueryService;
 import com.muller.lappli.service.LifterService;
 import java.util.ArrayList;
 import java.util.List;

@@ -9,5 +9,4 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface MaterialMarkingStatisticRepository
-    extends JpaRepository<MaterialMarkingStatistic, Long>, JpaSpecificationExecutor<MaterialMarkingStatistic> {}
+public interface MaterialMarkingStatisticRepository extends JpaRepository<MaterialMarkingStatistic, Long> {}

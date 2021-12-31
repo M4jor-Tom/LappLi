@@ -3,9 +3,7 @@ package com.muller.lappli.web.rest;
 import com.muller.lappli.domain.IntersticeAssembly;
 import com.muller.lappli.repository.IntersticeAssemblyRepository;
 import com.muller.lappli.service.IAssemblyService;
-import com.muller.lappli.service.IntersticeAssemblyQueryService;
 import com.muller.lappli.service.IntersticeAssemblyService;
-import com.muller.lappli.service.criteria.IntersticeAssemblyCriteria;
 import com.muller.lappli.web.rest.abstracts.AbstractAssemblyResource;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -41,16 +39,12 @@ public class IntersticeAssemblyResource extends AbstractAssemblyResource<Interst
 
     private final IntersticeAssemblyRepository intersticeAssemblyRepository;
 
-    private final IntersticeAssemblyQueryService intersticeAssemblyQueryService;
-
     public IntersticeAssemblyResource(
         IntersticeAssemblyService intersticeAssemblyService,
-        IntersticeAssemblyRepository intersticeAssemblyRepository,
-        IntersticeAssemblyQueryService intersticeAssemblyQueryService
+        IntersticeAssemblyRepository intersticeAssemblyRepository
     ) {
         this.intersticeAssemblyService = intersticeAssemblyService;
         this.intersticeAssemblyRepository = intersticeAssemblyRepository;
-        this.intersticeAssemblyQueryService = intersticeAssemblyQueryService;
     }
 
     @Override
@@ -145,26 +139,12 @@ public class IntersticeAssemblyResource extends AbstractAssemblyResource<Interst
     /**
      * {@code GET  /interstice-assemblies} : get all the intersticeAssemblies.
      *
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of intersticeAssemblies in body.
      */
     @GetMapping("/interstice-assemblies")
-    public ResponseEntity<List<IntersticeAssembly>> getAllIntersticeAssemblies(IntersticeAssemblyCriteria criteria) {
-        log.debug("REST request to get IntersticeAssemblies by criteria: {}", criteria);
-        List<IntersticeAssembly> entityList = intersticeAssemblyQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /interstice-assemblies/count} : count all the intersticeAssemblies.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/interstice-assemblies/count")
-    public ResponseEntity<Long> countIntersticeAssemblies(IntersticeAssemblyCriteria criteria) {
-        log.debug("REST request to count IntersticeAssemblies by criteria: {}", criteria);
-        return ResponseEntity.ok().body(intersticeAssemblyQueryService.countByCriteria(criteria));
+    public List<IntersticeAssembly> getAllIntersticeAssemblies() {
+        log.debug("REST request to get all IntersticeAssemblies");
+        return intersticeAssemblyService.findAll();
     }
 
     /**
