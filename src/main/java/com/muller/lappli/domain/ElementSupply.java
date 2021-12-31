@@ -218,6 +218,7 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
         return this;
     }
 
+    @Override
     public Strand getStrand() {
         return this.strand;
     }

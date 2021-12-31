@@ -173,6 +173,7 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
         return this;
     }
 
+    @Override
     public Strand getStrand() {
         return this.strand;
     }

@@ -197,6 +197,7 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
         return this;
     }
 
+    @Override
     public Strand getStrand() {
         return this.strand;
     }
