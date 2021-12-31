@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
+import com.muller.lappli.domain.enumeration.SupplyState;
 import com.muller.lappli.domain.exception.NoIntersticeAvailableException;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -69,6 +70,18 @@ public class Strand implements Serializable {
         }
 
         return lastCoreAssembly;
+    }
+
+    public Set<AbstractSupply<?>> getSuppliesOfSupplyState(SupplyState supplyState) {
+        HashSet<AbstractSupply<?>> supplies = new HashSet<>();
+
+        for (AbstractSupply<?> supply : getSupplies()) {
+            if (supply.getSupplyState().equals(supplyState)) {
+                supplies.add(supply);
+            }
+        }
+
+        return supplies;
     }
 
     public Set<AbstractSupply<?>> getSupplies() {
