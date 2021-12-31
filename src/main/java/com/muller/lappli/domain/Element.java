@@ -40,15 +40,10 @@ public class Element extends AbstractAssemblableAtom<Element> implements Article
     //@JsonIgnoreProperties(value = { "copper"/*, "insulationMaterial"*/ }, allowSetters = true)
     private ElementKind elementKind;
 
-    /*public Element() {
-        this(null, Color.NONE, new ElementKind());
+    @Override
+    public Element getThis() {
+        return this;
     }
-
-    public Element(Long number, Color color, ElementKind elementKind) {
-        setNumber(number);
-        setColor(color);
-        setElementKind(elementKind);
-    }*/
 
     @Override
     @JsonIgnore

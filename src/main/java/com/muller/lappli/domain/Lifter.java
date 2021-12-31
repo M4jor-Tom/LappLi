@@ -58,26 +58,10 @@ public class Lifter extends AbstractDomainObject<Lifter> implements Serializable
     @Column(name = "supports_rsd_marking_technique", nullable = false)
     private Boolean supportsRsdMarkingTechnique;
 
-    /*public Lifter() {
-        this(null, Double.NaN, Double.NaN, false, false, false);
+    @Override
+    public Lifter getThis() {
+        return this;
     }
-
-    public Lifter(
-        Long index,
-        Double minimumMilimeterDiameter,
-        Double maximumMilimeterDiameter,
-        Boolean supportsSpirallyColoredMarkingType,
-        Boolean supportsLongitudinallyColoredMarkingType,
-        Boolean supportsNumberedMarkingType
-    ) {
-        super();
-        setIndex(index);
-        setMinimumMilimeterDiameter(minimumMilimeterDiameter);
-        setMaximumMilimeterDiameter(maximumMilimeterDiameter);
-        setSupportsSpirallyColoredMarkingType(supportsSpirallyColoredMarkingType);
-        setSupportsLongitudinallyColoredMarkingType(supportsLongitudinallyColoredMarkingType);
-        setSupportsNumberedMarkingType(supportsNumberedMarkingType);
-    }*/
 
     public String getName() {
         try {

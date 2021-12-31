@@ -48,22 +48,10 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
         super();
     }
 
-    /*public ElementKindEdition() {
-        this(Double.NaN, Double.NaN, Double.NaN, new ElementKind());
+    @Override
+    public ElementKindEdition getThis() {
+        return this;
     }
-
-    public ElementKindEdition(
-        Double newGramPerMeterLinearMass,
-        Double newMilimeterDiameter,
-        Double newInsulationThickness,
-        ElementKind editedElementKind
-    ) {
-        setEditionDateTime(Instant.now());
-        setNewGramPerMeterLinearMass(newGramPerMeterLinearMass);
-        setNewMilimeterDiameter(newMilimeterDiameter);
-        setNewInsulationThickness(newInsulationThickness);
-        setEditedElementKind(editedElementKind);
-    }*/
 
     @Override
     public ElementKind getEditedCommitable() {

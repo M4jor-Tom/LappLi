@@ -45,6 +45,11 @@ public class Bangle extends AbstractAssemblableAtom<Bangle> implements Article, 
     private Material material;
 
     @Override
+    public Bangle getThis() {
+        return this;
+    }
+
+    @Override
     public Long getArticleNumber() {
         return getNumber();
     }

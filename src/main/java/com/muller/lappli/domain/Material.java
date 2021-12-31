@@ -55,6 +55,11 @@ public class Material extends AbstractDomainObject<Material> implements Article,
         );
     }
 
+    @Override
+    public Material getThis() {
+        return this;
+    }
+
     public Object copy() {
         return new Material(this).id(getId());
     }
