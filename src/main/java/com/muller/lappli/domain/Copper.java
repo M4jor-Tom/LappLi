@@ -51,6 +51,11 @@ public class Copper extends AbstractDomainObject<Copper> implements Article, Ser
         return getNumber();
     }
 
+    @Override
+    public Copper getThis() {
+        return this;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {

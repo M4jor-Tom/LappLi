@@ -45,16 +45,10 @@ public class MaterialMarkingStatistic extends AbstractDomainObject<MaterialMarki
     @JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material material;
 
-    /*public MaterialMarkingStatistic() {
-        this(MarkingType.LIFTING, MarkingTechnique.NONE, null, new Material());
+    @Override
+    public MaterialMarkingStatistic getThis() {
+        return this;
     }
-
-    public MaterialMarkingStatistic(MarkingType markingType, MarkingTechnique markingTechnique, Long meterPerHourSpeed, Material material) {
-        setMarkingType(markingType);
-        setMarkingTechnique(markingTechnique);
-        setMeterPerHourSpeed(meterPerHourSpeed);
-        setMaterial(material);
-    }*/
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
