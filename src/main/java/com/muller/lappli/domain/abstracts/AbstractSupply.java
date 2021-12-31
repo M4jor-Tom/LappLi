@@ -5,7 +5,6 @@ import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.StrandSupply;
-import com.muller.lappli.domain.Study;
 import com.muller.lappli.domain.exception.AppartionDivisionNonNullRemainderException;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.text.DecimalFormat;
@@ -22,7 +21,7 @@ import javax.persistence.Transient;
 public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
 
     @Transient
-    private Study observerStudy;
+    private StrandSupply observerStrandSupply;
 
     /**
      * The unity length which Muller uses to measure cables statistics
@@ -61,28 +60,18 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      */
     public abstract CylindricComponent getCylindricComponent();
 
-    public Study getObserverStudy() {
-        return observerStudy;
+    public StrandSupply getObserverStrandSupply() {
+        return observerStrandSupply;
     }
 
-    public void setObserverStudy(Study observerStudy) {
-        this.observerStudy = observerStudy;
+    public void setObserverStrandSupply(StrandSupply observerStrandSupply) {
+        this.observerStrandSupply = observerStrandSupply;
     }
 
-    public T observerStudy(Study observerStudy) {
-        setObserverStudy(observerStudy);
+    public T observerStrandSupply(StrandSupply strandSupply) {
+        setObserverStrandSupply(observerStrandSupply);
 
         return getThis();
-    }
-
-    public StrandSupply getObserverStrandSupply() {
-        for (StrandSupply strandSupply : getObserverStudy().getStrandSupplies()) {
-            if (strandSupply.getStrand().getSupplies().contains(this)) {
-                return strandSupply;
-            }
-        }
-
-        return null;
     }
 
     /**
