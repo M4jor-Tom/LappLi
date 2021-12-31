@@ -2,9 +2,7 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.OneStudySupply;
 import com.muller.lappli.repository.OneStudySupplyRepository;
-import com.muller.lappli.service.OneStudySupplyQueryService;
 import com.muller.lappli.service.OneStudySupplyService;
-import com.muller.lappli.service.criteria.OneStudySupplyCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -40,16 +38,9 @@ public class OneStudySupplyResource {
 
     private final OneStudySupplyRepository oneStudySupplyRepository;
 
-    private final OneStudySupplyQueryService oneStudySupplyQueryService;
-
-    public OneStudySupplyResource(
-        OneStudySupplyService oneStudySupplyService,
-        OneStudySupplyRepository oneStudySupplyRepository,
-        OneStudySupplyQueryService oneStudySupplyQueryService
-    ) {
+    public OneStudySupplyResource(OneStudySupplyService oneStudySupplyService, OneStudySupplyRepository oneStudySupplyRepository) {
         this.oneStudySupplyService = oneStudySupplyService;
         this.oneStudySupplyRepository = oneStudySupplyRepository;
-        this.oneStudySupplyQueryService = oneStudySupplyQueryService;
     }
 
     /**
@@ -146,26 +137,17 @@ public class OneStudySupplyResource {
     /**
      * {@code GET  /one-study-supplies} : get all the oneStudySupplies.
      *
-     * @param criteria the criteria which the requested entities should match.
+     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of oneStudySupplies in body.
      */
     @GetMapping("/one-study-supplies")
-    public ResponseEntity<List<OneStudySupply>> getAllOneStudySupplies(OneStudySupplyCriteria criteria) {
-        log.debug("REST request to get OneStudySupplies by criteria: {}", criteria);
-        List<OneStudySupply> entityList = oneStudySupplyQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /one-study-supplies/count} : count all the oneStudySupplies.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/one-study-supplies/count")
-    public ResponseEntity<Long> countOneStudySupplies(OneStudySupplyCriteria criteria) {
-        log.debug("REST request to count OneStudySupplies by criteria: {}", criteria);
-        return ResponseEntity.ok().body(oneStudySupplyQueryService.countByCriteria(criteria));
+    public List<OneStudySupply> getAllOneStudySupplies(@RequestParam(required = false) String filter) {
+        if ("position-is-null".equals(filter)) {
+            log.debug("REST request to get all OneStudySupplys where position is null");
+            return oneStudySupplyService.findAllWherePositionIsNull();
+        }
+        log.debug("REST request to get all OneStudySupplies");
+        return oneStudySupplyService.findAll();
     }
 
     /**

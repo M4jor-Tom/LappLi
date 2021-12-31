@@ -43,16 +43,9 @@ public class CoreAssemblyResource extends AbstractAssemblyResource<CoreAssembly>
 
     private final CoreAssemblyRepository coreAssemblyRepository;
 
-    private final CoreAssemblyQueryService coreAssemblyQueryService;
-
-    public CoreAssemblyResource(
-        CoreAssemblyService coreAssemblyService,
-        CoreAssemblyRepository coreAssemblyRepository,
-        CoreAssemblyQueryService coreAssemblyQueryService
-    ) {
+    public CoreAssemblyResource(CoreAssemblyService coreAssemblyService, CoreAssemblyRepository coreAssemblyRepository) {
         this.coreAssemblyService = coreAssemblyService;
         this.coreAssemblyRepository = coreAssemblyRepository;
-        this.coreAssemblyQueryService = coreAssemblyQueryService;
     }
 
     @Override
@@ -150,9 +143,9 @@ public class CoreAssemblyResource extends AbstractAssemblyResource<CoreAssembly>
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of coreAssemblies in body.
      */
     @GetMapping("/core-assemblies")
-    public ResponseEntity<List<CoreAssembly>> getAllCoreAssemblies(CoreAssemblyCriteria criteria) {
-        log.debug("REST request to get CoreAssemblies by criteria: {}", criteria);
-        List<CoreAssembly> entityList = coreAssemblyQueryService.findByCriteria(criteria);
+    public ResponseEntity<List<CoreAssembly>> getAllCoreAssemblies() {
+        log.debug("REST request to get CoreAssemblies");
+        List<CoreAssembly> entityList = coreAssemblyService.findAll();
         return ResponseEntity.ok().body(entityList);
     }
 
@@ -163,9 +156,9 @@ public class CoreAssemblyResource extends AbstractAssemblyResource<CoreAssembly>
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
      */
     @GetMapping("/core-assemblies/count")
-    public ResponseEntity<Long> countCoreAssemblies(CoreAssemblyCriteria criteria) {
-        log.debug("REST request to count CoreAssemblies by criteria: {}", criteria);
-        return ResponseEntity.ok().body(coreAssemblyQueryService.countByCriteria(criteria));
+    public ResponseEntity<Long> countCoreAssemblies() {
+        log.debug("REST request to count CoreAssemblies");
+        return ResponseEntity.ok().body(Long.valueOf(coreAssemblyService.findAll().size()));
     }
 
     /**

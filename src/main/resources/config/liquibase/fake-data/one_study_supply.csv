@@ -1,11 +1,11 @@
-id;apparitions;number;designation;description;marking_type;gram_per_meter_linear_mass;milimeter_diameter;surface_color;surface_material_id;strand_id
-1;1;89916;intelligence;eyeballs Handcrafted;LIFTING;7226;4;YELLOW_BLACK;1;1
-2;2;28678;Intelligent payment infrastructures;Managed Fords;LIFTING;60470;4;GREY;2;2
-3;3;99230;Oklahoma indexing;Consultant Accountability Configurable;RINGY_COLORED;23632;4;PINK_BLUE;3;3
-4;4;61897;Denar Kentucky;mint Account;NUMBERED;13503;4;WHITE_YELLOW;4;4
-5;5;18091;RSD_TEST_ONE_STUDY;orange Account Chips;NUMBERED;90867;4;BLACK;19;1
-6;6;38971;Multi-lateral;Sports;LIFTING;73778;4;GREY_BLACK;6;6
-7;7;8082;sticky Ball;clicks-and-mortar Electronics Creative;LIFTING;56203;4;PURPLE;7;7
-8;8;76609;Plastic;Games;LIFTING;98519;4;PINK_BLACK;8;8
-9;9;81229;Industrial;Granite database;LONGITUDINALLY_COLORED;91643;4;GREY_GREEN;9;9
-10;10;90395;Dobra Tuna Strategist;function;SPIRALLY_COLORED;75655;4;RED;10;10
+id;supply_state;apparitions;number;designation;description;marking_type;gram_per_meter_linear_mass;milimeter_diameter;surface_color;surface_material_id;strand_id
+1;UNDIVIDED;1;89916;intelligence;eyeballs Handcrafted;LIFTING;7226;4;YELLOW_BLACK;1;1
+2;UNDIVIDED;2;28678;Intelligent payment infrastructures;Managed Fords;LIFTING;60470;4;GREY;2;2
+3;UNDIVIED;3;99230;Oklahoma indexing;Consultant Accountability Configurable;RINGY_COLORED;23632;4;PINK_BLUE;3;3
+4;UNDIVIED;4;61897;Denar Kentucky;mint Account;NUMBERED;13503;4;WHITE_YELLOW;4;4
+5;UNDIVIED;5;18091;RSD_TEST_ONE_STUDY;orange Account Chips;NUMBERED;90867;4;BLACK;19;1
+6;UNDIVIDED;6;38971;Multi-lateral;Sports;LIFTING;73778;4;GREY_BLACK;6;6
+7;UNDIVIED;7;8082;sticky Ball;clicks-and-mortar Electronics Creative;LIFTING;56203;4;PURPLE;7;7
+8;UNDIVIDED;8;76609;Plastic;Games;LIFTING;98519;4;PINK_BLACK;8;8
+9;UNDIVIDED;9;81229;Industrial;Granite database;LONGITUDINALLY_COLORED;91643;4;GREY_GREEN;9;9
+10;UNDIVIED;10;90395;Dobra Tuna Strategist;function;SPIRALLY_COLORED;75655;4;RED;10;10

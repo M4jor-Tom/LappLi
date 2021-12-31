@@ -15,6 +15,7 @@ import { IOneStudySupply } from 'app/shared/model/one-study-supply.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { SupplyState } from 'app/shared/model/enumerations/supply-state.model';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 import { Color } from 'app/shared/model/enumerations/color.model';
 import {
@@ -39,6 +40,7 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
   const loading = useAppSelector(state => state.oneStudySupply.loading);
   const updating = useAppSelector(state => state.oneStudySupply.updating);
   const updateSuccess = useAppSelector(state => state.oneStudySupply.updateSuccess);
+  const supplyStateValues = Object.keys(SupplyState);
   const markingTypeValues = Object.keys(MarkingType);
   const colorValues = Object.keys(Color);
   const handleClose = () => {
@@ -84,6 +86,7 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
     isNew
       ? {}
       : {
+          supplyState: 'UNDIVIED',
           markingType: 'LIFTING',
           surfaceColor: 'NATURAL',
           ...oneStudySupplyEntity,
@@ -116,6 +119,19 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
                   validate={{ required: true }}
                 />
               ) : null}
+              <ValidatedField
+                label={translate('lappLiApp.oneStudySupply.supplyState')}
+                id="one-study-supply-supplyState"
+                name="supplyState"
+                data-cy="supplyState"
+                type="select"
+              >
+                {supplyStateValues.map(supplyState => (
+                  <option value={supplyState} key={supplyState}>
+                    {translate('lappLiApp.SupplyState' + supplyState)}
+                  </option>
+                ))}
+              </ValidatedField>
               <ValidatedField
                 label={translate('lappLiApp.oneStudySupply.apparitions')}
                 id="one-study-supply-apparitions"

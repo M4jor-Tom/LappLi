@@ -8,10 +8,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.Material;
 import com.muller.lappli.domain.OneStudySupply;
-import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
+import com.muller.lappli.domain.enumeration.SupplyState;
 import com.muller.lappli.repository.OneStudySupplyRepository;
 import java.util.List;
 import java.util.Random;
@@ -33,6 +33,9 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 @WithMockUser
 class OneStudySupplyResourceIT {
+
+    private static final SupplyState DEFAULT_SUPPLY_STATE = SupplyState.UNDIVIED;
+    private static final SupplyState UPDATED_SUPPLY_STATE = SupplyState.DIVIDED_UNPLACED;
 
     private static final Long DEFAULT_APPARITIONS = 1L;
     private static final Long UPDATED_APPARITIONS = 2L;
@@ -83,6 +86,7 @@ class OneStudySupplyResourceIT {
      */
     public static OneStudySupply createEntity(EntityManager em) {
         OneStudySupply oneStudySupply = new OneStudySupply()
+            .supplyState(DEFAULT_SUPPLY_STATE)
             .apparitions(DEFAULT_APPARITIONS)
             .number(DEFAULT_NUMBER)
             .designation(DEFAULT_DESIGNATION)
@@ -122,6 +126,7 @@ class OneStudySupplyResourceIT {
      */
     public static OneStudySupply createUpdatedEntity(EntityManager em) {
         OneStudySupply oneStudySupply = new OneStudySupply()
+            .supplyState(UPDATED_SUPPLY_STATE)
             .apparitions(UPDATED_APPARITIONS)
             .number(UPDATED_NUMBER)
             .designation(UPDATED_DESIGNATION)
@@ -173,6 +178,7 @@ class OneStudySupplyResourceIT {
         List<OneStudySupply> oneStudySupplyList = oneStudySupplyRepository.findAll();
         assertThat(oneStudySupplyList).hasSize(databaseSizeBeforeCreate + 1);
         OneStudySupply testOneStudySupply = oneStudySupplyList.get(oneStudySupplyList.size() - 1);
+        assertThat(testOneStudySupply.getSupplyState()).isEqualTo(DEFAULT_SUPPLY_STATE);
         assertThat(testOneStudySupply.getApparitions()).isEqualTo(DEFAULT_APPARITIONS);
         assertThat(testOneStudySupply.getNumber()).isEqualTo(DEFAULT_NUMBER);
         assertThat(testOneStudySupply.getDesignation()).isEqualTo(DEFAULT_DESIGNATION);
@@ -201,6 +207,25 @@ class OneStudySupplyResourceIT {
         // Validate the OneStudySupply in the database
         List<OneStudySupply> oneStudySupplyList = oneStudySupplyRepository.findAll();
         assertThat(oneStudySupplyList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    void checkSupplyStateIsRequired() throws Exception {
+        int databaseSizeBeforeTest = oneStudySupplyRepository.findAll().size();
+        // set the field null
+        oneStudySupply.setSupplyState(null);
+
+        // Create the OneStudySupply, which fails.
+
+        restOneStudySupplyMockMvc
+            .perform(
+                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(oneStudySupply))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<OneStudySupply> oneStudySupplyList = oneStudySupplyRepository.findAll();
+        assertThat(oneStudySupplyList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -291,6 +316,7 @@ class OneStudySupplyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(oneStudySupply.getId().intValue())))
+            .andExpect(jsonPath("$.[*].supplyState").value(hasItem(DEFAULT_SUPPLY_STATE.toString())))
             .andExpect(jsonPath("$.[*].apparitions").value(hasItem(DEFAULT_APPARITIONS.intValue())))
             .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER.intValue())))
             .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)))
@@ -313,6 +339,7 @@ class OneStudySupplyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(oneStudySupply.getId().intValue()))
+            .andExpect(jsonPath("$.supplyState").value(DEFAULT_SUPPLY_STATE.toString()))
             .andExpect(jsonPath("$.apparitions").value(DEFAULT_APPARITIONS.intValue()))
             .andExpect(jsonPath("$.number").value(DEFAULT_NUMBER.intValue()))
             .andExpect(jsonPath("$.designation").value(DEFAULT_DESIGNATION))
@@ -343,6 +370,7 @@ class OneStudySupplyResourceIT {
         // Disconnect from session so that the updates on updatedOneStudySupply are not directly saved in db
         em.detach(updatedOneStudySupply);
         updatedOneStudySupply
+            .supplyState(UPDATED_SUPPLY_STATE)
             .apparitions(UPDATED_APPARITIONS)
             .number(UPDATED_NUMBER)
             .designation(UPDATED_DESIGNATION)
@@ -364,6 +392,7 @@ class OneStudySupplyResourceIT {
         List<OneStudySupply> oneStudySupplyList = oneStudySupplyRepository.findAll();
         assertThat(oneStudySupplyList).hasSize(databaseSizeBeforeUpdate);
         OneStudySupply testOneStudySupply = oneStudySupplyList.get(oneStudySupplyList.size() - 1);
+        assertThat(testOneStudySupply.getSupplyState()).isEqualTo(UPDATED_SUPPLY_STATE);
         assertThat(testOneStudySupply.getApparitions()).isEqualTo(UPDATED_APPARITIONS);
         assertThat(testOneStudySupply.getNumber()).isEqualTo(UPDATED_NUMBER);
         assertThat(testOneStudySupply.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
@@ -442,7 +471,7 @@ class OneStudySupplyResourceIT {
         OneStudySupply partialUpdatedOneStudySupply = new OneStudySupply();
         partialUpdatedOneStudySupply.setId(oneStudySupply.getId());
 
-        partialUpdatedOneStudySupply.surfaceColor(UPDATED_SURFACE_COLOR);
+        partialUpdatedOneStudySupply.milimeterDiameter(UPDATED_MILIMETER_DIAMETER).surfaceColor(UPDATED_SURFACE_COLOR);
 
         restOneStudySupplyMockMvc
             .perform(
@@ -456,13 +485,14 @@ class OneStudySupplyResourceIT {
         List<OneStudySupply> oneStudySupplyList = oneStudySupplyRepository.findAll();
         assertThat(oneStudySupplyList).hasSize(databaseSizeBeforeUpdate);
         OneStudySupply testOneStudySupply = oneStudySupplyList.get(oneStudySupplyList.size() - 1);
+        assertThat(testOneStudySupply.getSupplyState()).isEqualTo(DEFAULT_SUPPLY_STATE);
         assertThat(testOneStudySupply.getApparitions()).isEqualTo(DEFAULT_APPARITIONS);
         assertThat(testOneStudySupply.getNumber()).isEqualTo(DEFAULT_NUMBER);
         assertThat(testOneStudySupply.getDesignation()).isEqualTo(DEFAULT_DESIGNATION);
         assertThat(testOneStudySupply.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testOneStudySupply.getMarkingType()).isEqualTo(DEFAULT_MARKING_TYPE);
         assertThat(testOneStudySupply.getGramPerMeterLinearMass()).isEqualTo(DEFAULT_GRAM_PER_METER_LINEAR_MASS);
-        assertThat(testOneStudySupply.getMilimeterDiameter()).isEqualTo(DEFAULT_MILIMETER_DIAMETER);
+        assertThat(testOneStudySupply.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
         assertThat(testOneStudySupply.getSurfaceColor()).isEqualTo(UPDATED_SURFACE_COLOR);
     }
 
@@ -479,6 +509,7 @@ class OneStudySupplyResourceIT {
         partialUpdatedOneStudySupply.setId(oneStudySupply.getId());
 
         partialUpdatedOneStudySupply
+            .supplyState(UPDATED_SUPPLY_STATE)
             .apparitions(UPDATED_APPARITIONS)
             .number(UPDATED_NUMBER)
             .designation(UPDATED_DESIGNATION)
@@ -500,6 +531,7 @@ class OneStudySupplyResourceIT {
         List<OneStudySupply> oneStudySupplyList = oneStudySupplyRepository.findAll();
         assertThat(oneStudySupplyList).hasSize(databaseSizeBeforeUpdate);
         OneStudySupply testOneStudySupply = oneStudySupplyList.get(oneStudySupplyList.size() - 1);
+        assertThat(testOneStudySupply.getSupplyState()).isEqualTo(UPDATED_SUPPLY_STATE);
         assertThat(testOneStudySupply.getApparitions()).isEqualTo(UPDATED_APPARITIONS);
         assertThat(testOneStudySupply.getNumber()).isEqualTo(UPDATED_NUMBER);
         assertThat(testOneStudySupply.getDesignation()).isEqualTo(UPDATED_DESIGNATION);

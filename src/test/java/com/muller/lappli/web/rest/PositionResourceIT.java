@@ -6,13 +6,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.muller.lappli.IntegrationTest;
-import com.muller.lappli.domain.BangleSupply;
-import com.muller.lappli.domain.CentralAssembly;
-import com.muller.lappli.domain.CoreAssembly;
-import com.muller.lappli.domain.CustomComponentSupply;
-import com.muller.lappli.domain.ElementSupply;
-import com.muller.lappli.domain.IntersticeAssembly;
-import com.muller.lappli.domain.OneStudySupply;
 import com.muller.lappli.domain.Position;
 import com.muller.lappli.repository.PositionRepository;
 import java.util.List;

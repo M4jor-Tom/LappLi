@@ -44,6 +44,9 @@ public class BangleSupplyServiceImpl extends AbstractLiftedSupplyServiceImpl<Ban
             bangleSupplyRepository
                 .findById(bangleSupply.getId())
                 .map(existingBangleSupply -> {
+                    if (bangleSupply.getSupplyState() != null) {
+                        existingBangleSupply.setSupplyState(bangleSupply.getSupplyState());
+                    }
                     if (bangleSupply.getApparitions() != null) {
                         existingBangleSupply.setApparitions(bangleSupply.getApparitions());
                     }

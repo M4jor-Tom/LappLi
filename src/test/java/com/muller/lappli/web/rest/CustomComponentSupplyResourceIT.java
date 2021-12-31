@@ -10,6 +10,7 @@ import com.muller.lappli.domain.CustomComponent;
 import com.muller.lappli.domain.CustomComponentSupply;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.enumeration.MarkingType;
+import com.muller.lappli.domain.enumeration.SupplyState;
 import com.muller.lappli.repository.CustomComponentSupplyRepository;
 import java.util.List;
 import java.util.Random;
@@ -31,6 +32,9 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 @WithMockUser
 class CustomComponentSupplyResourceIT {
+
+    private static final SupplyState DEFAULT_SUPPLY_STATE = SupplyState.UNDIVIED;
+    private static final SupplyState UPDATED_SUPPLY_STATE = SupplyState.DIVIDED_UNPLACED;
 
     private static final Long DEFAULT_APPARITIONS = 1L;
     private static final Long UPDATED_APPARITIONS = 2L;
@@ -66,6 +70,7 @@ class CustomComponentSupplyResourceIT {
      */
     public static CustomComponentSupply createEntity(EntityManager em) {
         CustomComponentSupply customComponentSupply = new CustomComponentSupply()
+            .supplyState(DEFAULT_SUPPLY_STATE)
             .apparitions(DEFAULT_APPARITIONS)
             .description(DEFAULT_DESCRIPTION)
             .markingType(DEFAULT_MARKING_TYPE);
@@ -100,6 +105,7 @@ class CustomComponentSupplyResourceIT {
      */
     public static CustomComponentSupply createUpdatedEntity(EntityManager em) {
         CustomComponentSupply customComponentSupply = new CustomComponentSupply()
+            .supplyState(UPDATED_SUPPLY_STATE)
             .apparitions(UPDATED_APPARITIONS)
             .description(UPDATED_DESCRIPTION)
             .markingType(UPDATED_MARKING_TYPE);
@@ -148,6 +154,7 @@ class CustomComponentSupplyResourceIT {
         List<CustomComponentSupply> customComponentSupplyList = customComponentSupplyRepository.findAll();
         assertThat(customComponentSupplyList).hasSize(databaseSizeBeforeCreate + 1);
         CustomComponentSupply testCustomComponentSupply = customComponentSupplyList.get(customComponentSupplyList.size() - 1);
+        assertThat(testCustomComponentSupply.getSupplyState()).isEqualTo(DEFAULT_SUPPLY_STATE);
         assertThat(testCustomComponentSupply.getApparitions()).isEqualTo(DEFAULT_APPARITIONS);
         assertThat(testCustomComponentSupply.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testCustomComponentSupply.getMarkingType()).isEqualTo(DEFAULT_MARKING_TYPE);
@@ -173,6 +180,27 @@ class CustomComponentSupplyResourceIT {
         // Validate the CustomComponentSupply in the database
         List<CustomComponentSupply> customComponentSupplyList = customComponentSupplyRepository.findAll();
         assertThat(customComponentSupplyList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    void checkSupplyStateIsRequired() throws Exception {
+        int databaseSizeBeforeTest = customComponentSupplyRepository.findAll().size();
+        // set the field null
+        customComponentSupply.setSupplyState(null);
+
+        // Create the CustomComponentSupply, which fails.
+
+        restCustomComponentSupplyMockMvc
+            .perform(
+                post(ENTITY_API_URL)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(customComponentSupply))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<CustomComponentSupply> customComponentSupplyList = customComponentSupplyRepository.findAll();
+        assertThat(customComponentSupplyList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -229,6 +257,7 @@ class CustomComponentSupplyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(customComponentSupply.getId().intValue())))
+            .andExpect(jsonPath("$.[*].supplyState").value(hasItem(DEFAULT_SUPPLY_STATE.toString())))
             .andExpect(jsonPath("$.[*].apparitions").value(hasItem(DEFAULT_APPARITIONS.intValue())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
             .andExpect(jsonPath("$.[*].markingType").value(hasItem(DEFAULT_MARKING_TYPE.toString())));
@@ -246,6 +275,7 @@ class CustomComponentSupplyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(customComponentSupply.getId().intValue()))
+            .andExpect(jsonPath("$.supplyState").value(DEFAULT_SUPPLY_STATE.toString()))
             .andExpect(jsonPath("$.apparitions").value(DEFAULT_APPARITIONS.intValue()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
             .andExpect(jsonPath("$.markingType").value(DEFAULT_MARKING_TYPE.toString()));
@@ -270,7 +300,11 @@ class CustomComponentSupplyResourceIT {
         CustomComponentSupply updatedCustomComponentSupply = customComponentSupplyRepository.findById(customComponentSupply.getId()).get();
         // Disconnect from session so that the updates on updatedCustomComponentSupply are not directly saved in db
         em.detach(updatedCustomComponentSupply);
-        updatedCustomComponentSupply.apparitions(UPDATED_APPARITIONS).description(UPDATED_DESCRIPTION).markingType(UPDATED_MARKING_TYPE);
+        updatedCustomComponentSupply
+            .supplyState(UPDATED_SUPPLY_STATE)
+            .apparitions(UPDATED_APPARITIONS)
+            .description(UPDATED_DESCRIPTION)
+            .markingType(UPDATED_MARKING_TYPE);
 
         restCustomComponentSupplyMockMvc
             .perform(
@@ -284,6 +318,7 @@ class CustomComponentSupplyResourceIT {
         List<CustomComponentSupply> customComponentSupplyList = customComponentSupplyRepository.findAll();
         assertThat(customComponentSupplyList).hasSize(databaseSizeBeforeUpdate);
         CustomComponentSupply testCustomComponentSupply = customComponentSupplyList.get(customComponentSupplyList.size() - 1);
+        assertThat(testCustomComponentSupply.getSupplyState()).isEqualTo(UPDATED_SUPPLY_STATE);
         assertThat(testCustomComponentSupply.getApparitions()).isEqualTo(UPDATED_APPARITIONS);
         assertThat(testCustomComponentSupply.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testCustomComponentSupply.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
@@ -361,7 +396,7 @@ class CustomComponentSupplyResourceIT {
         CustomComponentSupply partialUpdatedCustomComponentSupply = new CustomComponentSupply();
         partialUpdatedCustomComponentSupply.setId(customComponentSupply.getId());
 
-        partialUpdatedCustomComponentSupply.apparitions(UPDATED_APPARITIONS);
+        partialUpdatedCustomComponentSupply.supplyState(UPDATED_SUPPLY_STATE).markingType(UPDATED_MARKING_TYPE);
 
         restCustomComponentSupplyMockMvc
             .perform(
@@ -375,9 +410,10 @@ class CustomComponentSupplyResourceIT {
         List<CustomComponentSupply> customComponentSupplyList = customComponentSupplyRepository.findAll();
         assertThat(customComponentSupplyList).hasSize(databaseSizeBeforeUpdate);
         CustomComponentSupply testCustomComponentSupply = customComponentSupplyList.get(customComponentSupplyList.size() - 1);
-        assertThat(testCustomComponentSupply.getApparitions()).isEqualTo(UPDATED_APPARITIONS);
+        assertThat(testCustomComponentSupply.getSupplyState()).isEqualTo(UPDATED_SUPPLY_STATE);
+        assertThat(testCustomComponentSupply.getApparitions()).isEqualTo(DEFAULT_APPARITIONS);
         assertThat(testCustomComponentSupply.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testCustomComponentSupply.getMarkingType()).isEqualTo(DEFAULT_MARKING_TYPE);
+        assertThat(testCustomComponentSupply.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
     }
 
     @Test
@@ -393,6 +429,7 @@ class CustomComponentSupplyResourceIT {
         partialUpdatedCustomComponentSupply.setId(customComponentSupply.getId());
 
         partialUpdatedCustomComponentSupply
+            .supplyState(UPDATED_SUPPLY_STATE)
             .apparitions(UPDATED_APPARITIONS)
             .description(UPDATED_DESCRIPTION)
             .markingType(UPDATED_MARKING_TYPE);
@@ -409,6 +446,7 @@ class CustomComponentSupplyResourceIT {
         List<CustomComponentSupply> customComponentSupplyList = customComponentSupplyRepository.findAll();
         assertThat(customComponentSupplyList).hasSize(databaseSizeBeforeUpdate);
         CustomComponentSupply testCustomComponentSupply = customComponentSupplyList.get(customComponentSupplyList.size() - 1);
+        assertThat(testCustomComponentSupply.getSupplyState()).isEqualTo(UPDATED_SUPPLY_STATE);
         assertThat(testCustomComponentSupply.getApparitions()).isEqualTo(UPDATED_APPARITIONS);
         assertThat(testCustomComponentSupply.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testCustomComponentSupply.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);

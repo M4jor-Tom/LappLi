@@ -46,6 +46,9 @@ public class CustomComponentSupplyServiceImpl
             customComponentSupplyRepository
                 .findById(customComponentSupply.getId())
                 .map(existingCustomComponentSupply -> {
+                    if (customComponentSupply.getSupplyState() != null) {
+                        existingCustomComponentSupply.setSupplyState(customComponentSupply.getSupplyState());
+                    }
                     if (customComponentSupply.getApparitions() != null) {
                         existingCustomComponentSupply.setApparitions(customComponentSupply.getApparitions());
                     }

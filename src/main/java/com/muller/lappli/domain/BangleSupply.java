@@ -27,6 +27,11 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     private Long id;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "supply_state", nullable = false)
+    private SupplyState supplyState;
+
+    @NotNull
     @Column(name = "apparitions", nullable = false)
     private Long apparitions;
 
@@ -58,7 +63,7 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     @JsonIgnoreProperties(
         value = {
             "coreAssemblies",
-            "intersticialAssemblies",
+            "intersticeAssemblies",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",
@@ -72,11 +77,6 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     @Override
     public CylindricComponent getCylindricComponent() {
         return getBangle();
-    }
-
-    @Override
-    public SupplyState getSupplyState() {
-        return super.getSupplyState();
     }
 
     @Override
@@ -120,6 +120,19 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     }
 
     @Override
+    public SupplyState getSupplyState() {
+        return this.supplyState;
+    }
+
+    public BangleSupply supplyState(SupplyState supplyState) {
+        this.setSupplyState(supplyState);
+        return this;
+    }
+
+    public void setSupplyState(SupplyState supplyState) {
+        this.supplyState = supplyState;
+    }
+
     public Long getApparitions() {
         return this.apparitions;
     }
@@ -217,6 +230,7 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     public String toString() {
         return "BangleSupply{" +
             "id=" + getId() +
+            ", supplyState='" + getSupplyState() + "'" +
             ", apparitions=" + getApparitions() +
             ", description='" + getDescription() + "'" +
             "}";

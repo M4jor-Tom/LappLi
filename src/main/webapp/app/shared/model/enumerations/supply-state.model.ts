@@ -1,0 +1,7 @@
+export enum SupplyState {
+  UNDIVIED = 'UNDIVIED',
+
+  DIVIDED_UNPLACED = 'DIVIDED_UNPLACED',
+
+  PLACED = 'PLACED',
+}

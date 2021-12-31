@@ -31,6 +31,7 @@ entity Study {
 }
 
 entity StrandSupply {
+    supplyState SupplyState required
 	apparitions Long required
     markingType MarkingType required
     description String
@@ -56,6 +57,7 @@ entity LifterRunMeasure {
 }
 
 entity OneStudySupply {
+    supplyState SupplyState required
 	apparitions Long
 	number Long
     designation String
@@ -67,11 +69,13 @@ entity OneStudySupply {
 }
 
 entity BangleSupply {
+    supplyState SupplyState required
 	apparitions Long required
     description String
 }
 
 entity CustomComponentSupply {
+    supplyState SupplyState required
 	apparitions Long required
     description String
     markingType MarkingType required
@@ -86,6 +90,7 @@ entity CustomComponent {
 }
 
 entity ElementSupply {
+    supplyState SupplyState required
 	apparitions Long required
     markingType MarkingType required
     description String
@@ -231,6 +236,17 @@ relationship ManyToOne {
 
 relationship ManyToOne {
 	ElementKind{insulationMaterial(designation) required} to Material
+}
+
+enum SupplyState {
+    //The Supply is in that state when not spread into a Strand
+    UNDIVIED,
+
+    //The Supply is in that state when spread into a Strand, but not into a Position
+    DIVIDED_UNPLACED,
+
+    //The supply is in that state when it has a Position
+    PLACED
 }
 
 enum AssemblyMean {

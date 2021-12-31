@@ -29,6 +29,11 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
     private Long id;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "supply_state", nullable = false)
+    private SupplyState supplyState;
+
+    @NotNull
     @Column(name = "apparitions", nullable = false)
     private Long apparitions;
 
@@ -82,11 +87,6 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
     }
 
     @Override
-    public SupplyState getSupplyState() {
-        return super.getSupplyState();
-    }
-
-    @Override
     public Material getSurfaceMaterial() {
         try {
             return getCustomComponent().getSurfaceMaterial();
@@ -129,6 +129,20 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public SupplyState getSupplyState() {
+        return this.supplyState;
+    }
+
+    public CustomComponentSupply supplyState(SupplyState supplyState) {
+        this.setSupplyState(supplyState);
+        return this;
+    }
+
+    public void setSupplyState(SupplyState supplyState) {
+        this.supplyState = supplyState;
     }
 
     public Long getApparitions() {
@@ -241,6 +255,7 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
     public String toString() {
         return "CustomComponentSupply{" +
             "id=" + getId() +
+            ", supplyState='" + getSupplyState() + "'" +
             ", apparitions=" + getApparitions() +
             ", description='" + getDescription() + "'" +
             ", markingType='" + getMarkingType() + "'" +

@@ -6,11 +6,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.muller.lappli.IntegrationTest;
-import com.muller.lappli.domain.Study;
 import com.muller.lappli.domain.User;
 import com.muller.lappli.domain.UserData;
 import com.muller.lappli.repository.UserDataRepository;
-import com.muller.lappli.service.criteria.UserDataCriteria;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -188,102 +186,6 @@ class UserDataResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(userData.getId().intValue()));
-    }
-
-    @Test
-    @Transactional
-    void getUserDataByIdFiltering() throws Exception {
-        // Initialize the database
-        userDataRepository.saveAndFlush(userData);
-
-        Long id = userData.getId();
-
-        defaultUserDataShouldBeFound("id.equals=" + id);
-        defaultUserDataShouldNotBeFound("id.notEquals=" + id);
-
-        defaultUserDataShouldBeFound("id.greaterThanOrEqual=" + id);
-        defaultUserDataShouldNotBeFound("id.greaterThan=" + id);
-
-        defaultUserDataShouldBeFound("id.lessThanOrEqual=" + id);
-        defaultUserDataShouldNotBeFound("id.lessThan=" + id);
-    }
-
-    @Test
-    @Transactional
-    void getAllUserDataByUserIsEqualToSomething() throws Exception {
-        // Get already existing entity
-        User user = userData.getUser();
-        userDataRepository.saveAndFlush(userData);
-        Long userId = user.getId();
-
-        // Get all the userDataList where user equals to userId
-        defaultUserDataShouldBeFound("userId.equals=" + userId);
-
-        // Get all the userDataList where user equals to (userId + 1)
-        defaultUserDataShouldNotBeFound("userId.equals=" + (userId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllUserDataByStudiesIsEqualToSomething() throws Exception {
-        // Initialize the database
-        userDataRepository.saveAndFlush(userData);
-        Study studies;
-        if (TestUtil.findAll(em, Study.class).isEmpty()) {
-            studies = StudyResourceIT.createEntity(em);
-            em.persist(studies);
-            em.flush();
-        } else {
-            studies = TestUtil.findAll(em, Study.class).get(0);
-        }
-        em.persist(studies);
-        em.flush();
-        userData.addStudies(studies);
-        userDataRepository.saveAndFlush(userData);
-        Long studiesId = studies.getId();
-
-        // Get all the userDataList where studies equals to studiesId
-        defaultUserDataShouldBeFound("studiesId.equals=" + studiesId);
-
-        // Get all the userDataList where studies equals to (studiesId + 1)
-        defaultUserDataShouldNotBeFound("studiesId.equals=" + (studiesId + 1));
-    }
-
-    /**
-     * Executes the search, and checks that the default entity is returned.
-     */
-    private void defaultUserDataShouldBeFound(String filter) throws Exception {
-        restUserDataMockMvc
-            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(userData.getId().intValue())));
-
-        // Check, that the count call also returns 1
-        restUserDataMockMvc
-            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(content().string("1"));
-    }
-
-    /**
-     * Executes the search, and checks that the default entity is not returned.
-     */
-    private void defaultUserDataShouldNotBeFound(String filter) throws Exception {
-        restUserDataMockMvc
-            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$").isArray())
-            .andExpect(jsonPath("$").isEmpty());
-
-        // Check, that the count call also returns 0
-        restUserDataMockMvc
-            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(content().string("0"));
     }
 
     @Test

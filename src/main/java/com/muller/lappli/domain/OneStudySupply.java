@@ -27,6 +27,11 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     @Column(name = "id")
     private Long id;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "supply_state", nullable = false)
+    private SupplyState supplyState;
+
     @Column(name = "apparitions")
     private Long apparitions;
 
@@ -93,8 +98,6 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     )
     private Strand strand;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
-
     @Override
     public CylindricComponent getCylindricComponent() {
         return new OneStudyComponent()
@@ -103,10 +106,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
             .gramPerMeterLinearMass(getGramPerMeterLinearMass());
     }
 
-    @Override
-    public SupplyState getSupplyState() {
-        return super.getSupplyState();
-    }
+    // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
         return this.id;
@@ -122,6 +122,19 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     }
 
     @Override
+    public SupplyState getSupplyState() {
+        return this.supplyState;
+    }
+
+    public OneStudySupply supplyState(SupplyState supplyState) {
+        this.setSupplyState(supplyState);
+        return this;
+    }
+
+    public void setSupplyState(SupplyState supplyState) {
+        this.supplyState = supplyState;
+    }
+
     public Long getApparitions() {
         return this.apparitions;
     }
@@ -301,6 +314,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     public String toString() {
         return "OneStudySupply{" +
             "id=" + getId() +
+            ", supplyState='" + getSupplyState() + "'" +
             ", apparitions=" + getApparitions() +
             ", number=" + getNumber() +
             ", designation='" + getDesignation() + "'" +

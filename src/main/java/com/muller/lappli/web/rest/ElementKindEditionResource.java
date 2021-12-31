@@ -2,9 +2,7 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.ElementKindEdition;
 import com.muller.lappli.repository.ElementKindEditionRepository;
-import com.muller.lappli.service.ElementKindEditionQueryService;
 import com.muller.lappli.service.ElementKindEditionService;
-import com.muller.lappli.service.criteria.ElementKindEditionCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,16 +37,12 @@ public class ElementKindEditionResource {
 
     private final ElementKindEditionRepository elementKindEditionRepository;
 
-    private final ElementKindEditionQueryService elementKindEditionQueryService;
-
     public ElementKindEditionResource(
         ElementKindEditionService elementKindEditionService,
-        ElementKindEditionRepository elementKindEditionRepository,
-        ElementKindEditionQueryService elementKindEditionQueryService
+        ElementKindEditionRepository elementKindEditionRepository
     ) {
         this.elementKindEditionService = elementKindEditionService;
         this.elementKindEditionRepository = elementKindEditionRepository;
-        this.elementKindEditionQueryService = elementKindEditionQueryService;
     }
 
     /**
@@ -151,9 +145,9 @@ public class ElementKindEditionResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of elementKindEditions in body.
      */
     @GetMapping("/element-kind-editions")
-    public ResponseEntity<List<ElementKindEdition>> getAllElementKindEditions(ElementKindEditionCriteria criteria) {
-        log.debug("REST request to get ElementKindEditions by criteria: {}", criteria);
-        List<ElementKindEdition> entityList = elementKindEditionQueryService.findByCriteria(criteria);
+    public ResponseEntity<List<ElementKindEdition>> getAllElementKindEditions() {
+        log.debug("REST request to get ElementKindEditions");
+        List<ElementKindEdition> entityList = elementKindEditionService.findAll();
         return ResponseEntity.ok().body(entityList);
     }
 
@@ -164,9 +158,9 @@ public class ElementKindEditionResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
      */
     @GetMapping("/element-kind-editions/count")
-    public ResponseEntity<Long> countElementKindEditions(ElementKindEditionCriteria criteria) {
-        log.debug("REST request to count ElementKindEditions by criteria: {}", criteria);
-        return ResponseEntity.ok().body(elementKindEditionQueryService.countByCriteria(criteria));
+    public ResponseEntity<Long> countElementKindEditions() {
+        log.debug("REST request to count ElementKindEditions");
+        return ResponseEntity.ok().body(Long.valueOf(elementKindEditionService.findAll().size()));
     }
 
     /**

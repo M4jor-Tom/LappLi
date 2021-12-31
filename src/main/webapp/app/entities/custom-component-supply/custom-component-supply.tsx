@@ -50,6 +50,9 @@ export const CustomComponentSupply = (props: RouteComponentProps<{ url: string }
                   <Translate contentKey="lappLiApp.customComponentSupply.id">ID</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.bangleSupply.supplyState">Supply State</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
                 </th>
                 <th>
@@ -104,6 +107,12 @@ export const CustomComponentSupply = (props: RouteComponentProps<{ url: string }
                     <Button tag={Link} to={`${match.url}/${customComponentSupply.id}`} color="link" size="sm">
                       {customComponentSupply.id}
                     </Button>
+                  </td>
+                  <td>
+                    <Translate contentKey={`lappLiApp.SupplyState.${customComponentSupply.supplyState}`} />
+                  </td>
+                  <td>
+                    <Translate contentKey={`lappLiApp.SupplyState.${customComponentSupply.supplyState}`} />
                   </td>
                   <td>{customComponentSupply.apparitions}</td>
                   <td>{customComponentSupply.description}</td>
