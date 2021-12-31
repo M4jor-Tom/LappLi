@@ -53,6 +53,14 @@ public abstract class AbstractSupply<T> {
     public abstract CylindricComponent getCylindricComponent();
 
     /**
+     * Tells if the Supply is placed into a Strand's Assembly
+     * @return a boolean
+     */
+    public Boolean isPlaced() {
+        return getPosition() != null;
+    }
+
+    /**
      * @return the designation of the representated component
      */
     public String getDesignation() {
