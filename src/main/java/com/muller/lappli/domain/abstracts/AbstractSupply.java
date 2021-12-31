@@ -5,7 +5,7 @@ import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.Study;
-import com.muller.lappli.domain.exception.IllegalStrandSupplyException;
+import com.muller.lappli.domain.exception.AppartionDivisionNonNullRemainderException;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.text.DecimalFormat;
 import javax.persistence.MappedSuperclass;
@@ -85,10 +85,18 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
 
     /**
      * @return the apparitions of this into its observerStrandSupply
+     * @throws AppartionDivisionNonNullRemainderException if the undivided apparition count
+     * leaves a remain after the observerStrandSupply's apparitions count divides it
      */
-    public Long getDividedApparitions() {
+    public Long getDividedApparitions() throws AppartionDivisionNonNullRemainderException {
         try {
-            return getApparitions() / getObserverStrandSupply().getApparitions();
+            StrandSupply observerStrandSupply = getObserverStrandSupply();
+
+            if (observerStrandSupply.getApparitions() % getApparitions() != 0) {
+                throw new AppartionDivisionNonNullRemainderException();
+            }
+
+            return getApparitions() / observerStrandSupply.getApparitions();
         } catch (NullPointerException e) {
             return null;
         }
