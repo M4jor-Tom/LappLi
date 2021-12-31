@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.exception.NoIntersticeAvailableException;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -68,6 +69,17 @@ public class Strand implements Serializable {
         }
 
         return lastCoreAssembly;
+    }
+
+    public Set<AbstractSupply<?>> getSupplies() {
+        HashSet<AbstractSupply<?>> supplies = new HashSet<>();
+
+        supplies.addAll(getBangleSupplies());
+        supplies.addAll(getCustomComponentSupplies());
+        supplies.addAll(getElementSupplies());
+        supplies.addAll(getOneStudySupplies());
+
+        return supplies;
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
