@@ -30,6 +30,12 @@ export const StrandSupplyDetail = (props: RouteComponentProps<{ id: string }>) =
           </dt>
           <dd>{strandSupplyEntity.id}</dd>
           <dt>
+            <span id="supplyState">
+              <Translate contentKey="lappLiApp.strandSupply.supplyState">Supply State</Translate>
+            </span>
+          </dt>
+          <dd>{strandSupplyEntity.supplyState}</dd>
+          <dt>
             <span id="apparitions">
               <Translate contentKey="lappLiApp.strandSupply.apparitions">Apparitions</Translate>
             </span>

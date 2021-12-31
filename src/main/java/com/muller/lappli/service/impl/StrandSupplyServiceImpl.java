@@ -38,6 +38,9 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         return strandSupplyRepository
             .findById(strandSupply.getId())
             .map(existingStrandSupply -> {
+                if (strandSupply.getSupplyState() != null) {
+                    existingStrandSupply.setSupplyState(strandSupply.getSupplyState());
+                }
                 if (strandSupply.getApparitions() != null) {
                     existingStrandSupply.setApparitions(strandSupply.getApparitions());
                 }

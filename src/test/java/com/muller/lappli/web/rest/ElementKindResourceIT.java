@@ -10,7 +10,6 @@ import com.muller.lappli.domain.Copper;
 import com.muller.lappli.domain.ElementKind;
 import com.muller.lappli.domain.Material;
 import com.muller.lappli.repository.ElementKindRepository;
-//import com.muller.lappli.service.criteria.ElementKindCriteria;
 import java.util.List;
 //import java.util.Random;
 //import java.util.concurrent.atomic.AtomicLong;

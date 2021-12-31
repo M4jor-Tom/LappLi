@@ -15,6 +15,7 @@ import { ICustomComponentSupply } from 'app/shared/model/custom-component-supply
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { SupplyState } from 'app/shared/model/enumerations/supply-state.model';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 import {
   getOutFromStudySupplyStrandSupplyComponent,
@@ -41,6 +42,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ strand_
   const updating = useAppSelector(state => state.customComponentSupply.updating);
   const updateSuccess = useAppSelector(state => state.customComponentSupply.updateSuccess);
   const markingTypeValues = Object.keys(MarkingType);
+  const supplyStateValues = Object.keys(SupplyState);
   const handleClose = () => {
     props.history.push(redirectionUrl);
   };
@@ -84,6 +86,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ strand_
     isNew
       ? {}
       : {
+          supplyState: 'UNDIVIDED',
           markingType: 'LIFTING',
           ...customComponentSupplyEntity,
           customComponent: customComponentSupplyEntity?.customComponent?.id,
@@ -118,7 +121,20 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ strand_
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.supply.apparitions')}
+                label={translate('lappLiApp.customComponentSupply.supplyState')}
+                id="custom-component-supply-supplyState"
+                name="supplyState"
+                data-cy="supplyState"
+                type="select"
+              >
+                {supplyStateValues.map(supplyState => (
+                  <option value={supplyState} key={supplyState}>
+                    {translate('lappLiApp.SupplyState' + supplyState)}
+                  </option>
+                ))}
+              </ValidatedField>
+              <ValidatedField
+                label={translate('lappLiApp.customComponentSupply.apparitions')}
                 id="custom-component-supply-apparitions"
                 name="apparitions"
                 data-cy="apparitions"

@@ -50,6 +50,9 @@ export const BangleSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.bangleSupply.id">ID</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.bangleSupply.supplyState">Supply State</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
                 </th>
                 <th>
@@ -96,19 +99,14 @@ export const BangleSupply = (props: RouteComponentProps<{ url: string }>) => {
                       {bangleSupply.id}
                     </Button>
                   </td>
+                  <td>
+                    <Translate contentKey={`lappLiApp.SupplyState.${bangleSupply.supplyState}`} />
+                  </td>
                   <td>{bangleSupply.apparitions}</td>
                   <td>{bangleSupply.description}</td>
                   <td>
                     {bangleSupply.bangle ? <Link to={`bangle/${bangleSupply.bangle.id}`}>{bangleSupply.bangle.designation}</Link> : ''}
                   </td>
-                  <td>{bangleSupply.bangle.material.designation}</td>
-                  <td>{bangleSupply.meterQuantity}</td>
-                  <td>{bangleSupply.bangle.milimeterDiameter}</td>
-                  <td>{bangleSupply.bangle.gramPerMeterLinearMass}</td>
-                  <td>{bangleSupply.bestLiftersNames}</td>
-                  <td>{bangleSupply.meterPerHourSpeed}</td>
-                  <td>{bangleSupply.formatedHourPreparationTime}</td>
-                  <td>{bangleSupply.formatedHourExecutionTime}</td>
                   <td>
                     {bangleSupply.strand ? <Link to={`strand/${bangleSupply.strand.id}`}>{bangleSupply.strand.designation}</Link> : ''}
                   </td>

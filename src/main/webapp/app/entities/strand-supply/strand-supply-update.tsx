@@ -13,6 +13,7 @@ import { IStrandSupply } from 'app/shared/model/strand-supply.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { SupplyState } from 'app/shared/model/enumerations/supply-state.model';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 import {
   getOut,
@@ -34,6 +35,7 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
   const loading = useAppSelector(state => state.strandSupply.loading);
   const updating = useAppSelector(state => state.strandSupply.updating);
   const updateSuccess = useAppSelector(state => state.strandSupply.updateSuccess);
+  const supplyStateValues = Object.keys(SupplyState);
   const markingTypeValues = Object.keys(MarkingType);
   const handleClose =
     props.match.params.study_id == null
@@ -83,6 +85,7 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
     isNew
       ? {}
       : {
+          supplyState: 'UNDIVIDED',
           markingType: 'LIFTING',
           ...strandSupplyEntity,
           strand: strandSupplyEntity?.strand?.id,
@@ -114,6 +117,19 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
                   validate={{ required: true }}
                 />
               ) : null}
+              <ValidatedField
+                label={translate('lappLiApp.strandSupply.supplyState')}
+                id="strand-supply-supplyState"
+                name="supplyState"
+                data-cy="supplyState"
+                type="select"
+              >
+                {supplyStateValues.map(supplyState => (
+                  <option value={supplyState} key={supplyState}>
+                    {translate('lappLiApp.SupplyState' + supplyState)}
+                  </option>
+                ))}
+              </ValidatedField>
               <ValidatedField
                 label={translate('lappLiApp.strandSupply.apparitions')}
                 id="strand-supply-apparitions"

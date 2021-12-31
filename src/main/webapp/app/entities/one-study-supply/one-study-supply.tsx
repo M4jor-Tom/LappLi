@@ -50,6 +50,9 @@ export const OneStudySupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.oneStudySupply.id">ID</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.oneStudySupply.supplyState">Supply State</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.oneStudySupply.apparitions">Apparitions</Translate>
                 </th>
                 <th>
@@ -92,6 +95,9 @@ export const OneStudySupply = (props: RouteComponentProps<{ url: string }>) => {
                     <Button tag={Link} to={`${match.url}/${oneStudySupply.id}`} color="link" size="sm">
                       {oneStudySupply.id}
                     </Button>
+                  </td>
+                  <td>
+                    <Translate contentKey={`lappLiApp.SupplyState.${oneStudySupply.supplyState}`} />
                   </td>
                   <td>{oneStudySupply.apparitions}</td>
                   <td>{oneStudySupply.number}</td>

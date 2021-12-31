@@ -2,6 +2,12 @@
   "name": "OneStudySupply",
   "fields": [
     {
+      "fieldName": "supplyState",
+      "fieldType": "SupplyState",
+      "fieldValues": "UNDIVIDED,DIVIDED_UNPLACED,PLACED",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "apparitions",
       "fieldType": "Long"
     },
@@ -70,7 +76,7 @@
   "dto": "no",
   "pagination": "no",
   "service": "serviceImpl",
-  "jpaMetamodelFiltering": true,
+  "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,

@@ -14,6 +14,9 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="supply_state" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
             <column name="apparitions" type="bigint">
                 <constraints nullable="false" />
             </column>
@@ -50,6 +53,7 @@
                   tableName="custom_component_supply"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
+            <column name="supply_state" type="string"/>
             <column name="apparitions" type="numeric"/>
             <column name="description" type="string"/>
             <column name="marking_type" type="string"/>

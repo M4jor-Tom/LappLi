@@ -52,6 +52,9 @@ public class ElementSupplyServiceImpl extends AbstractLiftedSupplyServiceImpl<El
             elementSupplyRepository
                 .findById(elementSupply.getId())
                 .map(existingElementSupply -> {
+                    if (elementSupply.getSupplyState() != null) {
+                        existingElementSupply.setSupplyState(elementSupply.getSupplyState());
+                    }
                     if (elementSupply.getApparitions() != null) {
                         existingElementSupply.setApparitions(elementSupply.getApparitions());
                     }

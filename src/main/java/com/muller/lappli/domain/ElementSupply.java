@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
+import com.muller.lappli.domain.enumeration.SupplyState;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -26,6 +27,11 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "supply_state", nullable = false)
+    private SupplyState supplyState;
 
     @NotNull
     @Column(name = "apparitions", nullable = false)
@@ -145,6 +151,19 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
     }
 
     @Override
+    public SupplyState getSupplyState() {
+        return this.supplyState;
+    }
+
+    public ElementSupply supplyState(SupplyState supplyState) {
+        this.setSupplyState(supplyState);
+        return this;
+    }
+
+    public void setSupplyState(SupplyState supplyState) {
+        this.supplyState = supplyState;
+    }
+
     public Long getApparitions() {
         return this.apparitions;
     }
@@ -218,6 +237,7 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
         return this;
     }
 
+    @Override
     public Strand getStrand() {
         return this.strand;
     }
@@ -255,6 +275,7 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
     public String toString() {
         return "ElementSupply{" +
             "id=" + getId() +
+            ", supplyState='" + getSupplyState() + "'" +
             ", apparitions=" + getApparitions() +
             ", markingType='" + getMarkingType() + "'" +
             ", description='" + getDescription() + "'" +

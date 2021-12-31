@@ -31,9 +31,11 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           </dt>
           <dd>{elementSupplyEntity.id}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.elementSupply.strand">Strand</Translate>
+            <span id="supplyState">
+              <Translate contentKey="lappLiApp.elementSupply.supplyState">Supply State</Translate>
+            </span>
           </dt>
-          <dd>{elementSupplyEntity.strand ? elementSupplyEntity.strand.designation : ''}</dd>
+          <dd>{elementSupplyEntity.supplyState}</dd>
           <dt>
             <span id="apparitions">
               <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
@@ -96,6 +98,10 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
             <Translate contentKey="lappLiApp.supply.markingTechnique">Marking Technique</Translate>
           </dt>
           <dd>{elementSupplyEntity.markingTechnique}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.elementSupply.strand">Strand</Translate>
+          </dt>
+          <dd>{elementSupplyEntity.strand ? elementSupplyEntity.strand.designation : ''}</dd>
         </dl>
         <Button tag={Link} to="/element-supply" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

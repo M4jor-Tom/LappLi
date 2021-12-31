@@ -15,6 +15,7 @@ import { IElementSupply } from 'app/shared/model/element-supply.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { SupplyState } from 'app/shared/model/enumerations/supply-state.model';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 import {
   getOut,
@@ -41,6 +42,7 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ strand_id: stri
   const loading = useAppSelector(state => state.elementSupply.loading);
   const updating = useAppSelector(state => state.elementSupply.updating);
   const updateSuccess = useAppSelector(state => state.elementSupply.updateSuccess);
+  const supplyStateValues = Object.keys(SupplyState);
   const markingTypeValues = Object.keys(MarkingType);
   const handleClose = () => {
     props.history.push(redirectionUrl);
@@ -85,6 +87,7 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ strand_id: stri
     isNew
       ? {}
       : {
+          supplyState: 'UNDIVIDED',
           markingType: 'LIFTING',
           ...elementSupplyEntity,
           element: elementSupplyEntity?.element?.id,
@@ -117,7 +120,20 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ strand_id: stri
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.supply.apparitions')}
+                label={translate('lappLiApp.supply.supplyState')}
+                id="element-supply-supplyState"
+                name="supplyState"
+                data-cy="supplyState"
+                type="select"
+              >
+                {supplyStateValues.map(supplyState => (
+                  <option value={supplyState} key={supplyState}>
+                    {translate('lappLiApp.SupplyState' + supplyState)}
+                  </option>
+                ))}
+              </ValidatedField>
+              <ValidatedField
+                label={translate('lappLiApp.elementSupply.apparitions')}
                 id="element-supply-apparitions"
                 name="apparitions"
                 data-cy="apparitions"

@@ -10,6 +10,7 @@ import com.muller.lappli.domain.Element;
 import com.muller.lappli.domain.ElementSupply;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.enumeration.MarkingType;
+import com.muller.lappli.domain.enumeration.SupplyState;
 import com.muller.lappli.repository.ElementSupplyRepository;
 import java.util.List;
 import java.util.Random;
@@ -31,6 +32,9 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 @WithMockUser
 class ElementSupplyResourceIT {
+
+    private static final SupplyState DEFAULT_SUPPLY_STATE = SupplyState.UNDIVIDED;
+    private static final SupplyState UPDATED_SUPPLY_STATE = SupplyState.DIVIDED_UNPLACED;
 
     private static final Long DEFAULT_APPARITIONS = 1L;
     private static final Long UPDATED_APPARITIONS = 2L;
@@ -66,6 +70,7 @@ class ElementSupplyResourceIT {
      */
     public static ElementSupply createEntity(EntityManager em) {
         ElementSupply elementSupply = new ElementSupply()
+            .supplyState(DEFAULT_SUPPLY_STATE)
             .apparitions(DEFAULT_APPARITIONS)
             .markingType(DEFAULT_MARKING_TYPE)
             .description(DEFAULT_DESCRIPTION);
@@ -100,6 +105,7 @@ class ElementSupplyResourceIT {
      */
     public static ElementSupply createUpdatedEntity(EntityManager em) {
         ElementSupply elementSupply = new ElementSupply()
+            .supplyState(UPDATED_SUPPLY_STATE)
             .apparitions(UPDATED_APPARITIONS)
             .markingType(UPDATED_MARKING_TYPE)
             .description(UPDATED_DESCRIPTION);
@@ -144,6 +150,7 @@ class ElementSupplyResourceIT {
         List<ElementSupply> elementSupplyList = elementSupplyRepository.findAll();
         assertThat(elementSupplyList).hasSize(databaseSizeBeforeCreate + 1);
         ElementSupply testElementSupply = elementSupplyList.get(elementSupplyList.size() - 1);
+        assertThat(testElementSupply.getSupplyState()).isEqualTo(DEFAULT_SUPPLY_STATE);
         assertThat(testElementSupply.getApparitions()).isEqualTo(DEFAULT_APPARITIONS);
         assertThat(testElementSupply.getMarkingType()).isEqualTo(DEFAULT_MARKING_TYPE);
         assertThat(testElementSupply.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
@@ -165,6 +172,23 @@ class ElementSupplyResourceIT {
         // Validate the ElementSupply in the database
         List<ElementSupply> elementSupplyList = elementSupplyRepository.findAll();
         assertThat(elementSupplyList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    void checkSupplyStateIsRequired() throws Exception {
+        int databaseSizeBeforeTest = elementSupplyRepository.findAll().size();
+        // set the field null
+        elementSupply.setSupplyState(null);
+
+        // Create the ElementSupply, which fails.
+
+        restElementSupplyMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(elementSupply)))
+            .andExpect(status().isBadRequest());
+
+        List<ElementSupply> elementSupplyList = elementSupplyRepository.findAll();
+        assertThat(elementSupplyList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -213,6 +237,7 @@ class ElementSupplyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(elementSupply.getId().intValue())))
+            .andExpect(jsonPath("$.[*].supplyState").value(hasItem(DEFAULT_SUPPLY_STATE.toString())))
             .andExpect(jsonPath("$.[*].apparitions").value(hasItem(DEFAULT_APPARITIONS.intValue())))
             .andExpect(jsonPath("$.[*].markingType").value(hasItem(DEFAULT_MARKING_TYPE.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
@@ -230,6 +255,7 @@ class ElementSupplyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(elementSupply.getId().intValue()))
+            .andExpect(jsonPath("$.supplyState").value(DEFAULT_SUPPLY_STATE.toString()))
             .andExpect(jsonPath("$.apparitions").value(DEFAULT_APPARITIONS.intValue()))
             .andExpect(jsonPath("$.markingType").value(DEFAULT_MARKING_TYPE.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION));
@@ -254,7 +280,11 @@ class ElementSupplyResourceIT {
         ElementSupply updatedElementSupply = elementSupplyRepository.findById(elementSupply.getId()).get();
         // Disconnect from session so that the updates on updatedElementSupply are not directly saved in db
         em.detach(updatedElementSupply);
-        updatedElementSupply.apparitions(UPDATED_APPARITIONS).markingType(UPDATED_MARKING_TYPE).description(UPDATED_DESCRIPTION);
+        updatedElementSupply
+            .supplyState(UPDATED_SUPPLY_STATE)
+            .apparitions(UPDATED_APPARITIONS)
+            .markingType(UPDATED_MARKING_TYPE)
+            .description(UPDATED_DESCRIPTION);
 
         restElementSupplyMockMvc
             .perform(
@@ -268,6 +298,7 @@ class ElementSupplyResourceIT {
         List<ElementSupply> elementSupplyList = elementSupplyRepository.findAll();
         assertThat(elementSupplyList).hasSize(databaseSizeBeforeUpdate);
         ElementSupply testElementSupply = elementSupplyList.get(elementSupplyList.size() - 1);
+        assertThat(testElementSupply.getSupplyState()).isEqualTo(UPDATED_SUPPLY_STATE);
         assertThat(testElementSupply.getApparitions()).isEqualTo(UPDATED_APPARITIONS);
         assertThat(testElementSupply.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
         assertThat(testElementSupply.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
@@ -341,7 +372,7 @@ class ElementSupplyResourceIT {
         ElementSupply partialUpdatedElementSupply = new ElementSupply();
         partialUpdatedElementSupply.setId(elementSupply.getId());
 
-        partialUpdatedElementSupply.apparitions(UPDATED_APPARITIONS).description(UPDATED_DESCRIPTION);
+        partialUpdatedElementSupply.supplyState(UPDATED_SUPPLY_STATE).markingType(UPDATED_MARKING_TYPE);
 
         restElementSupplyMockMvc
             .perform(
@@ -355,9 +386,10 @@ class ElementSupplyResourceIT {
         List<ElementSupply> elementSupplyList = elementSupplyRepository.findAll();
         assertThat(elementSupplyList).hasSize(databaseSizeBeforeUpdate);
         ElementSupply testElementSupply = elementSupplyList.get(elementSupplyList.size() - 1);
-        assertThat(testElementSupply.getApparitions()).isEqualTo(UPDATED_APPARITIONS);
-        assertThat(testElementSupply.getMarkingType()).isEqualTo(DEFAULT_MARKING_TYPE);
-        assertThat(testElementSupply.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testElementSupply.getSupplyState()).isEqualTo(UPDATED_SUPPLY_STATE);
+        assertThat(testElementSupply.getApparitions()).isEqualTo(DEFAULT_APPARITIONS);
+        assertThat(testElementSupply.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
+        assertThat(testElementSupply.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
     }
 
     @Test
@@ -372,7 +404,11 @@ class ElementSupplyResourceIT {
         ElementSupply partialUpdatedElementSupply = new ElementSupply();
         partialUpdatedElementSupply.setId(elementSupply.getId());
 
-        partialUpdatedElementSupply.apparitions(UPDATED_APPARITIONS).markingType(UPDATED_MARKING_TYPE).description(UPDATED_DESCRIPTION);
+        partialUpdatedElementSupply
+            .supplyState(UPDATED_SUPPLY_STATE)
+            .apparitions(UPDATED_APPARITIONS)
+            .markingType(UPDATED_MARKING_TYPE)
+            .description(UPDATED_DESCRIPTION);
 
         restElementSupplyMockMvc
             .perform(
@@ -386,6 +422,7 @@ class ElementSupplyResourceIT {
         List<ElementSupply> elementSupplyList = elementSupplyRepository.findAll();
         assertThat(elementSupplyList).hasSize(databaseSizeBeforeUpdate);
         ElementSupply testElementSupply = elementSupplyList.get(elementSupplyList.size() - 1);
+        assertThat(testElementSupply.getSupplyState()).isEqualTo(UPDATED_SUPPLY_STATE);
         assertThat(testElementSupply.getApparitions()).isEqualTo(UPDATED_APPARITIONS);
         assertThat(testElementSupply.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
         assertThat(testElementSupply.getDescription()).isEqualTo(UPDATED_DESCRIPTION);

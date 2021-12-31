@@ -2,9 +2,7 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.repository.StrandRepository;
-import com.muller.lappli.service.StrandQueryService;
 import com.muller.lappli.service.StrandService;
-import com.muller.lappli.service.criteria.StrandCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -38,12 +36,9 @@ public class StrandResource {
 
     private final StrandRepository strandRepository;
 
-    private final StrandQueryService strandQueryService;
-
-    public StrandResource(StrandService strandService, StrandRepository strandRepository, StrandQueryService strandQueryService) {
+    public StrandResource(StrandService strandService, StrandRepository strandRepository) {
         this.strandService = strandService;
         this.strandRepository = strandRepository;
-        this.strandQueryService = strandQueryService;
     }
 
     /**
@@ -137,26 +132,17 @@ public class StrandResource {
     /**
      * {@code GET  /strands} : get all the strands.
      *
-     * @param criteria the criteria which the requested entities should match.
+     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of strands in body.
      */
     @GetMapping("/strands")
-    public ResponseEntity<List<Strand>> getAllStrands(StrandCriteria criteria) {
-        log.debug("REST request to get Strands by criteria: {}", criteria);
-        List<Strand> entityList = strandQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /strands/count} : count all the strands.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/strands/count")
-    public ResponseEntity<Long> countStrands(StrandCriteria criteria) {
-        log.debug("REST request to count Strands by criteria: {}", criteria);
-        return ResponseEntity.ok().body(strandQueryService.countByCriteria(criteria));
+    public List<Strand> getAllStrands(@RequestParam(required = false) String filter) {
+        if ("centralassembly-is-null".equals(filter)) {
+            log.debug("REST request to get all Strands where centralAssembly is null");
+            return strandService.findAllWhereCentralAssemblyIsNull();
+        }
+        log.debug("REST request to get all Strands");
+        return strandService.findAll();
     }
 
     /**

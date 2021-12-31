@@ -30,6 +30,12 @@ export const OneStudySupplyDetail = (props: RouteComponentProps<{ id: string }>)
           </dt>
           <dd>{oneStudySupplyEntity.id}</dd>
           <dt>
+            <span id="supplyState">
+              <Translate contentKey="lappLiApp.oneStudySupply.supplyState">Supply State</Translate>
+            </span>
+          </dt>
+          <dd>{oneStudySupplyEntity.supplyState}</dd>
+          <dt>
             <span id="apparitions">
               <Translate contentKey="lappLiApp.oneStudySupply.apparitions">Apparitions</Translate>
             </span>

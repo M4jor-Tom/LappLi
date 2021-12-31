@@ -2,6 +2,8 @@ package com.muller.lappli.domain.abstracts;
 
 import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.Position;
+import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.enumeration.SupplyState;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.text.DecimalFormat;
 import javax.persistence.MappedSuperclass;
@@ -27,6 +29,8 @@ public abstract class AbstractSupply<T> {
      */
     protected static final Long LIFTING_METER_PER_HOUR_SPEED = Long.valueOf(5000);
 
+    public abstract Strand getStrand();
+
     public abstract Position getPosition();
 
     /**
@@ -48,6 +52,19 @@ public abstract class AbstractSupply<T> {
      * @return the representated component
      */
     public abstract CylindricComponent getCylindricComponent();
+
+    /**
+     * @return the representative SupplyState
+     */
+    public SupplyState getSupplyState() {
+        if (getPosition() != null) {
+            return SupplyState.PLACED;
+        } else if (getStrand() != null) {
+            return SupplyState.DIVIDED_UNPLACED;
+        }
+
+        return SupplyState.UNDIVIDED;
+    }
 
     /**
      * @return the designation of the representated component

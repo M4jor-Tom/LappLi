@@ -30,9 +30,11 @@ export const BangleSupplyDetail = (props: RouteComponentProps<{ id: string }>) =
           </dt>
           <dd>{bangleSupplyEntity.id}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.bangleSupply.strand">Strand</Translate>
+            <span id="supplyState">
+              <Translate contentKey="lappLiApp.bangleSupply.supplyState">Supply State</Translate>
+            </span>
           </dt>
-          <dd>{bangleSupplyEntity.strand ? bangleSupplyEntity.strand.designation : ''}</dd>
+          <dd>{bangleSupplyEntity.supplyState}</dd>
           <dt>
             <span id="apparitions">
               <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
@@ -81,6 +83,10 @@ export const BangleSupplyDetail = (props: RouteComponentProps<{ id: string }>) =
             <Translate contentKey="lappLiApp.supply.formatedHourExecutionTime">Execution Time (h)</Translate>
           </dt>
           <dd>{bangleSupplyEntity.formatedHourExecutionTime}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.bangleSupply.strand">Strand</Translate>
+          </dt>
+          <dd>{bangleSupplyEntity.strand ? bangleSupplyEntity.strand.designation : ''}</dd>
         </dl>
         <Button tag={Link} to="/bangle-supply" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

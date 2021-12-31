@@ -30,9 +30,13 @@ export const CustomComponentSupplyDetail = (props: RouteComponentProps<{ id: str
           </dt>
           <dd>{customComponentSupplyEntity.id}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.customComponentSupply.strand">Strand</Translate>
+            <span id="supplyState">
+              <Translate contentKey="lappLiApp.customComponentSupply.supplyState">Supply State</Translate>
+            </span>
           </dt>
-          <dd>{customComponentSupplyEntity.strand ? customComponentSupplyEntity.strand.designation : ''}</dd>
+          <dd>
+            <Translate contentKey={'lappLiApp.supplyState.' + customComponentSupplyEntity.supplyState} />
+          </dd>
           <dt>
             <span id="apparitions">
               <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
@@ -95,6 +99,10 @@ export const CustomComponentSupplyDetail = (props: RouteComponentProps<{ id: str
             <Translate contentKey="lappLiApp.supply.markingTechnique">Marking Technique</Translate>
           </dt>
           <dd>{customComponentSupplyEntity.markingTechnique}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.customComponentSupply.strand">Strand</Translate>
+          </dt>
+          <dd>{customComponentSupplyEntity.strand ? customComponentSupplyEntity.strand.designation : ''}</dd>
         </dl>
         <Button tag={Link} to="/custom-component-supply" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

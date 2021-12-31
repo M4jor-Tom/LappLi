@@ -9,6 +9,7 @@ import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.Bangle;
 import com.muller.lappli.domain.BangleSupply;
 import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.enumeration.SupplyState;
 import com.muller.lappli.repository.BangleSupplyRepository;
 import java.util.List;
 import java.util.Random;
@@ -30,6 +31,9 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 @WithMockUser
 class BangleSupplyResourceIT {
+
+    private static final SupplyState DEFAULT_SUPPLY_STATE = SupplyState.UNDIVIDED;
+    private static final SupplyState UPDATED_SUPPLY_STATE = SupplyState.DIVIDED_UNPLACED;
 
     private static final Long DEFAULT_APPARITIONS = 1L;
     private static final Long UPDATED_APPARITIONS = 2L;
@@ -61,7 +65,10 @@ class BangleSupplyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static BangleSupply createEntity(EntityManager em) {
-        BangleSupply bangleSupply = new BangleSupply().apparitions(DEFAULT_APPARITIONS).description(DEFAULT_DESCRIPTION);
+        BangleSupply bangleSupply = new BangleSupply()
+            .supplyState(DEFAULT_SUPPLY_STATE)
+            .apparitions(DEFAULT_APPARITIONS)
+            .description(DEFAULT_DESCRIPTION);
         // Add required entity
         Bangle bangle;
         if (TestUtil.findAll(em, Bangle.class).isEmpty()) {
@@ -92,7 +99,10 @@ class BangleSupplyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static BangleSupply createUpdatedEntity(EntityManager em) {
-        BangleSupply bangleSupply = new BangleSupply().apparitions(UPDATED_APPARITIONS).description(UPDATED_DESCRIPTION);
+        BangleSupply bangleSupply = new BangleSupply()
+            .supplyState(UPDATED_SUPPLY_STATE)
+            .apparitions(UPDATED_APPARITIONS)
+            .description(UPDATED_DESCRIPTION);
         // Add required entity
         Bangle bangle;
         if (TestUtil.findAll(em, Bangle.class).isEmpty()) {
@@ -134,6 +144,7 @@ class BangleSupplyResourceIT {
         List<BangleSupply> bangleSupplyList = bangleSupplyRepository.findAll();
         assertThat(bangleSupplyList).hasSize(databaseSizeBeforeCreate + 1);
         BangleSupply testBangleSupply = bangleSupplyList.get(bangleSupplyList.size() - 1);
+        assertThat(testBangleSupply.getSupplyState()).isEqualTo(DEFAULT_SUPPLY_STATE);
         assertThat(testBangleSupply.getApparitions()).isEqualTo(DEFAULT_APPARITIONS);
         assertThat(testBangleSupply.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
     }
@@ -154,6 +165,23 @@ class BangleSupplyResourceIT {
         // Validate the BangleSupply in the database
         List<BangleSupply> bangleSupplyList = bangleSupplyRepository.findAll();
         assertThat(bangleSupplyList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    void checkSupplyStateIsRequired() throws Exception {
+        int databaseSizeBeforeTest = bangleSupplyRepository.findAll().size();
+        // set the field null
+        bangleSupply.setSupplyState(null);
+
+        // Create the BangleSupply, which fails.
+
+        restBangleSupplyMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(bangleSupply)))
+            .andExpect(status().isBadRequest());
+
+        List<BangleSupply> bangleSupplyList = bangleSupplyRepository.findAll();
+        assertThat(bangleSupplyList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -185,6 +213,7 @@ class BangleSupplyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(bangleSupply.getId().intValue())))
+            .andExpect(jsonPath("$.[*].supplyState").value(hasItem(DEFAULT_SUPPLY_STATE.toString())))
             .andExpect(jsonPath("$.[*].apparitions").value(hasItem(DEFAULT_APPARITIONS.intValue())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
     }
@@ -201,6 +230,7 @@ class BangleSupplyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(bangleSupply.getId().intValue()))
+            .andExpect(jsonPath("$.supplyState").value(DEFAULT_SUPPLY_STATE.toString()))
             .andExpect(jsonPath("$.apparitions").value(DEFAULT_APPARITIONS.intValue()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION));
     }
@@ -224,7 +254,7 @@ class BangleSupplyResourceIT {
         BangleSupply updatedBangleSupply = bangleSupplyRepository.findById(bangleSupply.getId()).get();
         // Disconnect from session so that the updates on updatedBangleSupply are not directly saved in db
         em.detach(updatedBangleSupply);
-        updatedBangleSupply.apparitions(UPDATED_APPARITIONS).description(UPDATED_DESCRIPTION);
+        updatedBangleSupply.supplyState(UPDATED_SUPPLY_STATE).apparitions(UPDATED_APPARITIONS).description(UPDATED_DESCRIPTION);
 
         restBangleSupplyMockMvc
             .perform(
@@ -238,6 +268,7 @@ class BangleSupplyResourceIT {
         List<BangleSupply> bangleSupplyList = bangleSupplyRepository.findAll();
         assertThat(bangleSupplyList).hasSize(databaseSizeBeforeUpdate);
         BangleSupply testBangleSupply = bangleSupplyList.get(bangleSupplyList.size() - 1);
+        assertThat(testBangleSupply.getSupplyState()).isEqualTo(UPDATED_SUPPLY_STATE);
         assertThat(testBangleSupply.getApparitions()).isEqualTo(UPDATED_APPARITIONS);
         assertThat(testBangleSupply.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }
@@ -310,7 +341,7 @@ class BangleSupplyResourceIT {
         BangleSupply partialUpdatedBangleSupply = new BangleSupply();
         partialUpdatedBangleSupply.setId(bangleSupply.getId());
 
-        partialUpdatedBangleSupply.description(UPDATED_DESCRIPTION);
+        partialUpdatedBangleSupply.apparitions(UPDATED_APPARITIONS);
 
         restBangleSupplyMockMvc
             .perform(
@@ -324,8 +355,9 @@ class BangleSupplyResourceIT {
         List<BangleSupply> bangleSupplyList = bangleSupplyRepository.findAll();
         assertThat(bangleSupplyList).hasSize(databaseSizeBeforeUpdate);
         BangleSupply testBangleSupply = bangleSupplyList.get(bangleSupplyList.size() - 1);
-        assertThat(testBangleSupply.getApparitions()).isEqualTo(DEFAULT_APPARITIONS);
-        assertThat(testBangleSupply.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testBangleSupply.getSupplyState()).isEqualTo(DEFAULT_SUPPLY_STATE);
+        assertThat(testBangleSupply.getApparitions()).isEqualTo(UPDATED_APPARITIONS);
+        assertThat(testBangleSupply.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
     }
 
     @Test
@@ -340,7 +372,7 @@ class BangleSupplyResourceIT {
         BangleSupply partialUpdatedBangleSupply = new BangleSupply();
         partialUpdatedBangleSupply.setId(bangleSupply.getId());
 
-        partialUpdatedBangleSupply.apparitions(UPDATED_APPARITIONS).description(UPDATED_DESCRIPTION);
+        partialUpdatedBangleSupply.supplyState(UPDATED_SUPPLY_STATE).apparitions(UPDATED_APPARITIONS).description(UPDATED_DESCRIPTION);
 
         restBangleSupplyMockMvc
             .perform(
@@ -354,6 +386,7 @@ class BangleSupplyResourceIT {
         List<BangleSupply> bangleSupplyList = bangleSupplyRepository.findAll();
         assertThat(bangleSupplyList).hasSize(databaseSizeBeforeUpdate);
         BangleSupply testBangleSupply = bangleSupplyList.get(bangleSupplyList.size() - 1);
+        assertThat(testBangleSupply.getSupplyState()).isEqualTo(UPDATED_SUPPLY_STATE);
         assertThat(testBangleSupply.getApparitions()).isEqualTo(UPDATED_APPARITIONS);
         assertThat(testBangleSupply.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }

@@ -5,9 +5,7 @@ import com.muller.lappli.domain.exception.PositionHasSeveralSupplyException;
 import com.muller.lappli.domain.exception.PositionInSeveralAssemblyException;
 import com.muller.lappli.repository.PositionRepository;
 import com.muller.lappli.service.IPositionCheckingService;
-import com.muller.lappli.service.PositionQueryService;
 import com.muller.lappli.service.PositionService;
-import com.muller.lappli.service.criteria.PositionCriteria;
 import com.muller.lappli.web.rest.abstracts.AbstractPositionCheckingResource;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -44,16 +42,9 @@ public class PositionResource extends AbstractPositionCheckingResource<Position>
 
     private final PositionRepository positionRepository;
 
-    private final PositionQueryService positionQueryService;
-
-    public PositionResource(
-        PositionService positionService,
-        PositionRepository positionRepository,
-        PositionQueryService positionQueryService
-    ) {
+    public PositionResource(PositionService positionService, PositionRepository positionRepository) {
         this.positionService = positionService;
         this.positionRepository = positionRepository;
-        this.positionQueryService = positionQueryService;
     }
 
     @Override
@@ -151,9 +142,9 @@ public class PositionResource extends AbstractPositionCheckingResource<Position>
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of positions in body.
      */
     @GetMapping("/positions")
-    public ResponseEntity<List<Position>> getAllPositions(PositionCriteria criteria) {
-        log.debug("REST request to get Positions by criteria: {}", criteria);
-        List<Position> entityList = positionQueryService.findByCriteria(criteria);
+    public ResponseEntity<List<Position>> getAllPositions() {
+        log.debug("REST request to get Positions");
+        List<Position> entityList = positionService.findAll();
         return ResponseEntity.ok().body(entityList);
     }
 
@@ -164,9 +155,9 @@ public class PositionResource extends AbstractPositionCheckingResource<Position>
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
      */
     @GetMapping("/positions/count")
-    public ResponseEntity<Long> countPositions(PositionCriteria criteria) {
-        log.debug("REST request to count Positions by criteria: {}", criteria);
-        return ResponseEntity.ok().body(positionQueryService.countByCriteria(criteria));
+    public ResponseEntity<Long> countPositions() {
+        log.debug("REST request to count Positions");
+        return ResponseEntity.ok().body(Long.valueOf(positionService.findAll().size()));
     }
 
     /**

@@ -4,7 +4,6 @@ import com.muller.lappli.domain.CentralAssembly;
 import com.muller.lappli.domain.exception.PositionHasSeveralSupplyException;
 import com.muller.lappli.domain.exception.PositionInSeveralAssemblyException;
 import com.muller.lappli.repository.CentralAssemblyRepository;
-import com.muller.lappli.service.CentralAssemblyQueryService;
 import com.muller.lappli.service.CentralAssemblyService;
 import com.muller.lappli.service.IAssemblyService;
 import com.muller.lappli.service.criteria.CentralAssemblyCriteria;
@@ -43,16 +42,9 @@ public class CentralAssemblyResource extends AbstractAssemblyResource<CentralAss
 
     private final CentralAssemblyRepository centralAssemblyRepository;
 
-    private final CentralAssemblyQueryService centralAssemblyQueryService;
-
-    public CentralAssemblyResource(
-        CentralAssemblyService centralAssemblyService,
-        CentralAssemblyRepository centralAssemblyRepository,
-        CentralAssemblyQueryService centralAssemblyQueryService
-    ) {
+    public CentralAssemblyResource(CentralAssemblyService centralAssemblyService, CentralAssemblyRepository centralAssemblyRepository) {
         this.centralAssemblyService = centralAssemblyService;
         this.centralAssemblyRepository = centralAssemblyRepository;
-        this.centralAssemblyQueryService = centralAssemblyQueryService;
     }
 
     @Override
@@ -155,8 +147,8 @@ public class CentralAssemblyResource extends AbstractAssemblyResource<CentralAss
      */
     @GetMapping("/central-assemblies")
     public ResponseEntity<List<CentralAssembly>> getAllCentralAssemblies(CentralAssemblyCriteria criteria) {
-        log.debug("REST request to get CentralAssemblies by criteria: {}", criteria);
-        List<CentralAssembly> entityList = centralAssemblyQueryService.findByCriteria(criteria);
+        log.debug("REST request to get CentralAssemblies");
+        List<CentralAssembly> entityList = centralAssemblyService.findAll();
         return ResponseEntity.ok().body(entityList);
     }
 
@@ -167,9 +159,9 @@ public class CentralAssemblyResource extends AbstractAssemblyResource<CentralAss
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
      */
     @GetMapping("/central-assemblies/count")
-    public ResponseEntity<Long> countCentralAssemblies(CentralAssemblyCriteria criteria) {
-        log.debug("REST request to count CentralAssemblies by criteria: {}", criteria);
-        return ResponseEntity.ok().body(centralAssemblyQueryService.countByCriteria(criteria));
+    public ResponseEntity<Long> countCentralAssemblies() {
+        log.debug("REST request to count CentralAssemblies");
+        return ResponseEntity.ok().body(Long.valueOf(centralAssemblyService.findAll().size()));
     }
 
     /**

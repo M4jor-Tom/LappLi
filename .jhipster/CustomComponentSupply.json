@@ -2,6 +2,12 @@
   "name": "CustomComponentSupply",
   "fields": [
     {
+      "fieldName": "supplyState",
+      "fieldType": "SupplyState",
+      "fieldValues": "UNDIVIDED,DIVIDED_UNPLACED,PLACED",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "apparitions",
       "fieldType": "Long",
       "fieldValidateRules": ["required"]

@@ -50,6 +50,9 @@ export const StrandSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.strandSupply.id">ID</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.strandSupply.supplyState">Supply State</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.strandSupply.apparitions">Apparitions</Translate>
                 </th>
                 <th>
@@ -74,6 +77,9 @@ export const StrandSupply = (props: RouteComponentProps<{ url: string }>) => {
                     <Button tag={Link} to={`${match.url}/${strandSupply.id}`} color="link" size="sm">
                       {strandSupply.id}
                     </Button>
+                  </td>
+                  <td>
+                    <Translate contentKey={`lappLiApp.SupplyState.${strandSupply.supplyState}`} />
                   </td>
                   <td>{strandSupply.apparitions}</td>
                   <td>

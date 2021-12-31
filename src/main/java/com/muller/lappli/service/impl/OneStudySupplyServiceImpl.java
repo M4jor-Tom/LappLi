@@ -44,6 +44,9 @@ public class OneStudySupplyServiceImpl extends AbstractLiftedSupplyServiceImpl<O
             oneStudySupplyRepository
                 .findById(oneStudySupply.getId())
                 .map(existingOneStudySupply -> {
+                    if (oneStudySupply.getSupplyState() != null) {
+                        existingOneStudySupply.setSupplyState(oneStudySupply.getSupplyState());
+                    }
                     if (oneStudySupply.getApparitions() != null) {
                         existingOneStudySupply.setApparitions(oneStudySupply.getApparitions());
                     }

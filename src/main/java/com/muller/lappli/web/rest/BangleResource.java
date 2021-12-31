@@ -2,7 +2,6 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.Bangle;
 import com.muller.lappli.repository.BangleRepository;
-import com.muller.lappli.service.BangleQueryService;
 import com.muller.lappli.service.BangleService;
 import com.muller.lappli.service.criteria.BangleCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
@@ -39,12 +38,9 @@ public class BangleResource {
 
     private final BangleRepository bangleRepository;
 
-    private final BangleQueryService bangleQueryService;
-
-    public BangleResource(BangleService bangleService, BangleRepository bangleRepository, BangleQueryService bangleQueryService) {
+    public BangleResource(BangleService bangleService, BangleRepository bangleRepository) {
         this.bangleService = bangleService;
         this.bangleRepository = bangleRepository;
-        this.bangleQueryService = bangleQueryService;
     }
 
     /**
@@ -140,26 +136,12 @@ public class BangleResource {
     /**
      * {@code GET  /bangles} : get all the bangles.
      *
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of bangles in body.
      */
     @GetMapping("/bangles")
-    public ResponseEntity<List<Bangle>> getAllBangles(BangleCriteria criteria) {
-        log.debug("REST request to get Bangles by criteria: {}", criteria);
-        List<Bangle> entityList = bangleQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /bangles/count} : count all the bangles.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/bangles/count")
-    public ResponseEntity<Long> countBangles(BangleCriteria criteria) {
-        log.debug("REST request to count Bangles by criteria: {}", criteria);
-        return ResponseEntity.ok().body(bangleQueryService.countByCriteria(criteria));
+    public List<Bangle> getAllBangles() {
+        log.debug("REST request to get all Bangles");
+        return bangleService.findAll();
     }
 
     /**

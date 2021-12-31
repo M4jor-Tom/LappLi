@@ -2,9 +2,7 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.CustomComponent;
 import com.muller.lappli.repository.CustomComponentRepository;
-import com.muller.lappli.service.CustomComponentQueryService;
 import com.muller.lappli.service.CustomComponentService;
-import com.muller.lappli.service.criteria.CustomComponentCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,16 +37,9 @@ public class CustomComponentResource {
 
     private final CustomComponentRepository customComponentRepository;
 
-    private final CustomComponentQueryService customComponentQueryService;
-
-    public CustomComponentResource(
-        CustomComponentService customComponentService,
-        CustomComponentRepository customComponentRepository,
-        CustomComponentQueryService customComponentQueryService
-    ) {
+    public CustomComponentResource(CustomComponentService customComponentService, CustomComponentRepository customComponentRepository) {
         this.customComponentService = customComponentService;
         this.customComponentRepository = customComponentRepository;
-        this.customComponentQueryService = customComponentQueryService;
     }
 
     /**
@@ -145,26 +136,12 @@ public class CustomComponentResource {
     /**
      * {@code GET  /custom-components} : get all the customComponents.
      *
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of customComponents in body.
      */
     @GetMapping("/custom-components")
-    public ResponseEntity<List<CustomComponent>> getAllCustomComponents(CustomComponentCriteria criteria) {
-        log.debug("REST request to get CustomComponents by criteria: {}", criteria);
-        List<CustomComponent> entityList = customComponentQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /custom-components/count} : count all the customComponents.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/custom-components/count")
-    public ResponseEntity<Long> countCustomComponents(CustomComponentCriteria criteria) {
-        log.debug("REST request to count CustomComponents by criteria: {}", criteria);
-        return ResponseEntity.ok().body(customComponentQueryService.countByCriteria(criteria));
+    public List<CustomComponent> getAllCustomComponents() {
+        log.debug("REST request to get all CustomComponents");
+        return customComponentService.findAll();
     }
 
     /**

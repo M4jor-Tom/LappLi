@@ -2,7 +2,6 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.Copper;
 import com.muller.lappli.repository.CopperRepository;
-import com.muller.lappli.service.CopperQueryService;
 import com.muller.lappli.service.CopperService;
 import com.muller.lappli.service.criteria.CopperCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
@@ -39,12 +38,9 @@ public class CopperResource {
 
     private final CopperRepository copperRepository;
 
-    private final CopperQueryService copperQueryService;
-
-    public CopperResource(CopperService copperService, CopperRepository copperRepository, CopperQueryService copperQueryService) {
+    public CopperResource(CopperService copperService, CopperRepository copperRepository) {
         this.copperService = copperService;
         this.copperRepository = copperRepository;
-        this.copperQueryService = copperQueryService;
     }
 
     /**
@@ -140,26 +136,12 @@ public class CopperResource {
     /**
      * {@code GET  /coppers} : get all the coppers.
      *
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of coppers in body.
      */
     @GetMapping("/coppers")
-    public ResponseEntity<List<Copper>> getAllCoppers(CopperCriteria criteria) {
-        log.debug("REST request to get Coppers by criteria: {}", criteria);
-        List<Copper> entityList = copperQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /coppers/count} : count all the coppers.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/coppers/count")
-    public ResponseEntity<Long> countCoppers(CopperCriteria criteria) {
-        log.debug("REST request to count Coppers by criteria: {}", criteria);
-        return ResponseEntity.ok().body(copperQueryService.countByCriteria(criteria));
+    public List<Copper> getAllCoppers() {
+        log.debug("REST request to get all Coppers");
+        return copperService.findAll();
     }
 
     /**

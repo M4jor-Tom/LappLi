@@ -15,21 +15,13 @@ import { IBangleSupply } from 'app/shared/model/bangle-supply.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-import { getOutFromStudySupplyStrandSupplyComponent, getStudyValidateField } from '../index-management/index-management-lib';
+import { SupplyState } from 'app/shared/model/enumerations/supply-state.model';
+import { getSupplyStrandValidatedField, SupplyKind } from '../index-management/index-management-lib';
 
-import {
-  getStrandSupplyRedirectionUrl,
-  getSupplyStrandValidatedField,
-  isStrandSupply,
-  SupplyKind,
-} from '../index-management/index-management-lib';
-
-export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
+export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string; strand_id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
-
-  const redirectionUrl = getOutFromStudySupplyStrandSupplyComponent(props.match.url, isNew);
 
   const bangles = useAppSelector(state => state.bangle.entities);
   const positions = useAppSelector(state => state.position.entities);
@@ -38,8 +30,9 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
   const loading = useAppSelector(state => state.bangleSupply.loading);
   const updating = useAppSelector(state => state.bangleSupply.updating);
   const updateSuccess = useAppSelector(state => state.bangleSupply.updateSuccess);
+  const supplyStateValues = Object.keys(SupplyState);
   const handleClose = () => {
-    props.history.push(redirectionUrl);
+    props.history.push('/bangle-supply');
   };
 
   useEffect(() => {
@@ -81,6 +74,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
     isNew
       ? {}
       : {
+          supplyState: 'UNDIVIDED',
           ...bangleSupplyEntity,
           bangle: bangleSupplyEntity?.bangle?.id,
           strand: bangleSupplyEntity?.strand?.id,
@@ -112,7 +106,20 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.supply.apparitions')}
+                label={translate('lappLiApp.bangleSupply.supplyState')}
+                id="bangle-supply-supplyState"
+                name="supplyState"
+                data-cy="supplyState"
+                type="select"
+              >
+                {supplyStateValues.map(supplyState => (
+                  <option value={supplyState} key={supplyState}>
+                    {translate('lappLiApp.SupplyState' + supplyState)}
+                  </option>
+                ))}
+              </ValidatedField>
+              <ValidatedField
+                label={translate('lappLiApp.bangleSupply.apparitions')}
                 id="bangle-supply-apparitions"
                 name="apparitions"
                 data-cy="apparitions"
@@ -123,7 +130,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
                 }}
               />
               <ValidatedField
-                label={translate('lappLiApp.supply.description')}
+                label={translate('lappLiApp.bangleSupply.description')}
                 id="bangle-supply-description"
                 name="description"
                 data-cy="description"
@@ -149,8 +156,27 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              {strandValidateField}
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
+              <ValidatedField
+                id="bangle-supply-strand"
+                name="strand"
+                data-cy="strand"
+                label={translate('lappLiApp.supply.strand')}
+                type="select"
+                required
+              >
+                <option value="" key="0" />
+                {strands
+                  ? strands.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.designation}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/bangle-supply" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">

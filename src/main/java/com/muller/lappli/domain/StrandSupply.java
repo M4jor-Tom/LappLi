@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.enumeration.MarkingType;
+import com.muller.lappli.domain.enumeration.SupplyState;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -22,6 +23,11 @@ public class StrandSupply implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "supply_state", nullable = false)
+    private SupplyState supplyState;
 
     @NotNull
     @Column(name = "apparitions", nullable = false)
@@ -69,6 +75,19 @@ public class StrandSupply implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public SupplyState getSupplyState() {
+        return this.supplyState;
+    }
+
+    public StrandSupply supplyState(SupplyState supplyState) {
+        this.setSupplyState(supplyState);
+        return this;
+    }
+
+    public void setSupplyState(SupplyState supplyState) {
+        this.supplyState = supplyState;
     }
 
     public Long getApparitions() {
@@ -160,6 +179,7 @@ public class StrandSupply implements Serializable {
     public String toString() {
         return "StrandSupply{" +
             "id=" + getId() +
+            ", supplyState='" + getSupplyState() + "'" +
             ", apparitions=" + getApparitions() +
             ", markingType='" + getMarkingType() + "'" +
             ", description='" + getDescription() + "'" +
