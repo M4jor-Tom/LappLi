@@ -61,6 +61,7 @@ public class Strand implements Serializable {
     @OneToOne(mappedBy = "strand")
     private CentralAssembly centralAssembly;
 
+    @JsonIgnoreProperties("strand")
     public CoreAssembly getLastCoreAssembly() {
         CoreAssembly lastCoreAssembly = null;
 

@@ -1,5 +1,6 @@
 package com.muller.lappli.domain.abstracts;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
@@ -35,6 +36,7 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      */
     protected static final Long LIFTING_METER_PER_HOUR_SPEED = Long.valueOf(5000);
 
+    @JsonIgnoreProperties("supplies")
     public abstract Strand getStrand();
 
     public abstract Position getPosition();
