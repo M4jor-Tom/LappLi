@@ -1,5 +1,3 @@
-filter * except ElementKind, Element, ElementSupply, BangleSupply, CustomComponentSupply, LifterRunMeasure
-
 service * with serviceImpl
 
 entity Position {

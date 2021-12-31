@@ -10,7 +10,6 @@ import com.muller.lappli.domain.IntersticeAssembly;
 import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.repository.IntersticeAssemblyRepository;
-import com.muller.lappli.service.criteria.IntersticeAssemblyCriteria;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -160,113 +159,6 @@ class IntersticeAssemblyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(intersticeAssembly.getId().intValue()));
-    }
-
-    @Test
-    @Transactional
-    void getIntersticeAssembliesByIdFiltering() throws Exception {
-        // Initialize the database
-        intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
-
-        Long id = intersticeAssembly.getId();
-
-        defaultIntersticeAssemblyShouldBeFound("id.equals=" + id);
-        defaultIntersticeAssemblyShouldNotBeFound("id.notEquals=" + id);
-
-        defaultIntersticeAssemblyShouldBeFound("id.greaterThanOrEqual=" + id);
-        defaultIntersticeAssemblyShouldNotBeFound("id.greaterThan=" + id);
-
-        defaultIntersticeAssemblyShouldBeFound("id.lessThanOrEqual=" + id);
-        defaultIntersticeAssemblyShouldNotBeFound("id.lessThan=" + id);
-    }
-
-    @Test
-    @Transactional
-    void getAllIntersticeAssembliesByPositionsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
-        Position positions;
-        if (TestUtil.findAll(em, Position.class).isEmpty()) {
-            positions = PositionResourceIT.createEntity(em);
-            em.persist(positions);
-            em.flush();
-        } else {
-            positions = TestUtil.findAll(em, Position.class).get(0);
-        }
-        em.persist(positions);
-        em.flush();
-        intersticeAssembly.addPositions(positions);
-        intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
-        Long positionsId = positions.getId();
-
-        // Get all the intersticeAssemblyList where positions equals to positionsId
-        defaultIntersticeAssemblyShouldBeFound("positionsId.equals=" + positionsId);
-
-        // Get all the intersticeAssemblyList where positions equals to (positionsId + 1)
-        defaultIntersticeAssemblyShouldNotBeFound("positionsId.equals=" + (positionsId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllIntersticeAssembliesByStrandIsEqualToSomething() throws Exception {
-        // Initialize the database
-        intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
-        Strand strand;
-        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
-            strand = StrandResourceIT.createEntity(em);
-            em.persist(strand);
-            em.flush();
-        } else {
-            strand = TestUtil.findAll(em, Strand.class).get(0);
-        }
-        em.persist(strand);
-        em.flush();
-        intersticeAssembly.setStrand(strand);
-        intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
-        Long strandId = strand.getId();
-
-        // Get all the intersticeAssemblyList where strand equals to strandId
-        defaultIntersticeAssemblyShouldBeFound("strandId.equals=" + strandId);
-
-        // Get all the intersticeAssemblyList where strand equals to (strandId + 1)
-        defaultIntersticeAssemblyShouldNotBeFound("strandId.equals=" + (strandId + 1));
-    }
-
-    /**
-     * Executes the search, and checks that the default entity is returned.
-     */
-    private void defaultIntersticeAssemblyShouldBeFound(String filter) throws Exception {
-        restIntersticeAssemblyMockMvc
-            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(intersticeAssembly.getId().intValue())));
-
-        // Check, that the count call also returns 1
-        restIntersticeAssemblyMockMvc
-            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(content().string("1"));
-    }
-
-    /**
-     * Executes the search, and checks that the default entity is not returned.
-     */
-    private void defaultIntersticeAssemblyShouldNotBeFound(String filter) throws Exception {
-        restIntersticeAssemblyMockMvc
-            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$").isArray())
-            .andExpect(jsonPath("$").isEmpty());
-
-        // Check, that the count call also returns 0
-        restIntersticeAssemblyMockMvc
-            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(content().string("0"));
     }
 
     @Test

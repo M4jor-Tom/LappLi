@@ -10,7 +10,6 @@ import com.muller.lappli.domain.CentralAssembly;
 import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.repository.CentralAssemblyRepository;
-import com.muller.lappli.service.criteria.CentralAssemblyCriteria;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -206,102 +205,6 @@ class CentralAssemblyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(centralAssembly.getId().intValue()));
-    }
-
-    @Test
-    @Transactional
-    void getCentralAssembliesByIdFiltering() throws Exception {
-        // Initialize the database
-        centralAssemblyRepository.saveAndFlush(centralAssembly);
-
-        Long id = centralAssembly.getId();
-
-        defaultCentralAssemblyShouldBeFound("id.equals=" + id);
-        defaultCentralAssemblyShouldNotBeFound("id.notEquals=" + id);
-
-        defaultCentralAssemblyShouldBeFound("id.greaterThanOrEqual=" + id);
-        defaultCentralAssemblyShouldNotBeFound("id.greaterThan=" + id);
-
-        defaultCentralAssemblyShouldBeFound("id.lessThanOrEqual=" + id);
-        defaultCentralAssemblyShouldNotBeFound("id.lessThan=" + id);
-    }
-
-    @Test
-    @Transactional
-    void getAllCentralAssembliesByStrandIsEqualToSomething() throws Exception {
-        // Get already existing entity
-        Strand strand = centralAssembly.getStrand();
-        centralAssemblyRepository.saveAndFlush(centralAssembly);
-        Long strandId = strand.getId();
-
-        // Get all the centralAssemblyList where strand equals to strandId
-        defaultCentralAssemblyShouldBeFound("strandId.equals=" + strandId);
-
-        // Get all the centralAssemblyList where strand equals to (strandId + 1)
-        defaultCentralAssemblyShouldNotBeFound("strandId.equals=" + (strandId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllCentralAssembliesByPositionIsEqualToSomething() throws Exception {
-        // Initialize the database
-        centralAssemblyRepository.saveAndFlush(centralAssembly);
-        Position position;
-        if (TestUtil.findAll(em, Position.class).isEmpty()) {
-            position = PositionResourceIT.createEntity(em);
-            em.persist(position);
-            em.flush();
-        } else {
-            position = TestUtil.findAll(em, Position.class).get(0);
-        }
-        em.persist(position);
-        em.flush();
-        centralAssembly.setPosition(position);
-        centralAssemblyRepository.saveAndFlush(centralAssembly);
-        Long positionId = position.getId();
-
-        // Get all the centralAssemblyList where position equals to positionId
-        defaultCentralAssemblyShouldBeFound("positionId.equals=" + positionId);
-
-        // Get all the centralAssemblyList where position equals to (positionId + 1)
-        defaultCentralAssemblyShouldNotBeFound("positionId.equals=" + (positionId + 1));
-    }
-
-    /**
-     * Executes the search, and checks that the default entity is returned.
-     */
-    private void defaultCentralAssemblyShouldBeFound(String filter) throws Exception {
-        restCentralAssemblyMockMvc
-            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(centralAssembly.getId().intValue())));
-
-        // Check, that the count call also returns 1
-        restCentralAssemblyMockMvc
-            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(content().string("1"));
-    }
-
-    /**
-     * Executes the search, and checks that the default entity is not returned.
-     */
-    private void defaultCentralAssemblyShouldNotBeFound(String filter) throws Exception {
-        restCentralAssemblyMockMvc
-            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$").isArray())
-            .andExpect(jsonPath("$").isEmpty());
-
-        // Check, that the count call also returns 0
-        restCentralAssemblyMockMvc
-            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(content().string("0"));
     }
 
     @Test
