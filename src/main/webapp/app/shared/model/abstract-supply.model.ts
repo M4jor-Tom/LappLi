@@ -4,6 +4,7 @@ import { IStrand } from './strand.model';
 export interface IAbstractSupply {
   id?: number;
   apparitions?: number;
+  dividedApparitions?: number;
   designation?: string | null;
   description?: string | null;
   meterQuantity?: number;
