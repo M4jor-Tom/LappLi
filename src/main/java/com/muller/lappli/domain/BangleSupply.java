@@ -69,6 +69,11 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     private Strand strand;
 
     @Override
+    public BangleSupply getThis() {
+        return this;
+    }
+
+    @Override
     public CylindricComponent getCylindricComponent() {
         return getBangle();
     }

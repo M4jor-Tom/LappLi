@@ -76,6 +76,11 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
     private Strand strand;
 
     @Override
+    public CustomComponentSupply getThis() {
+        return this;
+    }
+
+    @Override
     public CylindricComponent getCylindricComponent() {
         return getCustomComponent();
     }

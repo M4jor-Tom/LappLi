@@ -92,6 +92,11 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     )
     private Strand strand;
 
+    @Override
+    public OneStudySupply getThis() {
+        return this;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override
