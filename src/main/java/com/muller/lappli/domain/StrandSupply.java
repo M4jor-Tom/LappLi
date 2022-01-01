@@ -37,18 +37,6 @@ public class StrandSupply implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(
-        value = {
-            "coreAssemblies",
-            "intersticeAssemblies",
-            "elementSupplies",
-            "bangleSupplies",
-            "customComponentSupplies",
-            "oneStudySupplies",
-            "centralAssembly",
-        },
-        allowSetters = true
-    )
     private Strand strand;
 
     @ManyToOne(optional = false)
