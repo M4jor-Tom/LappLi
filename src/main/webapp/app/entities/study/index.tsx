@@ -28,7 +28,7 @@ import CoreAssemblyDeleteDialog from '../core-assembly/core-assembly-delete-dial
 import IntersticeAssemblyUpdate from '../interstice-assembly/interstice-assembly-update';
 import IntersticeAssemblyDeleteDialog from '../interstice-assembly/interstice-assembly-delete-dialog';
 
-const strandSupplyZoneUrlPefixToStrandId = '/:study_id/study-supplies/strand'; //  -supplies';
+const strandSupplyZoneUrlPefixToStrandId = '/:study_id/study-supplies/strand-supplies';
 
 const Routes = ({ match }) => (
   <>

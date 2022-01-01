@@ -101,7 +101,7 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                             </Button>*/}
                             <Button
                               tag={Link}
-                              to={`${props.match.url}/strand/${strandSupply.strand.id}/operation`}
+                              to={`${props.match.url}/strand-supplies/${strandSupply.strand.id}/operation`}
                               color="primary"
                               size="sm"
                               data-cy="entityEditButton"
@@ -114,7 +114,7 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                             &nbsp;
                             <Button
                               tag={Link}
-                              to={`${props.match.url}/strand/${strandSupply.strand.id}/supply`}
+                              to={`${props.match.url}/strand-supplies/${strandSupply.strand.id}/supply`}
                               color="primary"
                               size="sm"
                               data-cy="entityEditButton"
