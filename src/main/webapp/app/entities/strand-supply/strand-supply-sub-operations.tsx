@@ -4,19 +4,22 @@ import { Button, Row, Col, Table } from 'reactstrap';
 import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { getEntity } from './strand.reducer';
+import { getEntity } from '../strand-supply/strand-supply.reducer';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getOut } from '../index-management/index-management-lib';
+import { defaultValue as strandDefaultValue } from 'app/shared/model/strand.model';
 
-export const StrandSubOperation = (props: RouteComponentProps<{ id: string; study_id: string }>) => {
+export const StrandSupplySubOperation = (props: RouteComponentProps<{ id: string; study_id: string }>) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getEntity(props.match.params.id));
   }, []);
 
-  const strandEntity = useAppSelector(state => state.strand.entity);
+  const strandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
+
+  const strand = strandSupplyEntity.strand ? strandSupplyEntity.strand : strandDefaultValue;
 
   const { match } = props;
 
@@ -28,9 +31,9 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
         <Translate contentKey="lappLiApp.strand.detail.title">Strand</Translate>
       </h2>
       <div className="table-responsive">
-        {strandEntity.centralAssembly ||
-        (strandEntity.coreAssemblies && strandEntity.coreAssemblies.length > 0) ||
-        (strandEntity.intersticeAssemblies && strandEntity.intersticeAssemblies.length > 0) ? (
+        {strand.centralAssembly ||
+        (strand.coreAssemblies && strand.coreAssemblies.length > 0) ||
+        (strand.intersticeAssemblies && strand.intersticeAssemblies.length > 0) ? (
           <Table responsive>
             <thead>
               <tr>
@@ -56,7 +59,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
               </tr>
             </thead>
             <tbody>
-              {strandEntity.centralAssembly ? (
+              {strand.centralAssembly ? (
                 <tr data-cy="entityTable">
                   <td>
                     <Translate contentKey="lappLiApp.centralAssembly.home.title" />
@@ -64,15 +67,15 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
                   <td>
                     <Translate contentKey="lappLiApp.centralAssembly.centralOperationLayer" />
                   </td>
-                  <td>{strandEntity.centralAssembly.productionStep}</td>
-                  <td>{strandEntity.centralAssembly.afterThisMilimeterDiameter}</td>
+                  <td>{strand.centralAssembly.productionStep}</td>
+                  <td>{strand.centralAssembly.afterThisMilimeterDiameter}</td>
                   <td>{/* NO ASSEMBLY STEP (CENTRAL ASSEMBLY) */}</td>
                   <td>{/* NO ASSEMBLY MEAN (CENTRAL ASSEMBLY) */}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button
                         tag={Link}
-                        to={`${props.match.url}/central-assembly/${strandEntity.centralAssembly.id}/supply`}
+                        to={`${props.match.url}/central-assembly/${strand.centralAssembly.id}/supply`}
                         color="primary"
                         size="sm"
                         data-cy="entityEditButton"
@@ -85,7 +88,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
                       &nbsp;
                       <Button
                         tag={Link}
-                        to={`${props.match.url}/central-assembly/${strandEntity.centralAssembly.id}/edit`}
+                        to={`${props.match.url}/central-assembly/${strand.centralAssembly.id}/edit`}
                         color="primary"
                         size="sm"
                         data-cy="entityEditButton"
@@ -98,7 +101,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
                       &nbsp;
                       <Button
                         tag={Link}
-                        to={`${props.match.url}/central-assembly/${strandEntity.centralAssembly.id}/delete`}
+                        to={`${props.match.url}/central-assembly/${strand.centralAssembly.id}/delete`}
                         color="danger"
                         size="sm"
                         data-cy="entityDeleteButton"
@@ -114,8 +117,8 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
               ) : (
                 ''
               )}
-              {strandEntity.coreAssemblies
-                ? strandEntity.coreAssemblies.map((coreAssembly, i) => (
+              {strand.coreAssemblies
+                ? strand.coreAssemblies.map((coreAssembly, i) => (
                     <tr key={`entity-core-assembly-${i}`} data-cy="entityTable">
                       <td>
                         <Translate contentKey="lappLiApp.coreAssembly.home.title" />
@@ -170,8 +173,8 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
                     </tr>
                   ))
                 : ''}
-              {strandEntity.intersticeAssemblies
-                ? strandEntity.intersticeAssemblies.map((intersticialAssembly, i) => (
+              {strand.intersticeAssemblies
+                ? strand.intersticeAssemblies.map((intersticialAssembly, i) => (
                     <tr key={`entity-interstice-assembly-${i}`} data-cy="entityTable">
                       <td>
                         <Translate contentKey="lappLiApp.intersticeAssembly.home.title" />
@@ -240,7 +243,7 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
           </span>
         </Button>
         &nbsp;
-        {strandEntity.centralAssembly ? (
+        {strand.centralAssembly ? (
           ''
         ) : (
           <>
@@ -283,4 +286,4 @@ export const StrandSubOperation = (props: RouteComponentProps<{ id: string; stud
   );
 };
 
-export default StrandSubOperation;
+export default StrandSupplySubOperation;

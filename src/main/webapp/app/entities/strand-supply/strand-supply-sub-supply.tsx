@@ -4,13 +4,14 @@ import { Button, Row, Col, Table } from 'reactstrap';
 import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { getEntity } from './strand.reducer';
+import { getEntity } from '../strand-supply/strand-supply.reducer';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getOut } from '../index-management/index-management-lib';
 import { toNumber } from 'lodash';
+import { defaultValue as strandDefaultValue } from 'app/shared/model/strand.model';
 
-export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; strand_id: string; id: string }>) => {
+export const StrandSupplySubSupply = (props: RouteComponentProps<{ study_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -19,7 +20,10 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; s
 
   const getOutCount: number = props.match.params.study_id ? 2 : 0;
 
-  const strandEntity = useAppSelector(state => state.strand.entity);
+  const strandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
+
+  const strand = strandSupplyEntity.strand ? strandSupplyEntity.strand : strandDefaultValue;
+
   return (
     <div>
       <div>
@@ -33,14 +37,14 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; s
               <Translate contentKey="lappLiApp.strand.designation">Designation</Translate>
             </span>
           </dt>
-          <dd>{strandEntity.designation}</dd>
+          <dd>{strand.designation}</dd>
           <dd>
             <div className="table-responsive">
               {/* [DUPLICATE] */}
-              {(strandEntity.customComponentSupplies && strandEntity.customComponentSupplies.length > 0) ||
-              (strandEntity.bangleSupplies && strandEntity.bangleSupplies.length > 0) ||
-              (strandEntity.elementSupplies && strandEntity.elementSupplies.length > 0) ||
-              (strandEntity.oneStudySupplies && strandEntity.oneStudySupplies.length > 0) ? (
+              {(strand.customComponentSupplies && strand.customComponentSupplies.length > 0) ||
+              (strand.bangleSupplies && strand.bangleSupplies.length > 0) ||
+              (strand.elementSupplies && strand.elementSupplies.length > 0) ||
+              (strand.oneStudySupplies && strand.oneStudySupplies.length > 0) ? (
                 <Table responsive>
                   <thead>
                     <tr>
@@ -96,7 +100,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; s
                     </tr>
                   </thead>
                   <tbody>
-                    {strandEntity.customComponentSupplies.map((customComponentSupply, i) => (
+                    {strand.customComponentSupplies.map((customComponentSupply, i) => (
                       <>
                         <tr>
                           <td>
@@ -166,7 +170,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; s
                         </tr>
                       </>
                     ))}
-                    {strandEntity.bangleSupplies.map((bangleSupply, i) => (
+                    {strand.bangleSupplies.map((bangleSupply, i) => (
                       <>
                         <tr>
                           <td>
@@ -228,7 +232,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; s
                         </tr>
                       </>
                     ))}
-                    {strandEntity.elementSupplies.map((elementSupply, i) => (
+                    {strand.elementSupplies.map((elementSupply, i) => (
                       <>
                         <tr>
                           <td>
@@ -294,7 +298,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; s
                         </tr>
                       </>
                     ))}
-                    {strandEntity.oneStudySupplies.map((oneStudySupply, i) => (
+                    {strand.oneStudySupplies.map((oneStudySupply, i) => (
                       <tr key={`entity-${i}`} data-cy="entityTable">
                         <td>
                           <Translate contentKey="global.menu.entities.oneStudySupply" />
@@ -418,7 +422,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; s
           </span>
         </Button>
         {/* &nbsp;
-        <Button tag={Link} to={`/strand/${strandEntity.id}/edit`} replace color="primary">
+        <Button tag={Link} to={`/strand/${strand.id}/edit`} replace color="primary">
           <FontAwesomeIcon icon="pencil-alt" />{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -429,4 +433,4 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; s
   );
 };
 
-export default StrandSubSupply;
+export default StrandSupplySubSupply;
