@@ -79,15 +79,13 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      * @throws AppartionDivisionNonNullRemainderException if the undivided apparition count
      * leaves a remain after the observerStrandSupply's apparitions count divides it
      */
-    public Long getDividedApparitions() throws AppartionDivisionNonNullRemainderException {
+    public Long getDividedApparitions() { //throws AppartionDivisionNonNullRemainderException {
         try {
-            StrandSupply observerStrandSupply = getObserverStrandSupply();
-
-            if (observerStrandSupply.getApparitions() % getApparitions() != 0) {
-                throw new AppartionDivisionNonNullRemainderException();
+            if (getObserverStrandSupply().getApparitions() % getApparitions() != 0) {
+                //throw new AppartionDivisionNonNullRemainderException();
             }
 
-            return getApparitions() / observerStrandSupply.getApparitions();
+            return getApparitions() / getObserverStrandSupply().getApparitions();
         } catch (NullPointerException e) {
             return null;
         }

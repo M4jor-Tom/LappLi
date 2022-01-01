@@ -1,6 +1,7 @@
 package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.StrandSupply;
+import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.repository.StrandSupplyRepository;
 import com.muller.lappli.service.StrandSupplyService;
 import java.util.List;
@@ -25,46 +26,56 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         this.strandSupplyRepository = strandSupplyRepository;
     }
 
+    public StrandSupply onRead(StrandSupply domainObject) {
+        for (AbstractSupply<?> supply : domainObject.getStrand().getSupplies()) {
+            supply.setObserverStrandSupply(domainObject);
+        }
+
+        return domainObject;
+    }
+
     @Override
     public StrandSupply save(StrandSupply strandSupply) {
         log.debug("Request to save StrandSupply : {}", strandSupply);
-        return strandSupplyRepository.save(strandSupply);
+        return onRead(strandSupplyRepository.save(strandSupply));
     }
 
     @Override
     public Optional<StrandSupply> partialUpdate(StrandSupply strandSupply) {
         log.debug("Request to partially update StrandSupply : {}", strandSupply);
 
-        return strandSupplyRepository
-            .findById(strandSupply.getId())
-            .map(existingStrandSupply -> {
-                if (strandSupply.getApparitions() != null) {
-                    existingStrandSupply.setApparitions(strandSupply.getApparitions());
-                }
-                if (strandSupply.getMarkingType() != null) {
-                    existingStrandSupply.setMarkingType(strandSupply.getMarkingType());
-                }
-                if (strandSupply.getDescription() != null) {
-                    existingStrandSupply.setDescription(strandSupply.getDescription());
-                }
+        return onOptionalRead(
+            strandSupplyRepository
+                .findById(strandSupply.getId())
+                .map(existingStrandSupply -> {
+                    if (strandSupply.getApparitions() != null) {
+                        existingStrandSupply.setApparitions(strandSupply.getApparitions());
+                    }
+                    if (strandSupply.getMarkingType() != null) {
+                        existingStrandSupply.setMarkingType(strandSupply.getMarkingType());
+                    }
+                    if (strandSupply.getDescription() != null) {
+                        existingStrandSupply.setDescription(strandSupply.getDescription());
+                    }
 
-                return existingStrandSupply;
-            })
-            .map(strandSupplyRepository::save);
+                    return existingStrandSupply;
+                })
+                .map(strandSupplyRepository::save)
+        );
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<StrandSupply> findAll() {
         log.debug("Request to get all StrandSupplies");
-        return strandSupplyRepository.findAll();
+        return onListRead(strandSupplyRepository.findAll());
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<StrandSupply> findOne(Long id) {
         log.debug("Request to get StrandSupply : {}", id);
-        return strandSupplyRepository.findById(id);
+        return onOptionalRead(strandSupplyRepository.findById(id));
     }
 
     @Override
