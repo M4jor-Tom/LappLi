@@ -27,8 +27,10 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
     }
 
     public StrandSupply onRead(StrandSupply domainObject) {
-        for (AbstractSupply<?> supply : domainObject.getStrand().getSupplies()) {
-            supply.setObserverStrandSupply(domainObject);
+        if (domainObject != null && domainObject.getStrand() != null) {
+            for (AbstractSupply<?> supply : domainObject.getStrand().getSupplies()) {
+                supply.setObserverStrandSupply(domainObject);
+            }
         }
 
         return domainObject;
