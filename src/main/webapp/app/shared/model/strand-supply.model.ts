@@ -4,6 +4,7 @@ import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 
 export interface IStrandSupply {
   id?: number;
+  designation?: string;
   apparitions?: number;
   markingType?: MarkingType;
   description?: string | null;
