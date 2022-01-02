@@ -24,6 +24,14 @@ export const StrandSupplySubSupply = (props: RouteComponentProps<{ study_id: str
 
   const strand = strandSupplyEntity.strand ? strandSupplyEntity.strand : strandDefaultValue;
 
+  const unDividedAndDividedApparitionText = (undividedApparitions, dividedApparitions) => (
+    <>
+      <Translate contentKey="lappLiApp.supply.undividedApparitions" />: {undividedApparitions}
+      <br />
+      <Translate contentKey="lappLiApp.supply.dividedApparitions" />: {dividedApparitions}
+    </>
+  );
+
   return (
     <div>
       <div>
@@ -53,9 +61,6 @@ export const StrandSupplySubSupply = (props: RouteComponentProps<{ study_id: str
                       </th>
                       <th>
                         <Translate contentKey="lappLiApp.supply.apparitions">Apparitions in Study</Translate>
-                      </th>
-                      <th>
-                        <Translate contentKey="lappLiApp.supply.dividedApparitions">Apparitions in one Strand</Translate>
                       </th>
                       <th>
                         <Translate contentKey="lappLiApp.supply.markingType">Marking Type</Translate>
@@ -109,8 +114,9 @@ export const StrandSupplySubSupply = (props: RouteComponentProps<{ study_id: str
                           <td>
                             <Translate contentKey="global.menu.entities.customComponentSupply" />
                           </td>
-                          <td>{customComponentSupply.apparitions}</td>
-                          <td>{customComponentSupply.dividedApparitions}</td>
+                          <td>
+                            {unDividedAndDividedApparitionText(customComponentSupply.apparitions, customComponentSupply.dividedApparitions)}
+                          </td>
                           <td>
                             <Translate contentKey={`lappLiApp.MarkingType.${customComponentSupply.markingType}`} />
                           </td>
@@ -180,8 +186,7 @@ export const StrandSupplySubSupply = (props: RouteComponentProps<{ study_id: str
                           <td>
                             <Translate contentKey="global.menu.entities.bangleSupply" />
                           </td>
-                          <td>{bangleSupply.apparitions}</td>
-                          <td>{bangleSupply.dividedApparitions}</td>
+                          <td>{unDividedAndDividedApparitionText(bangleSupply.apparitions, bangleSupply.dividedApparitions)}</td>
                           <td>{/* MarkingType, absent for bangles */}</td>
                           <td>
                             <Link to={`/bangle/${bangleSupply.bangle.id}`}>{bangleSupply.bangle.number}</Link>
@@ -243,8 +248,7 @@ export const StrandSupplySubSupply = (props: RouteComponentProps<{ study_id: str
                           <td>
                             <Translate contentKey="global.menu.entities.elementSupply" />
                           </td>
-                          <td>{elementSupply.apparitions}</td>
-                          <td>{elementSupply.dividedApparitions}</td>
+                          <td>{unDividedAndDividedApparitionText(elementSupply.apparitions, elementSupply.dividedApparitions)}</td>
                           <td>
                             <Translate contentKey={`lappLiApp.MarkingType.${elementSupply.markingType}`} />
                           </td>
@@ -309,8 +313,7 @@ export const StrandSupplySubSupply = (props: RouteComponentProps<{ study_id: str
                         <td>
                           <Translate contentKey="global.menu.entities.oneStudySupply" />
                         </td>
-                        <td>{oneStudySupply.apparitions}</td>
-                        <td>{oneStudySupply.dividedApparitions}</td>
+                        <td>{unDividedAndDividedApparitionText(oneStudySupply.apparitions, oneStudySupply.dividedApparitions)}</td>
                         <td>
                           <Translate contentKey={`lappLiApp.MarkingType.${oneStudySupply.markingType}`} />
                         </td>

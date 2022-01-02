@@ -1,9 +1,9 @@
 {
   "lappLiApp": {
     "supply": {
-      "apparitions": "Apparitions in Study",
-      "dividedApparitions": "Apparitions in one Strand",
-      "description": "description",
+      "apparitions": "Apparitions",
+      "undividedApparitions": "Study",
+      "dividedApparitions": "Strand",
       "bestLiftersNames": "Best Lifters",
       "meterPerHourSpeed": "Speed (m/h)",
       "formatedHourPreparationTime": "Preparation Time (h)",

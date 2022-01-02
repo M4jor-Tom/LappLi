@@ -1,8 +1,9 @@
 {
   "lappLiApp": {
     "supply": {
-      "apparitions": "Apparitions dans l'étude",
-      "dividedApparitions": "Apparitions dans un Toron",
+      "apparitions": "Apparitions",
+      "undividedApparitions": "Etude",
+      "dividedApparitions": "Toron",
       "description": "description",
       "bestLiftersNames": "Meilleures releveuses",
       "meterPerHourSpeed": "Vitesse (m/h)",
