@@ -71,10 +71,8 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
 
     public T checkStrandSupplyObserverIs(StrandSupply strandSupply) throws IllegalStrandSupplyException {
         try {
-            for (AbstractSupply<?> supply : getStrand().getSupplies()) {
-                if (!supply.getObserverStrandSupply().equals(strandSupply)) {
-                    throw new IllegalStrandSupplyException();
-                }
+            if (getObserverStrandSupply().equals(strandSupply)) {
+                throw new IllegalStrandSupplyException();
             }
         } catch (NullPointerException e) {}
 
