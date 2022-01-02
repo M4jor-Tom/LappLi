@@ -52,7 +52,7 @@ export const StrandSupplySubSupply = (props: RouteComponentProps<{ study_id: str
                         <Translate contentKey="lappLiApp.supply.type">Type</Translate>
                       </th>
                       <th>
-                        <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
+                        <Translate contentKey="lappLiApp.supply.apparitions">Apparitions in Study</Translate>
                       </th>
                       <th>
                         <Translate contentKey="lappLiApp.supply.dividedApparitions">Apparitions in one Strand</Translate>
