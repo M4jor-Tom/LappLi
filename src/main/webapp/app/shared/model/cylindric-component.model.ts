@@ -1,4 +1,6 @@
-export interface ICylindricComponent {
+import { IDesignable } from './designable.model';
+
+export interface ICylindricComponent extends IDesignable {
   milimeterDiameter?: number;
   gramPerMeterLinearMass?: number;
 
