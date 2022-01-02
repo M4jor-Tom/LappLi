@@ -5,6 +5,8 @@ import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.StrandSupply;
+import com.muller.lappli.domain.exception.AppartionDivisionNonNullRemainderException;
+import com.muller.lappli.domain.exception.IllegalStrandSupplyException;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.text.DecimalFormat;
 import javax.persistence.MappedSuperclass;
@@ -58,6 +60,30 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      * @return the representated component
      */
     public abstract CylindricComponent getCylindricComponent();
+
+    public T checkApparitionRemainderIsNull() throws AppartionDivisionNonNullRemainderException {
+        if (getStrand() != null) {
+            for (AbstractSupply<?> supply : getStrand().getSupplies()) {
+                if (supply.getApparitions() % getObserverStrandSupply().getApparitions() != 0) {
+                    throw new AppartionDivisionNonNullRemainderException();
+                }
+            }
+        }
+
+        return getThis();
+    }
+
+    public T checkStrandSupplyObserverIs(StrandSupply strandSupply) throws IllegalStrandSupplyException {
+        try {
+            for (AbstractSupply<?> supply : getStrand().getSupplies()) {
+                if (!supply.getObserverStrandSupply().equals(strandSupply)) {
+                    throw new IllegalStrandSupplyException();
+                }
+            }
+        } catch (NullPointerException e) {}
+
+        return getThis();
+    }
 
     public StrandSupply getObserverStrandSupply() {
         return observerStrandSupply;
