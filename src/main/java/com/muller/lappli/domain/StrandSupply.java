@@ -50,7 +50,7 @@ public class StrandSupply implements Designable, Serializable {
         try {
             return getApparitions().toString() + " x " + getStrand().getDesignation();
         } catch (NullPointerException e) {
-            return getApparitions().toString() + " x [?]";
+            return getApparitions() + " x [?]";
         }
     }
 

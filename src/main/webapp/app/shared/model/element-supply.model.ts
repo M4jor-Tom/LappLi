@@ -5,7 +5,6 @@ import { IAbstractMarkedLiftedSupply } from './abstract-marked-lifted-supply.mod
 
 export interface IElementSupply extends IAbstractMarkedLiftedSupply {
   id?: number;
-  metricQuantity?: number;
   element?: IElement;
 }
 

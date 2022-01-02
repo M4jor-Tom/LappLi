@@ -79,6 +79,15 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     }
 
     @Override
+    public Material getSurfaceMaterial() {
+        try {
+            return getBangle().getMaterial();
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    @Override
     public Double getMeterPerHourSpeed() {
         return Double.valueOf(LIFTING_METER_PER_HOUR_SPEED);
     }
