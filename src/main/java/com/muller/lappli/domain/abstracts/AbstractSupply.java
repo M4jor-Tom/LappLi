@@ -1,10 +1,14 @@
 package com.muller.lappli.domain.abstracts;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.Position;
+import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.text.DecimalFormat;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 
 /**
  * An abstract mother class for each Supply class
@@ -13,7 +17,10 @@ import javax.persistence.MappedSuperclass;
  * inside a Strand or Cable
  */
 @MappedSuperclass
-public abstract class AbstractSupply<T> {
+public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
+
+    @Transient
+    private StrandSupply observerStrandSupply;
 
     /**
      * The unity length which Muller uses to measure cables statistics
@@ -26,6 +33,9 @@ public abstract class AbstractSupply<T> {
      * The speed at which a lifter is supposed to run at maximum
      */
     protected static final Long LIFTING_METER_PER_HOUR_SPEED = Long.valueOf(5000);
+
+    @JsonIgnoreProperties("supplies")
+    public abstract Strand getStrand();
 
     public abstract Position getPosition();
 
@@ -48,6 +58,40 @@ public abstract class AbstractSupply<T> {
      * @return the representated component
      */
     public abstract CylindricComponent getCylindricComponent();
+
+    public StrandSupply getObserverStrandSupply() {
+        return observerStrandSupply;
+    }
+
+    public void setObserverStrandSupply(StrandSupply observerStrandSupply) {
+        this.observerStrandSupply = observerStrandSupply;
+    }
+
+    public T observerStrandSupply(StrandSupply strandSupply) {
+        setObserverStrandSupply(observerStrandSupply);
+
+        return getThis();
+    }
+
+    /**
+     * @return the apparitions of this into its observerStrandSupply
+     * leaves a remain after the observerStrandSupply's apparitions count divides it
+     */
+    public Long getDividedApparitions() {
+        try {
+            return getApparitions() / getObserverStrandSupply().getApparitions();
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Tells if the Supply is placed into a Strand's Assembly
+     * @return a boolean
+     */
+    public Boolean isPlaced() {
+        return getPosition() != null;
+    }
 
     /**
      * @return the designation of the representated component

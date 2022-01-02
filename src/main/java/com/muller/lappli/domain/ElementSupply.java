@@ -80,6 +80,11 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
     }
 
     @Override
+    public ElementSupply getThis() {
+        return this;
+    }
+
+    @Override
     public CylindricComponent getCylindricComponent() {
         return getElement();
     }
@@ -218,6 +223,7 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
         return this;
     }
 
+    @Override
     public Strand getStrand() {
         return this.strand;
     }

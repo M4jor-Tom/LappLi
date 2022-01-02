@@ -1,7 +1,10 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.enumeration.MarkingType;
+import com.muller.lappli.domain.exception.AppartionDivisionNonNullRemainderException;
+import com.muller.lappli.domain.exception.IllegalStrandSupplyException;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -43,6 +46,30 @@ public class StrandSupply implements Serializable {
     @NotNull
     @JsonIgnoreProperties(value = { "strandSupplies", "author" }, allowSetters = true)
     private Study study;
+
+    public StrandSupply checkStrandSubSuppliesHaveNullApparitionsRemainder() throws AppartionDivisionNonNullRemainderException {
+        if (getStrand() != null) {
+            for (AbstractSupply<?> supply : getStrand().getSupplies()) {
+                if (supply.getApparitions() % getApparitions() != 0) {
+                    throw new AppartionDivisionNonNullRemainderException();
+                }
+            }
+        }
+
+        return this;
+    }
+
+    public StrandSupply checkStrandSubSuppliesHaveThisAsObserver() throws IllegalStrandSupplyException {
+        try {
+            for (AbstractSupply<?> supply : getStrand().getSupplies()) {
+                if (!supply.getObserverStrandSupply().equals(this)) {
+                    throw new IllegalStrandSupplyException();
+                }
+            }
+        } catch (NullPointerException e) {}
+
+        return this;
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
