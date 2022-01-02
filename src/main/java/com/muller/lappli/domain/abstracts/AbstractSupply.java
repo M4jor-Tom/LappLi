@@ -109,7 +109,7 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
         try {
             return getApparitions() / getObserverStrandSupply().getApparitions();
         } catch (NullPointerException e) {
-            return null;
+            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
         }
     }
 
