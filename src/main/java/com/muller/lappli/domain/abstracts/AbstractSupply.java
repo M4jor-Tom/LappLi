@@ -62,12 +62,8 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
     public abstract CylindricComponent getCylindricComponent();
 
     public T checkApparitionRemainderIsNull() throws AppartionDivisionNonNullRemainderException {
-        if (getStrand() != null) {
-            for (AbstractSupply<?> supply : getStrand().getSupplies()) {
-                if (supply.getApparitions() % getObserverStrandSupply().getApparitions() != 0) {
-                    throw new AppartionDivisionNonNullRemainderException();
-                }
-            }
+        if (!isApparitionDivisionRemainNull()) {
+            throw new AppartionDivisionNonNullRemainderException();
         }
 
         return getThis();
@@ -83,6 +79,14 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
         } catch (NullPointerException e) {}
 
         return getThis();
+    }
+
+    public Boolean isApparitionDivisionRemainNull() {
+        return getApparitionDivisionRemain() == Long.valueOf(0);
+    }
+
+    public Long getApparitionDivisionRemain() {
+        return getApparitions() % getObserverStrandSupply().getApparitions();
     }
 
     public StrandSupply getObserverStrandSupply() {
