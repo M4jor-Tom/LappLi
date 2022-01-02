@@ -89,7 +89,7 @@ public class MaterialMarkingStatistic extends AbstractDomainObject<MaterialMarki
 
     public void setMarkingTechnique(MarkingTechnique markingTechnique) {
         if (markingTechnique == null) {
-            (new NullArgumentException("MaterialMarkingStatistic.markingTechnic = null")).printStackTrace();
+            //(new NullArgumentException("MaterialMarkingStatistic.markingTechnic = null")).printStackTrace();
         } else if (
             //NONE_SUITABLE means we don't test anything, it's okay
             MarkingTechnique.NONE_SUITABLE.equals(markingTechnique)
