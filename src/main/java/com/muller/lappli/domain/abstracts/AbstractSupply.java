@@ -84,7 +84,11 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
     }
 
     public Long getApparitionDivisionRemain() {
-        return getApparitions() % getObserverStrandSupply().getApparitions();
+        try {
+            return getApparitions() % getObserverStrandSupply().getApparitions();
+        } catch (NullPointerException e) {
+            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+        }
     }
 
     public StrandSupply getObserverStrandSupply() {
