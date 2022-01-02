@@ -1,3 +1,4 @@
+import { ICylindricComponent } from './cylindric-component.model';
 import { IMaterial } from './material.model';
 import { IPosition } from './position.model';
 import { IStrand } from './strand.model';
@@ -7,6 +8,7 @@ export interface IAbstractSupply {
   apparitions?: number;
   dividedApparitions?: number;
   surfaceMaterial?: IMaterial;
+  cylindricComponent?: ICylindricComponent;
   designation?: string | null;
   description?: string | null;
   meterQuantity?: number;
