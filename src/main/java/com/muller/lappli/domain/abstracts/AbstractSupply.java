@@ -2,6 +2,7 @@ package com.muller.lappli.domain.abstracts;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.DomainManager;
+import com.muller.lappli.domain.Material;
 import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.StrandSupply;
@@ -60,6 +61,8 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      * @return the representated component
      */
     public abstract CylindricComponent getCylindricComponent();
+
+    public abstract Material getSurfaceMaterial();
 
     public T checkApparitionRemainderIsNull() throws AppartionDivisionNonNullRemainderException {
         if (!isApparitionDivisionRemainNull()) {

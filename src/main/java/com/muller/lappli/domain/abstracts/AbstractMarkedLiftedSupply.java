@@ -1,7 +1,6 @@
 package com.muller.lappli.domain.abstracts;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.muller.lappli.domain.Material;
 import com.muller.lappli.domain.MaterialMarkingStatistic;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingTechnique;
@@ -11,8 +10,6 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class AbstractMarkedLiftedSupply<T> extends AbstractLiftedSupply<T> {
-
-    public abstract Material getSurfaceMaterial();
 
     public abstract Color getSurfaceColor();
 
