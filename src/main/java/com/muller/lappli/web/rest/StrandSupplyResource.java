@@ -1,8 +1,6 @@
 package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.StrandSupply;
-import com.muller.lappli.domain.exception.AppartionDivisionNonNullRemainderException;
-import com.muller.lappli.domain.exception.IllegalStrandSupplyException;
 import com.muller.lappli.repository.StrandSupplyRepository;
 import com.muller.lappli.service.StrandSupplyService;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
@@ -57,16 +55,7 @@ public class StrandSupplyResource {
         if (strandSupply.getId() != null) {
             throw new BadRequestAlertException("A new strandSupply cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        StrandSupply result = null;
-        try {
-            result = strandSupplyService.save(strandSupply);
-        } catch (AppartionDivisionNonNullRemainderException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalStrandSupplyException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        StrandSupply result = strandSupplyService.save(strandSupply);
         return ResponseEntity
             .created(new URI("/api/strand-supplies/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -100,16 +89,7 @@ public class StrandSupplyResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        StrandSupply result = null;
-        try {
-            result = strandSupplyService.save(strandSupply);
-        } catch (AppartionDivisionNonNullRemainderException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalStrandSupplyException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        StrandSupply result = strandSupplyService.save(strandSupply);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, strandSupply.getId().toString()))

@@ -1,8 +1,6 @@
 package com.muller.lappli.service;
 
 import com.muller.lappli.domain.StrandSupply;
-import com.muller.lappli.domain.exception.AppartionDivisionNonNullRemainderException;
-import com.muller.lappli.domain.exception.IllegalStrandSupplyException;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,10 +13,8 @@ public interface StrandSupplyService extends ReadTriggerableService<StrandSupply
      *
      * @param strandSupply the entity to save.
      * @return the persisted entity.
-     * @throws AppartionDivisionNonNullRemainderException
-     * @throws IllegalStrandSupplyException
      */
-    StrandSupply save(StrandSupply strandSupply) throws AppartionDivisionNonNullRemainderException, IllegalStrandSupplyException;
+    StrandSupply save(StrandSupply strandSupply);
 
     /**
      * Partially updates a strandSupply.
