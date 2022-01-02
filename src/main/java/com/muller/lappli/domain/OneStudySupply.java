@@ -147,6 +147,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         this.number = number;
     }
 
+    @Override
     public String getDesignation() {
         return this.designation;
     }
@@ -187,6 +188,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         this.markingType = markingType;
     }
 
+    @Override
     public Double getGramPerMeterLinearMass() {
         return this.gramPerMeterLinearMass;
     }
