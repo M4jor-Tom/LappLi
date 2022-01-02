@@ -2,6 +2,7 @@
   "lappLiApp": {
     "supply": {
       "apparitions": "Auftritte",
+      "dividedApparitions": "Apparitions in one Strand",
       "description": "Bezeichnung",
       "bestLiftersNames": "Beste Lifters",
       "meterPerHourSpeed": "Geshwindigkeit (m/h)",
