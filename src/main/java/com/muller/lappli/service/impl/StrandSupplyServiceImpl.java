@@ -2,6 +2,8 @@ package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
+import com.muller.lappli.domain.exception.AppartionDivisionNonNullRemainderException;
+import com.muller.lappli.domain.exception.IllegalStrandSupplyException;
 import com.muller.lappli.repository.StrandSupplyRepository;
 import com.muller.lappli.service.StrandSupplyService;
 import java.util.List;
@@ -37,9 +39,11 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
     }
 
     @Override
-    public StrandSupply save(StrandSupply strandSupply) {
+    public StrandSupply save(StrandSupply strandSupply) throws AppartionDivisionNonNullRemainderException, IllegalStrandSupplyException {
         log.debug("Request to save StrandSupply : {}", strandSupply);
-        return onRead(strandSupplyRepository.save(strandSupply));
+        return onRead(strandSupplyRepository.save(strandSupply))
+            .checkStrandSubSuppliesHaveNullApparitionsRemainder()
+            .checkStrandSubSuppliesHaveThisAsObserver();
     }
 
     @Override
