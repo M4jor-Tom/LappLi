@@ -9,12 +9,8 @@ import { Color } from 'app/shared/model/enumerations/color.model';
 import { MarkingTechnique } from 'app/shared/model/enumerations/marking-technique.model';
 
 export function renderSupplyTds(
-  supply: IAbstractSupply,
-  match: { url: string },
-  markingType: MarkingType | null,
-  markingTechnique: MarkingTechnique | null,
-  surfaceColor: Color | null,
-  bestLiftersNames: string | null
+  supply: any, // IAbstractSupply,
+  match: { url: string }
 ) {
   return (
     <>
@@ -23,15 +19,15 @@ export function renderSupplyTds(
       <td>{supply.cylindricComponent?.articleNumber}</td>
       <td>{supply.designation}</td>
       <td>{supply.description}</td>
-      <td>{markingType != null ? <Translate contentKey={`lappLiApp.MarkingType.${markingType}`} /> : ''}</td>
-      <td>{markingTechnique != null ? <Translate contentKey={`lappLiApp.MarkingTechnique.${markingTechnique}`} /> : ''}</td>
+      <td>{'markingType' in supply ? <Translate contentKey={`lappLiApp.MarkingType.${supply.markingType}`} /> : ''}</td>
+      <td>{'markingTechnique' in supply ? <Translate contentKey={`lappLiApp.MarkingTechnique.${supply.markingTechnique}`} /> : ''}</td>
       <td>{supply.cylindricComponent?.gramPerMeterLinearMass}</td>
       <td>{supply.cylindricComponent?.milimeterDiameter}</td>
-      <td>{surfaceColor != null ? <Translate contentKey={`lappLiApp.Color.${surfaceColor}`} /> : ''}</td>
+      <td>{'surfaceColor' in supply ? <Translate contentKey={`lappLiApp.Color.${supply.surfaceColor}`} /> : ''}</td>
       <td>
         {supply.surfaceMaterial ? <Link to={`material/${supply.surfaceMaterial.id}`}>{supply.surfaceMaterial.designation}</Link> : ''}
       </td>
-      <td>{bestLiftersNames != null ? { bestLiftersNames } : ''}</td>
+      <td>{'markingType' in supply ? supply.bestLiftersNames : ''}</td>
       <td>{supply.formatedHourPreparationTime}</td>
       <td>{supply.formatedHourExecutionTime}</td>
       <td>{supply.meterPerHourSpeed}</td>

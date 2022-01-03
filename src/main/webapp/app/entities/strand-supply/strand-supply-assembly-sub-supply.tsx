@@ -103,7 +103,7 @@ export const StrandSupplyAssemblySubSupply = (props: RouteComponentProps<{ study
         ? positionList.map((position, i) => (
             <tr key={`entity-${i}`} data-cy="entityTable">
               <td>{position.value}</td>
-              {renderSupplyTds(position.supply, props.match, null, null, null, null)}
+              {renderSupplyTds(position.supply, props.match)}
             </tr>
           ))
         : ''}
