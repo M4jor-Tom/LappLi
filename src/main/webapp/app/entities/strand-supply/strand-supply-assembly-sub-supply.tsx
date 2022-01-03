@@ -32,6 +32,36 @@ export const StrandSupplyAssemblySubSupply = (props: RouteComponentProps<{ study
       <Table responsive>
         <thead>
           <tr>
+            <th>
+              <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
+            </th>
+            <th>
+              <Translate contentKey="lappLiApp.article.number">Article Number</Translate>
+            </th>
+            <th>
+              <Translate contentKey="lappLiApp.article.designation">Article Designation</Translate>
+            </th>
+            <th>
+              <Translate contentKey="lappLiApp.supply.description">Description</Translate>
+            </th>
+            <th>
+              <Translate contentKey="lappLiApp.supply.markingType">Marking Type</Translate>
+            </th>
+            <th>
+              <Translate contentKey="lappLiApp.dimension.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
+            </th>
+            <th>
+              <Translate contentKey="lappLiApp.dimension.milimeterDiameter">Diameter (mm)</Translate>
+            </th>
+            <th>
+              <Translate contentKey="lappLiApp.supply.surfaceColor">Surface Color</Translate>
+            </th>
+            <th>
+              <Translate contentKey="lappLiApp.supply.surfaceMaterial">Surface Material</Translate>
+            </th>
+            <th>
+              <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Lifters</Translate>
+            </th>
             <th />
           </tr>
         </thead>
