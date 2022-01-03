@@ -17,11 +17,6 @@ export function renderSupplyTr(
 ) {
   return (
     <tr key={`entity-${index}`} data-cy="entityTable">
-      <td>
-        <Button tag={Link} to={`${match.url}/${supply.id}`} color="link" size="sm">
-          {supply.id}
-        </Button>
-      </td>
       <td>{supply.apparitions}</td>
       <td>{supply.cylindricComponent?.articleNumber}</td>
       <td>{supply.designation}</td>

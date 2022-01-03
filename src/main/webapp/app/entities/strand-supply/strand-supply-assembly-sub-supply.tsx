@@ -12,6 +12,7 @@ import { toNumber } from 'lodash';
 import { defaultValue as strandDefaultValue, IStrand } from 'app/shared/model/strand.model';
 import { IPosition } from 'app/shared/model/position.model';
 import CoreAssembly from '../core-assembly/core-assembly';
+import { renderSupplyTr } from '../supply/render';
 
 export const StrandSupplyAssemblySubSupply = (props: RouteComponentProps<{ study_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
@@ -31,33 +32,6 @@ export const StrandSupplyAssemblySubSupply = (props: RouteComponentProps<{ study
       <Table responsive>
         <thead>
           <tr>
-            <th>
-              <Translate contentKey="lappLiApp.position.id">ID</Translate>
-            </th>
-            <th>
-              <Translate contentKey="lappLiApp.position.value">Value</Translate>
-            </th>
-            <th>
-              <Translate contentKey="lappLiApp.position.elementSupply">Element Supply</Translate>
-            </th>
-            <th>
-              <Translate contentKey="lappLiApp.position.bangleSupply">Bangle Supply</Translate>
-            </th>
-            <th>
-              <Translate contentKey="lappLiApp.position.customComponentSupply">Custom Component Supply</Translate>
-            </th>
-            <th>
-              <Translate contentKey="lappLiApp.position.oneStudySupply">One Study Supply</Translate>
-            </th>
-            <th>
-              <Translate contentKey="lappLiApp.position.ownerCentralAssembly">Owner Central Assembly</Translate>
-            </th>
-            <th>
-              <Translate contentKey="lappLiApp.position.ownerCoreAssembly">Owner Core Assembly</Translate>
-            </th>
-            <th>
-              <Translate contentKey="lappLiApp.position.ownerIntersticeAssembly">Owner Interstice Assembly</Translate>
-            </th>
             <th />
           </tr>
         </thead>
@@ -77,93 +51,7 @@ export const StrandSupplyAssemblySubSupply = (props: RouteComponentProps<{ study
 
   const positionTbody = (positionList: Array<IPosition>) => (
     <tbody>
-      {positionList != null
-        ? positionList.map((position, i) => (
-            <tr key={`entity-${i}`} data-cy="entityTable">
-              <td>
-                <Button tag={Link} to={`positions/${position.id}`} color="link" size="sm">
-                  {position.id}
-                </Button>
-              </td>
-              <td>{position.value}</td>
-              <td>
-                {position.elementSupply ? (
-                  <Link to={`element-supply/${position.elementSupply.id}`}>{position.elementSupply.designation}</Link>
-                ) : (
-                  ''
-                )}
-              </td>
-              <td>
-                {position.bangleSupply ? (
-                  <Link to={`bangle-supply/${position.bangleSupply.id}`}>{position.bangleSupply.designation}</Link>
-                ) : (
-                  ''
-                )}
-              </td>
-              <td>
-                {position.customComponentSupply ? (
-                  <Link to={`custom-component-supply/${position.customComponentSupply.id}`}>
-                    {position.customComponentSupply.designation}
-                  </Link>
-                ) : (
-                  ''
-                )}
-              </td>
-              <td>
-                {position.oneStudySupply ? (
-                  <Link to={`one-study-supply/${position.oneStudySupply.id}`}>{position.oneStudySupply.designation}</Link>
-                ) : (
-                  ''
-                )}
-              </td>
-              <td>
-                {position.ownerCentralAssembly ? (
-                  <Link to={`central-assembly/${position.ownerCentralAssembly.id}`}>{position.ownerCentralAssembly.designation}</Link>
-                ) : (
-                  ''
-                )}
-              </td>
-              <td>
-                {position.ownerCoreAssembly ? (
-                  <Link to={`core-assembly/${position.ownerCoreAssembly.id}`}>{position.ownerCoreAssembly.designation}</Link>
-                ) : (
-                  ''
-                )}
-              </td>
-              <td>
-                {position.ownerIntersticeAssembly ? (
-                  <Link to={`interstice-assembly/${position.ownerIntersticeAssembly.id}`}>
-                    {position.ownerIntersticeAssembly.designation}
-                  </Link>
-                ) : (
-                  ''
-                )}
-              </td>
-              <td className="text-right">
-                <div className="btn-group flex-btn-group-container">
-                  <Button tag={Link} to={`positions/${position.id}`} color="info" size="sm" data-cy="entityDetailsButton">
-                    <FontAwesomeIcon icon="eye" />{' '}
-                    <span className="d-none d-md-inline">
-                      <Translate contentKey="entity.action.view">View</Translate>
-                    </span>
-                  </Button>
-                  <Button tag={Link} to={`positions/${position.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
-                    <FontAwesomeIcon icon="pencil-alt" />{' '}
-                    <span className="d-none d-md-inline">
-                      <Translate contentKey="entity.action.edit">Edit</Translate>
-                    </span>
-                  </Button>
-                  <Button tag={Link} to={`positions/${position.id}/delete`} color="danger" size="sm" data-cy="entityDeleteButton">
-                    <FontAwesomeIcon icon="trash" />{' '}
-                    <span className="d-none d-md-inline">
-                      <Translate contentKey="entity.action.delete">Delete</Translate>
-                    </span>
-                  </Button>
-                </div>
-              </td>
-            </tr>
-          ))
-        : ''}
+      {positionList != null ? positionList.map((position, i) => renderSupplyTr(position.supply, i, props.match, null, null, null)) : ''}
     </tbody>
   );
 
