@@ -14,6 +14,7 @@ export function renderSupplyTds(
 ) {
   return (
     <>
+      <td>{supply.supplyKind}</td>
       <td>{supply.apparitions}</td>
       <td>{supply.meterQuantity}</td>
       <td>{supply.cylindricComponent?.articleNumber}</td>

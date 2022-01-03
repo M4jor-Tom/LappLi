@@ -2,6 +2,7 @@
   "lappLiApp": {
     "supply": {
       "position": "Position",
+      "supplyKind": "Genre d'approvisionnement",
       "apparitions": "Apparitions",
       "undividedApparitions": "Etude",
       "dividedApparitions": "Toron",

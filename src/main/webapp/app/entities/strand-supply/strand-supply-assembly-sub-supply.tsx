@@ -36,6 +36,9 @@ export const StrandSupplyAssemblySubSupply = (props: RouteComponentProps<{ study
               <Translate contentKey="lappLiApp.supply.position">Position</Translate>
             </th>
             <th>
+              <Translate contentKey="lappLiApp.supply.supplyKind">Supply Kind</Translate>
+            </th>
+            <th>
               <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
             </th>
             <th>

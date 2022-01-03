@@ -2,6 +2,7 @@
   "lappLiApp": {
     "supply": {
       "position": "Position",
+      "supplyKind": "Supply Kind",
       "apparitions": "Apparitions",
       "undividedApparitions": "Study",
       "dividedApparitions": "Strand",
