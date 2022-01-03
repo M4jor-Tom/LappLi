@@ -6,6 +6,7 @@ import com.muller.lappli.domain.Material;
 import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.StrandSupply;
+import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.exception.AppartionDivisionNonNullRemainderException;
 import com.muller.lappli.domain.exception.IllegalStrandSupplyException;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
@@ -63,6 +64,8 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
     public abstract CylindricComponent getCylindricComponent();
 
     public abstract Material getSurfaceMaterial();
+
+    public abstract SupplyKind getSupplyKind();
 
     public T checkApparitionRemainderIsNull() throws AppartionDivisionNonNullRemainderException {
         if (!isApparitionDivisionRemainNull()) {
