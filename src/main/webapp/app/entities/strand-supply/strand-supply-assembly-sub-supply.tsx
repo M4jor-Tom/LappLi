@@ -33,6 +33,9 @@ export const StrandSupplyAssemblySubSupply = (props: RouteComponentProps<{ study
         <thead>
           <tr>
             <th>
+              <Translate contentKey="lappLiApp.supply.position">Position</Translate>
+            </th>
+            <th>
               <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
             </th>
             <th>
@@ -99,6 +102,7 @@ export const StrandSupplyAssemblySubSupply = (props: RouteComponentProps<{ study
       {positionList != null
         ? positionList.map((position, i) => (
             <tr key={`entity-${i}`} data-cy="entityTable">
+              <td>{position.value}</td>
               {renderSupplyTds(position.supply, props.match, null, null, null, null)}
             </tr>
           ))
