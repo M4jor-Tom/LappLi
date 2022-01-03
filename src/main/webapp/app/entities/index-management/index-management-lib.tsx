@@ -1,3 +1,4 @@
+import { SupplyKind } from 'app/shared/model/enumerations/supply-kind.model';
 import { IStrand } from 'app/shared/model/strand.model';
 import { IStudy } from 'app/shared/model/study.model';
 import React from 'react';
@@ -10,14 +11,6 @@ enum AssemblyKind {
   CENTRAL = 'central',
   CORE = 'core',
   INTERSTICE = 'interstice',
-}
-
-enum SupplyKind {
-  BANGLE = 'bangle',
-  CUSTOM_COMPONENT = 'custom-component',
-  ELEMENT = 'element',
-  ONE_STUDY = 'one-study',
-  STRAND = 'strand',
 }
 
 enum SupplyOwner {
@@ -164,7 +157,6 @@ function getAssemblyStrandValidatedField(
 }
 
 export {
-  SupplyKind,
   AssemblyKind,
   getOutFromStudySupplyStrandAssemblyComponent,
   getOutFromStudySupplyStrandSupplyComponent,
