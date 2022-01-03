@@ -36,6 +36,9 @@ export const StrandSupplyAssemblySubSupply = (props: RouteComponentProps<{ study
               <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
             </th>
             <th>
+              <Translate contentKey="lappLiApp.dimension.meterQuantity">Quantity (m)</Translate>
+            </th>
+            <th>
               <Translate contentKey="lappLiApp.article.number">Article Number</Translate>
             </th>
             <th>
@@ -46,6 +49,9 @@ export const StrandSupplyAssemblySubSupply = (props: RouteComponentProps<{ study
             </th>
             <th>
               <Translate contentKey="lappLiApp.supply.markingType">Marking Type</Translate>
+            </th>
+            <th>
+              <Translate contentKey="lappLiApp.supply.markingTechnique">Marking Technique</Translate>
             </th>
             <th>
               <Translate contentKey="lappLiApp.dimension.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
@@ -61,6 +67,15 @@ export const StrandSupplyAssemblySubSupply = (props: RouteComponentProps<{ study
             </th>
             <th>
               <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Lifters</Translate>
+            </th>
+            <th>
+              <Translate contentKey="lappLiApp.supply.formatedHourPreparationTime">Preparation Time (h)</Translate>
+            </th>
+            <th>
+              <Translate contentKey="lappLiApp.supply.formatedHourExecutionTime">Execution Time (h)</Translate>
+            </th>
+            <th>
+              <Translate contentKey="lappLiApp.supply.meterPerHourSpeed">Speed (m/h)</Translate>
             </th>
             <th />
           </tr>
@@ -81,7 +96,9 @@ export const StrandSupplyAssemblySubSupply = (props: RouteComponentProps<{ study
 
   const positionTbody = (positionList: Array<IPosition>) => (
     <tbody>
-      {positionList != null ? positionList.map((position, i) => renderSupplyTr(position.supply, i, props.match, null, null, null)) : ''}
+      {positionList != null
+        ? positionList.map((position, i) => renderSupplyTr(position.supply, i, props.match, null, null, null, null))
+        : ''}
     </tbody>
   );
 
