@@ -8,9 +8,8 @@ import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 import { Color } from 'app/shared/model/enumerations/color.model';
 import { MarkingTechnique } from 'app/shared/model/enumerations/marking-technique.model';
 
-export function renderSupplyTr(
+export function renderSupplyTds(
   supply: IAbstractSupply,
-  index: number,
   match: { url: string },
   markingType: MarkingType | null,
   markingTechnique: MarkingTechnique | null,
@@ -18,7 +17,7 @@ export function renderSupplyTr(
   bestLiftersNames: string | null
 ) {
   return (
-    <tr key={`entity-${index}`} data-cy="entityTable">
+    <>
       <td>{supply.apparitions}</td>
       <td>{supply.meterQuantity}</td>
       <td>{supply.cylindricComponent?.articleNumber}</td>
@@ -58,6 +57,6 @@ export function renderSupplyTr(
           </Button>
         </div>
       </td>
-    </tr>
+    </>
   );
 }

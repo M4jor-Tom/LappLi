@@ -12,7 +12,7 @@ import { toNumber } from 'lodash';
 import { defaultValue as strandDefaultValue, IStrand } from 'app/shared/model/strand.model';
 import { IPosition } from 'app/shared/model/position.model';
 import CoreAssembly from '../core-assembly/core-assembly';
-import { renderSupplyTr } from '../supply/render';
+import { renderSupplyTds } from '../supply/render';
 
 export const StrandSupplyAssemblySubSupply = (props: RouteComponentProps<{ study_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
@@ -97,7 +97,11 @@ export const StrandSupplyAssemblySubSupply = (props: RouteComponentProps<{ study
   const positionTbody = (positionList: Array<IPosition>) => (
     <tbody>
       {positionList != null
-        ? positionList.map((position, i) => renderSupplyTr(position.supply, i, props.match, null, null, null, null))
+        ? positionList.map((position, i) => (
+            <tr key={`entity-${i}`} data-cy="entityTable">
+              {renderSupplyTds(position.supply, props.match, null, null, null, null)}
+            </tr>
+          ))
         : ''}
     </tbody>
   );
