@@ -37,12 +37,6 @@ export function renderSupplyTds(
       <td>{supply.meterPerHourSpeed}</td>
       <td className="text-right">
         <div className="btn-group flex-btn-group-container">
-          <Button tag={Link} to={`${match.url}/${supply.id}`} color="info" size="sm" data-cy="entityDetailsButton">
-            <FontAwesomeIcon icon="eye" />{' '}
-            <span className="d-none d-md-inline">
-              <Translate contentKey="entity.action.view">View</Translate>
-            </span>
-          </Button>
           <Button tag={Link} to={`${match.url}/${supply.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
