@@ -24,6 +24,10 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends Ab
 
     public abstract Long getProductionStep();
 
+    public Long getPositionsCountBySupply(AbstractSupply<?> ownedSupply) {
+        return Long.valueOf(getPositions().stream().filter(position -> position.getSupply().equals(ownedSupply)).toList().size());
+    }
+
     public void checkPositions() throws PositionInSeveralAssemblyException, PositionHasSeveralSupplyException {
         if (getPositions() != null) {
             for (Position position : getPositions()) {

@@ -7,6 +7,8 @@ export interface IAbstractSupply {
   id?: number;
   apparitions?: number;
   dividedApparitions?: number;
+  apparitionsPositionsUsage?: number;
+  apparitionsPositionsUsageRemain?: number;
   surfaceMaterial?: IMaterial;
   cylindricComponent?: ICylindricComponent;
   designation?: string | null;

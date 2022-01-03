@@ -120,6 +120,18 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
         }
     }
 
+    public Long getApparitionsPositionsUsage() {
+        try {
+            return getPosition().getOwnerAssembly().getPositionsCountBySupply(this);
+        } catch (NullPointerException e) {
+            return Long.valueOf(0);
+        }
+    }
+
+    public Long getApparitionsPositionUsageRemain() {
+        return getDividedApparitions() - getApparitionsPositionsUsage();
+    }
+
     /**
      * Tells if the Supply is placed into a Strand's Assembly
      * @return a boolean
