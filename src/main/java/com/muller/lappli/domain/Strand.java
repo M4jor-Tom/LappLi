@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.exception.NoIntersticeAvailableException;
@@ -72,6 +73,7 @@ public class Strand implements Serializable {
         return lastCoreAssembly;
     }
 
+    @JsonIgnore
     public Set<AbstractSupply<?>> getSupplies() {
         HashSet<AbstractSupply<?>> supplies = new HashSet<>();
 
