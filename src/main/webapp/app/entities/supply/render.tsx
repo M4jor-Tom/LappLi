@@ -26,26 +26,14 @@ export function renderSupplyTr(
       <td>{supply.cylindricComponent?.articleNumber}</td>
       <td>{supply.designation}</td>
       <td>{supply.description}</td>
-      {markingType != null ? (
-        <td>
-          <Translate contentKey={`lappLiApp.MarkingType.${markingType}`} />
-        </td>
-      ) : (
-        ''
-      )}
+      <td>{markingType != null ? <Translate contentKey={`lappLiApp.MarkingType.${markingType}`} /> : ''}</td>
       <td>{supply.cylindricComponent?.gramPerMeterLinearMass}</td>
       <td>{supply.cylindricComponent?.milimeterDiameter}</td>
-      {surfaceColor != null ? (
-        <td>
-          <Translate contentKey={`lappLiApp.Color.${surfaceColor}`} />
-        </td>
-      ) : (
-        ''
-      )}
+      <td>{surfaceColor != null ? <Translate contentKey={`lappLiApp.Color.${surfaceColor}`} /> : ''}</td>
       <td>
         {supply.surfaceMaterial ? <Link to={`material/${supply.surfaceMaterial.id}`}>{supply.surfaceMaterial.designation}</Link> : ''}
       </td>
-      {bestLiftersNames != null ? <td>{bestLiftersNames}</td> : ''}
+      <td>{bestLiftersNames != null ? { bestLiftersNames } : ''}</td>
       <td>{supply.strand ? <Link to={`strand/${supply.strand.id}`}>{supply.strand.designation}</Link> : ''}</td>
       <td className="text-right">
         <div className="btn-group flex-btn-group-container">
