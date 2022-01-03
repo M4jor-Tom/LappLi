@@ -5,10 +5,14 @@ import { IOneStudySupply } from 'app/shared/model/one-study-supply.model';
 import { ICentralAssembly } from 'app/shared/model/central-assembly.model';
 import { ICoreAssembly } from 'app/shared/model/core-assembly.model';
 import { IIntersticeAssembly } from 'app/shared/model/interstice-assembly.model';
+import { IAbstractSupply } from './abstract-supply.model';
+import { IAbstractAssembly } from './abstract-assembly.model';
 
 export interface IPosition {
   id?: number;
   value?: number;
+  supply?: IAbstractSupply | null;
+  ownerAssembly?: IAbstractAssembly | null;
   elementSupply?: IElementSupply | null;
   bangleSupply?: IBangleSupply | null;
   customComponentSupply?: ICustomComponentSupply | null;
