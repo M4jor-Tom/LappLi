@@ -28,8 +28,140 @@ import CoreAssemblyDeleteDialog from '../core-assembly/core-assembly-delete-dial
 import IntersticeAssemblyUpdate from '../interstice-assembly/interstice-assembly-update';
 import IntersticeAssemblyDeleteDialog from '../interstice-assembly/interstice-assembly-delete-dialog';
 import StrandSupplyAssemblySubSupply from '../strand-supply/strand-supply-assembly-sub-supply';
+import { SupplyKind } from 'app/shared/model/enumerations/supply-kind.model';
 
 const strandSupplyZoneUrlPefixToStrandId = '/:study_id/study-supplies/strand-supplies';
+
+const strandSupplyIdOperationUrlSegment = '/:strand_id/operation';
+
+enum CrudAction {
+  CREATE = 'CREATE',
+  READ = 'READ',
+  UPDATE = 'UPDATE',
+  DELETE = 'DELETE',
+}
+
+enum AssemblyKind {
+  CENTRAL_ASSEMBLY = 'CENTRAL_ASSEMBLY',
+  CORE_ASSEMBLY = 'CORE_ASSEMBLY',
+  INTERSTICE_ASSEMBLY = 'INTERSTICE_ASSEMBLY',
+}
+
+const supplyUpdateComponent = (supplyKind: SupplyKind) => {
+  switch (supplyKind) {
+    case SupplyKind.BANGLE:
+      return BangleSupplyUpdate;
+
+    case SupplyKind.CUSTOM_COMPONENT:
+      return CustomComponentSupplyUpdate;
+
+    case SupplyKind.ELEMENT:
+      return ElementSupplyUpdate;
+
+    case SupplyKind.ONE_STUDY:
+      return OneStudySupplyUpdate;
+
+    default:
+  }
+
+  return null;
+};
+
+const supplyDeleteComponent = (supplyKind: SupplyKind) => {
+  switch (supplyKind) {
+    case SupplyKind.BANGLE:
+      return BangleSupplyDeleteDialog;
+
+    case SupplyKind.CUSTOM_COMPONENT:
+      return CustomComponentSupplyDeleteDialog;
+
+    case SupplyKind.ELEMENT:
+      return ElementSupplyDeleteDialog;
+
+    case SupplyKind.ONE_STUDY:
+      return OneStudySupplyDeleteDialog;
+
+    default:
+  }
+
+  return null;
+};
+
+const supplyComponent = (supplyKind: SupplyKind, crudAction: CrudAction) => {
+  switch (crudAction) {
+    case CrudAction.CREATE:
+    case CrudAction.UPDATE:
+      return supplyUpdateComponent(supplyKind);
+
+    case CrudAction.DELETE:
+      return supplyDeleteComponent(supplyKind);
+
+    default:
+  }
+
+  return null;
+};
+
+const assemblyKindAndAssemblyIdUrlSegment = (assemblyKind: AssemblyKind): string => {
+  return '/' + assemblyKind.replace('_', '-').toLowerCase();
+};
+
+const supplyIdAndSupplyKindUrlSegment = (supplyKind: SupplyKind): string => {
+  return '/:id/supply/' + supplyKind;
+};
+
+const actionSuffix = (crudAction: CrudAction): string => {
+  switch (crudAction) {
+    case CrudAction.CREATE:
+      return '/new';
+
+    case CrudAction.READ:
+      return '';
+
+    case CrudAction.UPDATE:
+      return '/:id/edit';
+
+    case CrudAction.DELETE:
+      return '/:id/delete';
+
+    default:
+  }
+
+  return null;
+};
+
+const studyErrorBoundaryRoute = (match: { url: string }, crudAction: CrudAction, supplyKind: SupplyKind, assemblyKind: AssemblyKind) => {
+  return (
+    <ErrorBoundaryRoute
+      exact
+      path={`${
+        match.url +
+        strandSupplyZoneUrlPefixToStrandId +
+        strandSupplyIdOperationUrlSegment +
+        assemblyKindAndAssemblyIdUrlSegment(assemblyKind) +
+        supplyIdAndSupplyKindUrlSegment(supplyKind) +
+        actionSuffix(crudAction)
+      }`}
+      component={supplyComponent(supplyKind, crudAction)}
+    />
+  );
+};
+
+const getStudyStrandSupplyAssemblySubSupplyErrorBoundaryRoutes = (match: { url: string }) => {
+  const elements: JSX.Element[] = [];
+
+  Object.values(CrudAction)
+    .filter(x => x !== CrudAction.READ)
+    .forEach(crudAction => {
+      Object.values(SupplyKind).forEach(supplyKind => {
+        Object.values(AssemblyKind).forEach(assemblyKind => {
+          elements.push(studyErrorBoundaryRoute(match, crudAction, supplyKind, assemblyKind));
+        });
+      });
+    });
+
+  return elements;
+};
 
 const Routes = ({ match }) => (
   <>
@@ -179,7 +311,8 @@ const Routes = ({ match }) => (
         component={IntersticeAssemblyDeleteDialog}
       />
 
-      {/* (6) */}
+      {/* (6): Setting supplies in assembly operations */}
+      {/* Visualisation */}
       <ErrorBoundaryRoute
         exact
         path={`${match.url + strandSupplyZoneUrlPefixToStrandId}/:strand_id/operation/central-assembly/:id/supply`}
@@ -197,6 +330,65 @@ const Routes = ({ match }) => (
         path={`${match.url + strandSupplyZoneUrlPefixToStrandId}/:strand_id/operation/interstice-assembly/:id/supply`}
         component={StrandSupplyAssemblySubSupply}
       />
+
+      {getStudyStrandSupplyAssemblySubSupplyErrorBoundaryRoutes(match)}
+
+      {/* Creation *
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyZoneUrlPefixToStrandId}/:strand_id/operation/central-assembly/:id/supply/:supply_kind/new`}
+        component={StrandSupplyAssemblySubSupply}
+      />
+
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyZoneUrlPefixToStrandId}/:strand_id/operation/core-assembly/:id/supply/:supply_kind/new`}
+        component={StrandSupplyAssemblySubSupply}
+      />
+
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyZoneUrlPefixToStrandId}/:strand_id/operation/interstice-assembly/:id/supply/:supply_kind/new`}
+        component={StrandSupplyAssemblySubSupply}
+      />
+
+      {/* Edition *
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyZoneUrlPefixToStrandId}/:strand_id/operation/central-assembly/:id/supply/:supply_kind/:supply_id/edit`}
+        component={StrandSupplyAssemblySubSupply}
+      />
+
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyZoneUrlPefixToStrandId}/:strand_id/operation/core-assembly/:id/supply/:supply_kind/:supply_id/edit`}
+        component={StrandSupplyAssemblySubSupply}
+      />
+
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyZoneUrlPefixToStrandId}/:strand_id/operation/interstice-assembly/:id/supply/:supply_kind/:supply_id/edit`}
+        component={StrandSupplyAssemblySubSupply}
+      />
+
+      {/* Deletion *
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyZoneUrlPefixToStrandId}/:strand_id/operation/central-assembly/:id/supply/:supply_kind/:supply_id/delete`}
+        component={StrandSupplyAssemblySubSupply}
+      />
+
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyZoneUrlPefixToStrandId}/:strand_id/operation/core-assembly/:id/supply/:supply_kind/:supply_id/delete`}
+        component={StrandSupplyAssemblySubSupply}
+      />
+
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyZoneUrlPefixToStrandId}/:strand_id/operation/interstice-assembly/:id/supply/:supply_kind/:supply_id/delete`}
+        component={StrandSupplyAssemblySubSupply}
+      /> */}
 
       <ErrorBoundaryRoute path={match.url} component={Study} />
     </Switch>

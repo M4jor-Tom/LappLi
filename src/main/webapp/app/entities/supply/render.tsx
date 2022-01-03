@@ -33,13 +33,25 @@ export function renderSupplyTds(
       <td>{supply.meterPerHourSpeed}</td>
       <td className="text-right">
         <div className="btn-group flex-btn-group-container">
-          <Button tag={Link} to={`${match.url}/${supply.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
+          <Button
+            tag={Link}
+            to={`${match.url}/${supply.supplyKind.replace('_', '-').toLowerCase()}/${supply.id}/edit`}
+            color="primary"
+            size="sm"
+            data-cy="entityEditButton"
+          >
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
             </span>
           </Button>
-          <Button tag={Link} to={`${match.url}/${supply.id}/delete`} color="danger" size="sm" data-cy="entityDeleteButton">
+          <Button
+            tag={Link}
+            to={`${match.url}/${supply.supplyKind.replace('_', '-').toLowerCase()}/${supply.id}/delete`}
+            color="danger"
+            size="sm"
+            data-cy="entityDeleteButton"
+          >
             <FontAwesomeIcon icon="trash" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.delete">Delete</Translate>
