@@ -10,7 +10,6 @@ import {
   getOut,
   getOutFromStudySupplyStrandSupplyComponent,
   getStrandSupplyRedirectionUrl,
-  SupplyKind,
 } from '../index-management/index-management-lib';
 
 export const BangleSupplyDeleteDialog = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {

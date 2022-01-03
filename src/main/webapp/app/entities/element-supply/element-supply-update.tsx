@@ -22,8 +22,8 @@ import {
   getStrandSupplyRedirectionUrl,
   getSupplyStrandValidatedField,
   isStrandSupply,
-  SupplyKind,
 } from '../index-management/index-management-lib';
+import { SupplyKind } from 'app/shared/model/enumerations/supply-kind.model';
 
 export const ElementSupplyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
