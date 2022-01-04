@@ -26,15 +26,9 @@ export const StrandCompute = (props: RouteComponentProps<{ strand_id: string | n
   const updating = useAppSelector(state => state.strandSupply.updating);
   const updateSuccess = useAppSelector(state => state.strandSupply.updateSuccess);
   const markingTypeValues = Object.keys(MarkingType);
-  const handleClose =
-    props.match.params.study_id == null
-      ? () => {
-          props.history.push('/strand-supply');
-        }
-      : () => {
-          //  props.history.push("path/to/operations");
-          props.history.push('/study/' + props.match.params.study_id + '/study-supplies');
-        };
+  const handleClose = () => {
+    props.history.push(getOut(props.match.url, 0) + '/supply');
+  };
 
   const studyValidateField = getStudyValidateField(props, studies);
 
@@ -105,14 +99,7 @@ export const StrandCompute = (props: RouteComponentProps<{ strand_id: string | n
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
               />
-              <Button
-                tag={Link}
-                id="cancel-save"
-                data-cy="entityCreateCancelButton"
-                to={getOut(props.match.url, 0) + '/supply'}
-                replace
-                color="info"
-              >
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" onClick={handleClose} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
