@@ -30,8 +30,6 @@ export const StrandCompute = (props: RouteComponentProps<{ strand_id: string | n
     props.history.push(getOut(props.match.url, 0) + '/supply');
   };
 
-  const studyValidateField = getStudyValidateField(props, studies);
-
   useEffect(() => {
     dispatch(reset());
 
