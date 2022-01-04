@@ -11,7 +11,6 @@ import StudyStrandSupply from './study-strand-supply';
 import StrandSupplyUpdate from '../strand-supply/strand-supply-update';
 import StrandSupplyDeleteDialog from '../strand-supply/strand-supply-delete-dialog';
 import StrandUpdate from '../strand/strand-update';
-import StrandSupplySubSupply from '../strand-supply/strand-supply-sub-supply';
 import StrandSupplySubOperation from '../strand-supply/strand-supply-sub-operations';
 import CustomComponentSupplyUpdate from '../custom-component-supply/custom-component-supply-update';
 import CustomComponentSupplyDeleteDialog from '../custom-component-supply/custom-component-supply-delete-dialog';
