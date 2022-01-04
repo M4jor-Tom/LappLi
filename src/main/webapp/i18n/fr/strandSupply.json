@@ -18,6 +18,8 @@
         "title": "Strand Supply"
       },
       "id": "ID",
+      "subSuppliesToAssemble": "Approvisionnements à assembler",
+      "strandsCount": "Nombre de torons",
       "apparitions": "Apparitions",
       "markingType": "Marking Type",
       "description": "Description",

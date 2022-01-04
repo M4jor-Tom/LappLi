@@ -29,7 +29,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
         <h2 data-cy="strandDetailsHeading">
           <Translate contentKey="lappLiApp.strand.detail.title">Strand</Translate>
           &nbsp;
-          <Button tag={Link} to={`${props.match.url}/strand-supply/new`} color="primary" size="sm" data-cy="entityCreateButton">
+          <Button tag={Link} to={`${getOut(props.match.url, 0)}/strand-compute`} color="primary" size="sm" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="lappLiApp.strand.action.compute">Compute strand</Translate>

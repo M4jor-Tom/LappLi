@@ -27,6 +27,7 @@ import CoreAssemblyDeleteDialog from '../core-assembly/core-assembly-delete-dial
 import IntersticeAssemblyUpdate from '../interstice-assembly/interstice-assembly-update';
 import IntersticeAssemblyDeleteDialog from '../interstice-assembly/interstice-assembly-delete-dialog';
 import StrandSubSupply from '../strand/strand-sub-supply';
+import StrandCompute from '../strand/strand-compute';
 
 const studySuppliesUrlPrefix = '/:study_id/study-supplies';
 
@@ -45,7 +46,11 @@ const Routes = ({ match }) => (
       {/* <ErrorBoundaryRoute exact path={`${match.url}/:study_id/strand/new`} component={StrandUpdate} />*/}
 
       {/* (2): Strand Supply creation */}
-      <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/new`} component={StrandSupplyUpdate} />
+      {/* <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/new`} component={StrandSupplyUpdate} />*/}
+
+      {/* Strand compute = StrandSupply Creation */}
+      <ErrorBoundaryRoute exact path={`${match.url + strandZoneUrlPefix}/:strand_id/strand-compute`} component={StrandCompute} />
+
       <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/:id/edit`} component={StrandSupplyUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/:id/delete`} component={StrandSupplyDeleteDialog} />
 
