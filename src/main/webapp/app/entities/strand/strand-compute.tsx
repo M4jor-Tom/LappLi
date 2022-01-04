@@ -67,8 +67,8 @@ export const StrandCompute = (props: RouteComponentProps<{ strand_id: string | n
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2 id="lappLiApp.strandSupply.home.createOrEditLabel" data-cy="StrandSupplyCreateUpdateHeading">
-            <Translate contentKey="lappLiApp.strandSupply.home.createOrEditLabel">Create or edit a StrandSupply</Translate>
+          <h2 id="lappLiApp.strandSupply.home.createLabel" data-cy="StrandSupplyCreateHeading">
+            <Translate contentKey="lappLiApp.strandSupply.home.createLabel">Create a StrandSupply</Translate>
           </h2>
         </Col>
       </Row>
