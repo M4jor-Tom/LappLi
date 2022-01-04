@@ -138,7 +138,7 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                             &nbsp;
                             <Button
                               tag={Link}
-                              to={`/strand-supply/${strandSupply.id}/edit`}
+                              to={`${props.match.url}/strand-supply/${strandSupply.id}/edit`}
                               color="primary"
                               size="sm"
                               data-cy="entityEditButton"
@@ -151,7 +151,7 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                             &nbsp;
                             <Button
                               tag={Link}
-                              to={`/strand-supply/${strandSupply.id}/delete`}
+                              to={`${props.match.url}/strand-supply/${strandSupply.id}/delete`}
                               color="danger"
                               size="sm"
                               data-cy="entityDeleteButton"
@@ -206,14 +206,26 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                               </span>
                             </Button>
                             &nbsp;
-                            <Button tag={Link} to={`/strand/${strand.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
+                            <Button
+                              tag={Link}
+                              to={`${props.match.url}/strand/${strand.id}/edit`}
+                              color="primary"
+                              size="sm"
+                              data-cy="entityEditButton"
+                            >
                               <FontAwesomeIcon icon="pencil-alt" />{' '}
                               <span className="d-none d-md-inline">
                                 <Translate contentKey="entity.action.edit">Edit</Translate>
                               </span>
                             </Button>
                             &nbsp;
-                            <Button tag={Link} to={`/strand/${strand.id}/delete`} color="danger" size="sm" data-cy="entityDeleteButton">
+                            <Button
+                              tag={Link}
+                              to={`${props.match.url}/strand/${strand.id}/delete`}
+                              color="danger"
+                              size="sm"
+                              data-cy="entityDeleteButton"
+                            >
                               <FontAwesomeIcon icon="trash" />{' '}
                               <span className="d-none d-md-inline">
                                 <Translate contentKey="entity.action.delete">Delete</Translate>
