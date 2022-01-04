@@ -86,10 +86,9 @@ export const StrandCompute = (props: RouteComponentProps<{ strand_id: string | n
             <ValidatedForm defaultValues={defaultValues} onSubmit={saveEntity}>
               <ValidatedField
                 label={translate('lappLiApp.strandSupply.subSuppliesToAssemble')}
-                id="strand-supply-apparitions"
-                name="apparitions"
-                data-cy="apparitions"
-                type="text"
+                id="sub-supplies-to-assemble"
+                name="subSuppliesToAssembleCheck"
+                type="number"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
                   validate: v => isNumber(v) || translate('entity.validation.number'),
@@ -100,7 +99,7 @@ export const StrandCompute = (props: RouteComponentProps<{ strand_id: string | n
                 id="strand-supply-apparitions"
                 name="apparitions"
                 data-cy="apparitions"
-                type="text"
+                type="number"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
                   validate: v => isNumber(v) || translate('entity.validation.number'),
