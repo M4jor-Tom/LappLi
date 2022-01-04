@@ -62,6 +62,11 @@ public class Strand implements Serializable {
     @OneToOne(mappedBy = "strand")
     private CentralAssembly centralAssembly;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "strands", "strandSupplies", "author" }, allowSetters = true)
+    private Study futureStudy;
+
     @JsonIgnoreProperties("strand")
     public CoreAssembly getLastCoreAssembly() {
         CoreAssembly lastCoreAssembly = null;
@@ -309,6 +314,19 @@ public class Strand implements Serializable {
 
     public Strand centralAssembly(CentralAssembly centralAssembly) {
         this.setCentralAssembly(centralAssembly);
+        return this;
+    }
+
+    public Study getFutureStudy() {
+        return this.futureStudy;
+    }
+
+    public void setFutureStudy(Study study) {
+        this.futureStudy = study;
+    }
+
+    public Strand futureStudy(Study study) {
+        this.setFutureStudy(study);
         return this;
     }
 

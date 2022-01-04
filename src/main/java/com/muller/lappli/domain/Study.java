@@ -42,6 +42,11 @@ public class Study implements Serializable {
     @JsonIgnoreProperties(value = { "studies" }, allowSetters = true)
     private UserData author;
 
+    @OneToMany(mappedBy = "futureStudy", fetch = FetchType.EAGER)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "futureStudy" }, allowSetters = true)
+    private Set<Strand> strands = new HashSet<>();
+
     public Study() {
         actualize();
         setAuthor(new UserData());
@@ -94,6 +99,37 @@ public class Study implements Serializable {
 
     private void setLastEditionInstant(Instant lastEditionInstant) {
         this.lastEditionInstant = lastEditionInstant;
+    }
+
+    public Set<Strand> getStrands() {
+        return this.strands;
+    }
+
+    public void setStrands(Set<Strand> strands) {
+        if (this.strands != null) {
+            this.strands.forEach(i -> i.setFutureStudy(null));
+        }
+        if (strands != null) {
+            strands.forEach(i -> i.setFutureStudy(this));
+        }
+        this.strands = strands;
+    }
+
+    public Study strands(Set<Strand> strands) {
+        this.setStrands(strands);
+        return this;
+    }
+
+    public Study addStrands(Strand strand) {
+        this.strands.add(strand);
+        strand.setFutureStudy(this);
+        return this;
+    }
+
+    public Study removeStrands(Strand strand) {
+        this.strands.remove(strand);
+        strand.setFutureStudy(null);
+        return this;
     }
 
     public Set<StrandSupply> getStrandSupplies() {

@@ -33,6 +33,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
             "customComponentSupplies",
             "oneStudySupplies",
             "centralAssembly",
+            "futureStudy",
         },
         allowSetters = true
     )

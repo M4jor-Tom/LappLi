@@ -6,12 +6,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { ICentralAssembly } from 'app/shared/model/central-assembly.model';
 import { getEntities as getCentralAssemblies } from 'app/entities/central-assembly/central-assembly.reducer';
+import { IStudy } from 'app/shared/model/study.model';
 import { getEntity, updateEntity, createEntity, reset } from './strand.reducer';
 import { IStrand } from 'app/shared/model/strand.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getOut } from '../index-management/index-management-lib';
+import { getEntities as getStudies } from '../study/study.reducer';
 
 export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
@@ -19,6 +21,7 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
   const centralAssemblies = useAppSelector(state => state.centralAssembly.entities);
+  const studies = useAppSelector(state => state.study.entities);
   const strandEntity = useAppSelector(state => state.strand.entity);
   const loading = useAppSelector(state => state.strand.loading);
   const updating = useAppSelector(state => state.strand.updating);
@@ -41,6 +44,7 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
     }
 
     dispatch(getCentralAssemblies({}));
+    dispatch(getStudies({}));
   }, []);
 
   useEffect(() => {
@@ -53,6 +57,7 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
     const entity = {
       ...strandEntity,
       ...values,
+      futureStudy: studies.find(it => it.id.toString() === values.futureStudy.toString()),
     };
 
     if (isNew) {
@@ -67,6 +72,7 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
       ? {}
       : {
           ...strandEntity,
+          futureStudy: strandEntity?.futureStudy?.id,
         };
 
   return (
@@ -94,6 +100,26 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
                   validate={{ required: true }}
                 />
               ) : null}
+              <ValidatedField
+                id="strand-futureStudy"
+                name="futureStudy"
+                data-cy="futureStudy"
+                label={translate('lappLiApp.strand.futureStudy')}
+                type="select"
+                required
+              >
+                <option value="" key="0" />
+                {studies
+                  ? studies.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.number}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={getOut(props.match.url, 0)} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

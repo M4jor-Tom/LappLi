@@ -167,6 +167,9 @@ relationship OneToMany {
 }
 
 relationship OneToMany {
+	//Strands' sub supplies are designed before their StrandSupply is created
+    Study{strands(designation)} to Strand{futureStudy(number) required}
+
     //Supplies owned in a Study as UNDIVIDED
 	Study{strandSupplies(designation)} to StrandSupply{study(number) required}
 
