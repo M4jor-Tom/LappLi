@@ -5,6 +5,7 @@ import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { getEntity } from '../strand/strand.reducer';
+import { getEntities as getStrandSupplies } from '../strand-supply/strand-supply.reducer';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getOut } from '../index-management/index-management-lib';
@@ -16,11 +17,18 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
 
   useEffect(() => {
     dispatch(getEntity(props.match.params.id));
+    dispatch(getStrandSupplies({}));
   }, []);
+
+  const strandSupplies = useAppSelector(state => state.strandSupply.entities);
 
   const getOutCount: number = props.match.params.study_id ? 2 : 0;
 
   const strandEntity = useAppSelector(state => state.strand.entity);
+
+  const strandSupplyExistsInStudy: boolean =
+    strandSupplies.find(it => it.study.id === toNumber(props.match.params.study_id) && it.strand.id === toNumber(props.match.params.id)) !==
+    undefined;
 
   return (
     <div>
@@ -29,12 +37,16 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
         <h2 data-cy="strandDetailsHeading">
           <Translate contentKey="lappLiApp.strand.detail.title">Strand</Translate>
           &nbsp;
-          <Button tag={Link} to={`${getOut(props.match.url, 0)}/strand-compute`} color="primary" size="sm" data-cy="entityCreateButton">
-            <FontAwesomeIcon icon="pencil-alt" />{' '}
-            <span className="d-none d-md-inline">
-              <Translate contentKey="lappLiApp.strand.action.compute">Compute strand</Translate>
-            </span>
-          </Button>
+          {strandSupplyExistsInStudy ? (
+            ''
+          ) : (
+            <Button tag={Link} to={`${getOut(props.match.url, 0)}/strand-compute`} color="primary" size="sm" data-cy="entityCreateButton">
+              <FontAwesomeIcon icon="pencil-alt" />{' '}
+              <span className="d-none d-md-inline">
+                <Translate contentKey="lappLiApp.strand.action.compute">Compute strand</Translate>
+              </span>
+            </Button>
+          )}
         </h2>
         <dl className="jh-entity-details">
           <dt>
