@@ -7,7 +7,7 @@ import java.util.Optional;
 /**
  * Service Interface for managing {@link StrandSupply}.
  */
-public interface StrandSupplyService {
+public interface StrandSupplyService extends ReadTriggerableService<StrandSupply> {
     /**
      * Save a strandSupply.
      *

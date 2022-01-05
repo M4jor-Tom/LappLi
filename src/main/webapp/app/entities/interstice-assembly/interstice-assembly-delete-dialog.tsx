@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity, deleteEntity } from './interstice-assembly.reducer';
+import { getOutFromStudySupplyStrandAssemblyComponent } from '../index-management/index-management-lib';
 
 export const IntersticeAssemblyDeleteDialog = (props: RouteComponentProps<{ id: string }>) => {
   const [loadModal, setLoadModal] = useState(false);
@@ -19,8 +20,10 @@ export const IntersticeAssemblyDeleteDialog = (props: RouteComponentProps<{ id: 
   const intersticeAssemblyEntity = useAppSelector(state => state.intersticeAssembly.entity);
   const updateSuccess = useAppSelector(state => state.intersticeAssembly.updateSuccess);
 
+  const redirectionUrl = getOutFromStudySupplyStrandAssemblyComponent(props.match.url, null);
+
   const handleClose = () => {
-    props.history.push('/interstice-assembly');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {

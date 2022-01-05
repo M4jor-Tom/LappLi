@@ -14,9 +14,6 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="production_step" type="bigint">
-                <constraints nullable="false" />
-            </column>
             <column name="position_id" type="bigint">
                 <constraints nullable="true" unique="true" uniqueConstraintName="ux_central_assembly__position_id" />
             </column>
@@ -41,7 +38,6 @@
                   tableName="central_assembly"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
-            <column name="production_step" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

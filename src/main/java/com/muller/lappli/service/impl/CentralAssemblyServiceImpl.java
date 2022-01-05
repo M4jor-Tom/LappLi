@@ -53,10 +53,6 @@ public class CentralAssemblyServiceImpl implements CentralAssemblyService {
         return centralAssemblyRepository
             .findById(centralAssembly.getId())
             .map(existingCentralAssembly -> {
-                if (centralAssembly.getProductionStep() != null) {
-                    existingCentralAssembly.setProductionStep(centralAssembly.getProductionStep());
-                }
-
                 return existingCentralAssembly;
             })
             .map(centralAssemblyRepository::save);

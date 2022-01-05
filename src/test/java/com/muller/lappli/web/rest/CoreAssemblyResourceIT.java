@@ -7,11 +7,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.CoreAssembly;
-import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.repository.CoreAssemblyRepository;
-import com.muller.lappli.service.criteria.CoreAssemblyCriteria;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -34,17 +32,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class CoreAssemblyResourceIT {
 
-    private static final Long DEFAULT_OPERATION_LAYER = 1L;
-    private static final Long UPDATED_OPERATION_LAYER = 2L;
-    private static final Long SMALLER_OPERATION_LAYER = 1L - 1L;
-
-    private static final Long DEFAULT_PRODUCTION_STEP = 1L;
-    private static final Long UPDATED_PRODUCTION_STEP = 2L;
-    private static final Long SMALLER_PRODUCTION_STEP = 1L - 1L;
-
     private static final Double DEFAULT_DIAMETER_ASSEMBLY_STEP = 1D;
     private static final Double UPDATED_DIAMETER_ASSEMBLY_STEP = 2D;
-    private static final Double SMALLER_DIAMETER_ASSEMBLY_STEP = 1D - 1D;
 
     private static final AssemblyMean DEFAULT_ASSEMBLY_MEAN = AssemblyMean.RIGHT;
     private static final AssemblyMean UPDATED_ASSEMBLY_MEAN = AssemblyMean.LEFT;
@@ -74,8 +63,6 @@ class CoreAssemblyResourceIT {
      */
     public static CoreAssembly createEntity(EntityManager em) {
         CoreAssembly coreAssembly = new CoreAssembly()
-            .operationLayer(DEFAULT_OPERATION_LAYER)
-            .productionStep(DEFAULT_PRODUCTION_STEP)
             .diameterAssemblyStep(DEFAULT_DIAMETER_ASSEMBLY_STEP)
             .assemblyMean(DEFAULT_ASSEMBLY_MEAN);
         // Add required entity
@@ -99,8 +86,6 @@ class CoreAssemblyResourceIT {
      */
     public static CoreAssembly createUpdatedEntity(EntityManager em) {
         CoreAssembly coreAssembly = new CoreAssembly()
-            .operationLayer(UPDATED_OPERATION_LAYER)
-            .productionStep(UPDATED_PRODUCTION_STEP)
             .diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP)
             .assemblyMean(UPDATED_ASSEMBLY_MEAN);
         // Add required entity
@@ -134,8 +119,6 @@ class CoreAssemblyResourceIT {
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeCreate + 1);
         CoreAssembly testCoreAssembly = coreAssemblyList.get(coreAssemblyList.size() - 1);
-        assertThat(testCoreAssembly.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
-        assertThat(testCoreAssembly.getProductionStep()).isEqualTo(DEFAULT_PRODUCTION_STEP);
         assertThat(testCoreAssembly.getDiameterAssemblyStep()).isEqualTo(DEFAULT_DIAMETER_ASSEMBLY_STEP);
         assertThat(testCoreAssembly.getAssemblyMean()).isEqualTo(DEFAULT_ASSEMBLY_MEAN);
     }
@@ -156,40 +139,6 @@ class CoreAssemblyResourceIT {
         // Validate the CoreAssembly in the database
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeCreate);
-    }
-
-    @Test
-    @Transactional
-    void checkOperationLayerIsRequired() throws Exception {
-        int databaseSizeBeforeTest = coreAssemblyRepository.findAll().size();
-        // set the field null
-        coreAssembly.setOperationLayer(null);
-
-        // Create the CoreAssembly, which fails.
-
-        restCoreAssemblyMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(coreAssembly)))
-            .andExpect(status().isBadRequest());
-
-        List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
-        assertThat(coreAssemblyList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkProductionStepIsRequired() throws Exception {
-        int databaseSizeBeforeTest = coreAssemblyRepository.findAll().size();
-        // set the field null
-        coreAssembly.setProductionStep(null);
-
-        // Create the CoreAssembly, which fails.
-
-        restCoreAssemblyMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(coreAssembly)))
-            .andExpect(status().isBadRequest());
-
-        List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
-        assertThat(coreAssemblyList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -238,8 +187,6 @@ class CoreAssemblyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(coreAssembly.getId().intValue())))
-            .andExpect(jsonPath("$.[*].operationLayer").value(hasItem(DEFAULT_OPERATION_LAYER.intValue())))
-            .andExpect(jsonPath("$.[*].productionStep").value(hasItem(DEFAULT_PRODUCTION_STEP.intValue())))
             .andExpect(jsonPath("$.[*].diameterAssemblyStep").value(hasItem(DEFAULT_DIAMETER_ASSEMBLY_STEP.doubleValue())))
             .andExpect(jsonPath("$.[*].assemblyMean").value(hasItem(DEFAULT_ASSEMBLY_MEAN.toString())));
     }
@@ -256,487 +203,8 @@ class CoreAssemblyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(coreAssembly.getId().intValue()))
-            .andExpect(jsonPath("$.operationLayer").value(DEFAULT_OPERATION_LAYER.intValue()))
-            .andExpect(jsonPath("$.productionStep").value(DEFAULT_PRODUCTION_STEP.intValue()))
             .andExpect(jsonPath("$.diameterAssemblyStep").value(DEFAULT_DIAMETER_ASSEMBLY_STEP.doubleValue()))
             .andExpect(jsonPath("$.assemblyMean").value(DEFAULT_ASSEMBLY_MEAN.toString()));
-    }
-
-    @Test
-    @Transactional
-    void getCoreAssembliesByIdFiltering() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        Long id = coreAssembly.getId();
-
-        defaultCoreAssemblyShouldBeFound("id.equals=" + id);
-        defaultCoreAssemblyShouldNotBeFound("id.notEquals=" + id);
-
-        defaultCoreAssemblyShouldBeFound("id.greaterThanOrEqual=" + id);
-        defaultCoreAssemblyShouldNotBeFound("id.greaterThan=" + id);
-
-        defaultCoreAssemblyShouldBeFound("id.lessThanOrEqual=" + id);
-        defaultCoreAssemblyShouldNotBeFound("id.lessThan=" + id);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByOperationLayerIsEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where operationLayer equals to DEFAULT_OPERATION_LAYER
-        defaultCoreAssemblyShouldBeFound("operationLayer.equals=" + DEFAULT_OPERATION_LAYER);
-
-        // Get all the coreAssemblyList where operationLayer equals to UPDATED_OPERATION_LAYER
-        defaultCoreAssemblyShouldNotBeFound("operationLayer.equals=" + UPDATED_OPERATION_LAYER);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByOperationLayerIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where operationLayer not equals to DEFAULT_OPERATION_LAYER
-        defaultCoreAssemblyShouldNotBeFound("operationLayer.notEquals=" + DEFAULT_OPERATION_LAYER);
-
-        // Get all the coreAssemblyList where operationLayer not equals to UPDATED_OPERATION_LAYER
-        defaultCoreAssemblyShouldBeFound("operationLayer.notEquals=" + UPDATED_OPERATION_LAYER);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByOperationLayerIsInShouldWork() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where operationLayer in DEFAULT_OPERATION_LAYER or UPDATED_OPERATION_LAYER
-        defaultCoreAssemblyShouldBeFound("operationLayer.in=" + DEFAULT_OPERATION_LAYER + "," + UPDATED_OPERATION_LAYER);
-
-        // Get all the coreAssemblyList where operationLayer equals to UPDATED_OPERATION_LAYER
-        defaultCoreAssemblyShouldNotBeFound("operationLayer.in=" + UPDATED_OPERATION_LAYER);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByOperationLayerIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where operationLayer is not null
-        defaultCoreAssemblyShouldBeFound("operationLayer.specified=true");
-
-        // Get all the coreAssemblyList where operationLayer is null
-        defaultCoreAssemblyShouldNotBeFound("operationLayer.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByOperationLayerIsGreaterThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where operationLayer is greater than or equal to DEFAULT_OPERATION_LAYER
-        defaultCoreAssemblyShouldBeFound("operationLayer.greaterThanOrEqual=" + DEFAULT_OPERATION_LAYER);
-
-        // Get all the coreAssemblyList where operationLayer is greater than or equal to UPDATED_OPERATION_LAYER
-        defaultCoreAssemblyShouldNotBeFound("operationLayer.greaterThanOrEqual=" + UPDATED_OPERATION_LAYER);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByOperationLayerIsLessThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where operationLayer is less than or equal to DEFAULT_OPERATION_LAYER
-        defaultCoreAssemblyShouldBeFound("operationLayer.lessThanOrEqual=" + DEFAULT_OPERATION_LAYER);
-
-        // Get all the coreAssemblyList where operationLayer is less than or equal to SMALLER_OPERATION_LAYER
-        defaultCoreAssemblyShouldNotBeFound("operationLayer.lessThanOrEqual=" + SMALLER_OPERATION_LAYER);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByOperationLayerIsLessThanSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where operationLayer is less than DEFAULT_OPERATION_LAYER
-        defaultCoreAssemblyShouldNotBeFound("operationLayer.lessThan=" + DEFAULT_OPERATION_LAYER);
-
-        // Get all the coreAssemblyList where operationLayer is less than UPDATED_OPERATION_LAYER
-        defaultCoreAssemblyShouldBeFound("operationLayer.lessThan=" + UPDATED_OPERATION_LAYER);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByOperationLayerIsGreaterThanSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where operationLayer is greater than DEFAULT_OPERATION_LAYER
-        defaultCoreAssemblyShouldNotBeFound("operationLayer.greaterThan=" + DEFAULT_OPERATION_LAYER);
-
-        // Get all the coreAssemblyList where operationLayer is greater than SMALLER_OPERATION_LAYER
-        defaultCoreAssemblyShouldBeFound("operationLayer.greaterThan=" + SMALLER_OPERATION_LAYER);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByProductionStepIsEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where productionStep equals to DEFAULT_PRODUCTION_STEP
-        defaultCoreAssemblyShouldBeFound("productionStep.equals=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the coreAssemblyList where productionStep equals to UPDATED_PRODUCTION_STEP
-        defaultCoreAssemblyShouldNotBeFound("productionStep.equals=" + UPDATED_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByProductionStepIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where productionStep not equals to DEFAULT_PRODUCTION_STEP
-        defaultCoreAssemblyShouldNotBeFound("productionStep.notEquals=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the coreAssemblyList where productionStep not equals to UPDATED_PRODUCTION_STEP
-        defaultCoreAssemblyShouldBeFound("productionStep.notEquals=" + UPDATED_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByProductionStepIsInShouldWork() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where productionStep in DEFAULT_PRODUCTION_STEP or UPDATED_PRODUCTION_STEP
-        defaultCoreAssemblyShouldBeFound("productionStep.in=" + DEFAULT_PRODUCTION_STEP + "," + UPDATED_PRODUCTION_STEP);
-
-        // Get all the coreAssemblyList where productionStep equals to UPDATED_PRODUCTION_STEP
-        defaultCoreAssemblyShouldNotBeFound("productionStep.in=" + UPDATED_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByProductionStepIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where productionStep is not null
-        defaultCoreAssemblyShouldBeFound("productionStep.specified=true");
-
-        // Get all the coreAssemblyList where productionStep is null
-        defaultCoreAssemblyShouldNotBeFound("productionStep.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByProductionStepIsGreaterThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where productionStep is greater than or equal to DEFAULT_PRODUCTION_STEP
-        defaultCoreAssemblyShouldBeFound("productionStep.greaterThanOrEqual=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the coreAssemblyList where productionStep is greater than or equal to UPDATED_PRODUCTION_STEP
-        defaultCoreAssemblyShouldNotBeFound("productionStep.greaterThanOrEqual=" + UPDATED_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByProductionStepIsLessThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where productionStep is less than or equal to DEFAULT_PRODUCTION_STEP
-        defaultCoreAssemblyShouldBeFound("productionStep.lessThanOrEqual=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the coreAssemblyList where productionStep is less than or equal to SMALLER_PRODUCTION_STEP
-        defaultCoreAssemblyShouldNotBeFound("productionStep.lessThanOrEqual=" + SMALLER_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByProductionStepIsLessThanSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where productionStep is less than DEFAULT_PRODUCTION_STEP
-        defaultCoreAssemblyShouldNotBeFound("productionStep.lessThan=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the coreAssemblyList where productionStep is less than UPDATED_PRODUCTION_STEP
-        defaultCoreAssemblyShouldBeFound("productionStep.lessThan=" + UPDATED_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByProductionStepIsGreaterThanSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where productionStep is greater than DEFAULT_PRODUCTION_STEP
-        defaultCoreAssemblyShouldNotBeFound("productionStep.greaterThan=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the coreAssemblyList where productionStep is greater than SMALLER_PRODUCTION_STEP
-        defaultCoreAssemblyShouldBeFound("productionStep.greaterThan=" + SMALLER_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByDiameterAssemblyStepIsEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where diameterAssemblyStep equals to DEFAULT_DIAMETER_ASSEMBLY_STEP
-        defaultCoreAssemblyShouldBeFound("diameterAssemblyStep.equals=" + DEFAULT_DIAMETER_ASSEMBLY_STEP);
-
-        // Get all the coreAssemblyList where diameterAssemblyStep equals to UPDATED_DIAMETER_ASSEMBLY_STEP
-        defaultCoreAssemblyShouldNotBeFound("diameterAssemblyStep.equals=" + UPDATED_DIAMETER_ASSEMBLY_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByDiameterAssemblyStepIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where diameterAssemblyStep not equals to DEFAULT_DIAMETER_ASSEMBLY_STEP
-        defaultCoreAssemblyShouldNotBeFound("diameterAssemblyStep.notEquals=" + DEFAULT_DIAMETER_ASSEMBLY_STEP);
-
-        // Get all the coreAssemblyList where diameterAssemblyStep not equals to UPDATED_DIAMETER_ASSEMBLY_STEP
-        defaultCoreAssemblyShouldBeFound("diameterAssemblyStep.notEquals=" + UPDATED_DIAMETER_ASSEMBLY_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByDiameterAssemblyStepIsInShouldWork() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where diameterAssemblyStep in DEFAULT_DIAMETER_ASSEMBLY_STEP or UPDATED_DIAMETER_ASSEMBLY_STEP
-        defaultCoreAssemblyShouldBeFound(
-            "diameterAssemblyStep.in=" + DEFAULT_DIAMETER_ASSEMBLY_STEP + "," + UPDATED_DIAMETER_ASSEMBLY_STEP
-        );
-
-        // Get all the coreAssemblyList where diameterAssemblyStep equals to UPDATED_DIAMETER_ASSEMBLY_STEP
-        defaultCoreAssemblyShouldNotBeFound("diameterAssemblyStep.in=" + UPDATED_DIAMETER_ASSEMBLY_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByDiameterAssemblyStepIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where diameterAssemblyStep is not null
-        defaultCoreAssemblyShouldBeFound("diameterAssemblyStep.specified=true");
-
-        // Get all the coreAssemblyList where diameterAssemblyStep is null
-        defaultCoreAssemblyShouldNotBeFound("diameterAssemblyStep.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByDiameterAssemblyStepIsGreaterThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where diameterAssemblyStep is greater than or equal to DEFAULT_DIAMETER_ASSEMBLY_STEP
-        defaultCoreAssemblyShouldBeFound("diameterAssemblyStep.greaterThanOrEqual=" + DEFAULT_DIAMETER_ASSEMBLY_STEP);
-
-        // Get all the coreAssemblyList where diameterAssemblyStep is greater than or equal to UPDATED_DIAMETER_ASSEMBLY_STEP
-        defaultCoreAssemblyShouldNotBeFound("diameterAssemblyStep.greaterThanOrEqual=" + UPDATED_DIAMETER_ASSEMBLY_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByDiameterAssemblyStepIsLessThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where diameterAssemblyStep is less than or equal to DEFAULT_DIAMETER_ASSEMBLY_STEP
-        defaultCoreAssemblyShouldBeFound("diameterAssemblyStep.lessThanOrEqual=" + DEFAULT_DIAMETER_ASSEMBLY_STEP);
-
-        // Get all the coreAssemblyList where diameterAssemblyStep is less than or equal to SMALLER_DIAMETER_ASSEMBLY_STEP
-        defaultCoreAssemblyShouldNotBeFound("diameterAssemblyStep.lessThanOrEqual=" + SMALLER_DIAMETER_ASSEMBLY_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByDiameterAssemblyStepIsLessThanSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where diameterAssemblyStep is less than DEFAULT_DIAMETER_ASSEMBLY_STEP
-        defaultCoreAssemblyShouldNotBeFound("diameterAssemblyStep.lessThan=" + DEFAULT_DIAMETER_ASSEMBLY_STEP);
-
-        // Get all the coreAssemblyList where diameterAssemblyStep is less than UPDATED_DIAMETER_ASSEMBLY_STEP
-        defaultCoreAssemblyShouldBeFound("diameterAssemblyStep.lessThan=" + UPDATED_DIAMETER_ASSEMBLY_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByDiameterAssemblyStepIsGreaterThanSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where diameterAssemblyStep is greater than DEFAULT_DIAMETER_ASSEMBLY_STEP
-        defaultCoreAssemblyShouldNotBeFound("diameterAssemblyStep.greaterThan=" + DEFAULT_DIAMETER_ASSEMBLY_STEP);
-
-        // Get all the coreAssemblyList where diameterAssemblyStep is greater than SMALLER_DIAMETER_ASSEMBLY_STEP
-        defaultCoreAssemblyShouldBeFound("diameterAssemblyStep.greaterThan=" + SMALLER_DIAMETER_ASSEMBLY_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByAssemblyMeanIsEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where assemblyMean equals to DEFAULT_ASSEMBLY_MEAN
-        defaultCoreAssemblyShouldBeFound("assemblyMean.equals=" + DEFAULT_ASSEMBLY_MEAN);
-
-        // Get all the coreAssemblyList where assemblyMean equals to UPDATED_ASSEMBLY_MEAN
-        defaultCoreAssemblyShouldNotBeFound("assemblyMean.equals=" + UPDATED_ASSEMBLY_MEAN);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByAssemblyMeanIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where assemblyMean not equals to DEFAULT_ASSEMBLY_MEAN
-        defaultCoreAssemblyShouldNotBeFound("assemblyMean.notEquals=" + DEFAULT_ASSEMBLY_MEAN);
-
-        // Get all the coreAssemblyList where assemblyMean not equals to UPDATED_ASSEMBLY_MEAN
-        defaultCoreAssemblyShouldBeFound("assemblyMean.notEquals=" + UPDATED_ASSEMBLY_MEAN);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByAssemblyMeanIsInShouldWork() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where assemblyMean in DEFAULT_ASSEMBLY_MEAN or UPDATED_ASSEMBLY_MEAN
-        defaultCoreAssemblyShouldBeFound("assemblyMean.in=" + DEFAULT_ASSEMBLY_MEAN + "," + UPDATED_ASSEMBLY_MEAN);
-
-        // Get all the coreAssemblyList where assemblyMean equals to UPDATED_ASSEMBLY_MEAN
-        defaultCoreAssemblyShouldNotBeFound("assemblyMean.in=" + UPDATED_ASSEMBLY_MEAN);
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByAssemblyMeanIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-
-        // Get all the coreAssemblyList where assemblyMean is not null
-        defaultCoreAssemblyShouldBeFound("assemblyMean.specified=true");
-
-        // Get all the coreAssemblyList where assemblyMean is null
-        defaultCoreAssemblyShouldNotBeFound("assemblyMean.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByPositionsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-        Position positions;
-        if (TestUtil.findAll(em, Position.class).isEmpty()) {
-            positions = PositionResourceIT.createEntity(em);
-            em.persist(positions);
-            em.flush();
-        } else {
-            positions = TestUtil.findAll(em, Position.class).get(0);
-        }
-        em.persist(positions);
-        em.flush();
-        coreAssembly.addPositions(positions);
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-        Long positionsId = positions.getId();
-
-        // Get all the coreAssemblyList where positions equals to positionsId
-        defaultCoreAssemblyShouldBeFound("positionsId.equals=" + positionsId);
-
-        // Get all the coreAssemblyList where positions equals to (positionsId + 1)
-        defaultCoreAssemblyShouldNotBeFound("positionsId.equals=" + (positionsId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllCoreAssembliesByStrandIsEqualToSomething() throws Exception {
-        // Initialize the database
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-        Strand strand;
-        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
-            strand = StrandResourceIT.createEntity(em);
-            em.persist(strand);
-            em.flush();
-        } else {
-            strand = TestUtil.findAll(em, Strand.class).get(0);
-        }
-        em.persist(strand);
-        em.flush();
-        coreAssembly.setStrand(strand);
-        coreAssemblyRepository.saveAndFlush(coreAssembly);
-        Long strandId = strand.getId();
-
-        // Get all the coreAssemblyList where strand equals to strandId
-        defaultCoreAssemblyShouldBeFound("strandId.equals=" + strandId);
-
-        // Get all the coreAssemblyList where strand equals to (strandId + 1)
-        defaultCoreAssemblyShouldNotBeFound("strandId.equals=" + (strandId + 1));
-    }
-
-    /**
-     * Executes the search, and checks that the default entity is returned.
-     */
-    private void defaultCoreAssemblyShouldBeFound(String filter) throws Exception {
-        restCoreAssemblyMockMvc
-            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(coreAssembly.getId().intValue())))
-            .andExpect(jsonPath("$.[*].operationLayer").value(hasItem(DEFAULT_OPERATION_LAYER.intValue())))
-            .andExpect(jsonPath("$.[*].productionStep").value(hasItem(DEFAULT_PRODUCTION_STEP.intValue())))
-            .andExpect(jsonPath("$.[*].diameterAssemblyStep").value(hasItem(DEFAULT_DIAMETER_ASSEMBLY_STEP.doubleValue())))
-            .andExpect(jsonPath("$.[*].assemblyMean").value(hasItem(DEFAULT_ASSEMBLY_MEAN.toString())));
-
-        // Check, that the count call also returns 1
-        restCoreAssemblyMockMvc
-            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(content().string("1"));
-    }
-
-    /**
-     * Executes the search, and checks that the default entity is not returned.
-     */
-    private void defaultCoreAssemblyShouldNotBeFound(String filter) throws Exception {
-        restCoreAssemblyMockMvc
-            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$").isArray())
-            .andExpect(jsonPath("$").isEmpty());
-
-        // Check, that the count call also returns 0
-        restCoreAssemblyMockMvc
-            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(content().string("0"));
     }
 
     @Test
@@ -758,11 +226,7 @@ class CoreAssemblyResourceIT {
         CoreAssembly updatedCoreAssembly = coreAssemblyRepository.findById(coreAssembly.getId()).get();
         // Disconnect from session so that the updates on updatedCoreAssembly are not directly saved in db
         em.detach(updatedCoreAssembly);
-        updatedCoreAssembly
-            .operationLayer(UPDATED_OPERATION_LAYER)
-            .productionStep(UPDATED_PRODUCTION_STEP)
-            .diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP)
-            .assemblyMean(UPDATED_ASSEMBLY_MEAN);
+        updatedCoreAssembly.diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP).assemblyMean(UPDATED_ASSEMBLY_MEAN);
 
         ResultMatcher expectedResult = updatedCoreAssembly.positionsAreRight() ? status().isOk() : status().isBadRequest();
 
@@ -778,8 +242,6 @@ class CoreAssemblyResourceIT {
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeUpdate);
         CoreAssembly testCoreAssembly = coreAssemblyList.get(coreAssemblyList.size() - 1);
-        assertThat(testCoreAssembly.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
-        assertThat(testCoreAssembly.getProductionStep()).isEqualTo(UPDATED_PRODUCTION_STEP);
         assertThat(testCoreAssembly.getDiameterAssemblyStep()).isEqualTo(UPDATED_DIAMETER_ASSEMBLY_STEP);
         assertThat(testCoreAssembly.getAssemblyMean()).isEqualTo(UPDATED_ASSEMBLY_MEAN);
     }
@@ -852,8 +314,6 @@ class CoreAssemblyResourceIT {
         CoreAssembly partialUpdatedCoreAssembly = new CoreAssembly();
         partialUpdatedCoreAssembly.setId(coreAssembly.getId());
 
-        partialUpdatedCoreAssembly.assemblyMean(UPDATED_ASSEMBLY_MEAN);
-
         restCoreAssemblyMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedCoreAssembly.getId())
@@ -866,10 +326,8 @@ class CoreAssemblyResourceIT {
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeUpdate);
         CoreAssembly testCoreAssembly = coreAssemblyList.get(coreAssemblyList.size() - 1);
-        assertThat(testCoreAssembly.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
-        assertThat(testCoreAssembly.getProductionStep()).isEqualTo(DEFAULT_PRODUCTION_STEP);
         assertThat(testCoreAssembly.getDiameterAssemblyStep()).isEqualTo(DEFAULT_DIAMETER_ASSEMBLY_STEP);
-        assertThat(testCoreAssembly.getAssemblyMean()).isEqualTo(UPDATED_ASSEMBLY_MEAN);
+        assertThat(testCoreAssembly.getAssemblyMean()).isEqualTo(DEFAULT_ASSEMBLY_MEAN);
     }
 
     @Test
@@ -884,11 +342,7 @@ class CoreAssemblyResourceIT {
         CoreAssembly partialUpdatedCoreAssembly = new CoreAssembly();
         partialUpdatedCoreAssembly.setId(coreAssembly.getId());
 
-        partialUpdatedCoreAssembly
-            .operationLayer(UPDATED_OPERATION_LAYER)
-            .productionStep(UPDATED_PRODUCTION_STEP)
-            .diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP)
-            .assemblyMean(UPDATED_ASSEMBLY_MEAN);
+        partialUpdatedCoreAssembly.diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP).assemblyMean(UPDATED_ASSEMBLY_MEAN);
 
         restCoreAssemblyMockMvc
             .perform(
@@ -902,8 +356,6 @@ class CoreAssemblyResourceIT {
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeUpdate);
         CoreAssembly testCoreAssembly = coreAssemblyList.get(coreAssemblyList.size() - 1);
-        assertThat(testCoreAssembly.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
-        assertThat(testCoreAssembly.getProductionStep()).isEqualTo(UPDATED_PRODUCTION_STEP);
         assertThat(testCoreAssembly.getDiameterAssemblyStep()).isEqualTo(UPDATED_DIAMETER_ASSEMBLY_STEP);
         assertThat(testCoreAssembly.getAssemblyMean()).isEqualTo(UPDATED_ASSEMBLY_MEAN);
     }

@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.enumeration.MarkingType;
+import com.muller.lappli.domain.interfaces.Designable;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -14,7 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "strand_supply")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class StrandSupply implements Serializable {
+public class StrandSupply implements Designable, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,24 +38,21 @@ public class StrandSupply implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(
-        value = {
-            "coreAssemblies",
-            "intersticeAssemblies",
-            "elementSupplies",
-            "bangleSupplies",
-            "customComponentSupplies",
-            "oneStudySupplies",
-            "centralAssembly",
-        },
-        allowSetters = true
-    )
     private Strand strand;
 
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(value = { "strandSupplies", "author" }, allowSetters = true)
     private Study study;
+
+    @Override
+    public String getDesignation() {
+        try {
+            return getApparitions().toString() + " x " + getStrand().getDesignation();
+        } catch (NullPointerException e) {
+            return getApparitions() + " x [?]";
+        }
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 

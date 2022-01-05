@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
+import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -18,7 +19,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element_supply")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ElementSupply extends AbstractMarkedLiftedSupply implements Serializable {
+public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -64,7 +65,7 @@ public class ElementSupply extends AbstractMarkedLiftedSupply implements Seriali
     @JsonIgnoreProperties(
         value = {
             "coreAssemblies",
-            "intersticialAssemblies",
+            "intersticeAssemblies",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",
@@ -77,6 +78,16 @@ public class ElementSupply extends AbstractMarkedLiftedSupply implements Seriali
 
     public ElementSupply() {
         super();
+    }
+
+    @Override
+    public ElementSupply getThis() {
+        return this;
+    }
+
+    @Override
+    public SupplyKind getSupplyKind() {
+        return SupplyKind.ELEMENT;
     }
 
     @Override
@@ -218,6 +229,7 @@ public class ElementSupply extends AbstractMarkedLiftedSupply implements Seriali
         return this;
     }
 
+    @Override
     public Strand getStrand() {
         return this.strand;
     }

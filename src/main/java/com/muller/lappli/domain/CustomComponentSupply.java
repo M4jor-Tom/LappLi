@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
+import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -64,7 +65,7 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
     @JsonIgnoreProperties(
         value = {
             "coreAssemblies",
-            "intersticialAssemblies",
+            "intersticeAssemblies",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",
@@ -74,6 +75,16 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
         allowSetters = true
     )
     private Strand strand;
+
+    @Override
+    public CustomComponentSupply getThis() {
+        return this;
+    }
+
+    @Override
+    public SupplyKind getSupplyKind() {
+        return SupplyKind.CUSTOM_COMPONENT;
+    }
 
     @Override
     public CylindricComponent getCylindricComponent() {
@@ -197,6 +208,7 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
         return this;
     }
 
+    @Override
     public Strand getStrand() {
         return this.strand;
     }

@@ -65,6 +65,11 @@ public class Position extends AbstractDomainObject<Position> implements Serializ
     @JsonIgnoreProperties(value = { "positions", "strand" }, allowSetters = true)
     private IntersticeAssembly ownerIntersticeAssembly;
 
+    @Override
+    public Position getThis() {
+        return this;
+    }
+
     @JsonIgnoreProperties(value = { "position", "strand" })
     public AbstractSupply<?> getSupply() {
         if (isOfBangleSupply()) {

@@ -6,16 +6,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.muller.lappli.IntegrationTest;
-import com.muller.lappli.domain.BangleSupply;
-import com.muller.lappli.domain.CentralAssembly;
-import com.muller.lappli.domain.CoreAssembly;
-import com.muller.lappli.domain.CustomComponentSupply;
-import com.muller.lappli.domain.ElementSupply;
-import com.muller.lappli.domain.IntersticeAssembly;
-import com.muller.lappli.domain.OneStudySupply;
 import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.Study;
 import com.muller.lappli.repository.StrandRepository;
-import com.muller.lappli.service.criteria.StrandCriteria;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -62,6 +55,16 @@ class StrandResourceIT {
      */
     public static Strand createEntity(EntityManager em) {
         Strand strand = new Strand();
+        // Add required entity
+        Study study;
+        if (TestUtil.findAll(em, Study.class).isEmpty()) {
+            study = StudyResourceIT.createEntity(em);
+            em.persist(study);
+            em.flush();
+        } else {
+            study = TestUtil.findAll(em, Study.class).get(0);
+        }
+        strand.setFutureStudy(study);
         return strand;
     }
 
@@ -73,6 +76,16 @@ class StrandResourceIT {
      */
     public static Strand createUpdatedEntity(EntityManager em) {
         Strand strand = new Strand();
+        // Add required entity
+        Study study;
+        if (TestUtil.findAll(em, Study.class).isEmpty()) {
+            study = StudyResourceIT.createUpdatedEntity(em);
+            em.persist(study);
+            em.flush();
+        } else {
+            study = TestUtil.findAll(em, Study.class).get(0);
+        }
+        strand.setFutureStudy(study);
         return strand;
     }
 
@@ -140,244 +153,6 @@ class StrandResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(strand.getId().intValue()));
-    }
-
-    @Test
-    @Transactional
-    void getStrandsByIdFiltering() throws Exception {
-        // Initialize the database
-        strandRepository.saveAndFlush(strand);
-
-        Long id = strand.getId();
-
-        defaultStrandShouldBeFound("id.equals=" + id);
-        defaultStrandShouldNotBeFound("id.notEquals=" + id);
-
-        defaultStrandShouldBeFound("id.greaterThanOrEqual=" + id);
-        defaultStrandShouldNotBeFound("id.greaterThan=" + id);
-
-        defaultStrandShouldBeFound("id.lessThanOrEqual=" + id);
-        defaultStrandShouldNotBeFound("id.lessThan=" + id);
-    }
-
-    @Test
-    @Transactional
-    void getAllStrandsByCoreAssembliesIsEqualToSomething() throws Exception {
-        // Initialize the database
-        strandRepository.saveAndFlush(strand);
-        CoreAssembly coreAssemblies;
-        if (TestUtil.findAll(em, CoreAssembly.class).isEmpty()) {
-            coreAssemblies = CoreAssemblyResourceIT.createEntity(em);
-            em.persist(coreAssemblies);
-            em.flush();
-        } else {
-            coreAssemblies = TestUtil.findAll(em, CoreAssembly.class).get(0);
-        }
-        em.persist(coreAssemblies);
-        em.flush();
-        strand.addCoreAssemblies(coreAssemblies);
-        strandRepository.saveAndFlush(strand);
-        Long coreAssembliesId = coreAssemblies.getId();
-
-        // Get all the strandList where coreAssemblies equals to coreAssembliesId
-        defaultStrandShouldBeFound("coreAssembliesId.equals=" + coreAssembliesId);
-
-        // Get all the strandList where coreAssemblies equals to (coreAssembliesId + 1)
-        defaultStrandShouldNotBeFound("coreAssembliesId.equals=" + (coreAssembliesId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllStrandsByIntersticeAssembliesIsEqualToSomething() throws Exception {
-        // Initialize the database
-        strandRepository.saveAndFlush(strand);
-        IntersticeAssembly intersticeAssemblies;
-        if (TestUtil.findAll(em, IntersticeAssembly.class).isEmpty()) {
-            intersticeAssemblies = IntersticeAssemblyResourceIT.createEntity(em);
-            em.persist(intersticeAssemblies);
-            em.flush();
-        } else {
-            intersticeAssemblies = TestUtil.findAll(em, IntersticeAssembly.class).get(0);
-        }
-        em.persist(intersticeAssemblies);
-        em.flush();
-        strand.addIntersticeAssemblies(intersticeAssemblies);
-        strandRepository.saveAndFlush(strand);
-        Long intersticeAssembliesId = intersticeAssemblies.getId();
-
-        // Get all the strandList where intersticeAssemblies equals to intersticeAssembliesId
-        defaultStrandShouldBeFound("intersticeAssembliesId.equals=" + intersticeAssembliesId);
-
-        // Get all the strandList where intersticeAssemblies equals to (intersticeAssembliesId + 1)
-        defaultStrandShouldNotBeFound("intersticeAssembliesId.equals=" + (intersticeAssembliesId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllStrandsByElementSuppliesIsEqualToSomething() throws Exception {
-        // Initialize the database
-        strandRepository.saveAndFlush(strand);
-        ElementSupply elementSupplies;
-        if (TestUtil.findAll(em, ElementSupply.class).isEmpty()) {
-            elementSupplies = ElementSupplyResourceIT.createEntity(em);
-            em.persist(elementSupplies);
-            em.flush();
-        } else {
-            elementSupplies = TestUtil.findAll(em, ElementSupply.class).get(0);
-        }
-        em.persist(elementSupplies);
-        em.flush();
-        strand.addElementSupplies(elementSupplies);
-        strandRepository.saveAndFlush(strand);
-        Long elementSuppliesId = elementSupplies.getId();
-
-        // Get all the strandList where elementSupplies equals to elementSuppliesId
-        defaultStrandShouldBeFound("elementSuppliesId.equals=" + elementSuppliesId);
-
-        // Get all the strandList where elementSupplies equals to (elementSuppliesId + 1)
-        defaultStrandShouldNotBeFound("elementSuppliesId.equals=" + (elementSuppliesId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllStrandsByBangleSuppliesIsEqualToSomething() throws Exception {
-        // Initialize the database
-        strandRepository.saveAndFlush(strand);
-        BangleSupply bangleSupplies;
-        if (TestUtil.findAll(em, BangleSupply.class).isEmpty()) {
-            bangleSupplies = BangleSupplyResourceIT.createEntity(em);
-            em.persist(bangleSupplies);
-            em.flush();
-        } else {
-            bangleSupplies = TestUtil.findAll(em, BangleSupply.class).get(0);
-        }
-        em.persist(bangleSupplies);
-        em.flush();
-        strand.addBangleSupplies(bangleSupplies);
-        strandRepository.saveAndFlush(strand);
-        Long bangleSuppliesId = bangleSupplies.getId();
-
-        // Get all the strandList where bangleSupplies equals to bangleSuppliesId
-        defaultStrandShouldBeFound("bangleSuppliesId.equals=" + bangleSuppliesId);
-
-        // Get all the strandList where bangleSupplies equals to (bangleSuppliesId + 1)
-        defaultStrandShouldNotBeFound("bangleSuppliesId.equals=" + (bangleSuppliesId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllStrandsByCustomComponentSuppliesIsEqualToSomething() throws Exception {
-        // Initialize the database
-        strandRepository.saveAndFlush(strand);
-        CustomComponentSupply customComponentSupplies;
-        if (TestUtil.findAll(em, CustomComponentSupply.class).isEmpty()) {
-            customComponentSupplies = CustomComponentSupplyResourceIT.createEntity(em);
-            em.persist(customComponentSupplies);
-            em.flush();
-        } else {
-            customComponentSupplies = TestUtil.findAll(em, CustomComponentSupply.class).get(0);
-        }
-        em.persist(customComponentSupplies);
-        em.flush();
-        strand.addCustomComponentSupplies(customComponentSupplies);
-        strandRepository.saveAndFlush(strand);
-        Long customComponentSuppliesId = customComponentSupplies.getId();
-
-        // Get all the strandList where customComponentSupplies equals to customComponentSuppliesId
-        defaultStrandShouldBeFound("customComponentSuppliesId.equals=" + customComponentSuppliesId);
-
-        // Get all the strandList where customComponentSupplies equals to (customComponentSuppliesId + 1)
-        defaultStrandShouldNotBeFound("customComponentSuppliesId.equals=" + (customComponentSuppliesId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllStrandsByOneStudySuppliesIsEqualToSomething() throws Exception {
-        // Initialize the database
-        strandRepository.saveAndFlush(strand);
-        OneStudySupply oneStudySupplies;
-        if (TestUtil.findAll(em, OneStudySupply.class).isEmpty()) {
-            oneStudySupplies = OneStudySupplyResourceIT.createEntity(em);
-            em.persist(oneStudySupplies);
-            em.flush();
-        } else {
-            oneStudySupplies = TestUtil.findAll(em, OneStudySupply.class).get(0);
-        }
-        em.persist(oneStudySupplies);
-        em.flush();
-        strand.addOneStudySupplies(oneStudySupplies);
-        strandRepository.saveAndFlush(strand);
-        Long oneStudySuppliesId = oneStudySupplies.getId();
-
-        // Get all the strandList where oneStudySupplies equals to oneStudySuppliesId
-        defaultStrandShouldBeFound("oneStudySuppliesId.equals=" + oneStudySuppliesId);
-
-        // Get all the strandList where oneStudySupplies equals to (oneStudySuppliesId + 1)
-        defaultStrandShouldNotBeFound("oneStudySuppliesId.equals=" + (oneStudySuppliesId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllStrandsByCentralAssemblyIsEqualToSomething() throws Exception {
-        // Initialize the database
-        strandRepository.saveAndFlush(strand);
-        CentralAssembly centralAssembly;
-        if (TestUtil.findAll(em, CentralAssembly.class).isEmpty()) {
-            centralAssembly = CentralAssemblyResourceIT.createEntity(em);
-            em.persist(centralAssembly);
-            em.flush();
-        } else {
-            centralAssembly = TestUtil.findAll(em, CentralAssembly.class).get(0);
-        }
-        em.persist(centralAssembly);
-        em.flush();
-        strand.setCentralAssembly(centralAssembly);
-        centralAssembly.setStrand(strand);
-        strandRepository.saveAndFlush(strand);
-        Long centralAssemblyId = centralAssembly.getId();
-
-        // Get all the strandList where centralAssembly equals to centralAssemblyId
-        defaultStrandShouldBeFound("centralAssemblyId.equals=" + centralAssemblyId);
-
-        // Get all the strandList where centralAssembly equals to (centralAssemblyId + 1)
-        defaultStrandShouldNotBeFound("centralAssemblyId.equals=" + (centralAssemblyId + 1));
-    }
-
-    /**
-     * Executes the search, and checks that the default entity is returned.
-     */
-    private void defaultStrandShouldBeFound(String filter) throws Exception {
-        restStrandMockMvc
-            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(strand.getId().intValue())));
-
-        // Check, that the count call also returns 1
-        restStrandMockMvc
-            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(content().string("1"));
-    }
-
-    /**
-     * Executes the search, and checks that the default entity is not returned.
-     */
-    private void defaultStrandShouldNotBeFound(String filter) throws Exception {
-        restStrandMockMvc
-            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$").isArray())
-            .andExpect(jsonPath("$").isEmpty());
-
-        // Check, that the count call also returns 0
-        restStrandMockMvc
-            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(content().string("0"));
     }
 
     @Test

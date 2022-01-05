@@ -49,8 +49,14 @@ public class CustomComponent extends AbstractDomainObject<CustomComponent> imple
     @JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material surfaceMaterial;
 
+    @Override
+    public CustomComponent getThis() {
+        return this;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    @Override
     public Long getId() {
         return this.id;
     }

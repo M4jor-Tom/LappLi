@@ -9,4 +9,4 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface CentralAssemblyRepository extends JpaRepository<CentralAssembly, Long>, JpaSpecificationExecutor<CentralAssembly> {}
+public interface CentralAssemblyRepository extends JpaRepository<CentralAssembly, Long> {}

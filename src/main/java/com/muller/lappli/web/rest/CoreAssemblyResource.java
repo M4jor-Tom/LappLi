@@ -4,10 +4,8 @@ import com.muller.lappli.domain.CoreAssembly;
 import com.muller.lappli.domain.exception.PositionHasSeveralSupplyException;
 import com.muller.lappli.domain.exception.PositionInSeveralAssemblyException;
 import com.muller.lappli.repository.CoreAssemblyRepository;
-import com.muller.lappli.service.CoreAssemblyQueryService;
 import com.muller.lappli.service.CoreAssemblyService;
 import com.muller.lappli.service.IAssemblyService;
-import com.muller.lappli.service.criteria.CoreAssemblyCriteria;
 import com.muller.lappli.web.rest.abstracts.AbstractAssemblyResource;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -43,16 +41,9 @@ public class CoreAssemblyResource extends AbstractAssemblyResource<CoreAssembly>
 
     private final CoreAssemblyRepository coreAssemblyRepository;
 
-    private final CoreAssemblyQueryService coreAssemblyQueryService;
-
-    public CoreAssemblyResource(
-        CoreAssemblyService coreAssemblyService,
-        CoreAssemblyRepository coreAssemblyRepository,
-        CoreAssemblyQueryService coreAssemblyQueryService
-    ) {
+    public CoreAssemblyResource(CoreAssemblyService coreAssemblyService, CoreAssemblyRepository coreAssemblyRepository) {
         this.coreAssemblyService = coreAssemblyService;
         this.coreAssemblyRepository = coreAssemblyRepository;
-        this.coreAssemblyQueryService = coreAssemblyQueryService;
     }
 
     @Override
@@ -146,26 +137,12 @@ public class CoreAssemblyResource extends AbstractAssemblyResource<CoreAssembly>
     /**
      * {@code GET  /core-assemblies} : get all the coreAssemblies.
      *
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of coreAssemblies in body.
      */
     @GetMapping("/core-assemblies")
-    public ResponseEntity<List<CoreAssembly>> getAllCoreAssemblies(CoreAssemblyCriteria criteria) {
-        log.debug("REST request to get CoreAssemblies by criteria: {}", criteria);
-        List<CoreAssembly> entityList = coreAssemblyQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /core-assemblies/count} : count all the coreAssemblies.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/core-assemblies/count")
-    public ResponseEntity<Long> countCoreAssemblies(CoreAssemblyCriteria criteria) {
-        log.debug("REST request to count CoreAssemblies by criteria: {}", criteria);
-        return ResponseEntity.ok().body(coreAssemblyQueryService.countByCriteria(criteria));
+    public List<CoreAssembly> getAllCoreAssemblies() {
+        log.debug("REST request to get all CoreAssemblies");
+        return coreAssemblyService.findAll();
     }
 
     /**

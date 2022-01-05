@@ -9,5 +9,4 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface IntersticeAssemblyRepository
-    extends JpaRepository<IntersticeAssembly, Long>, JpaSpecificationExecutor<IntersticeAssembly> {}
+public interface IntersticeAssemblyRepository extends JpaRepository<IntersticeAssembly, Long> {}

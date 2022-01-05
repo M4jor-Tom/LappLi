@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import { Link, RouteComponentProps, useParams } from 'react-router-dom';
 import { Button, Row, Col, Table } from 'reactstrap';
-import { Translate, TextFormat } from 'react-jhipster';
+import { Translate, TextFormat, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { getEntity } from './study.reducer';
+import { getEntities, getEntity } from './study.reducer';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { createEntity as createStrand, reset } from '../strand/strand.reducer';
+import { toNumber } from 'lodash';
 
 export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string }>) => {
   const dispatch = useAppDispatch();
@@ -14,6 +16,37 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
   useEffect(() => {
     dispatch(getEntity(props.match.params.study_id));
   }, []);
+
+  //  STRAND CREATION ZONE -- START
+
+  const strandCreationSuccess = useAppSelector(state => state.strand.updateSuccess);
+  const strandEntity = useAppSelector(state => state.strand.entity);
+  const strandCreating = useAppSelector(state => state.strand.updating);
+  const studies = useAppSelector(state => state.study.entities);
+
+  useEffect(() => {
+    dispatch(reset());
+
+    dispatch(getEntities({}));
+  }, []);
+
+  useEffect(() => {
+    if (strandCreationSuccess) {
+      props.history.go(0);
+    }
+  }, [strandCreationSuccess]);
+
+  const saveStrandEntity = values => {
+    const entity = {
+      ...strandEntity,
+      ...values,
+      futureStudy: studies.find(it => it.id.toString() === props.match.params.study_id),
+    };
+
+    dispatch(createStrand(entity));
+  };
+
+  //  STRAND CREATION ZONE -- END
 
   const studyEntity = useAppSelector(state => state.study.entity);
   return (
@@ -50,6 +83,9 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
           </dt>
           <dd>{studyEntity.author ? studyEntity.author.user.login : ''}</dd>
           <dd>
+            <h5>
+              <Translate contentKey="lappLiApp.strandSupply.home.title">StrandSupplies</Translate>
+            </h5>
             <div className="table-responsive">
               {studyEntity.strandSupplies && studyEntity.strandSupplies.length > 0 ? (
                 <Table>
@@ -87,21 +123,9 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                         </td>
                         <td className="text-right">
                           <div className="btn-group flex-btn-group-container">
-                            {/* <Button
-                              tag={Link}
-                              to={`/strand-supply/${strandSupply.id}`}
-                              color="info"
-                              size="sm"
-                              data-cy="entityDetailsButton"
-                            >
-                              <FontAwesomeIcon icon="eye" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.view">View</Translate>
-                              </span>
-                            </Button>*/}
                             <Button
                               tag={Link}
-                              to={`${props.match.url}/strand/${strandSupply.strand.id}/operation`}
+                              to={`${props.match.url}/strand-supplies/${strandSupply.id}/operation`}
                               color="primary"
                               size="sm"
                               data-cy="entityEditButton"
@@ -114,20 +138,7 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                             &nbsp;
                             <Button
                               tag={Link}
-                              to={`${props.match.url}/strand/${strandSupply.strand.id}/supply`}
-                              color="primary"
-                              size="sm"
-                              data-cy="entityEditButton"
-                            >
-                              <FontAwesomeIcon icon="pencil-alt" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="lappLiApp.strand.subSupplies">Sub Supplies</Translate>
-                              </span>
-                            </Button>
-                            &nbsp;
-                            <Button
-                              tag={Link}
-                              to={`/strand-supply/${strandSupply.id}/edit`}
+                              to={`${props.match.url}/strand-supply/${strandSupply.id}/edit`}
                               color="primary"
                               size="sm"
                               data-cy="entityEditButton"
@@ -140,7 +151,7 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                             &nbsp;
                             <Button
                               tag={Link}
-                              to={`/strand-supply/${strandSupply.id}/delete`}
+                              to={`${props.match.url}/strand-supply/${strandSupply.id}/delete`}
                               color="danger"
                               size="sm"
                               data-cy="entityDeleteButton"
@@ -162,31 +173,92 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                 </div>
               )}
             </div>
+            <h5>
+              <Translate contentKey="lappLiApp.strand.home.title">Strands</Translate>
+            </h5>
+            <div className="table-responsive">
+              {studyEntity.strands && studyEntity.strands.length > 0 ? (
+                <Table>
+                  <thead>
+                    <tr>
+                      <th>
+                        <Translate contentKey="lappLiApp.strand.designation">Designation</Translate>
+                      </th>
+                      <th />
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {studyEntity.strands.map((strand, i) => (
+                      <tr key={`entity-${i}`} data-cy="entityTable">
+                        <td>{strand.designation}</td>
+                        <td className="text-right">
+                          <div className="btn-group flex-btn-group-container">
+                            <Button
+                              tag={Link}
+                              to={`${props.match.url}/strand/${strand.id}/supply`}
+                              color="primary"
+                              size="sm"
+                              data-cy="entityEditButton"
+                            >
+                              <FontAwesomeIcon icon="pencil-alt" />{' '}
+                              <span className="d-none d-md-inline">
+                                <Translate contentKey="lappLiApp.strand.subSupplies">Sub Supplies</Translate>
+                              </span>
+                            </Button>
+                            &nbsp;
+                            <Button
+                              tag={Link}
+                              to={`${props.match.url}/strand/${strand.id}/edit`}
+                              color="primary"
+                              size="sm"
+                              data-cy="entityEditButton"
+                            >
+                              <FontAwesomeIcon icon="pencil-alt" />{' '}
+                              <span className="d-none d-md-inline">
+                                <Translate contentKey="entity.action.edit">Edit</Translate>
+                              </span>
+                            </Button>
+                            &nbsp;
+                            <Button
+                              tag={Link}
+                              to={`${props.match.url}/strand/${strand.id}/delete`}
+                              color="danger"
+                              size="sm"
+                              data-cy="entityDeleteButton"
+                            >
+                              <FontAwesomeIcon icon="trash" />{' '}
+                              <span className="d-none d-md-inline">
+                                <Translate contentKey="entity.action.delete">Delete</Translate>
+                              </span>
+                            </Button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              ) : (
+                <div className="alert alert-warning">
+                  <Translate contentKey="lappLiApp.strand.home.notFound">No Strands found</Translate>
+                </div>
+              )}
+            </div>
           </dd>
         </dl>
-        <Button tag={Link} to={'/study/' + props.match.params.study_id} replace color="info" data-cy="entityDetailsBackButton">
-          <FontAwesomeIcon icon="arrow-left" />{' '}
-          <span className="d-none d-md-inline">
-            <Translate contentKey="entity.action.back">Back</Translate>
-          </span>
-        </Button>
-        {/* &nbsp;
-        <Link to={`study-supplies/new`} className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
-          <FontAwesomeIcon icon="plus" />
+        <ValidatedForm onSubmit={saveStrandEntity} defaultValues={{ futureStudy: toNumber(props.match.params.study_id) }}>
+          <Button tag={Link} to={'/study/' + props.match.params.study_id} replace color="info" data-cy="entityDetailsBackButton">
+            <FontAwesomeIcon icon="arrow-left" />{' '}
+            <span className="d-none d-md-inline">
+              <Translate contentKey="entity.action.back">Back</Translate>
+            </span>
+          </Button>
           &nbsp;
-          <Translate contentKey="lappLiApp.strandSupply.home.createLabel">Create new Strand Supply</Translate>
-        </Link>*/}
-        &nbsp;
-        <Link
-          to={`${props.match.url}/strand/new`}
-          className="btn btn-primary jh-create-entity"
-          id="jh-create-entity"
-          data-cy="entityCreateButton"
-        >
-          <FontAwesomeIcon icon="plus" />
-          &nbsp;
-          <Translate contentKey="lappLiApp.strand.home.createLabel">Create new Strand</Translate>
-        </Link>
+          <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={strandCreating}>
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
+            <Translate contentKey="lappLiApp.strand.home.createLabel">Create new Strand</Translate>
+          </Button>
+        </ValidatedForm>
       </div>
     </div>
   );

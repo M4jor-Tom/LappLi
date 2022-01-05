@@ -19,10 +19,10 @@ import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 import {
   getOutFromStudySupplyStrandSupplyComponent,
   getStrandSupplyRedirectionUrl,
-  getStrandValidateField,
+  getSupplyStrandValidatedField,
   isStrandSupply,
-  SupplyKind,
 } from '../index-management/index-management-lib';
+import { SupplyKind } from 'app/shared/model/enumerations/supply-kind.model';
 
 export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
@@ -78,7 +78,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ strand_
     }
   };
 
-  const strandValidateField = getStrandValidateField(props, strands, SupplyKind.CUSTOM_COMPONENT);
+  const strandValidateField = getSupplyStrandValidatedField(props, strands, SupplyKind.CUSTOM_COMPONENT);
 
   const defaultValues = () =>
     isNew

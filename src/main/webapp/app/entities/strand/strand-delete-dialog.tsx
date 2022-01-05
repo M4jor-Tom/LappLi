@@ -6,8 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity, deleteEntity } from './strand.reducer';
+import { getOut } from '../index-management/index-management-lib';
 
-export const StrandDeleteDialog = (props: RouteComponentProps<{ id: string }>) => {
+export const StrandDeleteDialog = (props: RouteComponentProps<{ study_id: string; id: string }>) => {
   const [loadModal, setLoadModal] = useState(false);
   const dispatch = useAppDispatch();
 
@@ -19,8 +20,10 @@ export const StrandDeleteDialog = (props: RouteComponentProps<{ id: string }>) =
   const strandEntity = useAppSelector(state => state.strand.entity);
   const updateSuccess = useAppSelector(state => state.strand.updateSuccess);
 
+  const getOutCount = props.match.params.study_id ? 2 : 1;
+
   const handleClose = () => {
-    props.history.push('/strand');
+    props.history.push(getOut(props.match.url, getOutCount));
   };
 
   useEffect(() => {

@@ -7,10 +7,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.CentralAssembly;
-import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.repository.CentralAssemblyRepository;
-import com.muller.lappli.service.criteria.CentralAssemblyCriteria;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -32,10 +30,6 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 @WithMockUser
 class CentralAssemblyResourceIT {
-
-    private static final Long DEFAULT_PRODUCTION_STEP = 1L;
-    private static final Long UPDATED_PRODUCTION_STEP = 2L;
-    private static final Long SMALLER_PRODUCTION_STEP = 1L - 1L;
 
     private static final String ENTITY_API_URL = "/api/central-assemblies";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -61,7 +55,7 @@ class CentralAssemblyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static CentralAssembly createEntity(EntityManager em) {
-        CentralAssembly centralAssembly = new CentralAssembly().productionStep(DEFAULT_PRODUCTION_STEP);
+        CentralAssembly centralAssembly = new CentralAssembly();
         // Add required entity
         Strand strand;
         if (TestUtil.findAll(em, Strand.class).isEmpty()) {
@@ -82,7 +76,7 @@ class CentralAssemblyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static CentralAssembly createUpdatedEntity(EntityManager em) {
-        CentralAssembly centralAssembly = new CentralAssembly().productionStep(UPDATED_PRODUCTION_STEP);
+        CentralAssembly centralAssembly = new CentralAssembly();
         // Add required entity
         Strand strand;
         if (TestUtil.findAll(em, Strand.class).isEmpty()) {
@@ -117,7 +111,6 @@ class CentralAssemblyResourceIT {
         List<CentralAssembly> centralAssemblyList = centralAssemblyRepository.findAll();
         assertThat(centralAssemblyList).hasSize(databaseSizeBeforeCreate + 1);
         CentralAssembly testCentralAssembly = centralAssemblyList.get(centralAssemblyList.size() - 1);
-        assertThat(testCentralAssembly.getProductionStep()).isEqualTo(DEFAULT_PRODUCTION_STEP);
 
         // Validate the id for MapsId, the ids must be same
         assertThat(testCentralAssembly.getId()).isEqualTo(testCentralAssembly.getStrand().getId());
@@ -187,25 +180,6 @@ class CentralAssemblyResourceIT {
 
     @Test
     @Transactional
-    void checkProductionStepIsRequired() throws Exception {
-        int databaseSizeBeforeTest = centralAssemblyRepository.findAll().size();
-        // set the field null
-        centralAssembly.setProductionStep(null);
-
-        // Create the CentralAssembly, which fails.
-
-        restCentralAssemblyMockMvc
-            .perform(
-                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(centralAssembly))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<CentralAssembly> centralAssemblyList = centralAssemblyRepository.findAll();
-        assertThat(centralAssemblyList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllCentralAssemblies() throws Exception {
         // Initialize the database
         centralAssemblyRepository.saveAndFlush(centralAssembly);
@@ -215,8 +189,7 @@ class CentralAssemblyResourceIT {
             .perform(get(ENTITY_API_URL + "?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(centralAssembly.getId().intValue())))
-            .andExpect(jsonPath("$.[*].productionStep").value(hasItem(DEFAULT_PRODUCTION_STEP.intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(centralAssembly.getId().intValue())));
     }
 
     @Test
@@ -230,209 +203,7 @@ class CentralAssemblyResourceIT {
             .perform(get(ENTITY_API_URL_ID, centralAssembly.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(centralAssembly.getId().intValue()))
-            .andExpect(jsonPath("$.productionStep").value(DEFAULT_PRODUCTION_STEP.intValue()));
-    }
-
-    @Test
-    @Transactional
-    void getCentralAssembliesByIdFiltering() throws Exception {
-        // Initialize the database
-        centralAssemblyRepository.saveAndFlush(centralAssembly);
-
-        Long id = centralAssembly.getId();
-
-        defaultCentralAssemblyShouldBeFound("id.equals=" + id);
-        defaultCentralAssemblyShouldNotBeFound("id.notEquals=" + id);
-
-        defaultCentralAssemblyShouldBeFound("id.greaterThanOrEqual=" + id);
-        defaultCentralAssemblyShouldNotBeFound("id.greaterThan=" + id);
-
-        defaultCentralAssemblyShouldBeFound("id.lessThanOrEqual=" + id);
-        defaultCentralAssemblyShouldNotBeFound("id.lessThan=" + id);
-    }
-
-    @Test
-    @Transactional
-    void getAllCentralAssembliesByProductionStepIsEqualToSomething() throws Exception {
-        // Initialize the database
-        centralAssemblyRepository.saveAndFlush(centralAssembly);
-
-        // Get all the centralAssemblyList where productionStep equals to DEFAULT_PRODUCTION_STEP
-        defaultCentralAssemblyShouldBeFound("productionStep.equals=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the centralAssemblyList where productionStep equals to UPDATED_PRODUCTION_STEP
-        defaultCentralAssemblyShouldNotBeFound("productionStep.equals=" + UPDATED_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCentralAssembliesByProductionStepIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        centralAssemblyRepository.saveAndFlush(centralAssembly);
-
-        // Get all the centralAssemblyList where productionStep not equals to DEFAULT_PRODUCTION_STEP
-        defaultCentralAssemblyShouldNotBeFound("productionStep.notEquals=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the centralAssemblyList where productionStep not equals to UPDATED_PRODUCTION_STEP
-        defaultCentralAssemblyShouldBeFound("productionStep.notEquals=" + UPDATED_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCentralAssembliesByProductionStepIsInShouldWork() throws Exception {
-        // Initialize the database
-        centralAssemblyRepository.saveAndFlush(centralAssembly);
-
-        // Get all the centralAssemblyList where productionStep in DEFAULT_PRODUCTION_STEP or UPDATED_PRODUCTION_STEP
-        defaultCentralAssemblyShouldBeFound("productionStep.in=" + DEFAULT_PRODUCTION_STEP + "," + UPDATED_PRODUCTION_STEP);
-
-        // Get all the centralAssemblyList where productionStep equals to UPDATED_PRODUCTION_STEP
-        defaultCentralAssemblyShouldNotBeFound("productionStep.in=" + UPDATED_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCentralAssembliesByProductionStepIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        centralAssemblyRepository.saveAndFlush(centralAssembly);
-
-        // Get all the centralAssemblyList where productionStep is not null
-        defaultCentralAssemblyShouldBeFound("productionStep.specified=true");
-
-        // Get all the centralAssemblyList where productionStep is null
-        defaultCentralAssemblyShouldNotBeFound("productionStep.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllCentralAssembliesByProductionStepIsGreaterThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        centralAssemblyRepository.saveAndFlush(centralAssembly);
-
-        // Get all the centralAssemblyList where productionStep is greater than or equal to DEFAULT_PRODUCTION_STEP
-        defaultCentralAssemblyShouldBeFound("productionStep.greaterThanOrEqual=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the centralAssemblyList where productionStep is greater than or equal to UPDATED_PRODUCTION_STEP
-        defaultCentralAssemblyShouldNotBeFound("productionStep.greaterThanOrEqual=" + UPDATED_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCentralAssembliesByProductionStepIsLessThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        centralAssemblyRepository.saveAndFlush(centralAssembly);
-
-        // Get all the centralAssemblyList where productionStep is less than or equal to DEFAULT_PRODUCTION_STEP
-        defaultCentralAssemblyShouldBeFound("productionStep.lessThanOrEqual=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the centralAssemblyList where productionStep is less than or equal to SMALLER_PRODUCTION_STEP
-        defaultCentralAssemblyShouldNotBeFound("productionStep.lessThanOrEqual=" + SMALLER_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCentralAssembliesByProductionStepIsLessThanSomething() throws Exception {
-        // Initialize the database
-        centralAssemblyRepository.saveAndFlush(centralAssembly);
-
-        // Get all the centralAssemblyList where productionStep is less than DEFAULT_PRODUCTION_STEP
-        defaultCentralAssemblyShouldNotBeFound("productionStep.lessThan=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the centralAssemblyList where productionStep is less than UPDATED_PRODUCTION_STEP
-        defaultCentralAssemblyShouldBeFound("productionStep.lessThan=" + UPDATED_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCentralAssembliesByProductionStepIsGreaterThanSomething() throws Exception {
-        // Initialize the database
-        centralAssemblyRepository.saveAndFlush(centralAssembly);
-
-        // Get all the centralAssemblyList where productionStep is greater than DEFAULT_PRODUCTION_STEP
-        defaultCentralAssemblyShouldNotBeFound("productionStep.greaterThan=" + DEFAULT_PRODUCTION_STEP);
-
-        // Get all the centralAssemblyList where productionStep is greater than SMALLER_PRODUCTION_STEP
-        defaultCentralAssemblyShouldBeFound("productionStep.greaterThan=" + SMALLER_PRODUCTION_STEP);
-    }
-
-    @Test
-    @Transactional
-    void getAllCentralAssembliesByStrandIsEqualToSomething() throws Exception {
-        // Get already existing entity
-        Strand strand = centralAssembly.getStrand();
-        centralAssemblyRepository.saveAndFlush(centralAssembly);
-        Long strandId = strand.getId();
-
-        // Get all the centralAssemblyList where strand equals to strandId
-        defaultCentralAssemblyShouldBeFound("strandId.equals=" + strandId);
-
-        // Get all the centralAssemblyList where strand equals to (strandId + 1)
-        defaultCentralAssemblyShouldNotBeFound("strandId.equals=" + (strandId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllCentralAssembliesByPositionIsEqualToSomething() throws Exception {
-        // Initialize the database
-        centralAssemblyRepository.saveAndFlush(centralAssembly);
-        Position position;
-        if (TestUtil.findAll(em, Position.class).isEmpty()) {
-            position = PositionResourceIT.createEntity(em);
-            em.persist(position);
-            em.flush();
-        } else {
-            position = TestUtil.findAll(em, Position.class).get(0);
-        }
-        em.persist(position);
-        em.flush();
-        centralAssembly.setPosition(position);
-        centralAssemblyRepository.saveAndFlush(centralAssembly);
-        Long positionId = position.getId();
-
-        // Get all the centralAssemblyList where position equals to positionId
-        defaultCentralAssemblyShouldBeFound("positionId.equals=" + positionId);
-
-        // Get all the centralAssemblyList where position equals to (positionId + 1)
-        defaultCentralAssemblyShouldNotBeFound("positionId.equals=" + (positionId + 1));
-    }
-
-    /**
-     * Executes the search, and checks that the default entity is returned.
-     */
-    private void defaultCentralAssemblyShouldBeFound(String filter) throws Exception {
-        restCentralAssemblyMockMvc
-            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(centralAssembly.getId().intValue())))
-            .andExpect(jsonPath("$.[*].productionStep").value(hasItem(DEFAULT_PRODUCTION_STEP.intValue())));
-
-        // Check, that the count call also returns 1
-        restCentralAssemblyMockMvc
-            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(content().string("1"));
-    }
-
-    /**
-     * Executes the search, and checks that the default entity is not returned.
-     */
-    private void defaultCentralAssemblyShouldNotBeFound(String filter) throws Exception {
-        restCentralAssemblyMockMvc
-            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$").isArray())
-            .andExpect(jsonPath("$").isEmpty());
-
-        // Check, that the count call also returns 0
-        restCentralAssemblyMockMvc
-            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(content().string("0"));
+            .andExpect(jsonPath("$.id").value(centralAssembly.getId().intValue()));
     }
 
     @Test
@@ -454,7 +225,6 @@ class CentralAssemblyResourceIT {
         CentralAssembly updatedCentralAssembly = centralAssemblyRepository.findById(centralAssembly.getId()).get();
         // Disconnect from session so that the updates on updatedCentralAssembly are not directly saved in db
         em.detach(updatedCentralAssembly);
-        updatedCentralAssembly.productionStep(UPDATED_PRODUCTION_STEP);
 
         ResultMatcher expectedResult = updatedCentralAssembly.positionsAreRight() ? status().isOk() : status().isBadRequest();
 
@@ -470,7 +240,6 @@ class CentralAssemblyResourceIT {
         List<CentralAssembly> centralAssemblyList = centralAssemblyRepository.findAll();
         assertThat(centralAssemblyList).hasSize(databaseSizeBeforeUpdate);
         CentralAssembly testCentralAssembly = centralAssemblyList.get(centralAssemblyList.size() - 1);
-        assertThat(testCentralAssembly.getProductionStep()).isEqualTo(UPDATED_PRODUCTION_STEP);
     }
 
     @Test
@@ -543,8 +312,6 @@ class CentralAssemblyResourceIT {
         CentralAssembly partialUpdatedCentralAssembly = new CentralAssembly();
         partialUpdatedCentralAssembly.setId(centralAssembly.getId());
 
-        partialUpdatedCentralAssembly.productionStep(UPDATED_PRODUCTION_STEP);
-
         restCentralAssemblyMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedCentralAssembly.getId())
@@ -557,7 +324,6 @@ class CentralAssemblyResourceIT {
         List<CentralAssembly> centralAssemblyList = centralAssemblyRepository.findAll();
         assertThat(centralAssemblyList).hasSize(databaseSizeBeforeUpdate);
         CentralAssembly testCentralAssembly = centralAssemblyList.get(centralAssemblyList.size() - 1);
-        assertThat(testCentralAssembly.getProductionStep()).isEqualTo(UPDATED_PRODUCTION_STEP);
     }
 
     @Test
@@ -572,8 +338,6 @@ class CentralAssemblyResourceIT {
         CentralAssembly partialUpdatedCentralAssembly = new CentralAssembly();
         partialUpdatedCentralAssembly.setId(centralAssembly.getId());
 
-        partialUpdatedCentralAssembly.productionStep(UPDATED_PRODUCTION_STEP);
-
         restCentralAssemblyMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedCentralAssembly.getId())
@@ -586,7 +350,6 @@ class CentralAssemblyResourceIT {
         List<CentralAssembly> centralAssemblyList = centralAssemblyRepository.findAll();
         assertThat(centralAssemblyList).hasSize(databaseSizeBeforeUpdate);
         CentralAssembly testCentralAssembly = centralAssemblyList.get(centralAssemblyList.size() - 1);
-        assertThat(testCentralAssembly.getProductionStep()).isEqualTo(UPDATED_PRODUCTION_STEP);
     }
 
     @Test

@@ -2,9 +2,7 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.Lifter;
 import com.muller.lappli.repository.LifterRepository;
-import com.muller.lappli.service.LifterQueryService;
 import com.muller.lappli.service.LifterService;
-import com.muller.lappli.service.criteria.LifterCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,12 +37,9 @@ public class LifterResource {
 
     private final LifterRepository lifterRepository;
 
-    private final LifterQueryService lifterQueryService;
-
-    public LifterResource(LifterService lifterService, LifterRepository lifterRepository, LifterQueryService lifterQueryService) {
+    public LifterResource(LifterService lifterService, LifterRepository lifterRepository) {
         this.lifterService = lifterService;
         this.lifterRepository = lifterRepository;
-        this.lifterQueryService = lifterQueryService;
     }
 
     /**
@@ -140,26 +135,12 @@ public class LifterResource {
     /**
      * {@code GET  /lifters} : get all the lifters.
      *
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of lifters in body.
      */
     @GetMapping("/lifters")
-    public ResponseEntity<List<Lifter>> getAllLifters(LifterCriteria criteria) {
-        log.debug("REST request to get Lifters by criteria: {}", criteria);
-        List<Lifter> entityList = lifterQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /lifters/count} : count all the lifters.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/lifters/count")
-    public ResponseEntity<Long> countLifters(LifterCriteria criteria) {
-        log.debug("REST request to count Lifters by criteria: {}", criteria);
-        return ResponseEntity.ok().body(lifterQueryService.countByCriteria(criteria));
+    public List<Lifter> getAllLifters() {
+        log.debug("REST request to get all Lifters");
+        return lifterService.findAll();
     }
 
     /**

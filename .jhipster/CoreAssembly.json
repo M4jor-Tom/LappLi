@@ -2,16 +2,6 @@
   "name": "CoreAssembly",
   "fields": [
     {
-      "fieldName": "operationLayer",
-      "fieldType": "Long",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "productionStep",
-      "fieldType": "Long",
-      "fieldValidateRules": ["required"]
-    },
-    {
       "fieldName": "diameterAssemblyStep",
       "fieldType": "Double",
       "fieldValidateRules": ["required"]
@@ -44,7 +34,7 @@
   "dto": "no",
   "pagination": "no",
   "service": "serviceImpl",
-  "jpaMetamodelFiltering": true,
+  "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,

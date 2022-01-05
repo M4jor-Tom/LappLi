@@ -1,3 +1,4 @@
+import { SupplyKind } from 'app/shared/model/enumerations/supply-kind.model';
 import { IStrand } from 'app/shared/model/strand.model';
 import { IStudy } from 'app/shared/model/study.model';
 import React from 'react';
@@ -6,17 +7,23 @@ import { translate, Translate, ValidatedField } from 'react-jhipster';
 import { RouteComponentProps } from 'react-router-dom';
 import { FormText } from 'reactstrap';
 
-enum SupplyKind {
-  BANGLE = 'bangle',
-  CUSTOM_COMPONENT = 'custom-component',
-  ELEMENT = 'element',
-  ONE_STUDY = 'one-study',
-  STRAND = 'strand',
+enum AssemblyKind {
+  CENTRAL = 'central',
+  CORE = 'core',
+  INTERSTICE = 'interstice',
 }
 
 enum SupplyOwner {
   STRAND = 'strand',
   STUDY = 'study',
+}
+
+function getOutFromStudySupplyStrandAssemblyComponent(url: string, isNew: boolean): string {
+  if (isNew != null && isNew) {
+    return getOut(url, 1);
+  }
+
+  return getOut(url, 2);
 }
 
 function getOutFromStudySupplyStrandSupplyComponent(url: string, isNew: boolean): string {
@@ -98,33 +105,19 @@ function getStudyValidateField(props: RouteComponentProps<{ study_id: string | n
   );
 }
 
-function getStrandValidateField(
+function getStrandValidatedField(
   props: RouteComponentProps<{ strand_id: string | null; id: string }>,
   strands: readonly IStrand[],
-  supplyKind: SupplyKind
+  fieldId: string
 ) {
   return isStrandSupply(props) ? (
     useState(!props.match.params || !props.match.params.id)[0] ? (
-      <ValidatedField
-        id={supplyKind + '-supply-strand'}
-        name="strand"
-        data-cy="strand"
-        type="hidden"
-        value={props.match.params.strand_id}
-        required
-      />
+      <ValidatedField id={fieldId} name="strand" data-cy="strand" type="hidden" value={props.match.params.strand_id} required />
     ) : (
       ''
     )
   ) : (
-    <ValidatedField
-      id={supplyKind + '-supply-strand'}
-      name="strand"
-      data-cy="strand"
-      label={translate('lappLiApp.supply.strand')}
-      type="select"
-      required
-    >
+    <ValidatedField id={fieldId} name="strand" data-cy="strand" label={translate('lappLiApp.supply.strand')} type="select" required>
       <option value="" key="0" />
       {strands
         ? strands.map(otherEntity => (
@@ -137,13 +130,31 @@ function getStrandValidateField(
   );
 }
 
+function getSupplyStrandValidatedField(
+  props: RouteComponentProps<{ strand_id: string | null; id: string }>,
+  strands: readonly IStrand[],
+  supplyKind: SupplyKind
+) {
+  return getStrandValidatedField(props, strands, supplyKind + '-supply-strand');
+}
+
+function getAssemblyStrandValidatedField(
+  props: RouteComponentProps<{ strand_id: string | null; id: string }>,
+  strands: readonly IStrand[],
+  assemblyKind: AssemblyKind
+) {
+  return getStrandValidatedField(props, strands, assemblyKind + '-assmelby-strand');
+}
+
 export {
-  SupplyKind,
+  AssemblyKind,
+  getOutFromStudySupplyStrandAssemblyComponent,
   getOutFromStudySupplyStrandSupplyComponent,
+  getSupplyStrandValidatedField,
+  getAssemblyStrandValidatedField,
   getOut,
   isStrandSupply,
   getStrandSupplyRedirectionUrl,
   getStrandSupplyUpdateComponentRedirectionUrl,
-  getStrandValidateField,
   getStudyValidateField,
 };

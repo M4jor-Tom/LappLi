@@ -17,12 +17,8 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getOutFromStudySupplyStrandSupplyComponent, getStudyValidateField } from '../index-management/index-management-lib';
 
-import {
-  getStrandSupplyRedirectionUrl,
-  getStrandValidateField,
-  isStrandSupply,
-  SupplyKind,
-} from '../index-management/index-management-lib';
+import { getStrandSupplyRedirectionUrl, getSupplyStrandValidatedField, isStrandSupply } from '../index-management/index-management-lib';
+import { SupplyKind } from 'app/shared/model/enumerations/supply-kind.model';
 
 export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
@@ -75,7 +71,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
     }
   };
 
-  const strandValidateField = getStrandValidateField(props, strands, SupplyKind.BANGLE);
+  const strandValidateField = getSupplyStrandValidatedField(props, strands, SupplyKind.BANGLE);
 
   const defaultValues = () =>
     isNew

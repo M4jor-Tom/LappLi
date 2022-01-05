@@ -5,6 +5,7 @@ import { IBangleSupply } from 'app/shared/model/bangle-supply.model';
 import { ICustomComponentSupply } from 'app/shared/model/custom-component-supply.model';
 import { IOneStudySupply } from 'app/shared/model/one-study-supply.model';
 import { ICentralAssembly } from 'app/shared/model/central-assembly.model';
+import { IStudy } from 'app/shared/model/study.model';
 
 export interface IStrand {
   id?: number;
@@ -16,6 +17,9 @@ export interface IStrand {
   customComponentSupplies?: ICustomComponentSupply[] | null;
   oneStudySupplies?: IOneStudySupply[] | null;
   centralAssembly?: ICentralAssembly | null;
+  suppliesCountsCommonDividers?: number[];
+  suppliesCount?: number;
+  futureStudy?: IStudy;
 }
 
 export const defaultValue: Readonly<IStrand> = {};

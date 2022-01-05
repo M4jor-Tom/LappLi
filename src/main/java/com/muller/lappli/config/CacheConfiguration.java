@@ -81,6 +81,7 @@ public class CacheConfiguration {
             createCache(cm, com.muller.lappli.domain.IntersticeAssembly.class.getName() + ".positions");
             createCache(cm, com.muller.lappli.domain.Position.class.getName());
             createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".intersticeAssemblies");
+            createCache(cm, com.muller.lappli.domain.Study.class.getName() + ".strands");
             // jhipster-needle-ehcache-add-entry
         };
     }

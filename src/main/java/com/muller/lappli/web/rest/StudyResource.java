@@ -5,9 +5,7 @@ import com.muller.lappli.domain.Study;
 import com.muller.lappli.domain.UserData;
 import com.muller.lappli.repository.StudyRepository;
 import com.muller.lappli.service.SaveException;
-import com.muller.lappli.service.StudyQueryService;
 import com.muller.lappli.service.StudyService;
-import com.muller.lappli.service.criteria.StudyCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -42,12 +40,9 @@ public class StudyResource {
 
     private final StudyRepository studyRepository;
 
-    private final StudyQueryService studyQueryService;
-
-    public StudyResource(StudyService studyService, StudyRepository studyRepository, StudyQueryService studyQueryService) {
+    public StudyResource(StudyService studyService, StudyRepository studyRepository) {
         this.studyService = studyService;
         this.studyRepository = studyRepository;
-        this.studyQueryService = studyQueryService;
     }
 
     /**
@@ -164,26 +159,12 @@ public class StudyResource {
     /**
      * {@code GET  /studies} : get all the studies.
      *
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of studies in body.
      */
     @GetMapping("/studies")
-    public ResponseEntity<List<Study>> getAllStudies(StudyCriteria criteria) {
-        log.debug("REST request to get Studies by criteria: {}", criteria);
-        List<Study> entityList = studyQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /studies/count} : count all the studies.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/studies/count")
-    public ResponseEntity<Long> countStudies(StudyCriteria criteria) {
-        log.debug("REST request to count Studies by criteria: {}", criteria);
-        return ResponseEntity.ok().body(studyQueryService.countByCriteria(criteria));
+    public List<Study> getAllStudies() {
+        log.debug("REST request to get all Studies");
+        return studyService.findAll();
     }
 
     /**
@@ -196,7 +177,6 @@ public class StudyResource {
     public ResponseEntity<Study> getStudy(@PathVariable Long id) {
         log.debug("REST request to get Study : {}", id);
         Optional<Study> study = studyService.findOne(id);
-
         return ResponseUtil.wrapOrNotFound(study);
     }
 

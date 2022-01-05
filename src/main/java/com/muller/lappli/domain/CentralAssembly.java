@@ -3,9 +3,7 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -29,12 +27,13 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @JsonIgnoreProperties(
         value = {
             "coreAssemblies",
-            "intersticialAssemblies",
+            "intersticeAssemblies",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",
             "oneStudySupplies",
             "centralAssembly",
+            "futureStudy",
         },
         allowSetters = true
     )
@@ -86,6 +85,12 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         } catch (NullPointerException e) {
             return Double.NaN;
         }
+    }
+
+    @Override
+    public Long getProductionStep() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

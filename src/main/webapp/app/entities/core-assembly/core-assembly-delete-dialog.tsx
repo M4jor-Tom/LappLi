@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity, deleteEntity } from './core-assembly.reducer';
+import { getOutFromStudySupplyStrandAssemblyComponent } from '../index-management/index-management-lib';
 
 export const CoreAssemblyDeleteDialog = (props: RouteComponentProps<{ id: string }>) => {
   const [loadModal, setLoadModal] = useState(false);
@@ -19,8 +20,10 @@ export const CoreAssemblyDeleteDialog = (props: RouteComponentProps<{ id: string
   const coreAssemblyEntity = useAppSelector(state => state.coreAssembly.entity);
   const updateSuccess = useAppSelector(state => state.coreAssembly.updateSuccess);
 
+  const redirectionUrl = getOutFromStudySupplyStrandAssemblyComponent(props.match.url, null);
+
   const handleClose = () => {
-    props.history.push('/core-assembly');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {

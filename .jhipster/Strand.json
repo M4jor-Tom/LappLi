@@ -51,13 +51,21 @@
       "relationshipName": "centralAssembly",
       "otherEntityField": "productionStep",
       "ownerSide": false
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "study",
+      "otherEntityRelationshipName": "strands",
+      "relationshipValidateRules": "required",
+      "relationshipName": "futureStudy",
+      "otherEntityField": "number"
     }
   ],
   "entityTableName": "strand",
   "dto": "no",
   "pagination": "no",
   "service": "serviceImpl",
-  "jpaMetamodelFiltering": true,
+  "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,

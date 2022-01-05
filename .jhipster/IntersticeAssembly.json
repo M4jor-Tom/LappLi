@@ -1,12 +1,6 @@
 {
   "name": "IntersticeAssembly",
-  "fields": [
-    {
-      "fieldName": "productionStep",
-      "fieldType": "Long",
-      "fieldValidateRules": ["required"]
-    }
-  ],
+  "fields": [],
   "relationships": [
     {
       "relationshipType": "one-to-many",
@@ -28,7 +22,7 @@
   "dto": "no",
   "pagination": "no",
   "service": "serviceImpl",
-  "jpaMetamodelFiltering": true,
+  "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,

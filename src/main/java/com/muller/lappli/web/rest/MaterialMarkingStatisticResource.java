@@ -2,9 +2,7 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.MaterialMarkingStatistic;
 import com.muller.lappli.repository.MaterialMarkingStatisticRepository;
-import com.muller.lappli.service.MaterialMarkingStatisticQueryService;
 import com.muller.lappli.service.MaterialMarkingStatisticService;
-import com.muller.lappli.service.criteria.MaterialMarkingStatisticCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,16 +37,12 @@ public class MaterialMarkingStatisticResource {
 
     private final MaterialMarkingStatisticRepository materialMarkingStatisticRepository;
 
-    private final MaterialMarkingStatisticQueryService materialMarkingStatisticQueryService;
-
     public MaterialMarkingStatisticResource(
         MaterialMarkingStatisticService materialMarkingStatisticService,
-        MaterialMarkingStatisticRepository materialMarkingStatisticRepository,
-        MaterialMarkingStatisticQueryService materialMarkingStatisticQueryService
+        MaterialMarkingStatisticRepository materialMarkingStatisticRepository
     ) {
         this.materialMarkingStatisticService = materialMarkingStatisticService;
         this.materialMarkingStatisticRepository = materialMarkingStatisticRepository;
-        this.materialMarkingStatisticQueryService = materialMarkingStatisticQueryService;
     }
 
     /**
@@ -146,26 +140,12 @@ public class MaterialMarkingStatisticResource {
     /**
      * {@code GET  /material-marking-statistics} : get all the materialMarkingStatistics.
      *
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of materialMarkingStatistics in body.
      */
     @GetMapping("/material-marking-statistics")
-    public ResponseEntity<List<MaterialMarkingStatistic>> getAllMaterialMarkingStatistics(MaterialMarkingStatisticCriteria criteria) {
-        log.debug("REST request to get MaterialMarkingStatistics by criteria: {}", criteria);
-        List<MaterialMarkingStatistic> entityList = materialMarkingStatisticQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /material-marking-statistics/count} : count all the materialMarkingStatistics.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/material-marking-statistics/count")
-    public ResponseEntity<Long> countMaterialMarkingStatistics(MaterialMarkingStatisticCriteria criteria) {
-        log.debug("REST request to count MaterialMarkingStatistics by criteria: {}", criteria);
-        return ResponseEntity.ok().body(materialMarkingStatisticQueryService.countByCriteria(criteria));
+    public List<MaterialMarkingStatistic> getAllMaterialMarkingStatistics() {
+        log.debug("REST request to get all MaterialMarkingStatistics");
+        return materialMarkingStatisticService.findAll();
     }
 
     /**

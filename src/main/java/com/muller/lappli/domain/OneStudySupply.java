@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
+import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -81,16 +82,27 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     @JsonIgnoreProperties(
         value = {
             "coreAssemblies",
-            "intersticialAssemblies",
+            "intersticeAssemblies",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",
             "oneStudySupplies",
             "centralAssembly",
+            "futureStudy",
         },
         allowSetters = true
     )
     private Strand strand;
+
+    @Override
+    public OneStudySupply getThis() {
+        return this;
+    }
+
+    @Override
+    public SupplyKind getSupplyKind() {
+        return SupplyKind.ONE_STUDY;
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -142,6 +154,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         this.number = number;
     }
 
+    @Override
     public String getDesignation() {
         return this.designation;
     }
@@ -182,6 +195,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         this.markingType = markingType;
     }
 
+    @Override
     public Double getGramPerMeterLinearMass() {
         return this.gramPerMeterLinearMass;
     }
@@ -257,6 +271,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         return this;
     }
 
+    @Override
     public Strand getStrand() {
         return this.strand;
     }

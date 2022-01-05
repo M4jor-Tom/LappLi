@@ -53,6 +53,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
             "customComponentSupplies",
             "oneStudySupplies",
             "centralAssembly",
+            "futureStudy",
         },
         allowSetters = true
     )
@@ -97,6 +98,12 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         } catch (NullPointerException e) {
             return Double.NaN;
         }
+    }
+
+    @Override
+    public Long getProductionStep() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

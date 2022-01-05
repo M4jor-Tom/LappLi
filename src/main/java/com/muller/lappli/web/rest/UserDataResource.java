@@ -2,9 +2,7 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.UserData;
 import com.muller.lappli.repository.UserDataRepository;
-import com.muller.lappli.service.UserDataQueryService;
 import com.muller.lappli.service.UserDataService;
-import com.muller.lappli.service.criteria.UserDataCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,16 +37,9 @@ public class UserDataResource {
 
     private final UserDataRepository userDataRepository;
 
-    private final UserDataQueryService userDataQueryService;
-
-    public UserDataResource(
-        UserDataService userDataService,
-        UserDataRepository userDataRepository,
-        UserDataQueryService userDataQueryService
-    ) {
+    public UserDataResource(UserDataService userDataService, UserDataRepository userDataRepository) {
         this.userDataService = userDataService;
         this.userDataRepository = userDataRepository;
-        this.userDataQueryService = userDataQueryService;
     }
 
     /**
@@ -147,26 +138,12 @@ public class UserDataResource {
     /**
      * {@code GET  /user-data} : get all the userData.
      *
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of userData in body.
      */
     @GetMapping("/user-data")
-    public ResponseEntity<List<UserData>> getAllUserData(UserDataCriteria criteria) {
-        log.debug("REST request to get UserData by criteria: {}", criteria);
-        List<UserData> entityList = userDataQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /user-data/count} : count all the userData.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/user-data/count")
-    public ResponseEntity<Long> countUserData(UserDataCriteria criteria) {
-        log.debug("REST request to count UserData by criteria: {}", criteria);
-        return ResponseEntity.ok().body(userDataQueryService.countByCriteria(criteria));
+    public List<UserData> getAllUserData() {
+        log.debug("REST request to get all UserData");
+        return userDataService.findAll();
     }
 
     /**

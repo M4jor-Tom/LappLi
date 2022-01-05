@@ -4,28 +4,49 @@ import { Button, Row, Col, Table } from 'reactstrap';
 import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { getEntity } from './strand.reducer';
+import { getEntity } from '../strand/strand.reducer';
+import { getEntities as getStrandSupplies } from '../strand-supply/strand-supply.reducer';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getOut } from '../index-management/index-management-lib';
 import { toNumber } from 'lodash';
+import { defaultValue as strandDefaultValue } from 'app/shared/model/strand.model';
 
-export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; strand_id: string; id: string }>) => {
+export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getEntity(props.match.params.id));
+    dispatch(getStrandSupplies({}));
   }, []);
+
+  const strandSupplies = useAppSelector(state => state.strandSupply.entities);
 
   const getOutCount: number = props.match.params.study_id ? 2 : 0;
 
   const strandEntity = useAppSelector(state => state.strand.entity);
+
+  const strandSupplyExistsInStudy: boolean =
+    strandSupplies.find(it => it.study.id === toNumber(props.match.params.study_id) && it.strand.id === toNumber(props.match.params.id)) !==
+    undefined;
+
   return (
     <div>
       <div>
         {/* md="8">*/}
         <h2 data-cy="strandDetailsHeading">
           <Translate contentKey="lappLiApp.strand.detail.title">Strand</Translate>
+          &nbsp;
+          {strandSupplyExistsInStudy ? (
+            ''
+          ) : (
+            <Button tag={Link} to={`${getOut(props.match.url, 0)}/strand-compute`} color="primary" size="sm" data-cy="entityCreateButton">
+              <FontAwesomeIcon icon="pencil-alt" />{' '}
+              <span className="d-none d-md-inline">
+                <Translate contentKey="lappLiApp.strand.action.compute">Compute strand</Translate>
+              </span>
+            </Button>
+          )}
         </h2>
         <dl className="jh-entity-details">
           <dt>
@@ -48,7 +69,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; s
                         <Translate contentKey="lappLiApp.supply.type">Type</Translate>
                       </th>
                       <th>
-                        <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
+                        <Translate contentKey="lappLiApp.supply.apparitions">Apparitions in Study</Translate>
                       </th>
                       <th>
                         <Translate contentKey="lappLiApp.supply.markingType">Marking Type</Translate>
@@ -418,7 +439,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; s
           </span>
         </Button>
         {/* &nbsp;
-        <Button tag={Link} to={`/strand/${strandEntity.id}/edit`} replace color="primary">
+        <Button tag={Link} to={`/strand/${strand.id}/edit`} replace color="primary">
           <FontAwesomeIcon icon="pencil-alt" />{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.edit">Edit</Translate>

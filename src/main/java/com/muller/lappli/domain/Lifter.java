@@ -5,7 +5,6 @@ import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.domain.exception.UnknownSupplyException;
-import io.jsonwebtoken.lang.UnknownClassException;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -59,26 +58,10 @@ public class Lifter extends AbstractDomainObject<Lifter> implements Serializable
     @Column(name = "supports_rsd_marking_technique", nullable = false)
     private Boolean supportsRsdMarkingTechnique;
 
-    /*public Lifter() {
-        this(null, Double.NaN, Double.NaN, false, false, false);
+    @Override
+    public Lifter getThis() {
+        return this;
     }
-
-    public Lifter(
-        Long index,
-        Double minimumMilimeterDiameter,
-        Double maximumMilimeterDiameter,
-        Boolean supportsSpirallyColoredMarkingType,
-        Boolean supportsLongitudinallyColoredMarkingType,
-        Boolean supportsNumberedMarkingType
-    ) {
-        super();
-        setIndex(index);
-        setMinimumMilimeterDiameter(minimumMilimeterDiameter);
-        setMaximumMilimeterDiameter(maximumMilimeterDiameter);
-        setSupportsSpirallyColoredMarkingType(supportsSpirallyColoredMarkingType);
-        setSupportsLongitudinallyColoredMarkingType(supportsLongitudinallyColoredMarkingType);
-        setSupportsNumberedMarkingType(supportsNumberedMarkingType);
-    }*/
 
     public String getName() {
         try {
@@ -92,7 +75,7 @@ public class Lifter extends AbstractDomainObject<Lifter> implements Serializable
         }
     }
 
-    public Boolean supportsSupply(AbstractLiftedSupply abstractLiftedSupply) {
+    public Boolean supportsSupply(AbstractLiftedSupply<?> abstractLiftedSupply) {
         if (abstractLiftedSupply instanceof CustomComponentSupply) {
             return supportsCustomComponentSupply((CustomComponentSupply) abstractLiftedSupply);
         } else if (abstractLiftedSupply instanceof ElementSupply) {

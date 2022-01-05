@@ -47,10 +47,6 @@ public class IntersticeAssemblyServiceImpl implements IntersticeAssemblyService 
         return intersticeAssemblyRepository
             .findById(intersticeAssembly.getId())
             .map(existingIntersticeAssembly -> {
-                if (intersticeAssembly.getProductionStep() != null) {
-                    existingIntersticeAssembly.setProductionStep(intersticeAssembly.getProductionStep());
-                }
-
                 return existingIntersticeAssembly;
             })
             .map(intersticeAssemblyRepository::save);

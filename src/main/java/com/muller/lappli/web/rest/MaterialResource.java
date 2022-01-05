@@ -2,9 +2,7 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.Material;
 import com.muller.lappli.repository.MaterialRepository;
-import com.muller.lappli.service.MaterialQueryService;
 import com.muller.lappli.service.MaterialService;
-import com.muller.lappli.service.criteria.MaterialCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,16 +37,9 @@ public class MaterialResource {
 
     private final MaterialRepository materialRepository;
 
-    private final MaterialQueryService materialQueryService;
-
-    public MaterialResource(
-        MaterialService materialService,
-        MaterialRepository materialRepository,
-        MaterialQueryService materialQueryService
-    ) {
+    public MaterialResource(MaterialService materialService, MaterialRepository materialRepository) {
         this.materialService = materialService;
         this.materialRepository = materialRepository;
-        this.materialQueryService = materialQueryService;
     }
 
     /**
@@ -144,26 +135,12 @@ public class MaterialResource {
     /**
      * {@code GET  /materials} : get all the materials.
      *
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of materials in body.
      */
     @GetMapping("/materials")
-    public ResponseEntity<List<Material>> getAllMaterials(MaterialCriteria criteria) {
-        log.debug("REST request to get Materials by criteria: {}", criteria);
-        List<Material> entityList = materialQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /materials/count} : count all the materials.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/materials/count")
-    public ResponseEntity<Long> countMaterials(MaterialCriteria criteria) {
-        log.debug("REST request to count Materials by criteria: {}", criteria);
-        return ResponseEntity.ok().body(materialQueryService.countByCriteria(criteria));
+    public List<Material> getAllMaterials() {
+        log.debug("REST request to get all Materials");
+        return materialService.findAll();
     }
 
     /**

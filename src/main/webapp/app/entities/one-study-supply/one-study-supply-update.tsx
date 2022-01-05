@@ -20,10 +20,10 @@ import { Color } from 'app/shared/model/enumerations/color.model';
 import {
   getOutFromStudySupplyStrandSupplyComponent,
   getStrandSupplyRedirectionUrl,
-  getStrandValidateField,
+  getSupplyStrandValidatedField,
   isStrandSupply,
-  SupplyKind,
 } from '../index-management/index-management-lib';
+import { SupplyKind } from 'app/shared/model/enumerations/supply-kind.model';
 
 export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
@@ -78,7 +78,7 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
     }
   };
 
-  const strandValidateField = getStrandValidateField(props, strands, SupplyKind.ONE_STUDY);
+  const strandValidateField = getSupplyStrandValidatedField(props, strands, SupplyKind.ONE_STUDY);
 
   const defaultValues = () =>
     isNew

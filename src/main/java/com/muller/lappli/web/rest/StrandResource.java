@@ -2,9 +2,7 @@ package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.repository.StrandRepository;
-import com.muller.lappli.service.StrandQueryService;
 import com.muller.lappli.service.StrandService;
-import com.muller.lappli.service.criteria.StrandCriteria;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -12,6 +10,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,12 +38,9 @@ public class StrandResource {
 
     private final StrandRepository strandRepository;
 
-    private final StrandQueryService strandQueryService;
-
-    public StrandResource(StrandService strandService, StrandRepository strandRepository, StrandQueryService strandQueryService) {
+    public StrandResource(StrandService strandService, StrandRepository strandRepository) {
         this.strandService = strandService;
         this.strandRepository = strandRepository;
-        this.strandQueryService = strandQueryService;
     }
 
     /**
@@ -54,7 +51,7 @@ public class StrandResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/strands")
-    public ResponseEntity<Strand> createStrand(@RequestBody Strand strand) throws URISyntaxException {
+    public ResponseEntity<Strand> createStrand(@Valid @RequestBody Strand strand) throws URISyntaxException {
         log.debug("REST request to save Strand : {}", strand);
         if (strand.getId() != null) {
             throw new BadRequestAlertException("A new strand cannot already have an ID", ENTITY_NAME, "idexists");
@@ -77,8 +74,10 @@ public class StrandResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/strands/{id}")
-    public ResponseEntity<Strand> updateStrand(@PathVariable(value = "id", required = false) final Long id, @RequestBody Strand strand)
-        throws URISyntaxException {
+    public ResponseEntity<Strand> updateStrand(
+        @PathVariable(value = "id", required = false) final Long id,
+        @Valid @RequestBody Strand strand
+    ) throws URISyntaxException {
         log.debug("REST request to update Strand : {}, {}", id, strand);
         if (strand.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -112,7 +111,7 @@ public class StrandResource {
     @PatchMapping(value = "/strands/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<Strand> partialUpdateStrand(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Strand strand
+        @NotNull @RequestBody Strand strand
     ) throws URISyntaxException {
         log.debug("REST request to partial update Strand partially : {}, {}", id, strand);
         if (strand.getId() == null) {
@@ -137,26 +136,17 @@ public class StrandResource {
     /**
      * {@code GET  /strands} : get all the strands.
      *
-     * @param criteria the criteria which the requested entities should match.
+     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of strands in body.
      */
     @GetMapping("/strands")
-    public ResponseEntity<List<Strand>> getAllStrands(StrandCriteria criteria) {
-        log.debug("REST request to get Strands by criteria: {}", criteria);
-        List<Strand> entityList = strandQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /strands/count} : count all the strands.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/strands/count")
-    public ResponseEntity<Long> countStrands(StrandCriteria criteria) {
-        log.debug("REST request to count Strands by criteria: {}", criteria);
-        return ResponseEntity.ok().body(strandQueryService.countByCriteria(criteria));
+    public List<Strand> getAllStrands(@RequestParam(required = false) String filter) {
+        if ("centralassembly-is-null".equals(filter)) {
+            log.debug("REST request to get all Strands where centralAssembly is null");
+            return strandService.findAllWhereCentralAssemblyIsNull();
+        }
+        log.debug("REST request to get all Strands");
+        return strandService.findAll();
     }
 
     /**

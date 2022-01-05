@@ -1,6 +1,5 @@
 package com.muller.lappli.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssemblableAtom;
 import com.muller.lappli.domain.interfaces.Article;
 import java.io.Serializable;
@@ -44,6 +43,11 @@ public class Bangle extends AbstractAssemblableAtom<Bangle> implements Article, 
     @NotNull
     //@JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material material;
+
+    @Override
+    public Bangle getThis() {
+        return this;
+    }
 
     @Override
     public Long getArticleNumber() {

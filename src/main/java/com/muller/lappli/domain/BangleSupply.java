@@ -3,10 +3,9 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
+import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -71,8 +70,27 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     private Strand strand;
 
     @Override
+    public BangleSupply getThis() {
+        return this;
+    }
+
+    @Override
+    public SupplyKind getSupplyKind() {
+        return SupplyKind.BANGLE;
+    }
+
+    @Override
     public CylindricComponent getCylindricComponent() {
         return getBangle();
+    }
+
+    @Override
+    public Material getSurfaceMaterial() {
+        try {
+            return getBangle().getMaterial();
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     @Override
@@ -175,6 +193,7 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
         return this;
     }
 
+    @Override
     public Strand getStrand() {
         return this.strand;
     }

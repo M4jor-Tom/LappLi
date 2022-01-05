@@ -14,6 +14,13 @@
   "relationships": [
     {
       "relationshipType": "one-to-many",
+      "otherEntityName": "strand",
+      "otherEntityRelationshipName": "futureStudy",
+      "relationshipName": "strands",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "one-to-many",
       "otherEntityName": "strandSupply",
       "otherEntityRelationshipName": "study",
       "relationshipName": "strandSupplies",
@@ -32,7 +39,7 @@
   "dto": "no",
   "pagination": "no",
   "service": "serviceImpl",
-  "jpaMetamodelFiltering": true,
+  "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,
