@@ -17,6 +17,10 @@
       "detail": {
         "title": "Strand Supply"
       },
+      "errors": {
+        "apparitionsIsNotSubSupplyCountsCommonDivider": "Apparitions is not Supply Counts Common Divider",
+        "computedSuppliesCountInequalToReadSuppliesCount": "Computed Supplies Count Inequal To Read Supplies Count"
+      },
       "id": "ID",
       "subSuppliesToAssemble": "Sub Supplies To Assemble",
       "strandsCount": "Strands Count",

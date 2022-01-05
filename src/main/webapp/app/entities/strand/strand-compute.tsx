@@ -59,10 +59,12 @@ export const StrandCompute = (props: RouteComponentProps<{ strand_id: string | n
     const apparitionsIsCommonDivider: boolean = strand.suppliesCountsCommonDividers.includes(apparitions);
     //  const givenStrandSubSupplyCount = toNumber(values.subSuppliesToAssembleCheck);
 
-    if (apparitionsIsCommonDivider && apparitions * subSuppliesToAssembleCheck === strand.suppliesCount) {
-      dispatch(createEntity(entity));
+    if (!apparitionsIsCommonDivider) {
+      alert(translate('lappLiApp.strandSupply.errors.apparitionsIsNotSubSupplyCountsCommonDivider'));
+    } else if (apparitions * subSuppliesToAssembleCheck !== strand.suppliesCount) {
+      alert(translate('lappLiApp.strandSupply.errors.computedSuppliesCountInequalToReadSuppliesCount'));
     } else {
-      alert('Error');
+      dispatch(createEntity(entity));
     }
   };
 

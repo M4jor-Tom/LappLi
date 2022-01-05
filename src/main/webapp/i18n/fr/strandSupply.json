@@ -17,6 +17,10 @@
       "detail": {
         "title": "Strand Supply"
       },
+      "errors": {
+        "apparitionsIsNotSubSupplyCountsCommonDivider": "Le nombre d'apparition du toron n'est pas diviseur commun des apparitions de ses approvisionnements",
+        "computedSuppliesCountInequalToReadSuppliesCount": "Le nombre d'approvisionnement calculé n'est pas égal à celui écrit"
+      },
       "id": "ID",
       "subSuppliesToAssemble": "Approvisionnements à assembler",
       "strandsCount": "Nombre de torons",
