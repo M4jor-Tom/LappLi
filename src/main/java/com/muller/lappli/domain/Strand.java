@@ -78,6 +78,16 @@ public class Strand implements Serializable {
         return lastCoreAssembly;
     }
 
+    public Long getSuppliesCount() {
+        Long count = Long.valueOf(0);
+
+        for (AbstractSupply<?> supply : getSupplies()) {
+            count += supply.getApparitions();
+        }
+
+        return count;
+    }
+
     @JsonIgnore
     public Set<AbstractSupply<?>> getSupplies() {
         HashSet<AbstractSupply<?>> supplies = new HashSet<>();

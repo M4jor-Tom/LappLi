@@ -17,6 +17,7 @@ export interface IStrand {
   customComponentSupplies?: ICustomComponentSupply[] | null;
   oneStudySupplies?: IOneStudySupply[] | null;
   centralAssembly?: ICentralAssembly | null;
+  suppliesCount?: number;
   futureStudy?: IStudy;
 }
 
