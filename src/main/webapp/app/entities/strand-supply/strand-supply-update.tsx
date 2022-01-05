@@ -21,8 +21,6 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  //  const redirectionUrl = getStrandSupplyUpdateComponentRedirectionUrl(props);
-
   const strands = useAppSelector(state => state.strand.entities);
   const studies = useAppSelector(state => state.study.entities);
   const strandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
@@ -30,15 +28,14 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
   const updating = useAppSelector(state => state.strandSupply.updating);
   const updateSuccess = useAppSelector(state => state.strandSupply.updateSuccess);
   const markingTypeValues = Object.keys(MarkingType);
-  const handleClose =
-    props.match.params.study_id == null
-      ? () => {
-          props.history.push('/strand-supply');
-        }
-      : () => {
-          //  props.history.push("path/to/operations");
-          props.history.push('/study/' + props.match.params.study_id + '/study-supplies');
-        };
+
+  const getOutCount = props.match.params.study_id ? 2 : 1;
+
+  const getOutUrl = getOut(props.match.url, getOutCount);
+
+  const handleClose = () => {
+    props.history.push(getOutUrl);
+  };
 
   const studyValidateField = getStudyValidateField(props, studies);
 
@@ -162,7 +159,7 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
               {studyValidateField}
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={getOut(props.match.url, 0)} replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={getOutUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">

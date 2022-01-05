@@ -27,14 +27,13 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
   const updating = useAppSelector(state => state.strand.updating);
   const updateSuccess = useAppSelector(state => state.strand.updateSuccess);
 
-  const handleClose =
-    props.match.params.study_id == null
-      ? () => {
-          props.history.push('/strand');
-        }
-      : () => {
-          props.history.push('/study/' + props.match.params.study_id + '/study-supplies/new');
-        };
+  const getOutCount = props.match.params.study_id ? 2 : 1;
+
+  const getOutUrl = getOut(props.match.url, getOutCount);
+
+  const handleClose = () => {
+    props.history.push(getOutUrl);
+  };
 
   useEffect(() => {
     if (isNew) {
@@ -120,7 +119,7 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={getOut(props.match.url, 0)} replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={getOutUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
