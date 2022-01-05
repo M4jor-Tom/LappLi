@@ -15,6 +15,7 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 import { getOut, getStudyValidateField } from '../index-management/index-management-lib';
+import { toNumber } from 'lodash';
 
 export const StrandCompute = (props: RouteComponentProps<{ strand_id: string | null; study_id: string | null; id: string }>) => {
   const dispatch = useAppDispatch();
@@ -51,7 +52,18 @@ export const StrandCompute = (props: RouteComponentProps<{ strand_id: string | n
       study: studies.find(it => it.id.toString() === props.match.params.study_id), // values.study.toString()),
     };
 
-    dispatch(createEntity(entity));
+    //  const realStrandSubSupplyCount = strands.find(it => it.id.toString() === props.match.params.strand_id).suppliesCount / values.apparitions;
+    const apparitions: number = toNumber(values.apparitions);
+    const subSuppliesToAssembleCheck: number = toNumber(values.subSuppliesToAssembleCheck);
+    const strand: IStrand = strands.find(it => it.id.toString() === props.match.params.strand_id);
+    const apparitionsIsCommonDivider: boolean = strand.suppliesCountsCommonDividers.includes(apparitions);
+    //  const givenStrandSubSupplyCount = toNumber(values.subSuppliesToAssembleCheck);
+
+    if (apparitionsIsCommonDivider && apparitions * subSuppliesToAssembleCheck === strand.suppliesCount) {
+      dispatch(createEntity(entity));
+    } else {
+      alert('Error');
+    }
   };
 
   const defaultValues = {
