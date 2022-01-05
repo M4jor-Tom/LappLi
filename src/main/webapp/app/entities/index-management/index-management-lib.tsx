@@ -78,28 +78,23 @@ function getStudyValidateField(props: RouteComponentProps<{ study_id: string | n
       ''
     )
   ) : (
-    <>
-      <ValidatedField
-        id="strand-supply-study"
-        name="study"
-        data-cy="study"
-        label={translate('lappLiApp.strandSupply.study')}
-        type="select"
-        required
-      >
-        <option value="" key="0" />
-        {studies
-          ? studies.map(otherEntity => (
-              <option value={otherEntity.id} key={otherEntity.id}>
-                {otherEntity.number}
-              </option>
-            ))
-          : null}
-      </ValidatedField>
-      <FormText>
-        <Translate contentKey="entity.validation.required">This field is required.</Translate>
-      </FormText>
-    </>
+    <ValidatedField
+      id="strand-supply-study"
+      name="study"
+      data-cy="study"
+      label={translate('lappLiApp.strandSupply.study')}
+      type="select"
+      required
+    >
+      <option value="" key="0" />
+      {studies
+        ? studies.map(otherEntity => (
+            <option value={otherEntity.id} key={otherEntity.id}>
+              {otherEntity.number}
+            </option>
+          ))
+        : null}
+    </ValidatedField>
   );
 }
 
@@ -122,28 +117,23 @@ function getStrandValidateField(
       ''
     )
   ) : (
-    <>
-      <ValidatedField
-        id={supplyKind + '-supply-strand'}
-        name="strand"
-        data-cy="strand"
-        label={translate('lappLiApp.supply.strand')}
-        type="select"
-        required
-      >
-        <option value="" key="0" />
-        {strands
-          ? strands.map(otherEntity => (
-              <option value={otherEntity.id} key={otherEntity.id}>
-                {otherEntity.designation}
-              </option>
-            ))
-          : null}
-      </ValidatedField>
-      <FormText>
-        <Translate contentKey="entity.validation.required">This field is required.</Translate>
-      </FormText>
-    </>
+    <ValidatedField
+      id={supplyKind + '-supply-strand'}
+      name="strand"
+      data-cy="strand"
+      label={translate('lappLiApp.supply.strand')}
+      type="select"
+      required
+    >
+      <option value="" key="0" />
+      {strands
+        ? strands.map(otherEntity => (
+            <option value={otherEntity.id} key={otherEntity.id}>
+              {otherEntity.designation}
+            </option>
+          ))
+        : null}
+    </ValidatedField>
   );
 }
 
