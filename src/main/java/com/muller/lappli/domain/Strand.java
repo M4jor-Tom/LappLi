@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.exception.NoIntersticeAvailableException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -76,6 +78,21 @@ public class Strand implements Serializable {
         }
 
         return lastCoreAssembly;
+    }
+
+    public List<Long> getSuppliesCountsCommonDividers() {
+        List<Long> commonDividers = new ArrayList<Long>();
+
+        for (AbstractSupply<?> supply : getSupplies()) {
+            for (Long testValue = Long.valueOf(1); testValue < supply.getApparitions(); testValue++) {
+                if (supply.getApparitions() % testValue == Long.valueOf(0)) {
+                    commonDividers.add(testValue);
+                }
+            }
+            supply.getApparitions();
+        }
+
+        return commonDividers;
     }
 
     public Long getSuppliesCount() {
