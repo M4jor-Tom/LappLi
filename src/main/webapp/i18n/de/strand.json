@@ -17,6 +17,9 @@
       "detail": {
         "title": "Strand"
       },
+      "action": {
+        "compute": "Compute Strand"
+      },
       "id": "ID",
       "designation": "Designation",
       "coreAssemblies": "Core Assemblies",

@@ -53,6 +53,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
             "customComponentSupplies",
             "oneStudySupplies",
             "centralAssembly",
+            "futureStudy",
         },
         allowSetters = true
     )

@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.Study;
 import com.muller.lappli.repository.StrandRepository;
 import java.util.List;
 import java.util.Random;
@@ -54,6 +55,16 @@ class StrandResourceIT {
      */
     public static Strand createEntity(EntityManager em) {
         Strand strand = new Strand();
+        // Add required entity
+        Study study;
+        if (TestUtil.findAll(em, Study.class).isEmpty()) {
+            study = StudyResourceIT.createEntity(em);
+            em.persist(study);
+            em.flush();
+        } else {
+            study = TestUtil.findAll(em, Study.class).get(0);
+        }
+        strand.setFutureStudy(study);
         return strand;
     }
 
@@ -65,6 +76,16 @@ class StrandResourceIT {
      */
     public static Strand createUpdatedEntity(EntityManager em) {
         Strand strand = new Strand();
+        // Add required entity
+        Study study;
+        if (TestUtil.findAll(em, Study.class).isEmpty()) {
+            study = StudyResourceIT.createUpdatedEntity(em);
+            em.persist(study);
+            em.flush();
+        } else {
+            study = TestUtil.findAll(em, Study.class).get(0);
+        }
+        strand.setFutureStudy(study);
         return strand;
     }
 

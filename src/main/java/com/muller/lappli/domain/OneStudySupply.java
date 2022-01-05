@@ -88,6 +88,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
             "customComponentSupplies",
             "oneStudySupplies",
             "centralAssembly",
+            "futureStudy",
         },
         allowSetters = true
     )

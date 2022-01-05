@@ -52,6 +52,9 @@ export const Strand = (props: RouteComponentProps<{ url: string }>) => {
                 <th>
                   <Translate contentKey="lappLiApp.strand.designation">Designation</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="lappLiApp.strand.futureStudy">Future Study</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -64,6 +67,7 @@ export const Strand = (props: RouteComponentProps<{ url: string }>) => {
                     </Button>
                   </td>
                   <td>{strand.designation}</td>
+                  <td>{strand.futureStudy ? <Link to={`study/${strand.futureStudy.id}`}>{strand.futureStudy.number}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${strand.id}`} color="info" size="sm" data-cy="entityDetailsButton">

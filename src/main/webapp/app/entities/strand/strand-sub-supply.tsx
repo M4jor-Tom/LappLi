@@ -4,33 +4,31 @@ import { Button, Row, Col, Table } from 'reactstrap';
 import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { getEntity } from '../strand-supply/strand-supply.reducer';
+import { getEntity } from '../strand/strand.reducer';
+import { getEntities as getStrandSupplies } from '../strand-supply/strand-supply.reducer';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getOut } from '../index-management/index-management-lib';
 import { toNumber } from 'lodash';
 import { defaultValue as strandDefaultValue } from 'app/shared/model/strand.model';
 
-export const StrandSupplySubSupply = (props: RouteComponentProps<{ study_id: string; id: string }>) => {
+export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getEntity(props.match.params.id));
+    dispatch(getStrandSupplies({}));
   }, []);
+
+  const strandSupplies = useAppSelector(state => state.strandSupply.entities);
 
   const getOutCount: number = props.match.params.study_id ? 2 : 0;
 
-  const strandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
+  const strandEntity = useAppSelector(state => state.strand.entity);
 
-  const strand = strandSupplyEntity.strand ? strandSupplyEntity.strand : strandDefaultValue;
-
-  const unDividedAndDividedApparitionText = (undividedApparitions, dividedApparitions) => (
-    <>
-      <Translate contentKey="lappLiApp.supply.undividedApparitions" />: {undividedApparitions}
-      <br />
-      <Translate contentKey="lappLiApp.supply.dividedApparitions" />: {dividedApparitions}
-    </>
-  );
+  const strandSupplyExistsInStudy: boolean =
+    strandSupplies.find(it => it.study.id === toNumber(props.match.params.study_id) && it.strand.id === toNumber(props.match.params.id)) !==
+    undefined;
 
   return (
     <div>
@@ -38,6 +36,17 @@ export const StrandSupplySubSupply = (props: RouteComponentProps<{ study_id: str
         {/* md="8">*/}
         <h2 data-cy="strandDetailsHeading">
           <Translate contentKey="lappLiApp.strand.detail.title">Strand</Translate>
+          &nbsp;
+          {strandSupplyExistsInStudy ? (
+            ''
+          ) : (
+            <Button tag={Link} to={`${getOut(props.match.url, 0)}/strand-compute`} color="primary" size="sm" data-cy="entityCreateButton">
+              <FontAwesomeIcon icon="pencil-alt" />{' '}
+              <span className="d-none d-md-inline">
+                <Translate contentKey="lappLiApp.strand.action.compute">Compute strand</Translate>
+              </span>
+            </Button>
+          )}
         </h2>
         <dl className="jh-entity-details">
           <dt>
@@ -45,14 +54,14 @@ export const StrandSupplySubSupply = (props: RouteComponentProps<{ study_id: str
               <Translate contentKey="lappLiApp.strand.designation">Designation</Translate>
             </span>
           </dt>
-          <dd>{strandSupplyEntity.designation}</dd>
+          <dd>{strandEntity.designation}</dd>
           <dd>
             <div className="table-responsive">
               {/* [DUPLICATE] */}
-              {(strand.customComponentSupplies && strand.customComponentSupplies.length > 0) ||
-              (strand.bangleSupplies && strand.bangleSupplies.length > 0) ||
-              (strand.elementSupplies && strand.elementSupplies.length > 0) ||
-              (strand.oneStudySupplies && strand.oneStudySupplies.length > 0) ? (
+              {(strandEntity.customComponentSupplies && strandEntity.customComponentSupplies.length > 0) ||
+              (strandEntity.bangleSupplies && strandEntity.bangleSupplies.length > 0) ||
+              (strandEntity.elementSupplies && strandEntity.elementSupplies.length > 0) ||
+              (strandEntity.oneStudySupplies && strandEntity.oneStudySupplies.length > 0) ? (
                 <Table responsive>
                   <thead>
                     <tr>
@@ -108,15 +117,13 @@ export const StrandSupplySubSupply = (props: RouteComponentProps<{ study_id: str
                     </tr>
                   </thead>
                   <tbody>
-                    {strand.customComponentSupplies.map((customComponentSupply, i) => (
+                    {strandEntity.customComponentSupplies.map((customComponentSupply, i) => (
                       <>
                         <tr>
                           <td>
                             <Translate contentKey="global.menu.entities.customComponentSupply" />
                           </td>
-                          <td>
-                            {unDividedAndDividedApparitionText(customComponentSupply.apparitions, customComponentSupply.dividedApparitions)}
-                          </td>
+                          <td>{customComponentSupply.apparitions}</td>
                           <td>
                             <Translate contentKey={`lappLiApp.MarkingType.${customComponentSupply.markingType}`} />
                           </td>
@@ -180,13 +187,13 @@ export const StrandSupplySubSupply = (props: RouteComponentProps<{ study_id: str
                         </tr>
                       </>
                     ))}
-                    {strand.bangleSupplies.map((bangleSupply, i) => (
+                    {strandEntity.bangleSupplies.map((bangleSupply, i) => (
                       <>
                         <tr>
                           <td>
                             <Translate contentKey="global.menu.entities.bangleSupply" />
                           </td>
-                          <td>{unDividedAndDividedApparitionText(bangleSupply.apparitions, bangleSupply.dividedApparitions)}</td>
+                          <td>{bangleSupply.apparitions}</td>
                           <td>{/* MarkingType, absent for bangles */}</td>
                           <td>
                             <Link to={`/bangle/${bangleSupply.bangle.id}`}>{bangleSupply.bangle.number}</Link>
@@ -242,13 +249,13 @@ export const StrandSupplySubSupply = (props: RouteComponentProps<{ study_id: str
                         </tr>
                       </>
                     ))}
-                    {strand.elementSupplies.map((elementSupply, i) => (
+                    {strandEntity.elementSupplies.map((elementSupply, i) => (
                       <>
                         <tr>
                           <td>
                             <Translate contentKey="global.menu.entities.elementSupply" />
                           </td>
-                          <td>{unDividedAndDividedApparitionText(elementSupply.apparitions, elementSupply.dividedApparitions)}</td>
+                          <td>{elementSupply.apparitions}</td>
                           <td>
                             <Translate contentKey={`lappLiApp.MarkingType.${elementSupply.markingType}`} />
                           </td>
@@ -308,12 +315,12 @@ export const StrandSupplySubSupply = (props: RouteComponentProps<{ study_id: str
                         </tr>
                       </>
                     ))}
-                    {strand.oneStudySupplies.map((oneStudySupply, i) => (
+                    {strandEntity.oneStudySupplies.map((oneStudySupply, i) => (
                       <tr key={`entity-${i}`} data-cy="entityTable">
                         <td>
                           <Translate contentKey="global.menu.entities.oneStudySupply" />
                         </td>
-                        <td>{unDividedAndDividedApparitionText(oneStudySupply.apparitions, oneStudySupply.dividedApparitions)}</td>
+                        <td>{oneStudySupply.apparitions}</td>
                         <td>
                           <Translate contentKey={`lappLiApp.MarkingType.${oneStudySupply.markingType}`} />
                         </td>
@@ -443,4 +450,4 @@ export const StrandSupplySubSupply = (props: RouteComponentProps<{ study_id: str
   );
 };
 
-export default StrandSupplySubSupply;
+export default StrandSubSupply;
