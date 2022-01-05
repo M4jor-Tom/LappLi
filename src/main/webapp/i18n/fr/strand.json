@@ -17,6 +17,9 @@
       "detail": {
         "title": "Strand"
       },
+      "action": {
+        "compute": "Calcul Toron"
+      },
       "id": "ID",
       "designation": "Designation",
       "coreAssemblies": "Core Assemblies",

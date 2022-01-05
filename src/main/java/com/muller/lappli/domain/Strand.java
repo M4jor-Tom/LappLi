@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.exception.NoIntersticeAvailableException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -62,6 +64,11 @@ public class Strand implements Serializable {
     @OneToOne(mappedBy = "strand")
     private CentralAssembly centralAssembly;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "strands", "strandSupplies", "author" }, allowSetters = true)
+    private Study futureStudy;
+
     @JsonIgnoreProperties("strand")
     public CoreAssembly getLastCoreAssembly() {
         CoreAssembly lastCoreAssembly = null;
@@ -71,6 +78,54 @@ public class Strand implements Serializable {
         }
 
         return lastCoreAssembly;
+    }
+
+    public List<Long> getSuppliesCountsCommonDividers() {
+        List<Long> commonDividers = new ArrayList<Long>();
+
+        for (AbstractSupply<?> supply : getSupplies()) {
+            //For each supply
+            List<Long> supplyDividers = new ArrayList<Long>();
+
+            for (Long testValue = Long.valueOf(1); testValue < supply.getApparitions(); testValue++) {
+                //For each of its dividers
+                if (supply.getApparitions() % testValue == Long.valueOf(0)) {
+                    //Store it
+                    supplyDividers.add(testValue);
+                }
+            }
+
+            if (commonDividers.isEmpty()) {
+                //If no common divider was stored
+                commonDividers = supplyDividers;
+            } else {
+                List<Long> commonDividersNoLongerCommon = new ArrayList<Long>();
+                for (Long commonDivider : commonDividers) {
+                    //For each common divider
+
+                    if (!supplyDividers.contains(commonDivider)) {
+                        //Drop it if it is not in the new supply dividers list
+                        commonDividersNoLongerCommon.add(commonDivider);
+                    }
+                }
+
+                for (Long commonDividerNoLongerCommon : commonDividersNoLongerCommon) {
+                    commonDividers.remove(commonDividerNoLongerCommon);
+                }
+            }
+        }
+
+        return commonDividers;
+    }
+
+    public Long getSuppliesCount() {
+        Long count = Long.valueOf(0);
+
+        for (AbstractSupply<?> supply : getSupplies()) {
+            count += supply.getApparitions();
+        }
+
+        return count;
     }
 
     @JsonIgnore
@@ -309,6 +364,19 @@ public class Strand implements Serializable {
 
     public Strand centralAssembly(CentralAssembly centralAssembly) {
         this.setCentralAssembly(centralAssembly);
+        return this;
+    }
+
+    public Study getFutureStudy() {
+        return this.futureStudy;
+    }
+
+    public void setFutureStudy(Study study) {
+        this.futureStudy = study;
+    }
+
+    public Strand futureStudy(Study study) {
+        this.setFutureStudy(study);
         return this;
     }
 
