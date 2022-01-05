@@ -27,9 +27,19 @@ export const StrandCompute = (props: RouteComponentProps<{ strand_id: string | n
   const updating = useAppSelector(state => state.strandSupply.updating);
   const updateSuccess = useAppSelector(state => state.strandSupply.updateSuccess);
   const markingTypeValues = Object.keys(MarkingType);
-  const handleClose = () => {
-    props.history.push(getOut(props.match.url, 0) + '/supply');
+  const handleClose = (saved: boolean = null) => {
+    let path = '';
+
+    if (saved) {
+      path = getOut(props.match.url, 2);
+    } else {
+      path = getOut(props.match.url, 0) + '/supply';
+    }
+
+    props.history.push(path);
   };
+
+  const handleCancel = () => handleClose(false);
 
   useEffect(() => {
     dispatch(reset());
@@ -40,7 +50,7 @@ export const StrandCompute = (props: RouteComponentProps<{ strand_id: string | n
 
   useEffect(() => {
     if (updateSuccess) {
-      handleClose();
+      handleClose(true);
     }
   }, [updateSuccess]);
 
@@ -111,7 +121,7 @@ export const StrandCompute = (props: RouteComponentProps<{ strand_id: string | n
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
               />
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" onClick={handleClose} replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" onClick={handleCancel} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
