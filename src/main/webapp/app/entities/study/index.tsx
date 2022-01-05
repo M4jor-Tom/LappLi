@@ -28,10 +28,11 @@ import IntersticeAssemblyUpdate from '../interstice-assembly/interstice-assembly
 import IntersticeAssemblyDeleteDialog from '../interstice-assembly/interstice-assembly-delete-dialog';
 import StrandSubSupply from '../strand/strand-sub-supply';
 import StrandCompute from '../strand/strand-compute';
+import StrandDeleteDialog from '../strand/strand-delete-dialog';
 
 const studySuppliesUrlPrefix = '/:study_id/study-supplies';
 
-const strandSupplyZoneUrlPefix = studySuppliesUrlPrefix + '/strand-supplies';
+const strandSupplyZoneUrlPefix = studySuppliesUrlPrefix + '/strand-supply';
 
 const strandZoneUrlPefix = studySuppliesUrlPrefix + '/strand';
 
@@ -42,33 +43,29 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute exact path={`${match.url}/:id/edit`} component={StudyUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url}/:id`} component={StudyDetail} />
 
-      {/* (1): Strand creation */}
-      {/* <ErrorBoundaryRoute exact path={`${match.url}/:study_id/strand/new`} component={StrandUpdate} />*/}
+      {/* (CUD ACCESS): STRAND SUPPLIES */}
+      <ErrorBoundaryRoute exact path={`${match.url + strandSupplyZoneUrlPefix}/:id/edit`} component={StrandSupplyUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url + strandSupplyZoneUrlPefix}/:id/delete`} component={StrandSupplyDeleteDialog} />
 
-      {/* (2): Strand Supply creation */}
-      {/* <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/new`} component={StrandSupplyUpdate} />*/}
+      {/* (CUD ACCESS): STRANDS */}
+      <ErrorBoundaryRoute exact path={`${match.url + strandZoneUrlPefix}/:id/edit`} component={StrandUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url + strandZoneUrlPefix}/:id/delete`} component={StrandDeleteDialog} />
 
-      {/* Strand compute = StrandSupply Creation */}
+      {/* (1): Creating directly a Strand in a StrandSupply sub menu */}
+      <ErrorBoundaryRoute exact path={`${match.url + studySuppliesUrlPrefix}`} component={StudyStrandSupply} />
+
+      {/* (2): Strand compute = StrandSupply Creation */}
       <ErrorBoundaryRoute exact path={`${match.url + strandZoneUrlPefix}/:strand_id/strand-compute`} component={StrandCompute} />
-
-      <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/:id/edit`} component={StrandSupplyUpdate} />
-      <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/:id/delete`} component={StrandSupplyDeleteDialog} />
-
-      {/* (3): Creating directly a Strand in a StrandSupply sub menu */}
-      <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies`} component={StudyStrandSupply} />
-      {/* <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/strand/new`} component={StrandUpdate} />
-      <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/:strand_supply_id/strand/new`} component={StrandUpdate} />*/}
 
       {/* STRAND SUPPLY ZONE */}
 
       {/* (4): Creating directly a Strand in a StrandSupply sub menu */}
-      <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/strand/new`} component={StrandUpdate} />
-      <ErrorBoundaryRoute exact path={`${match.url}/:study_id/study-supplies/:strand_supply_id/strand/new`} component={StrandUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url + studySuppliesUrlPrefix}/strand/new`} component={StrandUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url + studySuppliesUrlPrefix}/:strand_supply_id/strand/new`} component={StrandUpdate} />
 
       {/* (5): Strand's sub-supply and sub-operations observing */}
       {/* STRAND'S SUB SUPPLY ZONE */}
       <ErrorBoundaryRoute exact path={`${match.url + strandZoneUrlPefix}/:id/supply`} component={StrandSubSupply} />
-      <ErrorBoundaryRoute exact path={`${match.url + strandSupplyZoneUrlPefix}/:id/operation`} component={StrandSupplySubOperation} />
 
       <ErrorBoundaryRoute
         exact
@@ -135,6 +132,8 @@ const Routes = ({ match }) => (
       />
 
       {/* STRANDSUPPLY'S SUB OPERATION ZONE */}
+      <ErrorBoundaryRoute exact path={`${match.url + strandSupplyZoneUrlPefix}/:id/operation`} component={StrandSupplySubOperation} />
+
       <ErrorBoundaryRoute
         exact
         path={`${match.url + strandSupplyZoneUrlPefix}/:strand_id/operation/central-assembly/new`}
