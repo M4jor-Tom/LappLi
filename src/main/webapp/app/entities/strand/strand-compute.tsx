@@ -47,8 +47,8 @@ export const StrandCompute = (props: RouteComponentProps<{ strand_id: string | n
     const entity = {
       ...strandSupplyEntity,
       ...values,
-      strand: strands.find(it => it.id.toString() === values.strand.toString()),
-      study: studies.find(it => it.id.toString() === values.study.toString()),
+      strand: strands.find(it => it.id.toString() === props.match.params.strand_id), //  values.strand.toString()),
+      study: studies.find(it => it.id.toString() === props.match.params.study_id), // values.study.toString()),
     };
 
     dispatch(createEntity(entity));
