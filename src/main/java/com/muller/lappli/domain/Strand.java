@@ -84,12 +84,35 @@ public class Strand implements Serializable {
         List<Long> commonDividers = new ArrayList<Long>();
 
         for (AbstractSupply<?> supply : getSupplies()) {
+            //For each supply
+            List<Long> supplyDividers = new ArrayList<Long>();
+
             for (Long testValue = Long.valueOf(1); testValue < supply.getApparitions(); testValue++) {
+                //For each of its dividers
                 if (supply.getApparitions() % testValue == Long.valueOf(0)) {
-                    commonDividers.add(testValue);
+                    //Store it
+                    supplyDividers.add(testValue);
                 }
             }
-            supply.getApparitions();
+
+            if (commonDividers.isEmpty()) {
+                //If no common divider was stored
+                commonDividers = supplyDividers;
+            } else {
+                List<Long> commonDividersNoLongerCommon = new ArrayList<Long>();
+                for (Long commonDivider : commonDividers) {
+                    //For each common divider
+
+                    if (!supplyDividers.contains(commonDivider)) {
+                        //Drop it if it is not in the new supply dividers list
+                        commonDividersNoLongerCommon.add(commonDivider);
+                    }
+                }
+
+                for (Long commonDividerNoLongerCommon : commonDividersNoLongerCommon) {
+                    commonDividers.remove(commonDividerNoLongerCommon);
+                }
+            }
         }
 
         return commonDividers;
