@@ -92,7 +92,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         },
         allowSetters = true
     )
-    private Strand strand;
+    private Strand ownerStrand;
 
     @Override
     public OneStudySupply getThis() {
@@ -271,17 +271,16 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         return this;
     }
 
-    @Override
-    public Strand getStrand() {
-        return this.strand;
+    public Strand getOwnerStrand() {
+        return this.ownerStrand;
     }
 
-    public void setStrand(Strand strand) {
-        this.strand = strand;
+    public void setOwnerStrand(Strand strand) {
+        this.ownerStrand = strand;
     }
 
-    public OneStudySupply strand(Strand strand) {
-        this.setStrand(strand);
+    public OneStudySupply ownerStrand(Strand strand) {
+        this.setOwnerStrand(strand);
         return this;
     }
 

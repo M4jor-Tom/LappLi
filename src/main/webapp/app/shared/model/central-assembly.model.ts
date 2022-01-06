@@ -6,7 +6,6 @@ export interface ICentralAssembly extends IAbstractAssembly {
   id?: number;
   productionStep?: number;
   position?: IPosition;
-  strand?: IStrand;
 }
 
 export const defaultValue: Readonly<ICentralAssembly> = {};

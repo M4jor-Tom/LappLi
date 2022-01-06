@@ -57,7 +57,7 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ strand_id: strin
     const entity = {
       ...coreAssemblyEntity,
       ...values,
-      strand: strands.find(it => it.id.toString() === values.strand.toString()),
+      ownerStrand: strands.find(it => it.id.toString() === values.ownerStrand.toString()),
     };
 
     if (isNew) {
@@ -73,7 +73,7 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ strand_id: strin
       : {
           assemblyMean: 'RIGHT',
           ...coreAssemblyEntity,
-          strand: coreAssemblyEntity?.strand?.id,
+          ownerStrand: coreAssemblyEntity?.ownerStrand?.id,
         };
 
   return (

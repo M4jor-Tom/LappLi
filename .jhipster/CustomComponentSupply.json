@@ -39,7 +39,7 @@
       "otherEntityName": "strand",
       "otherEntityRelationshipName": "customComponentSupplies",
       "relationshipValidateRules": "required",
-      "relationshipName": "strand",
+      "relationshipName": "ownerStrand",
       "otherEntityField": "designation"
     }
   ],

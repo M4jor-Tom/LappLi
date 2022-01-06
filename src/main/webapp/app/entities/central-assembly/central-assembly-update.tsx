@@ -59,7 +59,7 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ strand_id: st
     const entity = {
       ...centralAssemblyEntity,
       ...values,
-      strand: strands.find(it => it.id.toString() === values.strand.toString()),
+      ownerStrand: strands.find(it => it.id.toString() === values.ownerStrand.toString()),
       position: positions.find(it => it.id.toString() === values.position.toString()),
     };
 
@@ -75,7 +75,7 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ strand_id: st
       ? {}
       : {
           ...centralAssemblyEntity,
-          strand: centralAssemblyEntity?.strand?.id,
+          ownerStrand: centralAssemblyEntity?.ownerStrand?.id,
           position: centralAssemblyEntity?.position?.id,
         };
 

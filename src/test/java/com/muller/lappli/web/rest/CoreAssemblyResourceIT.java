@@ -74,7 +74,7 @@ class CoreAssemblyResourceIT {
         } else {
             strand = TestUtil.findAll(em, Strand.class).get(0);
         }
-        coreAssembly.setStrand(strand);
+        coreAssembly.setOwnerStrand(strand);
         return coreAssembly;
     }
 
@@ -97,7 +97,7 @@ class CoreAssemblyResourceIT {
         } else {
             strand = TestUtil.findAll(em, Strand.class).get(0);
         }
-        coreAssembly.setStrand(strand);
+        coreAssembly.setOwnerStrand(strand);
         return coreAssembly;
     }
 

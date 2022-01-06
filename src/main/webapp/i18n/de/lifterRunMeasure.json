@@ -19,7 +19,7 @@
       },
       "id": "ID",
       "milimeterDiameter": "Milimeter Diameter",
-      "meterPerSecondSpeed": "Meter Per Second Speed",
+      "meterPerHourSpeed": "Meter Per Hour Speed",
       "markingType": "Marking Type",
       "markingTechnique": "Marking Technique",
       "hourPreparationTime": "Hour Preparation Time",

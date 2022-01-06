@@ -1,4 +1,4 @@
-id;apparitions;number;designation;description;marking_type;gram_per_meter_linear_mass;milimeter_diameter;surface_color;surface_material_id;strand_id
+id;apparitions;number;designation;description;marking_type;gram_per_meter_linear_mass;milimeter_diameter;surface_color;surface_material_id;owner_strand_id
 1;1;89916;intelligence;eyeballs Handcrafted;LIFTING;7226;4;YELLOW_BLACK;1;1
 2;2;28678;Intelligent payment infrastructures;Managed Fords;LIFTING;60470;4;GREY;2;2
 3;3;99230;Oklahoma indexing;Consultant Accountability Configurable;RINGY_COLORED;23632;4;PINK_BLUE;3;3

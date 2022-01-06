@@ -5,7 +5,7 @@ import { MarkingTechnique } from 'app/shared/model/enumerations/marking-techniqu
 export interface ILifterRunMeasure {
   id?: number;
   milimeterDiameter?: number | null;
-  meterPerSecondSpeed?: number | null;
+  meterPerHourSpeed?: number | null;
   markingType?: MarkingType;
   markingTechnique?: MarkingTechnique;
   hourPreparationTime?: number | null;

@@ -1,4 +1,4 @@
-id;diameter_assembly_step;assembly_mean;strand_id
+id;diameter_assembly_step;assembly_mean;owner_strand_id
 1;10;RIGHT;1
 2;10;LEFT;2
 3;10;LEFT;3

@@ -36,9 +36,9 @@ export const CentralAssemblyDetail = (props: RouteComponentProps<{ id: string }>
           </dt>
           <dd>{centralAssemblyEntity.productionStep}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.centralAssembly.strand">Strand</Translate>
+            <Translate contentKey="lappLiApp.assembly.ownerStrand">Owner Strand</Translate>
           </dt>
-          <dd>{centralAssemblyEntity.strand ? centralAssemblyEntity.strand.designation : ''}</dd>
+          <dd>{centralAssemblyEntity.ownerStrand ? centralAssemblyEntity.ownerStrand.designation : ''}</dd>
           <dt>
             <Translate contentKey="lappLiApp.centralAssembly.position">Position</Translate>
           </dt>

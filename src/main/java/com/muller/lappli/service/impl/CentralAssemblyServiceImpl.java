@@ -35,8 +35,8 @@ public class CentralAssemblyServiceImpl implements CentralAssemblyService {
     public CentralAssembly save(CentralAssembly centralAssembly)
         throws PositionInSeveralAssemblyException, PositionHasSeveralSupplyException {
         log.debug("Request to save CentralAssembly : {}", centralAssembly);
-        Long strandId = centralAssembly.getStrand().getId();
-        strandRepository.findById(strandId).ifPresent(centralAssembly::strand);
+        Long strandId = centralAssembly.getOwnerStrand().getId();
+        strandRepository.findById(strandId).ifPresent(centralAssembly::ownerStrand);
 
         centralAssembly.checkPositions();
 

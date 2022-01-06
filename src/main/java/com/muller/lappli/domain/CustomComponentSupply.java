@@ -71,10 +71,11 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
             "customComponentSupplies",
             "oneStudySupplies",
             "centralAssembly",
+            "futureStudy",
         },
         allowSetters = true
     )
-    private Strand strand;
+    private Strand ownerStrand;
 
     @Override
     public CustomComponentSupply getThis() {
@@ -208,17 +209,16 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
         return this;
     }
 
-    @Override
-    public Strand getStrand() {
-        return this.strand;
+    public Strand getOwnerStrand() {
+        return this.ownerStrand;
     }
 
-    public void setStrand(Strand strand) {
-        this.strand = strand;
+    public void setOwnerStrand(Strand strand) {
+        this.ownerStrand = strand;
     }
 
-    public CustomComponentSupply strand(Strand strand) {
-        this.setStrand(strand);
+    public CustomComponentSupply ownerStrand(Strand strand) {
+        this.setOwnerStrand(strand);
         return this;
     }
 

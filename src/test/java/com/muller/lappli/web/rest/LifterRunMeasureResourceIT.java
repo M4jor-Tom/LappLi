@@ -35,8 +35,8 @@ class LifterRunMeasureResourceIT {
     private static final Double DEFAULT_MILIMETER_DIAMETER = 1D;
     private static final Double UPDATED_MILIMETER_DIAMETER = 2D;
 
-    private static final Double DEFAULT_METER_PER_SECOND_SPEED = 1D;
-    private static final Double UPDATED_METER_PER_SECOND_SPEED = 2D;
+    private static final Double DEFAULT_METER_PER_HOUR_SPEED = 1D;
+    private static final Double UPDATED_METER_PER_HOUR_SPEED = 2D;
 
     private static final MarkingType DEFAULT_MARKING_TYPE = MarkingType.LIFTING;
     private static final MarkingType UPDATED_MARKING_TYPE = MarkingType.SPIRALLY_COLORED;
@@ -73,7 +73,7 @@ class LifterRunMeasureResourceIT {
     public static LifterRunMeasure createEntity(EntityManager em) {
         LifterRunMeasure lifterRunMeasure = new LifterRunMeasure()
             .milimeterDiameter(DEFAULT_MILIMETER_DIAMETER)
-            .meterPerSecondSpeed(DEFAULT_METER_PER_SECOND_SPEED)
+            .meterPerHourSpeed(DEFAULT_METER_PER_HOUR_SPEED)
             .markingType(DEFAULT_MARKING_TYPE)
             .markingTechnique(DEFAULT_MARKING_TECHNIQUE)
             .hourPreparationTime(DEFAULT_HOUR_PREPARATION_TIME);
@@ -99,7 +99,7 @@ class LifterRunMeasureResourceIT {
     public static LifterRunMeasure createUpdatedEntity(EntityManager em) {
         LifterRunMeasure lifterRunMeasure = new LifterRunMeasure()
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
-            .meterPerSecondSpeed(UPDATED_METER_PER_SECOND_SPEED)
+            .meterPerHourSpeed(UPDATED_METER_PER_HOUR_SPEED)
             .markingType(UPDATED_MARKING_TYPE)
             .markingTechnique(UPDATED_MARKING_TECHNIQUE)
             .hourPreparationTime(UPDATED_HOUR_PREPARATION_TIME);
@@ -137,7 +137,7 @@ class LifterRunMeasureResourceIT {
         assertThat(lifterRunMeasureList).hasSize(databaseSizeBeforeCreate + 1);
         LifterRunMeasure testLifterRunMeasure = lifterRunMeasureList.get(lifterRunMeasureList.size() - 1);
         assertThat(testLifterRunMeasure.getMilimeterDiameter()).isEqualTo(DEFAULT_MILIMETER_DIAMETER);
-        assertThat(testLifterRunMeasure.getMeterPerSecondSpeed()).isEqualTo(DEFAULT_METER_PER_SECOND_SPEED);
+        assertThat(testLifterRunMeasure.getMeterPerHourSpeed()).isEqualTo(DEFAULT_METER_PER_HOUR_SPEED);
         assertThat(testLifterRunMeasure.getMarkingType()).isEqualTo(DEFAULT_MARKING_TYPE);
         assertThat(testLifterRunMeasure.getMarkingTechnique()).isEqualTo(DEFAULT_MARKING_TECHNIQUE);
         assertThat(testLifterRunMeasure.getHourPreparationTime()).isEqualTo(DEFAULT_HOUR_PREPARATION_TIME);
@@ -214,7 +214,7 @@ class LifterRunMeasureResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(lifterRunMeasure.getId().intValue())))
             .andExpect(jsonPath("$.[*].milimeterDiameter").value(hasItem(DEFAULT_MILIMETER_DIAMETER.doubleValue())))
-            .andExpect(jsonPath("$.[*].meterPerSecondSpeed").value(hasItem(DEFAULT_METER_PER_SECOND_SPEED.doubleValue())))
+            .andExpect(jsonPath("$.[*].meterPerHourSpeed").value(hasItem(DEFAULT_METER_PER_HOUR_SPEED.doubleValue())))
             .andExpect(jsonPath("$.[*].markingType").value(hasItem(DEFAULT_MARKING_TYPE.toString())))
             .andExpect(jsonPath("$.[*].markingTechnique").value(hasItem(DEFAULT_MARKING_TECHNIQUE.toString())))
             .andExpect(jsonPath("$.[*].hourPreparationTime").value(hasItem(DEFAULT_HOUR_PREPARATION_TIME.doubleValue())));
@@ -233,7 +233,7 @@ class LifterRunMeasureResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(lifterRunMeasure.getId().intValue()))
             .andExpect(jsonPath("$.milimeterDiameter").value(DEFAULT_MILIMETER_DIAMETER.doubleValue()))
-            .andExpect(jsonPath("$.meterPerSecondSpeed").value(DEFAULT_METER_PER_SECOND_SPEED.doubleValue()))
+            .andExpect(jsonPath("$.meterPerHourSpeed").value(DEFAULT_METER_PER_HOUR_SPEED.doubleValue()))
             .andExpect(jsonPath("$.markingType").value(DEFAULT_MARKING_TYPE.toString()))
             .andExpect(jsonPath("$.markingTechnique").value(DEFAULT_MARKING_TECHNIQUE.toString()))
             .andExpect(jsonPath("$.hourPreparationTime").value(DEFAULT_HOUR_PREPARATION_TIME.doubleValue()));
@@ -260,7 +260,7 @@ class LifterRunMeasureResourceIT {
         em.detach(updatedLifterRunMeasure);
         updatedLifterRunMeasure
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
-            .meterPerSecondSpeed(UPDATED_METER_PER_SECOND_SPEED)
+            .meterPerHourSpeed(UPDATED_METER_PER_HOUR_SPEED)
             .markingType(UPDATED_MARKING_TYPE)
             .markingTechnique(UPDATED_MARKING_TECHNIQUE)
             .hourPreparationTime(UPDATED_HOUR_PREPARATION_TIME);
@@ -278,7 +278,7 @@ class LifterRunMeasureResourceIT {
         assertThat(lifterRunMeasureList).hasSize(databaseSizeBeforeUpdate);
         LifterRunMeasure testLifterRunMeasure = lifterRunMeasureList.get(lifterRunMeasureList.size() - 1);
         assertThat(testLifterRunMeasure.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
-        assertThat(testLifterRunMeasure.getMeterPerSecondSpeed()).isEqualTo(UPDATED_METER_PER_SECOND_SPEED);
+        assertThat(testLifterRunMeasure.getMeterPerHourSpeed()).isEqualTo(UPDATED_METER_PER_HOUR_SPEED);
         assertThat(testLifterRunMeasure.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
         assertThat(testLifterRunMeasure.getMarkingTechnique()).isEqualTo(UPDATED_MARKING_TECHNIQUE);
         assertThat(testLifterRunMeasure.getHourPreparationTime()).isEqualTo(UPDATED_HOUR_PREPARATION_TIME);
@@ -356,7 +356,7 @@ class LifterRunMeasureResourceIT {
 
         partialUpdatedLifterRunMeasure
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
-            .meterPerSecondSpeed(UPDATED_METER_PER_SECOND_SPEED)
+            .meterPerHourSpeed(UPDATED_METER_PER_HOUR_SPEED)
             .markingType(UPDATED_MARKING_TYPE)
             .hourPreparationTime(UPDATED_HOUR_PREPARATION_TIME);
 
@@ -373,7 +373,7 @@ class LifterRunMeasureResourceIT {
         assertThat(lifterRunMeasureList).hasSize(databaseSizeBeforeUpdate);
         LifterRunMeasure testLifterRunMeasure = lifterRunMeasureList.get(lifterRunMeasureList.size() - 1);
         assertThat(testLifterRunMeasure.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
-        assertThat(testLifterRunMeasure.getMeterPerSecondSpeed()).isEqualTo(UPDATED_METER_PER_SECOND_SPEED);
+        assertThat(testLifterRunMeasure.getMeterPerHourSpeed()).isEqualTo(UPDATED_METER_PER_HOUR_SPEED);
         assertThat(testLifterRunMeasure.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
         assertThat(testLifterRunMeasure.getMarkingTechnique()).isEqualTo(DEFAULT_MARKING_TECHNIQUE);
         assertThat(testLifterRunMeasure.getHourPreparationTime()).isEqualTo(UPDATED_HOUR_PREPARATION_TIME);
@@ -393,7 +393,7 @@ class LifterRunMeasureResourceIT {
 
         partialUpdatedLifterRunMeasure
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
-            .meterPerSecondSpeed(UPDATED_METER_PER_SECOND_SPEED)
+            .meterPerHourSpeed(UPDATED_METER_PER_HOUR_SPEED)
             .markingType(UPDATED_MARKING_TYPE)
             .markingTechnique(UPDATED_MARKING_TECHNIQUE)
             .hourPreparationTime(UPDATED_HOUR_PREPARATION_TIME);
@@ -411,7 +411,7 @@ class LifterRunMeasureResourceIT {
         assertThat(lifterRunMeasureList).hasSize(databaseSizeBeforeUpdate);
         LifterRunMeasure testLifterRunMeasure = lifterRunMeasureList.get(lifterRunMeasureList.size() - 1);
         assertThat(testLifterRunMeasure.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
-        assertThat(testLifterRunMeasure.getMeterPerSecondSpeed()).isEqualTo(UPDATED_METER_PER_SECOND_SPEED);
+        assertThat(testLifterRunMeasure.getMeterPerHourSpeed()).isEqualTo(UPDATED_METER_PER_HOUR_SPEED);
         assertThat(testLifterRunMeasure.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
         assertThat(testLifterRunMeasure.getMarkingTechnique()).isEqualTo(UPDATED_MARKING_TECHNIQUE);
         assertThat(testLifterRunMeasure.getHourPreparationTime()).isEqualTo(UPDATED_HOUR_PREPARATION_TIME);

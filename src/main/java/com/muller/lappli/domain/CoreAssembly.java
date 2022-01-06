@@ -66,7 +66,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         },
         allowSetters = true
     )
-    private Strand strand;
+    private Strand ownerStrand;
 
     @Override
     public CoreAssembly getThis() {
@@ -104,8 +104,8 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     public Long getOperationLayer() {
         Long operationLayer = Long.valueOf(1);
 
-        if (getStrand() != null) {
-            for (CoreAssembly coreAssembly : getStrand().getCoreAssemblies()) {
+        if (getOwnerStrand() != null) {
+            for (CoreAssembly coreAssembly : getOwnerStrand().getCoreAssemblies()) {
                 if (coreAssembly.equals(this)) {
                     return operationLayer;
                 }
@@ -176,17 +176,16 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         return this;
     }
 
-    @Override
-    public Strand getStrand() {
-        return this.strand;
+    public Strand getOwnerStrand() {
+        return this.ownerStrand;
     }
 
-    public void setStrand(Strand strand) {
-        this.strand = strand;
+    public void setOwnerStrand(Strand strand) {
+        this.ownerStrand = strand;
     }
 
-    public CoreAssembly strand(Strand strand) {
-        this.setStrand(strand);
+    public CoreAssembly ownerStrand(Strand strand) {
+        this.setOwnerStrand(strand);
         return this;
     }
 

@@ -71,10 +71,11 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
             "customComponentSupplies",
             "oneStudySupplies",
             "centralAssembly",
+            "futureStudy",
         },
         allowSetters = true
     )
-    private Strand strand;
+    private Strand ownerStrand;
 
     public ElementSupply() {
         super();
@@ -229,17 +230,16 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
         return this;
     }
 
-    @Override
-    public Strand getStrand() {
-        return this.strand;
+    public Strand getOwnerStrand() {
+        return this.ownerStrand;
     }
 
-    public void setStrand(Strand strand) {
-        this.strand = strand;
+    public void setOwnerStrand(Strand strand) {
+        this.ownerStrand = strand;
     }
 
-    public ElementSupply strand(Strand strand) {
-        this.setStrand(strand);
+    public ElementSupply ownerStrand(Strand strand) {
+        this.setOwnerStrand(strand);
         return this;
     }
 

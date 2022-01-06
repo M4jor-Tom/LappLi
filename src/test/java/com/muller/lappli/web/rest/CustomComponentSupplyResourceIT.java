@@ -88,7 +88,7 @@ class CustomComponentSupplyResourceIT {
         } else {
             strand = TestUtil.findAll(em, Strand.class).get(0);
         }
-        customComponentSupply.setStrand(strand);
+        customComponentSupply.setOwnerStrand(strand);
         return customComponentSupply;
     }
 
@@ -122,7 +122,7 @@ class CustomComponentSupplyResourceIT {
         } else {
             strand = TestUtil.findAll(em, Strand.class).get(0);
         }
-        customComponentSupply.setStrand(strand);
+        customComponentSupply.setOwnerStrand(strand);
         return customComponentSupply;
     }
 

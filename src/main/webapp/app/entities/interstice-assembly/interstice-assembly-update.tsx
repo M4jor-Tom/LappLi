@@ -55,7 +55,7 @@ export const IntersticeAssemblyUpdate = (props: RouteComponentProps<{ strand_id:
     const entity = {
       ...intersticeAssemblyEntity,
       ...values,
-      strand: strands.find(it => it.id.toString() === values.strand.toString()),
+      ownerStrand: strands.find(it => it.id.toString() === values.ownerStrand.toString()),
     };
 
     if (isNew) {
@@ -70,7 +70,7 @@ export const IntersticeAssemblyUpdate = (props: RouteComponentProps<{ strand_id:
       ? {}
       : {
           ...intersticeAssemblyEntity,
-          strand: intersticeAssemblyEntity?.strand?.id,
+          ownerStrand: intersticeAssemblyEntity?.ownerStrand?.id,
         };
 
   return (

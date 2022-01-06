@@ -41,7 +41,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @NotNull
     @MapsId
     @JoinColumn(name = "id")
-    private Strand strand;
+    private Strand ownerStrand;
 
     @JsonIgnoreProperties(
         value = {
@@ -109,17 +109,16 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         this.id = id;
     }
 
-    @Override
-    public Strand getStrand() {
-        return this.strand;
+    public Strand getOwnerStrand() {
+        return this.ownerStrand;
     }
 
-    public void setStrand(Strand strand) {
-        this.strand = strand;
+    public void setOwnerStrand(Strand strand) {
+        this.ownerStrand = strand;
     }
 
-    public CentralAssembly strand(Strand strand) {
-        this.setStrand(strand);
+    public CentralAssembly ownerStrand(Strand strand) {
+        this.setOwnerStrand(strand);
         return this;
     }
 

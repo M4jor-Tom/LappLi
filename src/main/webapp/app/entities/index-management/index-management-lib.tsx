@@ -112,12 +112,19 @@ function getStrandValidatedField(
 ) {
   return isStrandSupply(props) ? (
     useState(!props.match.params || !props.match.params.id)[0] ? (
-      <ValidatedField id={fieldId} name="strand" data-cy="strand" type="hidden" value={props.match.params.strand_id} required />
+      <ValidatedField id={fieldId} name="ownerStrand" data-cy="ownerStrand" type="hidden" value={props.match.params.strand_id} required />
     ) : (
       ''
     )
   ) : (
-    <ValidatedField id={fieldId} name="strand" data-cy="strand" label={translate('lappLiApp.supply.strand')} type="select" required>
+    <ValidatedField
+      id={fieldId}
+      name="ownerStrand"
+      data-cy="ownerStrand"
+      label={translate('lappLiApp.supply.ownerStrand')}
+      type="select"
+      required
+    >
       <option value="" key="0" />
       {strands
         ? strands.map(otherEntity => (

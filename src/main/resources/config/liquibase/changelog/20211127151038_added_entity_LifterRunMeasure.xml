@@ -17,7 +17,7 @@
             <column name="milimeter_diameter" type="double">
                 <constraints nullable="true" />
             </column>
-            <column name="meter_per_second_speed" type="double">
+            <column name="meter_per_hour_speed" type="double">
                 <constraints nullable="true" />
             </column>
             <column name="marking_type" type="varchar(255)">
@@ -54,7 +54,7 @@
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="milimeter_diameter" type="numeric"/>
-            <column name="meter_per_second_speed" type="numeric"/>
+            <column name="meter_per_hour_speed" type="numeric"/>
             <column name="marking_type" type="string"/>
             <column name="marking_technique" type="string"/>
             <column name="hour_preparation_time" type="numeric"/>

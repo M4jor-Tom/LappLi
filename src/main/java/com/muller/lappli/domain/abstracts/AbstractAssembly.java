@@ -14,7 +14,7 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends Ab
     @JsonIgnore
     public abstract T getThis();
 
-    public abstract Strand getStrand();
+    public abstract Strand getOwnerStrand();
 
     public abstract Long getId();
 
@@ -51,7 +51,7 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends Ab
      */
     public String getDesignation() {
         try {
-            return getStrand().getDesignation();
+            return getOwnerStrand().getDesignation();
         } catch (NullPointerException e) {
             return "";
         }

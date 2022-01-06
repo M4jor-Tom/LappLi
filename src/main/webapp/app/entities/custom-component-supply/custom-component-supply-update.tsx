@@ -29,8 +29,6 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ strand_
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  //  const _isStrandSupply = isStrandSupply(props);
-
   const redirectionUrl = getOutFromStudySupplyStrandSupplyComponent(props.match.url, isNew);
 
   const customComponents = useAppSelector(state => state.customComponent.entities);
@@ -68,7 +66,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ strand_
       ...customComponentSupplyEntity,
       ...values,
       customComponent: customComponents.find(it => it.id.toString() === values.customComponent.toString()),
-      strand: strands.find(it => it.id.toString() === values.strand.toString()),
+      ownerStrand: strands.find(it => it.id.toString() === values.ownerStrand.toString()),
     };
 
     if (isNew) {
@@ -87,7 +85,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ strand_
           markingType: 'LIFTING',
           ...customComponentSupplyEntity,
           customComponent: customComponentSupplyEntity?.customComponent?.id,
-          strand: customComponentSupplyEntity?.strand?.id,
+          ownerStrand: customComponentSupplyEntity?.ownerStrand?.id,
         };
 
   return (
