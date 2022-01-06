@@ -183,10 +183,10 @@ const Routes = ({ match }) => (
       />
 
       {/* (6): Setting supplies in assembly operations */}
-      {/* Visualisation */}
+      {/* Visualisation *}
       <ErrorBoundaryRoute
         exact
-        path={`${match.url + strandSupplyZoneUrlPefixToStrandId}/:strand_id/operation/central-assembly/:id/supply`}
+        path={`${match.url + strandSupplyZoneUrlPefix}/:strand_id/operation/central-assembly/:id/supply`}
         component={StrandSupplyAssemblySubSupply}
       />
 
