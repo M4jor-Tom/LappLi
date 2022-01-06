@@ -92,7 +92,7 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.supply.markingTechnique">Marking Technique</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.elementSupply.strand">Strand</Translate>
+                  <Translate contentKey="lappLiApp.supply.strand">Strand</Translate>
                 </th>
                 <th />
               </tr>

@@ -83,7 +83,7 @@ export const BangleSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.supply.formatedHourExecutionTime">Execution Time (h)</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.bangleSupply.strand">Strand</Translate>
+                  <Translate contentKey="lappLiApp.supply.strand">Strand</Translate>
                 </th>
                 <th />
               </tr>
