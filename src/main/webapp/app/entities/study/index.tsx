@@ -36,6 +36,8 @@ const strandSupplyZoneUrlPefix = studySuppliesUrlPrefix + '/strand-supply';
 
 const strandZoneUrlPefix = studySuppliesUrlPrefix + '/strand';
 
+const strandSupplyOperationZoneUrlPrefix = strandSupplyZoneUrlPefix + '/:id/operation';
+
 const Routes = ({ match }) => (
   <>
     <Switch>
@@ -66,6 +68,8 @@ const Routes = ({ match }) => (
       {/* (5): Strand's sub-supply and sub-operations observing */}
       {/* STRAND'S SUB SUPPLY ZONE */}
       <ErrorBoundaryRoute exact path={`${match.url + strandZoneUrlPefix}/:id/supply`} component={StrandSubSupply} />
+
+      <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}`} component={StrandSupplySubOperation} />
 
       <ErrorBoundaryRoute
         exact
