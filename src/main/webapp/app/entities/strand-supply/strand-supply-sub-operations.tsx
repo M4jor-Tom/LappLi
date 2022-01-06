@@ -73,18 +73,6 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ id: string
                   <td>{/* NO ASSEMBLY MEAN (CENTRAL ASSEMBLY) */}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
-                      <Button
-                        tag={Link}
-                        to={`${props.match.url}/central-assembly/${strand.centralAssembly.id}/supply`}
-                        color="primary"
-                        size="sm"
-                        data-cy="entityEditButton"
-                      >
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="lappLiApp.assembly.subSupply">Assembly Supply</Translate>
-                        </span>
-                      </Button>
                       &nbsp;
                       <Button
                         tag={Link}
@@ -130,18 +118,6 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ id: string
                       <td>{coreAssembly.assemblyMean}</td>
                       <td className="text-right">
                         <div className="btn-group flex-btn-group-container">
-                          <Button
-                            tag={Link}
-                            to={`${props.match.url}/core-assembly/${coreAssembly.id}/supply`}
-                            color="primary"
-                            size="sm"
-                            data-cy="entityEditButton"
-                          >
-                            <FontAwesomeIcon icon="pencil-alt" />{' '}
-                            <span className="d-none d-md-inline">
-                              <Translate contentKey="lappLiApp.assembly.subSupply">Assembly Supply</Translate>
-                            </span>
-                          </Button>
                           &nbsp;
                           <Button
                             tag={Link}
@@ -186,18 +162,6 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ id: string
                       <td>{intersticialAssembly.assemblyMean}</td>
                       <td className="text-right">
                         <div className="btn-group flex-btn-group-container">
-                          <Button
-                            tag={Link}
-                            to={`${props.match.url}/interstice-assembly/${intersticialAssembly.id}/supply`}
-                            color="primary"
-                            size="sm"
-                            data-cy="entityEditButton"
-                          >
-                            <FontAwesomeIcon icon="pencil-alt" />{' '}
-                            <span className="d-none d-md-inline">
-                              <Translate contentKey="lappLiApp.assembly.subSupply">Assembly Supply</Translate>
-                            </span>
-                          </Button>
                           &nbsp;
                           <Button
                             tag={Link}
