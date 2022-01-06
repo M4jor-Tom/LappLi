@@ -15,6 +15,12 @@ export const StudyOfficeMenu = props => (
     <MenuItem icon="asterisk" to="/study">
       <Translate contentKey="global.menu.entities.study" />
     </MenuItem>
+    <MenuItem icon="asterisk" to="/bangle">
+      <Translate contentKey="global.menu.entities.bangle" />
+    </MenuItem>
+    <MenuItem icon="asterisk" to="/custom-component">
+      <Translate contentKey="global.menu.entities.customComponent" />
+    </MenuItem>
     <MenuItem icon="asterisk" to="/element">
       <Translate contentKey="global.menu.entities.element" />
     </MenuItem>
@@ -27,14 +33,8 @@ export const StudyOfficeMenu = props => (
     <MenuItem icon="asterisk" to="/material">
       <Translate contentKey="global.menu.entities.material" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/bangle">
-      <Translate contentKey="global.menu.entities.bangle" />
-    </MenuItem>
     <MenuItem icon="asterisk" to="/element-kind-edition">
       <Translate contentKey="global.menu.entities.elementKindEdition" />
-    </MenuItem>
-    <MenuItem icon="asterisk" to="/custom-component">
-      <Translate contentKey="global.menu.entities.customComponent" />
     </MenuItem>
   </NavDropdown>
 );
