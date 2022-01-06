@@ -33,36 +33,36 @@ public class Position extends AbstractDomainObject<Position> implements Serializ
     @Column(name = "value", nullable = false)
     private Long value;
 
-    @JsonIgnoreProperties(value = { "element", "position", "strand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "element", "position", "ownerStrand" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private ElementSupply elementSupply;
 
-    @JsonIgnoreProperties(value = { "bangle", "position", "strand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "bangle", "position", "ownerStrand" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private BangleSupply bangleSupply;
 
-    @JsonIgnoreProperties(value = { "customComponent", "position", "strand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "customComponent", "position", "ownerStrand" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private CustomComponentSupply customComponentSupply;
 
-    @JsonIgnoreProperties(value = { "surfaceMaterial", "position", "strand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "surfaceMaterial", "position", "ownerStrand" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private OneStudySupply oneStudySupply;
 
-    @JsonIgnoreProperties(value = { "strand", "position", "positions" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrand", "position", "positions" }, allowSetters = true)
     @OneToOne(mappedBy = "position")
     private CentralAssembly ownerCentralAssembly;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "positions", "strand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "positions", "ownerStrand" }, allowSetters = true)
     private CoreAssembly ownerCoreAssembly;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "positions", "strand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "positions", "ownerStrand" }, allowSetters = true)
     private IntersticeAssembly ownerIntersticeAssembly;
 
     @Override
@@ -70,7 +70,7 @@ public class Position extends AbstractDomainObject<Position> implements Serializ
         return this;
     }
 
-    @JsonIgnoreProperties(value = { "position", "strand" })
+    @JsonIgnoreProperties(value = { "position", "ownerStrand" })
     public AbstractSupply<?> getSupply() {
         if (isOfBangleSupply()) {
             return getBangleSupply();

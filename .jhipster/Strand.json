@@ -5,49 +5,49 @@
     {
       "relationshipType": "one-to-many",
       "otherEntityName": "coreAssembly",
-      "otherEntityRelationshipName": "strand",
+      "otherEntityRelationshipName": "ownerStrand",
       "relationshipName": "coreAssemblies",
       "otherEntityField": "productionStep"
     },
     {
       "relationshipType": "one-to-many",
       "otherEntityName": "intersticeAssembly",
-      "otherEntityRelationshipName": "strand",
+      "otherEntityRelationshipName": "ownerStrand",
       "relationshipName": "intersticeAssemblies",
       "otherEntityField": "productionStep"
     },
     {
       "relationshipType": "one-to-many",
       "otherEntityName": "elementSupply",
-      "otherEntityRelationshipName": "strand",
+      "otherEntityRelationshipName": "ownerStrand",
       "relationshipName": "elementSupplies",
       "otherEntityField": "designation"
     },
     {
       "relationshipType": "one-to-many",
       "otherEntityName": "bangleSupply",
-      "otherEntityRelationshipName": "strand",
+      "otherEntityRelationshipName": "ownerStrand",
       "relationshipName": "bangleSupplies",
       "otherEntityField": "designation"
     },
     {
       "relationshipType": "one-to-many",
       "otherEntityName": "customComponentSupply",
-      "otherEntityRelationshipName": "strand",
+      "otherEntityRelationshipName": "ownerStrand",
       "relationshipName": "customComponentSupplies",
       "otherEntityField": "designation"
     },
     {
       "relationshipType": "one-to-many",
       "otherEntityName": "oneStudySupply",
-      "otherEntityRelationshipName": "strand",
+      "otherEntityRelationshipName": "ownerStrand",
       "relationshipName": "oneStudySupplies",
       "otherEntityField": "designation"
     },
     {
       "relationshipType": "one-to-one",
       "otherEntityName": "centralAssembly",
-      "otherEntityRelationshipName": "strand",
+      "otherEntityRelationshipName": "ownerStrand",
       "relationshipName": "centralAssembly",
       "otherEntityField": "productionStep",
       "ownerSide": false

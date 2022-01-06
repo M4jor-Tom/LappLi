@@ -3,7 +3,7 @@
     "supply": {
       "apparitions": "Apparitions",
       "study": "Etude",
-      "strand": "Toron",
+      "ownerStrand": "Toron Conteneur",
       "description": "description",
       "bestLiftersNames": "Meilleures releveuses",
       "meterPerHourSpeed": "Vitesse (m/h)",

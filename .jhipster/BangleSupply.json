@@ -33,7 +33,7 @@
       "otherEntityName": "strand",
       "otherEntityRelationshipName": "bangleSupplies",
       "relationshipValidateRules": "required",
-      "relationshipName": "strand",
+      "relationshipName": "ownerStrand",
       "otherEntityField": "designation"
     }
   ],

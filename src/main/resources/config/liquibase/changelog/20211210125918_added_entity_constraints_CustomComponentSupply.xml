@@ -14,9 +14,9 @@
                                  referencedColumnNames="id"
                                  referencedTableName="custom_component"/>
 
-        <addForeignKeyConstraint baseColumnNames="strand_id"
+        <addForeignKeyConstraint baseColumnNames="owner_strand_id"
                                  baseTableName="custom_component_supply"
-                                 constraintName="fk_custom_component_supply__strand_id"
+                                 constraintName="fk_custom_component_supply__owner_strand_id"
                                  referencedColumnNames="id"
                                  referencedTableName="strand"/>
     </changeSet>

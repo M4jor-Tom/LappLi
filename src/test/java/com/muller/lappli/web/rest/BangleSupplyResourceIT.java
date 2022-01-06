@@ -81,7 +81,7 @@ class BangleSupplyResourceIT {
         } else {
             strand = TestUtil.findAll(em, Strand.class).get(0);
         }
-        bangleSupply.setStrand(strand);
+        bangleSupply.setOwnerStrand(strand);
         return bangleSupply;
     }
 
@@ -112,7 +112,7 @@ class BangleSupplyResourceIT {
         } else {
             strand = TestUtil.findAll(em, Strand.class).get(0);
         }
-        bangleSupply.setStrand(strand);
+        bangleSupply.setOwnerStrand(strand);
         return bangleSupply;
     }
 

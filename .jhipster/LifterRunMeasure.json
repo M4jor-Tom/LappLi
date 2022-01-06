@@ -6,7 +6,7 @@
       "fieldType": "Double"
     },
     {
-      "fieldName": "meterPerSecondSpeed",
+      "fieldName": "meterPerHourSpeed",
       "fieldType": "Double"
     },
     {

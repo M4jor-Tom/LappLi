@@ -92,7 +92,7 @@ export const CustomComponentSupply = (props: RouteComponentProps<{ url: string }
                   <Translate contentKey="lappLiApp.supply.markingTechnique">Marking Technique</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.supply.strand">Strand</Translate>
+                  <Translate contentKey="lappLiApp.supply.ownerStrand">Owner Strand</Translate>
                 </th>
                 <th />
               </tr>
@@ -130,8 +130,8 @@ export const CustomComponentSupply = (props: RouteComponentProps<{ url: string }
                   <td>{customComponentSupply.formatedHourExecutionTime}</td>
                   <td>{customComponentSupply.markingTechnique}</td>
                   <td>
-                    {customComponentSupply.strand ? (
-                      <Link to={`strand/${customComponentSupply.strand.id}`}>{customComponentSupply.strand.designation}</Link>
+                    {customComponentSupply.ownerStrand ? (
+                      <Link to={`strand/${customComponentSupply.ownerStrand.id}`}>{customComponentSupply.ownerStrand.designation}</Link>
                     ) : (
                       ''
                     )}

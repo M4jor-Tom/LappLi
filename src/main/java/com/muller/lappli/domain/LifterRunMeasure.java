@@ -27,8 +27,8 @@ public class LifterRunMeasure extends AbstractDomainObject<LifterRunMeasure> imp
     @Column(name = "milimeter_diameter")
     private Double milimeterDiameter;
 
-    @Column(name = "meter_per_second_speed")
-    private Double meterPerSecondSpeed;
+    @Column(name = "meter_per_hour_speed")
+    private Double meterPerHourSpeed;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -80,17 +80,17 @@ public class LifterRunMeasure extends AbstractDomainObject<LifterRunMeasure> imp
         this.milimeterDiameter = milimeterDiameter;
     }
 
-    public Double getMeterPerSecondSpeed() {
-        return this.meterPerSecondSpeed;
+    public Double getMeterPerHourSpeed() {
+        return this.meterPerHourSpeed;
     }
 
-    public LifterRunMeasure meterPerSecondSpeed(Double meterPerSecondSpeed) {
-        this.setMeterPerSecondSpeed(meterPerSecondSpeed);
+    public LifterRunMeasure meterPerHourSpeed(Double meterPerHourSpeed) {
+        this.setMeterPerHourSpeed(meterPerHourSpeed);
         return this;
     }
 
-    public void setMeterPerSecondSpeed(Double meterPerSecondSpeed) {
-        this.meterPerSecondSpeed = meterPerSecondSpeed;
+    public void setMeterPerHourSpeed(Double meterPerHourSpeed) {
+        this.meterPerHourSpeed = meterPerHourSpeed;
     }
 
     public MarkingType getMarkingType() {
@@ -170,7 +170,7 @@ public class LifterRunMeasure extends AbstractDomainObject<LifterRunMeasure> imp
         return "LifterRunMeasure{" +
             "id=" + getId() +
             ", milimeterDiameter=" + getMilimeterDiameter() +
-            ", meterPerSecondSpeed=" + getMeterPerSecondSpeed() +
+            ", meterPerHourSpeed=" + getMeterPerHourSpeed() +
             ", markingType='" + getMarkingType() + "'" +
             ", markingTechnique='" + getMarkingTechnique() + "'" +
             ", hourPreparationTime=" + getHourPreparationTime() +

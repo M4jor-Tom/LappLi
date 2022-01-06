@@ -17,7 +17,7 @@ export interface IAbstractSupply {
   formatedHourPreparationTime?: number;
   formatedHourExecutionTime?: number;
   meterPerHourSpeed?: number;
-  strand?: IStrand;
+  ownerStrand?: IStrand;
   position?: IPosition;
 }
 

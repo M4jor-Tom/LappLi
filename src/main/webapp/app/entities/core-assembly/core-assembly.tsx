@@ -62,7 +62,7 @@ export const CoreAssembly = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.coreAssembly.assemblyMean">Assembly Mean</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.coreAssembly.strand">Strand</Translate>
+                  <Translate contentKey="lappLiApp.assembly.ownerStrand">Owner Strand</Translate>
                 </th>
                 <th />
               </tr>
@@ -82,7 +82,11 @@ export const CoreAssembly = (props: RouteComponentProps<{ url: string }>) => {
                     <Translate contentKey={`lappLiApp.AssemblyMean.${coreAssembly.assemblyMean}`} />
                   </td>
                   <td>
-                    {coreAssembly.strand ? <Link to={`strand/${coreAssembly.strand.id}`}>{coreAssembly.strand.designation}</Link> : ''}
+                    {coreAssembly.ownerStrand ? (
+                      <Link to={`strand/${coreAssembly.ownerStrand.id}`}>{coreAssembly.ownerStrand.designation}</Link>
+                    ) : (
+                      ''
+                    )}
                   </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

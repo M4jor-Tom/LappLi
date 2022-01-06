@@ -49,7 +49,7 @@ entity Lifter {
 
 entity LifterRunMeasure {
 	milimeterDiameter Double
-    meterPerSecondSpeed Double
+    meterPerHourSpeed Double
     markingType MarkingType required
     markingTechnique MarkingTechnique required
     hourPreparationTime Double
@@ -138,7 +138,7 @@ entity UserData {
 }
 
 relationship OneToOne {
-	CentralAssembly{strand(designation) required} to Strand{centralAssembly(productionStep)} with jpaDerivedIdentifier
+	CentralAssembly{ownerStrand(designation) required} to Strand{centralAssembly(productionStep)} with jpaDerivedIdentifier
 }
 
 relationship OneToOne {
@@ -158,8 +158,8 @@ relationship OneToOne {
 }
 
 relationship OneToMany {
-	Strand{coreAssemblies(productionStep)} to CoreAssembly{strand(designation) required}
-	Strand{intersticeAssemblies(productionStep)} to IntersticeAssembly{strand(designation) required}
+	Strand{coreAssemblies(productionStep)} to CoreAssembly{ownerStrand(designation) required}
+	Strand{intersticeAssemblies(productionStep)} to IntersticeAssembly{ownerStrand(designation) required}
 }
 
 relationship OneToMany {
@@ -174,10 +174,10 @@ relationship OneToMany {
 	Study{strandSupplies(designation)} to StrandSupply{study(number) required}
 
     //Supplies owned in a Strand as DIVIED_UNPLACED
-	Strand{elementSupplies(designation)} to ElementSupply{strand(designation) required}
-    Strand{bangleSupplies(designation)} to BangleSupply{strand(designation) required}
-    Strand{customComponentSupplies(designation)} to CustomComponentSupply{strand(designation) required}
-	Strand{oneStudySupplies(designation)} to OneStudySupply{strand(designation) required}
+	Strand{elementSupplies(designation)} to ElementSupply{ownerStrand(designation) required}
+    Strand{bangleSupplies(designation)} to BangleSupply{ownerStrand(designation) required}
+    Strand{customComponentSupplies(designation)} to CustomComponentSupply{ownerStrand(designation) required}
+	Strand{oneStudySupplies(designation)} to OneStudySupply{ownerStrand(designation) required}
 
     //Supplies owned in a Strand as PLACED
     CoreAssembly{positions(value)} to Position{ownerCoreAssembly(designation)}

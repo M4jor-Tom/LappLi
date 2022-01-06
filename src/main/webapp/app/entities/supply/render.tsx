@@ -46,7 +46,7 @@ export function renderSupplyTr(
         {supply.surfaceMaterial ? <Link to={`material/${supply.surfaceMaterial.id}`}>{supply.surfaceMaterial.designation}</Link> : ''}
       </td>
       {bestLiftersNames != null ? <td>{bestLiftersNames}</td> : ''}
-      <td>{supply.strand ? <Link to={`strand/${supply.strand.id}`}>{supply.strand.designation}</Link> : ''}</td>
+      <td>{supply.ownerStrand ? <Link to={`strand/${supply.ownerStrand.id}`}>{supply.ownerStrand.designation}</Link> : ''}</td>
       <td className="text-right">
         <div className="btn-group flex-btn-group-container">
           <Button tag={Link} to={`${match.url}/${supply.id}`} color="info" size="sm" data-cy="entityDetailsButton">

@@ -39,7 +39,7 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
     protected static final Long LIFTING_METER_PER_HOUR_SPEED = Long.valueOf(5000);
 
     @JsonIgnoreProperties("supplies")
-    public abstract Strand getStrand();
+    public abstract Strand getOwnerStrand();
 
     public abstract Position getPosition();
 

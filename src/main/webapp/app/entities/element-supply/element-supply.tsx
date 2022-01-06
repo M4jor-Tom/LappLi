@@ -92,7 +92,7 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.supply.markingTechnique">Marking Technique</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.supply.strand">Strand</Translate>
+                  <Translate contentKey="lappLiApp.supply.ownerStrand">Owner Strand</Translate>
                 </th>
                 <th />
               </tr>
@@ -130,7 +130,11 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{elementSupply.formatedHourExecutionTime}</td>
                   <td>{elementSupply.markingTechnique}</td>
                   <td>
-                    {elementSupply.strand ? <Link to={`strand/${elementSupply.strand.id}`}>{elementSupply.strand.designation}</Link> : ''}
+                    {elementSupply.ownerStrand ? (
+                      <Link to={`strand/${elementSupply.ownerStrand.id}`}>{elementSupply.ownerStrand.designation}</Link>
+                    ) : (
+                      ''
+                    )}
                   </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

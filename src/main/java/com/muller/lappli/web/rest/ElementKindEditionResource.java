@@ -141,14 +141,12 @@ public class ElementKindEditionResource {
     /**
      * {@code GET  /element-kind-editions} : get all the elementKindEditions.
      *
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of elementKindEditions in body.
      */
     @GetMapping("/element-kind-editions")
-    public ResponseEntity<List<ElementKindEdition>> getAllElementKindEditions() {
-        log.debug("REST request to get ElementKindEditions");
-        List<ElementKindEdition> entityList = elementKindEditionService.findAll();
-        return ResponseEntity.ok().body(entityList);
+    public List<ElementKindEdition> getAllElementKindEditions() {
+        log.debug("REST request to get all ElementKindEditions");
+        return elementKindEditionService.findAll();
     }
 
     /**

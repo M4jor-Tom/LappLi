@@ -147,18 +147,6 @@ public class ElementKindResource {
     }
 
     /**
-     * {@code GET  /element-kinds/count} : count all the elementKinds.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/element-kinds/count")
-    public ResponseEntity<Long> countElementKinds() {
-        log.debug("REST request to count ElementKinds");
-        return ResponseEntity.ok().body(Long.valueOf(elementKindService.findAll().size()));
-    }
-
-    /**
      * {@code GET  /element-kinds/:id} : get the "id" elementKind.
      *
      * @param id the id of the elementKind to retrieve.

@@ -3,7 +3,7 @@
     "supply": {
       "apparitions": "Apparitions",
       "study": "Study",
-      "strand": "Strand",
+      "ownerStrand": "Owner Strand",
       "description": "Bezeichnung",
       "bestLiftersNames": "Beste Lifters",
       "meterPerHourSpeed": "Geshwindigkeit (m/h)",

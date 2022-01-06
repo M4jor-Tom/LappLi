@@ -65,7 +65,7 @@ class IntersticeAssemblyResourceIT {
         } else {
             strand = TestUtil.findAll(em, Strand.class).get(0);
         }
-        intersticeAssembly.setStrand(strand);
+        intersticeAssembly.setOwnerStrand(strand);
         return intersticeAssembly;
     }
 
@@ -86,7 +86,7 @@ class IntersticeAssemblyResourceIT {
         } else {
             strand = TestUtil.findAll(em, Strand.class).get(0);
         }
-        intersticeAssembly.setStrand(strand);
+        intersticeAssembly.setOwnerStrand(strand);
         return intersticeAssembly;
     }
 

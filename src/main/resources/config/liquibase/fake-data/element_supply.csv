@@ -1,4 +1,4 @@
-id;apparitions;marking_type;description;element_id;strand_id
+id;apparitions;marking_type;description;element_id;owner_strand_id
 1;12;NUMBERED;;1;1
 2;3;LIFTING;;2;2
 3;4;NUMBERED;;3;3

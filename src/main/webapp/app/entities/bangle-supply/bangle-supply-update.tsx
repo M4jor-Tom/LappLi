@@ -61,7 +61,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
       ...bangleSupplyEntity,
       ...values,
       bangle: bangles.find(it => it.id.toString() === values.bangle.toString()),
-      strand: strands.find(it => it.id.toString() === values.strand.toString()),
+      ownerStrand: strands.find(it => it.id.toString() === values.ownerStrand.toString()),
     };
 
     if (isNew) {
@@ -79,7 +79,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
       : {
           ...bangleSupplyEntity,
           bangle: bangleSupplyEntity?.bangle?.id,
-          strand: bangleSupplyEntity?.strand?.id,
+          ownerStrand: bangleSupplyEntity?.ownerStrand?.id,
         };
 
   return (

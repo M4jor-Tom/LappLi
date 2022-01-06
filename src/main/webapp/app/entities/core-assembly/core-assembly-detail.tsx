@@ -54,9 +54,9 @@ export const CoreAssemblyDetail = (props: RouteComponentProps<{ id: string }>) =
           </dt>
           <dd>{coreAssemblyEntity.assemblyMean}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.coreAssembly.strand">Strand</Translate>
+            <Translate contentKey="lappLiApp.assembly.ownerStrand">Owner Strand</Translate>
           </dt>
-          <dd>{coreAssemblyEntity.strand ? coreAssemblyEntity.strand.designation : ''}</dd>
+          <dd>{coreAssemblyEntity.ownerStrand ? coreAssemblyEntity.ownerStrand.designation : ''}</dd>
         </dl>
         <Button tag={Link} to="/core-assembly" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
