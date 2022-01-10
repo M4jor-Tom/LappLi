@@ -1,10 +1,8 @@
 package com.muller.lappli.web.rest.abstracts;
 
-import com.muller.lappli.domain.abstracts.AbstractAssembly;
 import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.exception.PositionHasSeveralSupplyException;
 import com.muller.lappli.domain.exception.PositionInSeveralAssemblyException;
-import com.muller.lappli.service.IAssemblyService;
 import com.muller.lappli.service.IPositionCheckingService;
 import java.net.URI;
 import java.net.URISyntaxException;
