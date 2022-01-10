@@ -62,4 +62,16 @@ public abstract class AbstractLiftedSupply<T> extends AbstractSupply<T> {
     public void setBestLifterList(List<Lifter> bestLifterList) {
         this.bestLifterList = bestLifterList;
     }
+
+    /**
+     * Chained setter of AbstractLiftedSupply.bestLifterList
+     *
+     * @param bestLifterList to set
+     * @return this
+     */
+    public T bestLifterList(List<Lifter> bestLifterList) {
+        setBestLifterList(bestLifterList);
+
+        return getThis();
+    }
 }
