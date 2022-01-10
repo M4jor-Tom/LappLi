@@ -3,10 +3,10 @@ package com.muller.lappli.domain.abstracts;
 import com.muller.lappli.domain.Strand;
 import javax.persistence.MappedSuperclass;
 
-@MappedSuperclass
 /**
  * This class represents an Operation which is done in a cable
  */
+@MappedSuperclass
 public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
 
     /**
