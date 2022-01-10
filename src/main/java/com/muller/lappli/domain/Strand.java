@@ -77,6 +77,45 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
         return this;
     }
 
+    /**
+     * Get the operation before the selected one
+     *
+     * @param operation the selected operation for which the previous one is seeked
+     * @return the seeked operation
+     */
+    @JsonIgnore
+    public AbstractOperation<?> getLastOperationBefore(AbstractOperation<?> operation) {
+        AbstractOperation<?> beforeOperation = null;
+
+        for (AbstractOperation<?> operationChecked : getOperations()) {
+            if (operationChecked.equals(operation)) {
+                //Current operation is the searched one, we seek the prefious one
+                return beforeOperation;
+            }
+
+            //Cycle the cursor
+            beforeOperation = operationChecked;
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the diameter under an operation
+     *
+     * @param operation under which we want a diameter
+     * @return the diameter in milimeter
+     */
+    public Double getMilimeterDiameterBefore(AbstractOperation<?> operation) {
+        AbstractOperation<?> lastOperationBefore = getLastOperationBefore(operation);
+
+        if (lastOperationBefore == null) {
+            return 0.0;
+        }
+
+        return lastOperationBefore.getAfterThisMilimeterDiameter();
+    }
+
     @JsonIgnoreProperties("strand")
     public CoreAssembly getLastCoreAssembly() {
         CoreAssembly lastCoreAssembly = null;
