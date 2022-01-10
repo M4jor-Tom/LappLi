@@ -16,10 +16,20 @@ public abstract class AbstractLiftedSupply<T> extends AbstractSupply<T> {
     @Transient
     private List<Lifter> bestLifterList;
 
+    /**
+     * Default Constructor for AbstractLiftedSupply
+     *
+     * Sets bestLifterList as an empty ArrayList
+     */
     public AbstractLiftedSupply() {
         this(new ArrayList<>());
     }
 
+    /**
+     * Full Field Constructor for AbstractLiftedSupply
+     *
+     * @param bestLifterList the bestLifterList to set
+     */
     public AbstractLiftedSupply(List<Lifter> bestLifterList) {
         setBestLifterList(bestLifterList);
     }
