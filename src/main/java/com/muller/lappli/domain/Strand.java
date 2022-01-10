@@ -87,7 +87,7 @@ public class Strand implements Serializable {
             //For each supply
             List<Long> supplyDividers = new ArrayList<Long>();
 
-            for (Long testValue = Long.valueOf(1); testValue < supply.getApparitions(); testValue++) {
+            for (Long testValue = Long.valueOf(1); testValue < supply.getApparitions() + Long.valueOf(1); testValue++) {
                 //For each of its dividers
                 if (supply.getApparitions() % testValue == Long.valueOf(0)) {
                     //Store it
