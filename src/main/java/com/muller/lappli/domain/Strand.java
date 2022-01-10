@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.exception.NoIntersticeAvailableException;
 import java.io.Serializable;
@@ -20,7 +21,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "strand")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Strand implements Serializable {
+public class Strand extends AbstractDomainObject<Strand> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -68,6 +69,11 @@ public class Strand implements Serializable {
     @NotNull
     @JsonIgnoreProperties(value = { "strands", "strandSupplies", "author" }, allowSetters = true)
     private Study futureStudy;
+
+    @Override
+    public Strand getThis() {
+        return this;
+    }
 
     @JsonIgnoreProperties("strand")
     public CoreAssembly getLastCoreAssembly() {
@@ -142,6 +148,7 @@ public class Strand implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    @Override
     public Long getId() {
         return this.id;
     }
