@@ -10,7 +10,9 @@ import javax.persistence.MappedSuperclass;
 public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
 
     /**
-     * @return the diameter of {@link #getOwnerStrand()} in milimeters after
+     * @return the diameter of {@link #getOwnerStrand()}
+     * in milimeters after {@link #getMilimeterDiameterIncidency()}
+     * is added
      */
     public Double getAfterThisMilimeterDiameter() {
         try {
@@ -20,6 +22,10 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
         }
     }
 
+    /**
+     * @return twice the "thikness" of the operation in the general case,
+     * sometimes a litle bit more, sometimes a little but less
+     */
     public abstract Double getMilimeterDiameterIncidency();
 
     /**
