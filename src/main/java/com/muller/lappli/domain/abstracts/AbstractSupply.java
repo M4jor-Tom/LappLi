@@ -38,9 +38,15 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      */
     protected static final Long LIFTING_METER_PER_HOUR_SPEED = Long.valueOf(5000);
 
+    /**
+     * @return the Strand which owns this
+     */
     @JsonIgnoreProperties("supplies")
     public abstract Strand getOwnerStrand();
 
+    /**
+     * @return the Position at which this is in the {@link #getOwnerStrand()}'s assemblies
+     */
     public abstract Position getPosition();
 
     /**
@@ -63,10 +69,22 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      */
     public abstract CylindricComponent getCylindricComponent();
 
+    /**
+     * @return the Material at the surface of this
+     */
     public abstract Material getSurfaceMaterial();
 
+    /**
+     * @return the kind of supply this is
+     */
     public abstract SupplyKind getSupplyKind();
 
+    /**
+     * To be used on {@link #getOwnerStrand()}'s computation
+     *
+     * @return this
+     * @throws AppartionDivisionNonNullRemainderException if {@link #getApparitionDivisionRemain()} is not null
+     */
     public T checkApparitionRemainderIsNull() throws AppartionDivisionNonNullRemainderException {
         if (!isApparitionDivisionRemainNull()) {
             throw new AppartionDivisionNonNullRemainderException();
@@ -75,6 +93,13 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
         return getThis();
     }
 
+    /**
+     * Check a StrandSupply is this' observer
+     *
+     * @param strandSupply to check
+     * @return this
+     * @throws IllegalStrandSupplyException if the given strandSupply is not this' observer
+     */
     public T checkStrandSupplyObserverIs(StrandSupply strandSupply) throws IllegalStrandSupplyException {
         try {
             if (getObserverStrandSupply().equals(strandSupply)) {
@@ -85,10 +110,17 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
         return getThis();
     }
 
+    /**
+     * @return true if {@link #getApparitionDivisionRemain()} is equal to 0, false otherwise
+     */
     public Boolean isApparitionDivisionRemainNull() {
         return getApparitionDivisionRemain() == Long.valueOf(0);
     }
 
+    /**
+     * @return the remain of {@link #getApparitions()} divided by {@link #getObserverStrandSupply()}'s
+     * {@link com.muller.lappli.domain.StrandSupply#getApparitions()}
+     */
     public Long getApparitionDivisionRemain() {
         try {
             return getApparitions() % getObserverStrandSupply().getApparitions();
