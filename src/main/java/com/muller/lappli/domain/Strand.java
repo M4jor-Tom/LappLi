@@ -2,7 +2,9 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractAssembly;
 import com.muller.lappli.domain.abstracts.AbstractDomainObject;
+import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.exception.NoIntersticeAvailableException;
 import java.io.Serializable;
@@ -75,6 +77,45 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
         return this;
     }
 
+    /**
+     * Get the operation before the selected one
+     *
+     * @param operation the selected operation for which the previous one is seeked
+     * @return the seeked operation
+     */
+    @JsonIgnore
+    public AbstractOperation<?> getLastOperationBefore(AbstractOperation<?> operation) {
+        AbstractOperation<?> beforeOperation = null;
+
+        for (AbstractOperation<?> operationChecked : getOperations()) {
+            if (operationChecked.equals(operation)) {
+                //Current operation is the searched one, we seek the prefious one
+                return beforeOperation;
+            }
+
+            //Cycle the cursor
+            beforeOperation = operationChecked;
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the diameter under an operation
+     *
+     * @param operation under which we want a diameter
+     * @return the diameter in milimeter
+     */
+    public Double getMilimeterDiameterBefore(AbstractOperation<?> operation) {
+        AbstractOperation<?> lastOperationBefore = getLastOperationBefore(operation);
+
+        if (lastOperationBefore == null) {
+            return 0.0;
+        }
+
+        return lastOperationBefore.getAfterThisMilimeterDiameter();
+    }
+
     @JsonIgnoreProperties("strand")
     public CoreAssembly getLastCoreAssembly() {
         CoreAssembly lastCoreAssembly = null;
@@ -144,6 +185,35 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
         supplies.addAll(getOneStudySupplies());
 
         return supplies;
+    }
+
+    /**
+     * @return all the assemblies
+     */
+    @JsonIgnore
+    public Set<AbstractAssembly<?>> getAssemblies() {
+        HashSet<AbstractAssembly<?>> assemblies = new HashSet<>();
+
+        if (getCentralAssembly() != null) {
+            assemblies.add(getCentralAssembly());
+        }
+
+        assemblies.addAll(getCoreAssemblies());
+        assemblies.addAll(getIntersticeAssemblies());
+
+        return assemblies;
+    }
+
+    /**
+     * @return all the operations
+     */
+    @JsonIgnore
+    public Set<AbstractOperation<?>> getOperations() {
+        HashSet<AbstractOperation<?>> operations = new HashSet<>();
+
+        operations.addAll(getAssemblies());
+
+        return operations;
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

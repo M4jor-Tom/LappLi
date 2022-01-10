@@ -7,10 +7,16 @@ import javax.persistence.MappedSuperclass;
 /**
  * This abstract class must be extends by domain edition classes
  * to edit domain objects of the type parameter class
+ *
+ * @param C the type of edited objects
  */
 @MappedSuperclass
 public abstract class AbstractEdition<C extends Commitable<C>> extends AbstractDomainObject<AbstractEdition<C>> {
 
+    /**
+     * AbstractEdition constructor
+     * Sets AbstractEdition.editionInstant to now
+     */
     public AbstractEdition() {
         setEditionInstant(Instant.now());
     }

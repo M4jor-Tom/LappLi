@@ -79,7 +79,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     }
 
     @Override
-    public Double getAfterThisMilimeterDiameter() {
+    public Double getMilimeterDiameterIncidency() {
         try {
             return getPosition().getSupply().getMilimeterDiameter();
         } catch (NullPointerException e) {
