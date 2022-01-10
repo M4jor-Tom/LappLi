@@ -9,7 +9,8 @@
       "position": "Position",
       "diameterAssemblyStep": "Assembly Step (D)",
       "assemblyMean": "Assembly Mean",
-      "subSupply": "Assembly Supply"
+      "subSupply": "Assembly Supply",
+      "ownerStrand": "Owner Strand"
     }
   }
 }

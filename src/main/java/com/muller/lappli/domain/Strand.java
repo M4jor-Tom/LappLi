@@ -2,6 +2,9 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractAssembly;
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
+import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.exception.NoIntersticeAvailableException;
 import java.io.Serializable;
@@ -20,7 +23,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "strand")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Strand implements Serializable {
+public class Strand extends AbstractDomainObject<Strand> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,44 +33,88 @@ public class Strand implements Serializable {
     private Long id;
 
     @NotNull
-    @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrand" }, allowSetters = true)
     private Set<CoreAssembly> coreAssemblies = new HashSet<>();
 
-    @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrand" }, allowSetters = true)
     private Set<IntersticeAssembly> intersticeAssemblies = new HashSet<>();
 
-    @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrand" }, allowSetters = true)
     private Set<ElementSupply> elementSupplies = new HashSet<>();
 
-    @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrand" }, allowSetters = true)
     private Set<BangleSupply> bangleSupplies = new HashSet<>();
 
-    @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrand" }, allowSetters = true)
     private Set<CustomComponentSupply> customComponentSupplies = new HashSet<>();
 
-    @OneToMany(mappedBy = "strand", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrand" }, allowSetters = true)
     private Set<OneStudySupply> oneStudySupplies = new HashSet<>();
 
-    @JsonIgnoreProperties(value = { "strand" }, allowSetters = true)
-    @OneToOne(mappedBy = "strand")
+    @JsonIgnoreProperties(value = { "ownerStrand" }, allowSetters = true)
+    @OneToOne(mappedBy = "ownerStrand")
     private CentralAssembly centralAssembly;
 
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(value = { "strands", "strandSupplies", "author" }, allowSetters = true)
     private Study futureStudy;
+
+    @Override
+    public Strand getThis() {
+        return this;
+    }
+
+    /**
+     * Get the operation before the selected one
+     *
+     * @param operation the selected operation for which the previous one is seeked
+     * @return the seeked operation
+     */
+    @JsonIgnore
+    public AbstractOperation<?> getLastOperationBefore(AbstractOperation<?> operation) {
+        AbstractOperation<?> beforeOperation = null;
+
+        for (AbstractOperation<?> operationChecked : getOperations()) {
+            if (operationChecked.equals(operation)) {
+                //Current operation is the searched one, we seek the prefious one
+                return beforeOperation;
+            }
+
+            //Cycle the cursor
+            beforeOperation = operationChecked;
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the diameter under an operation
+     *
+     * @param operation under which we want a diameter
+     * @return the diameter in milimeter
+     */
+    public Double getMilimeterDiameterBefore(AbstractOperation<?> operation) {
+        AbstractOperation<?> lastOperationBefore = getLastOperationBefore(operation);
+
+        if (lastOperationBefore == null) {
+            return 0.0;
+        }
+
+        return lastOperationBefore.getAfterThisMilimeterDiameter();
+    }
 
     @JsonIgnoreProperties("strand")
     public CoreAssembly getLastCoreAssembly() {
@@ -87,7 +134,7 @@ public class Strand implements Serializable {
             //For each supply
             List<Long> supplyDividers = new ArrayList<Long>();
 
-            for (Long testValue = Long.valueOf(1); testValue < supply.getApparitions(); testValue++) {
+            for (Long testValue = Long.valueOf(1); testValue < supply.getApparitions() + Long.valueOf(1); testValue++) {
                 //For each of its dividers
                 if (supply.getApparitions() % testValue == Long.valueOf(0)) {
                     //Store it
@@ -140,8 +187,38 @@ public class Strand implements Serializable {
         return supplies;
     }
 
+    /**
+     * @return all the assemblies
+     */
+    @JsonIgnore
+    public Set<AbstractAssembly<?>> getAssemblies() {
+        HashSet<AbstractAssembly<?>> assemblies = new HashSet<>();
+
+        if (getCentralAssembly() != null) {
+            assemblies.add(getCentralAssembly());
+        }
+
+        assemblies.addAll(getCoreAssemblies());
+        assemblies.addAll(getIntersticeAssemblies());
+
+        return assemblies;
+    }
+
+    /**
+     * @return all the operations
+     */
+    @JsonIgnore
+    public Set<AbstractOperation<?>> getOperations() {
+        HashSet<AbstractOperation<?>> operations = new HashSet<>();
+
+        operations.addAll(getAssemblies());
+
+        return operations;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    @Override
     public Long getId() {
         return this.id;
     }
@@ -165,10 +242,10 @@ public class Strand implements Serializable {
 
     public void setCoreAssemblies(Set<CoreAssembly> coreAssemblies) {
         if (this.coreAssemblies != null) {
-            this.coreAssemblies.forEach(i -> i.setStrand(null));
+            this.coreAssemblies.forEach(i -> i.setOwnerStrand(null));
         }
         if (coreAssemblies != null) {
-            coreAssemblies.forEach(i -> i.setStrand(this));
+            coreAssemblies.forEach(i -> i.setOwnerStrand(this));
         }
         this.coreAssemblies = coreAssemblies;
     }
@@ -180,13 +257,13 @@ public class Strand implements Serializable {
 
     public Strand addCoreAssemblies(CoreAssembly coreAssembly) {
         this.coreAssemblies.add(coreAssembly);
-        coreAssembly.setStrand(this);
+        coreAssembly.setOwnerStrand(this);
         return this;
     }
 
     public Strand removeCoreAssemblies(CoreAssembly coreAssembly) {
         this.coreAssemblies.remove(coreAssembly);
-        coreAssembly.setStrand(null);
+        coreAssembly.setOwnerStrand(null);
         return this;
     }
 
@@ -199,10 +276,10 @@ public class Strand implements Serializable {
             throw new NoIntersticeAvailableException("No CoreAssembly found in strand");
         }
         if (this.intersticeAssemblies != null) {
-            this.intersticeAssemblies.forEach(i -> i.setStrand(null));
+            this.intersticeAssemblies.forEach(i -> i.setOwnerStrand(null));
         }
         if (intersticeAssemblies != null) {
-            intersticeAssemblies.forEach(i -> i.setStrand(this));
+            intersticeAssemblies.forEach(i -> i.setOwnerStrand(this));
         }
         this.intersticeAssemblies = intersticeAssemblies;
     }
@@ -214,13 +291,13 @@ public class Strand implements Serializable {
 
     public Strand addIntersticeAssemblies(IntersticeAssembly intersticeAssembly) {
         this.intersticeAssemblies.add(intersticeAssembly);
-        intersticeAssembly.setStrand(this);
+        intersticeAssembly.setOwnerStrand(this);
         return this;
     }
 
     public Strand removeIntersticeAssemblies(IntersticeAssembly intersticeAssembly) {
         this.intersticeAssemblies.remove(intersticeAssembly);
-        intersticeAssembly.setStrand(null);
+        intersticeAssembly.setOwnerStrand(null);
         return this;
     }
 
@@ -230,10 +307,10 @@ public class Strand implements Serializable {
 
     public void setElementSupplies(Set<ElementSupply> elementSupplies) {
         if (this.elementSupplies != null) {
-            this.elementSupplies.forEach(i -> i.setStrand(null));
+            this.elementSupplies.forEach(i -> i.setOwnerStrand(null));
         }
         if (elementSupplies != null) {
-            elementSupplies.forEach(i -> i.setStrand(this));
+            elementSupplies.forEach(i -> i.setOwnerStrand(this));
         }
         this.elementSupplies = elementSupplies;
     }
@@ -245,13 +322,13 @@ public class Strand implements Serializable {
 
     public Strand addElementSupplies(ElementSupply elementSupply) {
         this.elementSupplies.add(elementSupply);
-        elementSupply.setStrand(this);
+        elementSupply.setOwnerStrand(this);
         return this;
     }
 
     public Strand removeElementSupplies(ElementSupply elementSupply) {
         this.elementSupplies.remove(elementSupply);
-        elementSupply.setStrand(null);
+        elementSupply.setOwnerStrand(null);
         return this;
     }
 
@@ -261,10 +338,10 @@ public class Strand implements Serializable {
 
     public void setBangleSupplies(Set<BangleSupply> bangleSupplies) {
         if (this.bangleSupplies != null) {
-            this.bangleSupplies.forEach(i -> i.setStrand(null));
+            this.bangleSupplies.forEach(i -> i.setOwnerStrand(null));
         }
         if (bangleSupplies != null) {
-            bangleSupplies.forEach(i -> i.setStrand(this));
+            bangleSupplies.forEach(i -> i.setOwnerStrand(this));
         }
         this.bangleSupplies = bangleSupplies;
     }
@@ -276,13 +353,13 @@ public class Strand implements Serializable {
 
     public Strand addBangleSupplies(BangleSupply bangleSupply) {
         this.bangleSupplies.add(bangleSupply);
-        bangleSupply.setStrand(this);
+        bangleSupply.setOwnerStrand(this);
         return this;
     }
 
     public Strand removeBangleSupplies(BangleSupply bangleSupply) {
         this.bangleSupplies.remove(bangleSupply);
-        bangleSupply.setStrand(null);
+        bangleSupply.setOwnerStrand(null);
         return this;
     }
 
@@ -292,10 +369,10 @@ public class Strand implements Serializable {
 
     public void setCustomComponentSupplies(Set<CustomComponentSupply> customComponentSupplies) {
         if (this.customComponentSupplies != null) {
-            this.customComponentSupplies.forEach(i -> i.setStrand(null));
+            this.customComponentSupplies.forEach(i -> i.setOwnerStrand(null));
         }
         if (customComponentSupplies != null) {
-            customComponentSupplies.forEach(i -> i.setStrand(this));
+            customComponentSupplies.forEach(i -> i.setOwnerStrand(this));
         }
         this.customComponentSupplies = customComponentSupplies;
     }
@@ -307,13 +384,13 @@ public class Strand implements Serializable {
 
     public Strand addCustomComponentSupplies(CustomComponentSupply customComponentSupply) {
         this.customComponentSupplies.add(customComponentSupply);
-        customComponentSupply.setStrand(this);
+        customComponentSupply.setOwnerStrand(this);
         return this;
     }
 
     public Strand removeCustomComponentSupplies(CustomComponentSupply customComponentSupply) {
         this.customComponentSupplies.remove(customComponentSupply);
-        customComponentSupply.setStrand(null);
+        customComponentSupply.setOwnerStrand(null);
         return this;
     }
 
@@ -323,10 +400,10 @@ public class Strand implements Serializable {
 
     public void setOneStudySupplies(Set<OneStudySupply> oneStudySupplies) {
         if (this.oneStudySupplies != null) {
-            this.oneStudySupplies.forEach(i -> i.setStrand(null));
+            this.oneStudySupplies.forEach(i -> i.setOwnerStrand(null));
         }
         if (oneStudySupplies != null) {
-            oneStudySupplies.forEach(i -> i.setStrand(this));
+            oneStudySupplies.forEach(i -> i.setOwnerStrand(this));
         }
         this.oneStudySupplies = oneStudySupplies;
     }
@@ -338,13 +415,13 @@ public class Strand implements Serializable {
 
     public Strand addOneStudySupplies(OneStudySupply oneStudySupply) {
         this.oneStudySupplies.add(oneStudySupply);
-        oneStudySupply.setStrand(this);
+        oneStudySupply.setOwnerStrand(this);
         return this;
     }
 
     public Strand removeOneStudySupplies(OneStudySupply oneStudySupply) {
         this.oneStudySupplies.remove(oneStudySupply);
-        oneStudySupply.setStrand(null);
+        oneStudySupply.setOwnerStrand(null);
         return this;
     }
 
@@ -354,10 +431,10 @@ public class Strand implements Serializable {
 
     public void setCentralAssembly(CentralAssembly centralAssembly) {
         if (this.centralAssembly != null) {
-            this.centralAssembly.setStrand(null);
+            this.centralAssembly.setOwnerStrand(null);
         }
         if (centralAssembly != null) {
-            centralAssembly.setStrand(this);
+            centralAssembly.setOwnerStrand(this);
         }
         this.centralAssembly = centralAssembly;
     }

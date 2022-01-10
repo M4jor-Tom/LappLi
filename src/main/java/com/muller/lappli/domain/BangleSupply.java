@@ -58,16 +58,17 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     @JsonIgnoreProperties(
         value = {
             "coreAssemblies",
-            "intersticialAssemblies",
+            "intersticeAssemblies",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",
             "oneStudySupplies",
             "centralAssembly",
+            "futureStudy",
         },
         allowSetters = true
     )
-    private Strand strand;
+    private Strand ownerStrand;
 
     @Override
     public BangleSupply getThis() {
@@ -193,17 +194,16 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
         return this;
     }
 
-    @Override
-    public Strand getStrand() {
-        return this.strand;
+    public Strand getOwnerStrand() {
+        return this.ownerStrand;
     }
 
-    public void setStrand(Strand strand) {
-        this.strand = strand;
+    public void setOwnerStrand(Strand strand) {
+        this.ownerStrand = strand;
     }
 
-    public BangleSupply strand(Strand strand) {
-        this.setStrand(strand);
+    public BangleSupply ownerStrand(Strand strand) {
+        this.setOwnerStrand(strand);
         return this;
     }
 

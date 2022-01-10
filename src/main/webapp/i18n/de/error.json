@@ -6,7 +6,8 @@
       "403": "Sie haben nicht die nötigen Berechtigungen um diese Seite anzuzeigen.",
       "404": "Die Seite existiert nicht.",
       "405": "Die verwendete Anfrage-Methode ist für diese URL nicht erlaubt.",
-      "500": "Interner Serverfehler."
+      "500": "Interner Serverfehler.",
+      "504": "Error occured while trying to proxy."
     },
     "concurrencyFailure": "Ein anderer Benutzer hat diese Daten zeitgleich mit Ihnen geändert. Ihre Änderungen wurden abgelehnt.",
     "validation": "Validierungsfehler auf dem Server."

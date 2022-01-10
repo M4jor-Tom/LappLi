@@ -69,7 +69,7 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ strand_id: stri
       ...elementSupplyEntity,
       ...values,
       element: elements.find(it => it.id.toString() === values.element.toString()),
-      strand: strands.find(it => it.id.toString() === values.strand.toString()),
+      ownerStrand: strands.find(it => it.id.toString() === values.ownerStrand.toString()),
     };
 
     if (isNew) {
@@ -88,7 +88,7 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ strand_id: stri
           markingType: 'LIFTING',
           ...elementSupplyEntity,
           element: elementSupplyEntity?.element?.id,
-          strand: elementSupplyEntity?.strand?.id,
+          ownerStrand: elementSupplyEntity?.ownerStrand?.id,
         };
 
   return (

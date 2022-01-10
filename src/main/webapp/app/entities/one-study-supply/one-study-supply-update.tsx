@@ -68,7 +68,7 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
       ...oneStudySupplyEntity,
       ...values,
       surfaceMaterial: materials.find(it => it.id.toString() === values.surfaceMaterial.toString()),
-      strand: strands.find(it => it.id.toString() === values.strand.toString()),
+      ownerStrand: strands.find(it => it.id.toString() === values.ownerStrand.toString()),
     };
 
     if (isNew) {
@@ -88,7 +88,7 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
           surfaceColor: 'NATURAL',
           ...oneStudySupplyEntity,
           surfaceMaterial: oneStudySupplyEntity?.surfaceMaterial?.id,
-          strand: oneStudySupplyEntity?.strand?.id,
+          ownerStrand: oneStudySupplyEntity?.ownerStrand?.id,
         };
 
   return (

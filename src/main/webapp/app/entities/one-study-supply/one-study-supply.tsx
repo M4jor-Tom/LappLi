@@ -80,7 +80,7 @@ export const OneStudySupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Lifters</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.oneStudySupply.strand">Strand</Translate>
+                  <Translate contentKey="lappLiApp.oneStudySupply.ownerStrand">Strand</Translate>
                 </th>
                 <th />
               </tr>
@@ -114,8 +114,8 @@ export const OneStudySupply = (props: RouteComponentProps<{ url: string }>) => {
                   </td>
                   <td>{oneStudySupply.bestLiftersNames}</td>
                   <td>
-                    {oneStudySupply.strand ? (
-                      <Link to={`strand/${oneStudySupply.strand.id}`}>{oneStudySupply.strand.designation}</Link>
+                    {oneStudySupply.ownerStrand ? (
+                      <Link to={`strand/${oneStudySupply.ownerStrand.id}`}>{oneStudySupply.ownerStrand.designation}</Link>
                     ) : (
                       ''
                     )}

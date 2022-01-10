@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +16,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "user_data")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class UserData implements Serializable {
+public class UserData extends AbstractDomainObject<UserData> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,8 +35,14 @@ public class UserData implements Serializable {
     @JsonIgnoreProperties(value = { "strandSupplies" }, allowSetters = true)
     private Set<Study> studies = new HashSet<>();
 
+    @Override
+    public UserData getThis() {
+        return this;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    @Override
     public Long getId() {
         return this.id;
     }

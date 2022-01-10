@@ -88,7 +88,7 @@ class ElementSupplyResourceIT {
         } else {
             strand = TestUtil.findAll(em, Strand.class).get(0);
         }
-        elementSupply.setStrand(strand);
+        elementSupply.setOwnerStrand(strand);
         return elementSupply;
     }
 
@@ -122,7 +122,7 @@ class ElementSupplyResourceIT {
         } else {
             strand = TestUtil.findAll(em, Strand.class).get(0);
         }
-        elementSupply.setStrand(strand);
+        elementSupply.setOwnerStrand(strand);
         return elementSupply;
     }
 

@@ -41,8 +41,8 @@ public class LifterRunMeasureServiceImpl implements LifterRunMeasureService {
                 if (lifterRunMeasure.getMilimeterDiameter() != null) {
                     existingLifterRunMeasure.setMilimeterDiameter(lifterRunMeasure.getMilimeterDiameter());
                 }
-                if (lifterRunMeasure.getMeterPerSecondSpeed() != null) {
-                    existingLifterRunMeasure.setMeterPerSecondSpeed(lifterRunMeasure.getMeterPerSecondSpeed());
+                if (lifterRunMeasure.getMeterPerHourSpeed() != null) {
+                    existingLifterRunMeasure.setMeterPerHourSpeed(lifterRunMeasure.getMeterPerHourSpeed());
                 }
                 if (lifterRunMeasure.getMarkingType() != null) {
                     existingLifterRunMeasure.setMarkingType(lifterRunMeasure.getMarkingType());

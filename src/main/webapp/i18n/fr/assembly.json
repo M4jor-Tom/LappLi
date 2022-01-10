@@ -9,7 +9,8 @@
       "position": "Position",
       "diameterAssemblyStep": "Pas d'Assemblage (D)",
       "assemblyMean": "Sens d'Assemblage",
-      "subSupply": "Approvisionnement de couche"
+      "subSupply": "Approvisionnement de couche",
+      "ownerStrand": "Toron Conteneur"
     }
   }
 }

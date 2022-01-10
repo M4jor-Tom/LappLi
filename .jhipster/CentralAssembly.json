@@ -7,7 +7,7 @@
       "otherEntityName": "strand",
       "otherEntityRelationshipName": "centralAssembly",
       "relationshipValidateRules": "required",
-      "relationshipName": "strand",
+      "relationshipName": "ownerStrand",
       "otherEntityField": "designation",
       "ownerSide": true,
       "useJPADerivedIdentifier": true,

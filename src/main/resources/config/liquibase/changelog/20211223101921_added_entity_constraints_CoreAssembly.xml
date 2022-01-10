@@ -8,9 +8,9 @@
     -->
     <changeSet id="20211223101921-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="strand_id"
+        <addForeignKeyConstraint baseColumnNames="owner_strand_id"
                                  baseTableName="core_assembly"
-                                 constraintName="fk_core_assembly__strand_id"
+                                 constraintName="fk_core_assembly__owner_strand_id"
                                  referencedColumnNames="id"
                                  referencedTableName="strand"/>
     </changeSet>

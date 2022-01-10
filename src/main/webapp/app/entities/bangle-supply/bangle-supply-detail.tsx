@@ -30,9 +30,9 @@ export const BangleSupplyDetail = (props: RouteComponentProps<{ id: string }>) =
           </dt>
           <dd>{bangleSupplyEntity.id}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.bangleSupply.strand">Strand</Translate>
+            <Translate contentKey="lappLiApp.supply.ownerStrand">Owner Strand</Translate>
           </dt>
-          <dd>{bangleSupplyEntity.strand ? bangleSupplyEntity.strand.designation : ''}</dd>
+          <dd>{bangleSupplyEntity.ownerStrand ? bangleSupplyEntity.ownerStrand.designation : ''}</dd>
           <dt>
             <span id="apparitions">
               <Translate contentKey="lappLiApp.supply.apparitions">Apparitions</Translate>
@@ -60,11 +60,11 @@ export const BangleSupplyDetail = (props: RouteComponentProps<{ id: string }>) =
           <dt>
             <Translate contentKey="lappLiApp.dimension.milimeterDiameter">Diameter (mm)</Translate>
           </dt>
-          <dd>{bangleSupplyEntity.bangle.milimeterDiameter}</dd>
+          <dd>{bangleSupplyEntity.bangle?.milimeterDiameter}</dd>
           <dt>
             <Translate contentKey="lappLiApp.dimension.gramPerMeterLinearMass">Linear Mass (g/m)</Translate>
           </dt>
-          <dd>{bangleSupplyEntity.bangle.gramPerMeterLinearMass}</dd>
+          <dd>{bangleSupplyEntity.bangle?.gramPerMeterLinearMass}</dd>
           <dt>
             <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Lifter Names</Translate>
           </dt>

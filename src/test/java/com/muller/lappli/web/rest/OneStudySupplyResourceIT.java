@@ -109,7 +109,7 @@ class OneStudySupplyResourceIT {
         } else {
             strand = TestUtil.findAll(em, Strand.class).get(0);
         }
-        oneStudySupply.setStrand(strand);
+        oneStudySupply.setOwnerStrand(strand);
         return oneStudySupply;
     }
 
@@ -148,7 +148,7 @@ class OneStudySupplyResourceIT {
         } else {
             strand = TestUtil.findAll(em, Strand.class).get(0);
         }
-        oneStudySupply.setStrand(strand);
+        oneStudySupply.setOwnerStrand(strand);
         return oneStudySupply;
     }
 

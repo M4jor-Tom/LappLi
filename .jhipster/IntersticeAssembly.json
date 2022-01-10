@@ -14,7 +14,7 @@
       "otherEntityName": "strand",
       "otherEntityRelationshipName": "intersticeAssemblies",
       "relationshipValidateRules": "required",
-      "relationshipName": "strand",
+      "relationshipName": "ownerStrand",
       "otherEntityField": "designation"
     }
   ],

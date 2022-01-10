@@ -57,7 +57,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         },
         allowSetters = true
     )
-    private Strand strand;
+    private Strand ownerStrand;
 
     @Override
     public IntersticeAssembly getThis() {
@@ -67,7 +67,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     @Override
     public Double getDiameterAssemblyStep() {
         try {
-            return getStrand().getLastCoreAssembly().getDiameterAssemblyStep();
+            return getOwnerStrand().getLastCoreAssembly().getDiameterAssemblyStep();
         } catch (NullPointerException e) {
             return Double.NaN;
         }
@@ -76,7 +76,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     @Override
     public AssemblyMean getAssemblyMean() {
         try {
-            return getStrand().getLastCoreAssembly().getAssemblyMean();
+            return getOwnerStrand().getLastCoreAssembly().getAssemblyMean();
         } catch (NullPointerException e) {
             return null;
         }
@@ -85,19 +85,15 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     @Override
     public Long getOperationLayer() {
         try {
-            return getStrand().getLastCoreAssembly().getOperationLayer();
+            return getOwnerStrand().getLastCoreAssembly().getOperationLayer();
         } catch (NullPointerException e) {
             return null;
         }
     }
 
     @Override
-    public Double getAfterThisMilimeterDiameter() {
-        try {
-            return getStrand().getLastCoreAssembly().getAfterThisMilimeterDiameter();
-        } catch (NullPointerException e) {
-            return Double.NaN;
-        }
+    public Double getMilimeterDiameterIncidency() {
+        return 0.0;
     }
 
     @Override
@@ -154,17 +150,16 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         return this;
     }
 
-    @Override
-    public Strand getStrand() {
-        return this.strand;
+    public Strand getOwnerStrand() {
+        return this.ownerStrand;
     }
 
-    public void setStrand(Strand strand) {
-        this.strand = strand;
+    public void setOwnerStrand(Strand strand) {
+        this.ownerStrand = strand;
     }
 
-    public IntersticeAssembly strand(Strand strand) {
-        this.setStrand(strand);
+    public IntersticeAssembly ownerStrand(Strand strand) {
+        this.setOwnerStrand(strand);
         return this;
     }
 

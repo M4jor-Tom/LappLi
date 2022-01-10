@@ -62,7 +62,7 @@
       "otherEntityName": "strand",
       "otherEntityRelationshipName": "oneStudySupplies",
       "relationshipValidateRules": "required",
-      "relationshipName": "strand",
+      "relationshipName": "ownerStrand",
       "otherEntityField": "designation"
     }
   ],

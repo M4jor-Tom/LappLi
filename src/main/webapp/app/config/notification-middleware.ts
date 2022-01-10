@@ -84,6 +84,10 @@ export default () => next => action => {
             addErrorAlert('Not found', 'error.url.not.found');
             break;
 
+          case 504:
+            addErrorAlert('Proxy', 'error.http.504');
+            break;
+
           default:
             if (typeof data === 'string' && data !== '') {
               addErrorAlert(data);

@@ -1,4 +1,4 @@
-id;apparitions;description;marking_type;custom_component_id;strand_id
+id;apparitions;description;marking_type;custom_component_id;owner_strand_id
 1;1;backing Mouse;RINGY_COLORED;1;1
 2;2;Hong discrete;LONGITUDINALLY_COLORED;2;2
 3;3;Handmade Computer Investment;NUMBERED;3;3
