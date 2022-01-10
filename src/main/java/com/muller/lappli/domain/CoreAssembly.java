@@ -74,7 +74,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     }
 
     @Override
-    public Double getAfterThisMilimeterDiameter() {
+    public Double getMilimeterDiameterIncidency() {
         return Double.NaN;
     }
 

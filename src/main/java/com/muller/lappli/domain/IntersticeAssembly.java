@@ -92,12 +92,8 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     }
 
     @Override
-    public Double getAfterThisMilimeterDiameter() {
-        try {
-            return getOwnerStrand().getLastCoreAssembly().getAfterThisMilimeterDiameter();
-        } catch (NullPointerException e) {
-            return Double.NaN;
-        }
+    public Double getMilimeterDiameterIncidency() {
+        return 0.0;
     }
 
     @Override
