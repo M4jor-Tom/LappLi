@@ -8,11 +8,20 @@ import com.muller.lappli.domain.enumeration.MarkingType;
 import java.util.Comparator;
 import javax.persistence.MappedSuperclass;
 
+/**
+ * This class represents AbstractLiftedSupplies which are marked
+ */
 @MappedSuperclass
 public abstract class AbstractMarkedLiftedSupply<T> extends AbstractLiftedSupply<T> {
 
+    /**
+     * @return the color which appears at the surface of the marked supply
+     */
     public abstract Color getSurfaceColor();
 
+    /**
+     * @return the selected MarkingType
+     */
     public abstract MarkingType getMarkingType();
 
     @Override
@@ -29,6 +38,10 @@ public abstract class AbstractMarkedLiftedSupply<T> extends AbstractLiftedSupply
         }
     }
 
+    /**
+     * @return the MarkingTechnique with which the MarkingType will be performed in
+     * case it's {@link MarkingType#NUMBERED}
+     */
     @JsonIgnoreProperties(allowGetters = true)
     public MarkingTechnique getMarkingTechnique() {
         if (!MarkingType.NUMBERED.equals(getMarkingType())) {
@@ -39,6 +52,9 @@ public abstract class AbstractMarkedLiftedSupply<T> extends AbstractLiftedSupply
         return getBestMarkingMaterialStatistic().getMarkingTechnique();
     }
 
+    /**
+     * @return the highest speed owner {@link MaterialMarkingStatistic}
+     */
     protected MaterialMarkingStatistic getBestMarkingMaterialStatistic() {
         //Takes the surface material, then
         return getSurfaceMaterial()
