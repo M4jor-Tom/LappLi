@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
@@ -16,7 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "study")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Study implements Serializable {
+public class Study extends AbstractDomainObject<Study> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -47,6 +48,11 @@ public class Study implements Serializable {
     @JsonIgnoreProperties(value = { "futureStudy" }, allowSetters = true)
     private Set<Strand> strands = new HashSet<>();
 
+    @Override
+    public Study getThis() {
+        return this;
+    }
+
     public Study() {
         actualize();
         setAuthor(new UserData());
@@ -62,6 +68,7 @@ public class Study implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    @Override
     public Long getId() {
         return this.id;
     }
