@@ -30,6 +30,16 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ id: string
       <h2 data-cy="strandDetailsHeading">
         <Translate contentKey="lappLiApp.strand.detail.title">Strand</Translate>
       </h2>
+      <Link
+        to={`${props.match.url}/sheathing/new`}
+        className="btn btn-primary jh-create-entity"
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+      >
+        <FontAwesomeIcon icon="plus" />
+        &nbsp;
+        <Translate contentKey="lappLiApp.sheathing.home.createLabel">Create new Sheathing</Translate>
+      </Link>
       <div className="table-responsive">
         {strand.centralAssembly ||
         (strand.coreAssemblies && strand.coreAssemblies.length > 0) ||
