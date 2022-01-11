@@ -1,5 +1,6 @@
 package com.muller.lappli.domain.abstracts;
 
+import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.Strand;
 import javax.persistence.MappedSuperclass;
 
@@ -36,7 +37,18 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
     /**
      * @return the layer at which this operation is
      */
-    public abstract Long getOperationLayer();
+    public Long getOperationLayer() {
+        Strand ownerStrand = getOwnerStrand();
+        AbstractOperation<?> lastOperation = null;
+
+        if (ownerStrand == null) {
+            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+        } else if ((lastOperation = ownerStrand.getLastOperationBefore(this)) == null) {
+            return Long.valueOf(0);
+        }
+
+        return lastOperation.getOperationLayer() + 1;
+    }
 
     /**
      * @return the step at which this is producted
