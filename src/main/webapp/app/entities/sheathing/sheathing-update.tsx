@@ -118,7 +118,7 @@ export const SheathingUpdate = (props: RouteComponentProps<{ id: string }>) => {
               >
                 {sheathingKindValues.map(sheathingKind => (
                   <option value={sheathingKind} key={sheathingKind}>
-                    {translate('lappLiApp.SheathingKind' + sheathingKind)}
+                    {translate('lappLiApp.SheathingKind.' + sheathingKind)}
                   </option>
                 ))}
               </ValidatedField>
