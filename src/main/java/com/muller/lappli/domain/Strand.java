@@ -217,6 +217,7 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
         HashSet<AbstractOperation<?>> operations = new HashSet<>();
 
         operations.addAll(getAssemblies());
+        operations.addAll(getSheathings());
 
         return operations;
     }
