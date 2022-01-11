@@ -58,6 +58,10 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
 
     @Override
     public Double getMilimeterDiameterIncidency() {
+        if (getThickness() == null) {
+            return Double.NaN;
+        }
+
         return getThickness() * 2.0;
     }
 
