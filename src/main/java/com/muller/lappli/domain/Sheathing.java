@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
+import com.muller.lappli.domain.enumeration.OperationKind;
 import com.muller.lappli.domain.enumeration.SheathingKind;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -74,6 +75,11 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
     @Override
     public Sheathing getThis() {
         return this;
+    }
+
+    @Override
+    public OperationKind getOperationKind() {
+        return OperationKind.SHEATHING;
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
