@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
+import com.muller.lappli.domain.enumeration.OperationKind;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -63,6 +64,11 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @Override
     public CentralAssembly getThis() {
         return this;
+    }
+
+    @Override
+    public OperationKind getOperationKind() {
+        return OperationKind.CENTRAL_ASSEMBLY;
     }
 
     @Override
