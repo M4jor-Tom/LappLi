@@ -10,11 +10,11 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getOut } from '../index-management/index-management-lib';
 import { defaultValue as strandDefaultValue } from 'app/shared/model/strand.model';
 
-export const StrandSupplySubOperation = (props: RouteComponentProps<{ id: string; study_id: string }>) => {
+export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_supply_id: string; study_id: string }>) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getEntity(props.match.params.id));
+    dispatch(getEntity(props.match.params.strand_supply_id));
   }, []);
 
   const strandSupplyEntity = useAppSelector(state => state.strandSupply.entity);

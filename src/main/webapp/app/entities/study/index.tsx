@@ -37,7 +37,7 @@ const strandSupplyZoneUrlPefix = studySuppliesUrlPrefix + '/strand-supply';
 
 const strandZoneUrlPefix = studySuppliesUrlPrefix + '/strand';
 
-const strandSupplyOperationZoneUrlPrefix = strandSupplyZoneUrlPefix + '/:id/operation';
+const strandSupplyOperationZoneUrlPrefix = strandSupplyZoneUrlPefix + '/:strand_supply_id/operation';
 
 const Routes = ({ match }) => (
   <>
