@@ -19,14 +19,14 @@ enum SupplyOwner {
 }
 
 function getOutFromStudySupplyStrandAssemblyComponent(url: string, isNew: boolean): string {
-  if (isNew != null && isNew) {
-    return getOut(url, 1);
-  }
-
-  return getOut(url, 2);
+  return getOutFromStudySupplyStrandComponent(url, isNew);
 }
 
 function getOutFromStudySupplyStrandSupplyComponent(url: string, isNew: boolean): string {
+  return getOutFromStudySupplyStrandComponent(url, isNew);
+}
+
+function getOutFromStudySupplyStrandComponent(url: string, isNew: boolean): string {
   if (isNew != null && isNew) {
     return getOut(url, 1);
   }
