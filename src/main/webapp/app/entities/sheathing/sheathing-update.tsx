@@ -15,11 +15,14 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { SheathingKind } from 'app/shared/model/enumerations/sheathing-kind.model';
+import { getOutFromStudySupplyStrandSheathing } from '../index-management/index-management-lib';
 
 export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
+
+  const redirectionUrl = getOutFromStudySupplyStrandSheathing(props.match.url, isNew);
 
   const materials = useAppSelector(state => state.material.entities);
   const strands = useAppSelector(state => state.strand.entities);
@@ -29,7 +32,7 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
   const updateSuccess = useAppSelector(state => state.sheathing.updateSuccess);
   const sheathingKindValues = Object.keys(SheathingKind);
   const handleClose = () => {
-    props.history.push('/sheathing');
+    props.history.push(redirectionUrl);
   };
 
   const strandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
@@ -179,7 +182,7 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
                   <Translate contentKey="entity.validation.required">This field is required.</Translate>
                 </FormText>
               )}
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/sheathing" replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
