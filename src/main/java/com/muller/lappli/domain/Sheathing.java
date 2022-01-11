@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.SheathingKind;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -14,7 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "sheathing")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Sheathing implements Serializable {
+public class Sheathing extends AbstractOperation<Sheathing> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -54,6 +55,22 @@ public class Sheathing implements Serializable {
         allowSetters = true
     )
     private Strand ownerStrand;
+
+    @Override
+    public Double getMilimeterDiameterIncidency() {
+        return getThickness() * 2.0;
+    }
+
+    @Override
+    public Long getProductionStep() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Sheathing getThis() {
+        return this;
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
