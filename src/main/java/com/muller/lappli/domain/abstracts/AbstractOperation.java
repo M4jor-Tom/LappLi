@@ -2,6 +2,7 @@ package com.muller.lappli.domain.abstracts;
 
 import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.enumeration.OperationKind;
 import javax.persistence.MappedSuperclass;
 
 /**
@@ -9,6 +10,11 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
+
+    /**
+     * @return the operation kind of this
+     */
+    public abstract OperationKind getOperationKind();
 
     /**
      * @return the diameter of {@link #getOwnerStrand()}

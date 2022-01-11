@@ -3,6 +3,7 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
+import com.muller.lappli.domain.enumeration.OperationKind;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -71,6 +72,11 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     @Override
     public CoreAssembly getThis() {
         return this;
+    }
+
+    @Override
+    public OperationKind getOperationKind() {
+        return OperationKind.CORE_ASSEMBLY;
     }
 
     @Override
