@@ -29,6 +29,7 @@ import IntersticeAssemblyDeleteDialog from '../interstice-assembly/interstice-as
 import StrandSubSupply from '../strand/strand-sub-supply';
 import StrandCompute from '../strand/strand-compute';
 import StrandDeleteDialog from '../strand/strand-delete-dialog';
+import SheathingUpdate from '../sheathing/sheathing-update';
 
 const studySuppliesUrlPrefix = '/:study_id/study-supplies';
 
@@ -70,6 +71,10 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute exact path={`${match.url + strandZoneUrlPefix}/:id/supply`} component={StrandSubSupply} />
 
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}`} component={StrandSupplySubOperation} />
+
+      {/* (CUD ACCESS): OPERATIONS */}
+      <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/sheathing/new`} component={SheathingUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/sheathing/:id/edit`} component={SheathingUpdate} />
 
       <ErrorBoundaryRoute
         exact
