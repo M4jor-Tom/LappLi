@@ -1,0 +1,27 @@
+{
+  "lappLiApp": {
+    "sheathing": {
+      "home": {
+        "title": "Sheathings",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Sheathing",
+        "createOrEditLabel": "Créer ou éditer un Sheathing",
+        "notFound": "Aucun Sheathing trouvé"
+      },
+      "created": "Un nouveau Sheathing a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Sheathing avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Sheathing avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Sheathing {{ id }} ?"
+      },
+      "detail": {
+        "title": "Sheathing"
+      },
+      "id": "ID",
+      "thickness": "Thickness",
+      "sheathingKind": "Sheathing Kind",
+      "material": "Material",
+      "ownerStrand": "Owner Strand"
+    }
+  }
+}

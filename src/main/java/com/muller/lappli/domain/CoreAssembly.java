@@ -57,6 +57,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         value = {
             "coreAssemblies",
             "intersticeAssemblies",
+            "sheathings",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",

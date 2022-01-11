@@ -39,6 +39,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     @ManyToOne(optional = false)
     @NotNull
+    @JsonIgnoreProperties(value = { "sheathings" }, allowSetters = true)
     private Strand strand;
 
     @ManyToOne(optional = false)

@@ -28,6 +28,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         value = {
             "coreAssemblies",
             "intersticeAssemblies",
+            "sheathings",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",
