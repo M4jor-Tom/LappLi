@@ -1,6 +1,7 @@
 {
   "lappLiApp": {
     "operation": {
+      "milimeterDiameterIncidency": "Diameter Incidency (mm)",
       "afterThisMilimeterDiameter": "Diameter After This (mm)"
     }
   }

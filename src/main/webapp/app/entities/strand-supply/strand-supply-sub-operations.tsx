@@ -9,6 +9,7 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getOut } from '../index-management/index-management-lib';
 import { defaultValue as strandDefaultValue } from 'app/shared/model/strand.model';
+import { OperationKind } from 'app/shared/model/enumerations/operation-kind.model';
 
 export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_supply_id: string; study_id: string }>) => {
   const dispatch = useAppDispatch();
@@ -57,6 +58,9 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   <Translate contentKey="lappLiApp.assembly.productionStep">Production Step</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.operation.milimeterDiameterIncidency">Diameter Incidency (mm)</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.operation.afterThisMilimeterDiameter">Diameter After This (mm)</Translate>
                 </th>
                 <th>
@@ -78,6 +82,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                     <Translate contentKey="lappLiApp.centralAssembly.centralOperationLayer" />
                   </td>
                   <td>{strand.centralAssembly.productionStep}</td>
+                  <td>{strand.centralAssembly.milimeterDiameterIncidency}</td>
                   <td>{strand.centralAssembly.afterThisMilimeterDiameter}</td>
                   <td>{/* NO ASSEMBLY STEP (CENTRAL ASSEMBLY) */}</td>
                   <td>{/* NO ASSEMBLY MEAN (CENTRAL ASSEMBLY) */}</td>
@@ -135,6 +140,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                       </td>
                       <td>{coreAssembly.operationLayer}</td>
                       <td>{coreAssembly.productionStep}</td>
+                      <td>{coreAssembly.milimeterDiameterIncidency}</td>
                       <td>{coreAssembly.afterThisMilimeterDiameter}</td>
                       <td>{coreAssembly.diameterAssemblyStep}</td>
                       <td>{coreAssembly.assemblyMean}</td>
@@ -191,6 +197,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                       </td>
                       <td>{intersticialAssembly.operationLayer}</td>
                       <td>{intersticialAssembly.productionStep}</td>
+                      <td>{intersticialAssembly.milimeterDiameterIncidency}</td>
                       <td>{intersticialAssembly.afterThisMilimeterDiameter}</td>
                       <td>{intersticialAssembly.diameterAssemblyStep}</td>
                       <td>{intersticialAssembly.assemblyMean}</td>

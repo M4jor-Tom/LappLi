@@ -100,6 +100,15 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         return null;
     }
 
+    @Override
+    public String getProductDesignation() {
+        try {
+            return getPosition().getSupply().getCylindricComponent().getDesignation();
+        } catch (NullPointerException e) {
+            return "";
+        }
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override

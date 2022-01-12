@@ -1,6 +1,10 @@
+import { OperationKind } from './enumerations/operation-kind.model';
 import { IStrand } from './strand.model';
 
 export interface IAbstractOperation {
+  id?: number;
+  operationKind?: OperationKind;
+  milimeterDiameterIncidency?: number;
   afterThisMilimeterDiameter?: number;
   operationLayer?: number;
   productionStep?: number;

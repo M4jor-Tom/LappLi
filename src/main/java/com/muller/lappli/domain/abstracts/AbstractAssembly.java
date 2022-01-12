@@ -1,5 +1,6 @@
 package com.muller.lappli.domain.abstracts;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.exception.PositionHasSeveralSupplyException;
 import com.muller.lappli.domain.exception.PositionInSeveralAssemblyException;
@@ -15,6 +16,7 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends Ab
     /**
      * @return a Set containing all positions in this
      */
+    @JsonIgnoreProperties("ownerAssembly")
     public abstract Set<Position> getPositions();
 
     /**

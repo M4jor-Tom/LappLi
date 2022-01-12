@@ -195,7 +195,6 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
     /**
      * @return all the assemblies
      */
-    @JsonIgnore
     public Set<AbstractAssembly<?>> getAssemblies() {
         HashSet<AbstractAssembly<?>> assemblies = new HashSet<>();
 
@@ -212,7 +211,6 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
     /**
      * @return all the operations
      */
-    @JsonIgnore
     public Set<AbstractOperation<?>> getOperations() {
         HashSet<AbstractOperation<?>> operations = new HashSet<>();
 
