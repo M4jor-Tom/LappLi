@@ -1,5 +1,6 @@
 package com.muller.lappli.domain.abstracts;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.enumeration.OperationKind;
@@ -25,6 +26,7 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
     /**
      * @return the strand which owns this assembly
      */
+    @JsonIgnoreProperties(value = { "operations", "nonAssemblyOperations", "assemblies" })
     public abstract Strand getOwnerStrand();
 
     /**
