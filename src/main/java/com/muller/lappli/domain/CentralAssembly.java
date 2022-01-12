@@ -85,6 +85,11 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     }
 
     @Override
+    public Double getAfterThisMilimeterDiameter() {
+        return getMilimeterDiameterIncidency();
+    }
+
+    @Override
     public Double getMilimeterDiameterIncidency() {
         try {
             return getPosition().getSupply().getMilimeterDiameter();
