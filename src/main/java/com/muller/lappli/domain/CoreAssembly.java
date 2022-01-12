@@ -197,7 +197,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -206,7 +206,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
             return false;
         }
         return id != null && id.equals(((CoreAssembly) o).id);
-    }
+    }*/
 
     @Override
     public int hashCode() {
