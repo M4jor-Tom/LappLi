@@ -243,6 +243,54 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   ))
                 : ''}
             </tbody>
+            {strand.nonAssemblyOperations && strand.nonAssemblyOperations.length > 0 ? (
+              <tbody>
+                {strand.nonAssemblyOperations.map((operation, i) => (
+                  <tr key={`entity-operation-${i}`} data-cy="entityTable">
+                    <td>{operation.operationKind}</td>
+                    <td>{operation.operationLayer}</td>
+                    <td>{operation.productionStep}</td>
+                    <td>{operation.productDesignation}</td>
+                    <td>{operation.milimeterDiameterIncidency}</td>
+                    <td>{operation.afterThisMilimeterDiameter}</td>
+                    <td>{/* NO ASSEMBLY STEP */}</td>
+                    <td>{/* NO ASSEMBLY MEAN */}</td>
+
+                    <td className="text-right">
+                      <div className="btn-group flex-btn-group-container">
+                        <Button
+                          tag={Link}
+                          to={`${props.match.url}/${operation.operationKind.toLowerCase()}/${operation.id}/edit`}
+                          color="primary"
+                          size="sm"
+                          data-cy="entityEditButton"
+                        >
+                          <FontAwesomeIcon icon="pencil-alt" />{' '}
+                          <span className="d-none d-md-inline">
+                            <Translate contentKey="entity.action.edit">Edit</Translate>
+                          </span>
+                        </Button>
+                        &nbsp;
+                        <Button
+                          tag={Link}
+                          to={`${props.match.url}/${operation.operationKind.toLowerCase()}/${operation.id}/delete`}
+                          color="danger"
+                          size="sm"
+                          data-cy="entityDeleteButton"
+                        >
+                          <FontAwesomeIcon icon="trash" />{' '}
+                          <span className="d-none d-md-inline">
+                            <Translate contentKey="entity.action.delete">Delete</Translate>
+                          </span>
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            ) : (
+              ''
+            )}
           </Table>
         ) : (
           <div className="alert alert-warning">
