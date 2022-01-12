@@ -6,10 +6,12 @@ import { ICustomComponentSupply } from 'app/shared/model/custom-component-supply
 import { IOneStudySupply } from 'app/shared/model/one-study-supply.model';
 import { ICentralAssembly } from 'app/shared/model/central-assembly.model';
 import { IStudy } from 'app/shared/model/study.model';
+import { IAbstractOperation } from './abstract-operation.model';
 
 export interface IStrand {
   id?: number;
   designation?: string;
+  operations?: IAbstractOperation[] | null;
   coreAssemblies?: ICoreAssembly[] | null;
   intersticeAssemblies?: IIntersticeAssembly[] | null;
   elementSupplies?: IElementSupply[] | null;
