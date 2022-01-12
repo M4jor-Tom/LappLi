@@ -4,6 +4,7 @@ import { IStrand } from './strand.model';
 export interface IAbstractOperation {
   id?: number;
   operationKind?: OperationKind;
+  productDesignation?: string;
   milimeterDiameterIncidency?: number;
   afterThisMilimeterDiameter?: number;
   operationLayer?: number;
