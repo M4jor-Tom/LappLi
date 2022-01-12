@@ -35,6 +35,11 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
     public abstract Long getProductionStep();
 
     /**
+     * @return the designation of what is represented in the operation
+     */
+    public abstract String getProductDesignation();
+
+    /**
      * @return the diameter of {@link #getOwnerStrand()}
      * in milimeters after {@link #getMilimeterDiameterIncidency()}
      * is added
