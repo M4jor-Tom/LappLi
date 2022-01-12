@@ -57,6 +57,17 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
     }
 
     /**
+     * @return the designation of the owner strand
+     */
+    public String getDesignation() {
+        try {
+            return getOwnerStrand().getDesignation();
+        } catch (NullPointerException e) {
+            return "";
+        }
+    }
+
+    /**
      * @return the step at which this is producted
      */
     public abstract Long getProductionStep();

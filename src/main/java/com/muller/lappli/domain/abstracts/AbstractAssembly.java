@@ -44,15 +44,4 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends Ab
 
         return true;
     }
-
-    /**
-     * @return the designation of the owner strand
-     */
-    public String getDesignation() {
-        try {
-            return getOwnerStrand().getDesignation();
-        } catch (NullPointerException e) {
-            return "";
-        }
-    }
 }
