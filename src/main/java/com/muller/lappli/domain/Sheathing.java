@@ -82,6 +82,15 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
         return OperationKind.SHEATHING;
     }
 
+    @Override
+    public String getProductDesignation() {
+        try {
+            return getMaterial().getDesignation();
+        } catch (NullPointerException e) {
+            return "";
+        }
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {

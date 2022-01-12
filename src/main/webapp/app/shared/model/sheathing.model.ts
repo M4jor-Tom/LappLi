@@ -4,7 +4,7 @@ import { SheathingKind } from 'app/shared/model/enumerations/sheathing-kind.mode
 import { IAbstractOperation } from './abstract-operation.model';
 
 export interface ISheathing extends IAbstractOperation {
-  id?: number;
+  //  id?: number;
   thickness?: number;
   sheathingKind?: SheathingKind;
   material?: IMaterial;
