@@ -1,5 +1,10 @@
 service * with serviceImpl
 
+entity Sheathing {
+	thickness Double required
+    sheathingKind SheathingKind required
+}
+
 entity Position {
     value Long required
 }
@@ -158,8 +163,14 @@ relationship OneToOne {
 }
 
 relationship OneToMany {
+	//Operations in a strand
+    
+    //Assemblies
 	Strand{coreAssemblies(productionStep)} to CoreAssembly{ownerStrand(designation) required}
 	Strand{intersticeAssemblies(productionStep)} to IntersticeAssembly{ownerStrand(designation) required}
+    
+    //Sheathings
+    Strand{sheathings(productionStep)} to Sheathing{ownerStrand(designation) required}
 }
 
 relationship OneToMany {
@@ -186,6 +197,10 @@ relationship OneToMany {
 
 relationship OneToMany {
 	Material{materialMarkingStatistics(markingType)} to MaterialMarkingStatistic{material(designation) required}
+}
+
+relationship ManyToOne {
+	Sheathing{material(designation) required} to Material
 }
 
 relationship ManyToOne {
@@ -234,6 +249,13 @@ relationship ManyToOne {
 
 relationship ManyToOne {
 	ElementKind{insulationMaterial(designation) required} to Material
+}
+
+enum SheathingKind {
+	TUBE,
+    FLOATING_TUBE,
+    HALF_STUFFING,
+    STUFFING
 }
 
 enum AssemblyMean {

@@ -65,8 +65,9 @@
       "CentralAssembly",
       "CoreAssembly",
       "IntersticeAssembly",
-      "Position"
+      "Position",
+      "Sheathing"
     ],
-    "lastLiquibaseTimestamp": 1640592117000
+    "lastLiquibaseTimestamp": 1641906829000
   }
 }

@@ -66,6 +66,7 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
         value = {
             "coreAssemblies",
             "intersticeAssemblies",
+            "sheathings",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",

@@ -59,6 +59,7 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
         value = {
             "coreAssemblies",
             "intersticeAssemblies",
+            "sheathings",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",

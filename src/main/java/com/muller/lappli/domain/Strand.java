@@ -45,6 +45,11 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
 
     @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "material", "ownerStrand" }, allowSetters = true)
+    private Set<Sheathing> sheathings = new HashSet<>();
+
+    @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "ownerStrand" }, allowSetters = true)
     private Set<ElementSupply> elementSupplies = new HashSet<>();
 
@@ -207,6 +212,8 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
     public Set<AbstractOperation<?>> getNonAssemblyOperations() {
         HashSet<AbstractOperation<?>> operations = new HashSet<>();
 
+        operations.addAll(getSheathings());
+
         return operations;
     }
 
@@ -304,6 +311,37 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
     public Strand removeIntersticeAssemblies(IntersticeAssembly intersticeAssembly) {
         this.intersticeAssemblies.remove(intersticeAssembly);
         intersticeAssembly.setOwnerStrand(null);
+        return this;
+    }
+
+    public Set<Sheathing> getSheathings() {
+        return this.sheathings;
+    }
+
+    public void setSheathings(Set<Sheathing> sheathings) {
+        if (this.sheathings != null) {
+            this.sheathings.forEach(i -> i.setOwnerStrand(null));
+        }
+        if (sheathings != null) {
+            sheathings.forEach(i -> i.setOwnerStrand(this));
+        }
+        this.sheathings = sheathings;
+    }
+
+    public Strand sheathings(Set<Sheathing> sheathings) {
+        this.setSheathings(sheathings);
+        return this;
+    }
+
+    public Strand addSheathings(Sheathing sheathing) {
+        this.sheathings.add(sheathing);
+        sheathing.setOwnerStrand(this);
+        return this;
+    }
+
+    public Strand removeSheathings(Sheathing sheathing) {
+        this.sheathings.remove(sheathing);
+        sheathing.setOwnerStrand(null);
         return this;
     }
 

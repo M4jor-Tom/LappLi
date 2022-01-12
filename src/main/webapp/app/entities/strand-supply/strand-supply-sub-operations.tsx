@@ -9,6 +9,7 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getOut } from '../index-management/index-management-lib';
 import { defaultValue as strandDefaultValue } from 'app/shared/model/strand.model';
+import { ISheathing } from 'app/shared/model/sheathing.model';
 import { OperationKind } from 'app/shared/model/enumerations/operation-kind.model';
 
 export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_supply_id: string; study_id: string }>) => {
@@ -31,6 +32,16 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
       <h2 data-cy="strandDetailsHeading">
         <Translate contentKey="lappLiApp.strand.detail.title">Strand</Translate>
       </h2>
+      <Link
+        to={`${props.match.url}/sheathing/new`}
+        className="btn btn-primary jh-create-entity"
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+      >
+        <FontAwesomeIcon icon="plus" />
+        &nbsp;
+        <Translate contentKey="lappLiApp.sheathing.home.createLabel">Create new Sheathing</Translate>
+      </Link>
       <div className="table-responsive">
         {strand.centralAssembly ||
         (strand.coreAssemblies && strand.coreAssemblies.length > 0) ||
@@ -247,7 +258,11 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
               <tbody>
                 {strand.nonAssemblyOperations.map((operation, i) => (
                   <tr key={`entity-operation-${i}`} data-cy="entityTable">
-                    <td>{operation.operationKind}</td>
+                    <td>
+                      {operation.operationKind}
+                      <br />
+                      {operation.operationKind === OperationKind.SHEATHING ? (operation as ISheathing).sheathingKind : ''}
+                    </td>
                     <td>{operation.operationLayer}</td>
                     <td>{operation.productionStep}</td>
                     <td>{operation.productDesignation}</td>

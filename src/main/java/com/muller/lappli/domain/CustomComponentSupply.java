@@ -66,6 +66,7 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
         value = {
             "coreAssemblies",
             "intersticeAssemblies",
+            "sheathings",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",
