@@ -168,7 +168,7 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      */
     public String getDesignation() {
         try {
-            return getCylindricComponent().getDesignation();
+            return getApparitions().toString() + " x " + getCylindricComponent().getDesignation();
         } catch (NullPointerException e) {
             return "";
         }
