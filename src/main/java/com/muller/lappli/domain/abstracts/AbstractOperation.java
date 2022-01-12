@@ -17,6 +17,22 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
     public abstract OperationKind getOperationKind();
 
     /**
+     * @return twice the "thikness" of the operation in the general case,
+     * sometimes a litle bit more, sometimes a little but less
+     */
+    public abstract Double getMilimeterDiameterIncidency();
+
+    /**
+     * @return the strand which owns this assembly
+     */
+    public abstract Strand getOwnerStrand();
+
+    /**
+     * @return the step at which this is producted
+     */
+    public abstract Long getProductionStep();
+
+    /**
      * @return the diameter of {@link #getOwnerStrand()}
      * in milimeters after {@link #getMilimeterDiameterIncidency()}
      * is added
@@ -28,17 +44,6 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
             return 0.0;
         }
     }
-
-    /**
-     * @return twice the "thikness" of the operation in the general case,
-     * sometimes a litle bit more, sometimes a little but less
-     */
-    public abstract Double getMilimeterDiameterIncidency();
-
-    /**
-     * @return the strand which owns this assembly
-     */
-    public abstract Strand getOwnerStrand();
 
     /**
      * @return the layer at which this operation is
@@ -66,9 +71,4 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
             return "";
         }
     }
-
-    /**
-     * @return the step at which this is producted
-     */
-    public abstract Long getProductionStep();
 }
