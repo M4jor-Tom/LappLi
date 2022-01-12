@@ -46,14 +46,17 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
             "coreAssemblies",
             "intersticeAssemblies",
             "sheathings",
+            "operations",
+            "nonAssemblyOperations",
+            "assemblies",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",
             "oneStudySupplies",
             "centralAssembly",
             "futureStudy",
-        },
-        allowSetters = true
+        } //,
+        //allowSetters = true
     )
     private Strand ownerStrand;
 
