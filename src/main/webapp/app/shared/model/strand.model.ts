@@ -13,6 +13,7 @@ export interface IStrand {
   id?: number;
   designation?: string;
   operations?: IAbstractOperation[] | null;
+  nonAssemblyOperations?: IAbstractOperation[] | null;
   coreAssemblies?: ICoreAssembly[] | null;
   intersticeAssemblies?: IIntersticeAssembly[] | null;
   sheathings?: ISheathing[] | null;
