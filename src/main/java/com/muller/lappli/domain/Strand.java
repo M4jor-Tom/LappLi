@@ -112,13 +112,11 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
      * @return the diameter in milimeter
      */
     public Double getMilimeterDiameterBefore(AbstractOperation<?> operation) {
-        AbstractOperation<?> lastOperationBefore = getLastOperationBefore(operation);
-
-        if (lastOperationBefore == null) {
-            return 0.0;
+        try {
+            return getLastOperationBefore(operation).getAfterThisMilimeterDiameter();
+        } catch (NullPointerException e) {
+            return Double.NaN;
         }
-
-        return lastOperationBefore.getAfterThisMilimeterDiameter();
     }
 
     @JsonIgnoreProperties("ownerStrand")
