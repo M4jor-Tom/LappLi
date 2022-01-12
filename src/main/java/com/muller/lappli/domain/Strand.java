@@ -204,12 +204,22 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
     }
 
     /**
+     * @return all operations which are not assemblies
+     */
+    public Set<AbstractOperation<?>> getNonAssemblyOperations() {
+        HashSet<AbstractOperation<?>> operations = new HashSet<>();
+
+        return operations;
+    }
+
+    /**
      * @return all the operations
      */
     public Set<AbstractOperation<?>> getOperations() {
         HashSet<AbstractOperation<?>> operations = new HashSet<>();
 
         operations.addAll(getAssemblies());
+        operations.addAll(getNonAssemblyOperations());
 
         return operations;
     }
