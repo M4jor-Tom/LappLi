@@ -9,6 +9,7 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getOut } from '../index-management/index-management-lib';
 import { defaultValue as strandDefaultValue } from 'app/shared/model/strand.model';
+import { ISheathing } from 'app/shared/model/sheathing.model';
 import { OperationKind } from 'app/shared/model/enumerations/operation-kind.model';
 
 export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_supply_id: string; study_id: string }>) => {
@@ -257,7 +258,11 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
               <tbody>
                 {strand.nonAssemblyOperations.map((operation, i) => (
                   <tr key={`entity-operation-${i}`} data-cy="entityTable">
-                    <td>{operation.operationKind}</td>
+                    <td>
+                      {operation.operationKind}
+                      <br />
+                      {operation.operationKind === OperationKind.SHEATHING ? (operation as ISheathing).sheathingKind : ''}
+                    </td>
                     <td>{operation.operationLayer}</td>
                     <td>{operation.productionStep}</td>
                     <td>{operation.productDesignation}</td>
