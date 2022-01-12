@@ -85,7 +85,7 @@ public class Position extends AbstractDomainObject<Position> implements Serializ
         return null;
     }
 
-    @JsonIgnoreProperties(value = { "position", "positions", "strand" })
+    @JsonIgnoreProperties(value = { "position", "positions", "ownerStrand" })
     public AbstractAssembly<?> getOwnerAssembly() {
         if (isInCentralAssembly()) {
             return getOwnerCentralAssembly();
