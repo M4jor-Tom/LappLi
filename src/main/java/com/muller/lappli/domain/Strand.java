@@ -35,12 +35,12 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
     @NotNull
     @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "ownerStrand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrand", "positions", "supplies" }, allowSetters = true)
     private Set<CoreAssembly> coreAssemblies = new HashSet<>();
 
     @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "ownerStrand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrand", "positions", "supplies" }, allowSetters = true)
     private Set<IntersticeAssembly> intersticeAssemblies = new HashSet<>();
 
     @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
