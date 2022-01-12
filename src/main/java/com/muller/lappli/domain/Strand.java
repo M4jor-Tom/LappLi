@@ -121,7 +121,7 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
         return lastOperationBefore.getAfterThisMilimeterDiameter();
     }
 
-    @JsonIgnoreProperties("strand")
+    @JsonIgnoreProperties("ownerStrand")
     public CoreAssembly getLastCoreAssembly() {
         CoreAssembly lastCoreAssembly = null;
 
