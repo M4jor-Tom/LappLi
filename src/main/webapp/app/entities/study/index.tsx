@@ -30,6 +30,7 @@ import StrandSubSupply from '../strand/strand-sub-supply';
 import StrandCompute from '../strand/strand-compute';
 import StrandDeleteDialog from '../strand/strand-delete-dialog';
 import SheathingUpdate from '../sheathing/sheathing-update';
+import SheathingDeleteDialog from '../sheathing/sheathing-delete-dialog';
 
 const studySuppliesUrlPrefix = '/:study_id/study-supplies';
 
@@ -75,6 +76,11 @@ const Routes = ({ match }) => (
       {/* (CUD ACCESS): OPERATIONS */}
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/sheathing/new`} component={SheathingUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/sheathing/:id/edit`} component={SheathingUpdate} />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/sheathing/:id/delete`}
+        component={SheathingDeleteDialog}
+      />
 
       <ErrorBoundaryRoute
         exact

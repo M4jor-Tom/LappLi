@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity, deleteEntity } from './sheathing.reducer';
+import { getOutFromStudySupplyStrandSheathing } from '../index-management/index-management-lib';
 
 export const SheathingDeleteDialog = (props: RouteComponentProps<{ id: string }>) => {
   const [loadModal, setLoadModal] = useState(false);
@@ -16,11 +17,13 @@ export const SheathingDeleteDialog = (props: RouteComponentProps<{ id: string }>
     setLoadModal(true);
   }, []);
 
+  const redirectionUrl = getOutFromStudySupplyStrandSheathing(props.match.url, false);
+
   const sheathingEntity = useAppSelector(state => state.sheathing.entity);
   const updateSuccess = useAppSelector(state => state.sheathing.updateSuccess);
 
   const handleClose = () => {
-    props.history.push('/sheathing');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {
