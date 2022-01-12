@@ -27,7 +27,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     @Column(name = "id")
     private Long id;
 
-    @OneToMany(mappedBy = "ownerIntersticeAssembly")
+    @OneToMany(mappedBy = "ownerIntersticeAssembly", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
         value = {

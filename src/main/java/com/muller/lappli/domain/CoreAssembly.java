@@ -36,7 +36,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     @Column(name = "assembly_mean", nullable = false)
     private AssemblyMean assemblyMean;
 
-    @OneToMany(mappedBy = "ownerCoreAssembly")
+    @OneToMany(mappedBy = "ownerCoreAssembly", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
         value = {
