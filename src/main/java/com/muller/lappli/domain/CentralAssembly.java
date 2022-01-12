@@ -102,7 +102,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @Override
     public String getProductDesignation() {
         try {
-            return getPosition().getSupply().getCylindricComponent().getDesignation();
+            return getPosition().getSupply().getDesignation();
         } catch (NullPointerException e) {
             return "";
         }

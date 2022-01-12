@@ -97,15 +97,6 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
     }
 
     @Override
-    public String getDesignation() {
-        try {
-            return getElement().getDesignationWithColor();
-        } catch (NullPointerException e) {
-            return "";
-        }
-    }
-
-    @Override
     @JsonIgnore
     public Material getSurfaceMaterial() {
         try {
