@@ -59,18 +59,7 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
     /**
      * @return the layer at which this operation is
      */
-    public Long getOperationLayer() {
-        Strand ownerStrand = getOwnerStrand();
-        AbstractOperation<?> lastOperation = null;
-
-        if (ownerStrand == null) {
-            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
-        } else if ((lastOperation = ownerStrand.getLastOperationBefore(this)) == null) {
-            return Long.valueOf(0);
-        }
-
-        return lastOperation.getOperationLayer() + 1;
-    }
+    public abstract Long getOperationLayer();
 
     /**
      * @return the designation of the owner strand

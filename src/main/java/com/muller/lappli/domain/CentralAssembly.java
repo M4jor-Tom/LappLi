@@ -114,6 +114,11 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         }
     }
 
+    @Override
+    public Long getAssemblyLayer() {
+        return Long.valueOf(0);
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override

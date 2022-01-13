@@ -90,11 +90,11 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     }
 
     @Override
-    public Long getOperationLayer() {
+    public Long getAssemblyLayer() {
         try {
-            return getOwnerStrand().getLastCoreAssembly().getOperationLayer();
+            return getOwnerStrand().getLastCoreAssembly().getAssemblyLayer();
         } catch (NullPointerException e) {
-            return null;
+            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
         }
     }
 

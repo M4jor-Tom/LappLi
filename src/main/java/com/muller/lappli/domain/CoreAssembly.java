@@ -95,11 +95,6 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         return null;
     }
 
-    @Override
-    public Long getOperationLayer() {
-        return Long.valueOf(1);
-    }
-
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override
@@ -116,6 +111,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         this.id = id;
     }
 
+    @Override
     public Long getAssemblyLayer() {
         return this.assemblyLayer;
     }

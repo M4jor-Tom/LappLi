@@ -92,11 +92,35 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
     public AbstractOperation<?> getLastOperationBefore(AbstractOperation<?> operation) {
         AbstractOperation<?> beforeOperation = null;
 
-        for (AbstractOperation<?> operationChecked : getOperations()) {
+        //Reversing the operation Set to have it from inside to outside
+        List<AbstractOperation<?>> operationList = new ArrayList<AbstractOperation<?>>(getOperations());
+        Collections.reverse(operationList);
+        Set<AbstractOperation<?>> reversedCollectionSet = new LinkedHashSet<AbstractOperation<?>>(operationList);
+
+        System.out.println("BEGIN");
+        for (AbstractOperation<?> viewedOperation : getOperations()) {
+            System.out.println("\n\n==============\n\n" + viewedOperation + "\n\n==============\n\n");
+        }
+        System.out.println("END");
+
+        for (AbstractOperation<?> operationChecked : reversedCollectionSet) {
+            /*System.out.println(
+                "\n\n=============\n\n" +
+                operation + "\n" + operationChecked + "\n" +
+                operationChecked.equals(operation)
+            );*/
+
             if (operationChecked.equals(operation)) {
                 //Current operation is the searched one, we seek the prefious one
+                /*System.out.println(
+                    beforeOperation
+                );*/
                 return beforeOperation;
             }
+
+            /*System.out.println(
+                "\n\n=============\n\n"
+            );*/
 
             //Cycle the cursor
             beforeOperation = operationChecked;
@@ -221,12 +245,15 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
      * @return all the operations
      */
     public Set<AbstractOperation<?>> getOperations() {
-        HashSet<AbstractOperation<?>> operations = new HashSet<>();
+        LinkedHashSet<AbstractOperation<?>> operations = new LinkedHashSet<>();
 
-        operations.addAll(getAssemblies());
         operations.addAll(getNonAssemblyOperations());
+        operations.addAll(getAssemblies());
 
-        return operations;
+        List<AbstractOperation<?>> sortedOperationList = new ArrayList<AbstractOperation<?>>(operations);
+        sortedOperationList.sort(getOperationComparator());
+
+        return new LinkedHashSet<AbstractOperation<?>>(sortedOperationList);
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
