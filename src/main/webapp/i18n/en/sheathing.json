@@ -20,8 +20,7 @@
       "id": "ID",
       "thickness": "Thickness",
       "sheathingKind": "Sheathing Kind",
-      "material": "Material",
-      "ownerStrand": "Owner Strand"
+      "material": "Material"
     }
   }
 }
