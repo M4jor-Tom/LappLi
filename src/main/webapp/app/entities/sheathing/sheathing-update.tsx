@@ -111,7 +111,7 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.sheathing.operationLayer')}
+                label={translate('lappLiApp.operation.operationLayer')}
                 id="sheathing-operationLayer"
                 name="operationLayer"
                 data-cy="operationLayer"
