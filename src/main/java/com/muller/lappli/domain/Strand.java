@@ -9,7 +9,10 @@ import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.exception.NoIntersticeAvailableException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
@@ -80,6 +83,40 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
     @Override
     public Strand getThis() {
         return this;
+    }
+
+    private Comparator<AbstractOperation<?>> getOperationComparator() {
+        return new Comparator<AbstractOperation<?>>() {
+            @Override
+            public int compare(AbstractOperation<?> o1, AbstractOperation<?> o2) {
+                if (o1 instanceof AbstractAssembly && o2 instanceof AbstractAssembly) {
+                    if (o1 instanceof IntersticeAssembly && o2 instanceof IntersticeAssembly) {
+                        //Both o1 & o2 are IntersticeAssemblies, have to deduct by layer number
+
+                    } else if (o1 instanceof IntersticeAssembly || o2 instanceof IntersticeAssembly) {
+                        //Case when both are IntersticeAssemblies is nailed up there,
+                        //so this case is when ONLY ONE is an IntersticeAssembly
+                        if (o1 instanceof IntersticeAssembly) {
+                            //o2 cannot be IntersticeAssembly there
+                            return 1;
+                        }
+                        //o1 cannot be IntersticeAssembly there
+                        return -1;
+                    } else {
+                        //None of o1 & o2 are IntersticeAssemblies,
+                        //the use of AbstractAssembly.assemblyLayer will suffise
+                        return (int) (((AbstractAssembly<?>) o1).getAssemblyLayer() - ((AbstractAssembly<?>) o2).getAssemblyLayer());
+                    }
+                }
+
+                //If one is an Assembly, its operationLayer will be lower than
+                //a non-assembly operation.
+                //Otherwise, if both operations are non-assembly, hope
+                //it's not equal, in that case error checking failed and this would result
+                //in a randomly sorted non-assembly operation list
+                return (int) (o1.getOperationLayer() - o2.getOperationLayer());
+            }
+        };
     }
 
     /**
