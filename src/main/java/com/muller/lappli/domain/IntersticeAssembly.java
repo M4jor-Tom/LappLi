@@ -27,6 +27,10 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     @Column(name = "id")
     private Long id;
 
+    @NotNull
+    @Column(name = "interstice_layer", nullable = false)
+    private Long intersticeLayer;
+
     @OneToMany(mappedBy = "ownerIntersticeAssembly", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
@@ -49,6 +53,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         value = {
             "coreAssemblies",
             "intersticeAssemblies",
+            "sheathings",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",
@@ -89,11 +94,11 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     }
 
     @Override
-    public Long getOperationLayer() {
+    public Long getAssemblyLayer() {
         try {
-            return getOwnerStrand().getLastCoreAssembly().getOperationLayer();
+            return getOwnerStrand().getLastCoreAssembly().getAssemblyLayer();
         } catch (NullPointerException e) {
-            return null;
+            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
         }
     }
 
@@ -122,6 +127,19 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getIntersticeLayer() {
+        return this.intersticeLayer;
+    }
+
+    public IntersticeAssembly intersticeLayer(Long intersticeLayer) {
+        this.setIntersticeLayer(intersticeLayer);
+        return this;
+    }
+
+    public void setIntersticeLayer(Long intersticeLayer) {
+        this.intersticeLayer = intersticeLayer;
     }
 
     @Override
@@ -156,6 +174,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         return this;
     }
 
+    @Override
     public Strand getOwnerStrand() {
         return this.ownerStrand;
     }
@@ -171,7 +190,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
-    /*@Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -180,7 +199,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
             return false;
         }
         return id != null && id.equals(((IntersticeAssembly) o).id);
-    }*/
+    }
 
     @Override
     public int hashCode() {
@@ -194,6 +213,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         return "IntersticeAssembly{" +
             "id=" + getId() +
             ", productionStep=" + getProductionStep() +
+            ", intersticeLayer=" + getIntersticeLayer() +
             "}";
     }
 }

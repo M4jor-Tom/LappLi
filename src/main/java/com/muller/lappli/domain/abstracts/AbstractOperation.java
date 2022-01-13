@@ -46,7 +46,11 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
      */
     public Double getAfterThisMilimeterDiameter() {
         try {
-            return getOwnerStrand().getMilimeterDiameterBefore(this) + getMilimeterDiameterIncidency();
+            Double milimeterDiameterBeforeThis = getOwnerStrand().getMilimeterDiameterBefore(this);
+            if (milimeterDiameterBeforeThis.isNaN()) {
+                return Double.NaN;
+            }
+            return milimeterDiameterBeforeThis + getMilimeterDiameterIncidency();
         } catch (NullPointerException e) {
             return Double.NaN;
         }
@@ -55,18 +59,7 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
     /**
      * @return the layer at which this operation is
      */
-    public Long getOperationLayer() {
-        Strand ownerStrand = getOwnerStrand();
-        AbstractOperation<?> lastOperation = null;
-
-        if (ownerStrand == null) {
-            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
-        } else if ((lastOperation = ownerStrand.getLastOperationBefore(this)) == null) {
-            return Long.valueOf(0);
-        }
-
-        return lastOperation.getOperationLayer() + 1;
-    }
+    public abstract Long getOperationLayer();
 
     /**
      * @return the designation of the owner strand
@@ -77,16 +70,5 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
         } catch (NullPointerException e) {
             return "";
         }
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof AbstractOperation<?>)) {
-            return false;
-        }
-        return getId() != null && getId().equals(((AbstractOperation<?>) obj).getId());
     }
 }

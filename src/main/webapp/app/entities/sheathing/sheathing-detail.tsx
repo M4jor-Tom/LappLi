@@ -30,6 +30,12 @@ export const SheathingDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{sheathingEntity.id}</dd>
           <dt>
+            <span id="operationLayer">
+              <Translate contentKey="lappLiApp.sheathing.operationLayer">Operation Layer</Translate>
+            </span>
+          </dt>
+          <dd>{sheathingEntity.operationLayer}</dd>
+          <dt>
             <span id="thickness">
               <Translate contentKey="lappLiApp.sheathing.thickness">Thickness</Translate>
             </span>

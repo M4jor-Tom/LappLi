@@ -53,6 +53,9 @@ export const IntersticeAssembly = (props: RouteComponentProps<{ url: string }>) 
                   <Translate contentKey="lappLiApp.intersticeAssembly.productionStep">Production Step</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.intersticeAssembly.intersticeLayer">Interstice Layer</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.intersticeAssembly.ownerStrand">Owner Strand</Translate>
                 </th>
                 <th>
@@ -73,6 +76,7 @@ export const IntersticeAssembly = (props: RouteComponentProps<{ url: string }>) 
                     </Button>
                   </td>
                   <td>{intersticeAssembly.productionStep}</td>
+                  <td>{intersticeAssembly.intersticeLayer}</td>
                   <td>
                     {intersticeAssembly.ownerStrand ? (
                       <Link to={`strand/${intersticeAssembly.ownerStrand.id}`}>{intersticeAssembly.ownerStrand.designation}</Link>

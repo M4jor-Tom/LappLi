@@ -38,6 +38,9 @@ public class SheathingServiceImpl implements SheathingService {
         return sheathingRepository
             .findById(sheathing.getId())
             .map(existingSheathing -> {
+                if (sheathing.getOperationLayer() != null) {
+                    existingSheathing.setOperationLayer(sheathing.getOperationLayer());
+                }
                 if (sheathing.getThickness() != null) {
                     existingSheathing.setThickness(sheathing.getThickness());
                 }

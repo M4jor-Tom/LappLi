@@ -18,6 +18,7 @@
         "title": "Interstice Assembly"
       },
       "id": "ID",
+      "intersticeLayer": "Interstice Layer",
       "productionStep": "Production Step",
       "strand": "Strand"
     }

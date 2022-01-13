@@ -13,6 +13,13 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends AbstractOperation<T> {
 
+    public abstract Long getAssemblyLayer();
+
+    @Override
+    public Long getOperationLayer() {
+        return Long.valueOf(0);
+    }
+
     /**
      * @return a Set containing all positions in this
      */

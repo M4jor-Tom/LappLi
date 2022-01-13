@@ -28,6 +28,10 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     private Long id;
 
     @NotNull
+    @Column(name = "assembly_layer", nullable = false)
+    private Long assemblyLayer;
+
+    @NotNull
     @Column(name = "diameter_assembly_step", nullable = false)
     private Double diameterAssemblyStep;
 
@@ -108,20 +112,17 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     }
 
     @Override
-    public Long getOperationLayer() {
-        Long operationLayer = Long.valueOf(1);
+    public Long getAssemblyLayer() {
+        return this.assemblyLayer;
+    }
 
-        if (getOwnerStrand() != null) {
-            for (CoreAssembly coreAssembly : getOwnerStrand().getCoreAssemblies()) {
-                if (coreAssembly.equals(this)) {
-                    return operationLayer;
-                }
+    public CoreAssembly assemblyLayer(Long assemblyLayer) {
+        this.setAssemblyLayer(assemblyLayer);
+        return this;
+    }
 
-                operationLayer++;
-            }
-        }
-
-        return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+    public void setAssemblyLayer(Long assemblyLayer) {
+        this.assemblyLayer = assemblyLayer;
     }
 
     public Double getDiameterAssemblyStep() {
@@ -198,7 +199,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
-    /*@Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -207,7 +208,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
             return false;
         }
         return id != null && id.equals(((CoreAssembly) o).id);
-    }*/
+    }
 
     @Override
     public int hashCode() {

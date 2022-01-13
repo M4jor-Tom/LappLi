@@ -14,6 +14,9 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="operation_layer" type="bigint">
+                <constraints nullable="false" />
+            </column>
             <column name="thickness" type="double">
                 <constraints nullable="false" />
             </column>
@@ -47,6 +50,7 @@
                   tableName="sheathing"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
+            <column name="operation_layer" type="numeric"/>
             <column name="thickness" type="numeric"/>
             <column name="sheathing_kind" type="string"/>
             <column name="material_id" type="numeric"/>

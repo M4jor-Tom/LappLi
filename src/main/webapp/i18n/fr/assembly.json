@@ -4,13 +4,10 @@
       "home": {
         "notFound": "Aucun asseblage trouvé"
       },
-      "operationLayer": "Couche d'Opération",
-      "productionStep": "Etape de Production",
-      "position": "Position",
+      "assemblyLayer": "Couche d'Assemblage",
       "diameterAssemblyStep": "Pas d'Assemblage (D)",
       "assemblyMean": "Sens d'Assemblage",
-      "subSupply": "Approvisionnement de couche",
-      "ownerStrand": "Toron Conteneur"
+      "subSupply": "Approvisionnement de couche"
     }
   }
 }

@@ -32,6 +32,9 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class SheathingResourceIT {
 
+    private static final Long DEFAULT_OPERATION_LAYER = 1L;
+    private static final Long UPDATED_OPERATION_LAYER = 2L;
+
     private static final Double DEFAULT_THICKNESS = 1D;
     private static final Double UPDATED_THICKNESS = 2D;
 
@@ -62,7 +65,10 @@ class SheathingResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Sheathing createEntity(EntityManager em) {
-        Sheathing sheathing = new Sheathing().thickness(DEFAULT_THICKNESS).sheathingKind(DEFAULT_SHEATHING_KIND);
+        Sheathing sheathing = new Sheathing()
+            .operationLayer(DEFAULT_OPERATION_LAYER)
+            .thickness(DEFAULT_THICKNESS)
+            .sheathingKind(DEFAULT_SHEATHING_KIND);
         // Add required entity
         Material material;
         if (TestUtil.findAll(em, Material.class).isEmpty()) {
@@ -93,7 +99,10 @@ class SheathingResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Sheathing createUpdatedEntity(EntityManager em) {
-        Sheathing sheathing = new Sheathing().thickness(UPDATED_THICKNESS).sheathingKind(UPDATED_SHEATHING_KIND);
+        Sheathing sheathing = new Sheathing()
+            .operationLayer(UPDATED_OPERATION_LAYER)
+            .thickness(UPDATED_THICKNESS)
+            .sheathingKind(UPDATED_SHEATHING_KIND);
         // Add required entity
         Material material;
         if (TestUtil.findAll(em, Material.class).isEmpty()) {
@@ -135,6 +144,7 @@ class SheathingResourceIT {
         List<Sheathing> sheathingList = sheathingRepository.findAll();
         assertThat(sheathingList).hasSize(databaseSizeBeforeCreate + 1);
         Sheathing testSheathing = sheathingList.get(sheathingList.size() - 1);
+        assertThat(testSheathing.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testSheathing.getThickness()).isEqualTo(DEFAULT_THICKNESS);
         assertThat(testSheathing.getSheathingKind()).isEqualTo(DEFAULT_SHEATHING_KIND);
     }
@@ -155,6 +165,23 @@ class SheathingResourceIT {
         // Validate the Sheathing in the database
         List<Sheathing> sheathingList = sheathingRepository.findAll();
         assertThat(sheathingList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    void checkOperationLayerIsRequired() throws Exception {
+        int databaseSizeBeforeTest = sheathingRepository.findAll().size();
+        // set the field null
+        sheathing.setOperationLayer(null);
+
+        // Create the Sheathing, which fails.
+
+        restSheathingMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(sheathing)))
+            .andExpect(status().isBadRequest());
+
+        List<Sheathing> sheathingList = sheathingRepository.findAll();
+        assertThat(sheathingList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -203,6 +230,7 @@ class SheathingResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(sheathing.getId().intValue())))
+            .andExpect(jsonPath("$.[*].operationLayer").value(hasItem(DEFAULT_OPERATION_LAYER.intValue())))
             .andExpect(jsonPath("$.[*].thickness").value(hasItem(DEFAULT_THICKNESS.doubleValue())))
             .andExpect(jsonPath("$.[*].sheathingKind").value(hasItem(DEFAULT_SHEATHING_KIND.toString())));
     }
@@ -219,6 +247,7 @@ class SheathingResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(sheathing.getId().intValue()))
+            .andExpect(jsonPath("$.operationLayer").value(DEFAULT_OPERATION_LAYER.intValue()))
             .andExpect(jsonPath("$.thickness").value(DEFAULT_THICKNESS.doubleValue()))
             .andExpect(jsonPath("$.sheathingKind").value(DEFAULT_SHEATHING_KIND.toString()));
     }
@@ -242,7 +271,7 @@ class SheathingResourceIT {
         Sheathing updatedSheathing = sheathingRepository.findById(sheathing.getId()).get();
         // Disconnect from session so that the updates on updatedSheathing are not directly saved in db
         em.detach(updatedSheathing);
-        updatedSheathing.thickness(UPDATED_THICKNESS).sheathingKind(UPDATED_SHEATHING_KIND);
+        updatedSheathing.operationLayer(UPDATED_OPERATION_LAYER).thickness(UPDATED_THICKNESS).sheathingKind(UPDATED_SHEATHING_KIND);
 
         restSheathingMockMvc
             .perform(
@@ -256,6 +285,7 @@ class SheathingResourceIT {
         List<Sheathing> sheathingList = sheathingRepository.findAll();
         assertThat(sheathingList).hasSize(databaseSizeBeforeUpdate);
         Sheathing testSheathing = sheathingList.get(sheathingList.size() - 1);
+        assertThat(testSheathing.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
         assertThat(testSheathing.getThickness()).isEqualTo(UPDATED_THICKNESS);
         assertThat(testSheathing.getSheathingKind()).isEqualTo(UPDATED_SHEATHING_KIND);
     }
@@ -328,7 +358,7 @@ class SheathingResourceIT {
         Sheathing partialUpdatedSheathing = new Sheathing();
         partialUpdatedSheathing.setId(sheathing.getId());
 
-        partialUpdatedSheathing.sheathingKind(UPDATED_SHEATHING_KIND);
+        partialUpdatedSheathing.thickness(UPDATED_THICKNESS);
 
         restSheathingMockMvc
             .perform(
@@ -342,8 +372,9 @@ class SheathingResourceIT {
         List<Sheathing> sheathingList = sheathingRepository.findAll();
         assertThat(sheathingList).hasSize(databaseSizeBeforeUpdate);
         Sheathing testSheathing = sheathingList.get(sheathingList.size() - 1);
-        assertThat(testSheathing.getThickness()).isEqualTo(DEFAULT_THICKNESS);
-        assertThat(testSheathing.getSheathingKind()).isEqualTo(UPDATED_SHEATHING_KIND);
+        assertThat(testSheathing.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
+        assertThat(testSheathing.getThickness()).isEqualTo(UPDATED_THICKNESS);
+        assertThat(testSheathing.getSheathingKind()).isEqualTo(DEFAULT_SHEATHING_KIND);
     }
 
     @Test
@@ -358,7 +389,7 @@ class SheathingResourceIT {
         Sheathing partialUpdatedSheathing = new Sheathing();
         partialUpdatedSheathing.setId(sheathing.getId());
 
-        partialUpdatedSheathing.thickness(UPDATED_THICKNESS).sheathingKind(UPDATED_SHEATHING_KIND);
+        partialUpdatedSheathing.operationLayer(UPDATED_OPERATION_LAYER).thickness(UPDATED_THICKNESS).sheathingKind(UPDATED_SHEATHING_KIND);
 
         restSheathingMockMvc
             .perform(
@@ -372,6 +403,7 @@ class SheathingResourceIT {
         List<Sheathing> sheathingList = sheathingRepository.findAll();
         assertThat(sheathingList).hasSize(databaseSizeBeforeUpdate);
         Sheathing testSheathing = sheathingList.get(sheathingList.size() - 1);
+        assertThat(testSheathing.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
         assertThat(testSheathing.getThickness()).isEqualTo(UPDATED_THICKNESS);
         assertThat(testSheathing.getSheathingKind()).isEqualTo(UPDATED_SHEATHING_KIND);
     }

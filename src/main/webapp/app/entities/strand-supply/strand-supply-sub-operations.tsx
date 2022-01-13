@@ -53,10 +53,10 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   <Translate contentKey="lappLiApp.strand.operationKind">Operation Kind</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.assembly.operationLayer">Operation Layer</Translate>
+                  <Translate contentKey="lappLiApp.operation.operationLayer">Operation Layer</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.assembly.productionStep">Production Step</Translate>
+                  <Translate contentKey="lappLiApp.operation.productionStep">Production Step</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.operation.productDesignation">Product Designation</Translate>
