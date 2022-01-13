@@ -1,7 +1,6 @@
 package com.muller.lappli.domain.abstracts;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import javax.persistence.MappedSuperclass;
