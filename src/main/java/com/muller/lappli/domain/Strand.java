@@ -92,7 +92,7 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
                 if (o1 instanceof AbstractAssembly && o2 instanceof AbstractAssembly) {
                     if (o1 instanceof IntersticeAssembly && o2 instanceof IntersticeAssembly) {
                         //Both o1 & o2 are IntersticeAssemblies, have to deduct by layer number
-
+                        return (int) (((IntersticeAssembly) o1).getIntersticeLayer() - ((IntersticeAssembly) o2).getIntersticeLayer());
                     } else if (o1 instanceof IntersticeAssembly || o2 instanceof IntersticeAssembly) {
                         //Case when both are IntersticeAssemblies is nailed up there,
                         //so this case is when ONLY ONE is an IntersticeAssembly
