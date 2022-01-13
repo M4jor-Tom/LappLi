@@ -18,15 +18,19 @@ enum SupplyOwner {
   STUDY = 'study',
 }
 
-function getOutFromStudySupplyStrandAssemblyComponent(url: string, isNew: boolean): string {
-  if (isNew != null && isNew) {
-    return getOut(url, 1);
-  }
+function getOutFromStudySupplyStrandSheathing(url: string, isNew: boolean): string {
+  return getOutFromStudySupplyStrandComponent(url, isNew);
+}
 
-  return getOut(url, 2);
+function getOutFromStudySupplyStrandAssemblyComponent(url: string, isNew: boolean): string {
+  return getOutFromStudySupplyStrandComponent(url, isNew);
 }
 
 function getOutFromStudySupplyStrandSupplyComponent(url: string, isNew: boolean): string {
+  return getOutFromStudySupplyStrandComponent(url, isNew);
+}
+
+function getOutFromStudySupplyStrandComponent(url: string, isNew: boolean): string {
   if (isNew != null && isNew) {
     return getOut(url, 1);
   }
@@ -155,6 +159,7 @@ function getAssemblyStrandValidatedField(
 
 export {
   AssemblyKind,
+  getOutFromStudySupplyStrandSheathing,
   getOutFromStudySupplyStrandAssemblyComponent,
   getOutFromStudySupplyStrandSupplyComponent,
   getSupplyStrandValidatedField,

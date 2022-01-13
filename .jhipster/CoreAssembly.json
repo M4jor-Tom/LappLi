@@ -2,6 +2,11 @@
   "name": "CoreAssembly",
   "fields": [
     {
+      "fieldName": "assemblyLayer",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "diameterAssemblyStep",
       "fieldType": "Double",
       "fieldValidateRules": ["required"]

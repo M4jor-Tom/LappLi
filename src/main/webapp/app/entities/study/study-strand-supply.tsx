@@ -125,7 +125,7 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                           <div className="btn-group flex-btn-group-container">
                             <Button
                               tag={Link}
-                              to={`${props.match.url}/strand-supplies/${strandSupply.id}/operation`}
+                              to={`${props.match.url}/strand-supply/${strandSupply.id}/operation`}
                               color="primary"
                               size="sm"
                               data-cy="entityEditButton"

@@ -1,6 +1,11 @@
 {
   "lappLiApp": {
     "operation": {
+      "ownerStrand": "Owner Strand",
+      "operationLayer": "Operation Layer",
+      "productionStep": "Production Step",
+      "productDesignation": "Product Designation",
+      "milimeterDiameterIncidency": "Diameter Incidency (mm)",
       "afterThisMilimeterDiameter": "Diameter After This (mm)"
     }
   }

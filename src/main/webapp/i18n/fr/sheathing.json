@@ -1,0 +1,26 @@
+{
+  "lappLiApp": {
+    "sheathing": {
+      "home": {
+        "title": "Gaines",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer une nouvelle Gaine",
+        "createOrEditLabel": "Créer ou éditer une Gaine",
+        "notFound": "Aucune Gaine trouvé"
+      },
+      "created": "Une nouvelle Gaine a été créée avec l'identifiant {{ param }}",
+      "updated": "La Gaine avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "La Gaine avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer la Gaine {{ id }} ?"
+      },
+      "detail": {
+        "title": "Gaine"
+      },
+      "id": "ID",
+      "thickness": "Epaisseur",
+      "sheathingKind": "Genre de Gaine",
+      "material": "Matériau"
+    }
+  }
+}

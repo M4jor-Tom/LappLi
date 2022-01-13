@@ -1,6 +1,8 @@
 package com.muller.lappli.domain.abstracts;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.enumeration.OperationKind;
 import javax.persistence.MappedSuperclass;
 
 /**
@@ -10,17 +12,9 @@ import javax.persistence.MappedSuperclass;
 public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
 
     /**
-     * @return the diameter of {@link #getOwnerStrand()}
-     * in milimeters after {@link #getMilimeterDiameterIncidency()}
-     * is added
+     * @return the operation kind of this
      */
-    public Double getAfterThisMilimeterDiameter() {
-        try {
-            return getOwnerStrand().getMilimeterDiameterBefore(this) + getMilimeterDiameterIncidency();
-        } catch (NullPointerException e) {
-            return 0.0;
-        }
-    }
+    public abstract OperationKind getOperationKind();
 
     /**
      * @return twice the "thikness" of the operation in the general case,
@@ -31,7 +25,31 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
     /**
      * @return the strand which owns this assembly
      */
+    @JsonIgnoreProperties(value = { "operations", "nonAssemblyOperations", "assemblies" })
     public abstract Strand getOwnerStrand();
+
+    /**
+     * @return the step at which this is producted
+     */
+    public abstract Long getProductionStep();
+
+    /**
+     * @return the designation of what is represented in the operation
+     */
+    public abstract String getProductDesignation();
+
+    /**
+     * @return the diameter of {@link #getOwnerStrand()}
+     * in milimeters after {@link #getMilimeterDiameterIncidency()}
+     * is added
+     */
+    public Double getAfterThisMilimeterDiameter() {
+        try {
+            return getOwnerStrand().getMilimeterDiameterBefore(this) + getMilimeterDiameterIncidency();
+        } catch (NullPointerException e) {
+            return Double.NaN;
+        }
+    }
 
     /**
      * @return the layer at which this operation is
@@ -39,7 +57,13 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
     public abstract Long getOperationLayer();
 
     /**
-     * @return the step at which this is producted
+     * @return the designation of the owner strand
      */
-    public abstract Long getProductionStep();
+    public String getDesignation() {
+        try {
+            return getOwnerStrand().getDesignation();
+        } catch (NullPointerException e) {
+            return "";
+        }
+    }
 }

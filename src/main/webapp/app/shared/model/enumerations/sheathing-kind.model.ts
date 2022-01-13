@@ -1,0 +1,9 @@
+export enum SheathingKind {
+  TUBE = 'TUBE',
+
+  FLOATING_TUBE = 'FLOATING_TUBE',
+
+  HALF_STUFFING = 'HALF_STUFFING',
+
+  STUFFING = 'STUFFING',
+}

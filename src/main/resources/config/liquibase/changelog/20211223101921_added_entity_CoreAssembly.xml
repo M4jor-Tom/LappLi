@@ -14,6 +14,9 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="assembly_layer" type="bigint">
+                <constraints nullable="false" />
+            </column>
             <column name="diameter_assembly_step" type="double">
                 <constraints nullable="false" />
             </column>
@@ -44,6 +47,7 @@
                   tableName="core_assembly"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
+            <column name="assembly_layer" type="numeric"/>
             <column name="diameter_assembly_step" type="numeric"/>
             <column name="assembly_mean" type="string"/>
             <column name="owner_strand_id" type="numeric"/>

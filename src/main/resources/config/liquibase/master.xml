@@ -37,6 +37,7 @@
     <include file="config/liquibase/changelog/20211223101921_added_entity_CoreAssembly.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211223101922_added_entity_IntersticeAssembly.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211227080157_added_entity_Position.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220111131349_added_entity_Sheathing.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20211124113148_added_entity_constraints_Element.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211124113149_added_entity_constraints_ElementKind.xml" relativeToChangelogFile="false"/>
@@ -57,6 +58,7 @@
     <include file="config/liquibase/changelog/20211223101922_added_entity_constraints_IntersticeAssembly.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211227080157_added_entity_constraints_Position.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211215162719_added_entity_constraints_Strand.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220111131349_added_entity_constraints_Sheathing.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

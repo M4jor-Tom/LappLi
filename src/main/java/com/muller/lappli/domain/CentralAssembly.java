@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
+import com.muller.lappli.domain.enumeration.OperationKind;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,6 +29,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         value = {
             "coreAssemblies",
             "intersticeAssemblies",
+            "sheathings",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",
@@ -65,6 +67,11 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     }
 
     @Override
+    public OperationKind getOperationKind() {
+        return OperationKind.CENTRAL_ASSEMBLY;
+    }
+
+    @Override
     public Set<Position> getPositions() {
         HashSet<Position> positions = new HashSet<Position>();
         if (getPosition() != null) {
@@ -76,6 +83,11 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @Override
     public Long getOperationLayer() {
         return Long.valueOf(0);
+    }
+
+    @Override
+    public Double getAfterThisMilimeterDiameter() {
+        return getMilimeterDiameterIncidency();
     }
 
     @Override
@@ -91,6 +103,20 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     public Long getProductionStep() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public String getProductDesignation() {
+        try {
+            return getPosition().getSupply().getDesignation();
+        } catch (NullPointerException e) {
+            return "";
+        }
+    }
+
+    @Override
+    public Long getAssemblyLayer() {
+        return Long.valueOf(0);
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

@@ -30,6 +30,7 @@
         "coreAssembly": "Core Assembly",
         "intersticeAssembly": "Interstice Assembly",
         "position": "Position",
+        "sheathing": "Sheathing",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

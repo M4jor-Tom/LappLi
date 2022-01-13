@@ -3,6 +3,7 @@ import { IAbstractNonCentralAssembly } from './abstract-non-central-assembly.mod
 
 export interface IIntersticeAssembly extends IAbstractNonCentralAssembly {
   id?: number;
+  intersticeLayer?: number;
 }
 
 export const defaultValue: Readonly<IIntersticeAssembly> = {};

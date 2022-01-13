@@ -3,8 +3,8 @@ import { IAbstractAssembly } from './abstract-assembly.model';
 import { IPosition } from './position.model';
 
 export interface ICentralAssembly extends IAbstractAssembly {
-  id?: number;
-  productionStep?: number;
+  //  id?: number;
+  //  productionStep?: number;
   position?: IPosition;
 }
 

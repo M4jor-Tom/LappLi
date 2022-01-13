@@ -26,6 +26,7 @@ import CentralAssembly from './central-assembly';
 import CoreAssembly from './core-assembly';
 import IntersticeAssembly from './interstice-assembly';
 import Position from './position';
+import Sheathing from './sheathing';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -54,6 +55,7 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}core-assembly`} component={CoreAssembly} />
       <ErrorBoundaryRoute path={`${match.url}interstice-assembly`} component={IntersticeAssembly} />
       <ErrorBoundaryRoute path={`${match.url}position`} component={Position} />
+      <ErrorBoundaryRoute path={`${match.url}sheathing`} component={Sheathing} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>

@@ -1,6 +1,12 @@
 {
   "name": "IntersticeAssembly",
-  "fields": [],
+  "fields": [
+    {
+      "fieldName": "intersticeLayer",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    }
+  ],
   "relationships": [
     {
       "relationshipType": "one-to-many",

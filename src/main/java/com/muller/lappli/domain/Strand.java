@@ -9,7 +9,9 @@ import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.exception.NoIntersticeAvailableException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
@@ -35,13 +37,18 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
     @NotNull
     @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "ownerStrand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrand", "positions", "supplies" }, allowSetters = true)
     private Set<CoreAssembly> coreAssemblies = new HashSet<>();
 
     @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "ownerStrand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrand", "positions", "supplies" }, allowSetters = true)
     private Set<IntersticeAssembly> intersticeAssemblies = new HashSet<>();
+
+    @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "material", "ownerStrand" }, allowSetters = true)
+    private Set<Sheathing> sheathings = new HashSet<>();
 
     @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -77,6 +84,40 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
         return this;
     }
 
+    private Comparator<AbstractOperation<?>> getOperationComparator() {
+        return new Comparator<AbstractOperation<?>>() {
+            @Override
+            public int compare(AbstractOperation<?> o1, AbstractOperation<?> o2) {
+                if (o1 instanceof AbstractAssembly && o2 instanceof AbstractAssembly) {
+                    if (o1 instanceof IntersticeAssembly && o2 instanceof IntersticeAssembly) {
+                        //Both o1 & o2 are IntersticeAssemblies, have to deduct by layer number
+                        return (int) (((IntersticeAssembly) o1).getIntersticeLayer() - ((IntersticeAssembly) o2).getIntersticeLayer());
+                    } else if (o1 instanceof IntersticeAssembly || o2 instanceof IntersticeAssembly) {
+                        //Case when both are IntersticeAssemblies is nailed up there,
+                        //so this case is when ONLY ONE is an IntersticeAssembly
+                        if (o1 instanceof IntersticeAssembly) {
+                            //o2 cannot be IntersticeAssembly there
+                            return 1;
+                        }
+                        //o1 cannot be IntersticeAssembly there
+                        return -1;
+                    } else {
+                        //None of o1 & o2 are IntersticeAssemblies,
+                        //the use of AbstractAssembly.assemblyLayer will suffise
+                        return (int) (((AbstractAssembly<?>) o1).getAssemblyLayer() - ((AbstractAssembly<?>) o2).getAssemblyLayer());
+                    }
+                }
+
+                //If one is an Assembly, its operationLayer will be lower than
+                //a non-assembly operation.
+                //Otherwise, if both operations are non-assembly, hope
+                //it's not equal, in that case error checking failed and this would result
+                //in a randomly sorted non-assembly operation list
+                return (int) (o1.getOperationLayer() - o2.getOperationLayer());
+            }
+        };
+    }
+
     /**
      * Get the operation before the selected one
      *
@@ -107,16 +148,14 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
      * @return the diameter in milimeter
      */
     public Double getMilimeterDiameterBefore(AbstractOperation<?> operation) {
-        AbstractOperation<?> lastOperationBefore = getLastOperationBefore(operation);
-
-        if (lastOperationBefore == null) {
-            return 0.0;
+        try {
+            return getLastOperationBefore(operation).getAfterThisMilimeterDiameter();
+        } catch (NullPointerException e) {
+            return Double.NaN;
         }
-
-        return lastOperationBefore.getAfterThisMilimeterDiameter();
     }
 
-    @JsonIgnoreProperties("strand")
+    @JsonIgnoreProperties("ownerStrand")
     public CoreAssembly getLastCoreAssembly() {
         CoreAssembly lastCoreAssembly = null;
 
@@ -190,7 +229,6 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
     /**
      * @return all the assemblies
      */
-    @JsonIgnore
     public Set<AbstractAssembly<?>> getAssemblies() {
         HashSet<AbstractAssembly<?>> assemblies = new HashSet<>();
 
@@ -205,15 +243,29 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
     }
 
     /**
-     * @return all the operations
+     * @return all operations which are not assemblies
      */
-    @JsonIgnore
-    public Set<AbstractOperation<?>> getOperations() {
+    public Set<AbstractOperation<?>> getNonAssemblyOperations() {
         HashSet<AbstractOperation<?>> operations = new HashSet<>();
 
-        operations.addAll(getAssemblies());
+        operations.addAll(getSheathings());
 
         return operations;
+    }
+
+    /**
+     * @return all the operations
+     */
+    public Set<AbstractOperation<?>> getOperations() {
+        LinkedHashSet<AbstractOperation<?>> operations = new LinkedHashSet<>();
+
+        operations.addAll(getNonAssemblyOperations());
+        operations.addAll(getAssemblies());
+
+        List<AbstractOperation<?>> sortedOperationList = new ArrayList<AbstractOperation<?>>(operations);
+        sortedOperationList.sort(getOperationComparator());
+
+        return new LinkedHashSet<AbstractOperation<?>>(sortedOperationList);
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -298,6 +350,37 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
     public Strand removeIntersticeAssemblies(IntersticeAssembly intersticeAssembly) {
         this.intersticeAssemblies.remove(intersticeAssembly);
         intersticeAssembly.setOwnerStrand(null);
+        return this;
+    }
+
+    public Set<Sheathing> getSheathings() {
+        return this.sheathings;
+    }
+
+    public void setSheathings(Set<Sheathing> sheathings) {
+        if (this.sheathings != null) {
+            this.sheathings.forEach(i -> i.setOwnerStrand(null));
+        }
+        if (sheathings != null) {
+            sheathings.forEach(i -> i.setOwnerStrand(this));
+        }
+        this.sheathings = sheathings;
+    }
+
+    public Strand sheathings(Set<Sheathing> sheathings) {
+        this.setSheathings(sheathings);
+        return this;
+    }
+
+    public Strand addSheathings(Sheathing sheathing) {
+        this.sheathings.add(sheathing);
+        sheathing.setOwnerStrand(this);
+        return this;
+    }
+
+    public Strand removeSheathings(Sheathing sheathing) {
+        this.sheathings.remove(sheathing);
+        sheathing.setOwnerStrand(null);
         return this;
     }
 

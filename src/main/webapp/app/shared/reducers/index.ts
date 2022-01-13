@@ -55,6 +55,8 @@ import coreAssembly from 'app/entities/core-assembly/core-assembly.reducer';
 import intersticeAssembly from 'app/entities/interstice-assembly/interstice-assembly.reducer';
 // prettier-ignore
 import position from 'app/entities/position/position.reducer';
+// prettier-ignore
+import sheathing from 'app/entities/sheathing/sheathing.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -90,6 +92,7 @@ const rootReducer = {
   coreAssembly,
   intersticeAssembly,
   position,
+  sheathing,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };
