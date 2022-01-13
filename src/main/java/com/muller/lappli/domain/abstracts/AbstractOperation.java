@@ -45,11 +45,7 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
      */
     public Double getAfterThisMilimeterDiameter() {
         try {
-            Double milimeterDiameterBeforeThis = getOwnerStrand().getMilimeterDiameterBefore(this);
-            if (milimeterDiameterBeforeThis.isNaN()) {
-                return Double.NaN;
-            }
-            return milimeterDiameterBeforeThis + getMilimeterDiameterIncidency();
+            return getOwnerStrand().getMilimeterDiameterBefore(this) + getMilimeterDiameterIncidency();
         } catch (NullPointerException e) {
             return Double.NaN;
         }
