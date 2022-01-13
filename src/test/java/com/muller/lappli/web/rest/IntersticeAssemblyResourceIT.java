@@ -31,6 +31,9 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class IntersticeAssemblyResourceIT {
 
+    private static final Long DEFAULT_INTERSTICE_LAYER = 1L;
+    private static final Long UPDATED_INTERSTICE_LAYER = 2L;
+
     private static final String ENTITY_API_URL = "/api/interstice-assemblies";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -55,7 +58,7 @@ class IntersticeAssemblyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static IntersticeAssembly createEntity(EntityManager em) {
-        IntersticeAssembly intersticeAssembly = new IntersticeAssembly();
+        IntersticeAssembly intersticeAssembly = new IntersticeAssembly().intersticeLayer(DEFAULT_INTERSTICE_LAYER);
         // Add required entity
         Strand strand;
         if (TestUtil.findAll(em, Strand.class).isEmpty()) {
@@ -76,7 +79,7 @@ class IntersticeAssemblyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static IntersticeAssembly createUpdatedEntity(EntityManager em) {
-        IntersticeAssembly intersticeAssembly = new IntersticeAssembly();
+        IntersticeAssembly intersticeAssembly = new IntersticeAssembly().intersticeLayer(UPDATED_INTERSTICE_LAYER);
         // Add required entity
         Strand strand;
         if (TestUtil.findAll(em, Strand.class).isEmpty()) {
@@ -110,6 +113,7 @@ class IntersticeAssemblyResourceIT {
         List<IntersticeAssembly> intersticeAssemblyList = intersticeAssemblyRepository.findAll();
         assertThat(intersticeAssemblyList).hasSize(databaseSizeBeforeCreate + 1);
         IntersticeAssembly testIntersticeAssembly = intersticeAssemblyList.get(intersticeAssemblyList.size() - 1);
+        assertThat(testIntersticeAssembly.getIntersticeLayer()).isEqualTo(DEFAULT_INTERSTICE_LAYER);
     }
 
     @Test
@@ -134,6 +138,25 @@ class IntersticeAssemblyResourceIT {
 
     @Test
     @Transactional
+    void checkIntersticeLayerIsRequired() throws Exception {
+        int databaseSizeBeforeTest = intersticeAssemblyRepository.findAll().size();
+        // set the field null
+        intersticeAssembly.setIntersticeLayer(null);
+
+        // Create the IntersticeAssembly, which fails.
+
+        restIntersticeAssemblyMockMvc
+            .perform(
+                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(intersticeAssembly))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<IntersticeAssembly> intersticeAssemblyList = intersticeAssemblyRepository.findAll();
+        assertThat(intersticeAssemblyList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllIntersticeAssemblies() throws Exception {
         // Initialize the database
         intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);
@@ -143,7 +166,8 @@ class IntersticeAssemblyResourceIT {
             .perform(get(ENTITY_API_URL + "?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(intersticeAssembly.getId().intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(intersticeAssembly.getId().intValue())))
+            .andExpect(jsonPath("$.[*].intersticeLayer").value(hasItem(DEFAULT_INTERSTICE_LAYER.intValue())));
     }
 
     @Test
@@ -157,7 +181,8 @@ class IntersticeAssemblyResourceIT {
             .perform(get(ENTITY_API_URL_ID, intersticeAssembly.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(intersticeAssembly.getId().intValue()));
+            .andExpect(jsonPath("$.id").value(intersticeAssembly.getId().intValue()))
+            .andExpect(jsonPath("$.intersticeLayer").value(DEFAULT_INTERSTICE_LAYER.intValue()));
     }
 
     @Test
@@ -179,6 +204,7 @@ class IntersticeAssemblyResourceIT {
         IntersticeAssembly updatedIntersticeAssembly = intersticeAssemblyRepository.findById(intersticeAssembly.getId()).get();
         // Disconnect from session so that the updates on updatedIntersticeAssembly are not directly saved in db
         em.detach(updatedIntersticeAssembly);
+        updatedIntersticeAssembly.intersticeLayer(UPDATED_INTERSTICE_LAYER);
 
         ResultMatcher expectedResult = updatedIntersticeAssembly.positionsAreRight() ? status().isOk() : status().isBadRequest();
 
@@ -194,6 +220,7 @@ class IntersticeAssemblyResourceIT {
         List<IntersticeAssembly> intersticeAssemblyList = intersticeAssemblyRepository.findAll();
         assertThat(intersticeAssemblyList).hasSize(databaseSizeBeforeUpdate);
         IntersticeAssembly testIntersticeAssembly = intersticeAssemblyList.get(intersticeAssemblyList.size() - 1);
+        assertThat(testIntersticeAssembly.getIntersticeLayer()).isEqualTo(UPDATED_INTERSTICE_LAYER);
     }
 
     @Test
@@ -278,6 +305,7 @@ class IntersticeAssemblyResourceIT {
         List<IntersticeAssembly> intersticeAssemblyList = intersticeAssemblyRepository.findAll();
         assertThat(intersticeAssemblyList).hasSize(databaseSizeBeforeUpdate);
         IntersticeAssembly testIntersticeAssembly = intersticeAssemblyList.get(intersticeAssemblyList.size() - 1);
+        assertThat(testIntersticeAssembly.getIntersticeLayer()).isEqualTo(DEFAULT_INTERSTICE_LAYER);
     }
 
     @Test
@@ -292,6 +320,8 @@ class IntersticeAssemblyResourceIT {
         IntersticeAssembly partialUpdatedIntersticeAssembly = new IntersticeAssembly();
         partialUpdatedIntersticeAssembly.setId(intersticeAssembly.getId());
 
+        partialUpdatedIntersticeAssembly.intersticeLayer(UPDATED_INTERSTICE_LAYER);
+
         restIntersticeAssemblyMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedIntersticeAssembly.getId())
@@ -304,6 +334,7 @@ class IntersticeAssemblyResourceIT {
         List<IntersticeAssembly> intersticeAssemblyList = intersticeAssemblyRepository.findAll();
         assertThat(intersticeAssemblyList).hasSize(databaseSizeBeforeUpdate);
         IntersticeAssembly testIntersticeAssembly = intersticeAssemblyList.get(intersticeAssemblyList.size() - 1);
+        assertThat(testIntersticeAssembly.getIntersticeLayer()).isEqualTo(UPDATED_INTERSTICE_LAYER);
     }
 
     @Test
