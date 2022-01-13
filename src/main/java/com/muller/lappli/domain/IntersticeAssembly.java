@@ -27,6 +27,10 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     @Column(name = "id")
     private Long id;
 
+    @NotNull
+    @Column(name = "interstice_layer", nullable = false)
+    private Long intersticeLayer;
+
     @OneToMany(mappedBy = "ownerIntersticeAssembly", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
@@ -125,6 +129,19 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         this.id = id;
     }
 
+    public Long getIntersticeLayer() {
+        return this.intersticeLayer;
+    }
+
+    public IntersticeAssembly intersticeLayer(Long intersticeLayer) {
+        this.setIntersticeLayer(intersticeLayer);
+        return this;
+    }
+
+    public void setIntersticeLayer(Long intersticeLayer) {
+        this.intersticeLayer = intersticeLayer;
+    }
+
     @Override
     public Set<Position> getPositions() {
         return this.positions;
@@ -157,6 +174,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         return this;
     }
 
+    @Override
     public Strand getOwnerStrand() {
         return this.ownerStrand;
     }
@@ -195,6 +213,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         return "IntersticeAssembly{" +
             "id=" + getId() +
             ", productionStep=" + getProductionStep() +
+            ", intersticeLayer=" + getIntersticeLayer() +
             "}";
     }
 }

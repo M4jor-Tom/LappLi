@@ -47,6 +47,10 @@ public class IntersticeAssemblyServiceImpl implements IntersticeAssemblyService 
         return intersticeAssemblyRepository
             .findById(intersticeAssembly.getId())
             .map(existingIntersticeAssembly -> {
+                if (intersticeAssembly.getIntersticeLayer() != null) {
+                    existingIntersticeAssembly.setIntersticeLayer(intersticeAssembly.getIntersticeLayer());
+                }
+
                 return existingIntersticeAssembly;
             })
             .map(intersticeAssemblyRepository::save);

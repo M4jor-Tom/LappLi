@@ -24,6 +24,7 @@ entity CoreAssembly {
 }
 
 entity IntersticeAssembly {
+	intersticeLayer Long required
 	//@Readonly operationLayer Long required
 	//@Readonly productionStep Long required
 }
