@@ -28,6 +28,10 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     private Long id;
 
     @NotNull
+    @Column(name = "assembly_layer", nullable = false)
+    private Long assemblyLayer;
+
+    @NotNull
     @Column(name = "diameter_assembly_step", nullable = false)
     private Double diameterAssemblyStep;
 
@@ -91,6 +95,11 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         return null;
     }
 
+    @Override
+    public Long getOperationLayer() {
+        return Long.valueOf(1);
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override
@@ -107,21 +116,17 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         this.id = id;
     }
 
-    @Override
-    public Long getOperationLayer() {
-        Long operationLayer = Long.valueOf(1);
+    public Long getAssemblyLayer() {
+        return this.assemblyLayer;
+    }
 
-        if (getOwnerStrand() != null) {
-            for (CoreAssembly coreAssembly : getOwnerStrand().getCoreAssemblies()) {
-                if (coreAssembly.equals(this)) {
-                    return operationLayer;
-                }
+    public CoreAssembly assemblyLayer(Long assemblyLayer) {
+        this.setAssemblyLayer(assemblyLayer);
+        return this;
+    }
 
-                operationLayer++;
-            }
-        }
-
-        return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+    public void setAssemblyLayer(Long assemblyLayer) {
+        this.assemblyLayer = assemblyLayer;
     }
 
     public Double getDiameterAssemblyStep() {

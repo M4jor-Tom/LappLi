@@ -1,6 +1,7 @@
 service * with serviceImpl
 
 entity Sheathing {
+	operationLayer Long required
 	thickness Double required
     sheathingKind SheathingKind required
 }
@@ -17,6 +18,7 @@ entity CentralAssembly {
 entity CoreAssembly {
 	//@Readonly operationLayer Long required
 	//@Readonly productionStep Long required
+	assemblyLayer Long required
 	diameterAssemblyStep Double required
     assemblyMean AssemblyMean required
 }

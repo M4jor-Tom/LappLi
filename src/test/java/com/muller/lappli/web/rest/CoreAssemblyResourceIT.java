@@ -32,6 +32,9 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class CoreAssemblyResourceIT {
 
+    private static final Long DEFAULT_ASSEMBLY_LAYER = 1L;
+    private static final Long UPDATED_ASSEMBLY_LAYER = 2L;
+
     private static final Double DEFAULT_DIAMETER_ASSEMBLY_STEP = 1D;
     private static final Double UPDATED_DIAMETER_ASSEMBLY_STEP = 2D;
 
@@ -63,6 +66,7 @@ class CoreAssemblyResourceIT {
      */
     public static CoreAssembly createEntity(EntityManager em) {
         CoreAssembly coreAssembly = new CoreAssembly()
+            .assemblyLayer(DEFAULT_ASSEMBLY_LAYER)
             .diameterAssemblyStep(DEFAULT_DIAMETER_ASSEMBLY_STEP)
             .assemblyMean(DEFAULT_ASSEMBLY_MEAN);
         // Add required entity
@@ -86,6 +90,7 @@ class CoreAssemblyResourceIT {
      */
     public static CoreAssembly createUpdatedEntity(EntityManager em) {
         CoreAssembly coreAssembly = new CoreAssembly()
+            .assemblyLayer(UPDATED_ASSEMBLY_LAYER)
             .diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP)
             .assemblyMean(UPDATED_ASSEMBLY_MEAN);
         // Add required entity
@@ -119,6 +124,7 @@ class CoreAssemblyResourceIT {
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeCreate + 1);
         CoreAssembly testCoreAssembly = coreAssemblyList.get(coreAssemblyList.size() - 1);
+        assertThat(testCoreAssembly.getAssemblyLayer()).isEqualTo(DEFAULT_ASSEMBLY_LAYER);
         assertThat(testCoreAssembly.getDiameterAssemblyStep()).isEqualTo(DEFAULT_DIAMETER_ASSEMBLY_STEP);
         assertThat(testCoreAssembly.getAssemblyMean()).isEqualTo(DEFAULT_ASSEMBLY_MEAN);
     }
@@ -139,6 +145,23 @@ class CoreAssemblyResourceIT {
         // Validate the CoreAssembly in the database
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    void checkAssemblyLayerIsRequired() throws Exception {
+        int databaseSizeBeforeTest = coreAssemblyRepository.findAll().size();
+        // set the field null
+        coreAssembly.setAssemblyLayer(null);
+
+        // Create the CoreAssembly, which fails.
+
+        restCoreAssemblyMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(coreAssembly)))
+            .andExpect(status().isBadRequest());
+
+        List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
+        assertThat(coreAssemblyList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -187,6 +210,7 @@ class CoreAssemblyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(coreAssembly.getId().intValue())))
+            .andExpect(jsonPath("$.[*].assemblyLayer").value(hasItem(DEFAULT_ASSEMBLY_LAYER.intValue())))
             .andExpect(jsonPath("$.[*].diameterAssemblyStep").value(hasItem(DEFAULT_DIAMETER_ASSEMBLY_STEP.doubleValue())))
             .andExpect(jsonPath("$.[*].assemblyMean").value(hasItem(DEFAULT_ASSEMBLY_MEAN.toString())));
     }
@@ -203,6 +227,7 @@ class CoreAssemblyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(coreAssembly.getId().intValue()))
+            .andExpect(jsonPath("$.assemblyLayer").value(DEFAULT_ASSEMBLY_LAYER.intValue()))
             .andExpect(jsonPath("$.diameterAssemblyStep").value(DEFAULT_DIAMETER_ASSEMBLY_STEP.doubleValue()))
             .andExpect(jsonPath("$.assemblyMean").value(DEFAULT_ASSEMBLY_MEAN.toString()));
     }
@@ -226,7 +251,10 @@ class CoreAssemblyResourceIT {
         CoreAssembly updatedCoreAssembly = coreAssemblyRepository.findById(coreAssembly.getId()).get();
         // Disconnect from session so that the updates on updatedCoreAssembly are not directly saved in db
         em.detach(updatedCoreAssembly);
-        updatedCoreAssembly.diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP).assemblyMean(UPDATED_ASSEMBLY_MEAN);
+        updatedCoreAssembly
+            .assemblyLayer(UPDATED_ASSEMBLY_LAYER)
+            .diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP)
+            .assemblyMean(UPDATED_ASSEMBLY_MEAN);
 
         ResultMatcher expectedResult = updatedCoreAssembly.positionsAreRight() ? status().isOk() : status().isBadRequest();
 
@@ -242,6 +270,7 @@ class CoreAssemblyResourceIT {
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeUpdate);
         CoreAssembly testCoreAssembly = coreAssemblyList.get(coreAssemblyList.size() - 1);
+        assertThat(testCoreAssembly.getAssemblyLayer()).isEqualTo(UPDATED_ASSEMBLY_LAYER);
         assertThat(testCoreAssembly.getDiameterAssemblyStep()).isEqualTo(UPDATED_DIAMETER_ASSEMBLY_STEP);
         assertThat(testCoreAssembly.getAssemblyMean()).isEqualTo(UPDATED_ASSEMBLY_MEAN);
     }
@@ -326,6 +355,7 @@ class CoreAssemblyResourceIT {
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeUpdate);
         CoreAssembly testCoreAssembly = coreAssemblyList.get(coreAssemblyList.size() - 1);
+        assertThat(testCoreAssembly.getAssemblyLayer()).isEqualTo(DEFAULT_ASSEMBLY_LAYER);
         assertThat(testCoreAssembly.getDiameterAssemblyStep()).isEqualTo(DEFAULT_DIAMETER_ASSEMBLY_STEP);
         assertThat(testCoreAssembly.getAssemblyMean()).isEqualTo(DEFAULT_ASSEMBLY_MEAN);
     }
@@ -342,7 +372,10 @@ class CoreAssemblyResourceIT {
         CoreAssembly partialUpdatedCoreAssembly = new CoreAssembly();
         partialUpdatedCoreAssembly.setId(coreAssembly.getId());
 
-        partialUpdatedCoreAssembly.diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP).assemblyMean(UPDATED_ASSEMBLY_MEAN);
+        partialUpdatedCoreAssembly
+            .assemblyLayer(UPDATED_ASSEMBLY_LAYER)
+            .diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP)
+            .assemblyMean(UPDATED_ASSEMBLY_MEAN);
 
         restCoreAssemblyMockMvc
             .perform(
@@ -356,6 +389,7 @@ class CoreAssemblyResourceIT {
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeUpdate);
         CoreAssembly testCoreAssembly = coreAssemblyList.get(coreAssemblyList.size() - 1);
+        assertThat(testCoreAssembly.getAssemblyLayer()).isEqualTo(UPDATED_ASSEMBLY_LAYER);
         assertThat(testCoreAssembly.getDiameterAssemblyStep()).isEqualTo(UPDATED_DIAMETER_ASSEMBLY_STEP);
         assertThat(testCoreAssembly.getAssemblyMean()).isEqualTo(UPDATED_ASSEMBLY_MEAN);
     }

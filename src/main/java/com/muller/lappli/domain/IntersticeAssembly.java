@@ -49,6 +49,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         value = {
             "coreAssemblies",
             "intersticeAssemblies",
+            "sheathings",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",

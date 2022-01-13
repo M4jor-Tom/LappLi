@@ -26,6 +26,10 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
     private Long id;
 
     @NotNull
+    @Column(name = "operation_layer", nullable = false)
+    private Long operationLayer;
+
+    @NotNull
     @Column(name = "thickness", nullable = false)
     private Double thickness;
 
@@ -109,6 +113,20 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
         this.id = id;
     }
 
+    @Override
+    public Long getOperationLayer() {
+        return this.operationLayer;
+    }
+
+    public Sheathing operationLayer(Long operationLayer) {
+        this.setOperationLayer(operationLayer);
+        return this;
+    }
+
+    public void setOperationLayer(Long operationLayer) {
+        this.operationLayer = operationLayer;
+    }
+
     public Double getThickness() {
         return this.thickness;
     }
@@ -185,6 +203,7 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
     public String toString() {
         return "Sheathing{" +
             "id=" + getId() +
+            ", operationLayer=" + getOperationLayer() +
             ", thickness=" + getThickness() +
             ", sheathingKind='" + getSheathingKind() + "'" +
             "}";
