@@ -85,12 +85,14 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
           ownerStrand: sheathingEntity?.ownerStrand?.id,
         };
 
+  const titleTranslateContentKeyText = isNew ? 'lappLiApp.sheathing.home.createLabel' : 'lappLiApp.sheathing.home.createOrEditLabel';
+
   return (
     <div>
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="lappLiApp.sheathing.home.createOrEditLabel" data-cy="SheathingCreateUpdateHeading">
-            <Translate contentKey="lappLiApp.sheathing.home.createOrEditLabel">Create or edit a Sheathing</Translate>
+            <Translate contentKey={titleTranslateContentKeyText} />
           </h2>
         </Col>
       </Row>
