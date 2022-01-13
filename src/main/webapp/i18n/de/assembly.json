@@ -4,13 +4,10 @@
       "home": {
         "notFound": "No assembly found"
       },
-      "operationLayer": "Operation Layer",
-      "productionStep": "Production Step",
-      "position": "Position",
+      "assemblyLayer": "Assembly Layer",
       "diameterAssemblyStep": "Assembly Step (D)",
       "assemblyMean": "Assembly Mean",
-      "subSupply": "Assembly Supply",
-      "ownerStrand": "Owner Strand"
+      "subSupply": "Assembly Supply"
     }
   }
 }
