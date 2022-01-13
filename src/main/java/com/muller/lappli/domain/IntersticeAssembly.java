@@ -3,6 +3,7 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
+import com.muller.lappli.domain.enumeration.OperationKind;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +27,10 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     @Column(name = "id")
     private Long id;
 
+    @NotNull
+    @Column(name = "interstice_layer", nullable = false)
+    private Long intersticeLayer;
+
     @OneToMany(mappedBy = "ownerIntersticeAssembly", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
@@ -48,6 +53,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         value = {
             "coreAssemblies",
             "intersticeAssemblies",
+            "sheathings",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",
@@ -62,6 +68,11 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     @Override
     public IntersticeAssembly getThis() {
         return this;
+    }
+
+    @Override
+    public OperationKind getOperationKind() {
+        return OperationKind.INTERSTICE_ASSEMBLY;
     }
 
     @Override
@@ -83,11 +94,11 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     }
 
     @Override
-    public Long getOperationLayer() {
+    public Long getAssemblyLayer() {
         try {
-            return getOwnerStrand().getLastCoreAssembly().getOperationLayer();
+            return getOwnerStrand().getLastCoreAssembly().getAssemblyLayer();
         } catch (NullPointerException e) {
-            return null;
+            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
         }
     }
 
@@ -116,6 +127,19 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getIntersticeLayer() {
+        return this.intersticeLayer;
+    }
+
+    public IntersticeAssembly intersticeLayer(Long intersticeLayer) {
+        this.setIntersticeLayer(intersticeLayer);
+        return this;
+    }
+
+    public void setIntersticeLayer(Long intersticeLayer) {
+        this.intersticeLayer = intersticeLayer;
     }
 
     @Override
@@ -150,6 +174,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         return this;
     }
 
+    @Override
     public Strand getOwnerStrand() {
         return this.ownerStrand;
     }
@@ -188,6 +213,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         return "IntersticeAssembly{" +
             "id=" + getId() +
             ", productionStep=" + getProductionStep() +
+            ", intersticeLayer=" + getIntersticeLayer() +
             "}";
     }
 }

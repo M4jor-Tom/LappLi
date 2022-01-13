@@ -1,5 +1,6 @@
 package com.muller.lappli.domain.abstracts;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.exception.PositionHasSeveralSupplyException;
 import com.muller.lappli.domain.exception.PositionInSeveralAssemblyException;
@@ -12,9 +13,17 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends AbstractOperation<T> {
 
+    public abstract Long getAssemblyLayer();
+
+    @Override
+    public Long getOperationLayer() {
+        return Long.valueOf(0);
+    }
+
     /**
      * @return a Set containing all positions in this
      */
+    @JsonIgnoreProperties("ownerAssembly")
     public abstract Set<Position> getPositions();
 
     public Long getPositionsCountBySupply(AbstractSupply<?> ownedSupply) {
@@ -47,16 +56,5 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends Ab
         }
 
         return true;
-    }
-
-    /**
-     * @return the designation of the owner strand
-     */
-    public String getDesignation() {
-        try {
-            return getOwnerStrand().getDesignation();
-        } catch (NullPointerException e) {
-            return "";
-        }
     }
 }

@@ -66,6 +66,7 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
         value = {
             "coreAssemblies",
             "intersticeAssemblies",
+            "sheathings",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",
@@ -94,15 +95,6 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
     @Override
     public CylindricComponent getCylindricComponent() {
         return getElement();
-    }
-
-    @Override
-    public String getDesignation() {
-        try {
-            return getElement().getDesignationWithColor();
-        } catch (NullPointerException e) {
-            return "";
-        }
     }
 
     @Override

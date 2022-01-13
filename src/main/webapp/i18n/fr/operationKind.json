@@ -1,0 +1,11 @@
+{
+  "lappLiApp": {
+    "OperationKind": {
+      "null": "",
+      "CENTRAL_ASSEMBLY": "Assemblage Central",
+      "CORE_ASSEMBLY": "Assemblage Principal",
+      "INTERSTICE_ASSEMBLY": "Assemblage Intersticiel",
+      "SHEATHING": "Gainage"
+    }
+  }
+}

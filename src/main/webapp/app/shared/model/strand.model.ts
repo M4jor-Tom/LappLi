@@ -1,17 +1,22 @@
 import { ICoreAssembly } from 'app/shared/model/core-assembly.model';
 import { IIntersticeAssembly } from 'app/shared/model/interstice-assembly.model';
+import { ISheathing } from 'app/shared/model/sheathing.model';
 import { IElementSupply } from 'app/shared/model/element-supply.model';
 import { IBangleSupply } from 'app/shared/model/bangle-supply.model';
 import { ICustomComponentSupply } from 'app/shared/model/custom-component-supply.model';
 import { IOneStudySupply } from 'app/shared/model/one-study-supply.model';
 import { ICentralAssembly } from 'app/shared/model/central-assembly.model';
 import { IStudy } from 'app/shared/model/study.model';
+import { IAbstractOperation } from './abstract-operation.model';
 
 export interface IStrand {
   id?: number;
   designation?: string;
+  operations?: IAbstractOperation[] | null;
+  nonAssemblyOperations?: IAbstractOperation[] | null;
   coreAssemblies?: ICoreAssembly[] | null;
   intersticeAssemblies?: IIntersticeAssembly[] | null;
+  sheathings?: ISheathing[] | null;
   elementSupplies?: IElementSupply[] | null;
   bangleSupplies?: IBangleSupply[] | null;
   customComponentSupplies?: ICustomComponentSupply[] | null;

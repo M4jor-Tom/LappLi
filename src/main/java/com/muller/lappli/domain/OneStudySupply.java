@@ -83,6 +83,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         value = {
             "coreAssemblies",
             "intersticeAssemblies",
+            "sheathings",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",

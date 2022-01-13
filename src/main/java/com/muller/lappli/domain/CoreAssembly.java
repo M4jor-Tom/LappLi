@@ -3,6 +3,7 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
+import com.muller.lappli.domain.enumeration.OperationKind;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +26,10 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @NotNull
+    @Column(name = "assembly_layer", nullable = false)
+    private Long assemblyLayer;
 
     @NotNull
     @Column(name = "diameter_assembly_step", nullable = false)
@@ -57,6 +62,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         value = {
             "coreAssemblies",
             "intersticeAssemblies",
+            "sheathings",
             "elementSupplies",
             "bangleSupplies",
             "customComponentSupplies",
@@ -71,6 +77,11 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     @Override
     public CoreAssembly getThis() {
         return this;
+    }
+
+    @Override
+    public OperationKind getOperationKind() {
+        return OperationKind.CORE_ASSEMBLY;
     }
 
     @Override
@@ -101,20 +112,17 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     }
 
     @Override
-    public Long getOperationLayer() {
-        Long operationLayer = Long.valueOf(1);
+    public Long getAssemblyLayer() {
+        return this.assemblyLayer;
+    }
 
-        if (getOwnerStrand() != null) {
-            for (CoreAssembly coreAssembly : getOwnerStrand().getCoreAssemblies()) {
-                if (coreAssembly.equals(this)) {
-                    return operationLayer;
-                }
+    public CoreAssembly assemblyLayer(Long assemblyLayer) {
+        this.setAssemblyLayer(assemblyLayer);
+        return this;
+    }
 
-                operationLayer++;
-            }
-        }
-
-        return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+    public void setAssemblyLayer(Long assemblyLayer) {
+        this.assemblyLayer = assemblyLayer;
     }
 
     public Double getDiameterAssemblyStep() {

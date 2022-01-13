@@ -30,11 +30,11 @@ export const CoreAssemblyDetail = (props: RouteComponentProps<{ id: string }>) =
           </dt>
           <dd>{coreAssemblyEntity.id}</dd>
           <dt>
-            <span id="operationLayer">
-              <Translate contentKey="lappLiApp.coreAssembly.operationLayer">Operation Layer</Translate>
+            <span id="assemblyLayer">
+              <Translate contentKey="lappLiApp.coreAssembly.assemblyLayer">Assembly Layer</Translate>
             </span>
           </dt>
-          <dd>{coreAssemblyEntity.operationLayer}</dd>
+          <dd>{coreAssemblyEntity.assemblyLayer}</dd>
           <dt>
             <span id="productionStep">
               <Translate contentKey="lappLiApp.coreAssembly.productionStep">Production Step</Translate>

@@ -18,6 +18,13 @@
     },
     {
       "relationshipType": "one-to-many",
+      "otherEntityName": "sheathing",
+      "otherEntityRelationshipName": "ownerStrand",
+      "relationshipName": "sheathings",
+      "otherEntityField": "productionStep"
+    },
+    {
+      "relationshipType": "one-to-many",
       "otherEntityName": "elementSupply",
       "otherEntityRelationshipName": "ownerStrand",
       "relationshipName": "elementSupplies",

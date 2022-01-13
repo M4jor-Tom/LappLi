@@ -1,6 +1,11 @@
 {
   "lappLiApp": {
     "operation": {
+      "ownerStrand": "Toron propriétaire",
+      "operationLayer": "Couche d'opération",
+      "productionStep": "Etape de production",
+      "productDesignation": "Désignation de Produit",
+      "milimeterDiameterIncidency": "Incidence au Diamètre (mm)",
       "afterThisMilimeterDiameter": "Diamètre après opération (mm)"
     }
   }
