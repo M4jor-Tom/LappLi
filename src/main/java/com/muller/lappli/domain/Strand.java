@@ -134,11 +134,30 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
         Collections.reverse(operationList);
         Set<AbstractOperation<?>> reversedCollectionSet = new LinkedHashSet<AbstractOperation<?>>(operationList);
 
+        System.out.println("BEGIN");
+        for (AbstractOperation<?> viewedOperation : getOperations()) {
+            System.out.println("\n\n==============\n\n" + viewedOperation + "\n\n==============\n\n");
+        }
+        System.out.println("END");
+
         for (AbstractOperation<?> operationChecked : reversedCollectionSet) {
+            /*System.out.println(
+                "\n\n=============\n\n" +
+                operation + "\n" + operationChecked + "\n" +
+                operationChecked.equals(operation)
+            );*/
+
             if (operationChecked.equals(operation)) {
-                //Current operation is the searched one, we seek the previous one
+                //Current operation is the searched one, we seek the prefious one
+                /*System.out.println(
+                    beforeOperation
+                );*/
                 return beforeOperation;
             }
+
+            /*System.out.println(
+                "\n\n=============\n\n"
+            );*/
 
             //Cycle the cursor
             beforeOperation = operationChecked;
