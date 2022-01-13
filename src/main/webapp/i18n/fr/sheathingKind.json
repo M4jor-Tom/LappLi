@@ -2,10 +2,10 @@
   "lappLiApp": {
     "SheathingKind": {
       "null": "",
-      "TUBE": "TUBE",
-      "FLOATING_TUBE": "FLOATING_TUBE",
-      "HALF_STUFFING": "HALF_STUFFING",
-      "STUFFING": "STUFFING"
+      "TUBE": "Tube",
+      "FLOATING_TUBE": "Tube Flottant",
+      "HALF_STUFFING": "Demi Bourrage",
+      "STUFFING": "Bourrage"
     }
   }
 }

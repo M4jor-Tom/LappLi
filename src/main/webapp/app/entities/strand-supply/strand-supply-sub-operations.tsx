@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Table } from 'reactstrap';
-import { Translate } from 'react-jhipster';
+import { translate, Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { getEntity } from '../strand-supply/strand-supply.reducer';
@@ -259,9 +259,11 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                 {strand.nonAssemblyOperations.map((operation, i) => (
                   <tr key={`entity-operation-${i}`} data-cy="entityTable">
                     <td>
-                      {operation.operationKind}
+                      {translate('lappLiApp.OperationKind.' + operation.operationKind)}
                       <br />
-                      {operation.operationKind === OperationKind.SHEATHING ? (operation as ISheathing).sheathingKind : ''}
+                      {operation.operationKind === OperationKind.SHEATHING
+                        ? translate('lappLiApp.SheathingKind.' + (operation as ISheathing).sheathingKind)
+                        : ''}
                     </td>
                     <td>{operation.operationLayer}</td>
                     <td>{operation.productionStep}</td>
