@@ -1,8 +1,14 @@
 package com.muller.lappli.domain.abstracts;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.muller.lappli.domain.BangleSupply;
+import com.muller.lappli.domain.CustomComponentSupply;
 import com.muller.lappli.domain.DomainManager;
+import com.muller.lappli.domain.ElementSupply;
 import com.muller.lappli.domain.Material;
+import com.muller.lappli.domain.OneStudySupply;
 import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.StrandSupply;
@@ -20,6 +26,16 @@ import javax.persistence.Transient;
  * A supply object refers to the instanciation of a CylindricComponent
  * inside a Strand or Cable
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonSubTypes(
+    {
+        @JsonSubTypes.Type(value = BangleSupply.class, name = "BangleSupply"),
+        @JsonSubTypes.Type(value = CustomComponentSupply.class, name = "CustomComponentSupply"),
+        @JsonSubTypes.Type(value = ElementSupply.class, name = "ElementSupply"),
+        @JsonSubTypes.Type(value = OneStudySupply.class, name = "OneStudySupply"),
+    }
+)
 @MappedSuperclass
 public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
 
