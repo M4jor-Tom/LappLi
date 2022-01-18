@@ -3,7 +3,6 @@ package com.muller.lappli.domain.abstracts;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.Material;
-import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.enumeration.SupplyKind;
@@ -43,11 +42,6 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      */
     @JsonIgnoreProperties("supplies")
     public abstract Strand getOwnerStrand();
-
-    /**
-     * @return the Position at which this is in the {@link #getOwnerStrand()}'s assemblies
-     */
-    public abstract Position getPosition();
 
     /**
      * @return the apparitions of the CylindricComponent inside the final Cable
@@ -153,14 +147,6 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
         } catch (NullPointerException e) {
             return DomainManager.ERROR_LONG_POSITIVE_VALUE;
         }
-    }
-
-    /**
-     * Tells if the Supply is placed into a Strand's Assembly
-     * @return a boolean
-     */
-    public Boolean isPlaced() {
-        return getPosition() != null;
     }
 
     /**

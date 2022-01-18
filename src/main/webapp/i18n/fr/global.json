@@ -29,7 +29,6 @@
         "centralAssembly": "Assemblage Central",
         "coreAssembly": "Assemblage Principal",
         "intersticeAssembly": "Assemblage Intersticiel",
-        "position": "Position",
         "sheathing": "Gainage",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },

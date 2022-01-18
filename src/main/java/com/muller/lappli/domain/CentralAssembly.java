@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -45,22 +43,6 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @JoinColumn(name = "id")
     private Strand ownerStrand;
 
-    @JsonIgnoreProperties(
-        value = {
-            "elementSupply",
-            "bangleSupply",
-            "customComponentSupply",
-            "oneStudySupply",
-            "ownerCentralAssembly",
-            "ownerCoreAssembly",
-            "ownerIntersticeAssembly",
-        },
-        allowSetters = true
-    )
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Position position;
-
     @Override
     public CentralAssembly getThis() {
         return this;
@@ -69,15 +51,6 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @Override
     public OperationKind getOperationKind() {
         return OperationKind.CENTRAL_ASSEMBLY;
-    }
-
-    @Override
-    public Set<Position> getPositions() {
-        HashSet<Position> positions = new HashSet<Position>();
-        if (getPosition() != null) {
-            positions.add(getPosition());
-        }
-        return positions;
     }
 
     @Override
@@ -93,7 +66,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @Override
     public Double getMilimeterDiameterIncidency() {
         try {
-            return getPosition().getSupply().getMilimeterDiameter();
+            return Double.NaN; //getSupply().getMilimeterDiameter();
         } catch (NullPointerException e) {
             return Double.NaN;
         }
@@ -108,7 +81,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @Override
     public String getProductDesignation() {
         try {
-            return getPosition().getSupply().getDesignation();
+            return ""; //getSupply().getDesignation();
         } catch (NullPointerException e) {
             return "";
         }
@@ -145,19 +118,6 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
 
     public CentralAssembly ownerStrand(Strand strand) {
         this.setOwnerStrand(strand);
-        return this;
-    }
-
-    public Position getPosition() {
-        return this.position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    public CentralAssembly position(Position position) {
-        this.setPosition(position);
         return this;
     }
 

@@ -9,6 +9,22 @@ import java.util.Optional;
  */
 public interface CentralAssemblyService extends IAssemblyService<CentralAssembly> {
     /**
+     * Save a centralAssembly.
+     *
+     * @param centralAssembly the entity to save.
+     * @return the persisted entity.
+     */
+    CentralAssembly save(CentralAssembly centralAssembly);
+
+    /**
+     * Partially updates a centralAssembly.
+     *
+     * @param centralAssembly the entity to update partially.
+     * @return the persisted entity.
+     */
+    Optional<CentralAssembly> partialUpdate(CentralAssembly centralAssembly);
+
+    /**
      * Get all the centralAssemblies.
      *
      * @return the list of entities.

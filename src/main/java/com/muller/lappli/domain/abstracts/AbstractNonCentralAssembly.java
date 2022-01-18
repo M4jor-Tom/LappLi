@@ -1,7 +1,6 @@
 package com.muller.lappli.domain.abstracts;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.muller.lappli.domain.Position;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,13 +20,14 @@ public abstract class AbstractNonCentralAssembly<T extends AbstractNonCentralAss
      */
     public abstract AssemblyMean getAssemblyMean();
 
-    @JsonIgnoreProperties(value = { "position", "ownerStrand" })
+    @JsonIgnoreProperties(value = { "ownerStrand" })
     public Set<AbstractSupply<?>> getSupplies() {
         Set<AbstractSupply<?>> supplies = new HashSet<>();
 
-        for (Position position : getPositions()) {
-            supplies.add(position.getSupply());
-        }
+        //supplies.addAll(getBangleSupplies());
+        //supplies.addAll(getCustomComponentSupplies());
+        //supplies.addAll(getElementSupplies());
+        //supplies.addAll(getOneStudySupplies());
 
         return supplies;
     }

@@ -15,7 +15,7 @@ public interface LifterService {
      *
      * @return the list of bests lifters
      */
-    List<Lifter> findBestLifterList(AbstractLiftedSupply abstractLiftedSupply);
+    List<Lifter> findBestLifterList(AbstractLiftedSupply<?> abstractLiftedSupply);
 
     /**
      * Get eligibles lifters
@@ -23,7 +23,7 @@ public interface LifterService {
      *
      * @return the list of eligibles lifters
      */
-    List<Lifter> findEligibleLifterList(AbstractLiftedSupply abstractLiftedSupply);
+    List<Lifter> findEligibleLifterList(AbstractLiftedSupply<?> abstractLiftedSupply);
 
     /**
      * Save a lifter.

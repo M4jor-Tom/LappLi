@@ -27,14 +27,6 @@
       "otherEntityField": "designation"
     },
     {
-      "relationshipType": "one-to-one",
-      "otherEntityName": "position",
-      "otherEntityRelationshipName": "customComponentSupply",
-      "relationshipName": "position",
-      "otherEntityField": "value",
-      "ownerSide": false
-    },
-    {
       "relationshipType": "many-to-one",
       "otherEntityName": "strand",
       "otherEntityRelationshipName": "customComponentSupplies",
