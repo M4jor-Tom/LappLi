@@ -59,7 +59,7 @@ export const ElementSupplyDetail = (props: RouteComponentProps<{ id: string }>) 
           <dt>
             <Translate contentKey="lappLiApp.elementSupply.element">Element</Translate>
           </dt>
-          <dd>{elementSupplyEntity.element?.designationWithColor}</dd>
+          <dd>{elementSupplyEntity.element ? elementSupplyEntity.element.designationWithColor : ''}</dd>
           <dt>
             <Translate contentKey="lappLiApp.dimension.meterQuantity">Quantity (m)</Translate>
           </dt>

@@ -69,19 +69,6 @@ public class CustomComponentSupplyServiceImpl
         return onListRead(customComponentSupplyRepository.findAll());
     }
 
-    /**
-     *  Get all the customComponentSupplies where Position is {@code null}.
-     *  @return the list of entities.
-     */
-    @Transactional(readOnly = true)
-    public List<CustomComponentSupply> findAllWherePositionIsNull() {
-        log.debug("Request to get all customComponentSupplies where Position is null");
-        return StreamSupport
-            .stream(customComponentSupplyRepository.findAll().spliterator(), false)
-            .filter(customComponentSupply -> customComponentSupply.getPosition() == null)
-            .collect(Collectors.toList());
-    }
-
     @Override
     @Transactional(readOnly = true)
     public Optional<CustomComponentSupply> findOne(Long id) {

@@ -35,34 +35,6 @@ export const PositionDetail = (props: RouteComponentProps<{ id: string }>) => {
             </span>
           </dt>
           <dd>{positionEntity.value}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.position.elementSupply">Element Supply</Translate>
-          </dt>
-          <dd>{positionEntity.elementSupply ? positionEntity.elementSupply.designation : ''}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.position.bangleSupply">Bangle Supply</Translate>
-          </dt>
-          <dd>{positionEntity.bangleSupply ? positionEntity.bangleSupply.designation : ''}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.position.customComponentSupply">Custom Component Supply</Translate>
-          </dt>
-          <dd>{positionEntity.customComponentSupply ? positionEntity.customComponentSupply.designation : ''}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.position.oneStudySupply">One Study Supply</Translate>
-          </dt>
-          <dd>{positionEntity.oneStudySupply ? positionEntity.oneStudySupply.designation : ''}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.position.ownerCentralAssembly">Owner Central Assembly</Translate>
-          </dt>
-          <dd>{positionEntity.ownerCentralAssembly ? positionEntity.ownerCentralAssembly.designation : ''}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.position.ownerCoreAssembly">Owner Core Assembly</Translate>
-          </dt>
-          <dd>{positionEntity.ownerCoreAssembly ? positionEntity.ownerCoreAssembly.designation : ''}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.position.ownerIntersticeAssembly">Owner Interstice Assembly</Translate>
-          </dt>
-          <dd>{positionEntity.ownerIntersticeAssembly ? positionEntity.ownerIntersticeAssembly.designation : ''}</dd>
         </dl>
         <Button tag={Link} to="/position" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

@@ -72,20 +72,7 @@ public class ElementSupplyServiceImpl extends AbstractLiftedSupplyServiceImpl<El
     @Transactional(readOnly = true)
     public List<ElementSupply> findAll() {
         log.debug("Request to get all ElementSupplies");
-        return onListRead(elementSupplyRepository.findAll());
-    }
-
-    /**
-     *  Get all the elementSupplies where Position is {@code null}.
-     *  @return the list of entities.
-     */
-    @Transactional(readOnly = true)
-    public List<ElementSupply> findAllWherePositionIsNull() {
-        log.debug("Request to get all elementSupplies where Position is null");
-        return StreamSupport
-            .stream(elementSupplyRepository.findAll().spliterator(), false)
-            .filter(elementSupply -> elementSupply.getPosition() == null)
-            .collect(Collectors.toList());
+        return elementSupplyRepository.findAll();
     }
 
     @Override

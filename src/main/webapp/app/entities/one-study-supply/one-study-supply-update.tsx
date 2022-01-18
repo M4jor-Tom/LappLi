@@ -6,8 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IMaterial } from 'app/shared/model/material.model';
 import { getEntities as getMaterials } from 'app/entities/material/material.reducer';
-import { IPosition } from 'app/shared/model/position.model';
-import { getEntities as getPositions } from 'app/entities/position/position.reducer';
 import { IStrand } from 'app/shared/model/strand.model';
 import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './one-study-supply.reducer';
@@ -33,7 +31,6 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
   const redirectionUrl = getOutFromStudySupplyStrandSupplyComponent(props.match.url, isNew);
 
   const materials = useAppSelector(state => state.material.entities);
-  const positions = useAppSelector(state => state.position.entities);
   const strands = useAppSelector(state => state.strand.entities);
   const oneStudySupplyEntity = useAppSelector(state => state.oneStudySupply.entity);
   const loading = useAppSelector(state => state.oneStudySupply.loading);
@@ -53,7 +50,6 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
     }
 
     dispatch(getMaterials({}));
-    dispatch(getPositions({}));
     dispatch(getStrands({}));
   }, []);
 

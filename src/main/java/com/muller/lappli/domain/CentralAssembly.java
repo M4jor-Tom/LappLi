@@ -45,22 +45,6 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @JoinColumn(name = "id")
     private Strand ownerStrand;
 
-    @JsonIgnoreProperties(
-        value = {
-            "elementSupply",
-            "bangleSupply",
-            "customComponentSupply",
-            "oneStudySupply",
-            "ownerCentralAssembly",
-            "ownerCoreAssembly",
-            "ownerIntersticeAssembly",
-        },
-        allowSetters = true
-    )
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Position position;
-
     @Override
     public CentralAssembly getThis() {
         return this;
@@ -69,15 +53,6 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @Override
     public OperationKind getOperationKind() {
         return OperationKind.CENTRAL_ASSEMBLY;
-    }
-
-    @Override
-    public Set<Position> getPositions() {
-        HashSet<Position> positions = new HashSet<Position>();
-        if (getPosition() != null) {
-            positions.add(getPosition());
-        }
-        return positions;
     }
 
     @Override
@@ -145,19 +120,6 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
 
     public CentralAssembly ownerStrand(Strand strand) {
         this.setOwnerStrand(strand);
-        return this;
-    }
-
-    public Position getPosition() {
-        return this.position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    public CentralAssembly position(Position position) {
-        this.setPosition(position);
         return this;
     }
 

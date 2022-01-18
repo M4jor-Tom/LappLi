@@ -47,11 +47,6 @@ public class CoreAssemblyResource extends AbstractAssemblyResource<CoreAssembly>
     }
 
     @Override
-    protected IAssemblyService<CoreAssembly> getPositionCheckingService() {
-        return coreAssemblyService;
-    }
-
-    @Override
     protected String getSpineCasePluralEntityName() {
         return "core-assemblies";
     }

@@ -1,19 +1,14 @@
 package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.Position;
-import com.muller.lappli.domain.exception.PositionHasSeveralSupplyException;
-import com.muller.lappli.domain.exception.PositionInSeveralAssemblyException;
 import com.muller.lappli.repository.PositionRepository;
-import com.muller.lappli.service.IPositionCheckingService;
 import com.muller.lappli.service.PositionService;
-import com.muller.lappli.web.rest.abstracts.AbstractPositionCheckingResource;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -29,7 +24,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-public class PositionResource extends AbstractPositionCheckingResource<Position> {
+public class PositionResource {
 
     private final Logger log = LoggerFactory.getLogger(PositionResource.class);
 
@@ -47,16 +42,6 @@ public class PositionResource extends AbstractPositionCheckingResource<Position>
         this.positionRepository = positionRepository;
     }
 
-    @Override
-    protected IPositionCheckingService<Position> getPositionCheckingService() {
-        return positionService;
-    }
-
-    @Override
-    protected String getSpineCasePluralEntityName() {
-        return "positions";
-    }
-
     /**
      * {@code POST  /positions} : Create a new position.
      *
@@ -70,8 +55,11 @@ public class PositionResource extends AbstractPositionCheckingResource<Position>
         if (position.getId() != null) {
             throw new BadRequestAlertException("A new position cannot already have an ID", ENTITY_NAME, "idexists");
         }
-
-        return onSave(position, applicationName, ENTITY_NAME, true);
+        Position result = positionService.save(position);
+        return ResponseEntity
+            .created(new URI("/api/positions/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
     }
 
     /**
@@ -101,7 +89,11 @@ public class PositionResource extends AbstractPositionCheckingResource<Position>
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        return onSave(position, applicationName, ENTITY_NAME, false);
+        Position result = positionService.save(position);
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, position.getId().toString()))
+            .body(result);
     }
 
     /**
@@ -132,21 +124,21 @@ public class PositionResource extends AbstractPositionCheckingResource<Position>
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        return onPartialUpdate(position, applicationName, ENTITY_NAME);
+        Optional<Position> result = positionService.partialUpdate(position);
+
+        return ResponseUtil.wrapOrNotFound(
+            result,
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, position.getId().toString())
+        );
     }
 
     /**
      * {@code GET  /positions} : get all the positions.
      *
-     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of positions in body.
      */
     @GetMapping("/positions")
-    public List<Position> getAllPositions(@RequestParam(required = false) String filter) {
-        if ("ownercentralassembly-is-null".equals(filter)) {
-            log.debug("REST request to get all Positions where ownerCentralAssembly is null");
-            return positionService.findAllWhereOwnerCentralAssemblyIsNull();
-        }
+    public List<Position> getAllPositions() {
         log.debug("REST request to get all Positions");
         return positionService.findAll();
     }

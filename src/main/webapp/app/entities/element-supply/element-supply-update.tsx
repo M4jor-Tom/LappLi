@@ -54,7 +54,6 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ strand_id: stri
     }
 
     dispatch(getElements({}));
-    dispatch(getPositions({}));
     dispatch(getStrands({}));
   }, []);
 

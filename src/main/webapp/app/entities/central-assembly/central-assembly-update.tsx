@@ -6,8 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IStrand } from 'app/shared/model/strand.model';
 import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
-import { IPosition } from 'app/shared/model/position.model';
-import { getEntities as getPositions } from 'app/entities/position/position.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './central-assembly.reducer';
 import { ICentralAssembly } from 'app/shared/model/central-assembly.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -46,7 +44,6 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ strand_id: st
     }
 
     dispatch(getStrands({}));
-    dispatch(getPositions({}));
   }, []);
 
   useEffect(() => {
@@ -60,7 +57,6 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ strand_id: st
       ...centralAssemblyEntity,
       ...values,
       ownerStrand: strands.find(it => it.id.toString() === values.ownerStrand.toString()),
-      position: positions.find(it => it.id.toString() === values.position.toString()),
     };
 
     if (isNew) {
@@ -76,7 +72,6 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ strand_id: st
       : {
           ...centralAssemblyEntity,
           ownerStrand: centralAssemblyEntity?.ownerStrand?.id,
-          position: centralAssemblyEntity?.position?.id,
         };
 
   return (
@@ -106,21 +101,25 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ strand_id: st
               ) : null}
               {strandValidatedField}
               <ValidatedField
-                id="central-assembly-position"
-                name="position"
-                data-cy="position"
-                label={translate('lappLiApp.centralAssembly.position')}
+                id="central-assembly-ownerStrand"
+                name="ownerStrand"
+                data-cy="ownerStrand"
+                label={translate('lappLiApp.centralAssembly.ownerStrand')}
                 type="select"
+                required
               >
                 <option value="" key="0" />
-                {positions
-                  ? positions.map(otherEntity => (
+                {strands
+                  ? strands.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.value}
+                        {otherEntity.designation}
                       </option>
                     ))
                   : null}
               </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

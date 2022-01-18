@@ -221,7 +221,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     public String toString() {
         return "CoreAssembly{" +
             "id=" + getId() +
-            ", operationLayer=" + getOperationLayer() +
+            ", assemblyLayer=" + getAssemblyLayer() +
             ", productionStep=" + getProductionStep() +
             ", diameterAssemblyStep=" + getDiameterAssemblyStep() +
             ", assemblyMean='" + getAssemblyMean() + "'" +

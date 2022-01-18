@@ -38,21 +38,6 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     //@JsonIgnoreProperties(value = { "material" }, allowSetters = true)
     private Bangle bangle;
 
-    @JsonIgnoreProperties(
-        value = {
-            "elementSupply",
-            "bangleSupply",
-            "customComponentSupply",
-            "oneStudySupply",
-            "ownerCentralAssembly",
-            "ownerCoreAssembly",
-            "ownerIntersticeAssembly",
-        },
-        allowSetters = true
-    )
-    @OneToOne(mappedBy = "bangleSupply")
-    private Position position;
-
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
@@ -172,26 +157,6 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
 
     public BangleSupply bangle(Bangle bangle) {
         this.setBangle(bangle);
-        return this;
-    }
-
-    @Override
-    public Position getPosition() {
-        return this.position;
-    }
-
-    public void setPosition(Position position) {
-        if (this.position != null) {
-            this.position.setBangleSupply(null);
-        }
-        if (position != null) {
-            position.setBangleSupply(this);
-        }
-        this.position = position;
-    }
-
-    public BangleSupply position(Position position) {
-        this.setPosition(position);
         return this;
     }
 

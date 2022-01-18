@@ -82,19 +82,6 @@ public class OneStudySupplyServiceImpl extends AbstractLiftedSupplyServiceImpl<O
         return onListRead(oneStudySupplyRepository.findAll());
     }
 
-    /**
-     *  Get all the oneStudySupplies where Position is {@code null}.
-     *  @return the list of entities.
-     */
-    @Transactional(readOnly = true)
-    public List<OneStudySupply> findAllWherePositionIsNull() {
-        log.debug("Request to get all oneStudySupplies where Position is null");
-        return StreamSupport
-            .stream(oneStudySupplyRepository.findAll().spliterator(), false)
-            .filter(oneStudySupply -> oneStudySupply.getPosition() == null)
-            .collect(Collectors.toList());
-    }
-
     @Override
     @Transactional(readOnly = true)
     public Optional<OneStudySupply> findOne(Long id) {

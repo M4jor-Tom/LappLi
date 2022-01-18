@@ -17,24 +17,6 @@
             <column name="value" type="bigint">
                 <constraints nullable="false" />
             </column>
-            <column name="element_supply_id" type="bigint">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_position__element_supply_id" />
-            </column>
-            <column name="bangle_supply_id" type="bigint">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_position__bangle_supply_id" />
-            </column>
-            <column name="custom_component_supply_id" type="bigint">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_position__custom_component_supply_id" />
-            </column>
-            <column name="one_study_supply_id" type="bigint">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_position__one_study_supply_id" />
-            </column>
-            <column name="owner_core_assembly_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-            <column name="owner_interstice_assembly_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>

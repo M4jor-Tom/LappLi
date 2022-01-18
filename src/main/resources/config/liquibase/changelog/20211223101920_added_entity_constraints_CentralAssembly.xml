@@ -13,11 +13,5 @@
                                  constraintName="fk_central_assembly__owner_strand_id"
                                  referencedColumnNames="id"
                                  referencedTableName="strand"/>
-
-        <addForeignKeyConstraint baseColumnNames="position_id"
-                                 baseTableName="central_assembly"
-                                 constraintName="fk_central_assembly__position_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="position"/>
     </changeSet>
 </databaseChangeLog>

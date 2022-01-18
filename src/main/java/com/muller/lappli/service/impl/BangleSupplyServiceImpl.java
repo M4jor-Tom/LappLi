@@ -64,19 +64,6 @@ public class BangleSupplyServiceImpl extends AbstractLiftedSupplyServiceImpl<Ban
         return onListRead(bangleSupplyRepository.findAll());
     }
 
-    /**
-     *  Get all the bangleSupplies where Position is {@code null}.
-     *  @return the list of entities.
-     */
-    @Transactional(readOnly = true)
-    public List<BangleSupply> findAllWherePositionIsNull() {
-        log.debug("Request to get all bangleSupplies where Position is null");
-        return StreamSupport
-            .stream(bangleSupplyRepository.findAll().spliterator(), false)
-            .filter(bangleSupply -> bangleSupply.getPosition() == null)
-            .collect(Collectors.toList());
-    }
-
     @Override
     @Transactional(readOnly = true)
     public Optional<BangleSupply> findOne(Long id) {

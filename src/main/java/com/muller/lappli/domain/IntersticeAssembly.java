@@ -31,22 +31,6 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     @Column(name = "interstice_layer", nullable = false)
     private Long intersticeLayer;
 
-    @OneToMany(mappedBy = "ownerIntersticeAssembly", fetch = FetchType.EAGER)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(
-        value = {
-            "elementSupply",
-            "bangleSupply",
-            "customComponentSupply",
-            "oneStudySupply",
-            "ownerCentralAssembly",
-            "ownerCoreAssembly",
-            "ownerIntersticeAssembly",
-        },
-        allowSetters = true
-    )
-    private Set<Position> positions = new HashSet<>();
-
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
@@ -142,39 +126,6 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         this.intersticeLayer = intersticeLayer;
     }
 
-    @Override
-    public Set<Position> getPositions() {
-        return this.positions;
-    }
-
-    public void setPositions(Set<Position> positions) {
-        if (this.positions != null) {
-            this.positions.forEach(i -> i.setOwnerIntersticeAssembly(null));
-        }
-        if (positions != null) {
-            positions.forEach(i -> i.setOwnerIntersticeAssembly(this));
-        }
-        this.positions = positions;
-    }
-
-    public IntersticeAssembly positions(Set<Position> positions) {
-        this.setPositions(positions);
-        return this;
-    }
-
-    public IntersticeAssembly addPositions(Position position) {
-        this.positions.add(position);
-        position.setOwnerIntersticeAssembly(this);
-        return this;
-    }
-
-    public IntersticeAssembly removePositions(Position position) {
-        this.positions.remove(position);
-        position.setOwnerIntersticeAssembly(null);
-        return this;
-    }
-
-    @Override
     public Strand getOwnerStrand() {
         return this.ownerStrand;
     }

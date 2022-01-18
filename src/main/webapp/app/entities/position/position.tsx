@@ -52,27 +52,6 @@ export const Position = (props: RouteComponentProps<{ url: string }>) => {
                 <th>
                   <Translate contentKey="lappLiApp.position.value">Value</Translate>
                 </th>
-                <th>
-                  <Translate contentKey="lappLiApp.position.elementSupply">Element Supply</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.position.bangleSupply">Bangle Supply</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.position.customComponentSupply">Custom Component Supply</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.position.oneStudySupply">One Study Supply</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.position.ownerCentralAssembly">Owner Central Assembly</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.position.ownerCoreAssembly">Owner Core Assembly</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.position.ownerIntersticeAssembly">Owner Interstice Assembly</Translate>
-                </th>
                 <th />
               </tr>
             </thead>
@@ -85,59 +64,6 @@ export const Position = (props: RouteComponentProps<{ url: string }>) => {
                     </Button>
                   </td>
                   <td>{position.value}</td>
-                  <td>
-                    {position.elementSupply ? (
-                      <Link to={`element-supply/${position.elementSupply.id}`}>{position.elementSupply.designation}</Link>
-                    ) : (
-                      ''
-                    )}
-                  </td>
-                  <td>
-                    {position.bangleSupply ? (
-                      <Link to={`bangle-supply/${position.bangleSupply.id}`}>{position.bangleSupply.designation}</Link>
-                    ) : (
-                      ''
-                    )}
-                  </td>
-                  <td>
-                    {position.customComponentSupply ? (
-                      <Link to={`custom-component-supply/${position.customComponentSupply.id}`}>
-                        {position.customComponentSupply.designation}
-                      </Link>
-                    ) : (
-                      ''
-                    )}
-                  </td>
-                  <td>
-                    {position.oneStudySupply ? (
-                      <Link to={`one-study-supply/${position.oneStudySupply.id}`}>{position.oneStudySupply.designation}</Link>
-                    ) : (
-                      ''
-                    )}
-                  </td>
-                  <td>
-                    {position.ownerCentralAssembly ? (
-                      <Link to={`central-assembly/${position.ownerCentralAssembly.id}`}>{position.ownerCentralAssembly.designation}</Link>
-                    ) : (
-                      ''
-                    )}
-                  </td>
-                  <td>
-                    {position.ownerCoreAssembly ? (
-                      <Link to={`core-assembly/${position.ownerCoreAssembly.id}`}>{position.ownerCoreAssembly.designation}</Link>
-                    ) : (
-                      ''
-                    )}
-                  </td>
-                  <td>
-                    {position.ownerIntersticeAssembly ? (
-                      <Link to={`interstice-assembly/${position.ownerIntersticeAssembly.id}`}>
-                        {position.ownerIntersticeAssembly.designation}
-                      </Link>
-                    ) : (
-                      ''
-                    )}
-                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${position.id}`} color="info" size="sm" data-cy="entityDetailsButton">
