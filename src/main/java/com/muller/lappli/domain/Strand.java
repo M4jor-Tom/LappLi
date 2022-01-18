@@ -289,7 +289,7 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
     }
 
     public Double getSuppliedComponentsAverageMilimeterDiameter() {
-        return getSuppliedComponentsMilimeterDiametersSum() / getSuppliedComponentsMilimeterDiameters().size();
+        return getSuppliedComponentsMilimeterDiametersSum() / getSuppliesCount();
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
