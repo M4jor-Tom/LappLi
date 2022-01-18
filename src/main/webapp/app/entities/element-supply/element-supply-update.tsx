@@ -6,8 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IElement } from 'app/shared/model/element.model';
 import { getEntities as getElements } from 'app/entities/element/element.reducer';
-import { IPosition } from 'app/shared/model/position.model';
-import { getEntities as getPositions } from 'app/entities/position/position.reducer';
 import { IStrand } from 'app/shared/model/strand.model';
 import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './element-supply.reducer';
@@ -35,7 +33,6 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ strand_id: stri
   const redirectionUrl = getOutFromStudySupplyStrandSupplyComponent(props.match.url, isNew);
 
   const elements = useAppSelector(state => state.element.entities);
-  const positions = useAppSelector(state => state.position.entities);
   const strands = useAppSelector(state => state.strand.entities);
   const elementSupplyEntity = useAppSelector(state => state.elementSupply.entity);
   const loading = useAppSelector(state => state.elementSupply.loading);

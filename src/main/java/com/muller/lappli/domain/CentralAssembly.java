@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -68,7 +66,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @Override
     public Double getMilimeterDiameterIncidency() {
         try {
-            return getPosition().getSupply().getMilimeterDiameter();
+            return Double.NaN; //getSupply().getMilimeterDiameter();
         } catch (NullPointerException e) {
             return Double.NaN;
         }
@@ -83,7 +81,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @Override
     public String getProductDesignation() {
         try {
-            return getPosition().getSupply().getDesignation();
+            return ""; //getSupply().getDesignation();
         } catch (NullPointerException e) {
             return "";
         }

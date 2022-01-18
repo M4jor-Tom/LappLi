@@ -25,7 +25,6 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ strand_id: st
   const redirectionUrl = getOutFromStudySupplyStrandAssemblyComponent(props.match.url, isNew);
 
   const strands = useAppSelector(state => state.strand.entities);
-  const positions = useAppSelector(state => state.position.entities);
   const centralAssemblyEntity = useAppSelector(state => state.centralAssembly.entity);
   const loading = useAppSelector(state => state.centralAssembly.loading);
   const updating = useAppSelector(state => state.centralAssembly.updating);

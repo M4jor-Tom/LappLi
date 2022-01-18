@@ -256,15 +256,13 @@ class CoreAssemblyResourceIT {
             .diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP)
             .assemblyMean(UPDATED_ASSEMBLY_MEAN);
 
-        ResultMatcher expectedResult = updatedCoreAssembly.positionsAreRight() ? status().isOk() : status().isBadRequest();
-
         restCoreAssemblyMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, updatedCoreAssembly.getId())
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(TestUtil.convertObjectToJsonBytes(updatedCoreAssembly))
             )
-            .andExpect(expectedResult);
+            .andExpect(status().isOk());
 
         // Validate the CoreAssembly in the database
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();

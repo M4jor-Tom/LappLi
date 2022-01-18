@@ -30,12 +30,6 @@ public interface CustomComponentSupplyService extends ReadTriggerableService<Cus
      * @return the list of entities.
      */
     List<CustomComponentSupply> findAll();
-    /**
-     * Get all the CustomComponentSupply where Position is {@code null}.
-     *
-     * @return the {@link List} of entities.
-     */
-    List<CustomComponentSupply> findAllWherePositionIsNull();
 
     /**
      * Get the "id" customComponentSupply.

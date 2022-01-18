@@ -100,12 +100,11 @@ class CentralAssemblyResourceIT {
     void createCentralAssembly() throws Exception {
         int databaseSizeBeforeCreate = centralAssemblyRepository.findAll().size();
         // Create the CentralAssembly
-        ResultMatcher expectedResult = centralAssembly.positionsAreRight() ? status().isCreated() : status().isBadRequest();
         restCentralAssemblyMockMvc
             .perform(
                 post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(centralAssembly))
             )
-            .andExpect(expectedResult);
+            .andExpect(status().isCreated());
 
         // Validate the CentralAssembly in the database
         List<CentralAssembly> centralAssemblyList = centralAssemblyRepository.findAll();
@@ -157,8 +156,6 @@ class CentralAssemblyResourceIT {
         // Update the Strand with new association value
         updatedCentralAssembly.setOwnerStrand(strand);
 
-        ResultMatcher expectedResult = updatedCentralAssembly.positionsAreRight() ? status().isOk() : status().isBadRequest();
-
         // Update the entity
         restCentralAssemblyMockMvc
             .perform(
@@ -166,7 +163,7 @@ class CentralAssemblyResourceIT {
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(TestUtil.convertObjectToJsonBytes(updatedCentralAssembly))
             )
-            .andExpect(expectedResult);
+            .andExpect(status().isOk());
 
         // Validate the CentralAssembly in the database
         List<CentralAssembly> centralAssemblyList = centralAssemblyRepository.findAll();
@@ -226,15 +223,13 @@ class CentralAssemblyResourceIT {
         // Disconnect from session so that the updates on updatedCentralAssembly are not directly saved in db
         em.detach(updatedCentralAssembly);
 
-        ResultMatcher expectedResult = updatedCentralAssembly.positionsAreRight() ? status().isOk() : status().isBadRequest();
-
         restCentralAssemblyMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, updatedCentralAssembly.getId())
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(TestUtil.convertObjectToJsonBytes(updatedCentralAssembly))
             )
-            .andExpect(expectedResult);
+            .andExpect(status().isOk());
 
         // Validate the CentralAssembly in the database
         List<CentralAssembly> centralAssemblyList = centralAssemblyRepository.findAll();

@@ -28,12 +28,12 @@ public class LifterServiceImpl implements LifterService {
     }
 
     @Override
-    public List<Lifter> findBestLifterList(AbstractLiftedSupply abstractLiftedSupply) {
+    public List<Lifter> findBestLifterList(AbstractLiftedSupply<?> abstractLiftedSupply) {
         return findEligibleLifterList(abstractLiftedSupply);
     }
 
     @Override
-    public List<Lifter> findEligibleLifterList(AbstractLiftedSupply abstractLiftedSupply) {
+    public List<Lifter> findEligibleLifterList(AbstractLiftedSupply<?> abstractLiftedSupply) {
         List<Lifter> lifterList = new ArrayList<Lifter>();
 
         for (Lifter lifter : findAll()) {
