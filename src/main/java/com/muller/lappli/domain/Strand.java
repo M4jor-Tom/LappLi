@@ -268,6 +268,30 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
         return new LinkedHashSet<AbstractOperation<?>>(sortedOperationList);
     }
 
+    public List<Double> getSuppliedComponentsMilimeterDiameters() {
+        List<Double> suppliedComponentsMilimeterDiameter = new ArrayList<Double>();
+
+        for (AbstractSupply<?> supply : getSupplies()) {
+            suppliedComponentsMilimeterDiameter.add(supply.getCylindricComponent().getMilimeterDiameter());
+        }
+
+        return suppliedComponentsMilimeterDiameter;
+    }
+
+    private Double getSuppliedComponentsMilimeterDiametersSum() {
+        Double suppliedComponentsMilimeterDiametersSum = 0.0;
+
+        for (Double suppliedComponentMilimeterDiameter : getSuppliedComponentsMilimeterDiameters()) {
+            suppliedComponentsMilimeterDiametersSum += suppliedComponentMilimeterDiameter;
+        }
+
+        return suppliedComponentsMilimeterDiametersSum;
+    }
+
+    public Double getSuppliedComponentsAverageMilimeterDiameter() {
+        return getSuppliedComponentsMilimeterDiametersSum() / getSuppliesCount();
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override

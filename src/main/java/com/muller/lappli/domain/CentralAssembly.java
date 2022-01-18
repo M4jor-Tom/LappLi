@@ -64,15 +64,6 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     }
 
     @Override
-    public Double getMilimeterDiameterIncidency() {
-        try {
-            return Double.NaN; //getSupply().getMilimeterDiameter();
-        } catch (NullPointerException e) {
-            return Double.NaN;
-        }
-    }
-
-    @Override
     public Long getProductionStep() {
         // TODO Auto-generated method stub
         return null;
@@ -80,11 +71,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
 
     @Override
     public String getProductDesignation() {
-        try {
-            return ""; //getSupply().getDesignation();
-        } catch (NullPointerException e) {
-            return "";
-        }
+        return "";
     }
 
     @Override
