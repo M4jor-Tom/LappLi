@@ -36,7 +36,7 @@ public abstract class AbstractNonCentralAssembly<T extends AbstractNonCentralAss
     public String getProductDesignation() {
         String designation = "";
 
-        for (AbstractSupply<?> supply : getSupplies()) {
+        for (AbstractSupply<?> supply : getOwnerStrand().getSupplies()) {
             designation += supply.getDesignation();
         }
 
