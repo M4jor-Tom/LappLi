@@ -67,11 +67,6 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     }
 
     @Override
-    public Double getMilimeterDiameterIncidency() {
-        return Double.NaN;
-    }
-
-    @Override
     public Long getProductionStep() {
         // TODO Auto-generated method stub
         return null;

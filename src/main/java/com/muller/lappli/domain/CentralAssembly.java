@@ -64,11 +64,6 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     }
 
     @Override
-    public Double getMilimeterDiameterIncidency() {
-        return getOwnerStrand().getSuppliedComponentsAverageMilimeterDiameter();
-    }
-
-    @Override
     public Long getProductionStep() {
         // TODO Auto-generated method stub
         return null;
