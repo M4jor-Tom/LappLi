@@ -80,11 +80,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
 
     @Override
     public String getProductDesignation() {
-        try {
-            return ""; //getSupply().getDesignation();
-        } catch (NullPointerException e) {
-            return "";
-        }
+        return "";
     }
 
     @Override
