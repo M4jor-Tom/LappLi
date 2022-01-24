@@ -62,6 +62,7 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
     const entity = {
       ...sheathingEntity,
       ...values,
+      __typeName: 'Sheathing',
       material: materials.find(it => it.id.toString() === values.material.toString()),
       ownerStrand: props.match.params.strand_supply_id
         ? strands.find(it => it.id.toString() === strandSupplyEntity?.strand?.id.toString())
@@ -79,6 +80,7 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
     isNew
       ? {}
       : {
+          __typeName: 'Sheathing',
           sheathingKind: 'TUBE',
           ...sheathingEntity,
           material: sheathingEntity?.material?.id,

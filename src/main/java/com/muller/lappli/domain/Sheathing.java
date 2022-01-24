@@ -59,6 +59,7 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
             "oneStudySupplies",
             "centralAssembly",
             "futureStudy",
+            "suppliesCountsCommonDividers",
         } //,
         //allowSetters = true
     )

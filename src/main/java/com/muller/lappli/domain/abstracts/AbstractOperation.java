@@ -1,6 +1,12 @@
 package com.muller.lappli.domain.abstracts;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.muller.lappli.domain.CentralAssembly;
+import com.muller.lappli.domain.CoreAssembly;
+import com.muller.lappli.domain.IntersticeAssembly;
+import com.muller.lappli.domain.Sheathing;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import javax.persistence.MappedSuperclass;
@@ -8,6 +14,16 @@ import javax.persistence.MappedSuperclass;
 /**
  * This class represents an Operation which is done in a cable
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "__typeName")
+@JsonSubTypes(
+    {
+        @JsonSubTypes.Type(value = CentralAssembly.class, name = "CentralAssembly"),
+        @JsonSubTypes.Type(value = CoreAssembly.class, name = "CoreAssembly"),
+        @JsonSubTypes.Type(value = IntersticeAssembly.class, name = "IntersticeAssembly"),
+        @JsonSubTypes.Type(value = Sheathing.class, name = "Sheathing"),
+    }
+)
 @MappedSuperclass
 public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
 

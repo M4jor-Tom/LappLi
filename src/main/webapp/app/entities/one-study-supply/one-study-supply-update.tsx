@@ -63,6 +63,7 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
     const entity = {
       ...oneStudySupplyEntity,
       ...values,
+      __typeName: 'OneStudySupply',
       surfaceMaterial: materials.find(it => it.id.toString() === values.surfaceMaterial.toString()),
       ownerStrand: strands.find(it => it.id.toString() === values.ownerStrand.toString()),
     };
@@ -80,6 +81,7 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
     isNew
       ? {}
       : {
+          __typeName: 'OneStudySupply',
           markingType: 'LIFTING',
           surfaceColor: 'NATURAL',
           ...oneStudySupplyEntity,
