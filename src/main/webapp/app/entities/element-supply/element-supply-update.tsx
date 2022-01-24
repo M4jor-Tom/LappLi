@@ -64,6 +64,7 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ strand_id: stri
     const entity = {
       ...elementSupplyEntity,
       ...values,
+      __typeName: 'ElementSupply',
       element: elements.find(it => it.id.toString() === values.element.toString()),
       ownerStrand: strands.find(it => it.id.toString() === values.ownerStrand.toString()),
     };
@@ -81,6 +82,7 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ strand_id: stri
     isNew
       ? {}
       : {
+          __typeName: 'ElementSupply',
           markingType: 'LIFTING',
           ...elementSupplyEntity,
           element: elementSupplyEntity?.element?.id,

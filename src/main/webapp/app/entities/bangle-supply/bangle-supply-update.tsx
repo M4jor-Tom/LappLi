@@ -56,6 +56,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
     const entity = {
       ...bangleSupplyEntity,
       ...values,
+      __typeName: 'BangleSupply',
       bangle: bangles.find(it => it.id.toString() === values.bangle.toString()),
       ownerStrand: strands.find(it => it.id.toString() === values.ownerStrand.toString()),
     };
@@ -74,6 +75,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
       ? {}
       : {
           ...bangleSupplyEntity,
+          __typeName: 'BangleSupply',
           bangle: bangleSupplyEntity?.bangle?.id,
           ownerStrand: bangleSupplyEntity?.ownerStrand?.id,
         };

@@ -26,7 +26,7 @@ import javax.persistence.Transient;
  * inside a Strand or Cable
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "__typeName")
 @JsonSubTypes(
     {
         @JsonSubTypes.Type(value = BangleSupply.class, name = "BangleSupply"),

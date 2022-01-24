@@ -59,6 +59,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ strand_
 
   const saveEntity = values => {
     const entity = {
+      __typeName: 'CustomComponentSupply',
       ...customComponentSupplyEntity,
       ...values,
       customComponent: customComponents.find(it => it.id.toString() === values.customComponent.toString()),
@@ -78,6 +79,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ strand_
     isNew
       ? {}
       : {
+          __typeName: 'CustomComponentSupply',
           markingType: 'LIFTING',
           ...customComponentSupplyEntity,
           customComponent: customComponentSupplyEntity?.customComponent?.id,

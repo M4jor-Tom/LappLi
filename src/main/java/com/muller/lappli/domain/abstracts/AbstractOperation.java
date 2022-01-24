@@ -15,7 +15,7 @@ import javax.persistence.MappedSuperclass;
  * This class represents an Operation which is done in a cable
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "__typeName")
 @JsonSubTypes(
     {
         @JsonSubTypes.Type(value = CentralAssembly.class, name = "CentralAssembly"),
