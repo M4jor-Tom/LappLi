@@ -1,8 +1,6 @@
 package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.IntersticeAssembly;
-import com.muller.lappli.domain.exception.PositionHasSeveralSupplyException;
-import com.muller.lappli.domain.exception.PositionInSeveralAssemblyException;
 import com.muller.lappli.repository.IntersticeAssemblyRepository;
 import com.muller.lappli.service.IntersticeAssemblyService;
 import java.util.List;
@@ -28,21 +26,14 @@ public class IntersticeAssemblyServiceImpl implements IntersticeAssemblyService 
     }
 
     @Override
-    public IntersticeAssembly save(IntersticeAssembly intersticeAssembly)
-        throws PositionInSeveralAssemblyException, PositionHasSeveralSupplyException {
+    public IntersticeAssembly save(IntersticeAssembly intersticeAssembly) {
         log.debug("Request to save IntersticeAssembly : {}", intersticeAssembly);
-
-        intersticeAssembly.checkPositions();
-
         return intersticeAssemblyRepository.save(intersticeAssembly);
     }
 
     @Override
-    public Optional<IntersticeAssembly> partialUpdate(IntersticeAssembly intersticeAssembly)
-        throws PositionInSeveralAssemblyException, PositionHasSeveralSupplyException {
+    public Optional<IntersticeAssembly> partialUpdate(IntersticeAssembly intersticeAssembly) {
         log.debug("Request to partially update IntersticeAssembly : {}", intersticeAssembly);
-
-        intersticeAssembly.checkPositions();
 
         return intersticeAssemblyRepository
             .findById(intersticeAssembly.getId())

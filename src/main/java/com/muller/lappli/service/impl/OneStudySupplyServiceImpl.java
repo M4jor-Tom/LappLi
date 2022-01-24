@@ -7,8 +7,6 @@ import com.muller.lappli.service.OneStudySupplyService;
 import com.muller.lappli.service.abstracts.AbstractLiftedSupplyServiceImpl;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -80,19 +78,6 @@ public class OneStudySupplyServiceImpl extends AbstractLiftedSupplyServiceImpl<O
     public List<OneStudySupply> findAll() {
         log.debug("Request to get all OneStudySupplies");
         return onListRead(oneStudySupplyRepository.findAll());
-    }
-
-    /**
-     *  Get all the oneStudySupplies where Position is {@code null}.
-     *  @return the list of entities.
-     */
-    @Transactional(readOnly = true)
-    public List<OneStudySupply> findAllWherePositionIsNull() {
-        log.debug("Request to get all oneStudySupplies where Position is null");
-        return StreamSupport
-            .stream(oneStudySupplyRepository.findAll().spliterator(), false)
-            .filter(oneStudySupply -> oneStudySupply.getPosition() == null)
-            .collect(Collectors.toList());
     }
 
     @Override

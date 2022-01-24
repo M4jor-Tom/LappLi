@@ -30,12 +30,6 @@ public interface BangleSupplyService extends ReadTriggerableService<BangleSupply
      * @return the list of entities.
      */
     List<BangleSupply> findAll();
-    /**
-     * Get all the BangleSupply where Position is {@code null}.
-     *
-     * @return the {@link List} of entities.
-     */
-    List<BangleSupply> findAllWherePositionIsNull();
 
     /**
      * Get the "id" bangleSupply.

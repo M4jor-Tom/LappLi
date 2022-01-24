@@ -20,7 +20,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -206,15 +205,13 @@ class IntersticeAssemblyResourceIT {
         em.detach(updatedIntersticeAssembly);
         updatedIntersticeAssembly.intersticeLayer(UPDATED_INTERSTICE_LAYER);
 
-        ResultMatcher expectedResult = updatedIntersticeAssembly.positionsAreRight() ? status().isOk() : status().isBadRequest();
-
         restIntersticeAssemblyMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, updatedIntersticeAssembly.getId())
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(TestUtil.convertObjectToJsonBytes(updatedIntersticeAssembly))
             )
-            .andExpect(expectedResult);
+            .andExpect(status().isOk());
 
         // Validate the IntersticeAssembly in the database
         List<IntersticeAssembly> intersticeAssemblyList = intersticeAssemblyRepository.findAll();

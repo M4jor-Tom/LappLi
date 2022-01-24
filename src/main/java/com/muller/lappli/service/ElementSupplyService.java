@@ -30,12 +30,6 @@ public interface ElementSupplyService extends ReadTriggerableService<ElementSupp
      * @return the list of entities.
      */
     List<ElementSupply> findAll();
-    /**
-     * Get all the ElementSupply where Position is {@code null}.
-     *
-     * @return the {@link List} of entities.
-     */
-    List<ElementSupply> findAllWherePositionIsNull();
 
     /**
      * Get the "id" elementSupply.

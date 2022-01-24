@@ -1,8 +1,6 @@
 package com.muller.lappli.web.rest;
 
-import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.Study;
-import com.muller.lappli.domain.UserData;
 import com.muller.lappli.repository.StudyRepository;
 import com.muller.lappli.service.SaveException;
 import com.muller.lappli.service.StudyService;

@@ -6,10 +6,6 @@ entity Sheathing {
     sheathingKind SheathingKind required
 }
 
-entity Position {
-    value Long required
-}
-
 entity CentralAssembly {
 	//@Readonly operationLayer Long required
 	//@Readonly productionStep Long required
@@ -153,18 +149,6 @@ relationship OneToOne {
 	UserData{user(login) required} to User with jpaDerivedIdentifier
 }
 
-relationship OneToOne {
-	Position{elementSupply(designation)} to ElementSupply{position(value)}
-    Position{bangleSupply(designation)} to BangleSupply{position(value)}
-    Position{customComponentSupply(designation)} to CustomComponentSupply{position(value)}
-	Position{oneStudySupply(designation)} to OneStudySupply{position(value)}
-}
-
-relationship OneToOne {
-    //Supplies owned in a Strand as PLACED
-	CentralAssembly{position(value)} to Position{ownerCentralAssembly(designation)}
-}
-
 relationship OneToMany {
 	//Operations in a strand
     
@@ -187,15 +171,11 @@ relationship OneToMany {
     //Supplies owned in a Study as UNDIVIDED
 	Study{strandSupplies(designation)} to StrandSupply{study(number) required}
 
-    //Supplies owned in a Strand as DIVIED_UNPLACED
+    //Supplies owned in a Strand as DIVIED
 	Strand{elementSupplies(designation)} to ElementSupply{ownerStrand(designation) required}
     Strand{bangleSupplies(designation)} to BangleSupply{ownerStrand(designation) required}
     Strand{customComponentSupplies(designation)} to CustomComponentSupply{ownerStrand(designation) required}
 	Strand{oneStudySupplies(designation)} to OneStudySupply{ownerStrand(designation) required}
-
-    //Supplies owned in a Strand as PLACED
-    CoreAssembly{positions(value)} to Position{ownerCoreAssembly(designation)}
-    IntersticeAssembly{positions(value)} to Position{ownerIntersticeAssembly(designation)}
 }
 
 relationship OneToMany {
