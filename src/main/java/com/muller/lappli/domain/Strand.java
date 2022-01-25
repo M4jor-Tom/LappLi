@@ -7,6 +7,7 @@ import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
+import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.exception.NoIntersticeAvailableException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -294,6 +295,36 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
 
     public Double getSuppliedComponentsAverageMilimeterDiameter() {
         return getSuppliedComponentsMilimeterDiametersSum() / getSuppliesCount();
+    }
+
+    public Set<BangleSupply> getBangleSupplies() {
+        return getSuppliesByKind(SupplyKind.BANGLE);
+    }
+
+    public Set<CustomComponentSupply> getCustomComponentSupplies() {
+        return getSuppliesByKind(SupplyKind.CUSTOM_COMPONENT);
+    }
+
+    public Set<ElementSupply> getElementSupplies() {
+        return getSuppliesByKind(SupplyKind.ELEMENT);
+    }
+
+    public Set<OneStudySupply> getOneStudySupplies() {
+        return getSuppliesByKind(SupplyKind.ONE_STUDY);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSupply<T>> Set<T> getSuppliesByKind(SupplyKind supplyKind) {
+        Set<T> sortedSupplies = new HashSet<>();
+
+        for (SupplyPosition supplyPosition : getSupplyPositions()) {
+            AbstractSupply<?> supply = supplyPosition.getSupply();
+            if (supplyKind.equals(supply.getSupplyKind())) {
+                sortedSupplies.add((T) supply);
+            }
+        }
+
+        return sortedSupplies;
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
