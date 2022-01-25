@@ -17,12 +17,14 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
     dispatch(getEntity(props.match.params.study_id));
   }, []);
 
+  const studyEntity = useAppSelector(state => state.study.entity);
+
   //  STRAND CREATION ZONE -- START
 
   const strandCreationSuccess = useAppSelector(state => state.strand.updateSuccess);
   const strandEntity = useAppSelector(state => state.strand.entity);
   const strandCreating = useAppSelector(state => state.strand.updating);
-  const studies = useAppSelector(state => state.study.entities);
+  //  const studies = useAppSelector(state => state.study.entities);
 
   useEffect(() => {
     dispatch(reset());
@@ -47,8 +49,6 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
   };
 
   //  STRAND CREATION ZONE -- END
-
-  const studyEntity = useAppSelector(state => state.study.entity);
   return (
     <div>
       <div>
