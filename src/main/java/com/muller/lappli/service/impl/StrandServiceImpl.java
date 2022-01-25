@@ -2,10 +2,10 @@ package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.repository.StrandRepository;
-/*import com.muller.lappli.service.BangleSupplyService;
+import com.muller.lappli.service.BangleSupplyService;
 import com.muller.lappli.service.CustomComponentSupplyService;
 import com.muller.lappli.service.ElementSupplyService;
-import com.muller.lappli.service.OneStudySupplyService;*/
+import com.muller.lappli.service.OneStudySupplyService;
 import com.muller.lappli.service.StrandService;
 import java.util.List;
 import java.util.Optional;
@@ -27,59 +27,60 @@ public class StrandServiceImpl implements StrandService {
 
     private final StrandRepository strandRepository;
 
-    //private final BangleSupplyService bangleSupplyService;
+    private final BangleSupplyService bangleSupplyService;
 
-    //private final CustomComponentSupplyService customComponentSupplyService;
+    private final CustomComponentSupplyService customComponentSupplyService;
 
-    //private final ElementSupplyService elementSupplyService;
+    private final ElementSupplyService elementSupplyService;
 
-    //private final OneStudySupplyService oneStudySupplyService;
+    private final OneStudySupplyService oneStudySupplyService;
 
     public StrandServiceImpl(
-        StrandRepository strandRepository/*,
+        StrandRepository strandRepository,
         BangleSupplyService bangleSupplyService,
         CustomComponentSupplyService customComponentSupplyService,
         ElementSupplyService elementSupplyService,
-        OneStudySupplyService oneStudySupplyService*/
+        OneStudySupplyService oneStudySupplyService
     ) {
         this.strandRepository = strandRepository;
-        /*this.bangleSupplyService = bangleSupplyService;
+        this.bangleSupplyService = bangleSupplyService;
         this.customComponentSupplyService = customComponentSupplyService;
         this.elementSupplyService = elementSupplyService;
-        this.oneStudySupplyService = oneStudySupplyService;*/
+        this.oneStudySupplyService = oneStudySupplyService;
     }
 
     @Override
     public Strand save(Strand strand) {
         log.debug("Request to save Strand : {}", strand);
-        return /*onRead(*/strandRepository.save(strand); //);
+        return onRead(strandRepository.save(strand));
     }
 
     @Override
     public Optional<Strand> partialUpdate(Strand strand) {
         log.debug("Request to partially update Strand : {}", strand);
 
-        return strandRepository //onOptionalRead(
-            .findById(strand.getId())
-            .map(existingStrand -> {
-                if (strand.getDiameterAssemblyStep() != null) {
-                    existingStrand.setDiameterAssemblyStep(strand.getDiameterAssemblyStep());
-                }
-                if (strand.getAssemblyMean() != null) {
-                    existingStrand.setAssemblyMean(strand.getAssemblyMean());
-                }
+        return onOptionalRead(
+            strandRepository
+                .findById(strand.getId())
+                .map(existingStrand -> {
+                    if (strand.getDiameterAssemblyStep() != null) {
+                        existingStrand.setDiameterAssemblyStep(strand.getDiameterAssemblyStep());
+                    }
+                    if (strand.getAssemblyMean() != null) {
+                        existingStrand.setAssemblyMean(strand.getAssemblyMean());
+                    }
 
-                return existingStrand;
-            })
-            .map(strandRepository::save);
-        //);
+                    return existingStrand;
+                })
+                .map(strandRepository::save)
+        );
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Strand> findAll() {
         log.debug("Request to get all Strands");
-        return /*onListRead(*/strandRepository.findAll(); //);
+        return onListRead(strandRepository.findAll());
     }
 
     /**
@@ -89,18 +90,19 @@ public class StrandServiceImpl implements StrandService {
     @Transactional(readOnly = true)
     public List<Strand> findAllWhereCentralAssemblyIsNull() {
         log.debug("Request to get all strands where CentralAssembly is null");
-        return StreamSupport //onListRead(
-            .stream(strandRepository.findAll().spliterator(), false)
-            .filter(strand -> strand.getCentralAssembly() == null)
-            .collect(Collectors.toList());
-        //);
+        return onListRead(
+            StreamSupport
+                .stream(strandRepository.findAll().spliterator(), false)
+                .filter(strand -> strand.getCentralAssembly() == null)
+                .collect(Collectors.toList())
+        );
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<Strand> findOne(Long id) {
         log.debug("Request to get Strand : {}", id);
-        return /*onOptionalRead(*/strandRepository.findById(id); //);
+        return onOptionalRead(strandRepository.findById(id));
     }
 
     @Override
@@ -108,12 +110,13 @@ public class StrandServiceImpl implements StrandService {
         log.debug("Request to delete Strand : {}", id);
         strandRepository.deleteById(id);
     }
-    /*@Override
+
+    @Override
     public Strand onRead(Strand domainObject) {
         return domainObject;
-            .bangleSupplies(bangleSupplyService.onSetRead(domainObject.getBangleSupplies()))
+        /*.bangleSupplies(bangleSupplyService.onSetRead(domainObject.getBangleSupplies()))
             .customComponentSupplies(customComponentSupplyService.onSetRead(domainObject.getCustomComponentSupplies()))
             .elementSupplies(elementSupplyService.onSetRead(domainObject.getElementSupplies()))
-            .oneStudySupplies(oneStudySupplyService.onSetRead(domainObject.getOneStudySupplies()));
-    }*/
+            .oneStudySupplies(oneStudySupplyService.onSetRead(domainObject.getOneStudySupplies()));*/
+    }
 }
