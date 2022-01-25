@@ -33,7 +33,7 @@ public class Study extends AbstractDomainObject<Study> implements Serializable {
     @Column(name = "last_edition_instant", nullable = false)
     private Instant lastEditionInstant;
 
-    @OneToMany(mappedBy = "futureStudy")
+    @OneToMany(mappedBy = "futureStudy", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
         value = { "supplyPositions", "coreAssemblies", "intersticeAssemblies", "sheathings", "centralAssembly", "futureStudy" },
@@ -41,7 +41,7 @@ public class Study extends AbstractDomainObject<Study> implements Serializable {
     )
     private Set<Strand> strands = new HashSet<>();
 
-    @OneToMany(mappedBy = "study")
+    @OneToMany(mappedBy = "study", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "strand", "study" }, allowSetters = true)
     private Set<StrandSupply> strandSupplies = new HashSet<>();
