@@ -19,7 +19,7 @@ entity CoreAssembly {
 	//@Readonly operationLayer Long required
 	//@Readonly productionStep Long required
 	assemblyLayer Long required
-    forcedMeanMilimeterComponentDiameter Double required
+    forcedMeanMilimeterComponentDiameter Double
     componentsCount Long required
 }
 
@@ -28,7 +28,7 @@ entity IntersticeAssembly {
     intersticeLayer Long required
 	//@Readonly operationLayer Long required
 	//@Readonly productionStep Long required
-    forcedMeanMilimeterComponentDiameter Double required
+    forcedMeanMilimeterComponentDiameter Double
 }
 
 entity Strand {

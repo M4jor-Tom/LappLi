@@ -111,7 +111,7 @@ class CentralAssemblyResourceIT {
         CentralAssembly testCentralAssembly = centralAssemblyList.get(centralAssemblyList.size() - 1);
 
         // Validate the id for MapsId, the ids must be same
-        assertThat(testCentralAssembly.getId()).isEqualTo(testCentralAssembly.getStrand().getId());
+        assertThat(testCentralAssembly.getId()).isEqualTo(testCentralAssembly.getOwnerStrand().getId());
     }
 
     @Test
@@ -153,7 +153,7 @@ class CentralAssemblyResourceIT {
         em.detach(updatedCentralAssembly);
 
         // Update the Strand with new association value
-        updatedCentralAssembly.setStrand(strand);
+        updatedCentralAssembly.setOwnerStrand(strand);
 
         // Update the entity
         restCentralAssemblyMockMvc

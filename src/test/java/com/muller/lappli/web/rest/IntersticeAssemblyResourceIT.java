@@ -190,25 +190,6 @@ class IntersticeAssemblyResourceIT {
 
     @Test
     @Transactional
-    void checkForcedMeanMilimeterComponentDiameterIsRequired() throws Exception {
-        int databaseSizeBeforeTest = intersticeAssemblyRepository.findAll().size();
-        // set the field null
-        intersticeAssembly.setForcedMeanMilimeterComponentDiameter(null);
-
-        // Create the IntersticeAssembly, which fails.
-
-        restIntersticeAssemblyMockMvc
-            .perform(
-                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(intersticeAssembly))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<IntersticeAssembly> intersticeAssemblyList = intersticeAssemblyRepository.findAll();
-        assertThat(intersticeAssemblyList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllIntersticeAssemblies() throws Exception {
         // Initialize the database
         intersticeAssemblyRepository.saveAndFlush(intersticeAssembly);

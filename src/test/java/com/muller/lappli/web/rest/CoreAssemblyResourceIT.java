@@ -164,23 +164,6 @@ class CoreAssemblyResourceIT {
 
     @Test
     @Transactional
-    void checkForcedMeanMilimeterComponentDiameterIsRequired() throws Exception {
-        int databaseSizeBeforeTest = coreAssemblyRepository.findAll().size();
-        // set the field null
-        coreAssembly.setForcedMeanMilimeterComponentDiameter(null);
-
-        // Create the CoreAssembly, which fails.
-
-        restCoreAssemblyMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(coreAssembly)))
-            .andExpect(status().isBadRequest());
-
-        List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
-        assertThat(coreAssemblyList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void checkComponentsCountIsRequired() throws Exception {
         int databaseSizeBeforeTest = coreAssemblyRepository.findAll().size();
         // set the field null

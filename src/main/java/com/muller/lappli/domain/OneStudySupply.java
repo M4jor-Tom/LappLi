@@ -90,8 +90,6 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         return SupplyKind.ONE_STUDY;
     }
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
-
     @Override
     public CylindricComponent getCylindricComponent() {
         return new OneStudyComponent()
@@ -99,6 +97,8 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
             .milimeterDiameter(getMilimeterDiameter())
             .gramPerMeterLinearMass(getGramPerMeterLinearMass());
     }
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
         return this.id;

@@ -29,8 +29,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     @Column(name = "assembly_layer", nullable = false)
     private Long assemblyLayer;
 
-    @NotNull
-    @Column(name = "forced_mean_milimeter_component_diameter", nullable = false)
+    @Column(name = "forced_mean_milimeter_component_diameter")
     private Double forcedMeanMilimeterComponentDiameter;
 
     @NotNull

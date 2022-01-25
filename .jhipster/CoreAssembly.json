@@ -8,8 +8,7 @@
     },
     {
       "fieldName": "forcedMeanMilimeterComponentDiameter",
-      "fieldType": "Double",
-      "fieldValidateRules": ["required"]
+      "fieldType": "Double"
     },
     {
       "fieldName": "componentsCount",

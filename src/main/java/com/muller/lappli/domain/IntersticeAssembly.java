@@ -35,8 +35,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     @Column(name = "interstice_layer", nullable = false)
     private Long intersticeLayer;
 
-    @NotNull
-    @Column(name = "forced_mean_milimeter_component_diameter", nullable = false)
+    @Column(name = "forced_mean_milimeter_component_diameter")
     private Double forcedMeanMilimeterComponentDiameter;
 
     @OneToMany(mappedBy = "ownerIntersticeAssembly")

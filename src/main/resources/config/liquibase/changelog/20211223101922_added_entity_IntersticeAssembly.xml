@@ -21,7 +21,7 @@
                 <constraints nullable="false" />
             </column>
             <column name="forced_mean_milimeter_component_diameter" type="double">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="owner_strand_id" type="bigint">
                 <constraints nullable="false" />

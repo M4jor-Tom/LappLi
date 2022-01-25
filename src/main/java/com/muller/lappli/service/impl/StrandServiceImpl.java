@@ -113,10 +113,10 @@ public class StrandServiceImpl implements StrandService {
 
     @Override
     public Strand onRead(Strand domainObject) {
-        return domainObject
-            .bangleSupplies(bangleSupplyService.onSetRead(domainObject.getBangleSupplies()))
+        return domainObject;
+        /*.bangleSupplies(bangleSupplyService.onSetRead(domainObject.getBangleSupplies()))
             .customComponentSupplies(customComponentSupplyService.onSetRead(domainObject.getCustomComponentSupplies()))
             .elementSupplies(elementSupplyService.onSetRead(domainObject.getElementSupplies()))
-            .oneStudySupplies(oneStudySupplyService.onSetRead(domainObject.getOneStudySupplies()));
+            .oneStudySupplies(oneStudySupplyService.onSetRead(domainObject.getOneStudySupplies()));*/
     }
 }
