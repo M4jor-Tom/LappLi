@@ -3,8 +3,6 @@ package com.muller.lappli.service.impl;
 import com.muller.lappli.domain.EditionListManager;
 import com.muller.lappli.domain.ElementKind;
 import com.muller.lappli.domain.ElementKindEdition;
-import com.muller.lappli.domain.abstracts.AbstractEdition;
-import com.muller.lappli.domain.interfaces.Commitable;
 import com.muller.lappli.repository.ElementKindRepository;
 import com.muller.lappli.service.ElementKindEditionService;
 import com.muller.lappli.service.ElementKindService;

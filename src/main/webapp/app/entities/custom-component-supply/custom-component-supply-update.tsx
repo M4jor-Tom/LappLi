@@ -6,8 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { ICustomComponent } from 'app/shared/model/custom-component.model';
 import { getEntities as getCustomComponents } from 'app/entities/custom-component/custom-component.reducer';
-import { IPosition } from 'app/shared/model/position.model';
-import { getEntities as getPositions } from 'app/entities/position/position.reducer';
 import { IStrand } from 'app/shared/model/strand.model';
 import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './custom-component-supply.reducer';
@@ -32,7 +30,6 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ strand_
   const redirectionUrl = getOutFromStudySupplyStrandSupplyComponent(props.match.url, isNew);
 
   const customComponents = useAppSelector(state => state.customComponent.entities);
-  const positions = useAppSelector(state => state.position.entities);
   const strands = useAppSelector(state => state.strand.entities);
   const customComponentSupplyEntity = useAppSelector(state => state.customComponentSupply.entity);
   const loading = useAppSelector(state => state.customComponentSupply.loading);
@@ -51,7 +48,6 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ strand_
     }
 
     dispatch(getCustomComponents({}));
-    dispatch(getPositions({}));
     dispatch(getStrands({}));
   }, []);
 
@@ -63,6 +59,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ strand_
 
   const saveEntity = values => {
     const entity = {
+      __typeName: 'CustomComponentSupply',
       ...customComponentSupplyEntity,
       ...values,
       customComponent: customComponents.find(it => it.id.toString() === values.customComponent.toString()),
@@ -82,6 +79,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ strand_
     isNew
       ? {}
       : {
+          __typeName: 'CustomComponentSupply',
           markingType: 'LIFTING',
           ...customComponentSupplyEntity,
           customComponent: customComponentSupplyEntity?.customComponent?.id,

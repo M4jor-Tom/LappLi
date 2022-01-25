@@ -1,7 +1,6 @@
 import { ICylindricComponent } from './cylindric-component.model';
 import { SupplyKind } from './enumerations/supply-kind.model';
 import { IMaterial } from './material.model';
-import { IPosition } from './position.model';
 import { IStrand } from './strand.model';
 
 export interface IAbstractSupply {
@@ -18,7 +17,6 @@ export interface IAbstractSupply {
   formatedHourExecutionTime?: number;
   meterPerHourSpeed?: number;
   ownerStrand?: IStrand;
-  position?: IPosition;
 }
 
 export const defaultValue: Readonly<IAbstractSupply> = {};

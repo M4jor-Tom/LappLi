@@ -62,21 +62,6 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     //@JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material surfaceMaterial;
 
-    @JsonIgnoreProperties(
-        value = {
-            "elementSupply",
-            "bangleSupply",
-            "customComponentSupply",
-            "oneStudySupply",
-            "ownerCentralAssembly",
-            "ownerCoreAssembly",
-            "ownerIntersticeAssembly",
-        },
-        allowSetters = true
-    )
-    @OneToOne(mappedBy = "oneStudySupply")
-    private Position position;
-
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
@@ -249,26 +234,6 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
 
     public OneStudySupply surfaceMaterial(Material material) {
         this.setSurfaceMaterial(material);
-        return this;
-    }
-
-    @Override
-    public Position getPosition() {
-        return this.position;
-    }
-
-    public void setPosition(Position position) {
-        if (this.position != null) {
-            this.position.setOneStudySupply(null);
-        }
-        if (position != null) {
-            position.setOneStudySupply(this);
-        }
-        this.position = position;
-    }
-
-    public OneStudySupply position(Position position) {
-        this.setPosition(position);
         return this;
     }
 

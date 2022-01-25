@@ -1,7 +1,5 @@
 package com.muller.lappli.service.impl;
 
-import com.muller.lappli.domain.EditionListManager;
-import com.muller.lappli.domain.ElementKind;
 import com.muller.lappli.domain.ElementKindEdition;
 import com.muller.lappli.repository.ElementKindEditionRepository;
 import com.muller.lappli.service.ElementKindEditionService;
