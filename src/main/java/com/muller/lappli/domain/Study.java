@@ -48,7 +48,7 @@ public class Study extends AbstractDomainObject<Study> implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "user", "studies" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "studies" }, allowSetters = true)
     private UserData author;
 
     @Override
