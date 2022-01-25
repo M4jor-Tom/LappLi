@@ -6,8 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IMaterial } from 'app/shared/model/material.model';
 import { getEntities as getMaterials } from 'app/entities/material/material.reducer';
-import { IStrand } from 'app/shared/model/strand.model';
-import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './one-study-supply.reducer';
 import { IOneStudySupply } from 'app/shared/model/one-study-supply.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -15,15 +13,9 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 import { Color } from 'app/shared/model/enumerations/color.model';
-import {
-  getOutFromStudySupplyStrandSupplyComponent,
-  getStrandSupplyRedirectionUrl,
-  getSupplyStrandValidatedField,
-  isStrandSupply,
-} from '../index-management/index-management-lib';
-import { SupplyKind } from 'app/shared/model/enumerations/supply-kind.model';
+import { getOutFromStudySupplyStrandSupplyComponent } from '../index-management/index-management-lib';
 
-export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
+export const OneStudySupplyUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
@@ -31,7 +23,6 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
   const redirectionUrl = getOutFromStudySupplyStrandSupplyComponent(props.match.url, isNew);
 
   const materials = useAppSelector(state => state.material.entities);
-  const strands = useAppSelector(state => state.strand.entities);
   const oneStudySupplyEntity = useAppSelector(state => state.oneStudySupply.entity);
   const loading = useAppSelector(state => state.oneStudySupply.loading);
   const updating = useAppSelector(state => state.oneStudySupply.updating);
@@ -50,7 +41,6 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
     }
 
     dispatch(getMaterials({}));
-    dispatch(getStrands({}));
   }, []);
 
   useEffect(() => {
@@ -65,7 +55,6 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
       ...values,
       __typeName: 'OneStudySupply',
       surfaceMaterial: materials.find(it => it.id.toString() === values.surfaceMaterial.toString()),
-      ownerStrand: strands.find(it => it.id.toString() === values.ownerStrand.toString()),
     };
 
     if (isNew) {
@@ -74,8 +63,6 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
       dispatch(updateEntity(entity));
     }
   };
-
-  const strandValidateField = getSupplyStrandValidatedField(props, strands, SupplyKind.ONE_STUDY);
 
   const defaultValues = () =>
     isNew
@@ -86,7 +73,6 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
           surfaceColor: 'NATURAL',
           ...oneStudySupplyEntity,
           surfaceMaterial: oneStudySupplyEntity?.surfaceMaterial?.id,
-          ownerStrand: oneStudySupplyEntity?.ownerStrand?.id,
         };
 
   return (
@@ -210,7 +196,6 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ strand_id: str
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              {strandValidateField}
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

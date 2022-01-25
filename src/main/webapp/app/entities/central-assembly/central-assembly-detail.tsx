@@ -30,15 +30,13 @@ export const CentralAssemblyDetail = (props: RouteComponentProps<{ id: string }>
           </dt>
           <dd>{centralAssemblyEntity.id}</dd>
           <dt>
-            <span id="productionStep">
-              <Translate contentKey="lappLiApp.centralAssembly.productionStep">Production Step</Translate>
-            </span>
-          </dt>
-          <dd>{centralAssemblyEntity.productionStep}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.assembly.ownerStrand">Owner Strand</Translate>
+            <Translate contentKey="lappLiApp.centralAssembly.ownerStrand">Owner Strand</Translate>
           </dt>
           <dd>{centralAssemblyEntity.ownerStrand ? centralAssemblyEntity.ownerStrand.designation : ''}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.centralAssembly.supplyPosition">Supply Position</Translate>
+          </dt>
+          <dd>{centralAssemblyEntity.supplyPosition ? centralAssemblyEntity.supplyPosition.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/central-assembly" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

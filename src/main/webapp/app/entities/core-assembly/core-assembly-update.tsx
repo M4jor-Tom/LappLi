@@ -11,7 +11,6 @@ import { ICoreAssembly } from 'app/shared/model/core-assembly.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-import { AssemblyMean } from 'app/shared/model/enumerations/assembly-mean.model';
 import {
   AssemblyKind,
   getAssemblyStrandValidatedField,
@@ -30,7 +29,6 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ strand_id: strin
   const loading = useAppSelector(state => state.coreAssembly.loading);
   const updating = useAppSelector(state => state.coreAssembly.updating);
   const updateSuccess = useAppSelector(state => state.coreAssembly.updateSuccess);
-  const assemblyMeanValues = Object.keys(AssemblyMean);
   const handleClose = () => {
     props.history.push(redirectionUrl);
   };
@@ -71,7 +69,6 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ strand_id: strin
     isNew
       ? {}
       : {
-          assemblyMean: 'RIGHT',
           ...coreAssemblyEntity,
           ownerStrand: coreAssemblyEntity?.ownerStrand?.id,
         };
@@ -113,31 +110,25 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ strand_id: strin
                 }}
               />
               <ValidatedField
-                label={translate('lappLiApp.coreAssembly.diameterAssemblyStep')}
-                id="core-assembly-diameterAssemblyStep"
-                name="diameterAssemblyStep"
-                data-cy="diameterAssemblyStep"
+                label={translate('lappLiApp.coreAssembly.forcedMeanMilimeterComponentDiameter')}
+                id="core-assembly-forcedMeanMilimeterComponentDiameter"
+                name="forcedMeanMilimeterComponentDiameter"
+                data-cy="forcedMeanMilimeterComponentDiameter"
+                type="text"
+              />
+              <ValidatedField
+                label={translate('lappLiApp.coreAssembly.componentsCount')}
+                id="core-assembly-componentsCount"
+                name="componentsCount"
+                data-cy="componentsCount"
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
               />
-              <ValidatedField
-                label={translate('lappLiApp.coreAssembly.assemblyMean')}
-                id="core-assembly-assemblyMean"
-                name="assemblyMean"
-                data-cy="assemblyMean"
-                type="select"
-              >
-                {assemblyMeanValues.map(assemblyMean => (
-                  <option value={assemblyMean} key={assemblyMean}>
-                    {translate('lappLiApp.AssemblyMean.' + assemblyMean)}
-                  </option>
-                ))}
-              </ValidatedField>
               {strandValidatedField}
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/core-assembly" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">

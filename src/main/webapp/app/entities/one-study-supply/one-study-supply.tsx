@@ -79,9 +79,6 @@ export const OneStudySupply = (props: RouteComponentProps<{ url: string }>) => {
                 <th>
                   <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Lifters</Translate>
                 </th>
-                <th>
-                  <Translate contentKey="lappLiApp.oneStudySupply.ownerStrand">Strand</Translate>
-                </th>
                 <th />
               </tr>
             </thead>
@@ -113,13 +110,6 @@ export const OneStudySupply = (props: RouteComponentProps<{ url: string }>) => {
                     )}
                   </td>
                   <td>{oneStudySupply.bestLiftersNames}</td>
-                  <td>
-                    {oneStudySupply.ownerStrand ? (
-                      <Link to={`strand/${oneStudySupply.ownerStrand.id}`}>{oneStudySupply.ownerStrand.designation}</Link>
-                    ) : (
-                      ''
-                    )}
-                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${oneStudySupply.id}`} color="info" size="sm" data-cy="entityDetailsButton">

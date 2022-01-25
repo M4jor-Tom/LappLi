@@ -36,25 +36,21 @@ export const CoreAssemblyDetail = (props: RouteComponentProps<{ id: string }>) =
           </dt>
           <dd>{coreAssemblyEntity.assemblyLayer}</dd>
           <dt>
-            <span id="productionStep">
-              <Translate contentKey="lappLiApp.coreAssembly.productionStep">Production Step</Translate>
+            <span id="forcedMeanMilimeterComponentDiameter">
+              <Translate contentKey="lappLiApp.coreAssembly.forcedMeanMilimeterComponentDiameter">
+                Forced Mean Milimeter Component Diameter
+              </Translate>
             </span>
           </dt>
-          <dd>{coreAssemblyEntity.productionStep}</dd>
+          <dd>{coreAssemblyEntity.forcedMeanMilimeterComponentDiameter}</dd>
           <dt>
-            <span id="diameterAssemblyStep">
-              <Translate contentKey="lappLiApp.coreAssembly.diameterAssemblyStep">Diameter Assembly Step</Translate>
+            <span id="componentsCount">
+              <Translate contentKey="lappLiApp.coreAssembly.componentsCount">Components Count</Translate>
             </span>
           </dt>
-          <dd>{coreAssemblyEntity.diameterAssemblyStep}</dd>
+          <dd>{coreAssemblyEntity.componentsCount}</dd>
           <dt>
-            <span id="assemblyMean">
-              <Translate contentKey="lappLiApp.coreAssembly.assemblyMean">Assembly Mean</Translate>
-            </span>
-          </dt>
-          <dd>{coreAssemblyEntity.assemblyMean}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.assembly.ownerStrand">Owner Strand</Translate>
+            <Translate contentKey="lappLiApp.coreAssembly.ownerStrand">Owner Strand</Translate>
           </dt>
           <dd>{coreAssemblyEntity.ownerStrand ? coreAssemblyEntity.ownerStrand.designation : ''}</dd>
         </dl>

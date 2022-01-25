@@ -53,16 +53,15 @@ export const CoreAssembly = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.coreAssembly.assemblyLayer">Assembly Layer</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.coreAssembly.productionStep">Production Step</Translate>
+                  <Translate contentKey="lappLiApp.coreAssembly.forcedMeanMilimeterComponentDiameter">
+                    Forced Mean Milimeter Component Diameter
+                  </Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.coreAssembly.diameterAssemblyStep">Diameter Assembly Step</Translate>
+                  <Translate contentKey="lappLiApp.coreAssembly.componentsCount">Components Count</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.coreAssembly.assemblyMean">Assembly Mean</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.assembly.ownerStrand">Owner Strand</Translate>
+                  <Translate contentKey="lappLiApp.coreAssembly.ownerStrand">Owner Strand</Translate>
                 </th>
                 <th />
               </tr>
@@ -76,11 +75,8 @@ export const CoreAssembly = (props: RouteComponentProps<{ url: string }>) => {
                     </Button>
                   </td>
                   <td>{coreAssembly.assemblyLayer}</td>
-                  <td>{coreAssembly.productionStep}</td>
-                  <td>{coreAssembly.diameterAssemblyStep}</td>
-                  <td>
-                    <Translate contentKey={`lappLiApp.AssemblyMean.${coreAssembly.assemblyMean}`} />
-                  </td>
+                  <td>{coreAssembly.forcedMeanMilimeterComponentDiameter}</td>
+                  <td>{coreAssembly.componentsCount}</td>
                   <td>
                     {coreAssembly.ownerStrand ? (
                       <Link to={`strand/${coreAssembly.ownerStrand.id}`}>{coreAssembly.ownerStrand.designation}</Link>

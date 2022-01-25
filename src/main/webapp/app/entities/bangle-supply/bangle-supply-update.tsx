@@ -6,8 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IBangle } from 'app/shared/model/bangle.model';
 import { getEntities as getBangles } from 'app/entities/bangle/bangle.reducer';
-import { IStrand } from 'app/shared/model/strand.model';
-import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './bangle-supply.reducer';
 import { IBangleSupply } from 'app/shared/model/bangle-supply.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -15,10 +13,7 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getOutFromStudySupplyStrandSupplyComponent, getStudyValidateField } from '../index-management/index-management-lib';
 
-import { getStrandSupplyRedirectionUrl, getSupplyStrandValidatedField, isStrandSupply } from '../index-management/index-management-lib';
-import { SupplyKind } from 'app/shared/model/enumerations/supply-kind.model';
-
-export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
+export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
@@ -26,7 +21,6 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
   const redirectionUrl = getOutFromStudySupplyStrandSupplyComponent(props.match.url, isNew);
 
   const bangles = useAppSelector(state => state.bangle.entities);
-  const strands = useAppSelector(state => state.strand.entities);
   const bangleSupplyEntity = useAppSelector(state => state.bangleSupply.entity);
   const loading = useAppSelector(state => state.bangleSupply.loading);
   const updating = useAppSelector(state => state.bangleSupply.updating);
@@ -43,7 +37,6 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
     }
 
     dispatch(getBangles({}));
-    dispatch(getStrands({}));
   }, []);
 
   useEffect(() => {
@@ -58,7 +51,6 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
       ...values,
       __typeName: 'BangleSupply',
       bangle: bangles.find(it => it.id.toString() === values.bangle.toString()),
-      ownerStrand: strands.find(it => it.id.toString() === values.ownerStrand.toString()),
     };
 
     if (isNew) {
@@ -68,8 +60,6 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
     }
   };
 
-  const strandValidateField = getSupplyStrandValidatedField(props, strands, SupplyKind.BANGLE);
-
   const defaultValues = () =>
     isNew
       ? {}
@@ -77,7 +67,6 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
           ...bangleSupplyEntity,
           __typeName: 'BangleSupply',
           bangle: bangleSupplyEntity?.bangle?.id,
-          ownerStrand: bangleSupplyEntity?.ownerStrand?.id,
         };
 
   return (
@@ -143,7 +132,6 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              {strandValidateField}
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
