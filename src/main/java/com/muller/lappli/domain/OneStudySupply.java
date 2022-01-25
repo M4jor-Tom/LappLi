@@ -7,6 +7,8 @@ import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -57,28 +59,26 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     @Column(name = "surface_color", nullable = false)
     private Color surfaceColor;
 
-    @ManyToOne(optional = false)
-    @NotNull
-    //@JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
-    private Material surfaceMaterial;
-
-    @ManyToOne(optional = false)
-    @NotNull
+    @OneToMany(mappedBy = "oneStudySupply")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
         value = {
-            "coreAssemblies",
-            "intersticeAssemblies",
-            "sheathings",
-            "elementSupplies",
-            "bangleSupplies",
-            "customComponentSupplies",
-            "oneStudySupplies",
-            "centralAssembly",
-            "futureStudy",
+            "ownerCentralAssembly",
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "ownerStrand",
+            "ownerIntersticeAssembly",
         },
         allowSetters = true
     )
-    private Strand ownerStrand;
+    private Set<SupplyPosition> ownerSupplyPositions = new HashSet<>();
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
+    private Material surfaceMaterial;
 
     @Override
     public OneStudySupply getThis() {
@@ -223,7 +223,37 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         this.surfaceColor = surfaceColor;
     }
 
-    @Override
+    public Set<SupplyPosition> getOwnerSupplyPositions() {
+        return this.ownerSupplyPositions;
+    }
+
+    public void setOwnerSupplyPositions(Set<SupplyPosition> supplyPositions) {
+        if (this.ownerSupplyPositions != null) {
+            this.ownerSupplyPositions.forEach(i -> i.setOneStudySupply(null));
+        }
+        if (supplyPositions != null) {
+            supplyPositions.forEach(i -> i.setOneStudySupply(this));
+        }
+        this.ownerSupplyPositions = supplyPositions;
+    }
+
+    public OneStudySupply ownerSupplyPositions(Set<SupplyPosition> supplyPositions) {
+        this.setOwnerSupplyPositions(supplyPositions);
+        return this;
+    }
+
+    public OneStudySupply addOwnerSupplyPosition(SupplyPosition supplyPosition) {
+        this.ownerSupplyPositions.add(supplyPosition);
+        supplyPosition.setOneStudySupply(this);
+        return this;
+    }
+
+    public OneStudySupply removeOwnerSupplyPosition(SupplyPosition supplyPosition) {
+        this.ownerSupplyPositions.remove(supplyPosition);
+        supplyPosition.setOneStudySupply(null);
+        return this;
+    }
+
     public Material getSurfaceMaterial() {
         return this.surfaceMaterial;
     }
@@ -234,19 +264,6 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
 
     public OneStudySupply surfaceMaterial(Material material) {
         this.setSurfaceMaterial(material);
-        return this;
-    }
-
-    public Strand getOwnerStrand() {
-        return this.ownerStrand;
-    }
-
-    public void setOwnerStrand(Strand strand) {
-        this.ownerStrand = strand;
-    }
-
-    public OneStudySupply ownerStrand(Strand strand) {
-        this.setOwnerStrand(strand);
         return this;
     }
 

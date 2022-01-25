@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.Material;
 import com.muller.lappli.domain.OneStudySupply;
-import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.SupplyPosition;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.repository.OneStudySupplyRepository;
@@ -91,6 +91,16 @@ class OneStudySupplyResourceIT {
             .milimeterDiameter(DEFAULT_MILIMETER_DIAMETER)
             .surfaceColor(DEFAULT_SURFACE_COLOR);
         // Add required entity
+        SupplyPosition supplyPosition;
+        if (TestUtil.findAll(em, SupplyPosition.class).isEmpty()) {
+            supplyPosition = SupplyPositionResourceIT.createEntity(em);
+            em.persist(supplyPosition);
+            em.flush();
+        } else {
+            supplyPosition = TestUtil.findAll(em, SupplyPosition.class).get(0);
+        }
+        oneStudySupply.getOwnerSupplyPositions().add(supplyPosition);
+        // Add required entity
         Material material;
         if (TestUtil.findAll(em, Material.class).isEmpty()) {
             material = MaterialResourceIT.createEntity(em);
@@ -100,16 +110,6 @@ class OneStudySupplyResourceIT {
             material = TestUtil.findAll(em, Material.class).get(0);
         }
         oneStudySupply.setSurfaceMaterial(material);
-        // Add required entity
-        Strand strand;
-        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
-            strand = StrandResourceIT.createEntity(em);
-            em.persist(strand);
-            em.flush();
-        } else {
-            strand = TestUtil.findAll(em, Strand.class).get(0);
-        }
-        oneStudySupply.setOwnerStrand(strand);
         return oneStudySupply;
     }
 
@@ -130,6 +130,16 @@ class OneStudySupplyResourceIT {
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
             .surfaceColor(UPDATED_SURFACE_COLOR);
         // Add required entity
+        SupplyPosition supplyPosition;
+        if (TestUtil.findAll(em, SupplyPosition.class).isEmpty()) {
+            supplyPosition = SupplyPositionResourceIT.createUpdatedEntity(em);
+            em.persist(supplyPosition);
+            em.flush();
+        } else {
+            supplyPosition = TestUtil.findAll(em, SupplyPosition.class).get(0);
+        }
+        oneStudySupply.getOwnerSupplyPositions().add(supplyPosition);
+        // Add required entity
         Material material;
         if (TestUtil.findAll(em, Material.class).isEmpty()) {
             material = MaterialResourceIT.createUpdatedEntity(em);
@@ -139,16 +149,6 @@ class OneStudySupplyResourceIT {
             material = TestUtil.findAll(em, Material.class).get(0);
         }
         oneStudySupply.setSurfaceMaterial(material);
-        // Add required entity
-        Strand strand;
-        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
-            strand = StrandResourceIT.createUpdatedEntity(em);
-            em.persist(strand);
-            em.flush();
-        } else {
-            strand = TestUtil.findAll(em, Strand.class).get(0);
-        }
-        oneStudySupply.setOwnerStrand(strand);
         return oneStudySupply;
     }
 

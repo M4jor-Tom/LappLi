@@ -24,17 +24,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     private Long id;
 
     @JsonIgnoreProperties(
-        value = {
-            "coreAssemblies",
-            "intersticeAssemblies",
-            "sheathings",
-            "elementSupplies",
-            "bangleSupplies",
-            "customComponentSupplies",
-            "oneStudySupplies",
-            "centralAssembly",
-            "futureStudy",
-        },
+        value = { "supplyPositions", "coreAssemblies", "intersticeAssemblies", "sheathings", "centralAssembly", "futureStudy" },
         allowSetters = true
     )
     @OneToOne(optional = false)
@@ -42,6 +32,22 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @MapsId
     @JoinColumn(name = "id")
     private Strand ownerStrand;
+
+    @JsonIgnoreProperties(
+        value = {
+            "ownerCentralAssembly",
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "ownerStrand",
+            "ownerIntersticeAssembly",
+        },
+        allowSetters = true
+    )
+    @OneToOne
+    @JoinColumn(unique = true)
+    private SupplyPosition supplyPosition;
 
     @Override
     public CentralAssembly getThis() {
@@ -105,6 +111,19 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
 
     public CentralAssembly ownerStrand(Strand strand) {
         this.setOwnerStrand(strand);
+        return this;
+    }
+
+    public SupplyPosition getSupplyPosition() {
+        return this.supplyPosition;
+    }
+
+    public void setSupplyPosition(SupplyPosition supplyPosition) {
+        this.supplyPosition = supplyPosition;
+    }
+
+    public CentralAssembly supplyPosition(SupplyPosition supplyPosition) {
+        this.setSupplyPosition(supplyPosition);
         return this;
     }
 

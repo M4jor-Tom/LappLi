@@ -1,0 +1,72 @@
+{
+  "name": "SupplyPosition",
+  "fields": [
+    {
+      "fieldName": "supplyApparitionsUsage",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "centralAssembly",
+      "otherEntityRelationshipName": "supplyPosition",
+      "relationshipName": "ownerCentralAssembly",
+      "otherEntityField": "productDesignation",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "elementSupply",
+      "otherEntityRelationshipName": "ownerSupplyPosition",
+      "relationshipName": "elementSupply",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "bangleSupply",
+      "otherEntityRelationshipName": "ownerSupplyPosition",
+      "relationshipName": "bangleSupply",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "customComponentSupply",
+      "otherEntityRelationshipName": "ownerSupplyPosition",
+      "relationshipName": "customComponentSupply",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "oneStudySupply",
+      "otherEntityRelationshipName": "ownerSupplyPosition",
+      "relationshipName": "oneStudySupply",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "strand",
+      "otherEntityRelationshipName": "supplyPositions",
+      "relationshipName": "ownerStrand",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "intersticeAssembly",
+      "otherEntityRelationshipName": "supplyPositions",
+      "relationshipName": "ownerIntersticeAssembly",
+      "otherEntityField": "productDesignation"
+    }
+  ],
+  "entityTableName": "supply_position",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220125092031"
+}

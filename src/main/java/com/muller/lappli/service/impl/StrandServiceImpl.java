@@ -63,6 +63,13 @@ public class StrandServiceImpl implements StrandService {
             strandRepository
                 .findById(strand.getId())
                 .map(existingStrand -> {
+                    if (strand.getDiameterAssemblyStep() != null) {
+                        existingStrand.setDiameterAssemblyStep(strand.getDiameterAssemblyStep());
+                    }
+                    if (strand.getAssemblyMean() != null) {
+                        existingStrand.setAssemblyMean(strand.getAssemblyMean());
+                    }
+
                     return existingStrand;
                 })
                 .map(strandRepository::save)

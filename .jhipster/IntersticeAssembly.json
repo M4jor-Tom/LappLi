@@ -2,12 +2,28 @@
   "name": "IntersticeAssembly",
   "fields": [
     {
+      "fieldName": "assemblyLayer",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "intersticeLayer",
       "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "forcedMeanMilimeterComponentDiameter",
+      "fieldType": "Double",
       "fieldValidateRules": ["required"]
     }
   ],
   "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "supplyPosition",
+      "otherEntityRelationshipName": "ownerIntersticeAssembly",
+      "relationshipName": "supplyPositions"
+    },
     {
       "relationshipType": "many-to-one",
       "otherEntityName": "strand",

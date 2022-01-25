@@ -33,20 +33,23 @@ public class Study extends AbstractDomainObject<Study> implements Serializable {
     @Column(name = "last_edition_instant", nullable = false)
     private Instant lastEditionInstant;
 
-    @OneToMany(mappedBy = "study", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "futureStudy")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "study" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = { "supplyPositions", "coreAssemblies", "intersticeAssemblies", "sheathings", "centralAssembly", "futureStudy" },
+        allowSetters = true
+    )
+    private Set<Strand> strands = new HashSet<>();
+
+    @OneToMany(mappedBy = "study")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "strand", "study" }, allowSetters = true)
     private Set<StrandSupply> strandSupplies = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "studies" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "studies" }, allowSetters = true)
     private UserData author;
-
-    @OneToMany(mappedBy = "futureStudy", fetch = FetchType.EAGER)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "futureStudy" }, allowSetters = true)
-    private Set<Strand> strands = new HashSet<>();
 
     @Override
     public Study getThis() {

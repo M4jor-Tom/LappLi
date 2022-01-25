@@ -8,6 +8,8 @@ import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -40,32 +42,26 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(optional = false)
-    @NotNull
-    //@JsonIgnoreProperties(value = { "elementKind" }, allowSetters = true)
-    private Element element;
-
-    @ManyToOne(optional = false)
-    @NotNull
+    @OneToMany(mappedBy = "elementSupply")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
         value = {
-            "coreAssemblies",
-            "intersticeAssemblies",
-            "sheathings",
-            "elementSupplies",
-            "bangleSupplies",
-            "customComponentSupplies",
-            "oneStudySupplies",
-            "centralAssembly",
-            "futureStudy",
+            "ownerCentralAssembly",
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "ownerStrand",
+            "ownerIntersticeAssembly",
         },
         allowSetters = true
     )
-    private Strand ownerStrand;
+    private Set<SupplyPosition> ownerSupplyPositions = new HashSet<>();
 
-    public ElementSupply() {
-        super();
-    }
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "elementKind" }, allowSetters = true)
+    private Element element;
 
     @Override
     public ElementSupply getThis() {
@@ -174,6 +170,37 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
         this.description = description;
     }
 
+    public Set<SupplyPosition> getOwnerSupplyPositions() {
+        return this.ownerSupplyPositions;
+    }
+
+    public void setOwnerSupplyPositions(Set<SupplyPosition> supplyPositions) {
+        if (this.ownerSupplyPositions != null) {
+            this.ownerSupplyPositions.forEach(i -> i.setElementSupply(null));
+        }
+        if (supplyPositions != null) {
+            supplyPositions.forEach(i -> i.setElementSupply(this));
+        }
+        this.ownerSupplyPositions = supplyPositions;
+    }
+
+    public ElementSupply ownerSupplyPositions(Set<SupplyPosition> supplyPositions) {
+        this.setOwnerSupplyPositions(supplyPositions);
+        return this;
+    }
+
+    public ElementSupply addOwnerSupplyPosition(SupplyPosition supplyPosition) {
+        this.ownerSupplyPositions.add(supplyPosition);
+        supplyPosition.setElementSupply(this);
+        return this;
+    }
+
+    public ElementSupply removeOwnerSupplyPosition(SupplyPosition supplyPosition) {
+        this.ownerSupplyPositions.remove(supplyPosition);
+        supplyPosition.setElementSupply(null);
+        return this;
+    }
+
     public Element getElement() {
         return this.element;
     }
@@ -184,19 +211,6 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
 
     public ElementSupply element(Element element) {
         this.setElement(element);
-        return this;
-    }
-
-    public Strand getOwnerStrand() {
-        return this.ownerStrand;
-    }
-
-    public void setOwnerStrand(Strand strand) {
-        this.ownerStrand = strand;
-    }
-
-    public ElementSupply ownerStrand(Strand strand) {
-        this.setOwnerStrand(strand);
         return this;
     }
 

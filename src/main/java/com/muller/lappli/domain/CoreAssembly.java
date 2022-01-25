@@ -30,28 +30,17 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     private Long assemblyLayer;
 
     @NotNull
-    @Column(name = "diameter_assembly_step", nullable = false)
-    private Double diameterAssemblyStep;
+    @Column(name = "forced_mean_milimeter_component_diameter", nullable = false)
+    private Double forcedMeanMilimeterComponentDiameter;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "assembly_mean", nullable = false)
-    private AssemblyMean assemblyMean;
+    @Column(name = "components_count", nullable = false)
+    private Long componentsCount;
 
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = {
-            "coreAssemblies",
-            "intersticeAssemblies",
-            "sheathings",
-            "elementSupplies",
-            "bangleSupplies",
-            "customComponentSupplies",
-            "oneStudySupplies",
-            "centralAssembly",
-            "lastCoreAssembly",
-        },
+        value = { "supplyPositions", "coreAssemblies", "intersticeAssemblies", "sheathings", "centralAssembly", "futureStudy" },
         allowSetters = true
     )
     private Strand ownerStrand;
@@ -102,31 +91,30 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         this.assemblyLayer = assemblyLayer;
     }
 
-    public Double getDiameterAssemblyStep() {
-        return this.diameterAssemblyStep;
+    public Double getForcedMeanMilimeterComponentDiameter() {
+        return this.forcedMeanMilimeterComponentDiameter;
     }
 
-    public CoreAssembly diameterAssemblyStep(Double diameterAssemblyStep) {
-        this.setDiameterAssemblyStep(diameterAssemblyStep);
+    public CoreAssembly forcedMeanMilimeterComponentDiameter(Double forcedMeanMilimeterComponentDiameter) {
+        this.setForcedMeanMilimeterComponentDiameter(forcedMeanMilimeterComponentDiameter);
         return this;
     }
 
-    public void setDiameterAssemblyStep(Double diameterAssemblyStep) {
-        this.diameterAssemblyStep = diameterAssemblyStep;
+    public void setForcedMeanMilimeterComponentDiameter(Double forcedMeanMilimeterComponentDiameter) {
+        this.forcedMeanMilimeterComponentDiameter = forcedMeanMilimeterComponentDiameter;
     }
 
-    @Override
-    public AssemblyMean getAssemblyMean() {
-        return this.assemblyMean;
+    public Long getComponentsCount() {
+        return this.componentsCount;
     }
 
-    public CoreAssembly assemblyMean(AssemblyMean assemblyMean) {
-        this.setAssemblyMean(assemblyMean);
+    public CoreAssembly componentsCount(Long componentsCount) {
+        this.setComponentsCount(componentsCount);
         return this;
     }
 
-    public void setAssemblyMean(AssemblyMean assemblyMean) {
-        this.assemblyMean = assemblyMean;
+    public void setComponentsCount(Long componentsCount) {
+        this.componentsCount = componentsCount;
     }
 
     public Strand getOwnerStrand() {
@@ -167,9 +155,8 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         return "CoreAssembly{" +
             "id=" + getId() +
             ", assemblyLayer=" + getAssemblyLayer() +
-            ", productionStep=" + getProductionStep() +
-            ", diameterAssemblyStep=" + getDiameterAssemblyStep() +
-            ", assemblyMean='" + getAssemblyMean() + "'" +
+            ", forcedMeanMilimeterComponentDiameter=" + getForcedMeanMilimeterComponentDiameter() +
+            ", componentsCount=" + getComponentsCount() +
             "}";
     }
 }

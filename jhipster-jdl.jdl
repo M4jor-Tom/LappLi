@@ -6,6 +6,10 @@ entity Sheathing {
     sheathingKind SheathingKind required
 }
 
+entity SupplyPosition {
+    supplyApparitionsUsage Long required
+}
+
 entity CentralAssembly {
 	//@Readonly operationLayer Long required
 	//@Readonly productionStep Long required
@@ -15,18 +19,21 @@ entity CoreAssembly {
 	//@Readonly operationLayer Long required
 	//@Readonly productionStep Long required
 	assemblyLayer Long required
-	diameterAssemblyStep Double required
-    assemblyMean AssemblyMean required
+    forcedMeanMilimeterComponentDiameter Double required
+    componentsCount Long required
 }
 
 entity IntersticeAssembly {
-	intersticeLayer Long required
+	assemblyLayer Long required
+    intersticeLayer Long required
 	//@Readonly operationLayer Long required
 	//@Readonly productionStep Long required
+    forcedMeanMilimeterComponentDiameter Double required
 }
 
 entity Strand {
-
+	diameterAssemblyStep Double required
+    assemblyMean AssemblyMean required
 }
 
 entity Study {
@@ -143,10 +150,29 @@ entity UserData {
 
 relationship OneToOne {
 	CentralAssembly{ownerStrand(designation) required} to Strand{centralAssembly(productionStep)} with jpaDerivedIdentifier
+    CentralAssembly{supplyPosition} to SupplyPosition{ownerCentralAssembly(productDesignation)}
 }
 
 relationship OneToOne {
 	UserData{user(login) required} to User with jpaDerivedIdentifier
+}
+
+relationship OneToMany {
+    //Supply's positions
+	ElementSupply{ownerSupplyPosition(designation) required} to SupplyPosition{elementSupply(designation)}
+    BangleSupply{ownerSupplyPosition(designation) required} to SupplyPosition{bangleSupply(designation)}
+    CustomComponentSupply{ownerSupplyPosition(designation) required} to SupplyPosition{customComponentSupply(designation)}
+	OneStudySupply{ownerSupplyPosition(designation) required} to SupplyPosition{oneStudySupply(designation)}
+}
+
+relationship OneToMany {
+    //Strand's SupplyPositions
+    Strand{supplyPositions} to SupplyPosition{ownerStrand(designation)}
+}
+
+relationship OneToMany {
+    //IntersticeAssembly's SupplyPositions
+    IntersticeAssembly{supplyPositions} to SupplyPosition{ownerIntersticeAssembly(productDesignation)}
 }
 
 relationship OneToMany {
@@ -170,12 +196,6 @@ relationship OneToMany {
 
     //Supplies owned in a Study as UNDIVIDED
 	Study{strandSupplies(designation)} to StrandSupply{study(number) required}
-
-    //Supplies owned in a Strand as DIVIED
-	Strand{elementSupplies(designation)} to ElementSupply{ownerStrand(designation) required}
-    Strand{bangleSupplies(designation)} to BangleSupply{ownerStrand(designation) required}
-    Strand{customComponentSupplies(designation)} to CustomComponentSupply{ownerStrand(designation) required}
-	Strand{oneStudySupplies(designation)} to OneStudySupply{ownerStrand(designation) required}
 }
 
 relationship OneToMany {

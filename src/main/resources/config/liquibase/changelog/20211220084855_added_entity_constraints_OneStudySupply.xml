@@ -13,11 +13,5 @@
                                  constraintName="fk_one_study_supply__surface_material_id"
                                  referencedColumnNames="id"
                                  referencedTableName="material"/>
-
-        <addForeignKeyConstraint baseColumnNames="owner_strand_id"
-                                 baseTableName="one_study_supply"
-                                 constraintName="fk_one_study_supply__owner_strand_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="strand"/>
     </changeSet>
 </databaseChangeLog>

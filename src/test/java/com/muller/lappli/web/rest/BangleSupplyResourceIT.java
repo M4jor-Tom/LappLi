@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.Bangle;
 import com.muller.lappli.domain.BangleSupply;
-import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.SupplyPosition;
 import com.muller.lappli.repository.BangleSupplyRepository;
 import java.util.List;
 import java.util.Random;
@@ -63,6 +63,16 @@ class BangleSupplyResourceIT {
     public static BangleSupply createEntity(EntityManager em) {
         BangleSupply bangleSupply = new BangleSupply().apparitions(DEFAULT_APPARITIONS).description(DEFAULT_DESCRIPTION);
         // Add required entity
+        SupplyPosition supplyPosition;
+        if (TestUtil.findAll(em, SupplyPosition.class).isEmpty()) {
+            supplyPosition = SupplyPositionResourceIT.createEntity(em);
+            em.persist(supplyPosition);
+            em.flush();
+        } else {
+            supplyPosition = TestUtil.findAll(em, SupplyPosition.class).get(0);
+        }
+        bangleSupply.getOwnerSupplyPositions().add(supplyPosition);
+        // Add required entity
         Bangle bangle;
         if (TestUtil.findAll(em, Bangle.class).isEmpty()) {
             bangle = BangleResourceIT.createEntity(em);
@@ -72,16 +82,6 @@ class BangleSupplyResourceIT {
             bangle = TestUtil.findAll(em, Bangle.class).get(0);
         }
         bangleSupply.setBangle(bangle);
-        // Add required entity
-        Strand strand;
-        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
-            strand = StrandResourceIT.createEntity(em);
-            em.persist(strand);
-            em.flush();
-        } else {
-            strand = TestUtil.findAll(em, Strand.class).get(0);
-        }
-        bangleSupply.setOwnerStrand(strand);
         return bangleSupply;
     }
 
@@ -94,6 +94,16 @@ class BangleSupplyResourceIT {
     public static BangleSupply createUpdatedEntity(EntityManager em) {
         BangleSupply bangleSupply = new BangleSupply().apparitions(UPDATED_APPARITIONS).description(UPDATED_DESCRIPTION);
         // Add required entity
+        SupplyPosition supplyPosition;
+        if (TestUtil.findAll(em, SupplyPosition.class).isEmpty()) {
+            supplyPosition = SupplyPositionResourceIT.createUpdatedEntity(em);
+            em.persist(supplyPosition);
+            em.flush();
+        } else {
+            supplyPosition = TestUtil.findAll(em, SupplyPosition.class).get(0);
+        }
+        bangleSupply.getOwnerSupplyPositions().add(supplyPosition);
+        // Add required entity
         Bangle bangle;
         if (TestUtil.findAll(em, Bangle.class).isEmpty()) {
             bangle = BangleResourceIT.createUpdatedEntity(em);
@@ -103,16 +113,6 @@ class BangleSupplyResourceIT {
             bangle = TestUtil.findAll(em, Bangle.class).get(0);
         }
         bangleSupply.setBangle(bangle);
-        // Add required entity
-        Strand strand;
-        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
-            strand = StrandResourceIT.createUpdatedEntity(em);
-            em.persist(strand);
-            em.flush();
-        } else {
-            strand = TestUtil.findAll(em, Strand.class).get(0);
-        }
-        bangleSupply.setOwnerStrand(strand);
         return bangleSupply;
     }
 

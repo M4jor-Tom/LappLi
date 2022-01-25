@@ -20,7 +20,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -112,7 +111,7 @@ class CentralAssemblyResourceIT {
         CentralAssembly testCentralAssembly = centralAssemblyList.get(centralAssemblyList.size() - 1);
 
         // Validate the id for MapsId, the ids must be same
-        assertThat(testCentralAssembly.getId()).isEqualTo(testCentralAssembly.getOwnerStrand().getId());
+        assertThat(testCentralAssembly.getId()).isEqualTo(testCentralAssembly.getStrand().getId());
     }
 
     @Test
@@ -154,7 +153,7 @@ class CentralAssemblyResourceIT {
         em.detach(updatedCentralAssembly);
 
         // Update the Strand with new association value
-        updatedCentralAssembly.setOwnerStrand(strand);
+        updatedCentralAssembly.setStrand(strand);
 
         // Update the entity
         restCentralAssemblyMockMvc

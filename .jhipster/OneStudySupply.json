@@ -42,19 +42,19 @@
   ],
   "relationships": [
     {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "supplyPosition",
+      "otherEntityRelationshipName": "oneStudySupply",
+      "relationshipValidateRules": "required",
+      "relationshipName": "ownerSupplyPosition",
+      "otherEntityField": "designation"
+    },
+    {
       "relationshipType": "many-to-one",
       "otherEntityName": "material",
       "otherEntityRelationshipName": "oneStudySupply",
       "relationshipValidateRules": "required",
       "relationshipName": "surfaceMaterial",
-      "otherEntityField": "designation"
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "strand",
-      "otherEntityRelationshipName": "oneStudySupplies",
-      "relationshipValidateRules": "required",
-      "relationshipName": "ownerStrand",
       "otherEntityField": "designation"
     }
   ],

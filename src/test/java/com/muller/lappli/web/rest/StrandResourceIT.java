@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.Study;
+import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.repository.StrandRepository;
 import java.util.List;
 import java.util.Random;
@@ -29,6 +30,12 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 @WithMockUser
 class StrandResourceIT {
+
+    private static final Double DEFAULT_DIAMETER_ASSEMBLY_STEP = 1D;
+    private static final Double UPDATED_DIAMETER_ASSEMBLY_STEP = 2D;
+
+    private static final AssemblyMean DEFAULT_ASSEMBLY_MEAN = AssemblyMean.RIGHT;
+    private static final AssemblyMean UPDATED_ASSEMBLY_MEAN = AssemblyMean.LEFT;
 
     private static final String ENTITY_API_URL = "/api/strands";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -54,7 +61,7 @@ class StrandResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Strand createEntity(EntityManager em) {
-        Strand strand = new Strand();
+        Strand strand = new Strand().diameterAssemblyStep(DEFAULT_DIAMETER_ASSEMBLY_STEP).assemblyMean(DEFAULT_ASSEMBLY_MEAN);
         // Add required entity
         Study study;
         if (TestUtil.findAll(em, Study.class).isEmpty()) {
@@ -75,7 +82,7 @@ class StrandResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Strand createUpdatedEntity(EntityManager em) {
-        Strand strand = new Strand();
+        Strand strand = new Strand().diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP).assemblyMean(UPDATED_ASSEMBLY_MEAN);
         // Add required entity
         Study study;
         if (TestUtil.findAll(em, Study.class).isEmpty()) {
@@ -107,6 +114,8 @@ class StrandResourceIT {
         List<Strand> strandList = strandRepository.findAll();
         assertThat(strandList).hasSize(databaseSizeBeforeCreate + 1);
         Strand testStrand = strandList.get(strandList.size() - 1);
+        assertThat(testStrand.getDiameterAssemblyStep()).isEqualTo(DEFAULT_DIAMETER_ASSEMBLY_STEP);
+        assertThat(testStrand.getAssemblyMean()).isEqualTo(DEFAULT_ASSEMBLY_MEAN);
     }
 
     @Test
@@ -129,6 +138,40 @@ class StrandResourceIT {
 
     @Test
     @Transactional
+    void checkDiameterAssemblyStepIsRequired() throws Exception {
+        int databaseSizeBeforeTest = strandRepository.findAll().size();
+        // set the field null
+        strand.setDiameterAssemblyStep(null);
+
+        // Create the Strand, which fails.
+
+        restStrandMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(strand)))
+            .andExpect(status().isBadRequest());
+
+        List<Strand> strandList = strandRepository.findAll();
+        assertThat(strandList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkAssemblyMeanIsRequired() throws Exception {
+        int databaseSizeBeforeTest = strandRepository.findAll().size();
+        // set the field null
+        strand.setAssemblyMean(null);
+
+        // Create the Strand, which fails.
+
+        restStrandMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(strand)))
+            .andExpect(status().isBadRequest());
+
+        List<Strand> strandList = strandRepository.findAll();
+        assertThat(strandList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllStrands() throws Exception {
         // Initialize the database
         strandRepository.saveAndFlush(strand);
@@ -138,7 +181,9 @@ class StrandResourceIT {
             .perform(get(ENTITY_API_URL + "?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(strand.getId().intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(strand.getId().intValue())))
+            .andExpect(jsonPath("$.[*].diameterAssemblyStep").value(hasItem(DEFAULT_DIAMETER_ASSEMBLY_STEP.doubleValue())))
+            .andExpect(jsonPath("$.[*].assemblyMean").value(hasItem(DEFAULT_ASSEMBLY_MEAN.toString())));
     }
 
     @Test
@@ -152,7 +197,9 @@ class StrandResourceIT {
             .perform(get(ENTITY_API_URL_ID, strand.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(strand.getId().intValue()));
+            .andExpect(jsonPath("$.id").value(strand.getId().intValue()))
+            .andExpect(jsonPath("$.diameterAssemblyStep").value(DEFAULT_DIAMETER_ASSEMBLY_STEP.doubleValue()))
+            .andExpect(jsonPath("$.assemblyMean").value(DEFAULT_ASSEMBLY_MEAN.toString()));
     }
 
     @Test
@@ -174,6 +221,7 @@ class StrandResourceIT {
         Strand updatedStrand = strandRepository.findById(strand.getId()).get();
         // Disconnect from session so that the updates on updatedStrand are not directly saved in db
         em.detach(updatedStrand);
+        updatedStrand.diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP).assemblyMean(UPDATED_ASSEMBLY_MEAN);
 
         restStrandMockMvc
             .perform(
@@ -187,6 +235,8 @@ class StrandResourceIT {
         List<Strand> strandList = strandRepository.findAll();
         assertThat(strandList).hasSize(databaseSizeBeforeUpdate);
         Strand testStrand = strandList.get(strandList.size() - 1);
+        assertThat(testStrand.getDiameterAssemblyStep()).isEqualTo(UPDATED_DIAMETER_ASSEMBLY_STEP);
+        assertThat(testStrand.getAssemblyMean()).isEqualTo(UPDATED_ASSEMBLY_MEAN);
     }
 
     @Test
@@ -257,6 +307,8 @@ class StrandResourceIT {
         Strand partialUpdatedStrand = new Strand();
         partialUpdatedStrand.setId(strand.getId());
 
+        partialUpdatedStrand.diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP);
+
         restStrandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedStrand.getId())
@@ -269,6 +321,8 @@ class StrandResourceIT {
         List<Strand> strandList = strandRepository.findAll();
         assertThat(strandList).hasSize(databaseSizeBeforeUpdate);
         Strand testStrand = strandList.get(strandList.size() - 1);
+        assertThat(testStrand.getDiameterAssemblyStep()).isEqualTo(UPDATED_DIAMETER_ASSEMBLY_STEP);
+        assertThat(testStrand.getAssemblyMean()).isEqualTo(DEFAULT_ASSEMBLY_MEAN);
     }
 
     @Test
@@ -283,6 +337,8 @@ class StrandResourceIT {
         Strand partialUpdatedStrand = new Strand();
         partialUpdatedStrand.setId(strand.getId());
 
+        partialUpdatedStrand.diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP).assemblyMean(UPDATED_ASSEMBLY_MEAN);
+
         restStrandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedStrand.getId())
@@ -295,6 +351,8 @@ class StrandResourceIT {
         List<Strand> strandList = strandRepository.findAll();
         assertThat(strandList).hasSize(databaseSizeBeforeUpdate);
         Strand testStrand = strandList.get(strandList.size() - 1);
+        assertThat(testStrand.getDiameterAssemblyStep()).isEqualTo(UPDATED_DIAMETER_ASSEMBLY_STEP);
+        assertThat(testStrand.getAssemblyMean()).isEqualTo(UPDATED_ASSEMBLY_MEAN);
     }
 
     @Test

@@ -38,8 +38,16 @@ public class IntersticeAssemblyServiceImpl implements IntersticeAssemblyService 
         return intersticeAssemblyRepository
             .findById(intersticeAssembly.getId())
             .map(existingIntersticeAssembly -> {
+                if (intersticeAssembly.getAssemblyLayer() != null) {
+                    existingIntersticeAssembly.setAssemblyLayer(intersticeAssembly.getAssemblyLayer());
+                }
                 if (intersticeAssembly.getIntersticeLayer() != null) {
                     existingIntersticeAssembly.setIntersticeLayer(intersticeAssembly.getIntersticeLayer());
+                }
+                if (intersticeAssembly.getForcedMeanMilimeterComponentDiameter() != null) {
+                    existingIntersticeAssembly.setForcedMeanMilimeterComponentDiameter(
+                        intersticeAssembly.getForcedMeanMilimeterComponentDiameter()
+                    );
                 }
 
                 return existingIntersticeAssembly;

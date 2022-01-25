@@ -17,10 +17,10 @@
             <column name="assembly_layer" type="bigint">
                 <constraints nullable="false" />
             </column>
-            <column name="diameter_assembly_step" type="double">
+            <column name="forced_mean_milimeter_component_diameter" type="double">
                 <constraints nullable="false" />
             </column>
-            <column name="assembly_mean" type="varchar(255)">
+            <column name="components_count" type="bigint">
                 <constraints nullable="false" />
             </column>
             <column name="owner_strand_id" type="bigint">
@@ -48,8 +48,8 @@
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="assembly_layer" type="numeric"/>
-            <column name="diameter_assembly_step" type="numeric"/>
-            <column name="assembly_mean" type="string"/>
+            <column name="forced_mean_milimeter_component_diameter" type="numeric"/>
+            <column name="components_count" type="numeric"/>
             <column name="owner_strand_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

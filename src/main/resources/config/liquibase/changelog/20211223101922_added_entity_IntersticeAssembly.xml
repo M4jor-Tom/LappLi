@@ -14,7 +14,13 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="assembly_layer" type="bigint">
+                <constraints nullable="false" />
+            </column>
             <column name="interstice_layer" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="forced_mean_milimeter_component_diameter" type="double">
                 <constraints nullable="false" />
             </column>
             <column name="owner_strand_id" type="bigint">
@@ -41,7 +47,9 @@
                   tableName="interstice_assembly"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
+            <column name="assembly_layer" type="numeric"/>
             <column name="interstice_layer" type="numeric"/>
+            <column name="forced_mean_milimeter_component_diameter" type="numeric"/>
             <column name="owner_strand_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
