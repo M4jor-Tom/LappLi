@@ -29,6 +29,9 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
 
     private static final long serialVersionUID = 1L;
 
+    @Transient
+    private Comparator<AbstractOperation<?>> operationComparator;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -79,43 +82,56 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
     @JsonIgnoreProperties(value = { "strands", "strandSupplies", "author" }, allowSetters = true)
     private Study futureStudy;
 
+    public Strand() {
+        this.operationComparator = null;
+    }
+
     @Override
     public Strand getThis() {
         return this;
     }
 
     private Comparator<AbstractOperation<?>> getOperationComparator() {
-        return new Comparator<AbstractOperation<?>>() {
-            @Override
-            public int compare(AbstractOperation<?> o1, AbstractOperation<?> o2) {
-                if (o1 instanceof AbstractAssembly && o2 instanceof AbstractAssembly) {
-                    if (o1 instanceof IntersticeAssembly && o2 instanceof IntersticeAssembly) {
-                        //Both o1 & o2 are IntersticeAssemblies, have to deduct by layer number
-                        return (int) (((IntersticeAssembly) o1).getIntersticeLayer() - ((IntersticeAssembly) o2).getIntersticeLayer());
-                    } else if (o1 instanceof IntersticeAssembly || o2 instanceof IntersticeAssembly) {
-                        //Case when both are IntersticeAssemblies is nailed up there,
-                        //so this case is when ONLY ONE is an IntersticeAssembly
-                        if (o1 instanceof IntersticeAssembly) {
-                            //o2 cannot be IntersticeAssembly there
-                            return 1;
+        if (operationComparator == null) {
+            operationComparator =
+                new Comparator<AbstractOperation<?>>() {
+                    @Override
+                    public int compare(AbstractOperation<?> o1, AbstractOperation<?> o2) {
+                        if (o1 instanceof AbstractAssembly && o2 instanceof AbstractAssembly) {
+                            if (o1 instanceof IntersticeAssembly && o2 instanceof IntersticeAssembly) {
+                                //Both o1 & o2 are IntersticeAssemblies, have to deduct by layer number
+                                return (int) (
+                                    ((IntersticeAssembly) o1).getIntersticeLayer() - ((IntersticeAssembly) o2).getIntersticeLayer()
+                                );
+                            } else if (o1 instanceof IntersticeAssembly || o2 instanceof IntersticeAssembly) {
+                                //Case when both are IntersticeAssemblies is nailed up there,
+                                //so this case is when ONLY ONE is an IntersticeAssembly
+                                if (o1 instanceof IntersticeAssembly) {
+                                    //o2 cannot be IntersticeAssembly there
+                                    return 1;
+                                }
+                                //o1 cannot be IntersticeAssembly there
+                                return -1;
+                            } else {
+                                //None of o1 & o2 are IntersticeAssemblies,
+                                //the use of AbstractAssembly.assemblyLayer will suffise
+                                return (int) (
+                                    ((AbstractAssembly<?>) o1).getAssemblyLayer() - ((AbstractAssembly<?>) o2).getAssemblyLayer()
+                                );
+                            }
                         }
-                        //o1 cannot be IntersticeAssembly there
-                        return -1;
-                    } else {
-                        //None of o1 & o2 are IntersticeAssemblies,
-                        //the use of AbstractAssembly.assemblyLayer will suffise
-                        return (int) (((AbstractAssembly<?>) o1).getAssemblyLayer() - ((AbstractAssembly<?>) o2).getAssemblyLayer());
-                    }
-                }
 
-                //If one is an Assembly, its operationLayer will be lower than
-                //a non-assembly operation.
-                //Otherwise, if both operations are non-assembly, hope
-                //it's not equal, in that case error checking failed and this would result
-                //in a randomly sorted non-assembly operation list
-                return (int) (o1.getOperationLayer() - o2.getOperationLayer());
-            }
-        };
+                        //If one is an Assembly, its operationLayer will be lower than
+                        //a non-assembly operation.
+                        //Otherwise, if both operations are non-assembly, hope
+                        //it's not equal, in that case error checking failed and this would result
+                        //in a randomly sorted non-assembly operation list
+                        return (int) (o1.getOperationLayer() - o2.getOperationLayer());
+                    }
+                };
+        }
+
+        return operationComparator;
     }
 
     /**
