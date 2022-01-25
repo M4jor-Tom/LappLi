@@ -60,6 +60,24 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         return null;
     }
 
+    @Override
+    public Double getDiameterAssemblyStep() {
+        try {
+            return getOwnerStrand().getDiameterAssemblyStep();
+        } catch (NullPointerException e) {
+            return Double.NaN;
+        }
+    }
+
+    @Override
+    public AssemblyMean getAssemblyMean() {
+        try {
+            return getOwnerStrand().getAssemblyMean();
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override

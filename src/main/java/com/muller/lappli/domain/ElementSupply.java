@@ -170,6 +170,7 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
         this.description = description;
     }
 
+    @Override
     public Set<SupplyPosition> getOwnerSupplyPositions() {
         return this.ownerSupplyPositions;
     }

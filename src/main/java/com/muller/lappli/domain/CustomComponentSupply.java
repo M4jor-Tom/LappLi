@@ -162,6 +162,7 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
         this.markingType = markingType;
     }
 
+    @Override
     public Set<SupplyPosition> getOwnerSupplyPositions() {
         return this.ownerSupplyPositions;
     }

@@ -147,6 +147,7 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
         this.description = description;
     }
 
+    @Override
     public Set<SupplyPosition> getOwnerSupplyPositions() {
         return this.ownerSupplyPositions;
     }

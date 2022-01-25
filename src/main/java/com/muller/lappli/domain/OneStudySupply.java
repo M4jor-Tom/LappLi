@@ -223,6 +223,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         this.surfaceColor = surfaceColor;
     }
 
+    @Override
     public Set<SupplyPosition> getOwnerSupplyPositions() {
         return this.ownerSupplyPositions;
     }
