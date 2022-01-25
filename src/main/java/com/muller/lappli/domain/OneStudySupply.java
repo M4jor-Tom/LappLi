@@ -22,6 +22,9 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
 
     private static final long serialVersionUID = 1L;
 
+    @Transient
+    private OneStudyComponent oneStudyComponent;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -80,6 +83,10 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     )
     private Strand ownerStrand;
 
+    public OneStudySupply() {
+        this.oneStudyComponent = null;
+    }
+
     @Override
     public OneStudySupply getThis() {
         return this;
@@ -94,10 +101,15 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
 
     @Override
     public CylindricComponent getCylindricComponent() {
-        return new OneStudyComponent()
-            .designation(getDesignation())
-            .milimeterDiameter(getMilimeterDiameter())
-            .gramPerMeterLinearMass(getGramPerMeterLinearMass());
+        if (oneStudyComponent == null) {
+            oneStudyComponent =
+                new OneStudyComponent()
+                    .designation(getDesignation())
+                    .milimeterDiameter(getMilimeterDiameter())
+                    .gramPerMeterLinearMass(getGramPerMeterLinearMass());
+        }
+
+        return oneStudyComponent;
     }
 
     public Long getId() {
