@@ -9,6 +9,7 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { createEntity as createStrand, reset } from '../strand/strand.reducer';
 import { toNumber } from 'lodash';
+import { AssemblyMean } from 'app/shared/model/enumerations/assembly-mean.model';
 
 export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string }>) => {
   const dispatch = useAppDispatch();
@@ -42,7 +43,9 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
     const entity = {
       ...strandEntity,
       ...values,
-      futureStudy: studies.find(it => it.id.toString() === props.match.params.study_id),
+      assemblyMean: AssemblyMean.STRAIGHT,
+      diameterAssemblyStep: 0.0,
+      futureStudy: studyEntity, //  studies.find(it => it.id.toString() === props.match.params.study_id),
     };
 
     dispatch(createStrand(entity));
