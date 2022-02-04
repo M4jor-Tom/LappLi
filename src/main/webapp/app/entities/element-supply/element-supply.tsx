@@ -118,10 +118,10 @@ export const ElementSupply = (props: RouteComponentProps<{ url: string }>) => {
                   </td>
                   <td>{elementSupply.description}</td>
                   <td>{elementSupply.meterQuantity}</td>
-                  <td>{elementSupply.element.elementKind.milimeterDiameter}</td>
-                  <td>{elementSupply.element.elementKind.gramPerMeterLinearMass}</td>
+                  <td>{elementSupply.element.elementKind?.milimeterDiameter}</td>
+                  <td>{elementSupply.element.elementKind?.gramPerMeterLinearMass}</td>
                   <td>{elementSupply.bestLiftersNames}</td>
-                  <td>{elementSupply.element.elementKind.insulationMaterial.designation}</td>
+                  <td>{elementSupply.element.elementKind?.insulationMaterial.designation}</td>
                   <td>{elementSupply.meterPerHourSpeed}</td>
                   <td>{elementSupply.formatedHourPreparationTime}</td>
                   <td>{elementSupply.formatedHourExecutionTime}</td>
