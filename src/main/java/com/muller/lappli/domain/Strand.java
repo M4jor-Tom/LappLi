@@ -313,6 +313,11 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
         return getSuppliesByKind(SupplyKind.ONE_STUDY);
     }
 
+    /**
+     * @param <T> The AbstractSupply<T> daughter class represented by supplyKind
+     * @param supplyKind the kind of supply expected
+     * @return All supplies of supplyKind kind
+     */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSupply<T>> Set<T> getSuppliesByKind(SupplyKind supplyKind) {
         Set<T> sortedSupplies = new HashSet<>();
