@@ -85,8 +85,21 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
     @JsonIgnoreProperties(value = { "strands", "strandSupplies", "author" }, allowSetters = true)
     private Study futureStudy;
 
+    public Strand() {
+        initSupplyPositionsIfEmpty();
+    }
+
     @Override
     public Strand getThis() {
+        return this;
+    }
+
+    @JsonIgnore
+    public Strand initSupplyPositionsIfEmpty() {
+        if (getSupplyPositions() == null || getSupplyPositions().isEmpty()) {
+            addSupplyPositions(new SupplyPosition().supplyApparitionsUsage(Long.valueOf(0)));
+        }
+
         return this;
     }
 
@@ -179,30 +192,32 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
             //For each supply
             List<Long> supplyDividers = new ArrayList<Long>();
 
-            for (Long testValue = Long.valueOf(1); testValue < supply.getApparitions() + Long.valueOf(1); testValue++) {
-                //For each of its dividers
-                if (supply.getApparitions() % testValue == Long.valueOf(0)) {
-                    //Store it
-                    supplyDividers.add(testValue);
-                }
-            }
-
-            if (commonDividers.isEmpty()) {
-                //If no common divider was stored
-                commonDividers = supplyDividers;
-            } else {
-                List<Long> commonDividersNoLongerCommon = new ArrayList<Long>();
-                for (Long commonDivider : commonDividers) {
-                    //For each common divider
-
-                    if (!supplyDividers.contains(commonDivider)) {
-                        //Drop it if it is not in the new supply dividers list
-                        commonDividersNoLongerCommon.add(commonDivider);
+            if (supply != null) {
+                for (Long testValue = Long.valueOf(1); testValue < supply.getApparitions() + Long.valueOf(1); testValue++) {
+                    //For each of its dividers
+                    if (supply.getApparitions() % testValue == Long.valueOf(0)) {
+                        //Store it
+                        supplyDividers.add(testValue);
                     }
                 }
 
-                for (Long commonDividerNoLongerCommon : commonDividersNoLongerCommon) {
-                    commonDividers.remove(commonDividerNoLongerCommon);
+                if (commonDividers.isEmpty()) {
+                    //If no common divider was stored
+                    commonDividers = supplyDividers;
+                } else {
+                    List<Long> commonDividersNoLongerCommon = new ArrayList<Long>();
+                    for (Long commonDivider : commonDividers) {
+                        //For each common divider
+
+                        if (!supplyDividers.contains(commonDivider)) {
+                            //Drop it if it is not in the new supply dividers list
+                            commonDividersNoLongerCommon.add(commonDivider);
+                        }
+                    }
+
+                    for (Long commonDividerNoLongerCommon : commonDividersNoLongerCommon) {
+                        commonDividers.remove(commonDividerNoLongerCommon);
+                    }
                 }
             }
         }
@@ -214,7 +229,11 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
         Long count = Long.valueOf(0);
 
         for (SupplyPosition supplyPosition : getSupplyPositions()) {
-            count += supplyPosition.getSupply().getApparitions();
+            if (supplyPosition.getSupply() != null) {
+                count += supplyPosition.getSupply().getApparitions();
+            } else {
+                return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+            }
         }
 
         return count;
@@ -277,7 +296,7 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
         List<Double> suppliedComponentsMilimeterDiameter = new ArrayList<Double>();
 
         for (AbstractSupply<?> supply : getSupplies()) {
-            suppliedComponentsMilimeterDiameter.add(supply.getCylindricComponent().getMilimeterDiameter());
+            suppliedComponentsMilimeterDiameter.add(supply == null ? Double.NaN : supply.getCylindricComponent().getMilimeterDiameter());
         }
 
         return suppliedComponentsMilimeterDiameter;
@@ -324,7 +343,7 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
 
         for (SupplyPosition supplyPosition : getSupplyPositions()) {
             AbstractSupply<?> supply = supplyPosition.getSupply();
-            if (supplyKind.equals(supply.getSupplyKind())) {
+            if (supply != null && supplyKind.equals(supply.getSupplyKind())) {
                 sortedSupplies.add((T) supply);
             }
         }
