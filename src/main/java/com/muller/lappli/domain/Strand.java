@@ -86,7 +86,7 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
     private Study futureStudy;
 
     public Strand() {
-        initSupplyPositionsIfEmpty();
+        //initSupplyPositionsIfEmpty();
     }
 
     @Override

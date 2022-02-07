@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { createEntity as createStrand, reset } from '../strand/strand.reducer';
 import { toNumber } from 'lodash';
 import { AssemblyMean } from 'app/shared/model/enumerations/assembly-mean.model';
+import { IStrand } from 'app/shared/model/strand.model';
 
 export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string }>) => {
   const dispatch = useAppDispatch();
@@ -40,12 +41,13 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
   }, [strandCreationSuccess]);
 
   const saveStrandEntity = values => {
-    const entity = {
+    const entity: IStrand = {
       ...strandEntity,
       ...values,
       assemblyMean: AssemblyMean.STRAIGHT,
       diameterAssemblyStep: 0.0,
       futureStudy: studyEntity, //  studies.find(it => it.id.toString() === props.match.params.study_id),
+      supplyPositions: [{ supplyApparitionsUsage: 0 }],
     };
 
     dispatch(createStrand(entity));
