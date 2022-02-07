@@ -1,12 +1,14 @@
 package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.SupplyPosition;
 import com.muller.lappli.repository.StrandRepository;
 import com.muller.lappli.service.BangleSupplyService;
 import com.muller.lappli.service.CustomComponentSupplyService;
 import com.muller.lappli.service.ElementSupplyService;
 import com.muller.lappli.service.OneStudySupplyService;
 import com.muller.lappli.service.StrandService;
+import com.muller.lappli.service.SupplyPositionService;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,23 +37,28 @@ public class StrandServiceImpl implements StrandService {
 
     private final OneStudySupplyService oneStudySupplyService;
 
+    private final SupplyPositionService supplyPositionService;
+
     public StrandServiceImpl(
         StrandRepository strandRepository,
         BangleSupplyService bangleSupplyService,
         CustomComponentSupplyService customComponentSupplyService,
         ElementSupplyService elementSupplyService,
-        OneStudySupplyService oneStudySupplyService
+        OneStudySupplyService oneStudySupplyService,
+        SupplyPositionService supplyPositionService
     ) {
         this.strandRepository = strandRepository;
         this.bangleSupplyService = bangleSupplyService;
         this.customComponentSupplyService = customComponentSupplyService;
         this.elementSupplyService = elementSupplyService;
         this.oneStudySupplyService = oneStudySupplyService;
+        this.supplyPositionService = supplyPositionService;
     }
 
     @Override
     public Strand save(Strand strand) {
         log.debug("Request to save Strand : {}", strand);
+        supplyPositionService.save((SupplyPosition) strand.initSupplyPositionsIfEmpty().getSupplyPositions().toArray()[0]);
         return onRead(strandRepository.save(strand));
     }
 
