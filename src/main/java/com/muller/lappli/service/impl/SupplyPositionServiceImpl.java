@@ -1,7 +1,16 @@
 package com.muller.lappli.service.impl;
 
+import com.muller.lappli.domain.BangleSupply;
+import com.muller.lappli.domain.CustomComponentSupply;
+import com.muller.lappli.domain.ElementSupply;
+import com.muller.lappli.domain.OneStudySupply;
 import com.muller.lappli.domain.SupplyPosition;
+import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.repository.SupplyPositionRepository;
+import com.muller.lappli.service.BangleSupplyService;
+import com.muller.lappli.service.CustomComponentSupplyService;
+import com.muller.lappli.service.ElementSupplyService;
+import com.muller.lappli.service.OneStudySupplyService;
 import com.muller.lappli.service.SupplyPositionService;
 import java.util.List;
 import java.util.Optional;
@@ -23,13 +32,54 @@ public class SupplyPositionServiceImpl implements SupplyPositionService {
 
     private final SupplyPositionRepository supplyPositionRepository;
 
-    public SupplyPositionServiceImpl(SupplyPositionRepository supplyPositionRepository) {
+    private final BangleSupplyService bangleSupplyService;
+
+    private final CustomComponentSupplyService customComponentSupplyService;
+
+    private final ElementSupplyService elementSupplyService;
+
+    private final OneStudySupplyService oneStudySupplyService;
+
+    public SupplyPositionServiceImpl(
+        SupplyPositionRepository supplyPositionRepository,
+        BangleSupplyService bangleSupplyService,
+        CustomComponentSupplyService customComponentSupplyService,
+        ElementSupplyService elementSupplyService,
+        OneStudySupplyService oneStudySupplyService
+    ) {
         this.supplyPositionRepository = supplyPositionRepository;
+        this.bangleSupplyService = bangleSupplyService;
+        this.customComponentSupplyService = customComponentSupplyService;
+        this.elementSupplyService = elementSupplyService;
+        this.oneStudySupplyService = oneStudySupplyService;
+    }
+
+    private void saveSupply(SupplyPosition supplyPosition) {
+        AbstractSupply<?> supply = supplyPosition.getSupply();
+        if (supply != null) {
+            switch (supply.getSupplyKind()) {
+                case BANGLE:
+                    bangleSupplyService.save((BangleSupply) supply);
+                    break;
+                case CUSTOM_COMPONENT:
+                    customComponentSupplyService.save((CustomComponentSupply) supply);
+                    break;
+                case ELEMENT:
+                    elementSupplyService.save((ElementSupply) supply);
+                    break;
+                case ONE_STUDY:
+                    oneStudySupplyService.save((OneStudySupply) supply);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     @Override
     public SupplyPosition save(SupplyPosition supplyPosition) {
         log.debug("Request to save SupplyPosition : {}", supplyPosition);
+        saveSupply(supplyPosition);
         return supplyPositionRepository.save(supplyPosition);
     }
 
