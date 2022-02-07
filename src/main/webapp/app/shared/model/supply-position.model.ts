@@ -5,10 +5,12 @@ import { ICustomComponentSupply } from 'app/shared/model/custom-component-supply
 import { IOneStudySupply } from 'app/shared/model/one-study-supply.model';
 import { IStrand } from 'app/shared/model/strand.model';
 import { IIntersticeAssembly } from 'app/shared/model/interstice-assembly.model';
+import { IAbstractSupply } from './abstract-supply.model';
 
 export interface ISupplyPosition {
   id?: number;
   supplyApparitionsUsage?: number;
+  supply?: IAbstractSupply | null;
   ownerCentralAssembly?: ICentralAssembly | null;
   elementSupply?: IElementSupply | null;
   bangleSupply?: IBangleSupply | null;
