@@ -93,7 +93,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     @Override
     public CylindricComponent getCylindricComponent() {
         return new OneStudyComponent()
-            .designation(getDesignation())
+            .designation(this.designation) //TODO: Add OneStudySupply.componentDesignation
             .milimeterDiameter(getMilimeterDiameter())
             .gramPerMeterLinearMass(getGramPerMeterLinearMass());
     }
@@ -138,11 +138,6 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
 
     public void setNumber(Long number) {
         this.number = number;
-    }
-
-    @Override
-    public String getDesignation() {
-        return this.designation;
     }
 
     public OneStudySupply designation(String designation) {
