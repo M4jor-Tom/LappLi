@@ -5,9 +5,9 @@ import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'r
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IStrand } from 'app/shared/model/strand.model';
-import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
+import { getEntity as getStrand } from 'app/entities/strand/strand.reducer';
 import { IStudy } from 'app/shared/model/study.model';
-import { getEntities as getStudies } from 'app/entities/study/study.reducer';
+import { getEntity as getStudy } from 'app/entities/study/study.reducer';
 import { getEntity, updateEntity, createEntity, reset } from '../strand-supply/strand-supply.reducer';
 import { IStrandSupply } from 'app/shared/model/strand-supply.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -17,12 +17,12 @@ import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 import { getOut, getStudyValidateField } from '../index-management/index-management-lib';
 import { toNumber } from 'lodash';
 
-export const StrandCompute = (props: RouteComponentProps<{ strand_id: string | null; study_id: string | null; id: string }>) => {
+export const StrandCompute = (props: RouteComponentProps<{ strand_id: string; study_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
 
-  const strands = useAppSelector(state => state.strand.entities);
-  const studies = useAppSelector(state => state.study.entities);
-  const strandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
+  const strandEntity = useAppSelector(state => state.strand.entity);
+  const studyEntity = useAppSelector(state => state.study.entity);
+  //  const strandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
   const loading = useAppSelector(state => state.strandSupply.loading);
   const updating = useAppSelector(state => state.strandSupply.updating);
   const updateSuccess = useAppSelector(state => state.strandSupply.updateSuccess);
@@ -44,8 +44,8 @@ export const StrandCompute = (props: RouteComponentProps<{ strand_id: string | n
   useEffect(() => {
     dispatch(reset());
 
-    dispatch(getStrands({}));
-    dispatch(getStudies({}));
+    dispatch(getStrand(props.match.params.strand_id));
+    dispatch(getStudy(props.match.params.study_id));
   }, []);
 
   useEffect(() => {
@@ -55,35 +55,36 @@ export const StrandCompute = (props: RouteComponentProps<{ strand_id: string | n
   }, [updateSuccess]);
 
   const saveEntity = values => {
-    const entity = {
-      ...strandSupplyEntity,
+    const entity: IStrandSupply = {
+      study: studyEntity,
+      strand: strandEntity,
+      markingType: 'LIFTING',
       ...values,
-      strand: strands.find(it => it.id.toString() === props.match.params.strand_id), //  values.strand.toString()),
-      study: studies.find(it => it.id.toString() === props.match.params.study_id), // values.study.toString()),
     };
 
-    //  const realStrandSubSupplyCount = strands.find(it => it.id.toString() === props.match.params.strand_id).suppliesCount / values.apparitions;
+    //  const realStrandSubSupplyCount = strandEntity.suppliesCount / values.apparitions;
     const apparitions: number = toNumber(values.apparitions);
     const subSuppliesToAssembleCheck: number = toNumber(values.subSuppliesToAssembleCheck);
-    const strand: IStrand = strands.find(it => it.id.toString() === props.match.params.strand_id);
-    const apparitionsIsCommonDivider: boolean = strand.suppliesCountsCommonDividers.includes(apparitions);
+    const apparitionsIsCommonDivider: boolean = strandEntity.suppliesCountsCommonDividers.includes(apparitions);
     //  const givenStrandSubSupplyCount = toNumber(values.subSuppliesToAssembleCheck);
 
     if (!apparitionsIsCommonDivider) {
       alert(translate('lappLiApp.strandSupply.errors.apparitionsIsNotSubSupplyCountsCommonDivider'));
-    } else if (apparitions * subSuppliesToAssembleCheck !== strand.suppliesCount) {
+      //  alert(apparitions + " must be included in " + strandEntity.suppliesCountsCommonDividers.concat());
+    } else if (apparitions * subSuppliesToAssembleCheck !== strandEntity.suppliesCount) {
       alert(translate('lappLiApp.strandSupply.errors.computedSuppliesCountInequalToReadSuppliesCount'));
+      //  alert(apparitions + " * " + subSuppliesToAssembleCheck + " must be equal to " + strandEntity.suppliesCount);
     } else {
       dispatch(createEntity(entity));
     }
   };
 
-  const defaultValues = {
+  /*  const defaultValues = {
     markingType: 'LIFTING',
     ...strandSupplyEntity,
     strand: strandSupplyEntity?.strand?.id,
     study: strandSupplyEntity?.study?.id,
-  };
+  };*/
 
   return (
     <div>
@@ -99,7 +100,7 @@ export const StrandCompute = (props: RouteComponentProps<{ strand_id: string | n
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <ValidatedForm defaultValues={defaultValues} onSubmit={saveEntity}>
+            <ValidatedForm /* defaultValues={defaultValues}*/ onSubmit={saveEntity}>
               <ValidatedField
                 label={translate('lappLiApp.strandSupply.subSuppliesToAssemble')}
                 id="sub-supplies-to-assemble"
