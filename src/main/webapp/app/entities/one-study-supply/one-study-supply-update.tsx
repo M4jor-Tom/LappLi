@@ -15,7 +15,12 @@ import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 import { Color } from 'app/shared/model/enumerations/color.model';
 import { getOutFromStudySupplyStrandSupplyComponent } from '../index-management/index-management-lib';
 
-export const OneStudySupplyUpdate = (props: RouteComponentProps<{ id: string }>) => {
+import { createEntity as createSupplyPositionEntity } from '../supply-position/supply-position.reducer';
+import { getEntity as getStrand } from '../strand/strand.reducer';
+import { ISupplyPosition } from 'app/shared/model/supply-position.model';
+import { IStrand } from 'app/shared/model/strand.model';
+
+export const OneStudySupplyUpdate = (props: RouteComponentProps<{ id: string; strand_id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
@@ -23,6 +28,7 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ id: string }>)
   const redirectionUrl = getOutFromStudySupplyStrandSupplyComponent(props.match.url, isNew);
 
   const materials = useAppSelector(state => state.material.entities);
+  const strand: IStrand = useAppSelector(state => state.strand.entity);
   const oneStudySupplyEntity = useAppSelector(state => state.oneStudySupply.entity);
   const loading = useAppSelector(state => state.oneStudySupply.loading);
   const updating = useAppSelector(state => state.oneStudySupply.updating);
@@ -41,6 +47,7 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ id: string }>)
     }
 
     dispatch(getMaterials({}));
+    dispatch(getStrand(props.match.params.strand_id));
   }, []);
 
   useEffect(() => {
@@ -57,7 +64,14 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ id: string }>)
       surfaceMaterial: materials.find(it => it.id.toString() === values.surfaceMaterial.toString()),
     };
 
+    const createdSupplyPosition: ISupplyPosition = {
+      supplyApparitionsUsage: 0,
+      ownerStrand: strand,
+      oneStudySupply: entity,
+    };
+
     if (isNew) {
+      dispatch(createSupplyPositionEntity(createdSupplyPosition));
       dispatch(createEntity(entity));
     } else {
       dispatch(updateEntity(entity));
