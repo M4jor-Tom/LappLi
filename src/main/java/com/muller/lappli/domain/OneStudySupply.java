@@ -35,8 +35,8 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     @Column(name = "number")
     private Long number;
 
-    @Column(name = "designation")
-    private String designation;
+    @Column(name = "component_designation")
+    private String componentDesignation;
 
     @Column(name = "description")
     private String description;
@@ -93,7 +93,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     @Override
     public CylindricComponent getCylindricComponent() {
         return new OneStudyComponent()
-            .designation(this.designation) //TODO: Add OneStudySupply.componentDesignation
+            .designation(getComponentDesignation())
             .milimeterDiameter(getMilimeterDiameter())
             .gramPerMeterLinearMass(getGramPerMeterLinearMass());
     }
@@ -140,13 +140,17 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         this.number = number;
     }
 
-    public OneStudySupply designation(String designation) {
-        this.setDesignation(designation);
+    public String getComponentDesignation() {
+        return this.componentDesignation;
+    }
+
+    public OneStudySupply componentDesignation(String componentDesignation) {
+        this.setComponentDesignation(componentDesignation);
         return this;
     }
 
-    public void setDesignation(String designation) {
-        this.designation = designation;
+    public void setComponentDesignation(String componentDesignation) {
+        this.componentDesignation = componentDesignation;
     }
 
     public String getDescription() {
@@ -289,7 +293,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
             "id=" + getId() +
             ", apparitions=" + getApparitions() +
             ", number=" + getNumber() +
-            ", designation='" + getDesignation() + "'" +
+            ", componentDesignation='" + getComponentDesignation() + "'" +
             ", description='" + getDescription() + "'" +
             ", markingType='" + getMarkingType() + "'" +
             ", gramPerMeterLinearMass=" + getGramPerMeterLinearMass() +

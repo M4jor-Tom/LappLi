@@ -129,10 +129,10 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ id: string; st
                 type="text"
               />
               <ValidatedField
-                label={translate('lappLiApp.oneStudySupply.designation')}
-                id="one-study-supply-designation"
-                name="designation"
-                data-cy="designation"
+                label={translate('lappLiApp.oneStudySupply.componentDesignation')}
+                id="one-study-supply-componentDesignation"
+                name="componentDesignation"
+                data-cy="componentDesignation"
                 type="text"
               />
               <ValidatedField

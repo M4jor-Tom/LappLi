@@ -20,7 +20,7 @@
             <column name="number" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="designation" type="varchar(255)">
+            <column name="component_designation" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="description" type="varchar(255)">
@@ -64,7 +64,7 @@
             <column name="id" type="numeric"/>
             <column name="apparitions" type="numeric"/>
             <column name="number" type="numeric"/>
-            <column name="designation" type="string"/>
+            <column name="component_designation" type="string"/>
             <column name="description" type="string"/>
             <column name="marking_type" type="string"/>
             <column name="gram_per_meter_linear_mass" type="numeric"/>

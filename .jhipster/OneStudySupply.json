@@ -10,7 +10,7 @@
       "fieldType": "Long"
     },
     {
-      "fieldName": "designation",
+      "fieldName": "componentDesignation",
       "fieldType": "String"
     },
     {
