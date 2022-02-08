@@ -60,7 +60,6 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "elementKind" }, allowSetters = true)
     private Element element;
 
     @Override

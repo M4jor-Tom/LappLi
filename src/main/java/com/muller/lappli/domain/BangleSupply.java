@@ -53,7 +53,6 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "material" }, allowSetters = true)
     private Bangle bangle;
 
     @Override
