@@ -19,7 +19,12 @@ import {
   isStrandSupply,
 } from '../index-management/index-management-lib';
 
-export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ id: string }>) => {
+import { createEntity as createSupplyPositionEntity } from '../supply-position/supply-position.reducer';
+import { getEntity as getStrand } from '../strand/strand.reducer';
+import { ISupplyPosition } from 'app/shared/model/supply-position.model';
+import { IStrand } from 'app/shared/model/strand.model';
+
+export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ id: string; strand_id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
@@ -27,6 +32,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ id: str
   const redirectionUrl = getOutFromStudySupplyStrandSupplyComponent(props.match.url, isNew);
 
   const customComponents = useAppSelector(state => state.customComponent.entities);
+  const strand: IStrand = useAppSelector(state => state.strand.entity);
   const customComponentSupplyEntity = useAppSelector(state => state.customComponentSupply.entity);
   const loading = useAppSelector(state => state.customComponentSupply.loading);
   const updating = useAppSelector(state => state.customComponentSupply.updating);
@@ -44,6 +50,7 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ id: str
     }
 
     dispatch(getCustomComponents({}));
+    dispatch(getStrand(props.match.params.strand_id));
   }, []);
 
   useEffect(() => {
@@ -60,7 +67,14 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ id: str
       customComponent: customComponents.find(it => it.id.toString() === values.customComponent.toString()),
     };
 
+    const createdSupplyPosition: ISupplyPosition = {
+      supplyApparitionsUsage: 0,
+      ownerStrand: strand,
+      customComponentSupply: entity,
+    };
+
     if (isNew) {
+      dispatch(createSupplyPositionEntity(createdSupplyPosition));
       dispatch(createEntity(entity));
     } else {
       dispatch(updateEntity(entity));
