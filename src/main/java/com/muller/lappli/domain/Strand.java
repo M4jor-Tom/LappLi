@@ -47,18 +47,7 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
 
     @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(
-        value = {
-            "ownerCentralAssembly",
-            "elementSupply",
-            "bangleSupply",
-            "customComponentSupply",
-            "oneStudySupply",
-            "ownerStrand",
-            "ownerIntersticeAssembly",
-        },
-        allowSetters = true
-    )
+    @JsonIgnoreProperties(value = { "ownerCentralAssembly", "ownerStrand", "ownerIntersticeAssembly" }, allowSetters = true)
     private Set<SupplyPosition> supplyPositions = new HashSet<>();
 
     @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
