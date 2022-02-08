@@ -267,13 +267,13 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
                           </td>
                           <td>{elementSupply.description}</td>
                           <td>{elementSupply.meterQuantity}</td>
-                          <td>{elementSupply.element.elementKind.milimeterDiameter}</td>
-                          <td>{elementSupply.element.elementKind.gramPerMeterLinearMass}</td>
+                          <td>{elementSupply.element.elementKind?.milimeterDiameter}</td>
+                          <td>{elementSupply.element.elementKind?.gramPerMeterLinearMass}</td>
                           <td>{elementSupply.bestLiftersNames}</td>
                           <td>
-                            {elementSupply.element.elementKind.insulationMaterial ? (
-                              <Link to={`/material/${elementSupply.element.elementKind.insulationMaterial.id}`}>
-                                {elementSupply.element.elementKind.insulationMaterial.designation}
+                            {elementSupply.element.elementKind?.insulationMaterial ? (
+                              <Link to={`/material/${elementSupply.element.elementKind?.insulationMaterial.id}`}>
+                                {elementSupply.element.elementKind?.insulationMaterial.designation}
                               </Link>
                             ) : (
                               ''
