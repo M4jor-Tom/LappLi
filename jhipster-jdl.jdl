@@ -69,7 +69,7 @@ entity LifterRunMeasure {
 entity OneStudySupply {
 	apparitions Long
 	number Long
-    designation String
+    componentDesignation String
     description String
     markingType MarkingType required
     gramPerMeterLinearMass Double required

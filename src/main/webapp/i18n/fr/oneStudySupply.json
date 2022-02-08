@@ -20,7 +20,7 @@
       "id": "ID",
       "apparitions": "Apparitions",
       "number": "Number",
-      "designation": "Designation",
+      "componentDesignation": "Component Designation",
       "description": "Description",
       "markingType": "Marking Type",
       "gramPerMeterLinearMass": "Gram Per Meter Linear Mass",

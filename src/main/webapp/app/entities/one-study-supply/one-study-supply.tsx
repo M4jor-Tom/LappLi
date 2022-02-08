@@ -56,7 +56,7 @@ export const OneStudySupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.oneStudySupply.number">Number</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.oneStudySupply.designation">Designation</Translate>
+                  <Translate contentKey="lappLiApp.oneStudySupply.componentDesignation">Component Designation</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.oneStudySupply.description">Description</Translate>
@@ -92,7 +92,7 @@ export const OneStudySupply = (props: RouteComponentProps<{ url: string }>) => {
                   </td>
                   <td>{oneStudySupply.apparitions}</td>
                   <td>{oneStudySupply.number}</td>
-                  <td>{oneStudySupply.designation}</td>
+                  <td>{oneStudySupply.componentDesignation}</td>
                   <td>{oneStudySupply.description}</td>
                   <td>
                     <Translate contentKey={`lappLiApp.MarkingType.${oneStudySupply.markingType}`} />
