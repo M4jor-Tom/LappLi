@@ -13,7 +13,12 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getOutFromStudySupplyStrandSupplyComponent, getStudyValidateField } from '../index-management/index-management-lib';
 
-export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string }>) => {
+import { createEntity as createSupplyPositionEntity } from '../supply-position/supply-position.reducer';
+import { getEntity as getStrand } from '../strand/strand.reducer';
+import { ISupplyPosition } from 'app/shared/model/supply-position.model';
+import { IStrand } from 'app/shared/model/strand.model';
+
+export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string; strand_id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
@@ -21,6 +26,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
   const redirectionUrl = getOutFromStudySupplyStrandSupplyComponent(props.match.url, isNew);
 
   const bangles = useAppSelector(state => state.bangle.entities);
+  const strand: IStrand = useAppSelector(state => state.strand.entity);
   const bangleSupplyEntity = useAppSelector(state => state.bangleSupply.entity);
   const loading = useAppSelector(state => state.bangleSupply.loading);
   const updating = useAppSelector(state => state.bangleSupply.updating);
@@ -37,6 +43,7 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
     }
 
     dispatch(getBangles({}));
+    dispatch(getStrand(props.match.params.strand_id));
   }, []);
 
   useEffect(() => {
@@ -53,7 +60,14 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string }>) =
       bangle: bangles.find(it => it.id.toString() === values.bangle.toString()),
     };
 
+    const createdSupplyPosition: ISupplyPosition = {
+      supplyApparitionsUsage: 0,
+      ownerStrand: strand,
+      bangleSupply: entity,
+    };
+
     if (isNew) {
+      dispatch(createSupplyPositionEntity(createdSupplyPosition));
       dispatch(createEntity(entity));
     } else {
       dispatch(updateEntity(entity));

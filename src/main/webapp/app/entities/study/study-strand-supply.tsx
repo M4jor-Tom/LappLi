@@ -47,7 +47,6 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
       assemblyMean: AssemblyMean.STRAIGHT,
       diameterAssemblyStep: 0.0,
       futureStudy: studyEntity, //  studies.find(it => it.id.toString() === props.match.params.study_id),
-      supplyPositions: [{ supplyApparitionsUsage: 0 }],
     };
 
     dispatch(createStrand(entity));
