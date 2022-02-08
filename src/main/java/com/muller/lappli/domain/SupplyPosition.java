@@ -33,19 +33,19 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     private CentralAssembly ownerCentralAssembly;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "ownerSupplyPositions", "element" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerSupplyPositions" }, allowSetters = true)
     private ElementSupply elementSupply;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "ownerSupplyPositions", "bangle" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerSupplyPositions" }, allowSetters = true)
     private BangleSupply bangleSupply;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "ownerSupplyPositions", "customComponent" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerSupplyPositions" }, allowSetters = true)
     private CustomComponentSupply customComponentSupply;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "ownerSupplyPositions", "surfaceMaterial" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerSupplyPositions" }, allowSetters = true)
     private OneStudySupply oneStudySupply;
 
     @ManyToOne
