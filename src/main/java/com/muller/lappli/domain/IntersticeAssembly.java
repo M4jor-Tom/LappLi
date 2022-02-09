@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.OperationKind;
+import com.muller.lappli.domain.interfaces.ISupplyPositionOwner;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,7 +19,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "interstice_assembly")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAssembly> implements Serializable {
+public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAssembly> implements ISupplyPositionOwner, Serializable {
 
     private static final long serialVersionUID = 1L;
 

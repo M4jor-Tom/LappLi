@@ -9,6 +9,7 @@ import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.exception.NoIntersticeAvailableException;
+import com.muller.lappli.domain.interfaces.ISupplyPositionOwner;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -27,7 +28,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "strand")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Strand extends AbstractDomainObject<Strand> implements Serializable {
+public class Strand extends AbstractDomainObject<Strand> implements ISupplyPositionOwner, Serializable {
 
     private static final long serialVersionUID = 1L;
 

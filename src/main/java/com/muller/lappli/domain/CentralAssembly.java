@@ -3,6 +3,7 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
 import com.muller.lappli.domain.enumeration.OperationKind;
+import com.muller.lappli.domain.interfaces.ISupplyPositionOwner;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -15,7 +16,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "central_assembly")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CentralAssembly extends AbstractAssembly<CentralAssembly> implements Serializable {
+public class CentralAssembly extends AbstractAssembly<CentralAssembly> implements ISupplyPositionOwner, Serializable {
 
     private static final long serialVersionUID = 1L;
 
