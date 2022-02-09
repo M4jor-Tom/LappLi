@@ -91,6 +91,9 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
         );
     }
 
+    /**
+     * @return the owned Supply
+     */
     public AbstractSupply<?> getSupply() {
         if (getBangleSupply() != null) {
             return getBangleSupply();
