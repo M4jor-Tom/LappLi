@@ -1,6 +1,5 @@
 package com.muller.lappli;
 
-import com.muller.lappli.LappLiApp;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

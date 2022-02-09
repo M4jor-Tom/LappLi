@@ -14,7 +14,6 @@ import com.muller.lappli.security.AuthoritiesConstants;
 import com.muller.lappli.service.UserService;
 import com.muller.lappli.service.dto.AdminUserDTO;
 import com.muller.lappli.service.dto.PasswordChangeDTO;
-import com.muller.lappli.service.dto.UserDTO;
 import com.muller.lappli.web.rest.vm.KeyAndPasswordVM;
 import com.muller.lappli.web.rest.vm.ManagedUserVM;
 import java.time.Instant;
