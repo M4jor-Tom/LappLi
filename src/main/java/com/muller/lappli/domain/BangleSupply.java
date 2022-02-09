@@ -35,7 +35,7 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "bangleSupply")
+    @OneToMany(mappedBy = "bangleSupply", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
         value = {
