@@ -64,6 +64,33 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
         return this;
     }
 
+    /**
+     * Checks the SupplyPosition's owner data is'nt corrupted
+     *
+     * @return true if only 0 or 1 owner is set
+     */
+    public Boolean isOwnerLegit() {
+        return DomainManager.trueCountIs0Or1(
+            getOwnerCentralAssembly() != null,
+            getOwnerStrand() != null,
+            getOwnerIntersticeAssembly() != null
+        );
+    }
+
+    /**
+     * Checks the SupplyPosition's supply data is'nt corrupted
+     *
+     * @return true if only 0 or 1 supply is set
+     */
+    public Boolean isSupplyLegit() {
+        return DomainManager.trueCountIs0Or1(
+            getBangleSupply() != null,
+            getCustomComponentSupply() != null,
+            getElementSupply() != null,
+            getOneStudySupply() != null
+        );
+    }
+
     public AbstractSupply<?> getSupply() {
         if (getBangleSupply() != null) {
             return getBangleSupply();
