@@ -40,7 +40,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
       >
         <FontAwesomeIcon icon="plus" />
         &nbsp;
-        <Translate contentKey="lappLiApp.sheathing.home.createLabel">Create new Sheathing</Translate>
+        <Translate contentKey="lappLiApp.sheathing.detail.title">Sheathing</Translate>
       </Link>
       <div className="table-responsive">
         {strand.centralAssembly ||
