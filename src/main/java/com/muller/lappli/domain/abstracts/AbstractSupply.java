@@ -91,6 +91,22 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
     public abstract SupplyKind getSupplyKind();
 
     /**
+     * Computes the divided apparitions which are unused
+     * by any SupplyPosition, so still usable
+     *
+     * @return the remaining divided apparitions
+     */
+    public Long getUnusedDividedApparitions() {
+        Long dividedApparitionsUsage = Long.valueOf(0);
+
+        for (SupplyPosition supplyPosition : getOwnerSupplyPositions()) {
+            dividedApparitionsUsage += supplyPosition.getSupplyApparitionsUsage();
+        }
+
+        return getDividedApparitions() - dividedApparitionsUsage;
+    }
+
+    /**
      * To be used on {@link #getOwnerStrand()}'s computation
      *
      * @return this
