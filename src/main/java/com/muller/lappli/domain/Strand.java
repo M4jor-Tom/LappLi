@@ -139,6 +139,13 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
                             return (int) (o1AssemblyLayer - o2AssemblyLayer);
                         }
 
+                        if (o1.getOperationLayer() == o2.getOperationLayer()) {
+                            //TODO Handle data corruption
+                            //this equality is possible,
+                            //if they're not just AbstractOperations,
+                            //as it's the case here
+                        }
+
                         //If one or none is an Assembly, operationLayer
                         //will be used to compare operations.
                         return (int) (o1.getOperationLayer() - o2.getOperationLayer());
