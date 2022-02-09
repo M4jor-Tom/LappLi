@@ -95,6 +95,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     /**
      * @return the SupplyPosition owner
      */
+    @JsonIgnoreProperties(value = { "supplyPosition", "supplyPositions" })
     public ISupplyPositionOwner getOwner() {
         if (getOwnerStrand() != null) {
             return getOwnerStrand();
