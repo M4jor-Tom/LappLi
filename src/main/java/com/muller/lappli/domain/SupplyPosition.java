@@ -3,6 +3,7 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
+import com.muller.lappli.domain.interfaces.ISupplyPositionOwner;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -89,6 +90,21 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
             getElementSupply() != null,
             getOneStudySupply() != null
         );
+    }
+
+    /**
+     * @return the SupplyPosition owner
+     */
+    public ISupplyPositionOwner getOwner() {
+        if (getOwnerStrand() != null) {
+            return getOwnerStrand();
+        } else if (getOwnerCentralAssembly() != null) {
+            return getOwnerCentralAssembly();
+        } else if (getOwnerIntersticeAssembly() != null) {
+            return getOwnerIntersticeAssembly();
+        }
+
+        return null;
     }
 
     /**
