@@ -87,15 +87,6 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return this;
     }
 
-    @JsonIgnore
-    public Strand initSupplyPositionsIfEmpty() {
-        if (getSupplyPositions() == null || getSupplyPositions().isEmpty()) {
-            addSupplyPositions(new SupplyPosition().supplyApparitionsUsage(Long.valueOf(0)));
-        }
-
-        return this;
-    }
-
     private Comparator<AbstractOperation<?>> getOperationComparator() {
         if (operationComparator == null) {
             operationComparator =
