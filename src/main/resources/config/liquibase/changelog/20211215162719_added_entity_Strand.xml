@@ -14,6 +14,12 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="diameter_assembly_step" type="double">
+                <constraints nullable="false" />
+            </column>
+            <column name="assembly_mean" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
             <column name="future_study_id" type="bigint">
                 <constraints nullable="false" />
             </column>
@@ -38,6 +44,8 @@
                   tableName="strand"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
+            <column name="diameter_assembly_step" type="numeric"/>
+            <column name="assembly_mean" type="string"/>
             <column name="future_study_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

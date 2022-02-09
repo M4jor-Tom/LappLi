@@ -48,8 +48,8 @@ public class OneStudySupplyServiceImpl extends AbstractLiftedSupplyServiceImpl<O
                     if (oneStudySupply.getNumber() != null) {
                         existingOneStudySupply.setNumber(oneStudySupply.getNumber());
                     }
-                    if (oneStudySupply.getDesignation() != null) {
-                        existingOneStudySupply.setDesignation(oneStudySupply.getDesignation());
+                    if (oneStudySupply.getComponentDesignation() != null) {
+                        existingOneStudySupply.setComponentDesignation(oneStudySupply.getComponentDesignation());
                     }
                     if (oneStudySupply.getDescription() != null) {
                         existingOneStudySupply.setDescription(oneStudySupply.getDescription());

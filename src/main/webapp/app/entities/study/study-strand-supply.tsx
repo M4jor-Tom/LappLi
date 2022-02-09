@@ -9,6 +9,8 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { createEntity as createStrand, reset } from '../strand/strand.reducer';
 import { toNumber } from 'lodash';
+import { AssemblyMean } from 'app/shared/model/enumerations/assembly-mean.model';
+import { IStrand } from 'app/shared/model/strand.model';
 
 export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string }>) => {
   const dispatch = useAppDispatch();
@@ -17,12 +19,14 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
     dispatch(getEntity(props.match.params.study_id));
   }, []);
 
+  const studyEntity = useAppSelector(state => state.study.entity);
+
   //  STRAND CREATION ZONE -- START
 
   const strandCreationSuccess = useAppSelector(state => state.strand.updateSuccess);
   const strandEntity = useAppSelector(state => state.strand.entity);
   const strandCreating = useAppSelector(state => state.strand.updating);
-  const studies = useAppSelector(state => state.study.entities);
+  //  const studies = useAppSelector(state => state.study.entities);
 
   useEffect(() => {
     dispatch(reset());
@@ -37,18 +41,18 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
   }, [strandCreationSuccess]);
 
   const saveStrandEntity = values => {
-    const entity = {
+    const entity: IStrand = {
       ...strandEntity,
       ...values,
-      futureStudy: studies.find(it => it.id.toString() === props.match.params.study_id),
+      assemblyMean: AssemblyMean.STRAIGHT,
+      diameterAssemblyStep: 0.0,
+      futureStudy: studyEntity, //  studies.find(it => it.id.toString() === props.match.params.study_id),
     };
 
     dispatch(createStrand(entity));
   };
 
   //  STRAND CREATION ZONE -- END
-
-  const studyEntity = useAppSelector(state => state.study.entity);
   return (
     <div>
       <div>

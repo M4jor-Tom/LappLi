@@ -81,6 +81,13 @@ public class CacheConfiguration {
             createCache(cm, com.muller.lappli.domain.Study.class.getName() + ".strands");
             createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".sheathings");
             createCache(cm, com.muller.lappli.domain.Sheathing.class.getName());
+            createCache(cm, com.muller.lappli.domain.ElementSupply.class.getName() + ".ownerSupplyPositions");
+            createCache(cm, com.muller.lappli.domain.BangleSupply.class.getName() + ".ownerSupplyPositions");
+            createCache(cm, com.muller.lappli.domain.CustomComponentSupply.class.getName() + ".ownerSupplyPositions");
+            createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".supplyPositions");
+            createCache(cm, com.muller.lappli.domain.OneStudySupply.class.getName() + ".ownerSupplyPositions");
+            createCache(cm, com.muller.lappli.domain.IntersticeAssembly.class.getName() + ".supplyPositions");
+            createCache(cm, com.muller.lappli.domain.SupplyPosition.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

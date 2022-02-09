@@ -42,11 +42,11 @@ export const OneStudySupplyDetail = (props: RouteComponentProps<{ id: string }>)
           </dt>
           <dd>{oneStudySupplyEntity.number}</dd>
           <dt>
-            <span id="designation">
-              <Translate contentKey="lappLiApp.oneStudySupply.designation">Designation</Translate>
+            <span id="componentDesignation">
+              <Translate contentKey="lappLiApp.oneStudySupply.componentDesignation">Component Designation</Translate>
             </span>
           </dt>
-          <dd>{oneStudySupplyEntity.designation}</dd>
+          <dd>{oneStudySupplyEntity.componentDesignation}</dd>
           <dt>
             <span id="description">
               <Translate contentKey="lappLiApp.oneStudySupply.description">Description</Translate>
@@ -85,10 +85,6 @@ export const OneStudySupplyDetail = (props: RouteComponentProps<{ id: string }>)
             <Translate contentKey="lappLiApp.supply.bestLiftersNames">Best Lifters</Translate>
           </dt>
           <dd>{oneStudySupplyEntity.bestLiftersNames}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.supply.ownerStrand">Owner Strand</Translate>
-          </dt>
-          <dd>{oneStudySupplyEntity.ownerStrand ? oneStudySupplyEntity.ownerStrand.designation : ''}</dd>
         </dl>
         <Button tag={Link} to="/one-study-supply" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

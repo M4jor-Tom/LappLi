@@ -9,13 +9,14 @@ import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.ElementSupply;
 import com.muller.lappli.domain.Material;
 import com.muller.lappli.domain.OneStudySupply;
-import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.StrandSupply;
+import com.muller.lappli.domain.SupplyPosition;
 import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.exception.AppartionDivisionNonNullRemainderException;
 import com.muller.lappli.domain.exception.IllegalStrandSupplyException;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.text.DecimalFormat;
+import java.util.Set;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
@@ -54,10 +55,10 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
     protected static final Long LIFTING_METER_PER_HOUR_SPEED = Long.valueOf(5000);
 
     /**
-     * @return the Strand which owns this
+     * @return the SupplyPositions which owns this
      */
-    @JsonIgnoreProperties("supplies")
-    public abstract Strand getOwnerStrand();
+    @JsonIgnoreProperties("supply")
+    public abstract Set<SupplyPosition> getOwnerSupplyPositions();
 
     /**
      * @return the apparitions of the CylindricComponent inside the final Cable

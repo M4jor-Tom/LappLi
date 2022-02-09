@@ -19,20 +19,20 @@
   ],
   "relationships": [
     {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "supplyPosition",
+      "otherEntityRelationshipName": "elementSupply",
+      "relationshipValidateRules": "required",
+      "relationshipName": "ownerSupplyPosition",
+      "otherEntityField": "designation"
+    },
+    {
       "relationshipType": "many-to-one",
       "otherEntityName": "element",
       "otherEntityRelationshipName": "elementSupply",
       "relationshipValidateRules": "required",
       "relationshipName": "element",
       "otherEntityField": "designationWithColor"
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "strand",
-      "otherEntityRelationshipName": "elementSupplies",
-      "relationshipValidateRules": "required",
-      "relationshipName": "ownerStrand",
-      "otherEntityField": "designation"
     }
   ],
   "entityTableName": "element_supply",

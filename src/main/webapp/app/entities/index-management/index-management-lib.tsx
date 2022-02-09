@@ -125,7 +125,7 @@ function getStrandValidatedField(
       id={fieldId}
       name="ownerStrand"
       data-cy="ownerStrand"
-      label={translate('lappLiApp.supply.ownerStrand')}
+      label={translate('lappLiApp.assembly.ownerStrand')}
       type="select"
       required
     >

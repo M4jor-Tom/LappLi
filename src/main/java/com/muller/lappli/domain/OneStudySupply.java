@@ -7,6 +7,8 @@ import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -36,8 +38,8 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     @Column(name = "number")
     private Long number;
 
-    @Column(name = "designation")
-    private String designation;
+    @Column(name = "component_designation")
+    private String componentDesignation;
 
     @Column(name = "description")
     private String description;
@@ -60,28 +62,26 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     @Column(name = "surface_color", nullable = false)
     private Color surfaceColor;
 
-    @ManyToOne(optional = false)
-    @NotNull
-    //@JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
-    private Material surfaceMaterial;
-
-    @ManyToOne(optional = false)
-    @NotNull
+    @OneToMany(mappedBy = "oneStudySupply")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
         value = {
-            "coreAssemblies",
-            "intersticeAssemblies",
-            "sheathings",
-            "elementSupplies",
-            "bangleSupplies",
-            "customComponentSupplies",
-            "oneStudySupplies",
-            "centralAssembly",
-            "futureStudy",
+            "ownerCentralAssembly",
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "ownerStrand",
+            "ownerIntersticeAssembly",
         },
         allowSetters = true
     )
-    private Strand ownerStrand;
+    private Set<SupplyPosition> ownerSupplyPositions = new HashSet<>();
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
+    private Material surfaceMaterial;
 
     public OneStudySupply() {
         this.oneStudyComponent = null;
@@ -97,20 +97,20 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         return SupplyKind.ONE_STUDY;
     }
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
-
     @Override
     public CylindricComponent getCylindricComponent() {
         if (oneStudyComponent == null) {
             oneStudyComponent =
                 new OneStudyComponent()
-                    .designation(getDesignation())
+                    .designation(getComponentDesignation())
                     .milimeterDiameter(getMilimeterDiameter())
                     .gramPerMeterLinearMass(getGramPerMeterLinearMass());
         }
 
         return oneStudyComponent;
     }
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
         return this.id;
@@ -152,18 +152,17 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         this.number = number;
     }
 
-    @Override
-    public String getDesignation() {
-        return this.designation;
+    public String getComponentDesignation() {
+        return this.componentDesignation;
     }
 
-    public OneStudySupply designation(String designation) {
-        this.setDesignation(designation);
+    public OneStudySupply componentDesignation(String componentDesignation) {
+        this.setComponentDesignation(componentDesignation);
         return this;
     }
 
-    public void setDesignation(String designation) {
-        this.designation = designation;
+    public void setComponentDesignation(String componentDesignation) {
+        this.componentDesignation = componentDesignation;
     }
 
     public String getDescription() {
@@ -236,6 +235,37 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     }
 
     @Override
+    public Set<SupplyPosition> getOwnerSupplyPositions() {
+        return this.ownerSupplyPositions;
+    }
+
+    public void setOwnerSupplyPositions(Set<SupplyPosition> supplyPositions) {
+        if (this.ownerSupplyPositions != null) {
+            this.ownerSupplyPositions.forEach(i -> i.setOneStudySupply(null));
+        }
+        if (supplyPositions != null) {
+            supplyPositions.forEach(i -> i.setOneStudySupply(this));
+        }
+        this.ownerSupplyPositions = supplyPositions;
+    }
+
+    public OneStudySupply ownerSupplyPositions(Set<SupplyPosition> supplyPositions) {
+        this.setOwnerSupplyPositions(supplyPositions);
+        return this;
+    }
+
+    public OneStudySupply addOwnerSupplyPosition(SupplyPosition supplyPosition) {
+        this.ownerSupplyPositions.add(supplyPosition);
+        supplyPosition.setOneStudySupply(this);
+        return this;
+    }
+
+    public OneStudySupply removeOwnerSupplyPosition(SupplyPosition supplyPosition) {
+        this.ownerSupplyPositions.remove(supplyPosition);
+        supplyPosition.setOneStudySupply(null);
+        return this;
+    }
+
     public Material getSurfaceMaterial() {
         return this.surfaceMaterial;
     }
@@ -246,19 +276,6 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
 
     public OneStudySupply surfaceMaterial(Material material) {
         this.setSurfaceMaterial(material);
-        return this;
-    }
-
-    public Strand getOwnerStrand() {
-        return this.ownerStrand;
-    }
-
-    public void setOwnerStrand(Strand strand) {
-        this.ownerStrand = strand;
-    }
-
-    public OneStudySupply ownerStrand(Strand strand) {
-        this.setOwnerStrand(strand);
         return this;
     }
 
@@ -288,7 +305,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
             "id=" + getId() +
             ", apparitions=" + getApparitions() +
             ", number=" + getNumber() +
-            ", designation='" + getDesignation() + "'" +
+            ", componentDesignation='" + getComponentDesignation() + "'" +
             ", description='" + getDescription() + "'" +
             ", markingType='" + getMarkingType() + "'" +
             ", gramPerMeterLinearMass=" + getGramPerMeterLinearMass() +

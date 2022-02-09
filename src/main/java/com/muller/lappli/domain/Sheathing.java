@@ -46,22 +46,8 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = {
-            "coreAssemblies",
-            "intersticeAssemblies",
-            "sheathings",
-            "operations",
-            "nonAssemblyOperations",
-            "assemblies",
-            "elementSupplies",
-            "bangleSupplies",
-            "customComponentSupplies",
-            "oneStudySupplies",
-            "centralAssembly",
-            "futureStudy",
-            "suppliesCountsCommonDividers",
-        } //,
-        //allowSetters = true
+        value = { "supplyPositions", "coreAssemblies", "intersticeAssemblies", "sheathings", "centralAssembly", "futureStudy" },
+        allowSetters = true
     )
     private Strand ownerStrand;
 

@@ -12,6 +12,13 @@
       "ownerSide": true,
       "useJPADerivedIdentifier": true,
       "id": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "supplyPosition",
+      "otherEntityRelationshipName": "ownerCentralAssembly",
+      "relationshipName": "supplyPosition",
+      "ownerSide": true
     }
   ],
   "entityTableName": "central_assembly",

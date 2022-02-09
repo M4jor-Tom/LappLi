@@ -8,6 +8,7 @@ import { IOneStudySupply } from 'app/shared/model/one-study-supply.model';
 import { ICentralAssembly } from 'app/shared/model/central-assembly.model';
 import { IStudy } from 'app/shared/model/study.model';
 import { IAbstractOperation } from './abstract-operation.model';
+import { ISupplyPosition } from './supply-position.model';
 
 export interface IStrand {
   id?: number;
@@ -17,6 +18,7 @@ export interface IStrand {
   coreAssemblies?: ICoreAssembly[] | null;
   intersticeAssemblies?: IIntersticeAssembly[] | null;
   sheathings?: ISheathing[] | null;
+  supplyPositions?: ISupplyPosition[] | null;
   elementSupplies?: IElementSupply[] | null;
   bangleSupplies?: IBangleSupply[] | null;
   customComponentSupplies?: ICustomComponentSupply[] | null;

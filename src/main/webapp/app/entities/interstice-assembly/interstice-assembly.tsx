@@ -50,19 +50,18 @@ export const IntersticeAssembly = (props: RouteComponentProps<{ url: string }>) 
                   <Translate contentKey="lappLiApp.intersticeAssembly.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.intersticeAssembly.productionStep">Production Step</Translate>
+                  <Translate contentKey="lappLiApp.intersticeAssembly.assemblyLayer">Assembly Layer</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.intersticeAssembly.intersticeLayer">Interstice Layer</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.intersticeAssembly.forcedMeanMilimeterComponentDiameter">
+                    Forced Mean Milimeter Component Diameter
+                  </Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.intersticeAssembly.ownerStrand">Owner Strand</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.nonCentralAssembly.assemblyStep">Assembly Step</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.nonCentralAssembly.assemblyMean">Assembly Mean</Translate>
                 </th>
                 <th />
               </tr>
@@ -75,18 +74,15 @@ export const IntersticeAssembly = (props: RouteComponentProps<{ url: string }>) 
                       {intersticeAssembly.id}
                     </Button>
                   </td>
-                  <td>{intersticeAssembly.productionStep}</td>
+                  <td>{intersticeAssembly.assemblyLayer}</td>
                   <td>{intersticeAssembly.intersticeLayer}</td>
+                  <td>{intersticeAssembly.forcedMeanMilimeterComponentDiameter}</td>
                   <td>
                     {intersticeAssembly.ownerStrand ? (
                       <Link to={`strand/${intersticeAssembly.ownerStrand.id}`}>{intersticeAssembly.ownerStrand.designation}</Link>
                     ) : (
                       ''
                     )}
-                  </td>
-                  <td>{intersticeAssembly.diameterAssemblyStep}</td>
-                  <td>
-                    <Translate contentKey={'lappLiApp.AssemblyMean.' + intersticeAssembly.assemblyMean} />
                   </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

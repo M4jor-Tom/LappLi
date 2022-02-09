@@ -1,0 +1,31 @@
+{
+  "lappLiApp": {
+    "supplyPosition": {
+      "home": {
+        "title": "Supply Positions",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Supply Position",
+        "createOrEditLabel": "Create or edit a Supply Position",
+        "notFound": "No Supply Positions found"
+      },
+      "created": "A new Supply Position is created with identifier {{ param }}",
+      "updated": "A Supply Position is updated with identifier {{ param }}",
+      "deleted": "A Supply Position is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Supply Position {{ id }}?"
+      },
+      "detail": {
+        "title": "Supply Position"
+      },
+      "id": "ID",
+      "supplyApparitionsUsage": "Supply Apparitions Usage",
+      "ownerCentralAssembly": "Owner Central Assembly",
+      "elementSupply": "Element Supply",
+      "bangleSupply": "Bangle Supply",
+      "customComponentSupply": "Custom Component Supply",
+      "oneStudySupply": "One Study Supply",
+      "ownerStrand": "Owner Strand",
+      "ownerIntersticeAssembly": "Owner Interstice Assembly"
+    }
+  }
+}

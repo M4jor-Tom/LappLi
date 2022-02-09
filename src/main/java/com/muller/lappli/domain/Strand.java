@@ -6,7 +6,10 @@ import com.muller.lappli.domain.abstracts.AbstractAssembly;
 import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
+import com.muller.lappli.domain.enumeration.AssemblyMean;
+import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.exception.NoIntersticeAvailableException;
+import com.muller.lappli.domain.interfaces.ISupplyPositionOwner;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -25,7 +28,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "strand")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Strand extends AbstractDomainObject<Strand> implements Serializable {
+public class Strand extends AbstractDomainObject<Strand> implements ISupplyPositionOwner, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -38,14 +41,27 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
     private Long id;
 
     @NotNull
+    @Column(name = "diameter_assembly_step", nullable = false)
+    private Double diameterAssemblyStep;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "assembly_mean", nullable = false)
+    private AssemblyMean assemblyMean;
+
     @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "ownerStrand", "supplies" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerCentralAssembly", "ownerStrand", "ownerIntersticeAssembly" }, allowSetters = true)
+    private Set<SupplyPosition> supplyPositions = new HashSet<>();
+
+    @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "ownerStrand" }, allowSetters = true)
     private Set<CoreAssembly> coreAssemblies = new HashSet<>();
 
     @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "ownerStrand", "supplies" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "supplyPositions", "ownerStrand" }, allowSetters = true)
     private Set<IntersticeAssembly> intersticeAssemblies = new HashSet<>();
 
     @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
@@ -53,27 +69,7 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
     @JsonIgnoreProperties(value = { "material", "ownerStrand" }, allowSetters = true)
     private Set<Sheathing> sheathings = new HashSet<>();
 
-    @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "ownerStrand" }, allowSetters = true)
-    private Set<ElementSupply> elementSupplies = new HashSet<>();
-
-    @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "ownerStrand" }, allowSetters = true)
-    private Set<BangleSupply> bangleSupplies = new HashSet<>();
-
-    @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "ownerStrand" }, allowSetters = true)
-    private Set<CustomComponentSupply> customComponentSupplies = new HashSet<>();
-
-    @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "ownerStrand" }, allowSetters = true)
-    private Set<OneStudySupply> oneStudySupplies = new HashSet<>();
-
-    @JsonIgnoreProperties(value = { "ownerStrand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrand", "supplyPosition" }, allowSetters = true)
     @OneToOne(mappedBy = "ownerStrand")
     private CentralAssembly centralAssembly;
 
@@ -88,6 +84,15 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
 
     @Override
     public Strand getThis() {
+        return this;
+    }
+
+    @JsonIgnore
+    public Strand initSupplyPositionsIfEmpty() {
+        if (getSupplyPositions() == null || getSupplyPositions().isEmpty()) {
+            addSupplyPositions(new SupplyPosition().supplyApparitionsUsage(Long.valueOf(0)));
+        }
+
         return this;
     }
 
@@ -189,30 +194,32 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
             //For each supply
             List<Long> supplyDividers = new ArrayList<Long>();
 
-            for (Long testValue = Long.valueOf(1); testValue < supply.getApparitions() + Long.valueOf(1); testValue++) {
-                //For each of its dividers
-                if (supply.getApparitions() % testValue == Long.valueOf(0)) {
-                    //Store it
-                    supplyDividers.add(testValue);
-                }
-            }
-
-            if (commonDividers.isEmpty()) {
-                //If no common divider was stored
-                commonDividers = supplyDividers;
-            } else {
-                List<Long> commonDividersNoLongerCommon = new ArrayList<Long>();
-                for (Long commonDivider : commonDividers) {
-                    //For each common divider
-
-                    if (!supplyDividers.contains(commonDivider)) {
-                        //Drop it if it is not in the new supply dividers list
-                        commonDividersNoLongerCommon.add(commonDivider);
+            if (supply != null) {
+                for (Long testValue = Long.valueOf(1); testValue < supply.getApparitions() + Long.valueOf(1); testValue++) {
+                    //For each of its dividers
+                    if (supply.getApparitions() % testValue == Long.valueOf(0)) {
+                        //Store it
+                        supplyDividers.add(testValue);
                     }
                 }
 
-                for (Long commonDividerNoLongerCommon : commonDividersNoLongerCommon) {
-                    commonDividers.remove(commonDividerNoLongerCommon);
+                if (commonDividers.isEmpty()) {
+                    //If no common divider was stored
+                    commonDividers = supplyDividers;
+                } else {
+                    List<Long> commonDividersNoLongerCommon = new ArrayList<Long>();
+                    for (Long commonDivider : commonDividers) {
+                        //For each common divider
+
+                        if (!supplyDividers.contains(commonDivider)) {
+                            //Drop it if it is not in the new supply dividers list
+                            commonDividersNoLongerCommon.add(commonDivider);
+                        }
+                    }
+
+                    for (Long commonDividerNoLongerCommon : commonDividersNoLongerCommon) {
+                        commonDividers.remove(commonDividerNoLongerCommon);
+                    }
                 }
             }
         }
@@ -223,8 +230,12 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
     public Long getSuppliesCount() {
         Long count = Long.valueOf(0);
 
-        for (AbstractSupply<?> supply : getSupplies()) {
-            count += supply.getApparitions();
+        for (SupplyPosition supplyPosition : getSupplyPositions()) {
+            if (supplyPosition.getSupply() != null) {
+                count += supplyPosition.getSupply().getApparitions();
+            } else {
+                return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+            }
         }
 
         return count;
@@ -234,10 +245,9 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
     public Set<AbstractSupply<?>> getSupplies() {
         HashSet<AbstractSupply<?>> supplies = new HashSet<>();
 
-        supplies.addAll(getBangleSupplies());
-        supplies.addAll(getCustomComponentSupplies());
-        supplies.addAll(getElementSupplies());
-        supplies.addAll(getOneStudySupplies());
+        for (SupplyPosition supplyPosition : getSupplyPositions()) {
+            supplies.add(supplyPosition.getSupply());
+        }
 
         return supplies;
     }
@@ -288,7 +298,7 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
         List<Double> suppliedComponentsMilimeterDiameter = new ArrayList<Double>();
 
         for (AbstractSupply<?> supply : getSupplies()) {
-            suppliedComponentsMilimeterDiameter.add(supply.getCylindricComponent().getMilimeterDiameter());
+            suppliedComponentsMilimeterDiameter.add(supply == null ? Double.NaN : supply.getCylindricComponent().getMilimeterDiameter());
         }
 
         return suppliedComponentsMilimeterDiameter;
@@ -306,6 +316,41 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
 
     public Double getSuppliedComponentsAverageMilimeterDiameter() {
         return getSuppliedComponentsMilimeterDiametersSum() / getSuppliesCount();
+    }
+
+    public Set<BangleSupply> getBangleSupplies() {
+        return getSuppliesByKind(SupplyKind.BANGLE);
+    }
+
+    public Set<CustomComponentSupply> getCustomComponentSupplies() {
+        return getSuppliesByKind(SupplyKind.CUSTOM_COMPONENT);
+    }
+
+    public Set<ElementSupply> getElementSupplies() {
+        return getSuppliesByKind(SupplyKind.ELEMENT);
+    }
+
+    public Set<OneStudySupply> getOneStudySupplies() {
+        return getSuppliesByKind(SupplyKind.ONE_STUDY);
+    }
+
+    /**
+     * @param <T> The AbstractSupply<T> daughter class represented by supplyKind
+     * @param supplyKind the kind of supply expected
+     * @return All supplies of supplyKind kind
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSupply<T>> Set<T> getSuppliesByKind(SupplyKind supplyKind) {
+        Set<T> sortedSupplies = new HashSet<>();
+
+        for (SupplyPosition supplyPosition : getSupplyPositions()) {
+            AbstractSupply<?> supply = supplyPosition.getSupply();
+            if (supply != null && supplyKind.equals(supply.getSupplyKind())) {
+                sortedSupplies.add((T) supply);
+            }
+        }
+
+        return sortedSupplies;
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -326,6 +371,63 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
 
     public String getDesignation() {
         return "[DESIGNATION OF " + getId() + "]";
+    }
+
+    public Double getDiameterAssemblyStep() {
+        return this.diameterAssemblyStep;
+    }
+
+    public Strand diameterAssemblyStep(Double diameterAssemblyStep) {
+        this.setDiameterAssemblyStep(diameterAssemblyStep);
+        return this;
+    }
+
+    public void setDiameterAssemblyStep(Double diameterAssemblyStep) {
+        this.diameterAssemblyStep = diameterAssemblyStep;
+    }
+
+    public AssemblyMean getAssemblyMean() {
+        return this.assemblyMean;
+    }
+
+    public Strand assemblyMean(AssemblyMean assemblyMean) {
+        this.setAssemblyMean(assemblyMean);
+        return this;
+    }
+
+    public void setAssemblyMean(AssemblyMean assemblyMean) {
+        this.assemblyMean = assemblyMean;
+    }
+
+    public Set<SupplyPosition> getSupplyPositions() {
+        return this.supplyPositions;
+    }
+
+    public void setSupplyPositions(Set<SupplyPosition> supplyPositions) {
+        if (this.supplyPositions != null) {
+            this.supplyPositions.forEach(i -> i.setOwnerStrand(null));
+        }
+        if (supplyPositions != null) {
+            supplyPositions.forEach(i -> i.setOwnerStrand(this));
+        }
+        this.supplyPositions = supplyPositions;
+    }
+
+    public Strand supplyPositions(Set<SupplyPosition> supplyPositions) {
+        this.setSupplyPositions(supplyPositions);
+        return this;
+    }
+
+    public Strand addSupplyPositions(SupplyPosition supplyPosition) {
+        this.supplyPositions.add(supplyPosition);
+        supplyPosition.setOwnerStrand(this);
+        return this;
+    }
+
+    public Strand removeSupplyPositions(SupplyPosition supplyPosition) {
+        this.supplyPositions.remove(supplyPosition);
+        supplyPosition.setOwnerStrand(null);
+        return this;
     }
 
     public Set<CoreAssembly> getCoreAssemblies() {
@@ -424,130 +526,6 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
         return this;
     }
 
-    public Set<ElementSupply> getElementSupplies() {
-        return this.elementSupplies;
-    }
-
-    public void setElementSupplies(Set<ElementSupply> elementSupplies) {
-        if (this.elementSupplies != null) {
-            this.elementSupplies.forEach(i -> i.setOwnerStrand(null));
-        }
-        if (elementSupplies != null) {
-            elementSupplies.forEach(i -> i.setOwnerStrand(this));
-        }
-        this.elementSupplies = elementSupplies;
-    }
-
-    public Strand elementSupplies(Set<ElementSupply> elementSupplies) {
-        this.setElementSupplies(elementSupplies);
-        return this;
-    }
-
-    public Strand addElementSupplies(ElementSupply elementSupply) {
-        this.elementSupplies.add(elementSupply);
-        elementSupply.setOwnerStrand(this);
-        return this;
-    }
-
-    public Strand removeElementSupplies(ElementSupply elementSupply) {
-        this.elementSupplies.remove(elementSupply);
-        elementSupply.setOwnerStrand(null);
-        return this;
-    }
-
-    public Set<BangleSupply> getBangleSupplies() {
-        return this.bangleSupplies;
-    }
-
-    public void setBangleSupplies(Set<BangleSupply> bangleSupplies) {
-        if (this.bangleSupplies != null) {
-            this.bangleSupplies.forEach(i -> i.setOwnerStrand(null));
-        }
-        if (bangleSupplies != null) {
-            bangleSupplies.forEach(i -> i.setOwnerStrand(this));
-        }
-        this.bangleSupplies = bangleSupplies;
-    }
-
-    public Strand bangleSupplies(Set<BangleSupply> bangleSupplies) {
-        this.setBangleSupplies(bangleSupplies);
-        return this;
-    }
-
-    public Strand addBangleSupplies(BangleSupply bangleSupply) {
-        this.bangleSupplies.add(bangleSupply);
-        bangleSupply.setOwnerStrand(this);
-        return this;
-    }
-
-    public Strand removeBangleSupplies(BangleSupply bangleSupply) {
-        this.bangleSupplies.remove(bangleSupply);
-        bangleSupply.setOwnerStrand(null);
-        return this;
-    }
-
-    public Set<CustomComponentSupply> getCustomComponentSupplies() {
-        return this.customComponentSupplies;
-    }
-
-    public void setCustomComponentSupplies(Set<CustomComponentSupply> customComponentSupplies) {
-        if (this.customComponentSupplies != null) {
-            this.customComponentSupplies.forEach(i -> i.setOwnerStrand(null));
-        }
-        if (customComponentSupplies != null) {
-            customComponentSupplies.forEach(i -> i.setOwnerStrand(this));
-        }
-        this.customComponentSupplies = customComponentSupplies;
-    }
-
-    public Strand customComponentSupplies(Set<CustomComponentSupply> customComponentSupplies) {
-        this.setCustomComponentSupplies(customComponentSupplies);
-        return this;
-    }
-
-    public Strand addCustomComponentSupplies(CustomComponentSupply customComponentSupply) {
-        this.customComponentSupplies.add(customComponentSupply);
-        customComponentSupply.setOwnerStrand(this);
-        return this;
-    }
-
-    public Strand removeCustomComponentSupplies(CustomComponentSupply customComponentSupply) {
-        this.customComponentSupplies.remove(customComponentSupply);
-        customComponentSupply.setOwnerStrand(null);
-        return this;
-    }
-
-    public Set<OneStudySupply> getOneStudySupplies() {
-        return this.oneStudySupplies;
-    }
-
-    public void setOneStudySupplies(Set<OneStudySupply> oneStudySupplies) {
-        if (this.oneStudySupplies != null) {
-            this.oneStudySupplies.forEach(i -> i.setOwnerStrand(null));
-        }
-        if (oneStudySupplies != null) {
-            oneStudySupplies.forEach(i -> i.setOwnerStrand(this));
-        }
-        this.oneStudySupplies = oneStudySupplies;
-    }
-
-    public Strand oneStudySupplies(Set<OneStudySupply> oneStudySupplies) {
-        this.setOneStudySupplies(oneStudySupplies);
-        return this;
-    }
-
-    public Strand addOneStudySupplies(OneStudySupply oneStudySupply) {
-        this.oneStudySupplies.add(oneStudySupply);
-        oneStudySupply.setOwnerStrand(this);
-        return this;
-    }
-
-    public Strand removeOneStudySupplies(OneStudySupply oneStudySupply) {
-        this.oneStudySupplies.remove(oneStudySupply);
-        oneStudySupply.setOwnerStrand(null);
-        return this;
-    }
-
     public CentralAssembly getCentralAssembly() {
         return this.centralAssembly;
     }
@@ -604,7 +582,8 @@ public class Strand extends AbstractDomainObject<Strand> implements Serializable
     public String toString() {
         return "Strand{" +
             "id=" + getId() +
-            ", designation='" + getDesignation() + "'" +
+            ", diameterAssemblyStep=" + getDiameterAssemblyStep() +
+            ", assemblyMean='" + getAssemblyMean() + "'" +
             "}";
     }
 }

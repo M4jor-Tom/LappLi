@@ -7,14 +7,12 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "diameterAssemblyStep",
-      "fieldType": "Double",
-      "fieldValidateRules": ["required"]
+      "fieldName": "forcedMeanMilimeterComponentDiameter",
+      "fieldType": "Double"
     },
     {
-      "fieldName": "assemblyMean",
-      "fieldType": "AssemblyMean",
-      "fieldValues": "RIGHT,LEFT,STRAIGHT",
+      "fieldName": "componentsCount",
+      "fieldType": "Long",
       "fieldValidateRules": ["required"]
     }
   ],

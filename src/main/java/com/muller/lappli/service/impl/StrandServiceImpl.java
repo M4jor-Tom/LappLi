@@ -1,12 +1,10 @@
 package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.SupplyPosition;
 import com.muller.lappli.repository.StrandRepository;
-import com.muller.lappli.service.BangleSupplyService;
-import com.muller.lappli.service.CustomComponentSupplyService;
-import com.muller.lappli.service.ElementSupplyService;
-import com.muller.lappli.service.OneStudySupplyService;
 import com.muller.lappli.service.StrandService;
+import com.muller.lappli.service.SupplyPositionService;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,26 +25,11 @@ public class StrandServiceImpl implements StrandService {
 
     private final StrandRepository strandRepository;
 
-    private final BangleSupplyService bangleSupplyService;
+    private final SupplyPositionService supplyPositionService;
 
-    private final CustomComponentSupplyService customComponentSupplyService;
-
-    private final ElementSupplyService elementSupplyService;
-
-    private final OneStudySupplyService oneStudySupplyService;
-
-    public StrandServiceImpl(
-        StrandRepository strandRepository,
-        BangleSupplyService bangleSupplyService,
-        CustomComponentSupplyService customComponentSupplyService,
-        ElementSupplyService elementSupplyService,
-        OneStudySupplyService oneStudySupplyService
-    ) {
+    public StrandServiceImpl(StrandRepository strandRepository, SupplyPositionService supplyPositionService) {
         this.strandRepository = strandRepository;
-        this.bangleSupplyService = bangleSupplyService;
-        this.customComponentSupplyService = customComponentSupplyService;
-        this.elementSupplyService = elementSupplyService;
-        this.oneStudySupplyService = oneStudySupplyService;
+        this.supplyPositionService = supplyPositionService;
     }
 
     @Override
@@ -63,6 +46,13 @@ public class StrandServiceImpl implements StrandService {
             strandRepository
                 .findById(strand.getId())
                 .map(existingStrand -> {
+                    if (strand.getDiameterAssemblyStep() != null) {
+                        existingStrand.setDiameterAssemblyStep(strand.getDiameterAssemblyStep());
+                    }
+                    if (strand.getAssemblyMean() != null) {
+                        existingStrand.setAssemblyMean(strand.getAssemblyMean());
+                    }
+
                     return existingStrand;
                 })
                 .map(strandRepository::save)
@@ -106,10 +96,9 @@ public class StrandServiceImpl implements StrandService {
 
     @Override
     public Strand onRead(Strand domainObject) {
-        return domainObject
-            .bangleSupplies(bangleSupplyService.onSetRead(domainObject.getBangleSupplies()))
-            .customComponentSupplies(customComponentSupplyService.onSetRead(domainObject.getCustomComponentSupplies()))
-            .elementSupplies(elementSupplyService.onSetRead(domainObject.getElementSupplies()))
-            .oneStudySupplies(oneStudySupplyService.onSetRead(domainObject.getOneStudySupplies()));
+        for (SupplyPosition supplyPosition : domainObject.getSupplyPositions()) {
+            supplyPositionService.save(supplyPosition);
+        }
+        return domainObject;
     }
 }

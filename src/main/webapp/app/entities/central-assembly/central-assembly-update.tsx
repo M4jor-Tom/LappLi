@@ -6,34 +6,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IStrand } from 'app/shared/model/strand.model';
 import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
+import { ISupplyPosition } from 'app/shared/model/supply-position.model';
+import { getEntities as getSupplyPositions } from 'app/entities/supply-position/supply-position.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './central-assembly.reducer';
 import { ICentralAssembly } from 'app/shared/model/central-assembly.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-import {
-  AssemblyKind,
-  getAssemblyStrandValidatedField,
-  getOutFromStudySupplyStrandAssemblyComponent,
-} from '../index-management/index-management-lib';
 
-export const CentralAssemblyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
+export const CentralAssemblyUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const redirectionUrl = getOutFromStudySupplyStrandAssemblyComponent(props.match.url, isNew);
-
   const strands = useAppSelector(state => state.strand.entities);
+  const supplyPositions = useAppSelector(state => state.supplyPosition.entities);
   const centralAssemblyEntity = useAppSelector(state => state.centralAssembly.entity);
   const loading = useAppSelector(state => state.centralAssembly.loading);
   const updating = useAppSelector(state => state.centralAssembly.updating);
   const updateSuccess = useAppSelector(state => state.centralAssembly.updateSuccess);
   const handleClose = () => {
-    props.history.push(redirectionUrl);
+    props.history.push('/central-assembly');
   };
-
-  const strandValidatedField = getAssemblyStrandValidatedField(props, strands, AssemblyKind.CENTRAL);
 
   useEffect(() => {
     if (isNew) {
@@ -43,6 +37,7 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ strand_id: st
     }
 
     dispatch(getStrands({}));
+    dispatch(getSupplyPositions({}));
   }, []);
 
   useEffect(() => {
@@ -56,6 +51,7 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ strand_id: st
       ...centralAssemblyEntity,
       ...values,
       ownerStrand: strands.find(it => it.id.toString() === values.ownerStrand.toString()),
+      supplyPosition: supplyPositions.find(it => it.id.toString() === values.supplyPosition.toString()),
     };
 
     if (isNew) {
@@ -71,6 +67,7 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ strand_id: st
       : {
           ...centralAssemblyEntity,
           ownerStrand: centralAssemblyEntity?.ownerStrand?.id,
+          supplyPosition: centralAssemblyEntity?.supplyPosition?.id,
         };
 
   return (
@@ -98,7 +95,6 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ strand_id: st
                   validate={{ required: true }}
                 />
               ) : null}
-              {strandValidatedField}
               <ValidatedField
                 id="central-assembly-ownerStrand"
                 name="ownerStrand"
@@ -119,7 +115,23 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ strand_id: st
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
+              <ValidatedField
+                id="central-assembly-supplyPosition"
+                name="supplyPosition"
+                data-cy="supplyPosition"
+                label={translate('lappLiApp.centralAssembly.supplyPosition')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {supplyPositions
+                  ? supplyPositions.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/central-assembly" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">

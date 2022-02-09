@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.CustomComponent;
 import com.muller.lappli.domain.CustomComponentSupply;
-import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.SupplyPosition;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.repository.CustomComponentSupplyRepository;
 import java.util.List;
@@ -70,6 +70,16 @@ class CustomComponentSupplyResourceIT {
             .description(DEFAULT_DESCRIPTION)
             .markingType(DEFAULT_MARKING_TYPE);
         // Add required entity
+        SupplyPosition supplyPosition;
+        if (TestUtil.findAll(em, SupplyPosition.class).isEmpty()) {
+            supplyPosition = SupplyPositionResourceIT.createEntity(em);
+            em.persist(supplyPosition);
+            em.flush();
+        } else {
+            supplyPosition = TestUtil.findAll(em, SupplyPosition.class).get(0);
+        }
+        customComponentSupply.getOwnerSupplyPositions().add(supplyPosition);
+        // Add required entity
         CustomComponent customComponent;
         if (TestUtil.findAll(em, CustomComponent.class).isEmpty()) {
             customComponent = CustomComponentResourceIT.createEntity(em);
@@ -79,16 +89,6 @@ class CustomComponentSupplyResourceIT {
             customComponent = TestUtil.findAll(em, CustomComponent.class).get(0);
         }
         customComponentSupply.setCustomComponent(customComponent);
-        // Add required entity
-        Strand strand;
-        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
-            strand = StrandResourceIT.createEntity(em);
-            em.persist(strand);
-            em.flush();
-        } else {
-            strand = TestUtil.findAll(em, Strand.class).get(0);
-        }
-        customComponentSupply.setOwnerStrand(strand);
         return customComponentSupply;
     }
 
@@ -104,6 +104,16 @@ class CustomComponentSupplyResourceIT {
             .description(UPDATED_DESCRIPTION)
             .markingType(UPDATED_MARKING_TYPE);
         // Add required entity
+        SupplyPosition supplyPosition;
+        if (TestUtil.findAll(em, SupplyPosition.class).isEmpty()) {
+            supplyPosition = SupplyPositionResourceIT.createUpdatedEntity(em);
+            em.persist(supplyPosition);
+            em.flush();
+        } else {
+            supplyPosition = TestUtil.findAll(em, SupplyPosition.class).get(0);
+        }
+        customComponentSupply.getOwnerSupplyPositions().add(supplyPosition);
+        // Add required entity
         CustomComponent customComponent;
         if (TestUtil.findAll(em, CustomComponent.class).isEmpty()) {
             customComponent = CustomComponentResourceIT.createUpdatedEntity(em);
@@ -113,16 +123,6 @@ class CustomComponentSupplyResourceIT {
             customComponent = TestUtil.findAll(em, CustomComponent.class).get(0);
         }
         customComponentSupply.setCustomComponent(customComponent);
-        // Add required entity
-        Strand strand;
-        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
-            strand = StrandResourceIT.createUpdatedEntity(em);
-            em.persist(strand);
-            em.flush();
-        } else {
-            strand = TestUtil.findAll(em, Strand.class).get(0);
-        }
-        customComponentSupply.setOwnerStrand(strand);
         return customComponentSupply;
     }
 

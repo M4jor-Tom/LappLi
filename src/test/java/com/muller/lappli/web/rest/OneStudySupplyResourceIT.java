@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.Material;
 import com.muller.lappli.domain.OneStudySupply;
-import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.SupplyPosition;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.repository.OneStudySupplyRepository;
@@ -39,8 +39,8 @@ class OneStudySupplyResourceIT {
     private static final Long DEFAULT_NUMBER = 1L;
     private static final Long UPDATED_NUMBER = 2L;
 
-    private static final String DEFAULT_DESIGNATION = "AAAAAAAAAA";
-    private static final String UPDATED_DESIGNATION = "BBBBBBBBBB";
+    private static final String DEFAULT_COMPONENT_DESIGNATION = "AAAAAAAAAA";
+    private static final String UPDATED_COMPONENT_DESIGNATION = "BBBBBBBBBB";
 
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
@@ -84,12 +84,22 @@ class OneStudySupplyResourceIT {
         OneStudySupply oneStudySupply = new OneStudySupply()
             .apparitions(DEFAULT_APPARITIONS)
             .number(DEFAULT_NUMBER)
-            .designation(DEFAULT_DESIGNATION)
+            .componentDesignation(DEFAULT_COMPONENT_DESIGNATION)
             .description(DEFAULT_DESCRIPTION)
             .markingType(DEFAULT_MARKING_TYPE)
             .gramPerMeterLinearMass(DEFAULT_GRAM_PER_METER_LINEAR_MASS)
             .milimeterDiameter(DEFAULT_MILIMETER_DIAMETER)
             .surfaceColor(DEFAULT_SURFACE_COLOR);
+        // Add required entity
+        SupplyPosition supplyPosition;
+        if (TestUtil.findAll(em, SupplyPosition.class).isEmpty()) {
+            supplyPosition = SupplyPositionResourceIT.createEntity(em);
+            em.persist(supplyPosition);
+            em.flush();
+        } else {
+            supplyPosition = TestUtil.findAll(em, SupplyPosition.class).get(0);
+        }
+        oneStudySupply.getOwnerSupplyPositions().add(supplyPosition);
         // Add required entity
         Material material;
         if (TestUtil.findAll(em, Material.class).isEmpty()) {
@@ -100,16 +110,6 @@ class OneStudySupplyResourceIT {
             material = TestUtil.findAll(em, Material.class).get(0);
         }
         oneStudySupply.setSurfaceMaterial(material);
-        // Add required entity
-        Strand strand;
-        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
-            strand = StrandResourceIT.createEntity(em);
-            em.persist(strand);
-            em.flush();
-        } else {
-            strand = TestUtil.findAll(em, Strand.class).get(0);
-        }
-        oneStudySupply.setOwnerStrand(strand);
         return oneStudySupply;
     }
 
@@ -123,12 +123,22 @@ class OneStudySupplyResourceIT {
         OneStudySupply oneStudySupply = new OneStudySupply()
             .apparitions(UPDATED_APPARITIONS)
             .number(UPDATED_NUMBER)
-            .designation(UPDATED_DESIGNATION)
+            .componentDesignation(UPDATED_COMPONENT_DESIGNATION)
             .description(UPDATED_DESCRIPTION)
             .markingType(UPDATED_MARKING_TYPE)
             .gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS)
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
             .surfaceColor(UPDATED_SURFACE_COLOR);
+        // Add required entity
+        SupplyPosition supplyPosition;
+        if (TestUtil.findAll(em, SupplyPosition.class).isEmpty()) {
+            supplyPosition = SupplyPositionResourceIT.createUpdatedEntity(em);
+            em.persist(supplyPosition);
+            em.flush();
+        } else {
+            supplyPosition = TestUtil.findAll(em, SupplyPosition.class).get(0);
+        }
+        oneStudySupply.getOwnerSupplyPositions().add(supplyPosition);
         // Add required entity
         Material material;
         if (TestUtil.findAll(em, Material.class).isEmpty()) {
@@ -139,16 +149,6 @@ class OneStudySupplyResourceIT {
             material = TestUtil.findAll(em, Material.class).get(0);
         }
         oneStudySupply.setSurfaceMaterial(material);
-        // Add required entity
-        Strand strand;
-        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
-            strand = StrandResourceIT.createUpdatedEntity(em);
-            em.persist(strand);
-            em.flush();
-        } else {
-            strand = TestUtil.findAll(em, Strand.class).get(0);
-        }
-        oneStudySupply.setOwnerStrand(strand);
         return oneStudySupply;
     }
 
@@ -174,7 +174,7 @@ class OneStudySupplyResourceIT {
         OneStudySupply testOneStudySupply = oneStudySupplyList.get(oneStudySupplyList.size() - 1);
         assertThat(testOneStudySupply.getApparitions()).isEqualTo(DEFAULT_APPARITIONS);
         assertThat(testOneStudySupply.getNumber()).isEqualTo(DEFAULT_NUMBER);
-        assertThat(testOneStudySupply.getDesignation()).isEqualTo(DEFAULT_DESIGNATION);
+        assertThat(testOneStudySupply.getComponentDesignation()).isEqualTo(DEFAULT_COMPONENT_DESIGNATION);
         assertThat(testOneStudySupply.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testOneStudySupply.getMarkingType()).isEqualTo(DEFAULT_MARKING_TYPE);
         assertThat(testOneStudySupply.getGramPerMeterLinearMass()).isEqualTo(DEFAULT_GRAM_PER_METER_LINEAR_MASS);
@@ -292,7 +292,7 @@ class OneStudySupplyResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(oneStudySupply.getId().intValue())))
             .andExpect(jsonPath("$.[*].apparitions").value(hasItem(DEFAULT_APPARITIONS.intValue())))
             .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER.intValue())))
-            .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)))
+            .andExpect(jsonPath("$.[*].componentDesignation").value(hasItem(DEFAULT_COMPONENT_DESIGNATION)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
             .andExpect(jsonPath("$.[*].markingType").value(hasItem(DEFAULT_MARKING_TYPE.toString())))
             .andExpect(jsonPath("$.[*].gramPerMeterLinearMass").value(hasItem(DEFAULT_GRAM_PER_METER_LINEAR_MASS.doubleValue())))
@@ -314,7 +314,7 @@ class OneStudySupplyResourceIT {
             .andExpect(jsonPath("$.id").value(oneStudySupply.getId().intValue()))
             .andExpect(jsonPath("$.apparitions").value(DEFAULT_APPARITIONS.intValue()))
             .andExpect(jsonPath("$.number").value(DEFAULT_NUMBER.intValue()))
-            .andExpect(jsonPath("$.designation").value(DEFAULT_DESIGNATION))
+            .andExpect(jsonPath("$.componentDesignation").value(DEFAULT_COMPONENT_DESIGNATION))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
             .andExpect(jsonPath("$.markingType").value(DEFAULT_MARKING_TYPE.toString()))
             .andExpect(jsonPath("$.gramPerMeterLinearMass").value(DEFAULT_GRAM_PER_METER_LINEAR_MASS.doubleValue()))
@@ -344,7 +344,7 @@ class OneStudySupplyResourceIT {
         updatedOneStudySupply
             .apparitions(UPDATED_APPARITIONS)
             .number(UPDATED_NUMBER)
-            .designation(UPDATED_DESIGNATION)
+            .componentDesignation(UPDATED_COMPONENT_DESIGNATION)
             .description(UPDATED_DESCRIPTION)
             .markingType(UPDATED_MARKING_TYPE)
             .gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS)
@@ -365,7 +365,7 @@ class OneStudySupplyResourceIT {
         OneStudySupply testOneStudySupply = oneStudySupplyList.get(oneStudySupplyList.size() - 1);
         assertThat(testOneStudySupply.getApparitions()).isEqualTo(UPDATED_APPARITIONS);
         assertThat(testOneStudySupply.getNumber()).isEqualTo(UPDATED_NUMBER);
-        assertThat(testOneStudySupply.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
+        assertThat(testOneStudySupply.getComponentDesignation()).isEqualTo(UPDATED_COMPONENT_DESIGNATION);
         assertThat(testOneStudySupply.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testOneStudySupply.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
         assertThat(testOneStudySupply.getGramPerMeterLinearMass()).isEqualTo(UPDATED_GRAM_PER_METER_LINEAR_MASS);
@@ -457,7 +457,7 @@ class OneStudySupplyResourceIT {
         OneStudySupply testOneStudySupply = oneStudySupplyList.get(oneStudySupplyList.size() - 1);
         assertThat(testOneStudySupply.getApparitions()).isEqualTo(DEFAULT_APPARITIONS);
         assertThat(testOneStudySupply.getNumber()).isEqualTo(DEFAULT_NUMBER);
-        assertThat(testOneStudySupply.getDesignation()).isEqualTo(DEFAULT_DESIGNATION);
+        assertThat(testOneStudySupply.getComponentDesignation()).isEqualTo(DEFAULT_COMPONENT_DESIGNATION);
         assertThat(testOneStudySupply.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testOneStudySupply.getMarkingType()).isEqualTo(DEFAULT_MARKING_TYPE);
         assertThat(testOneStudySupply.getGramPerMeterLinearMass()).isEqualTo(DEFAULT_GRAM_PER_METER_LINEAR_MASS);
@@ -480,7 +480,7 @@ class OneStudySupplyResourceIT {
         partialUpdatedOneStudySupply
             .apparitions(UPDATED_APPARITIONS)
             .number(UPDATED_NUMBER)
-            .designation(UPDATED_DESIGNATION)
+            .componentDesignation(UPDATED_COMPONENT_DESIGNATION)
             .description(UPDATED_DESCRIPTION)
             .markingType(UPDATED_MARKING_TYPE)
             .gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS)
@@ -501,7 +501,7 @@ class OneStudySupplyResourceIT {
         OneStudySupply testOneStudySupply = oneStudySupplyList.get(oneStudySupplyList.size() - 1);
         assertThat(testOneStudySupply.getApparitions()).isEqualTo(UPDATED_APPARITIONS);
         assertThat(testOneStudySupply.getNumber()).isEqualTo(UPDATED_NUMBER);
-        assertThat(testOneStudySupply.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
+        assertThat(testOneStudySupply.getComponentDesignation()).isEqualTo(UPDATED_COMPONENT_DESIGNATION);
         assertThat(testOneStudySupply.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testOneStudySupply.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
         assertThat(testOneStudySupply.getGramPerMeterLinearMass()).isEqualTo(UPDATED_GRAM_PER_METER_LINEAR_MASS);
