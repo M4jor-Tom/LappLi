@@ -43,7 +43,7 @@ public class Study extends AbstractDomainObject<Study> implements Serializable {
 
     @OneToMany(mappedBy = "study", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "strand", "study" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "study" }, allowSetters = true)
     private Set<StrandSupply> strandSupplies = new HashSet<>();
 
     @ManyToOne(optional = false)
