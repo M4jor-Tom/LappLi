@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
 import com.muller.lappli.domain.abstracts.AbstractDomainObject;
+import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
@@ -87,41 +88,59 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return this;
     }
 
+    /**
+     * As {@link Strand#getOperations()} is a Set, it is unsorted,
+     * that's why a sorting algorithm is needed.
+     *
+     * @return a Comparator for the class AbstractOperation
+     */
     private Comparator<AbstractOperation<?>> getOperationComparator() {
         if (operationComparator == null) {
             operationComparator =
                 new Comparator<AbstractOperation<?>>() {
                     @Override
                     public int compare(AbstractOperation<?> o1, AbstractOperation<?> o2) {
-                        if (o1 instanceof AbstractAssembly && o2 instanceof AbstractAssembly) {
-                            if (o1 instanceof IntersticeAssembly && o2 instanceof IntersticeAssembly) {
-                                //Both o1 & o2 are IntersticeAssemblies, have to deduct by layer number
-                                return (int) (
-                                    ((IntersticeAssembly) o1).getIntersticeLayer() - ((IntersticeAssembly) o2).getIntersticeLayer()
-                                );
-                            } else if (o1 instanceof IntersticeAssembly || o2 instanceof IntersticeAssembly) {
-                                //Case when both are IntersticeAssemblies is nailed up there,
-                                //so this case is when ONLY ONE is an IntersticeAssembly
-                                if (o1 instanceof IntersticeAssembly) {
-                                    //o2 cannot be IntersticeAssembly there
+                        //One is instanceof CentralAssembly, stop thinking. It's it.
+                        if (o1 instanceof CentralAssembly) {
+                            return -1;
+                        } else if (o2 instanceof CentralAssembly) {
+                            return 1;
+                        } else if (o1 instanceof AbstractNonCentralAssembly && o2 instanceof AbstractNonCentralAssembly) {
+                            //o1 and o2 are both Assemblies which are not CenralAssemblies
+                            Long o1AssemblyLayer = ((AbstractNonCentralAssembly<?>) o1).getAssemblyLayer();
+                            Long o2AssemblyLayer = ((AbstractNonCentralAssembly<?>) o2).getAssemblyLayer();
+                            if (o1AssemblyLayer == o2AssemblyLayer) {
+                                //If they are at the same Assembly level, one MUST be
+                                //an IntersticeAssembly
+                                if (o1 instanceof IntersticeAssembly && o2 instanceof IntersticeAssembly) {
+                                    //They're both IntersticeAssemblies,
+                                    //let's compare them on intersticeLayer
+                                    Long o1IntersticeLayer = ((IntersticeAssembly) o1).getIntersticeLayer();
+                                    Long o2IntersticeLayer = ((IntersticeAssembly) o2).getIntersticeLayer();
+
+                                    if (o1IntersticeLayer == o2IntersticeLayer) {
+                                        //TODO: Handle data corruption,
+                                        //this equality cannot be true,
+                                        //layer indexation reveals complete equality
+                                    }
+
+                                    return (int) (o1IntersticeLayer - o2IntersticeLayer);
+                                } else if (o1 instanceof IntersticeAssembly) {
                                     return 1;
+                                } else if (o2 instanceof IntersticeAssembly) {
+                                    return -1;
                                 }
-                                //o1 cannot be IntersticeAssembly there
-                                return -1;
-                            } else {
-                                //None of o1 & o2 are IntersticeAssemblies,
-                                //the use of AbstractAssembly.assemblyLayer will suffise
-                                return (int) (
-                                    ((AbstractAssembly<?>) o1).getAssemblyLayer() - ((AbstractAssembly<?>) o2).getAssemblyLayer()
-                                );
+                                //TODO: Handle data corruption
+                                //at least one must be an IntersticeAssembly
                             }
+
+                            //They're both CoreAssemblies with different assemblyLayers,
+                            //let's compare them on that
+                            return (int) (o1AssemblyLayer - o2AssemblyLayer);
                         }
 
-                        //If one is an Assembly, its operationLayer will be lower than
-                        //a non-assembly operation.
-                        //Otherwise, if both operations are non-assembly, hope
-                        //it's not equal, in that case error checking failed and this would result
-                        //in a randomly sorted non-assembly operation list
+                        //If one or none is an Assembly, operationLayer
+                        //will be used to compare operations.
                         return (int) (o1.getOperationLayer() - o2.getOperationLayer());
                     }
                 };
