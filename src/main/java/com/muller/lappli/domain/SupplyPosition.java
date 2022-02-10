@@ -51,7 +51,18 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
 
     @ManyToOne
     @JsonIgnoreProperties(
-        value = { "supplyPositions", "coreAssemblies", "intersticeAssemblies", "sheathings", "centralAssembly", "futureStudy" },
+        value = {
+            "supplyPositions",
+            "coreAssemblies",
+            "intersticeAssemblies",
+            "sheathings",
+            "centralAssembly",
+            "futureStudy",
+            "bangleSupplies",
+            "elementSupplies",
+            "customComponentSupplies",
+            "oneStudySupplies",
+        },
         allowSetters = true
     )
     private Strand ownerStrand;
@@ -95,7 +106,22 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     /**
      * @return the SupplyPosition owner
      */
-    @JsonIgnoreProperties(value = { "supplyPosition", "supplyPositions" })
+    @JsonIgnoreProperties(
+        value = {
+            "supplyPosition",
+            "supplyPositions",
+            "coreAssemblies",
+            "intersticeAssemblies",
+            "sheathings",
+            "centralAssembly",
+            "futureStudy",
+            "bangleSupplies",
+            "elementSupplies",
+            "customComponentSupplies",
+            "oneStudySupplies",
+        },
+        allowSetters = true
+    )
     public ISupplyPositionOwner getOwner() {
         if (getOwnerStrand() != null) {
             return getOwnerStrand();

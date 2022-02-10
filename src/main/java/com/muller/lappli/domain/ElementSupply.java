@@ -42,7 +42,7 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "elementSupply")
+    @OneToMany(mappedBy = "elementSupply", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
         value = {

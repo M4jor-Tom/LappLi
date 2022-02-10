@@ -62,7 +62,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     @Column(name = "surface_color", nullable = false)
     private Color surfaceColor;
 
-    @OneToMany(mappedBy = "oneStudySupply")
+    @OneToMany(mappedBy = "oneStudySupply", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
         value = {
