@@ -103,6 +103,17 @@ export const MaterialUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
               />
+              <ValidatedField
+                label={translate('lappLiApp.material.kilogramPerCubeMeterVolumicDensity')}
+                id="material-kilogramPerCubeMeterVolumicDensity"
+                name="kilogramPerCubeMeterVolumicDensity"
+                data-cy="kilogramPerCubeMeterVolumicDensity"
+                type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
+              />
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/material" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

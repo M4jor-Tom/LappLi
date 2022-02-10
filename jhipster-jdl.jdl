@@ -2,7 +2,7 @@ service * with serviceImpl
 
 entity Sheathing {
 	operationLayer Long required
-	thickness Double required
+	milimeterThickness Double required
     sheathingKind SheathingKind required
 }
 
@@ -142,6 +142,7 @@ entity Copper {
 entity Material {
 	number Long unique required
 	designation String unique required
+    kilogramPerCubeMeterVolumicDensity Double required
 }
 
 entity UserData {

@@ -21,6 +21,7 @@
       "apparitions": "Apparitions",
       "description": "Description",
       "markingType": "Marking Type",
+      "ownerSupplyPosition": "Owner Supply Position",
       "customComponent": "Custom Component"
     }
   }

@@ -17,7 +17,7 @@
             <column name="operation_layer" type="bigint">
                 <constraints nullable="false" />
             </column>
-            <column name="thickness" type="double">
+            <column name="milimeter_thickness" type="double">
                 <constraints nullable="false" />
             </column>
             <column name="sheathing_kind" type="varchar(255)">
@@ -51,7 +51,7 @@
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="operation_layer" type="numeric"/>
-            <column name="thickness" type="numeric"/>
+            <column name="milimeter_thickness" type="numeric"/>
             <column name="sheathing_kind" type="string"/>
             <column name="material_id" type="numeric"/>
             <column name="owner_strand_id" type="numeric"/>

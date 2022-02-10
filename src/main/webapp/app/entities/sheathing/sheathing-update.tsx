@@ -126,10 +126,10 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
                 }}
               />
               <ValidatedField
-                label={translate('lappLiApp.sheathing.thickness')}
-                id="sheathing-thickness"
-                name="thickness"
-                data-cy="thickness"
+                label={translate('lappLiApp.sheathing.milimeterThickness')}
+                id="sheathing-milimeterThickness"
+                name="milimeterThickness"
+                data-cy="milimeterThickness"
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
