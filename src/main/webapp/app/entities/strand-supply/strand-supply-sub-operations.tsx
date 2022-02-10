@@ -330,45 +330,6 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
             <Translate contentKey="entity.action.back">Back</Translate>
           </span>
         </Button>
-        &nbsp;
-        {strand.centralAssembly ? (
-          ''
-        ) : (
-          <>
-            <Link
-              to={`${props.match.url}/central-assembly/new`}
-              className="btn btn-primary jh-create-entity"
-              id="jh-create-entity"
-              data-cy="entityCreateButton"
-            >
-              <FontAwesomeIcon icon="plus" />
-              &nbsp;
-              <Translate contentKey="lappLiApp.centralAssembly.home.createLabel">Create new Central Assembly</Translate>
-            </Link>
-            &nbsp;
-          </>
-        )}
-        <Link
-          to={`${props.match.url}/core-assembly/new`}
-          className="btn btn-primary jh-create-entity"
-          id="jh-create-entity"
-          data-cy="entityCreateButton"
-        >
-          <FontAwesomeIcon icon="plus" />
-          &nbsp;
-          <Translate contentKey="lappLiApp.coreAssembly.home.createLabel">Create new Core Assembly</Translate>
-        </Link>
-        &nbsp;
-        <Link
-          to={`${props.match.url}/interstice-assembly/new`}
-          className="btn btn-primary jh-create-entity"
-          id="jh-create-entity"
-          data-cy="entityCreateButton"
-        >
-          <FontAwesomeIcon icon="plus" />
-          &nbsp;
-          <Translate contentKey="lappLiApp.intersticeAssembly.home.createLabel">Create new Interstice Assembly</Translate>
-        </Link>
       </div>
     </div>
   );
