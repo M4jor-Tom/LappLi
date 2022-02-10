@@ -1,8 +1,10 @@
 package com.muller.lappli.service.impl;
 
+import com.muller.lappli.domain.Sheathing;
 import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.repository.StrandSupplyRepository;
+import com.muller.lappli.service.SheathingService;
 import com.muller.lappli.service.StrandSupplyService;
 import java.util.List;
 import java.util.Optional;
@@ -22,8 +24,11 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
 
     private final StrandSupplyRepository strandSupplyRepository;
 
-    public StrandSupplyServiceImpl(StrandSupplyRepository strandSupplyRepository) {
+    private final SheathingService sheathingService;
+
+    public StrandSupplyServiceImpl(StrandSupplyRepository strandSupplyRepository, SheathingService sheathingService) {
         this.strandSupplyRepository = strandSupplyRepository;
+        this.sheathingService = sheathingService;
     }
 
     public StrandSupply onRead(StrandSupply domainObject) {
@@ -83,6 +88,22 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete StrandSupply : {}", id);
+        Optional<StrandSupply> strandSupplyOptional = findOne(id);
+
+        if (strandSupplyOptional.isPresent()) {
+            //If we're deleting some StrandSupply which exists
+            if (strandSupplyOptional.get().getStrand() != null) {
+                //If it observes through a Strand
+                if (strandSupplyOptional.get().getStrand().getSheathings() != null) {
+                    //If the strand owns Sheathings
+                    for (Sheathing sheathing : strandSupplyOptional.get().getStrand().getSheathings()) {
+                        //Delete those, it is logical through interface to do so
+                        sheathingService.delete(sheathing.getId());
+                    }
+                }
+            }
+        }
+
         strandSupplyRepository.deleteById(id);
     }
 }
