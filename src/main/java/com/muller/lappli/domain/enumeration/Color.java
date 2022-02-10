@@ -73,32 +73,44 @@ public enum Color {
 
     private String designation;
 
+    private Color[] colors;
+
     private Color(String designation) {
         setDesignation(designation);
+        setColors(null);
     }
 
     private Color(Color... colors) {
-        String designation = "";
+        setDesignation(null);
+        setColors(colors);
+    }
 
-        int colorsCount = colors.length;
-
-        int currentColorIndex = 1;
-        for (Color color : colors) {
-            designation = designation + color.getDesignation();
-
-            if (colorsCount < currentColorIndex++) {
-                designation = designation + "/";
-            }
+    public String getDesignation() {
+        if (getColors() == null) {
+            return designation;
         }
 
-        setDesignation(designation);
+        String designation = "";
+
+        Long currentColorIndex = Long.valueOf(1);
+        for (Color color : getColors()) {
+            String separator = currentColorIndex++ == Long.valueOf(1) ? "" : "•";
+
+            designation = designation + separator + color.getDesignation();
+        }
+
+        return designation;
     }
 
     public void setDesignation(String designation) {
         this.designation = designation;
     }
 
-    public String getDesignation() {
-        return designation;
+    public Color[] getColors() {
+        return colors;
+    }
+
+    public void setColors(Color[] colors) {
+        this.colors = colors;
     }
 }
