@@ -124,7 +124,7 @@ public enum Color {
         return designation;
     }
 
-    public void setDesignation(String designation) {
+    private void setDesignation(String designation) {
         this.designation = designation;
     }
 
@@ -143,7 +143,7 @@ public enum Color {
         return colors;
     }
 
-    public void setColors(Color[] colors) {
+    private void setColors(Color[] colors) {
         this.colors = colors;
     }
 }
