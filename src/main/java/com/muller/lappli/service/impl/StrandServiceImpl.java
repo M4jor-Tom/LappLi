@@ -35,7 +35,14 @@ public class StrandServiceImpl implements StrandService {
     @Override
     public Strand save(Strand strand) {
         log.debug("Request to save Strand : {}", strand);
+        saveSupplyPositions(strand.getSupplyPositions());
         return onRead(strandRepository.save(strand));
+    }
+
+    private void saveSupplyPositions(Iterable<SupplyPosition> supplyPositions) {
+        for (SupplyPosition supplyPosition : supplyPositions) {
+            supplyPositionService.save(supplyPosition);
+        }
     }
 
     @Override
@@ -96,9 +103,6 @@ public class StrandServiceImpl implements StrandService {
 
     @Override
     public Strand onRead(Strand domainObject) {
-        for (SupplyPosition supplyPosition : domainObject.getSupplyPositions()) {
-            supplyPositionService.save(supplyPosition);
-        }
         return domainObject;
     }
 }
