@@ -2,6 +2,9 @@ package com.muller.lappli.domain.enumeration;
 
 /**
  * The Color enumeration.
+ *
+ * It follow the DIN-47100 norma/strandard used in Muller,
+ * with the "NATURAL" Color added in the beggining of that
  */
 public enum Color {
     NONE("NONE"),
@@ -70,32 +73,88 @@ public enum Color {
 
     private String designation;
 
+    private Color[] colors;
+
+    /**
+     * Creates an atomic color
+     *
+     * @param designation the designation
+     */
     private Color(String designation) {
         setDesignation(designation);
+        setColors(null);
     }
 
+    /**
+     * Creates a composite color
+     *
+     * @param colors the composing colors
+     */
     private Color(Color... colors) {
-        String designation = "";
+        setDesignation(null);
+        setColors(colors);
+    }
 
-        int colorsCount = colors.length;
+    /**
+     * Tells if the color is composite (true), meaning
+     * composed of other colors, or atomic (false), meaning
+     * not composed of anything.
+     *
+     * @return a Boolean
+     */
+    public Boolean isComposite() {
+        return getColors() != null;
+    }
 
-        int currentColorIndex = 1;
-        for (Color color : colors) {
-            designation = designation + color.getDesignation();
-
-            if (colorsCount < currentColorIndex++) {
-                designation = designation + "/";
-            }
+    /**
+     * The designation of the color.
+     *
+     * It will be merged from composing colors'
+     * designations if {@link Color#getColors()} is null,
+     * in the case of a composite Color, then.
+     *
+     * Otherwise, in the case of an atomic color, it
+     * will just read its value.
+     *
+     * @return the designation
+     */
+    public String getDesignation() {
+        if (isComposite()) {
+            return this.designation;
         }
 
-        setDesignation(designation);
+        String designation = "";
+
+        Long currentColorIndex = Long.valueOf(1);
+        for (Color color : getColors()) {
+            String separator = currentColorIndex++ == Long.valueOf(1) ? "" : "•";
+
+            designation = designation + separator + color.getDesignation();
+        }
+
+        return designation;
     }
 
-    public void setDesignation(String designation) {
+    private void setDesignation(String designation) {
         this.designation = designation;
     }
 
-    public String getDesignation() {
-        return designation;
+    /**
+     * The list of the composing colors.
+     *
+     * In the case of a composite color,
+     * it will return each composing color.
+     *
+     * In the case of an atomic color,
+     * it will return null.
+     *
+     * @return the list of colors
+     */
+    public Color[] getColors() {
+        return this.colors;
+    }
+
+    private void setColors(Color[] colors) {
+        this.colors = colors;
     }
 }

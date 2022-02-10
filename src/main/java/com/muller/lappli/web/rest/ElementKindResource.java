@@ -1,7 +1,6 @@
 package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.ElementKind;
-import com.muller.lappli.repository.ElementKindRepository;
 import com.muller.lappli.service.ElementKindService;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -34,11 +33,8 @@ public class ElementKindResource {
 
     private final ElementKindService elementKindService;
 
-    private final ElementKindRepository elementKindRepository;
-
-    public ElementKindResource(ElementKindService elementKindService, ElementKindRepository elementKindRepository) {
+    public ElementKindResource(ElementKindService elementKindService) {
         this.elementKindService = elementKindService;
-        this.elementKindRepository = elementKindRepository;
     }
 
     /**

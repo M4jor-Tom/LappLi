@@ -1,6 +1,9 @@
 {
   "lappLiApp": {
     "operation": {
+      "home": {
+        "notFound": "No operation found"
+      },
       "ownerStrand": "Owner Strand",
       "operationLayer": "Operation Layer",
       "productionStep": "Production Step",

@@ -5,7 +5,7 @@ import com.muller.lappli.service.LifterService;
 
 public abstract class AbstractLiftedSupplyServiceImpl<T extends AbstractLiftedSupply<T>> {
 
-    LifterService lifterService;
+    private final LifterService lifterService;
 
     public AbstractLiftedSupplyServiceImpl(LifterService lifterService) {
         this.lifterService = lifterService;

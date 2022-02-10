@@ -34,6 +34,10 @@ public class Material extends AbstractDomainObject<Material> implements Article,
     @Column(name = "designation", nullable = false, unique = true)
     private String designation;
 
+    @NotNull
+    @Column(name = "kilogram_per_cube_meter_volumic_density", nullable = false)
+    private Double kilogramPerCubeMeterVolumicDensity;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "material")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "material" }, allowSetters = true)
@@ -41,16 +45,23 @@ public class Material extends AbstractDomainObject<Material> implements Article,
 
     public Material() {}
 
-    public Material(Long number, String designation, Set<MaterialMarkingStatistic> materialMarkingStatistics) {
+    public Material(
+        Long number,
+        String designation,
+        Double kilogramPerCubeMeterVolumicDensity,
+        Set<MaterialMarkingStatistic> materialMarkingStatistics
+    ) {
         setNumber(number);
         setDesignation(designation);
         setMaterialMarkingStatistics(materialMarkingStatistics);
+        setKilogramPerCubeMeterVolumicDensity(kilogramPerCubeMeterVolumicDensity);
     }
 
     protected Material(Material material) {
         this(
             Long.valueOf(material.getNumber()),
             String.valueOf(material.getDesignation()),
+            Double.valueOf(material.getKilogramPerCubeMeterVolumicDensity()),
             new HashSet<MaterialMarkingStatistic>(material.getMaterialMarkingStatistics())
         );
     }
@@ -111,6 +122,19 @@ public class Material extends AbstractDomainObject<Material> implements Article,
         this.designation = designation;
     }
 
+    public Double getKilogramPerCubeMeterVolumicDensity() {
+        return this.kilogramPerCubeMeterVolumicDensity;
+    }
+
+    public Material kilogramPerCubeMeterVolumicDensity(Double kilogramPerCubeMeterVolumicDensity) {
+        this.setKilogramPerCubeMeterVolumicDensity(kilogramPerCubeMeterVolumicDensity);
+        return this;
+    }
+
+    public void setKilogramPerCubeMeterVolumicDensity(Double kilogramPerCubeMeterVolumicDensity) {
+        this.kilogramPerCubeMeterVolumicDensity = kilogramPerCubeMeterVolumicDensity;
+    }
+
     public Set<MaterialMarkingStatistic> getMaterialMarkingStatistics() {
         return this.materialMarkingStatistics;
     }
@@ -168,6 +192,7 @@ public class Material extends AbstractDomainObject<Material> implements Article,
             "id=" + getId() +
             ", number=" + getNumber() +
             ", designation='" + getDesignation() + "'" +
+            ", kilogramPerCubeMeterVolumicDensity=" + getKilogramPerCubeMeterVolumicDensity() +
             "}";
     }
 }

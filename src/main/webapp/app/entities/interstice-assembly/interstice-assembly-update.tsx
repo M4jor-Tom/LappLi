@@ -98,6 +98,35 @@ export const IntersticeAssemblyUpdate = (props: RouteComponentProps<{ strand_id:
                   validate={{ required: true }}
                 />
               ) : null}
+              <ValidatedField
+                label={translate('lappLiApp.intersticeAssembly.assemblyLayer')}
+                id="interstice-assembly-assemblyLayer"
+                name="assemblyLayer"
+                data-cy="assemblyLayer"
+                type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
+              />
+              <ValidatedField
+                label={translate('lappLiApp.intersticeAssembly.intersticeLayer')}
+                id="interstice-assembly-intersticeLayer"
+                name="intersticeLayer"
+                data-cy="intersticeLayer"
+                type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
+              />
+              <ValidatedField
+                label={translate('lappLiApp.intersticeAssembly.forcedMeanMilimeterComponentDiameter')}
+                id="interstice-assembly-forcedMeanMilimeterComponentDiameter"
+                name="forcedMeanMilimeterComponentDiameter"
+                data-cy="forcedMeanMilimeterComponentDiameter"
+                type="text"
+              />
               {strandValidatedField}
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />

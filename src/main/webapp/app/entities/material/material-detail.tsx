@@ -41,6 +41,14 @@ export const MaterialDetail = (props: RouteComponentProps<{ id: string }>) => {
             </span>
           </dt>
           <dd>{materialEntity.designation}</dd>
+          <dt>
+            <span id="kilogramPerCubeMeterVolumicDensity">
+              <Translate contentKey="lappLiApp.material.kilogramPerCubeMeterVolumicDensity">
+                Kilogram Per Cube Meter Volumic Density
+              </Translate>
+            </span>
+          </dt>
+          <dd>{materialEntity.kilogramPerCubeMeterVolumicDensity}</dd>
         </dl>
         <Button tag={Link} to="/material" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

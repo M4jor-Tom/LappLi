@@ -39,12 +39,15 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "sheathings" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = { "supplyPositions", "coreAssemblies", "intersticeAssemblies", "sheathings", "centralAssembly", "futureStudy" },
+        allowSetters = true
+    )
     private Strand strand;
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "strandSupplies", "author" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "strands", "strandSupplies", "author" }, allowSetters = true)
     private Study study;
 
     @Override

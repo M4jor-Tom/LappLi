@@ -6,7 +6,7 @@ import { IAbstractMarkedLiftedSupply } from './abstract-marked-lifted-supply.mod
 
 export interface IOneStudySupply extends IAbstractMarkedLiftedSupply {
   number?: number | null;
-  designation?: string | null;
+  componentDesignation?: string | null;
   gramPerMeterLinearMass?: number;
   milimeterDiameter?: number;
   surfaceColor?: Color;

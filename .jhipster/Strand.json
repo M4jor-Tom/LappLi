@@ -1,7 +1,25 @@
 {
   "name": "Strand",
-  "fields": [],
+  "fields": [
+    {
+      "fieldName": "diameterAssemblyStep",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "assemblyMean",
+      "fieldType": "AssemblyMean",
+      "fieldValues": "RIGHT,LEFT,STRAIGHT",
+      "fieldValidateRules": ["required"]
+    }
+  ],
   "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "supplyPosition",
+      "otherEntityRelationshipName": "ownerStrand",
+      "relationshipName": "supplyPositions"
+    },
     {
       "relationshipType": "one-to-many",
       "otherEntityName": "coreAssembly",
@@ -22,34 +40,6 @@
       "otherEntityRelationshipName": "ownerStrand",
       "relationshipName": "sheathings",
       "otherEntityField": "productionStep"
-    },
-    {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "elementSupply",
-      "otherEntityRelationshipName": "ownerStrand",
-      "relationshipName": "elementSupplies",
-      "otherEntityField": "designation"
-    },
-    {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "bangleSupply",
-      "otherEntityRelationshipName": "ownerStrand",
-      "relationshipName": "bangleSupplies",
-      "otherEntityField": "designation"
-    },
-    {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "customComponentSupply",
-      "otherEntityRelationshipName": "ownerStrand",
-      "relationshipName": "customComponentSupplies",
-      "otherEntityField": "designation"
-    },
-    {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "oneStudySupply",
-      "otherEntityRelationshipName": "ownerStrand",
-      "relationshipName": "oneStudySupplies",
-      "otherEntityField": "designation"
     },
     {
       "relationshipType": "one-to-one",

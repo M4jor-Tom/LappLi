@@ -30,8 +30,8 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
     private Long operationLayer;
 
     @NotNull
-    @Column(name = "thickness", nullable = false)
-    private Double thickness;
+    @Column(name = "milimeter_thickness", nullable = false)
+    private Double milimeterThickness;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -46,32 +46,18 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = {
-            "coreAssemblies",
-            "intersticeAssemblies",
-            "sheathings",
-            "operations",
-            "nonAssemblyOperations",
-            "assemblies",
-            "elementSupplies",
-            "bangleSupplies",
-            "customComponentSupplies",
-            "oneStudySupplies",
-            "centralAssembly",
-            "futureStudy",
-            "suppliesCountsCommonDividers",
-        } //,
-        //allowSetters = true
+        value = { "supplyPositions", "coreAssemblies", "intersticeAssemblies", "sheathings", "centralAssembly", "futureStudy" },
+        allowSetters = true
     )
     private Strand ownerStrand;
 
     @Override
     public Double getMilimeterDiameterIncidency() {
-        if (getThickness() == null) {
+        if (getMilimeterThickness() == null) {
             return Double.NaN;
         }
 
-        return getThickness() * 2.0;
+        return getMilimeterThickness() * 2.0;
     }
 
     @Override
@@ -128,17 +114,17 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
         this.operationLayer = operationLayer;
     }
 
-    public Double getThickness() {
-        return this.thickness;
+    public Double getMilimeterThickness() {
+        return this.milimeterThickness;
     }
 
-    public Sheathing thickness(Double thickness) {
-        this.setThickness(thickness);
+    public Sheathing milimeterThickness(Double milimeterThickness) {
+        this.setMilimeterThickness(milimeterThickness);
         return this;
     }
 
-    public void setThickness(Double thickness) {
-        this.thickness = thickness;
+    public void setMilimeterThickness(Double milimeterThickness) {
+        this.milimeterThickness = milimeterThickness;
     }
 
     public SheathingKind getSheathingKind() {
@@ -205,7 +191,7 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
         return "Sheathing{" +
             "id=" + getId() +
             ", operationLayer=" + getOperationLayer() +
-            ", thickness=" + getThickness() +
+            ", milimeterThickness=" + getMilimeterThickness() +
             ", sheathingKind='" + getSheathingKind() + "'" +
             "}";
     }

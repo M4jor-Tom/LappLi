@@ -4,6 +4,9 @@
       "home": {
         "notFound": "Aucun asseblage trouvé"
       },
+      "detail": {
+        "title": "Assemblage"
+      },
       "assemblyLayer": "Couche d'Assemblage",
       "diameterAssemblyStep": "Pas d'Assemblage (D)",
       "assemblyMean": "Sens d'Assemblage",

@@ -19,8 +19,9 @@
       },
       "id": "ID",
       "thickness": "Epaisseur",
-      "sheathingKind": "Genre de Gaine",
-      "material": "Matériau"
+      "milimeterThickness": "Milimeter Thickness",
+      "material": "Matériau",
+      "ownerStrand": "Owner Strand"
     }
   }
 }

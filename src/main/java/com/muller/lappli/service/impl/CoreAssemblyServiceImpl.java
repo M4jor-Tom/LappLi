@@ -41,11 +41,11 @@ public class CoreAssemblyServiceImpl implements CoreAssemblyService {
                 if (coreAssembly.getAssemblyLayer() != null) {
                     existingCoreAssembly.setAssemblyLayer(coreAssembly.getAssemblyLayer());
                 }
-                if (coreAssembly.getDiameterAssemblyStep() != null) {
-                    existingCoreAssembly.setDiameterAssemblyStep(coreAssembly.getDiameterAssemblyStep());
+                if (coreAssembly.getForcedMeanMilimeterComponentDiameter() != null) {
+                    existingCoreAssembly.setForcedMeanMilimeterComponentDiameter(coreAssembly.getForcedMeanMilimeterComponentDiameter());
                 }
-                if (coreAssembly.getAssemblyMean() != null) {
-                    existingCoreAssembly.setAssemblyMean(coreAssembly.getAssemblyMean());
+                if (coreAssembly.getComponentsCount() != null) {
+                    existingCoreAssembly.setComponentsCount(coreAssembly.getComponentsCount());
                 }
 
                 return existingCoreAssembly;

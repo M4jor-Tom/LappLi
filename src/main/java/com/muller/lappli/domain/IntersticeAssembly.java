@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.OperationKind;
+import com.muller.lappli.domain.interfaces.ISupplyPositionOwner;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -16,7 +19,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "interstice_assembly")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAssembly> implements Serializable {
+public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAssembly> implements ISupplyPositionOwner, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,23 +29,36 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     private Long id;
 
     @NotNull
+    @Column(name = "assembly_layer", nullable = false)
+    private Long assemblyLayer;
+
+    @NotNull
     @Column(name = "interstice_layer", nullable = false)
     private Long intersticeLayer;
+
+    @Column(name = "forced_mean_milimeter_component_diameter")
+    private Double forcedMeanMilimeterComponentDiameter;
+
+    @OneToMany(mappedBy = "ownerIntersticeAssembly")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(
+        value = {
+            "ownerCentralAssembly",
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "ownerStrand",
+            "ownerIntersticeAssembly",
+        },
+        allowSetters = true
+    )
+    private Set<SupplyPosition> supplyPositions = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = {
-            "coreAssemblies",
-            "intersticeAssemblies",
-            "sheathings",
-            "elementSupplies",
-            "bangleSupplies",
-            "customComponentSupplies",
-            "oneStudySupplies",
-            "centralAssembly",
-            "futureStudy",
-        },
+        value = { "supplyPositions", "coreAssemblies", "intersticeAssemblies", "sheathings", "centralAssembly", "futureStudy" },
         allowSetters = true
     )
     private Strand ownerStrand;
@@ -60,44 +76,28 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     @Override
     public Double getDiameterAssemblyStep() {
         try {
-            return getOwnerStrand().getLastCoreAssembly().getDiameterAssemblyStep();
+            return getOwnerStrand().getDiameterAssemblyStep();
         } catch (NullPointerException e) {
             return Double.NaN;
         }
     }
 
     @Override
+    public Long getProductionStep() {
+        return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+    }
+
+    @Override
     public AssemblyMean getAssemblyMean() {
         try {
-            return getOwnerStrand().getLastCoreAssembly().getAssemblyMean();
+            return getOwnerStrand().getAssemblyMean();
         } catch (NullPointerException e) {
             return null;
         }
     }
 
-    @Override
-    public Long getAssemblyLayer() {
-        try {
-            return getOwnerStrand().getLastCoreAssembly().getAssemblyLayer();
-        } catch (NullPointerException e) {
-            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
-        }
-    }
-
-    @Override
-    public Double getMilimeterDiameterIncidency() {
-        return 0.0;
-    }
-
-    @Override
-    public Long getProductionStep() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    @Override
     public Long getId() {
         return this.id;
     }
@@ -111,6 +111,19 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         this.id = id;
     }
 
+    public Long getAssemblyLayer() {
+        return this.assemblyLayer;
+    }
+
+    public IntersticeAssembly assemblyLayer(Long assemblyLayer) {
+        this.setAssemblyLayer(assemblyLayer);
+        return this;
+    }
+
+    public void setAssemblyLayer(Long assemblyLayer) {
+        this.assemblyLayer = assemblyLayer;
+    }
+
     public Long getIntersticeLayer() {
         return this.intersticeLayer;
     }
@@ -122,6 +135,50 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
 
     public void setIntersticeLayer(Long intersticeLayer) {
         this.intersticeLayer = intersticeLayer;
+    }
+
+    public Double getForcedMeanMilimeterComponentDiameter() {
+        return this.forcedMeanMilimeterComponentDiameter;
+    }
+
+    public IntersticeAssembly forcedMeanMilimeterComponentDiameter(Double forcedMeanMilimeterComponentDiameter) {
+        this.setForcedMeanMilimeterComponentDiameter(forcedMeanMilimeterComponentDiameter);
+        return this;
+    }
+
+    public void setForcedMeanMilimeterComponentDiameter(Double forcedMeanMilimeterComponentDiameter) {
+        this.forcedMeanMilimeterComponentDiameter = forcedMeanMilimeterComponentDiameter;
+    }
+
+    public Set<SupplyPosition> getSupplyPositions() {
+        return this.supplyPositions;
+    }
+
+    public void setSupplyPositions(Set<SupplyPosition> supplyPositions) {
+        if (this.supplyPositions != null) {
+            this.supplyPositions.forEach(i -> i.setOwnerIntersticeAssembly(null));
+        }
+        if (supplyPositions != null) {
+            supplyPositions.forEach(i -> i.setOwnerIntersticeAssembly(this));
+        }
+        this.supplyPositions = supplyPositions;
+    }
+
+    public IntersticeAssembly supplyPositions(Set<SupplyPosition> supplyPositions) {
+        this.setSupplyPositions(supplyPositions);
+        return this;
+    }
+
+    public IntersticeAssembly addSupplyPositions(SupplyPosition supplyPosition) {
+        this.supplyPositions.add(supplyPosition);
+        supplyPosition.setOwnerIntersticeAssembly(this);
+        return this;
+    }
+
+    public IntersticeAssembly removeSupplyPositions(SupplyPosition supplyPosition) {
+        this.supplyPositions.remove(supplyPosition);
+        supplyPosition.setOwnerIntersticeAssembly(null);
+        return this;
     }
 
     public Strand getOwnerStrand() {
@@ -161,8 +218,9 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     public String toString() {
         return "IntersticeAssembly{" +
             "id=" + getId() +
-            ", productionStep=" + getProductionStep() +
+            ", assemblyLayer=" + getAssemblyLayer() +
             ", intersticeLayer=" + getIntersticeLayer() +
+            ", forcedMeanMilimeterComponentDiameter=" + getForcedMeanMilimeterComponentDiameter() +
             "}";
     }
 }

@@ -6,6 +6,8 @@ import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -33,28 +35,25 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(optional = false)
-    @NotNull
-    //@JsonIgnoreProperties(value = { "material" }, allowSetters = true)
-    private Bangle bangle;
-
-    @ManyToOne(optional = false)
-    @NotNull
+    @OneToMany(mappedBy = "bangleSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
         value = {
-            "coreAssemblies",
-            "intersticeAssemblies",
-            "sheathings",
-            "elementSupplies",
-            "bangleSupplies",
-            "customComponentSupplies",
-            "oneStudySupplies",
-            "centralAssembly",
-            "futureStudy",
+            "ownerCentralAssembly",
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "ownerStrand",
+            "ownerIntersticeAssembly",
         },
         allowSetters = true
     )
-    private Strand ownerStrand;
+    private Set<SupplyPosition> ownerSupplyPositions = new HashSet<>();
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private Bangle bangle;
 
     @Override
     public BangleSupply getThis() {
@@ -147,6 +146,38 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
         this.description = description;
     }
 
+    @Override
+    public Set<SupplyPosition> getOwnerSupplyPositions() {
+        return this.ownerSupplyPositions;
+    }
+
+    public void setOwnerSupplyPositions(Set<SupplyPosition> supplyPositions) {
+        if (this.ownerSupplyPositions != null) {
+            this.ownerSupplyPositions.forEach(i -> i.setBangleSupply(null));
+        }
+        if (supplyPositions != null) {
+            supplyPositions.forEach(i -> i.setBangleSupply(this));
+        }
+        this.ownerSupplyPositions = supplyPositions;
+    }
+
+    public BangleSupply ownerSupplyPositions(Set<SupplyPosition> supplyPositions) {
+        this.setOwnerSupplyPositions(supplyPositions);
+        return this;
+    }
+
+    public BangleSupply addOwnerSupplyPosition(SupplyPosition supplyPosition) {
+        this.ownerSupplyPositions.add(supplyPosition);
+        supplyPosition.setBangleSupply(this);
+        return this;
+    }
+
+    public BangleSupply removeOwnerSupplyPosition(SupplyPosition supplyPosition) {
+        this.ownerSupplyPositions.remove(supplyPosition);
+        supplyPosition.setBangleSupply(null);
+        return this;
+    }
+
     public Bangle getBangle() {
         return this.bangle;
     }
@@ -157,19 +188,6 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
 
     public BangleSupply bangle(Bangle bangle) {
         this.setBangle(bangle);
-        return this;
-    }
-
-    public Strand getOwnerStrand() {
-        return this.ownerStrand;
-    }
-
-    public void setOwnerStrand(Strand strand) {
-        this.ownerStrand = strand;
-    }
-
-    public BangleSupply ownerStrand(Strand strand) {
-        this.setOwnerStrand(strand);
         return this;
     }
 

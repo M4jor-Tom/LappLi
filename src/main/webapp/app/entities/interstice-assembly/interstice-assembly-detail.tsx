@@ -30,23 +30,29 @@ export const IntersticeAssemblyDetail = (props: RouteComponentProps<{ id: string
           </dt>
           <dd>{intersticeAssemblyEntity.id}</dd>
           <dt>
-            <span id="productionStep">
-              <Translate contentKey="lappLiApp.intersticeAssembly.productionStep">Production Step</Translate>
+            <span id="assemblyLayer">
+              <Translate contentKey="lappLiApp.intersticeAssembly.assemblyLayer">Assembly Layer</Translate>
             </span>
           </dt>
-          <dd>{intersticeAssemblyEntity.productionStep}</dd>
+          <dd>{intersticeAssemblyEntity.assemblyLayer}</dd>
+          <dt>
+            <span id="intersticeLayer">
+              <Translate contentKey="lappLiApp.intersticeAssembly.intersticeLayer">Interstice Layer</Translate>
+            </span>
+          </dt>
+          <dd>{intersticeAssemblyEntity.intersticeLayer}</dd>
+          <dt>
+            <span id="forcedMeanMilimeterComponentDiameter">
+              <Translate contentKey="lappLiApp.intersticeAssembly.forcedMeanMilimeterComponentDiameter">
+                Forced Mean Milimeter Component Diameter
+              </Translate>
+            </span>
+          </dt>
+          <dd>{intersticeAssemblyEntity.forcedMeanMilimeterComponentDiameter}</dd>
           <dt>
             <Translate contentKey="lappLiApp.intersticeAssembly.ownerStrand">Owner Strand</Translate>
           </dt>
           <dd>{intersticeAssemblyEntity.ownerStrand ? intersticeAssemblyEntity.ownerStrand.designation : ''}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.nonCentralAssembly.assemblyStep">Assembly Step</Translate>
-          </dt>
-          <dd>{intersticeAssemblyEntity.diameterAssemblyStep}</dd>
-          <dt>
-            <Translate contentKey="lappLiApp.nonCentralAssembly.assemblyMean">Assembly Mean</Translate>
-          </dt>
-          <dd>{intersticeAssemblyEntity.assemblyMean}</dd>
         </dl>
         <Button tag={Link} to="/interstice-assembly" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

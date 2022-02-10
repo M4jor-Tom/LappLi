@@ -1,6 +1,9 @@
 {
   "lappLiApp": {
     "operation": {
+      "home": {
+        "notFound": "Aucune opération trouvée"
+      },
       "ownerStrand": "Toron propriétaire",
       "operationLayer": "Couche d'opération",
       "productionStep": "Etape de production",

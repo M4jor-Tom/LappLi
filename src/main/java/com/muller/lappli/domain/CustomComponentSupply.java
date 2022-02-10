@@ -8,6 +8,8 @@ import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -40,28 +42,25 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
     @Column(name = "marking_type", nullable = false)
     private MarkingType markingType;
 
-    @ManyToOne(optional = false)
-    @NotNull
-    //@JsonIgnoreProperties(value = { "surfaceMaterial" }, allowSetters = true)
-    private CustomComponent customComponent;
-
-    @ManyToOne(optional = false)
-    @NotNull
+    @OneToMany(mappedBy = "customComponentSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
         value = {
-            "coreAssemblies",
-            "intersticeAssemblies",
-            "sheathings",
-            "elementSupplies",
-            "bangleSupplies",
-            "customComponentSupplies",
-            "oneStudySupplies",
-            "centralAssembly",
-            "futureStudy",
+            "ownerCentralAssembly",
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "ownerStrand",
+            "ownerIntersticeAssembly",
         },
         allowSetters = true
     )
-    private Strand ownerStrand;
+    private Set<SupplyPosition> ownerSupplyPositions = new HashSet<>();
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private CustomComponent customComponent;
 
     @Override
     public CustomComponentSupply getThis() {
@@ -162,6 +161,38 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
         this.markingType = markingType;
     }
 
+    @Override
+    public Set<SupplyPosition> getOwnerSupplyPositions() {
+        return this.ownerSupplyPositions;
+    }
+
+    public void setOwnerSupplyPositions(Set<SupplyPosition> supplyPositions) {
+        if (this.ownerSupplyPositions != null) {
+            this.ownerSupplyPositions.forEach(i -> i.setCustomComponentSupply(null));
+        }
+        if (supplyPositions != null) {
+            supplyPositions.forEach(i -> i.setCustomComponentSupply(this));
+        }
+        this.ownerSupplyPositions = supplyPositions;
+    }
+
+    public CustomComponentSupply ownerSupplyPositions(Set<SupplyPosition> supplyPositions) {
+        this.setOwnerSupplyPositions(supplyPositions);
+        return this;
+    }
+
+    public CustomComponentSupply addOwnerSupplyPosition(SupplyPosition supplyPosition) {
+        this.ownerSupplyPositions.add(supplyPosition);
+        supplyPosition.setCustomComponentSupply(this);
+        return this;
+    }
+
+    public CustomComponentSupply removeOwnerSupplyPosition(SupplyPosition supplyPosition) {
+        this.ownerSupplyPositions.remove(supplyPosition);
+        supplyPosition.setCustomComponentSupply(null);
+        return this;
+    }
+
     public CustomComponent getCustomComponent() {
         return this.customComponent;
     }
@@ -172,19 +203,6 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
 
     public CustomComponentSupply customComponent(CustomComponent customComponent) {
         this.setCustomComponent(customComponent);
-        return this;
-    }
-
-    public Strand getOwnerStrand() {
-        return this.ownerStrand;
-    }
-
-    public void setOwnerStrand(Strand strand) {
-        this.ownerStrand = strand;
-    }
-
-    public CustomComponentSupply ownerStrand(Strand strand) {
-        this.setOwnerStrand(strand);
         return this;
     }
 
