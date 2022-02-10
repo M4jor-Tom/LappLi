@@ -2,6 +2,9 @@ package com.muller.lappli.domain.enumeration;
 
 /**
  * The Color enumeration.
+ *
+ * It follow the DIN-47100 norma/strandard used in Muller,
+ * with the "NATURAL" Color added in the beggining of that
  */
 public enum Color {
     NONE("NONE"),
