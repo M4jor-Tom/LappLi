@@ -45,16 +45,23 @@ public class Material extends AbstractDomainObject<Material> implements Article,
 
     public Material() {}
 
-    public Material(Long number, String designation, Set<MaterialMarkingStatistic> materialMarkingStatistics) {
+    public Material(
+        Long number,
+        String designation,
+        Double kilogramPerCubeMeterVolumicDensity,
+        Set<MaterialMarkingStatistic> materialMarkingStatistics
+    ) {
         setNumber(number);
         setDesignation(designation);
         setMaterialMarkingStatistics(materialMarkingStatistics);
+        setKilogramPerCubeMeterVolumicDensity(kilogramPerCubeMeterVolumicDensity);
     }
 
     protected Material(Material material) {
         this(
             Long.valueOf(material.getNumber()),
             String.valueOf(material.getDesignation()),
+            Double.valueOf(material.getKilogramPerCubeMeterVolumicDensity()),
             new HashSet<MaterialMarkingStatistic>(material.getMaterialMarkingStatistics())
         );
     }
