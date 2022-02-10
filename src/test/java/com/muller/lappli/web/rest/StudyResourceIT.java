@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.muller.lappli.IntegrationTest;
+import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.Study;
 import com.muller.lappli.domain.UserData;
 import com.muller.lappli.repository.StudyRepository;
