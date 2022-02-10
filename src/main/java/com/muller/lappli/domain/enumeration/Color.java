@@ -107,7 +107,11 @@ public enum Color {
     }
 
     public Color[] getColors() {
-        return colors;
+        if (this.colors == null) {
+            return new Color[] { this };
+        }
+
+        return this.colors;
     }
 
     public void setColors(Color[] colors) {
