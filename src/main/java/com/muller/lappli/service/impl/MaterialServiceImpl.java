@@ -44,6 +44,9 @@ public class MaterialServiceImpl implements MaterialService {
                 if (material.getDesignation() != null) {
                     existingMaterial.setDesignation(material.getDesignation());
                 }
+                if (material.getKilogramPerCubeMeterVolumicDensity() != null) {
+                    existingMaterial.setKilogramPerCubeMeterVolumicDensity(material.getKilogramPerCubeMeterVolumicDensity());
+                }
 
                 return existingMaterial;
             })

@@ -18,9 +18,11 @@
         "title": "Sheathing"
       },
       "id": "ID",
-      "thickness": "Thickness",
+      "operationLayer": "Operation Layer",
+      "milimeterThickness": "Milimeter Thickness",
       "sheathingKind": "Sheathing Kind",
-      "material": "Material"
+      "material": "Material",
+      "ownerStrand": "Owner Strand"
     }
   }
 }

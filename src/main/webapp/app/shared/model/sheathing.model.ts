@@ -6,6 +6,7 @@ import { IAbstractOperation } from './abstract-operation.model';
 export interface ISheathing extends IAbstractOperation {
   //  id?: number;
   thickness?: number;
+  milimeterThickness?: number;
   sheathingKind?: SheathingKind;
   material?: IMaterial;
   ownerStrand?: IStrand;

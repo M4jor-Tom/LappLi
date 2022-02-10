@@ -35,8 +35,8 @@ class SheathingResourceIT {
     private static final Long DEFAULT_OPERATION_LAYER = 1L;
     private static final Long UPDATED_OPERATION_LAYER = 2L;
 
-    private static final Double DEFAULT_THICKNESS = 1D;
-    private static final Double UPDATED_THICKNESS = 2D;
+    private static final Double DEFAULT_MILIMETER_THICKNESS = 1D;
+    private static final Double UPDATED_MILIMETER_THICKNESS = 2D;
 
     private static final SheathingKind DEFAULT_SHEATHING_KIND = SheathingKind.TUBE;
     private static final SheathingKind UPDATED_SHEATHING_KIND = SheathingKind.FLOATING_TUBE;
@@ -67,7 +67,7 @@ class SheathingResourceIT {
     public static Sheathing createEntity(EntityManager em) {
         Sheathing sheathing = new Sheathing()
             .operationLayer(DEFAULT_OPERATION_LAYER)
-            .thickness(DEFAULT_THICKNESS)
+            .milimeterThickness(DEFAULT_MILIMETER_THICKNESS)
             .sheathingKind(DEFAULT_SHEATHING_KIND);
         // Add required entity
         Material material;
@@ -101,7 +101,7 @@ class SheathingResourceIT {
     public static Sheathing createUpdatedEntity(EntityManager em) {
         Sheathing sheathing = new Sheathing()
             .operationLayer(UPDATED_OPERATION_LAYER)
-            .thickness(UPDATED_THICKNESS)
+            .milimeterThickness(UPDATED_MILIMETER_THICKNESS)
             .sheathingKind(UPDATED_SHEATHING_KIND);
         // Add required entity
         Material material;
@@ -145,7 +145,7 @@ class SheathingResourceIT {
         assertThat(sheathingList).hasSize(databaseSizeBeforeCreate + 1);
         Sheathing testSheathing = sheathingList.get(sheathingList.size() - 1);
         assertThat(testSheathing.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
-        assertThat(testSheathing.getThickness()).isEqualTo(DEFAULT_THICKNESS);
+        assertThat(testSheathing.getMilimeterThickness()).isEqualTo(DEFAULT_MILIMETER_THICKNESS);
         assertThat(testSheathing.getSheathingKind()).isEqualTo(DEFAULT_SHEATHING_KIND);
     }
 
@@ -186,10 +186,10 @@ class SheathingResourceIT {
 
     @Test
     @Transactional
-    void checkThicknessIsRequired() throws Exception {
+    void checkMilimeterThicknessIsRequired() throws Exception {
         int databaseSizeBeforeTest = sheathingRepository.findAll().size();
         // set the field null
-        sheathing.setThickness(null);
+        sheathing.setMilimeterThickness(null);
 
         // Create the Sheathing, which fails.
 
@@ -231,7 +231,7 @@ class SheathingResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(sheathing.getId().intValue())))
             .andExpect(jsonPath("$.[*].operationLayer").value(hasItem(DEFAULT_OPERATION_LAYER.intValue())))
-            .andExpect(jsonPath("$.[*].thickness").value(hasItem(DEFAULT_THICKNESS.doubleValue())))
+            .andExpect(jsonPath("$.[*].milimeterThickness").value(hasItem(DEFAULT_MILIMETER_THICKNESS.doubleValue())))
             .andExpect(jsonPath("$.[*].sheathingKind").value(hasItem(DEFAULT_SHEATHING_KIND.toString())));
     }
 
@@ -248,7 +248,7 @@ class SheathingResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(sheathing.getId().intValue()))
             .andExpect(jsonPath("$.operationLayer").value(DEFAULT_OPERATION_LAYER.intValue()))
-            .andExpect(jsonPath("$.thickness").value(DEFAULT_THICKNESS.doubleValue()))
+            .andExpect(jsonPath("$.milimeterThickness").value(DEFAULT_MILIMETER_THICKNESS.doubleValue()))
             .andExpect(jsonPath("$.sheathingKind").value(DEFAULT_SHEATHING_KIND.toString()));
     }
 
@@ -271,7 +271,10 @@ class SheathingResourceIT {
         Sheathing updatedSheathing = sheathingRepository.findById(sheathing.getId()).get();
         // Disconnect from session so that the updates on updatedSheathing are not directly saved in db
         em.detach(updatedSheathing);
-        updatedSheathing.operationLayer(UPDATED_OPERATION_LAYER).thickness(UPDATED_THICKNESS).sheathingKind(UPDATED_SHEATHING_KIND);
+        updatedSheathing
+            .operationLayer(UPDATED_OPERATION_LAYER)
+            .milimeterThickness(UPDATED_MILIMETER_THICKNESS)
+            .sheathingKind(UPDATED_SHEATHING_KIND);
 
         restSheathingMockMvc
             .perform(
@@ -286,7 +289,7 @@ class SheathingResourceIT {
         assertThat(sheathingList).hasSize(databaseSizeBeforeUpdate);
         Sheathing testSheathing = sheathingList.get(sheathingList.size() - 1);
         assertThat(testSheathing.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
-        assertThat(testSheathing.getThickness()).isEqualTo(UPDATED_THICKNESS);
+        assertThat(testSheathing.getMilimeterThickness()).isEqualTo(UPDATED_MILIMETER_THICKNESS);
         assertThat(testSheathing.getSheathingKind()).isEqualTo(UPDATED_SHEATHING_KIND);
     }
 
@@ -358,7 +361,7 @@ class SheathingResourceIT {
         Sheathing partialUpdatedSheathing = new Sheathing();
         partialUpdatedSheathing.setId(sheathing.getId());
 
-        partialUpdatedSheathing.thickness(UPDATED_THICKNESS);
+        partialUpdatedSheathing.milimeterThickness(UPDATED_MILIMETER_THICKNESS);
 
         restSheathingMockMvc
             .perform(
@@ -373,7 +376,7 @@ class SheathingResourceIT {
         assertThat(sheathingList).hasSize(databaseSizeBeforeUpdate);
         Sheathing testSheathing = sheathingList.get(sheathingList.size() - 1);
         assertThat(testSheathing.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
-        assertThat(testSheathing.getThickness()).isEqualTo(UPDATED_THICKNESS);
+        assertThat(testSheathing.getMilimeterThickness()).isEqualTo(UPDATED_MILIMETER_THICKNESS);
         assertThat(testSheathing.getSheathingKind()).isEqualTo(DEFAULT_SHEATHING_KIND);
     }
 
@@ -389,7 +392,10 @@ class SheathingResourceIT {
         Sheathing partialUpdatedSheathing = new Sheathing();
         partialUpdatedSheathing.setId(sheathing.getId());
 
-        partialUpdatedSheathing.operationLayer(UPDATED_OPERATION_LAYER).thickness(UPDATED_THICKNESS).sheathingKind(UPDATED_SHEATHING_KIND);
+        partialUpdatedSheathing
+            .operationLayer(UPDATED_OPERATION_LAYER)
+            .milimeterThickness(UPDATED_MILIMETER_THICKNESS)
+            .sheathingKind(UPDATED_SHEATHING_KIND);
 
         restSheathingMockMvc
             .perform(
@@ -404,7 +410,7 @@ class SheathingResourceIT {
         assertThat(sheathingList).hasSize(databaseSizeBeforeUpdate);
         Sheathing testSheathing = sheathingList.get(sheathingList.size() - 1);
         assertThat(testSheathing.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
-        assertThat(testSheathing.getThickness()).isEqualTo(UPDATED_THICKNESS);
+        assertThat(testSheathing.getMilimeterThickness()).isEqualTo(UPDATED_MILIMETER_THICKNESS);
         assertThat(testSheathing.getSheathingKind()).isEqualTo(UPDATED_SHEATHING_KIND);
     }
 

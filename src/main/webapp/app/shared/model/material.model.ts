@@ -4,6 +4,7 @@ export interface IMaterial {
   id?: number;
   number?: number;
   designation?: string;
+  kilogramPerCubeMeterVolumicDensity?: number;
   materialMarkingStatistics?: IMaterialMarkingStatistic[] | null;
 }
 

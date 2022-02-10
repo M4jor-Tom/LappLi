@@ -41,8 +41,8 @@ public class SheathingServiceImpl implements SheathingService {
                 if (sheathing.getOperationLayer() != null) {
                     existingSheathing.setOperationLayer(sheathing.getOperationLayer());
                 }
-                if (sheathing.getThickness() != null) {
-                    existingSheathing.setThickness(sheathing.getThickness());
+                if (sheathing.getMilimeterThickness() != null) {
+                    existingSheathing.setMilimeterThickness(sheathing.getMilimeterThickness());
                 }
                 if (sheathing.getSheathingKind() != null) {
                     existingSheathing.setSheathingKind(sheathing.getSheathingKind());
