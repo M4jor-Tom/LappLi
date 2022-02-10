@@ -96,6 +96,17 @@ public enum Color {
     }
 
     /**
+     * Tells if the color is composite (true), meaning
+     * composed of other colors, or atomic (false), meaning
+     * not composed of anything.
+     *
+     * @return a Boolean
+     */
+    public Boolean isComposite() {
+        return getColors() != null;
+    }
+
+    /**
      * The designation of the color.
      *
      * It will be merged from composing colors'
@@ -108,7 +119,7 @@ public enum Color {
      * @return the designation
      */
     public String getDesignation() {
-        if (getColors() == null) {
+        if (isComposite()) {
             return this.designation;
         }
 
