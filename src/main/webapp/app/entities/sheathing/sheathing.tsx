@@ -53,7 +53,7 @@ export const Sheathing = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.sheathing.operationLayer">Operation Layer</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.sheathing.thickness">Thickness</Translate>
+                  <Translate contentKey="lappLiApp.sheathing.milimeterThickness">Milimeter Thickness</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.sheathing.sheathingKind">Sheathing Kind</Translate>
@@ -76,7 +76,7 @@ export const Sheathing = (props: RouteComponentProps<{ url: string }>) => {
                     </Button>
                   </td>
                   <td>{sheathing.operationLayer}</td>
-                  <td>{sheathing.thickness}</td>
+                  <td>{sheathing.milimeterThickness}</td>
                   <td>
                     <Translate contentKey={`lappLiApp.SheathingKind.${sheathing.sheathingKind}`} />
                   </td>

@@ -10,6 +10,11 @@
       "fieldName": "designation",
       "fieldType": "String",
       "fieldValidateRules": ["unique", "required"]
+    },
+    {
+      "fieldName": "kilogramPerCubeMeterVolumicDensity",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
     }
   ],
   "relationships": [

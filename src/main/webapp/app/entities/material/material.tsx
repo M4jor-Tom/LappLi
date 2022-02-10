@@ -55,6 +55,11 @@ export const Material = (props: RouteComponentProps<{ url: string }>) => {
                 <th>
                   <Translate contentKey="lappLiApp.material.designation">Designation</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="lappLiApp.material.kilogramPerCubeMeterVolumicDensity">
+                    Kilogram Per Cube Meter Volumic Density
+                  </Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -68,6 +73,7 @@ export const Material = (props: RouteComponentProps<{ url: string }>) => {
                   </td>
                   <td>{material.number}</td>
                   <td>{material.designation}</td>
+                  <td>{material.kilogramPerCubeMeterVolumicDensity}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${material.id}`} color="info" size="sm" data-cy="entityDetailsButton">
