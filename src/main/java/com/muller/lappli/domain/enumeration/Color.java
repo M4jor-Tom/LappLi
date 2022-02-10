@@ -140,7 +140,7 @@ public enum Color {
      * @return the list of colors
      */
     public Color[] getColors() {
-        return colors;
+        return this.colors;
     }
 
     private void setColors(Color[] colors) {
