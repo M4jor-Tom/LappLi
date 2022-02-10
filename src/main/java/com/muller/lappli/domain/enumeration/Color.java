@@ -75,16 +75,38 @@ public enum Color {
 
     private Color[] colors;
 
+    /**
+     * Creates an atomic color
+     *
+     * @param designation the designation
+     */
     private Color(String designation) {
         setDesignation(designation);
         setColors(null);
     }
 
+    /**
+     * Creates a composite color
+     *
+     * @param colors the composing colors
+     */
     private Color(Color... colors) {
         setDesignation(null);
         setColors(colors);
     }
 
+    /**
+     * The designation of the color.
+     *
+     * It will be merged from composing colors'
+     * designations if {@link Color#getColors()} is null,
+     * in the case of a composite Color, then.
+     *
+     * Otherwise, in the case of an atomic color, it
+     * will just read its value.
+     *
+     * @return the designation
+     */
     public String getDesignation() {
         if (getColors() == null) {
             return this.designation;
@@ -106,6 +128,17 @@ public enum Color {
         this.designation = designation;
     }
 
+    /**
+     * The list of the composing colors.
+     *
+     * In the case of a composite color,
+     * it will return each composing color.
+     *
+     * In the case of an atomic color,
+     * it will return null.
+     *
+     * @return the list of colors
+     */
     public Color[] getColors() {
         return colors;
     }
