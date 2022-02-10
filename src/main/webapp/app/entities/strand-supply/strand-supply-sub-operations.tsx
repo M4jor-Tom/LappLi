@@ -55,7 +55,8 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
       <div className="table-responsive">
         {strand.centralAssembly ||
         (strand.coreAssemblies && strand.coreAssemblies.length > 0) ||
-        (strand.intersticeAssemblies && strand.intersticeAssemblies.length > 0) ? (
+        (strand.intersticeAssemblies && strand.intersticeAssemblies.length > 0) ||
+        (strand.nonAssemblyOperations && strand.nonAssemblyOperations.length > 0) ? (
           <Table responsive>
             <thead>
               <tr>
