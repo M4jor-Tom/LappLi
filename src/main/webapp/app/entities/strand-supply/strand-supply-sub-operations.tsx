@@ -321,7 +321,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
           </Table>
         ) : (
           <div className="alert alert-warning">
-            <Translate contentKey="lappLiApp.assembly.home.notFound">No Assemblies found</Translate>
+            <Translate contentKey="lappLiApp.operation.home.notFound">No operation found</Translate>
           </div>
         )}
         <Button tag={Link} to={getOut(props.match.url, getOutCount)} replace color="info" data-cy="entityDetailsBackButton">
