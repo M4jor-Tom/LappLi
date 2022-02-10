@@ -92,11 +92,14 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
 
         if (strandSupplyOptional.isPresent()) {
             //If we're deleting some StrandSupply which exists
-            if (strandSupplyOptional.get().getStrand() != null) {
+            StrandSupply strandSupply = strandSupplyOptional.get();
+            if (strandSupply.getStrand() != null) {
                 //If it observes through a Strand
-                if (strandSupplyOptional.get().getStrand().getSheathings() != null) {
+                Strand strand = strandSupply.getStrand();
+
+                if (strand.getSheathings() != null) {
                     //If the strand owns Sheathings
-                    for (Sheathing sheathing : strandSupplyOptional.get().getStrand().getSheathings()) {
+                    for (Sheathing sheathing : strand.getSheathings()) {
                         //Delete those, it is logical through interface to do so
                         sheathingService.delete(sheathing.getId());
                     }
