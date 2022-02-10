@@ -1,5 +1,6 @@
 package com.muller.lappli.service;
 
+import com.muller.lappli.domain.User;
 import com.muller.lappli.domain.UserData;
 import java.util.List;
 import java.util.Optional;
