@@ -118,6 +118,8 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
                 //If it observes through a Strand
                 Strand strand = strandSupply.getStrand();
 
+                //TODO: Check that Assemblies deletion here (Central/Core/Interstice)
+                //is useful upon finishing feature/AutoAssembly
                 if (strand.getCentralAssembly() != null) {
                     //If the strand owns a CentralAssembly,
                     //Delete it, it is logical through interface to do so
