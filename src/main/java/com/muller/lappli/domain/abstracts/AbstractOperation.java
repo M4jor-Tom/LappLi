@@ -41,7 +41,9 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
     /**
      * @return the strand which owns this assembly
      */
-    @JsonIgnoreProperties(value = { "operations", "nonAssemblyOperations", "assemblies" })
+    @JsonIgnoreProperties(
+        value = { "operations", "nonAssemblyOperations", "assemblies", "centralAssembly", "coreAssemblies", "IntersticeAssemblies" }
+    )
     public abstract Strand getOwnerStrand();
 
     /**
