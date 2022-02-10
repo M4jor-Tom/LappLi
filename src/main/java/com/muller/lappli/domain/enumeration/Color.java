@@ -75,19 +75,52 @@ public enum Color {
 
     private Color[] colors;
 
+    /**
+     * Creates an atomic color
+     *
+     * @param designation the designation
+     */
     private Color(String designation) {
         setDesignation(designation);
         setColors(null);
     }
 
+    /**
+     * Creates a composite color
+     *
+     * @param colors the composing colors
+     */
     private Color(Color... colors) {
         setDesignation(null);
         setColors(colors);
     }
 
+    /**
+     * Tells if the color is composite (true), meaning
+     * composed of other colors, or atomic (false), meaning
+     * not composed of anything.
+     *
+     * @return a Boolean
+     */
+    public Boolean isComposite() {
+        return getColors() != null;
+    }
+
+    /**
+     * The designation of the color.
+     *
+     * It will be merged from composing colors'
+     * designations if {@link Color#getColors()} is null,
+     * in the case of a composite Color, then.
+     *
+     * Otherwise, in the case of an atomic color, it
+     * will just read its value.
+     *
+     * @return the designation
+     */
     public String getDesignation() {
-        if (getColors() == null) {
-            return designation;
+        if (isComposite()) {
+            return this.designation;
         }
 
         String designation = "";
@@ -102,15 +135,26 @@ public enum Color {
         return designation;
     }
 
-    public void setDesignation(String designation) {
+    private void setDesignation(String designation) {
         this.designation = designation;
     }
 
+    /**
+     * The list of the composing colors.
+     *
+     * In the case of a composite color,
+     * it will return each composing color.
+     *
+     * In the case of an atomic color,
+     * it will return null.
+     *
+     * @return the list of colors
+     */
     public Color[] getColors() {
-        return colors;
+        return this.colors;
     }
 
-    public void setColors(Color[] colors) {
+    private void setColors(Color[] colors) {
         this.colors = colors;
     }
 }
