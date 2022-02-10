@@ -87,7 +87,7 @@ public enum Color {
 
     public String getDesignation() {
         if (getColors() == null) {
-            return designation;
+            return this.designation;
         }
 
         String designation = "";
