@@ -52,7 +52,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
 
     @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "ownerCentralAssembly", "ownerStrand", "ownerIntersticeAssembly" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "owner", "ownerCentralAssembly", "ownerStrand", "ownerIntersticeAssembly" }, allowSetters = true)
     private Set<SupplyPosition> supplyPositions = new HashSet<>();
 
     @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
