@@ -163,6 +163,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
      * @return the seeked operation
      */
     @JsonIgnore
+    @JsonIgnoreProperties("ownerStrand")
     public AbstractOperation<?> getLastOperationBefore(AbstractOperation<?> operation) {
         AbstractOperation<?> beforeOperation = null;
 
@@ -272,6 +273,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     /**
      * @return all the assemblies
      */
+    @JsonIgnoreProperties("ownerStrand")
     public Set<AbstractAssembly<?>> getAssemblies() {
         HashSet<AbstractAssembly<?>> assemblies = new HashSet<>();
 
@@ -288,6 +290,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     /**
      * @return all operations which are not assemblies
      */
+    @JsonIgnoreProperties("ownerStrand")
     public Set<AbstractOperation<?>> getNonAssemblyOperations() {
         HashSet<AbstractOperation<?>> operations = new HashSet<>();
 
@@ -299,6 +302,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     /**
      * @return all the operations
      */
+    @JsonIgnoreProperties("ownerStrand")
     public Set<AbstractOperation<?>> getOperations() {
         LinkedHashSet<AbstractOperation<?>> operations = new LinkedHashSet<>();
 
