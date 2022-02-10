@@ -42,7 +42,7 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
     @Column(name = "marking_type", nullable = false)
     private MarkingType markingType;
 
-    @OneToMany(mappedBy = "customComponentSupply", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "customComponentSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
         value = {
