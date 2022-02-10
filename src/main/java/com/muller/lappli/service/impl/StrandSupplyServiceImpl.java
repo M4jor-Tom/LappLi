@@ -1,9 +1,15 @@
 package com.muller.lappli.service.impl;
 
+import com.muller.lappli.domain.CoreAssembly;
+import com.muller.lappli.domain.IntersticeAssembly;
 import com.muller.lappli.domain.Sheathing;
+import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.repository.StrandSupplyRepository;
+import com.muller.lappli.service.CentralAssemblyService;
+import com.muller.lappli.service.CoreAssemblyService;
+import com.muller.lappli.service.IntersticeAssemblyService;
 import com.muller.lappli.service.SheathingService;
 import com.muller.lappli.service.StrandSupplyService;
 import java.util.List;
@@ -24,10 +30,25 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
 
     private final StrandSupplyRepository strandSupplyRepository;
 
+    private final CentralAssemblyService centralAssemblyService;
+
+    private final CoreAssemblyService coreAssemblyService;
+
+    private final IntersticeAssemblyService intersticeAssemblyService;
+
     private final SheathingService sheathingService;
 
-    public StrandSupplyServiceImpl(StrandSupplyRepository strandSupplyRepository, SheathingService sheathingService) {
+    public StrandSupplyServiceImpl(
+        StrandSupplyRepository strandSupplyRepository,
+        CentralAssemblyService centralAssemblyService,
+        CoreAssemblyService coreAssemblyService,
+        IntersticeAssemblyService intersticeAssemblyService,
+        SheathingService sheathingService
+    ) {
         this.strandSupplyRepository = strandSupplyRepository;
+        this.centralAssemblyService = centralAssemblyService;
+        this.coreAssemblyService = coreAssemblyService;
+        this.intersticeAssemblyService = intersticeAssemblyService;
         this.sheathingService = sheathingService;
     }
 
@@ -92,11 +113,38 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
 
         if (strandSupplyOptional.isPresent()) {
             //If we're deleting some StrandSupply which exists
-            if (strandSupplyOptional.get().getStrand() != null) {
+            StrandSupply strandSupply = strandSupplyOptional.get();
+            if (strandSupply.getStrand() != null) {
                 //If it observes through a Strand
-                if (strandSupplyOptional.get().getStrand().getSheathings() != null) {
+                Strand strand = strandSupply.getStrand();
+
+                //TODO: Check that Assemblies deletion here (Central/Core/Interstice)
+                //is useful upon finishing feature/AutoAssembly
+                if (strand.getCentralAssembly() != null) {
+                    //If the strand owns a CentralAssembly,
+                    //Delete it, it is logical through interface to do so
+                    centralAssemblyService.delete(strand.getCentralAssembly().getId());
+                }
+
+                if (strand.getCoreAssemblies() != null) {
+                    //If the strand owns CoreAssemblies
+                    for (CoreAssembly coreAssembly : strand.getCoreAssemblies()) {
+                        //Delete those, it is logical through interface to do so
+                        coreAssemblyService.delete(coreAssembly.getId());
+                    }
+                }
+
+                if (strand.getIntersticeAssemblies() != null) {
+                    //If the strand owns IntersticeAssemblies
+                    for (IntersticeAssembly intersticeAssembly : strand.getIntersticeAssemblies()) {
+                        //Delete those, it is logical through interface to do so
+                        intersticeAssemblyService.delete(intersticeAssembly.getId());
+                    }
+                }
+
+                if (strand.getSheathings() != null) {
                     //If the strand owns Sheathings
-                    for (Sheathing sheathing : strandSupplyOptional.get().getStrand().getSheathings()) {
+                    for (Sheathing sheathing : strand.getSheathings()) {
                         //Delete those, it is logical through interface to do so
                         sheathingService.delete(sheathing.getId());
                     }
