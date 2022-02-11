@@ -2,32 +2,32 @@
   "lappLiApp": {
     "oneStudySupply": {
       "home": {
-        "title": "OneStudySupplies",
+        "title": "Approvisionnements Mono-Torons",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau One Study Supply",
-        "createOrEditLabel": "Créer ou éditer un One Study Supply",
-        "notFound": "Aucun One Study Supply trouvé"
+        "createLabel": "Créer un nouvel Appovisionnement Mono-Toron",
+        "createOrEditLabel": "Créer ou éditer un Appovisionnement Mono-Toron",
+        "notFound": "Aucun Appovisionnement Mono-Toron trouvé"
       },
-      "created": "Un nouveau One Study Supply a été créé avec l'identifiant {{ param }}",
-      "updated": "Le One Study Supply avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le One Study Supply avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouvel Appovisionnement Mono-Toron a été créé avec l'identifiant {{ param }}",
+      "updated": "L'Appovisionnement Mono-Toron avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "L'Appovisionnement Mono-Toron avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le One Study Supply {{ id }} ?"
+        "question": "Etes-vous certain de vouloir supprimer l'Appovisionnement Mono-Toron {{ id }} ?"
       },
       "detail": {
-        "title": "One Study Supply"
+        "title": "Appovisionnement Mono-Toron"
       },
       "id": "ID",
       "apparitions": "Apparitions",
-      "number": "Number",
-      "componentDesignation": "Component Designation",
+      "number": "Numéro",
+      "componentDesignation": "Désignation de composant",
       "description": "Description",
-      "markingType": "Marking Type",
-      "gramPerMeterLinearMass": "Gram Per Meter Linear Mass",
-      "milimeterDiameter": "Milimeter Diameter",
-      "surfaceColor": "Surface Color",
-      "surfaceMaterial": "Surface Material",
-      "strand": "Strand"
+      "markingType": "Type de marquage",
+      "gramPerMeterLinearMass": "Masse linéique (g/m)",
+      "milimeterDiameter": "Diamètre (mm)",
+      "surfaceColor": "Couleur de surface",
+      "surfaceMaterial": "Materiau de surface",
+      "strand": "Toron"
     }
   }
 }
