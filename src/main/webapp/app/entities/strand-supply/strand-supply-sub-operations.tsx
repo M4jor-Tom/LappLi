@@ -42,6 +42,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
         &nbsp;
         <Translate contentKey="lappLiApp.assembly.detail.title">Assembly</Translate>
       </Link>
+      &nbsp;
       <Link
         to={`${props.match.url}/sheathing/new`}
         className="btn btn-primary jh-create-entity"
