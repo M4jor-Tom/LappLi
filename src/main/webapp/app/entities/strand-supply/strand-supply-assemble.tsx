@@ -69,6 +69,7 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
 
     if (setCentralAssembly) {
       const centralAssemblyEntity: ICentralAssembly = {
+        ownerStrand: strandEntity,
         supplyPosition: {
           supplyApparitionsUsage: 1,
           supply: {},
@@ -80,6 +81,7 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
 
     for (let i: number; i < coreLayersCount; i++) {
       const coreAssemblyEntity: ICoreAssembly = {
+        ownerStrand: strandEntity,
         assemblyLayer: NaN,
         componentsCount: NaN,
       };
@@ -89,6 +91,7 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
 
     for (let i: number; i < intersticeLayersCount; i++) {
       const intersticeAssemblyEntity: IIntersticeAssembly = {
+        ownerStrand: strandEntity,
         assemblyLayer: NaN,
         intersticeLayer: NaN,
         supplyPosition: {
