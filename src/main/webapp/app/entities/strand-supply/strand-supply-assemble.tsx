@@ -22,6 +22,7 @@ import { toNumber } from 'lodash';
 import { ICoreAssembly } from 'app/shared/model/core-assembly.model';
 import { ICentralAssembly } from 'app/shared/model/central-assembly.model';
 import { IIntersticeAssembly } from 'app/shared/model/interstice-assembly.model';
+import { AssemblyMean } from 'app/shared/model/enumerations/assembly-mean.model';
 
 export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_id: string; study_id: string }>) => {
   const dispatch = useAppDispatch();
@@ -30,6 +31,7 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
   const studyEntity = useAppSelector(state => state.study.entity);
   const updating = useAppSelector(state => state.strandSupply.updating);
   const updateSuccess = useAppSelector(state => state.strandSupply.updateSuccess);
+  const assemblyMeanValues = Object.keys(AssemblyMean);
   const handleClose = () => {
     const path: string = getOut(props.match.url, 1);
     props.history.push(path);
@@ -88,6 +90,26 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
       <Row className="justify-content-center">
         <Col md="8">
           <ValidatedForm onSubmit={saveEntities}>
+            <ValidatedField
+              name="diameterAssemblyStep"
+              required
+              id="diameter-assembly-step"
+              label={translate('lappLiApp.strand.diameterAssemblyStep')}
+              validate={{ required: true }}
+            />
+            <ValidatedField
+              label={translate('lappLiApp.strand.assemblyMean')}
+              id="strand-assembly-mean"
+              name="assemblyMean"
+              data-cy="assemblyMean"
+              type="select"
+            >
+              {assemblyMeanValues.map(assemblyMean => (
+                <option value={assemblyMean} key={assemblyMean}>
+                  {translate('lappLiApp.AssemblyMean.' + assemblyMean)}
+                </option>
+              ))}
+            </ValidatedField>
             <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" onClick={handleClose} replace color="info">
               <FontAwesomeIcon icon="arrow-left" />
               &nbsp;
