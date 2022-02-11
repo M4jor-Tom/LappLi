@@ -2,7 +2,8 @@
   "lappLiApp": {
     "assembly": {
       "home": {
-        "notFound": "Aucun asseblage trouvé"
+        "notFound": "Aucun asseblage trouvé",
+        "createLabel": "Créer un nouvel Assemblage"
       },
       "detail": {
         "title": "Assemblage"

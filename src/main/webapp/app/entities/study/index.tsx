@@ -31,6 +31,7 @@ import StrandCompute from '../strand/strand-compute';
 import StrandDeleteDialog from '../strand/strand-delete-dialog';
 import SheathingUpdate from '../sheathing/sheathing-update';
 import SheathingDeleteDialog from '../sheathing/sheathing-delete-dialog';
+import { StrandSupplyAssemble } from '../strand-supply/strand-supply-assemble';
 
 const studySuppliesUrlPrefix = '/:study_id/study-supplies';
 
@@ -80,6 +81,12 @@ const Routes = ({ match }) => (
         exact
         path={`${match.url + strandSupplyOperationZoneUrlPrefix}/sheathing/:id/delete`}
         component={SheathingDeleteDialog}
+      />
+
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/assemblies/new`}
+        component={StrandSupplyAssemble}
       />
 
       <ErrorBoundaryRoute
