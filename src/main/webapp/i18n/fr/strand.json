@@ -31,7 +31,9 @@
       "operations": "Opérations",
       "operationKind": "Genre d'Opération",
       "noSuppliesFound": "Aucun approvisionnement trouvé",
-      "oneStudySupplies": "Approvisionnements Mono-Torons"
+      "oneStudySupplies": "Approvisionnements Mono-Torons",
+      "diameterAssemblyStep": "Pas d'Assemblage (D)",
+      "assemblyMean": "Sens d'assemblage"
     }
   }
 }

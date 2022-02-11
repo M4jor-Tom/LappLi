@@ -31,7 +31,9 @@
       "operations": "Operations",
       "operationKind": "OperationKind",
       "noSuppliesFound": "No Supplies Found",
-      "oneStudySupplies": "One Study Supplies"
+      "oneStudySupplies": "One Study Supplies",
+      "diameterAssemblyStep": "Assembly Step (D)",
+      "assemblyMean": "Assembly Mean"
     }
   }
 }
