@@ -2,20 +2,20 @@
   "lappLiApp": {
     "strandSupply": {
       "home": {
-        "title": "StrandSupplies",
+        "title": "Approvisionnements de Torons",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Strand Supply",
-        "createOrEditLabel": "Créer ou éditer un Strand Supply",
-        "notFound": "Aucun Strand Supply trouvé"
+        "createLabel": "Créer un nouvel Approvisionnement de Toron",
+        "createOrEditLabel": "Créer ou éditer un Approvisionnement de Toron",
+        "notFound": "Aucun Approvisionnement de Toron trouvé"
       },
-      "created": "Un nouveau Strand Supply a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Strand Supply avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Strand Supply avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouvel Approvisionnement de Toron a été créé avec l'identifiant {{ param }}",
+      "updated": "L'Approvisionnement de Toron avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "L'Approvisionnement de Toron avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Strand Supply {{ id }} ?"
+        "question": "Etes-vous certain de vouloir supprimer le Approvisionnement de Toron {{ id }} ?"
       },
       "detail": {
-        "title": "Strand Supply"
+        "title": "Approvisionnement de Toron"
       },
       "errors": {
         "apparitionsIsNotSubSupplyCountsCommonDivider": "Le nombre d'apparition du toron n'est pas diviseur commun des apparitions de ses approvisionnements",
@@ -25,10 +25,10 @@
       "subSuppliesToAssemble": "Approvisionnements à assembler",
       "strandsCount": "Nombre de torons",
       "apparitions": "Apparitions",
-      "markingType": "Marking Type",
+      "markingType": "Type de Marquage",
       "description": "Description",
-      "strand": "Strand",
-      "study": "Study"
+      "strand": "Toron",
+      "study": "Etude"
     }
   }
 }
