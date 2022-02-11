@@ -5,7 +5,7 @@ import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'r
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IStrand } from 'app/shared/model/strand.model';
-import { getEntity as getStrand } from 'app/entities/strand/strand.reducer';
+import { getEntity as getStrand, updateEntity as updateStrandEntity } from 'app/entities/strand/strand.reducer';
 import { getEntity as getStrandSupply } from 'app/entities/strand-supply/strand-supply.reducer';
 import { IStudy } from 'app/shared/model/study.model';
 import { getEntity as getStudy } from 'app/entities/study/study.reducer';
@@ -59,20 +59,43 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
   const intersticeLayersCount = 0;
 
   const saveEntities = values => {
+    const updatedStrand: IStrand = {
+      id: strandEntity.id,
+      diameterAssemblyStep: values.diameterAssemblyStep,
+      assemblyMean: values,
+    };
+
+    dispatch(updateStrandEntity(updatedStrand));
+
     if (setCentralAssembly) {
-      const centralAssemblyEntity: ICentralAssembly = {};
+      const centralAssemblyEntity: ICentralAssembly = {
+        supplyPosition: {
+          supplyApparitionsUsage: 1,
+          supply: {},
+        },
+      };
 
       dispatch(createCentralAssemblyEntity(centralAssemblyEntity));
     }
 
     for (let i: number; i < coreLayersCount; i++) {
-      const coreAssemblyEntity: ICoreAssembly = {};
+      const coreAssemblyEntity: ICoreAssembly = {
+        assemblyLayer: NaN,
+        componentsCount: NaN,
+      };
 
       dispatch(createCoreAssemblyEntity(coreAssemblyEntity));
     }
 
     for (let i: number; i < intersticeLayersCount; i++) {
-      const intersticeAssemblyEntity: IIntersticeAssembly = {};
+      const intersticeAssemblyEntity: IIntersticeAssembly = {
+        assemblyLayer: NaN,
+        intersticeLayer: NaN,
+        supplyPosition: {
+          supplyApparitionsUsage: NaN,
+          supply: {},
+        },
+      };
 
       dispatch(createIntersticeAssemblyEntity(intersticeAssemblyEntity));
     }
