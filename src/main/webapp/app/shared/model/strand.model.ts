@@ -9,10 +9,13 @@ import { ICentralAssembly } from 'app/shared/model/central-assembly.model';
 import { IStudy } from 'app/shared/model/study.model';
 import { IAbstractOperation } from './abstract-operation.model';
 import { ISupplyPosition } from './supply-position.model';
+import { AssemblyMean } from './enumerations/assembly-mean.model';
 
 export interface IStrand {
   id?: number;
   designation?: string;
+  diameterAssemblyStep?: number;
+  assemblyMean?: AssemblyMean;
   operations?: IAbstractOperation[] | null;
   nonAssemblyOperations?: IAbstractOperation[] | null;
   coreAssemblies?: ICoreAssembly[] | null;
