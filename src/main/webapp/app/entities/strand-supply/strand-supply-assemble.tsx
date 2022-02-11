@@ -26,7 +26,6 @@ import { IIntersticeAssembly } from 'app/shared/model/interstice-assembly.model'
 export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_id: string; study_id: string }>) => {
   const dispatch = useAppDispatch();
 
-  const strandEntity = useAppSelector(state => state.strand.entity);
   const strandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
   const studyEntity = useAppSelector(state => state.study.entity);
   const updating = useAppSelector(state => state.strandSupply.updating);
@@ -43,11 +42,9 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
 
     dispatch(getStrandSupply(props.match.params.strand_supply_id));
     dispatch(getStudy(props.match.params.study_id));
-
-    if (strandSupplyEntity.strand) {
-      dispatch(getStrand(strandSupplyEntity.strand.id));
-    }
   }, []);
+
+  const strandEntity: IStrand = strandSupplyEntity.strand;
 
   useEffect(() => {
     if (updateSuccess) {
