@@ -12,6 +12,7 @@ describe('Header', () => {
   const devProps = {
     isAuthenticated: true,
     isAdmin: true,
+    isStudist: false,
     currentLocale: 'en',
     ribbonEnv: 'dev',
     isInProduction: false,
@@ -23,14 +24,21 @@ describe('Header', () => {
     isInProduction: true,
     isOpenAPIEnabled: false,
   };
+  const studistProps = {
+    ...prodProps,
+    isAdmin: false,
+    isStudist: true,
+  };
   const userProps = {
     ...prodProps,
     isAdmin: false,
+    isStudist: false,
   };
   const guestProps = {
     ...prodProps,
     isAdmin: false,
     isAuthenticated: false,
+    isStudist: false,
   };
 
   const wrapper = (props = devProps) => {
@@ -82,6 +90,21 @@ describe('Header', () => {
     expect(html).toContain('account-menu');
     // No Ribbon
     expect(html).not.toContain('ribbon');
+  });
+
+  it('Renders a Header component in prod profile with logged in User', () => {
+    const html = wrapper(studistProps);
+
+    // Find Navbar component
+    expect(html).toContain('navbar');
+    // Not find AdminMenu component
+    expect(html).not.toContain('admin-menu');
+    // Find EntitiesMenu component
+    expect(html).not.toContain('entity-menu');
+    // Find StudyOfficeMenu component
+    expect(html).toContain('study-office-menu');
+    // Find AccountMenu component
+    expect(html).toContain('account-menu');
   });
 
   it('Renders a Header component in prod profile with logged in User', () => {
