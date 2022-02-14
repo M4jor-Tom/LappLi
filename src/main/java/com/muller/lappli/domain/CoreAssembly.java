@@ -78,6 +78,26 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         }
     }
 
+    /**
+     * @return the assembly void, with the supplied components'
+     * average milimeter diameter as a unit
+     */
+    public Double getSuppliedComponentsAverageDiameterAssemblyVoid() {
+        //TODO: Put assembly void formula here
+        return Double.NaN;
+    }
+
+    /**
+     * @return the assembly void in milimeters
+     */
+    public Double getMilimeterAssemblyVoid() {
+        try {
+            return getSuppliedComponentsAverageDiameterAssemblyVoid() * getOwnerStrand().getSuppliedComponentsAverageMilimeterDiameter();
+        } catch (NullPointerException e) {
+            return Double.NaN;
+        }
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override
