@@ -13,6 +13,7 @@ import { setLocale } from 'app/shared/reducers/locale';
 export interface IHeaderProps {
   isAuthenticated: boolean;
   isAdmin: boolean;
+  isStudist: boolean;
   ribbonEnv: string;
   isInProduction: boolean;
   isOpenAPIEnabled: boolean;
