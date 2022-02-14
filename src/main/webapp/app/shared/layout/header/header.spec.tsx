@@ -93,6 +93,21 @@ describe('Header', () => {
   });
 
   it('Renders a Header component in prod profile with logged in User', () => {
+    const html = wrapper(studistProps);
+
+    // Find Navbar component
+    expect(html).toContain('navbar');
+    // Not find AdminMenu component
+    expect(html).not.toContain('admin-menu');
+    // Find EntitiesMenu component
+    expect(html).not.toContain('entity-menu');
+    // Find StudyOfficeMenu component
+    expect(html).toContain('study-office-menu');
+    // Find AccountMenu component
+    expect(html).toContain('account-menu');
+  });
+
+  it('Renders a Header component in prod profile with logged in User', () => {
     const html = wrapper(userProps);
 
     // Find Navbar component
