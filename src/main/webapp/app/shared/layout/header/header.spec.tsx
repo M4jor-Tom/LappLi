@@ -12,7 +12,7 @@ describe('Header', () => {
   const devProps = {
     isAuthenticated: true,
     isAdmin: true,
-    isStudist: true,
+    isStudist: false,
     currentLocale: 'en',
     ribbonEnv: 'dev',
     isInProduction: false,
