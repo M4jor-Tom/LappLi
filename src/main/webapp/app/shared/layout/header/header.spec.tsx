@@ -24,6 +24,11 @@ describe('Header', () => {
     isInProduction: true,
     isOpenAPIEnabled: false,
   };
+  const studistProps = {
+    ...prodProps,
+    isAdmin: false,
+    isStudist: true,
+  };
   const userProps = {
     ...prodProps,
     isAdmin: false,
