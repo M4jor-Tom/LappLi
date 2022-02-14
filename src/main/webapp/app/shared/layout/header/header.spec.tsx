@@ -12,6 +12,7 @@ describe('Header', () => {
   const devProps = {
     isAuthenticated: true,
     isAdmin: true,
+    isStudist: true,
     currentLocale: 'en',
     ribbonEnv: 'dev',
     isInProduction: false,
@@ -26,11 +27,13 @@ describe('Header', () => {
   const userProps = {
     ...prodProps,
     isAdmin: false,
+    isStudist: false,
   };
   const guestProps = {
     ...prodProps,
     isAdmin: false,
     isAuthenticated: false,
+    isStudist: false,
   };
 
   const wrapper = (props = devProps) => {
