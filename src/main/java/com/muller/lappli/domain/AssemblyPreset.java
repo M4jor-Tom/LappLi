@@ -8,8 +8,7 @@ public class AssemblyPreset {
     public AssemblyPreset() {}
 
     public AssemblyPreset(int utilityComponentsCount, int completionComponentsCount) {
-        setUtilityComponentsCount(Long.valueOf(utilityComponentsCount));
-        setCompletionComponentsCount(Long.valueOf(completionComponentsCount));
+        this(Long.valueOf(utilityComponentsCount), Long.valueOf(completionComponentsCount));
     }
 
     public AssemblyPreset(Long utilityComponentsCount, Long completionComponentsCount) {
