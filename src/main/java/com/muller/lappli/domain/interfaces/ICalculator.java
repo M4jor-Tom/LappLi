@@ -1,10 +1,12 @@
 package com.muller.lappli.domain.interfaces;
 
+import com.muller.lappli.domain.AssemblyPresetDistributionPossibility;
 import com.muller.lappli.domain.CalculatorEmptyImpl;
 import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.enumeration.AssemblyDistributionPreset;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 public interface ICalculator {
     public static ICalculator getInstance() {
@@ -49,4 +51,6 @@ public interface ICalculator {
         Long suppliesCountIfNoStrandProvided,
         Long assemblyIndex
     ) throws IllegalArgumentException;
+
+    public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilitiesForComponentsCount(Long suppliesCount);
 }

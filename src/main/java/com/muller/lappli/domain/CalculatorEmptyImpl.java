@@ -2,6 +2,8 @@ package com.muller.lappli.domain;
 
 import com.muller.lappli.domain.enumeration.AssemblyDistributionPreset;
 import com.muller.lappli.domain.interfaces.ICalculator;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CalculatorEmptyImpl implements ICalculator {
 
@@ -24,5 +26,10 @@ public class CalculatorEmptyImpl implements ICalculator {
         Long assemblyIndex
     ) throws IllegalArgumentException {
         return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+    }
+
+    @Override
+    public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilitiesForComponentsCount(Long suppliesCount) {
+        return new ArrayList<AssemblyPresetDistributionPossibility>();
     }
 }
