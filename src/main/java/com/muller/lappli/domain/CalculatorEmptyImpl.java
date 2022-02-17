@@ -53,4 +53,9 @@ public class CalculatorEmptyImpl implements ICalculator {
         // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
         return getClass().hashCode();
     }
+
+    @Override
+    public Long AssemblyPresetDistributionCalculatorCount() {
+        return Long.valueOf(DomainManager.ERROR_LONG_POSITIVE_VALUE);
+    }
 }

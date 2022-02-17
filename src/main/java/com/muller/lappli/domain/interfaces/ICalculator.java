@@ -52,4 +52,6 @@ public interface ICalculator {
     public IAssemblyPresetDistributionCalculator getCorrespondingAssemblyPresetDistributionCalculator(
         AssemblyPresetDistribution assemblyPresetDistribution
     );
+
+    public Long AssemblyPresetDistributionCalculatorCount();
 }
