@@ -29,9 +29,7 @@ public interface ICalculator {
         return new CalculatorEmptyImpl();
     }
 
-    public default Boolean instanceIsCompagnySecret() {
-        return getClass().getSimpleName().equals(DomainManager.TARGET_CALCULATOR_INSTANCE_CLASS_NAME);
-    }
+    public Boolean isTargetCalculatorInstance();
 
     public Double getSuppliedComponentsAverageDiameterCentralVoidDiameter(Long componentsCount, Double diameterAssemblyStep);
 

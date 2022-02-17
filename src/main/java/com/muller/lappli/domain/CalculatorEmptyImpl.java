@@ -45,4 +45,9 @@ public class CalculatorEmptyImpl implements ICalculator {
             }
         };
     }
+
+    @Override
+    public Boolean isTargetCalculatorInstance() {
+        return false;
+    }
 }
