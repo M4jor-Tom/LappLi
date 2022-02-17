@@ -1,10 +1,6 @@
 package com.muller.lappli.domain.interfaces;
 
 import com.muller.lappli.domain.*;
-import com.muller.lappli.domain.AssemblyPresetDistributionPossibility;
-import com.muller.lappli.domain.CalculatorEmptyImpl;
-import com.muller.lappli.domain.DomainManager;
-import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.enumeration.AssemblyPresetDistribution;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
