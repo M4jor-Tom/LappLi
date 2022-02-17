@@ -55,5 +55,7 @@ public interface ICalculator {
         AssemblyPresetDistribution assemblyPresetDistribution
     );
 
-    public IAssemblyPresetDistribution getCorrespondingAssemblyPresetDistribution(AssemblyPresetDistribution assemblyPresetDistribution);
+    public IAssemblyPresetDistributionCalculator getCorrespondingAssemblyPresetDistributionCalculator(
+        AssemblyPresetDistribution assemblyPresetDistribution
+    );
 }

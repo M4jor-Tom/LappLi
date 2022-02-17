@@ -1,7 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.muller.lappli.domain.enumeration.AssemblyPresetDistribution;
-import com.muller.lappli.domain.interfaces.IAssemblyPresetDistribution;
+import com.muller.lappli.domain.interfaces.IAssemblyPresetDistributionCalculator;
 import com.muller.lappli.domain.interfaces.ICalculator;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +37,10 @@ public class CalculatorEmptyImpl implements ICalculator {
     }
 
     @Override
-    public IAssemblyPresetDistribution getCorrespondingAssemblyPresetDistribution(AssemblyPresetDistribution assemblyPresetDistribution) {
-        return new IAssemblyPresetDistribution() {
+    public IAssemblyPresetDistributionCalculator getCorrespondingAssemblyPresetDistributionCalculator(
+        AssemblyPresetDistribution assemblyPresetDistribution
+    ) {
+        return new IAssemblyPresetDistributionCalculator() {
             @Override
             public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilities() {
                 return new ArrayList<>();

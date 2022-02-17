@@ -1,7 +1,7 @@
 package com.muller.lappli.domain.enumeration;
 
 import com.muller.lappli.domain.AssemblyPresetDistributionPossibility;
-import com.muller.lappli.domain.interfaces.IAssemblyPresetDistribution;
+import com.muller.lappli.domain.interfaces.IAssemblyPresetDistributionCalculator;
 import com.muller.lappli.domain.interfaces.ICalculator;
 import java.util.List;
 
@@ -79,8 +79,8 @@ public enum AssemblyPresetDistribution {
 
     private AssemblyPresetDistribution() {}
 
-    public IAssemblyPresetDistribution getCalculatedInstance() {
-        return ICalculator.getInstance().getCorrespondingAssemblyPresetDistribution(this);
+    public IAssemblyPresetDistributionCalculator getAssemblyPresetDistributionCalculator() {
+        return ICalculator.getInstance().getCorrespondingAssemblyPresetDistributionCalculator(this);
     }
 
     public Long getAssembliesCount() {
