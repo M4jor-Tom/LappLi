@@ -40,6 +40,16 @@ public class CalculatorEmptyImpl implements ICalculator {
             public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilities() {
                 return new ArrayList<AssemblyPresetDistributionPossibility>();
             }
+
+            @Override
+            public AssemblyPresetDistributionPossibility getFaclutativeCentralCompletionComponentAssemblyPresetDistributionPossibilities() {
+                return new AssemblyPresetDistributionPossibility();
+            }
+
+            @Override
+            public AssemblyPresetDistributionPossibility getForcedCentralUtilityComponentAssemblyPresetDistributionPossibilities() {
+                return new AssemblyPresetDistributionPossibility();
+            }
         };
     }
 

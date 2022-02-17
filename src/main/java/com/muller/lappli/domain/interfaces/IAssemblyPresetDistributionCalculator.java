@@ -5,4 +5,8 @@ import java.util.List;
 
 public interface IAssemblyPresetDistributionCalculator {
     public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilities();
+
+    public AssemblyPresetDistributionPossibility getFaclutativeCentralCompletionComponentAssemblyPresetDistributionPossibilities();
+
+    public AssemblyPresetDistributionPossibility getForcedCentralUtilityComponentAssemblyPresetDistributionPossibilities();
 }
