@@ -13,10 +13,10 @@ public class AssemblyPresetDistributionPossibility {
 
     public AssemblyPresetDistributionPossibility(
         Double milimeterDiameterBeforeCentralCompletionComponent,
-        AssemblyPreset... assemblyPreset
+        AssemblyPreset... assemblyPresets
     ) {
         setMilimeterDiameterBeforeCentralCompletionComponent(milimeterDiameterBeforeCentralCompletionComponent);
-        setAssemblyPresets(assemblyPresets);
+        setAssemblyPresets(List.of(assemblyPresets));
     }
 
     public Boolean isConform(Long componentsCountToCheckEqual) {
