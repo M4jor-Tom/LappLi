@@ -5,7 +5,7 @@ import com.muller.lappli.domain.interfaces.IAssemblyPresetDistribution;
 import com.muller.lappli.domain.interfaces.ICalculator;
 import java.util.List;
 
-public enum AssemblyPresetDistribution implements IAssemblyPresetDistribution {
+public enum AssemblyPresetDistribution {
     FOR_1(),
     FOR_2(),
     FOR_3(),
