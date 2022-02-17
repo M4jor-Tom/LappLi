@@ -1,8 +1,8 @@
 package com.muller.lappli.domain.enumeration;
 
 import com.muller.lappli.domain.AssemblyPresetDistributionPossibility;
+import com.muller.lappli.domain.CalculatorManager;
 import com.muller.lappli.domain.interfaces.IAssemblyPresetDistributionCalculator;
-import com.muller.lappli.domain.interfaces.ICalculator;
 import java.util.List;
 
 public enum AssemblyPresetDistribution {
@@ -80,7 +80,7 @@ public enum AssemblyPresetDistribution {
     private AssemblyPresetDistribution() {}
 
     public IAssemblyPresetDistributionCalculator getAssemblyPresetDistributionCalculator() {
-        return ICalculator.getInstance().getCorrespondingAssemblyPresetDistributionCalculator(this);
+        return CalculatorManager.getCalculatorInstance().getCorrespondingAssemblyPresetDistributionCalculator(this);
     }
 
     public Long getAssembliesCount() {
@@ -88,7 +88,7 @@ public enum AssemblyPresetDistribution {
     }
 
     public Long getSuppliesCountAtAssembly(Long assemblyIndex) {
-        return ICalculator.getInstance().getSuppliesCountAtAssembly(null, getAssembliesCount(), assemblyIndex);
+        return CalculatorManager.getCalculatorInstance().getSuppliesCountAtAssembly(null, getAssembliesCount(), assemblyIndex);
     }
 
     public Double getFinalMilimeterDiameter() {
@@ -114,7 +114,7 @@ public enum AssemblyPresetDistribution {
     }
 
     public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilities() {
-        return ICalculator.getInstance().getAssemblyPresetDistributionPossibilitiesForAssemblyPresetDistribution(this);
+        return CalculatorManager.getCalculatorInstance().getAssemblyPresetDistributionPossibilitiesForAssemblyPresetDistribution(this);
     }
 
     @Override

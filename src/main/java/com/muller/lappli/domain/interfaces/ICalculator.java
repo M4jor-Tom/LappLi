@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public interface ICalculator {
-    public static ICalculator getInstance() {
+    public static ICalculator getNewInstance() {
         try {
             return (ICalculator) Class.forName(DomainManager.TARGET_CALCULATOR_INSTANCE_CLASS_NAME).getConstructor().newInstance();
         } catch (ClassNotFoundException e) {
