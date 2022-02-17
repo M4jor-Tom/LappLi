@@ -120,4 +120,11 @@ public enum AssemblyPresetDistribution {
     public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilities() {
         return ICalculator.getInstance().getAssemblyPresetDistributionPossibilitiesForAssemblyPresetDistribution(this);
     }
+
+    @Override
+    public String toString() {
+        return (
+            "AssemblyPresetDistribution{" + "assemblyPresetDistributionPossibilities=" + getAssemblyPresetDistributionPossibilities() + "}"
+        );
+    }
 }
