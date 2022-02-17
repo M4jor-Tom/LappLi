@@ -43,8 +43,6 @@ public interface ICalculator {
         );
     }
 
-    public Boolean assemblyPresetDistributionMustHaveCentralComponent(AssemblyPresetDistribution assemblyPresetDistribution);
-
     public Long getSuppliesCountAtAssembly(
         Strand strandIfNoSuppliesCountProvided,
         Long suppliesCountIfNoStrandProvided,

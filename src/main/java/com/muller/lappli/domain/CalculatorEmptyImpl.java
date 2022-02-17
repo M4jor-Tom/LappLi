@@ -16,11 +16,6 @@ public class CalculatorEmptyImpl implements ICalculator {
     }
 
     @Override
-    public Boolean assemblyPresetDistributionMustHaveCentralComponent(AssemblyPresetDistribution assemblyPresetDistribution) {
-        return false;
-    }
-
-    @Override
     public Long getSuppliesCountAtAssembly(
         Strand strandIfNoSuppliesCountProvided,
         Long suppliesCountIfNoStrandProvided,
