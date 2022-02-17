@@ -103,6 +103,16 @@ public enum AssemblyPresetDistribution implements IAssemblyPresetDistribution {
         return Long.valueOf(ordinal() + 1);
     }
 
+    public Boolean assemblyPresetDistributionsAreConform() {
+        for (AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility : getAssemblyPresetDistributionPossibilities()) {
+            if (!assemblyPresetDistributionPossibility.isConform(getComponentsCount())) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public Boolean mustCentralComponent() {
         return ICalculator.getInstance().assemblyPresetDistributionMustHaveCentralComponent(this);
     }
