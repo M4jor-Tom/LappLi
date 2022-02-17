@@ -55,7 +55,7 @@ public class CalculatorEmptyImpl implements ICalculator {
     }
 
     @Override
-    public Long AssemblyPresetDistributionCalculatorCount() {
+    public Long assemblyPresetDistributionCalculatorCount() {
         return Long.valueOf(DomainManager.ERROR_LONG_POSITIVE_VALUE);
     }
 }
