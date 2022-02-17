@@ -1,5 +1,6 @@
 package com.muller.lappli.domain.interfaces;
 
+import com.muller.lappli.domain.*;
 import com.muller.lappli.domain.AssemblyPresetDistributionPossibility;
 import com.muller.lappli.domain.CalculatorEmptyImpl;
 import com.muller.lappli.domain.DomainManager;

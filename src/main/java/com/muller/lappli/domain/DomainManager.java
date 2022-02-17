@@ -9,7 +9,7 @@ public class DomainManager {
      * not pushed to GitHub to make specific calculations
      * about Cables
      */
-    public static final String TARGET_CALCULATOR_INSTANCE_CLASS_NAME = "CalculatorMullerSecretImpl";
+    public static final String TARGET_CALCULATOR_INSTANCE_CLASS_NAME = "com.muller.lappli.domain.CalculatorMullerSecretImpl";
 
     /**
      * When displaying hours,
