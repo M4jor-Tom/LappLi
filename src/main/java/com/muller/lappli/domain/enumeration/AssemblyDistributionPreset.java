@@ -104,6 +104,6 @@ public enum AssemblyDistributionPreset implements IAssemblyDistributionPreset {
     }
 
     public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilities() {
-        return ICalculator.getInstance().getAssemblyPresetDistributionPossibilitiesForComponentsCount(getComponentsCount());
+        return ICalculator.getInstance().getAssemblyPresetDistributionPossibilitiesForAssemblyDistributionPreset(this);
     }
 }

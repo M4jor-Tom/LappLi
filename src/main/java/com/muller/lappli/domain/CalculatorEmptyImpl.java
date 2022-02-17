@@ -29,7 +29,9 @@ public class CalculatorEmptyImpl implements ICalculator {
     }
 
     @Override
-    public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilitiesForComponentsCount(Long suppliesCount) {
+    public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilitiesForAssemblyDistributionPreset(
+        AssemblyDistributionPreset assemblyDistributionPreset
+    ) {
         return new ArrayList<AssemblyPresetDistributionPossibility>();
     }
 }

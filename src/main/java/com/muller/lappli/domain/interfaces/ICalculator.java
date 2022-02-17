@@ -52,5 +52,7 @@ public interface ICalculator {
         Long assemblyIndex
     ) throws IllegalArgumentException;
 
-    public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilitiesForComponentsCount(Long suppliesCount);
+    public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilitiesForAssemblyDistributionPreset(
+        AssemblyDistributionPreset assemblyDistributionPreset
+    );
 }
