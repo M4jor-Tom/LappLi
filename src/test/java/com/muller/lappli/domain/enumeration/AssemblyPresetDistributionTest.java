@@ -11,6 +11,13 @@ public class AssemblyPresetDistributionTest {
     void correspondenceVerifier() {
         assertThat(CalculatorManager.getCalculatorInstance().assemblyPresetDistributionCalculatorCount())
             .isEqualTo(Long.valueOf(AssemblyPresetDistribution.values().length));
+
+        for (AssemblyPresetDistribution assemblyPresetDistribution : AssemblyPresetDistribution.values()) {
+            assertThat(
+                CalculatorManager.getCalculatorInstance().getCorrespondingAssemblyPresetDistributionCalculator(assemblyPresetDistribution)
+            )
+                .isNotNull();
+        }
     }
 
     @Test
