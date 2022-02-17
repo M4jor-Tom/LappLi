@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class AssemblyPresetDistributionTest {
 
     @Test
-    void integrityVerifier() throws Exception {
+    void assemblyPresetDistributionPossibilitiesVerifier() throws Exception {
         for (AssemblyPresetDistribution assemblyPresetDistribution : AssemblyPresetDistribution.values()) {
             assertThat(assemblyPresetDistribution.assemblyPresetDistributionPossibilitiesAreConform()).isTrue();
         }
