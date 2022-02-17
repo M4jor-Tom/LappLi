@@ -9,7 +9,7 @@ public class AssemblyPresetDistributionTest {
     @Test
     void integrityVerifier() throws Exception {
         for (AssemblyPresetDistribution assemblyPresetDistribution : AssemblyPresetDistribution.values()) {
-            assertThat(assemblyPresetDistribution.assemblyPresetDistributionsAreConform()).isTrue();
+            assertThat(assemblyPresetDistribution.assemblyPresetDistributionPossibilitiesAreConform()).isTrue();
         }
     }
 }

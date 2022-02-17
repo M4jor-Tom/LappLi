@@ -103,7 +103,7 @@ public enum AssemblyPresetDistribution {
         return Long.valueOf(ordinal() + 1);
     }
 
-    public Boolean assemblyPresetDistributionsAreConform() {
+    public Boolean assemblyPresetDistributionPossibilitiesAreConform() {
         for (AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility : getAssemblyPresetDistributionPossibilities()) {
             if (!assemblyPresetDistributionPossibility.isConform(getComponentsCount())) {
                 return false;
