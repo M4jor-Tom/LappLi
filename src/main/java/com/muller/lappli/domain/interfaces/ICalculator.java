@@ -4,7 +4,7 @@ import com.muller.lappli.domain.AssemblyPresetDistributionPossibility;
 import com.muller.lappli.domain.CalculatorEmptyImpl;
 import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.Strand;
-import com.muller.lappli.domain.enumeration.AssemblyDistributionPreset;
+import com.muller.lappli.domain.enumeration.AssemblyPresetDistribution;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -44,7 +44,7 @@ public interface ICalculator {
         );
     }
 
-    public Boolean assemblyDistributionPresetMustHaveCentralComponent(AssemblyDistributionPreset assemblyDistributionPreset);
+    public Boolean assemblyPresetDistributionMustHaveCentralComponent(AssemblyPresetDistribution assemblyPresetDistribution);
 
     public Long getSuppliesCountAtAssembly(
         Strand strandIfNoSuppliesCountProvided,
@@ -52,7 +52,7 @@ public interface ICalculator {
         Long assemblyIndex
     ) throws IllegalArgumentException;
 
-    public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilitiesForAssemblyDistributionPreset(
-        AssemblyDistributionPreset assemblyDistributionPreset
+    public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilitiesForAssemblyPresetDistribution(
+        AssemblyPresetDistribution assemblyPresetDistribution
     );
 }

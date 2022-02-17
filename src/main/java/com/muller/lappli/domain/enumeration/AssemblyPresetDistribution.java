@@ -1,11 +1,11 @@
 package com.muller.lappli.domain.enumeration;
 
 import com.muller.lappli.domain.AssemblyPresetDistributionPossibility;
-import com.muller.lappli.domain.interfaces.IAssemblyDistributionPreset;
+import com.muller.lappli.domain.interfaces.IAssemblyPresetDistribution;
 import com.muller.lappli.domain.interfaces.ICalculator;
 import java.util.List;
 
-public enum AssemblyDistributionPreset implements IAssemblyDistributionPreset {
+public enum AssemblyPresetDistribution implements IAssemblyPresetDistribution {
     FOR_1(),
     FOR_2(),
     FOR_3(),
@@ -77,7 +77,7 @@ public enum AssemblyDistributionPreset implements IAssemblyDistributionPreset {
     FOR_69(),
     FOR_70();
 
-    private AssemblyDistributionPreset() {}
+    private AssemblyPresetDistribution() {}
 
     public Long getAssembliesCount() {
         return null;
@@ -100,10 +100,10 @@ public enum AssemblyDistributionPreset implements IAssemblyDistributionPreset {
     }
 
     public Boolean mustCentralComponent() {
-        return ICalculator.getInstance().assemblyDistributionPresetMustHaveCentralComponent(this);
+        return ICalculator.getInstance().assemblyPresetDistributionMustHaveCentralComponent(this);
     }
 
     public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilities() {
-        return ICalculator.getInstance().getAssemblyPresetDistributionPossibilitiesForAssemblyDistributionPreset(this);
+        return ICalculator.getInstance().getAssemblyPresetDistributionPossibilitiesForAssemblyPresetDistribution(this);
     }
 }

@@ -1,6 +1,6 @@
 package com.muller.lappli.domain;
 
-import com.muller.lappli.domain.enumeration.AssemblyDistributionPreset;
+import com.muller.lappli.domain.enumeration.AssemblyPresetDistribution;
 import com.muller.lappli.domain.interfaces.ICalculator;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ public class CalculatorEmptyImpl implements ICalculator {
     }
 
     @Override
-    public Boolean assemblyDistributionPresetMustHaveCentralComponent(AssemblyDistributionPreset assemblyDistributionPreset) {
+    public Boolean assemblyPresetDistributionMustHaveCentralComponent(AssemblyPresetDistribution assemblyPresetDistribution) {
         return false;
     }
 
@@ -29,8 +29,8 @@ public class CalculatorEmptyImpl implements ICalculator {
     }
 
     @Override
-    public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilitiesForAssemblyDistributionPreset(
-        AssemblyDistributionPreset assemblyDistributionPreset
+    public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilitiesForAssemblyPresetDistribution(
+        AssemblyPresetDistribution assemblyPresetDistribution
     ) {
         return new ArrayList<AssemblyPresetDistributionPossibility>();
     }
