@@ -80,5 +80,5 @@ public interface ICalculator {
         AssemblyPresetDistribution assemblyPresetDistribution
     );
 
-    public Long assemblyPresetDistributionCalculatorCount();
+    public Long getAssemblyPresetDistributionCalculatorCount();
 }

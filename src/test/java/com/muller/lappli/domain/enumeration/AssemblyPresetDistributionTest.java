@@ -9,7 +9,7 @@ public class AssemblyPresetDistributionTest {
 
     @Test
     void correspondenceVerifier() {
-        assertThat(CalculatorManager.getCalculatorInstance().assemblyPresetDistributionCalculatorCount())
+        assertThat(CalculatorManager.getCalculatorInstance().getAssemblyPresetDistributionCalculatorCount())
             .isEqualTo(Long.valueOf(AssemblyPresetDistribution.values().length));
 
         for (AssemblyPresetDistribution assemblyPresetDistribution : AssemblyPresetDistribution.values()) {
