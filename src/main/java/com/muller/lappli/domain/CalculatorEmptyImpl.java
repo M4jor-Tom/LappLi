@@ -43,7 +43,7 @@ public class CalculatorEmptyImpl implements ICalculator {
         return new IAssemblyPresetDistributionCalculator() {
             @Override
             public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilities() {
-                return new ArrayList<>();
+                return new ArrayList<AssemblyPresetDistributionPossibility>();
             }
         };
     }
