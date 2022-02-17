@@ -79,6 +79,10 @@ public enum AssemblyPresetDistribution implements IAssemblyPresetDistribution {
 
     private AssemblyPresetDistribution() {}
 
+    public IAssemblyPresetDistribution getCalculatedInstance() {
+        return ICalculator.getInstance().getCorrespondingAssemblyPresetDistribution(this);
+    }
+
     public Long getAssembliesCount() {
         return null;
     }
