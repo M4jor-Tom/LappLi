@@ -55,4 +55,6 @@ public interface ICalculator {
     public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilitiesForAssemblyPresetDistribution(
         AssemblyPresetDistribution assemblyPresetDistribution
     );
+
+    public IAssemblyPresetDistribution getCorrespondingAssemblyPresetDistribution(AssemblyPresetDistribution assemblyPresetDistribution);
 }
