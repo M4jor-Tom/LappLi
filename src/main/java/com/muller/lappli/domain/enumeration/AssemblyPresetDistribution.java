@@ -113,7 +113,7 @@ public enum AssemblyPresetDistribution {
         return true;
     }
 
-    public Boolean mustCentralComponent() {
+    public Boolean mustHaveCentralComponent() {
         return ICalculator.getInstance().assemblyPresetDistributionMustHaveCentralComponent(this);
     }
 
