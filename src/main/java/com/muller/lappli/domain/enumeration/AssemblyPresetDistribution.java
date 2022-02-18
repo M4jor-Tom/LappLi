@@ -3,6 +3,7 @@ package com.muller.lappli.domain.enumeration;
 import com.muller.lappli.domain.AssemblyPreset;
 import com.muller.lappli.domain.AssemblyPresetDistributionPossibility;
 import com.muller.lappli.domain.CalculatorManager;
+import com.muller.lappli.domain.exception.ImpossibleAssemblyPresetDistributionException;
 import com.muller.lappli.domain.interfaces.IAssemblyPresetDistributionCalculator;
 import java.util.List;
 
@@ -88,7 +89,8 @@ public enum AssemblyPresetDistribution {
         return null;
     }
 
-    public AssemblyPreset getAssemblyPresetAtAssembly(Long assemblyIndex, Boolean forceCentralUtilityComponent) {
+    public AssemblyPreset getAssemblyPresetAtAssembly(Long assemblyIndex, Boolean forceCentralUtilityComponent)
+        throws ImpossibleAssemblyPresetDistributionException {
         IAssemblyPresetDistributionCalculator assemblyPresetDistributionCalculator = CalculatorManager
             .getCalculatorInstance()
             .getCorrespondingAssemblyPresetDistributionCalculator(this);
@@ -101,6 +103,10 @@ public enum AssemblyPresetDistribution {
         } else {
             assemblyPresetDistributionPossibility =
                 assemblyPresetDistributionCalculator.getFaclutativeCentralCompletionComponentAssemblyPresetDistributionPossibilities();
+        }
+
+        if (assemblyPresetDistributionPossibility == null) {
+            throw new ImpossibleAssemblyPresetDistributionException();
         }
 
         return assemblyPresetDistributionPossibility.getAssemblyPresets().get(assemblyIndex.intValue());
