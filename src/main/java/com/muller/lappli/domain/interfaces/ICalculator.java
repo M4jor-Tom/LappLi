@@ -2,6 +2,7 @@ package com.muller.lappli.domain.interfaces;
 
 import com.muller.lappli.domain.*;
 import com.muller.lappli.domain.enumeration.AssemblyPresetDistribution;
+import com.muller.lappli.domain.exception.ImpossibleAssemblyPresetDistributionException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -70,7 +71,8 @@ public interface ICalculator {
      * to be at the center of assemblies
      * @return the central diameter
      */
-    public default Double getMilimeterCentralVoidDiameter(Strand strand, Boolean forceCentralUtilityComponent) {
+    public default Double getMilimeterCentralVoidDiameter(Strand strand, Boolean forceCentralUtilityComponent)
+        throws ImpossibleAssemblyPresetDistributionException {
         return (
             strand.getSuppliedComponentsAverageMilimeterDiameter() *
             getSuppliedComponentsAverageDiameterCentralVoidDiameter(
@@ -102,7 +104,7 @@ public interface ICalculator {
         Long assemblyIndex,
         Boolean useAssemblyPresetDistributionPossibilities,
         Boolean forceCentralUtilityComponent
-    );
+    ) throws ImpossibleAssemblyPresetDistributionException;
 
     public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilitiesForAssemblyPresetDistribution(
         AssemblyPresetDistribution assemblyPresetDistribution
