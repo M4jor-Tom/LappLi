@@ -76,7 +76,7 @@ public interface ICalculator {
         return (
             strand.getSuppliedComponentsAverageMilimeterDiameter() *
             getSuppliedComponentsAverageDiameterCentralVoidDiameter(
-                getSuppliesCountAtAssembly(strand, Long.valueOf(1), true, forceCentralUtilityComponent),
+                getSuppliesCountAtAssembly(strand, Long.valueOf(0), true, forceCentralUtilityComponent),
                 strand.getDiameterAssemblyStep()
             )
         );
