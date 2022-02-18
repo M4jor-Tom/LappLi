@@ -34,6 +34,60 @@ public class AssemblyPresetDistributionPossibility implements Cloneable {
         );
     }
 
+    public AssemblyPresetDistributionPossibility getCloneWithCalculatedCentralComponent(
+        Double suppliedComponentsAverageMilimeterDiameter,
+        Double diameterAssemblyStep
+    ) {
+        AssemblyPresetDistributionPossibility clone = null;
+
+        try {
+            clone = (AssemblyPresetDistributionPossibility) clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+
+        if (forcesCentralComponentToBeUtility()) {
+            //If the central component is forced as a utility component,
+            //there is no need to think about putting a central component.
+            //That means that the AssemblyPresetDistributionPossibility is
+            //in its final, presentable shape.
+            return clone;
+        }
+
+        Double suppliedComponentsAverageDiameterCentralVoidDiameter = CalculatorManager
+            .getCalculatorInstance()
+            .getSuppliedComponentsAverageDiameterCentralVoidDiameter(
+                getAssemblyPresets().get(0).getTotalComponentsCount(),
+                diameterAssemblyStep
+            );
+
+        Double milimeterCentralVoidDiameter =
+            suppliedComponentsAverageDiameterCentralVoidDiameter * suppliedComponentsAverageMilimeterDiameter;
+
+        if (milimeterCentralVoidDiameter < getMilimeterDiameterBeforeCentralCompletionComponent()) {
+            //If the milimeterCentralVoidDiameter is smaller than
+            //getMilimeterDiameterBeforeCentralCompletionComponent,
+            //there is no need to think about putting a central component.
+            //That means that the AssemblyPresetDistributionPossibility is
+            //in its final, presentable shape.
+            return clone;
+        }
+
+        //In this case, milimeterCentralVoidDiameter is so big that we have to use a
+        //central completion component to hold it.
+        //This is characterized by a new AssemblyPreset(0, 1)
+        List<AssemblyPreset> centerCompletionComponentAssemblyPresets = List.of(new AssemblyPreset(0, 1));
+
+        //Once the centerCompletionComponentAssemblyPresets is created, we need to
+        //add the natives assembly presets around its central completion component
+        centerCompletionComponentAssemblyPresets.addAll(clone.getAssemblyPresets());
+
+        //Finally, we update the clone's AssemblyPresets list
+        clone.setAssemblyPresets(centerCompletionComponentAssemblyPresets);
+
+        return clone;
+    }
+
     public Boolean forcesCentralComponentToBeUtility() {
         return getMilimeterDiameterBeforeCentralCompletionComponent().isNaN();
     }
