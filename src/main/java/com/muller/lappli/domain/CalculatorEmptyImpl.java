@@ -17,11 +17,11 @@ public class CalculatorEmptyImpl implements ICalculator {
 
     @Override
     public Long getSuppliesCountAtAssembly(
-        Strand strandIfNoSuppliesCountProvided,
-        Long suppliesCountIfNoStrandProvided,
+        Strand strand,
         Long assemblyIndex,
+        Boolean useAssemblyPresetDistributionPossibilities,
         Boolean forceCentralUtilityComponent
-    ) throws IllegalArgumentException {
+    ) {
         return DomainManager.ERROR_LONG_POSITIVE_VALUE;
     }
 

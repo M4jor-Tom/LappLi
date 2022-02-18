@@ -74,7 +74,7 @@ public interface ICalculator {
         return (
             strand.getSuppliedComponentsAverageMilimeterDiameter() *
             getSuppliedComponentsAverageDiameterCentralVoidDiameter(
-                getSuppliesCountAtAssembly(null/*strand*/, strand.getSuppliesCount(), Long.valueOf(1), forceCentralUtilityComponent),
+                getSuppliesCountAtAssembly(strand, Long.valueOf(1), true, forceCentralUtilityComponent),
                 strand.getDiameterAssemblyStep()
             )
         );
@@ -83,14 +83,14 @@ public interface ICalculator {
     /**
      * Calculates the amount of supplied components at a given assembly
      *
-     * @param strandIfNoSuppliesCountProvided the strand in which we have to calculate
+     * @param strand the strand in which we have to calculate
      * the amount of supplied components in a given assembly
-     * Supplying this argument means we use formulas and calculation to get a result
-     *
-     * @param suppliesCountIfNoStrandProvided the total amount of supplied components
-     * amongst which, only some will be into the given assembly
      *
      * @param assemblyIndex the index of the given assembly
+     *
+     * @param useAssemblyPresetDistributionPossibilities true states that we shall refer
+     * to the AssemblyPresetDistributions, when false states that each Assembly will be
+     * calculated independently
      *
      * @param forceCentralUtilityComponent to set to true if we force a utility supplied
      * component to be at the center of assemblies
@@ -101,11 +101,11 @@ public interface ICalculator {
      * and suppliesCountIfNoStrandProvided are null
      */
     public Long getSuppliesCountAtAssembly(
-        Strand strandIfNoSuppliesCountProvided,
-        Long suppliesCountIfNoStrandProvided,
+        Strand strand,
         Long assemblyIndex,
+        Boolean useAssemblyPresetDistributionPossibilities,
         Boolean forceCentralUtilityComponent
-    ) throws IllegalArgumentException;
+    );
 
     public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilitiesForAssemblyPresetDistribution(
         AssemblyPresetDistribution assemblyPresetDistribution
