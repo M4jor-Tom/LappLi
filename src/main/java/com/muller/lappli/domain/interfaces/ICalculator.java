@@ -96,9 +96,6 @@ public interface ICalculator {
      * component to be at the center of assemblies
      *
      * @return the amount of supplied components at a given assembly index
-     *
-     * @throws IllegalArgumentException if both or nor strandIfNoSuppliesCountProvided
-     * and suppliesCountIfNoStrandProvided are null
      */
     public Long getSuppliesCountAtAssembly(
         Strand strand,
