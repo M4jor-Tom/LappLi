@@ -5,13 +5,6 @@ import java.util.ArrayList;
 public class DomainManager {
 
     /**
-     * The name of the calculator class which is secret and
-     * not pushed to GitHub to make specific calculations
-     * about Cables
-     */
-    public static final String TARGET_CALCULATOR_INSTANCE_CLASS_NAME = "com.muller.lappli.domain.CalculatorMullerSecretImpl";
-
-    /**
      * When displaying hours,
      *
      * this will be the post-comma count of decimals
