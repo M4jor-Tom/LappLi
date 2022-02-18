@@ -1,8 +1,9 @@
 package com.muller.lappli.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class AssemblyPresetDistributionPossibility {
+public class AssemblyPresetDistributionPossibility implements Cloneable {
 
     private List<AssemblyPreset> assemblyPresets;
     private Double milimeterDiameterBeforeCentralCompletionComponent;
@@ -17,6 +18,20 @@ public class AssemblyPresetDistributionPossibility {
     ) {
         setMilimeterDiameterBeforeCentralCompletionComponent(milimeterDiameterBeforeCentralCompletionComponent);
         setAssemblyPresets(List.of(assemblyPresets));
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        List<AssemblyPreset> assemblyPresetsClones = new ArrayList<AssemblyPreset>();
+
+        for (AssemblyPreset assemblyPreset : getAssemblyPresets()) {
+            assemblyPresetsClones.add((AssemblyPreset) assemblyPreset.clone());
+        }
+
+        return new AssemblyPresetDistributionPossibility(
+            getMilimeterDiameterBeforeCentralCompletionComponent(),
+            (AssemblyPreset[]) assemblyPresetsClones.toArray()
+        );
     }
 
     public Boolean isConform(Long componentsCountToCheckEqual) {
