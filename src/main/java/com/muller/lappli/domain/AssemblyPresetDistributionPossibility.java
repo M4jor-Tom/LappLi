@@ -34,6 +34,10 @@ public class AssemblyPresetDistributionPossibility implements Cloneable {
         );
     }
 
+    public Boolean forcesCentralComponentToBeUtility() {
+        return getMilimeterDiameterBeforeCentralCompletionComponent().isNaN();
+    }
+
     public Boolean isConform(Long componentsCountToCheckEqual) {
         Long componentsSum = Long.valueOf(0);
 
