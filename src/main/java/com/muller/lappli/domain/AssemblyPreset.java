@@ -1,6 +1,6 @@
 package com.muller.lappli.domain;
 
-public class AssemblyPreset {
+public class AssemblyPreset implements Cloneable {
 
     private Long utilityComponentsCount;
     private Long completionComponentsCount;
@@ -14,6 +14,11 @@ public class AssemblyPreset {
     public AssemblyPreset(Long utilityComponentsCount, Long completionComponentsCount) {
         setUtilityComponentsCount(utilityComponentsCount);
         setCompletionComponentsCount(completionComponentsCount);
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return new AssemblyPreset(getUtilityComponentsCount(), getCompletionComponentsCount());
     }
 
     public Long getTotalComponentsCount() {
