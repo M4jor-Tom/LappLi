@@ -7,17 +7,21 @@ import java.util.List;
 
 public interface ICalculator {
     /**
-     * Tries to find the class in {@link DomainManager#TARGET_CALCULATOR_INSTANCE_CLASS_NAME}.
+     * Tries to find the class in targetCalculatorInstanceClassName
      *
      * If it is found, instanciate it.
      *
-     * Otherwise instanciate {@link CalculatorEmptyImpl}.
+     * Otherwise returns instanceReturnedIfTargetNotFound
      *
+     * @param targetCalculatorInstanceClassName the class name which is tried
+     * to instanciate
+     * @param instanceReturnedIfTargetNotFound the object returned if
+     * no class was found with targetCalculatorInstanceClassName
      * @return the instance of ICalculator
      */
-    public static ICalculator getNewInstance() {
+    public static ICalculator getNewInstance(String targetCalculatorInstanceClassName, ICalculator instanceReturnedIfTargetNotFound) {
         try {
-            return (ICalculator) Class.forName(DomainManager.TARGET_CALCULATOR_INSTANCE_CLASS_NAME).getConstructor().newInstance();
+            return (ICalculator) Class.forName(targetCalculatorInstanceClassName).getConstructor().newInstance();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (
@@ -31,12 +35,12 @@ public interface ICalculator {
             e.printStackTrace();
         }
 
-        return new CalculatorEmptyImpl();
+        return instanceReturnedIfTargetNotFound;
     }
 
     /**
-     * Returns true from instance of {@link DomainManager#TARGET_CALCULATOR_INSTANCE_CLASS_NAME},
-     * and false from {@link CalculatorEmptyImpl}
+     * Returns true from instance of {@link CalculatorManager#TARGET_CALCULATOR_INSTANCE_CLASS_NAME},
+     * and false from empty implementations
      *
      * @return a Boolean
      */
