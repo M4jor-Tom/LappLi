@@ -16,8 +16,15 @@ public class AssemblyPresetDistributionPossibility implements Cloneable {
         Double milimeterDiameterBeforeCentralCompletionComponent,
         AssemblyPreset... assemblyPresets
     ) {
+        this(milimeterDiameterBeforeCentralCompletionComponent, List.of(assemblyPresets));
+    }
+
+    public AssemblyPresetDistributionPossibility(
+        Double milimeterDiameterBeforeCentralCompletionComponent,
+        List<AssemblyPreset> assemblyPresets
+    ) {
         setMilimeterDiameterBeforeCentralCompletionComponent(milimeterDiameterBeforeCentralCompletionComponent);
-        setAssemblyPresets(List.of(assemblyPresets));
+        setAssemblyPresets(assemblyPresets);
     }
 
     @Override
