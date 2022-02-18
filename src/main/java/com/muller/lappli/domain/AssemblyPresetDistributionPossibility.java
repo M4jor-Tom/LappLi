@@ -21,17 +21,14 @@ public class AssemblyPresetDistributionPossibility implements Cloneable {
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException {
+    public AssemblyPresetDistributionPossibility clone() throws CloneNotSupportedException {
         List<AssemblyPreset> assemblyPresetsClones = new ArrayList<AssemblyPreset>();
 
         for (AssemblyPreset assemblyPreset : getAssemblyPresets()) {
-            assemblyPresetsClones.add((AssemblyPreset) assemblyPreset.clone());
+            assemblyPresetsClones.add(assemblyPreset.clone());
         }
 
-        return new AssemblyPresetDistributionPossibility(
-            getMilimeterDiameterBeforeCentralCompletionComponent(),
-            (AssemblyPreset[]) assemblyPresetsClones.toArray()
-        );
+        return new AssemblyPresetDistributionPossibility(getMilimeterDiameterBeforeCentralCompletionComponent(), assemblyPresetsClones);
     }
 
     public AssemblyPresetDistributionPossibility getCloneWithCalculatedCentralComponent(

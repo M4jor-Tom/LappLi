@@ -17,7 +17,7 @@ public class AssemblyPreset implements Cloneable {
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException {
+    public AssemblyPreset clone() throws CloneNotSupportedException {
         return new AssemblyPreset(getUtilityComponentsCount(), getCompletionComponentsCount());
     }
 
