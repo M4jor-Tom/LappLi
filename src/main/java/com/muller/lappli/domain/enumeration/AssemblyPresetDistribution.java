@@ -3,6 +3,7 @@ package com.muller.lappli.domain.enumeration;
 import com.muller.lappli.domain.AssemblyPreset;
 import com.muller.lappli.domain.AssemblyPresetDistributionPossibility;
 import com.muller.lappli.domain.CalculatorManager;
+import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.exception.ImpossibleAssemblyPresetDistributionException;
 import com.muller.lappli.domain.interfaces.IAssemblyPresetDistributionCalculator;
 import java.util.List;
@@ -110,6 +111,14 @@ public enum AssemblyPresetDistribution {
         }
 
         return assemblyPresetDistributionPossibility.getAssemblyPresets().get(assemblyIndex.intValue());
+    }
+
+    public static AssemblyPresetDistribution forStrand(Strand strand) {
+        return forSuppliedComponentsCount(strand.getSuppliesCount());
+    }
+
+    public static AssemblyPresetDistribution forSuppliedComponentsCount(Long suppliedComponentsCount) {
+        return AssemblyPresetDistribution.values()[suppliedComponentsCount.intValue() - 1];
     }
 
     public Double getFinalMilimeterDiameter() {
