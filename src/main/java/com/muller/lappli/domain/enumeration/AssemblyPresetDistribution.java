@@ -92,25 +92,20 @@ public enum AssemblyPresetDistribution {
 
     public AssemblyPreset getAssemblyPresetAtAssembly(Long assemblyIndex, Boolean forceCentralUtilityComponent)
         throws ImpossibleAssemblyPresetDistributionException {
-        IAssemblyPresetDistributionCalculator assemblyPresetDistributionCalculator = CalculatorManager
-            .getCalculatorInstance()
-            .getCorrespondingAssemblyPresetDistributionCalculator(this);
+        return getAssemblyPresetDistributionPossibility(forceCentralUtilityComponent).getAssemblyPresets().get(assemblyIndex.intValue());
+    }
 
-        AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility = null;
-
-        if (forceCentralUtilityComponent) {
-            assemblyPresetDistributionPossibility =
-                assemblyPresetDistributionCalculator.getForcedCentralUtilityComponentAssemblyPresetDistributionPossibilities();
-        } else {
-            assemblyPresetDistributionPossibility =
-                assemblyPresetDistributionCalculator.getFaclutativeCentralCompletionComponentAssemblyPresetDistributionPossibilities();
-        }
+    public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility(Boolean forceCentralUtilityComponent)
+        throws ImpossibleAssemblyPresetDistributionException {
+        AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility = forceCentralUtilityComponent
+            ? getAssemblyPresetDistributionCalculator().getForcedCentralUtilityComponentAssemblyPresetDistributionPossibilities()
+            : getAssemblyPresetDistributionCalculator().getFaclutativeCentralCompletionComponentAssemblyPresetDistributionPossibilities();
 
         if (assemblyPresetDistributionPossibility == null) {
             throw new ImpossibleAssemblyPresetDistributionException();
         }
 
-        return assemblyPresetDistributionPossibility.getAssemblyPresets().get(assemblyIndex.intValue());
+        return assemblyPresetDistributionPossibility;
     }
 
     public static AssemblyPresetDistribution forStrand(Strand strand) {
