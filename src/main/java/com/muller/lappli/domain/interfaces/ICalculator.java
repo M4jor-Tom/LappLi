@@ -56,11 +56,13 @@ public interface ICalculator {
      */
     public Double getSuppliedComponentsAverageDiameterCentralVoidDiameter(Long suppliedComponentsCount, Double diameterAssemblyStep);
 
-    public default Double getMilimeterCentralVoidDiameter(Strand strand) {
+    /**
+     */
+    public default Double getMilimeterCentralVoidDiameter(Strand strand, Boolean forceCentralUtilityComponent) {
         return (
             strand.getSuppliedComponentsAverageMilimeterDiameter() *
             getSuppliedComponentsAverageDiameterCentralVoidDiameter(
-                getSuppliesCountAtAssembly(null/*strand*/, strand.getSuppliesCount(), Long.valueOf(1)),
+                getSuppliesCountAtAssembly(null/*strand*/, strand.getSuppliesCount(), Long.valueOf(1), forceCentralUtilityComponent),
                 strand.getDiameterAssemblyStep()
             )
         );
@@ -69,7 +71,8 @@ public interface ICalculator {
     public Long getSuppliesCountAtAssembly(
         Strand strandIfNoSuppliesCountProvided,
         Long suppliesCountIfNoStrandProvided,
-        Long assemblyIndex
+        Long assemblyIndex,
+        Boolean forceCentralUtilityComponent
     ) throws IllegalArgumentException;
 
     public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilitiesForAssemblyPresetDistribution(

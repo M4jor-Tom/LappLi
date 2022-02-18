@@ -19,7 +19,8 @@ public class CalculatorEmptyImpl implements ICalculator {
     public Long getSuppliesCountAtAssembly(
         Strand strandIfNoSuppliesCountProvided,
         Long suppliesCountIfNoStrandProvided,
-        Long assemblyIndex
+        Long assemblyIndex,
+        Boolean forceCentralUtilityComponent
     ) throws IllegalArgumentException {
         return DomainManager.ERROR_LONG_POSITIVE_VALUE;
     }
