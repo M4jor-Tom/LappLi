@@ -101,6 +101,15 @@ public interface ICalculator {
     public Long getSuppliesCountAtAssembly(Strand strand, Long assemblyIndex, Boolean useAssemblyPresetDistributionPossibilities)
         throws ImpossibleAssemblyPresetDistributionException;
 
+    public Double getSuppliedComponentsAverageDiameterAssemblyVoid(Strand strand, Long assemblyIndex)
+        throws ImpossibleAssemblyPresetDistributionException;
+
+    public default Double getMilimeterAssemblyVoid(Strand strand, Long assemblyIndex) throws ImpossibleAssemblyPresetDistributionException {
+        return (
+            getSuppliedComponentsAverageDiameterAssemblyVoid(strand, assemblyIndex) * strand.getSuppliedComponentsAverageMilimeterDiameter()
+        );
+    }
+
     public Double suggestSuppliedComponentsCount(Double ratio, Double diameterAssemblyStep);
 
     public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilitiesForAssemblyPresetDistribution(

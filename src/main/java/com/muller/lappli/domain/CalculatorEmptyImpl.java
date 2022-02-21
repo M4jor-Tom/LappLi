@@ -66,6 +66,11 @@ public class CalculatorEmptyImpl implements ICalculator {
     }
 
     @Override
+    public Double getSuppliedComponentsAverageDiameterAssemblyVoid(Strand strand, Long assemblyIndex) {
+        return Double.NaN;
+    }
+
+    @Override
     public Double suggestSuppliedComponentsCount(Double ratio, Double diameterAssemblyStep) {
         return Double.NaN;
     }
