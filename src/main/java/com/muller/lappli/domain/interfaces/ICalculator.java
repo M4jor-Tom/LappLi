@@ -101,9 +101,24 @@ public interface ICalculator {
     public Long getSuppliesCountAtAssembly(Strand strand, Long assemblyIndex, Boolean useAssemblyPresetDistributionPossibilities)
         throws ImpossibleAssemblyPresetDistributionException;
 
+    /**
+     * Calculates the assembly void at the given Assembly for the Strand
+     *
+     * @param strand the Strand to analyse
+     * @param assemblyIndex the index of the Assembly to analyse
+     * @return the assembly void in the analysed Assembly
+     * @throws ImpossibleAssemblyPresetDistributionException
+     */
     public Double getSuppliedComponentsAverageDiameterAssemblyVoid(Strand strand, Long assemblyIndex)
         throws ImpossibleAssemblyPresetDistributionException;
 
+    /**
+     * Same as {@link ICalculator#getSuppliedComponentsAverageDiameterAssemblyVoid},
+     * but the result is in milimeters
+     *
+     * @return the assembly void in the analysed Assembly in milimeters
+     * @throws ImpossibleAssemblyPresetDistributionException
+     */
     public default Double getMilimeterAssemblyVoid(Strand strand, Long assemblyIndex) throws ImpossibleAssemblyPresetDistributionException {
         return (
             getSuppliedComponentsAverageDiameterAssemblyVoid(strand, assemblyIndex) * strand.getSuppliedComponentsAverageMilimeterDiameter()
