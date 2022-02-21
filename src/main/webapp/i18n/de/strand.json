@@ -22,6 +22,7 @@
       },
       "id": "ID",
       "designation": "Designation",
+      "forcesCentralUtilityComponent": "Forces Central Utility Component",
       "coreAssemblies": "Core Assemblies",
       "intersticeAssemblies": "Interstice Assemblies",
       "elementSupplies": "Element Supplies",

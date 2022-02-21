@@ -23,7 +23,7 @@
       "id": "ID",
       "designation": "Désignation",
       "coreAssemblies": "Assemblages Principaux",
-      "intersticeAssemblies": "Assemblages Intersticiels",
+      "forcesCentralUtilityComponent": "Forces Central Utility Component",
       "elementSupplies": "Approvisionnements d'Elements",
       "bangleSupplies": "Approvisionnements de Joncs",
       "customComponentSupplies": "Approvisionnements de Composants Custom",
