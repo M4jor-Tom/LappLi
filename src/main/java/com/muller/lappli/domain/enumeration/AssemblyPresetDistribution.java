@@ -3,6 +3,7 @@ package com.muller.lappli.domain.enumeration;
 import com.muller.lappli.domain.AssemblyPreset;
 import com.muller.lappli.domain.AssemblyPresetDistributionPossibility;
 import com.muller.lappli.domain.CalculatorManager;
+import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.exception.ImpossibleAssemblyPresetDistributionException;
 import com.muller.lappli.domain.interfaces.IAssemblyPresetDistributionCalculator;
@@ -113,6 +114,10 @@ public enum AssemblyPresetDistribution {
     }
 
     public static AssemblyPresetDistribution forSuppliedComponentsCount(Long suppliedComponentsCount) {
+        if (suppliedComponentsCount.equals(Long.valueOf(0)) || suppliedComponentsCount.equals(DomainManager.ERROR_LONG_POSITIVE_VALUE)) {
+            return null;
+        }
+
         return AssemblyPresetDistribution.values()[suppliedComponentsCount.intValue() - 1];
     }
 
