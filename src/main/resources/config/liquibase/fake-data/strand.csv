@@ -1,4 +1,4 @@
-id;diameter_assembly_step;assembly_mean;forces_central_utility_component;future_study_id
+id;diameter_assembly_step;assembly_mean;force_central_utility_component;future_study_id
 1;10;STRAIGHT;false;1
 2;10;LEFT;false;2
 3;10;RIGHT;false;3

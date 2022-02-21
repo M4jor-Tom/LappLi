@@ -127,10 +127,10 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
                 ))}
               </ValidatedField>
               <ValidatedField
-                label={translate('lappLiApp.strand.forcesCentralUtilityComponent')}
-                id="strand-forcesCentralUtilityComponent"
-                name="forcesCentralUtilityComponent"
-                data-cy="forcesCentralUtilityComponent"
+                label={translate('lappLiApp.strand.forceCentralUtilityComponent')}
+                id="strand-forceCentralUtilityComponent"
+                name="forceCentralUtilityComponent"
+                data-cy="forceCentralUtilityComponent"
                 check
                 type="checkbox"
               />

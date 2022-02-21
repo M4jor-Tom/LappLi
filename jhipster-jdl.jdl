@@ -34,7 +34,7 @@ entity IntersticeAssembly {
 entity Strand {
 	diameterAssemblyStep Double required
     assemblyMean AssemblyMean required
-    forcesCentralUtilityComponent Boolean
+    forceCentralUtilityComponent Boolean
 }
 
 entity Study {

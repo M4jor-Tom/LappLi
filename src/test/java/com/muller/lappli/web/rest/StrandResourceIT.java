@@ -37,8 +37,8 @@ class StrandResourceIT {
     private static final AssemblyMean DEFAULT_ASSEMBLY_MEAN = AssemblyMean.RIGHT;
     private static final AssemblyMean UPDATED_ASSEMBLY_MEAN = AssemblyMean.LEFT;
 
-    private static final Boolean DEFAULT_FORCES_CENTRAL_UTILITY_COMPONENT = false;
-    private static final Boolean UPDATED_FORCES_CENTRAL_UTILITY_COMPONENT = true;
+    private static final Boolean DEFAULT_FORCE_CENTRAL_UTILITY_COMPONENT = false;
+    private static final Boolean UPDATED_FORCE_CENTRAL_UTILITY_COMPONENT = true;
 
     private static final String ENTITY_API_URL = "/api/strands";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -67,7 +67,7 @@ class StrandResourceIT {
         Strand strand = new Strand()
             .diameterAssemblyStep(DEFAULT_DIAMETER_ASSEMBLY_STEP)
             .assemblyMean(DEFAULT_ASSEMBLY_MEAN)
-            .forcesCentralUtilityComponent(DEFAULT_FORCES_CENTRAL_UTILITY_COMPONENT);
+            .forceCentralUtilityComponent(DEFAULT_FORCE_CENTRAL_UTILITY_COMPONENT);
         // Add required entity
         Study study;
         if (TestUtil.findAll(em, Study.class).isEmpty()) {
@@ -91,7 +91,7 @@ class StrandResourceIT {
         Strand strand = new Strand()
             .diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP)
             .assemblyMean(UPDATED_ASSEMBLY_MEAN)
-            .forcesCentralUtilityComponent(UPDATED_FORCES_CENTRAL_UTILITY_COMPONENT);
+            .forceCentralUtilityComponent(UPDATED_FORCE_CENTRAL_UTILITY_COMPONENT);
         // Add required entity
         Study study;
         if (TestUtil.findAll(em, Study.class).isEmpty()) {
@@ -125,7 +125,7 @@ class StrandResourceIT {
         Strand testStrand = strandList.get(strandList.size() - 1);
         assertThat(testStrand.getDiameterAssemblyStep()).isEqualTo(DEFAULT_DIAMETER_ASSEMBLY_STEP);
         assertThat(testStrand.getAssemblyMean()).isEqualTo(DEFAULT_ASSEMBLY_MEAN);
-        assertThat(testStrand.getForcesCentralUtilityComponent()).isEqualTo(DEFAULT_FORCES_CENTRAL_UTILITY_COMPONENT);
+        assertThat(testStrand.getForceCentralUtilityComponent()).isEqualTo(DEFAULT_FORCE_CENTRAL_UTILITY_COMPONENT);
     }
 
     @Test
@@ -195,7 +195,7 @@ class StrandResourceIT {
             .andExpect(jsonPath("$.[*].diameterAssemblyStep").value(hasItem(DEFAULT_DIAMETER_ASSEMBLY_STEP.doubleValue())))
             .andExpect(jsonPath("$.[*].assemblyMean").value(hasItem(DEFAULT_ASSEMBLY_MEAN.toString())))
             .andExpect(
-                jsonPath("$.[*].forcesCentralUtilityComponent").value(hasItem(DEFAULT_FORCES_CENTRAL_UTILITY_COMPONENT.booleanValue()))
+                jsonPath("$.[*].forceCentralUtilityComponent").value(hasItem(DEFAULT_FORCE_CENTRAL_UTILITY_COMPONENT.booleanValue()))
             );
     }
 
@@ -213,7 +213,7 @@ class StrandResourceIT {
             .andExpect(jsonPath("$.id").value(strand.getId().intValue()))
             .andExpect(jsonPath("$.diameterAssemblyStep").value(DEFAULT_DIAMETER_ASSEMBLY_STEP.doubleValue()))
             .andExpect(jsonPath("$.assemblyMean").value(DEFAULT_ASSEMBLY_MEAN.toString()))
-            .andExpect(jsonPath("$.forcesCentralUtilityComponent").value(DEFAULT_FORCES_CENTRAL_UTILITY_COMPONENT.booleanValue()));
+            .andExpect(jsonPath("$.forceCentralUtilityComponent").value(DEFAULT_FORCE_CENTRAL_UTILITY_COMPONENT.booleanValue()));
     }
 
     @Test
@@ -238,7 +238,7 @@ class StrandResourceIT {
         updatedStrand
             .diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP)
             .assemblyMean(UPDATED_ASSEMBLY_MEAN)
-            .forcesCentralUtilityComponent(UPDATED_FORCES_CENTRAL_UTILITY_COMPONENT);
+            .forceCentralUtilityComponent(UPDATED_FORCE_CENTRAL_UTILITY_COMPONENT);
 
         restStrandMockMvc
             .perform(
@@ -254,7 +254,7 @@ class StrandResourceIT {
         Strand testStrand = strandList.get(strandList.size() - 1);
         assertThat(testStrand.getDiameterAssemblyStep()).isEqualTo(UPDATED_DIAMETER_ASSEMBLY_STEP);
         assertThat(testStrand.getAssemblyMean()).isEqualTo(UPDATED_ASSEMBLY_MEAN);
-        assertThat(testStrand.getForcesCentralUtilityComponent()).isEqualTo(UPDATED_FORCES_CENTRAL_UTILITY_COMPONENT);
+        assertThat(testStrand.getForceCentralUtilityComponent()).isEqualTo(UPDATED_FORCE_CENTRAL_UTILITY_COMPONENT);
     }
 
     @Test
@@ -327,7 +327,7 @@ class StrandResourceIT {
 
         partialUpdatedStrand
             .diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP)
-            .forcesCentralUtilityComponent(UPDATED_FORCES_CENTRAL_UTILITY_COMPONENT);
+            .forceCentralUtilityComponent(UPDATED_FORCE_CENTRAL_UTILITY_COMPONENT);
 
         restStrandMockMvc
             .perform(
@@ -343,7 +343,7 @@ class StrandResourceIT {
         Strand testStrand = strandList.get(strandList.size() - 1);
         assertThat(testStrand.getDiameterAssemblyStep()).isEqualTo(UPDATED_DIAMETER_ASSEMBLY_STEP);
         assertThat(testStrand.getAssemblyMean()).isEqualTo(DEFAULT_ASSEMBLY_MEAN);
-        assertThat(testStrand.getForcesCentralUtilityComponent()).isEqualTo(UPDATED_FORCES_CENTRAL_UTILITY_COMPONENT);
+        assertThat(testStrand.getForceCentralUtilityComponent()).isEqualTo(UPDATED_FORCE_CENTRAL_UTILITY_COMPONENT);
     }
 
     @Test
@@ -361,7 +361,7 @@ class StrandResourceIT {
         partialUpdatedStrand
             .diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP)
             .assemblyMean(UPDATED_ASSEMBLY_MEAN)
-            .forcesCentralUtilityComponent(UPDATED_FORCES_CENTRAL_UTILITY_COMPONENT);
+            .forceCentralUtilityComponent(UPDATED_FORCE_CENTRAL_UTILITY_COMPONENT);
 
         restStrandMockMvc
             .perform(
@@ -377,7 +377,7 @@ class StrandResourceIT {
         Strand testStrand = strandList.get(strandList.size() - 1);
         assertThat(testStrand.getDiameterAssemblyStep()).isEqualTo(UPDATED_DIAMETER_ASSEMBLY_STEP);
         assertThat(testStrand.getAssemblyMean()).isEqualTo(UPDATED_ASSEMBLY_MEAN);
-        assertThat(testStrand.getForcesCentralUtilityComponent()).isEqualTo(UPDATED_FORCES_CENTRAL_UTILITY_COMPONENT);
+        assertThat(testStrand.getForceCentralUtilityComponent()).isEqualTo(UPDATED_FORCE_CENTRAL_UTILITY_COMPONENT);
     }
 
     @Test

@@ -59,7 +59,7 @@ export const Strand = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.strand.assemblyMean">Assembly Mean</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.strand.forcesCentralUtilityComponent">Forces Central Utility Component</Translate>
+                  <Translate contentKey="lappLiApp.strand.forceCentralUtilityComponent">Force Central Utility Component</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.strand.futureStudy">Future Study</Translate>
@@ -80,7 +80,7 @@ export const Strand = (props: RouteComponentProps<{ url: string }>) => {
                   <td>
                     <Translate contentKey={`lappLiApp.AssemblyMean.${strand.assemblyMean}`} />
                   </td>
-                  <td>{strand.forcesCentralUtilityComponent ? 'true' : 'false'}</td>
+                  <td>{strand.forceCentralUtilityComponent ? 'true' : 'false'}</td>
                   <td>{strand.futureStudy ? <Link to={`study/${strand.futureStudy.id}`}>{strand.futureStudy.number}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

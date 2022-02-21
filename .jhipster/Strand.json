@@ -13,7 +13,7 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "forcesCentralUtilityComponent",
+      "fieldName": "forceCentralUtilityComponent",
       "fieldType": "Boolean"
     }
   ],

@@ -50,8 +50,8 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     @Column(name = "assembly_mean", nullable = false)
     private AssemblyMean assemblyMean;
 
-    @Column(name = "forces_central_utility_component")
-    private Boolean forcesCentralUtilityComponent;
+    @Column(name = "force_central_utility_component")
+    private Boolean forceCentralUtilityComponent;
 
     @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -423,17 +423,17 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         this.assemblyMean = assemblyMean;
     }
 
-    public Boolean getForcesCentralUtilityComponent() {
-        return this.forcesCentralUtilityComponent;
+    public Boolean getForceCentralUtilityComponent() {
+        return this.forceCentralUtilityComponent;
     }
 
-    public Strand forcesCentralUtilityComponent(Boolean forcesCentralUtilityComponent) {
-        this.setForcesCentralUtilityComponent(forcesCentralUtilityComponent);
+    public Strand forceCentralUtilityComponent(Boolean forceCentralUtilityComponent) {
+        this.setForceCentralUtilityComponent(forceCentralUtilityComponent);
         return this;
     }
 
-    public void setForcesCentralUtilityComponent(Boolean forcesCentralUtilityComponent) {
-        this.forcesCentralUtilityComponent = forcesCentralUtilityComponent;
+    public void setForceCentralUtilityComponent(Boolean forceCentralUtilityComponent) {
+        this.forceCentralUtilityComponent = forceCentralUtilityComponent;
     }
 
     public Set<SupplyPosition> getSupplyPositions() {
@@ -621,7 +621,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
             "id=" + getId() +
             ", diameterAssemblyStep=" + getDiameterAssemblyStep() +
             ", assemblyMean='" + getAssemblyMean() + "'" +
-            ", forcesCentralUtilityComponent='" + getForcesCentralUtilityComponent() + "'" +
+            ", forceCentralUtilityComponent='" + getForceCentralUtilityComponent() + "'" +
             "}";
     }
 }

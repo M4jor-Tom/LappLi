@@ -16,7 +16,7 @@ export interface IStrand {
   designation?: string;
   diameterAssemblyStep?: number;
   assemblyMean?: AssemblyMean;
-  forcesCentralUtilityComponent?: boolean | null;
+  forceCentralUtilityComponent?: boolean | null;
   nonAssemblyOperations?: IAbstractOperation[] | null;
   coreAssemblies?: ICoreAssembly[] | null;
   intersticeAssemblies?: IIntersticeAssembly[] | null;
@@ -33,5 +33,5 @@ export interface IStrand {
 }
 
 export const defaultValue: Readonly<IStrand> = {
-  forcesCentralUtilityComponent: false,
+  forceCentralUtilityComponent: false,
 };

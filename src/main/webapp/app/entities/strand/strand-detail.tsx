@@ -40,7 +40,7 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
               <Translate contentKey="lappLiApp.strand.forcesCentralUtilityComponent">Forces Central Utility Component</Translate>
             </span>
           </dt>
-          <dd>{strandEntity.forcesCentralUtilityComponent ? 'true' : 'false'}</dd>
+          <dd>{strandEntity.forceCentralUtilityComponent ? 'true' : 'false'}</dd>
         </dl>
         <Button tag={Link} to={`/strand/${strandEntity.id}/supply`} replace color="primary">
           <FontAwesomeIcon icon="pencil-alt" />{' '}
