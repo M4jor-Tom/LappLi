@@ -70,6 +70,7 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
     isNew
       ? {}
       : {
+          assemblyMean: 'RIGHT',
           ...strandEntity,
           futureStudy: strandEntity?.futureStudy?.id,
         };
@@ -99,6 +100,38 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
                   validate={{ required: true }}
                 />
               ) : null}
+              <ValidatedField
+                label={translate('lappLiApp.strand.diameterAssemblyStep')}
+                id="strand-diameterAssemblyStep"
+                name="diameterAssemblyStep"
+                data-cy="diameterAssemblyStep"
+                type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
+              />
+              <ValidatedField
+                label={translate('lappLiApp.strand.assemblyMean')}
+                id="strand-assemblyMean"
+                name="assemblyMean"
+                data-cy="assemblyMean"
+                type="select"
+              >
+                {assemblyMeanValues.map(assemblyMean => (
+                  <option value={assemblyMean} key={assemblyMean}>
+                    {translate('lappLiApp.AssemblyMean' + assemblyMean)}
+                  </option>
+                ))}
+              </ValidatedField>
+              <ValidatedField
+                label={translate('lappLiApp.strand.forcesCentralUtilityComponent')}
+                id="strand-forcesCentralUtilityComponent"
+                name="forcesCentralUtilityComponent"
+                data-cy="forcesCentralUtilityComponent"
+                check
+                type="checkbox"
+              />
               <ValidatedField
                 id="strand-futureStudy"
                 name="futureStudy"

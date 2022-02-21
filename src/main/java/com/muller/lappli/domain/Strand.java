@@ -50,6 +50,9 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     @Column(name = "assembly_mean", nullable = false)
     private AssemblyMean assemblyMean;
 
+    @Column(name = "forces_central_utility_component")
+    private Boolean forcesCentralUtilityComponent;
+
     @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "owner", "ownerCentralAssembly", "ownerStrand", "ownerIntersticeAssembly" }, allowSetters = true)
@@ -420,6 +423,19 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         this.assemblyMean = assemblyMean;
     }
 
+    public Boolean getForcesCentralUtilityComponent() {
+        return this.forcesCentralUtilityComponent;
+    }
+
+    public Strand forcesCentralUtilityComponent(Boolean forcesCentralUtilityComponent) {
+        this.setForcesCentralUtilityComponent(forcesCentralUtilityComponent);
+        return this;
+    }
+
+    public void setForcesCentralUtilityComponent(Boolean forcesCentralUtilityComponent) {
+        this.forcesCentralUtilityComponent = forcesCentralUtilityComponent;
+    }
+
     public Set<SupplyPosition> getSupplyPositions() {
         return this.supplyPositions;
     }
@@ -605,6 +621,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
             "id=" + getId() +
             ", diameterAssemblyStep=" + getDiameterAssemblyStep() +
             ", assemblyMean='" + getAssemblyMean() + "'" +
+            ", forcesCentralUtilityComponent='" + getForcesCentralUtilityComponent() + "'" +
             "}";
     }
 }

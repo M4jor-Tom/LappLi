@@ -59,6 +59,9 @@ public class StrandServiceImpl implements StrandService {
                     if (strand.getAssemblyMean() != null) {
                         existingStrand.setAssemblyMean(strand.getAssemblyMean());
                     }
+                    if (strand.getForcesCentralUtilityComponent() != null) {
+                        existingStrand.setForcesCentralUtilityComponent(strand.getForcesCentralUtilityComponent());
+                    }
 
                     return existingStrand;
                 })
