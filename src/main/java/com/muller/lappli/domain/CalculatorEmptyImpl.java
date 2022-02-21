@@ -71,7 +71,7 @@ public class CalculatorEmptyImpl implements ICalculator {
     }
 
     @Override
-    public Double suggestSuppliedComponentsCount(Double ratio, Double diameterAssemblyStep) {
+    public Double suggestSuppliedComponentsCount(Double centralDiameterInRoundComponentsDiameter, Double diameterAssemblyStep) {
         return Double.NaN;
     }
 }
