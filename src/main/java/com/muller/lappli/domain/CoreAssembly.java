@@ -2,8 +2,10 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
+import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.OperationKind;
+import com.muller.lappli.domain.exception.ImpossibleAssemblyPresetDistributionException;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -58,6 +60,23 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     public Long getProductionStep() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public Double getBeforeThisMilimeterDiameter() throws ImpossibleAssemblyPresetDistributionException {
+        try {
+            AbstractOperation<?> lastOperationBeforeThis = getOwnerStrand().getLastOperationBefore(this);
+
+            if (lastOperationBeforeThis == null) {
+                //If the CoreAssembly is the one at the center,
+                //and there's no CentralAssembly under it
+                return CalculatorManager.getCalculatorInstance().getMilimeterCentralVoidDiameter(getOwnerStrand());
+            }
+
+            return getOwnerStrand().getMilimeterDiameterBefore(this);
+        } catch (NullPointerException e) {
+            return Double.NaN;
+        }
     }
 
     @Override
