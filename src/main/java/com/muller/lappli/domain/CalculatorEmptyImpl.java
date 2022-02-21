@@ -74,4 +74,13 @@ public class CalculatorEmptyImpl implements ICalculator {
     public Double suggestSuppliedComponentsCount(Double centralDiameterInRoundComponentsDiameter, Double diameterAssemblyStep) {
         return Double.NaN;
     }
+
+    @Override
+    public Double suggestSuppliedComponentsCountWithMilimeterDiameters(
+        Double centralMilimeterDiameter,
+        Double roundComponentsAverageDiameter,
+        Double diameterAssemblyStep
+    ) {
+        return Double.NaN;
+    }
 }

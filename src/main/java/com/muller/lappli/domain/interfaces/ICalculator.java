@@ -127,6 +127,12 @@ public interface ICalculator {
 
     public Double suggestSuppliedComponentsCount(Double centralDiameterInRoundComponentsDiameter, Double diameterAssemblyStep);
 
+    public Double suggestSuppliedComponentsCountWithMilimeterDiameters(
+        Double centralMilimeterDiameter,
+        Double roundComponentsAverageDiameter,
+        Double diameterAssemblyStep
+    );
+
     public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilitiesForAssemblyPresetDistribution(
         AssemblyPresetDistribution assemblyPresetDistribution
     );
