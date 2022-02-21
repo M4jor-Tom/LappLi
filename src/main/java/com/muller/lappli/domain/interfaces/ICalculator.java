@@ -101,6 +101,8 @@ public interface ICalculator {
     public Long getSuppliesCountAtAssembly(Strand strand, Long assemblyIndex, Boolean useAssemblyPresetDistributionPossibilities)
         throws ImpossibleAssemblyPresetDistributionException;
 
+    public Double suggestSuppliedComponentsCount(Double ratio, Double diameterAssemblyStep);
+
     public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilitiesForAssemblyPresetDistribution(
         AssemblyPresetDistribution assemblyPresetDistribution
     );

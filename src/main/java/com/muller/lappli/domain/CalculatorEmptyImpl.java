@@ -64,4 +64,9 @@ public class CalculatorEmptyImpl implements ICalculator {
     public Long getAssemblyPresetDistributionCalculatorCount() {
         return Long.valueOf(DomainManager.ERROR_LONG_POSITIVE_VALUE);
     }
+
+    @Override
+    public Double suggestSuppliedComponentsCount(Double ratio, Double diameterAssemblyStep) {
+        return Double.NaN;
+    }
 }
