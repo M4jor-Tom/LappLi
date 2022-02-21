@@ -121,4 +121,23 @@ public class AssemblyPresetDistributionPossibility implements Cloneable {
     public void setMilimeterDiameterBeforeCentralCompletionComponent(Double milimeterDiameterBeforeCentralCompletionComponent) {
         this.milimeterDiameterBeforeCentralCompletionComponent = milimeterDiameterBeforeCentralCompletionComponent;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof AssemblyPresetDistributionPossibility)) {
+            return false;
+        }
+
+        return (
+            this.getAssemblyPresets().equals(((AssemblyPresetDistributionPossibility) o).getAssemblyPresets()) &&
+            this.getMilimeterDiameterBeforeCentralCompletionComponent() ==
+            ((AssemblyPresetDistributionPossibility) o).getMilimeterDiameterBeforeCentralCompletionComponent()
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
+    }
 }

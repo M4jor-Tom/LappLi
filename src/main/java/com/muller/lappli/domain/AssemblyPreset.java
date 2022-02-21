@@ -40,4 +40,31 @@ public class AssemblyPreset implements Cloneable {
     public void setCompletionComponentsCount(Long completionComponentsCount) {
         this.completionComponentsCount = completionComponentsCount;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof AssemblyPreset)) {
+            return false;
+        }
+
+        if (
+            this.getCompletionComponentsCount() == null ||
+            this.getUtilityComponentsCount() == null ||
+            ((AssemblyPreset) o).getCompletionComponentsCount() == null ||
+            ((AssemblyPreset) o).getUtilityComponentsCount() == null
+        ) {
+            return false;
+        }
+
+        return (
+            this.getCompletionComponentsCount() == ((AssemblyPreset) o).getCompletionComponentsCount() &&
+            this.getUtilityComponentsCount() == ((AssemblyPreset) o).getUtilityComponentsCount()
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
+    }
 }
