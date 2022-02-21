@@ -71,12 +71,11 @@ public interface ICalculator {
      * to be at the center of assemblies
      * @return the central diameter
      */
-    public default Double getMilimeterCentralVoidDiameter(Strand strand, Boolean forceCentralUtilityComponent)
-        throws ImpossibleAssemblyPresetDistributionException {
+    public default Double getMilimeterCentralVoidDiameter(Strand strand) throws ImpossibleAssemblyPresetDistributionException {
         return (
             strand.getSuppliedComponentsAverageMilimeterDiameter() *
             getSuppliedComponentsAverageDiameterCentralVoidDiameter(
-                getSuppliesCountAtAssembly(strand, Long.valueOf(0), true, forceCentralUtilityComponent),
+                getSuppliesCountAtAssembly(strand, Long.valueOf(0), true),
                 strand.getDiameterAssemblyStep()
             )
         );
@@ -99,12 +98,8 @@ public interface ICalculator {
      *
      * @return the amount of supplied components at a given assembly index
      */
-    public Long getSuppliesCountAtAssembly(
-        Strand strand,
-        Long assemblyIndex,
-        Boolean useAssemblyPresetDistributionPossibilities,
-        Boolean forceCentralUtilityComponent
-    ) throws ImpossibleAssemblyPresetDistributionException;
+    public Long getSuppliesCountAtAssembly(Strand strand, Long assemblyIndex, Boolean useAssemblyPresetDistributionPossibilities)
+        throws ImpossibleAssemblyPresetDistributionException;
 
     public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilitiesForAssemblyPresetDistribution(
         AssemblyPresetDistribution assemblyPresetDistribution

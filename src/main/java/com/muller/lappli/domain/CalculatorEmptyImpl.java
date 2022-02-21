@@ -16,12 +16,7 @@ public class CalculatorEmptyImpl implements ICalculator {
     }
 
     @Override
-    public Long getSuppliesCountAtAssembly(
-        Strand strand,
-        Long assemblyIndex,
-        Boolean useAssemblyPresetDistributionPossibilities,
-        Boolean forceCentralUtilityComponent
-    ) {
+    public Long getSuppliesCountAtAssembly(Strand strand, Long assemblyIndex, Boolean useAssemblyPresetDistributionPossibilities) {
         return DomainManager.ERROR_LONG_POSITIVE_VALUE;
     }
 
