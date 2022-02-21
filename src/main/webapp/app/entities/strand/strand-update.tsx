@@ -14,6 +14,7 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getOut } from '../index-management/index-management-lib';
 import { getEntities as getStudies } from '../study/study.reducer';
+import { AssemblyMean } from 'app/shared/model/enumerations/assembly-mean.model';
 
 export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
@@ -26,6 +27,7 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
   const loading = useAppSelector(state => state.strand.loading);
   const updating = useAppSelector(state => state.strand.updating);
   const updateSuccess = useAppSelector(state => state.strand.updateSuccess);
+  const assemblyMeanValues = Object.keys(AssemblyMean);
 
   const getOutCount = props.match.params.study_id ? 2 : 1;
 
