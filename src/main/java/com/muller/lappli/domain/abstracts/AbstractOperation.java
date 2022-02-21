@@ -57,13 +57,20 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
     public abstract String getProductDesignation();
 
     /**
+     * @return the diameter just under this operation
+     */
+    public Double getBeforeThisMilimeterDiameter() {
+        return getOwnerStrand().getMilimeterDiameterBefore(this);
+    }
+
+    /**
      * @return the diameter of {@link #getOwnerStrand()}
      * in milimeters after {@link #getMilimeterDiameterIncidency()}
      * is added
      */
     public Double getAfterThisMilimeterDiameter() {
         try {
-            return getOwnerStrand().getMilimeterDiameterBefore(this) + getMilimeterDiameterIncidency();
+            return getBeforeThisMilimeterDiameter() + getMilimeterDiameterIncidency();
         } catch (NullPointerException e) {
             return Double.NaN;
         }
