@@ -131,11 +131,15 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         try {
             return getOwnerStrand().getAssemblyPresetDistributionPossibility().getAssemblyPresets().get(getAssemblyLayer().intValue() - 1);
         } catch (NullPointerException e) {} catch (IndexOutOfBoundsException e) {
-            DomainManager.noticeInPrompt("The following exception is normal into an Intergation Test context");
-            e.printStackTrace();
+            onIndexOutOfBoundsException(e);
         }
 
         return new AssemblyPreset(DomainManager.ERROR_LONG_POSITIVE_VALUE, DomainManager.ERROR_LONG_POSITIVE_VALUE);
+    }
+
+    private void onIndexOutOfBoundsException(IndexOutOfBoundsException e) {
+        DomainManager.noticeInPrompt("The following exception is normal into an Intergation Test context");
+        e.printStackTrace();
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
