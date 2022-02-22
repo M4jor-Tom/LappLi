@@ -106,6 +106,20 @@ public class AssemblyPresetDistributionPossibility implements Cloneable {
         return getMilimeterDiameterBeforeCentralCompletionComponent().isNaN();
     }
 
+    public Boolean hasCentralComponent() {
+        if (getAssemblyPresets().isEmpty()) {
+            return false;
+        }
+
+        AssemblyPreset firstAssemblyPreset = getAssemblyPresets().get(0);
+
+        if (firstAssemblyPreset == null) {
+            return false;
+        }
+
+        return firstAssemblyPreset.getTotalComponentsCount().equals(Long.valueOf(1));
+    }
+
     public Boolean isConform(Long componentsCountToCheckEqual) {
         Long componentsSum = Long.valueOf(0);
 
