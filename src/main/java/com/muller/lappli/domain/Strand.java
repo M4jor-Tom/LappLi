@@ -187,6 +187,16 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     }
 
     /**
+     * Tells if the Strand shall use AssemblyPresetDistributionPossibilities
+     * to design the Strand's Assemlies
+     *
+     * @return a Boolean
+     */
+    public Boolean shallUseAssemblyPresetDistributionPossibilities() {
+        return !forcesCenterDiameterWithSuppliedComponent();
+    }
+
+    /**
      * Get the operation before the selected one
      *
      * @param operation the selected operation for which the previous one is seeked
