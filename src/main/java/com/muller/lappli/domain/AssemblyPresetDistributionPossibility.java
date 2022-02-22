@@ -117,7 +117,7 @@ public class AssemblyPresetDistributionPossibility implements Cloneable {
             return false;
         }
 
-        return firstAssemblyPreset.getTotalComponentsCount().equals(Long.valueOf(1));
+        return firstAssemblyPreset.isCentralAccordingToTotalComponentsCount();
     }
 
     public Boolean isConform(Long componentsCountToCheckEqual) {
