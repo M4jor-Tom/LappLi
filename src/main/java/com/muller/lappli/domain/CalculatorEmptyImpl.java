@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.muller.lappli.domain.enumeration.AssemblyPresetDistribution;
+import com.muller.lappli.domain.exception.ImpossibleAssemblyPresetDistributionException;
 import com.muller.lappli.domain.interfaces.IAssemblyPresetDistributionCalculator;
 import com.muller.lappli.domain.interfaces.ICalculator;
 import java.util.ArrayList;
@@ -25,6 +26,12 @@ public class CalculatorEmptyImpl implements ICalculator {
         AssemblyPresetDistribution assemblyPresetDistribution
     ) {
         return new ArrayList<AssemblyPresetDistributionPossibility>();
+    }
+
+    @Override
+    public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility(Strand strand)
+        throws ImpossibleAssemblyPresetDistributionException {
+        return new AssemblyPresetDistributionPossibility();
     }
 
     @Override

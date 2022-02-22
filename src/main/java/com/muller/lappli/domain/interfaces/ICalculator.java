@@ -101,6 +101,18 @@ public interface ICalculator {
     public Long getSuppliesCountAtAssembly(Strand strand, Long assemblyIndex) throws ImpossibleAssemblyPresetDistributionException;
 
     /**
+     * Generates a new AssemblyPresetDistributionPossibility which represents
+     * the best fit for the cable
+     *
+     * @param strand the Strand to describe
+     * @return an AssemblyPresetDistributionPossibility which describes its Assemblies
+     * at best
+     * @throws ImpossibleAssemblyPresetDistributionException if the Strand is not conform
+     */
+    public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility(Strand strand)
+        throws ImpossibleAssemblyPresetDistributionException;
+
+    /**
      * Calculates the assembly void at the given Assembly for the Strand
      *
      * @param strand the Strand to analyse
