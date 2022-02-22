@@ -246,6 +246,16 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return lastCoreAssembly;
     }
 
+    public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility() {
+        try {
+            return CalculatorManager.getCalculatorInstance().getAssemblyPresetDistributionPossibility(this);
+        } catch (ImpossibleAssemblyPresetDistributionException e) {
+            e.printStackTrace();
+        }
+
+        return (new CalculatorEmptyImpl()).getAssemblyPresetDistributionPossibility(this);
+    }
+
     public List<Long> getSuppliesCountsCommonDividers() {
         List<Long> commonDividers = new ArrayList<Long>();
 
