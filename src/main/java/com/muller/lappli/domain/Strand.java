@@ -247,12 +247,12 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     }
 
     public Strand resetAssemblies() {
-        setCentralAssembly(null);
-        setCoreAssemblies(null);
+        setCentralAssembly(new CentralAssembly().supplyPosition(new SupplyPosition()));
+        setCoreAssemblies(new HashSet<CoreAssembly>());
 
         try {
             //No Exception shall be thrown here
-            setIntersticeAssemblies(null);
+            setIntersticeAssemblies(new HashSet<IntersticeAssembly>());
         } catch (NoIntersticeAvailableException e) {
             DomainManager.noticeInPrompt("THIS EXCEPTION IS ABNORMAL, CHECK Strand.setIntersticeAssemblies");
             e.printStackTrace();
