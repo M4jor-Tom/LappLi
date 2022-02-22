@@ -130,6 +130,21 @@ public class AssemblyPresetDistributionPossibility implements Cloneable {
         return componentsCountToCheckEqual == componentsSum;
     }
 
+    public List<AssemblyPreset> getAssemblyPresetsAfterCentral() {
+        if (hasCentralComponent()) {
+            List<AssemblyPreset> assemblyPresetsToReturn = new ArrayList<AssemblyPreset>();
+            for (AssemblyPreset existingAssemblyPreset : getAssemblyPresets()) {
+                if (!existingAssemblyPreset.isCentralAccordingToTotalComponentsCount()) {
+                    assemblyPresetsToReturn.add(existingAssemblyPreset);
+                }
+            }
+
+            return assemblyPresetsToReturn;
+        }
+
+        return getAssemblyPresets();
+    }
+
     public List<AssemblyPreset> getAssemblyPresets() {
         return this.assemblyPresets;
     }
