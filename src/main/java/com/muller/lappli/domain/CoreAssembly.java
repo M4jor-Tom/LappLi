@@ -131,6 +131,10 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
                 .getTotalComponentsCount();
         } catch (NullPointerException e) {
             return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+        } catch (IndexOutOfBoundsException e) {
+            DomainManager.noticeInPrompt("The following exception is normal into an Intergation Test context");
+            e.printStackTrace();
+            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
         }
     }
 
