@@ -1,6 +1,5 @@
 package com.muller.lappli.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
