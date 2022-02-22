@@ -108,7 +108,16 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
      * average milimeter diameter as a unit
      */
     public Double getSuppliedComponentsAverageDiameterAssemblyVoid() {
-        //TODO: Put assembly void formula here
+        try {
+            return CalculatorManager
+                .getCalculatorInstance()
+                .getSuppliedComponentsAverageDiameterAssemblyVoid(getOwnerStrand(), getAssemblyLayer() - 1);
+        } catch (NullPointerException e) {} catch (IndexOutOfBoundsException e) {
+            onIndexOutOfBoundsException(e);
+        } catch (ImpossibleAssemblyPresetDistributionException e) {
+            e.printStackTrace();
+        }
+
         return Double.NaN;
     }
 
