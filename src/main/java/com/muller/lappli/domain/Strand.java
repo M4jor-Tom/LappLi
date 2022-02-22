@@ -261,6 +261,33 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return this;
     }
 
+    public Strand autoGenerateAssemblies() {
+        resetAssemblies();
+
+        AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility = getAssemblyPresetDistributionPossibility();
+        Boolean assemblyPresetDistributionPossibilityHasCentralComponent = assemblyPresetDistributionPossibility.hasCentralComponent();
+
+        if (assemblyPresetDistributionPossibilityHasCentralComponent) {
+            SupplyPosition supplyPositionToSet = new SupplyPosition();
+
+            if (getForceCentralUtilityComponent()) {}
+
+            setCentralAssembly(new CentralAssembly().supplyPosition(supplyPositionToSet));
+        }
+
+        Long coreAssemblyAssemblyLayer = Long.valueOf(1);
+        for (AssemblyPreset assemblyPreset : assemblyPresetDistributionPossibility.getAssemblyPresetsAfterCentral()) {
+            addCoreAssemblies(
+                new CoreAssembly()
+                    .ownerStrand(this)
+                    .assemblyLayer(coreAssemblyAssemblyLayer++)
+                    .forcedMeanMilimeterComponentDiameter(Double.NaN)
+            );
+        }
+
+        return this;
+    }
+
     public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility() {
         try {
             return CalculatorManager.getCalculatorInstance().getAssemblyPresetDistributionPossibility(this);
