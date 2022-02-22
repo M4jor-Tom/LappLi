@@ -126,6 +126,18 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         }
     }
 
+    public Long getComponentsCount() {
+        try {
+            return getOwnerStrand()
+                .getAssemblyPresetDistributionPossibility()
+                .getAssemblyPresets()
+                .get(getAssemblyLayer().intValue() - 1)
+                .getTotalComponentsCount();
+        } catch (NullPointerException e) {
+            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+        }
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override
@@ -167,10 +179,6 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     public void setForcedMeanMilimeterComponentDiameter(Double forcedMeanMilimeterComponentDiameter) {
         this.forcedMeanMilimeterComponentDiameter = forcedMeanMilimeterComponentDiameter;
-    }
-
-    public Long getComponentsCount() {
-        return this.componentsCount;
     }
 
     public CoreAssembly componentsCount(Long componentsCount) {
