@@ -75,7 +75,7 @@ public interface ICalculator {
         return (
             strand.getSuppliedComponentsAverageMilimeterDiameter() *
             getSuppliedComponentsAverageDiameterCentralVoidDiameter(
-                getSuppliesCountAtAssembly(strand, Long.valueOf(0), true),
+                getSuppliesCountAtAssembly(strand, Long.valueOf(0)),
                 strand.getDiameterAssemblyStep()
             )
         );
@@ -98,8 +98,7 @@ public interface ICalculator {
      *
      * @return the amount of supplied components at a given assembly index
      */
-    public Long getSuppliesCountAtAssembly(Strand strand, Long assemblyIndex, Boolean useAssemblyPresetDistributionPossibilities)
-        throws ImpossibleAssemblyPresetDistributionException;
+    public Long getSuppliesCountAtAssembly(Strand strand, Long assemblyIndex) throws ImpossibleAssemblyPresetDistributionException;
 
     /**
      * Calculates the assembly void at the given Assembly for the Strand
