@@ -161,6 +161,24 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     }
 
     /**
+     * @return true if we forced a specific Component, whatever it is,
+     * to be at the center of the Strand
+     */
+    public Boolean forcesCenterDiameterWithSuppliedComponent() {
+        for (AbstractSupply<?> supply : getSupplies()) {
+            if (getCentralAssembly().getSupplyPosition().getSupply() == supply) {
+                //If one of the CoreAssemblies' dedicated supplies IS the same supply
+                //(having same ref) than the one used in the CentralAssembly, it means that
+                //automatic assembly is used
+                return false;
+            }
+        }
+
+        //If not, it means we especialy dedicate a Supply to be in the center
+        return true;
+    }
+
+    /**
      * Get the operation before the selected one
      *
      * @param operation the selected operation for which the previous one is seeked
