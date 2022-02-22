@@ -92,6 +92,16 @@ public class AssemblyPresetDistributionPossibility implements Cloneable {
         return clone;
     }
 
+    public AssemblyPreset getLastAssemblyPreset() {
+        AssemblyPreset lastAssemblyPreset = null;
+
+        for (AssemblyPreset assemblyPreset : getAssemblyPresets()) {
+            lastAssemblyPreset = assemblyPreset;
+        }
+
+        return lastAssemblyPreset;
+    }
+
     public Boolean forcesCentralComponentToBeUtility() {
         return getMilimeterDiameterBeforeCentralCompletionComponent().isNaN();
     }
