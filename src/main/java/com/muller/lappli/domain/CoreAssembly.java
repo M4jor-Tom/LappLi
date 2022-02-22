@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
@@ -123,19 +124,18 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     }
 
     public Long getComponentsCount() {
+        return suggestAssemblyPreset().getTotalComponentsCount();
+    }
+
+    public AssemblyPreset suggestAssemblyPreset() {
         try {
-            return getOwnerStrand()
-                .getAssemblyPresetDistributionPossibility()
-                .getAssemblyPresets()
-                .get(getAssemblyLayer().intValue() - 1)
-                .getTotalComponentsCount();
-        } catch (NullPointerException e) {
-            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
-        } catch (IndexOutOfBoundsException e) {
+            return getOwnerStrand().getAssemblyPresetDistributionPossibility().getAssemblyPresets().get(getAssemblyLayer().intValue() - 1);
+        } catch (NullPointerException e) {} catch (IndexOutOfBoundsException e) {
             DomainManager.noticeInPrompt("The following exception is normal into an Intergation Test context");
             e.printStackTrace();
-            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
         }
+
+        return new AssemblyPreset(DomainManager.ERROR_LONG_POSITIVE_VALUE, DomainManager.ERROR_LONG_POSITIVE_VALUE);
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
