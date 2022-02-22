@@ -247,10 +247,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     }
 
     public Strand resetAssemblies() {
-        if (!forcesCenterDiameterWithSuppliedComponent()) {
-            setCentralAssembly(null);
-        }
-
+        setCentralAssembly(null);
         setCoreAssemblies(null);
 
         try {
