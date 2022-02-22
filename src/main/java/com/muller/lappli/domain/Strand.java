@@ -551,7 +551,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     }
 
     public void setIntersticeAssemblies(Set<IntersticeAssembly> intersticeAssemblies) throws NoIntersticeAvailableException {
-        if (getCoreAssemblies() == null) {
+        if (getCoreAssemblies() == null && intersticeAssemblies != null) {
             throw new NoIntersticeAvailableException("No CoreAssembly found in strand");
         }
         if (this.intersticeAssemblies != null) {
