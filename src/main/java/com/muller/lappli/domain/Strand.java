@@ -288,6 +288,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return this;
     }
 
+    @JsonIgnore
     public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility() {
         try {
             return CalculatorManager.getCalculatorInstance().getAssemblyPresetDistributionPossibility(this);
