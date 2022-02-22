@@ -246,6 +246,24 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return lastCoreAssembly;
     }
 
+    public Strand resetAssemblies() {
+        if (!forcesCenterDiameterWithSuppliedComponent()) {
+            setCentralAssembly(null);
+        }
+
+        setCoreAssemblies(null);
+
+        try {
+            //No Exception shall be thrown here
+            setIntersticeAssemblies(null);
+        } catch (NoIntersticeAvailableException e) {
+            DomainManager.noticeInPrompt("THIS EXCEPTION IS ABNORMAL, CHECK Strand.setIntersticeAssemblies");
+            e.printStackTrace();
+        }
+
+        return this;
+    }
+
     public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility() {
         try {
             return CalculatorManager.getCalculatorInstance().getAssemblyPresetDistributionPossibility(this);
