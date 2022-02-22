@@ -34,10 +34,6 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     @Column(name = "forced_mean_milimeter_component_diameter")
     private Double forcedMeanMilimeterComponentDiameter;
 
-    @NotNull
-    @Column(name = "components_count", nullable = false)
-    private Long componentsCount;
-
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
@@ -179,15 +175,6 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     public void setForcedMeanMilimeterComponentDiameter(Double forcedMeanMilimeterComponentDiameter) {
         this.forcedMeanMilimeterComponentDiameter = forcedMeanMilimeterComponentDiameter;
-    }
-
-    public CoreAssembly componentsCount(Long componentsCount) {
-        this.setComponentsCount(componentsCount);
-        return this;
-    }
-
-    public void setComponentsCount(Long componentsCount) {
-        this.componentsCount = componentsCount;
     }
 
     public Strand getOwnerStrand() {

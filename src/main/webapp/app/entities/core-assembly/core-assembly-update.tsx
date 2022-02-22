@@ -116,17 +116,6 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ strand_id: strin
                 data-cy="forcedMeanMilimeterComponentDiameter"
                 type="text"
               />
-              <ValidatedField
-                label={translate('lappLiApp.coreAssembly.componentsCount')}
-                id="core-assembly-componentsCount"
-                name="componentsCount"
-                data-cy="componentsCount"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
-              />
               {strandValidatedField}
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/core-assembly" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
