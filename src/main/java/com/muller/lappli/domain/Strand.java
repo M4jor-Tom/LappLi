@@ -9,7 +9,6 @@ import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.SupplyKind;
-import com.muller.lappli.domain.exception.ImpossibleAssemblyPresetDistributionException;
 import com.muller.lappli.domain.exception.NoIntersticeAvailableException;
 import com.muller.lappli.domain.interfaces.ISupplyPositionOwner;
 import java.io.Serializable;
@@ -227,7 +226,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
      * @return the diameter in milimeter
      * @throws ImpossibleAssemblyPresetDistributionException
      */
-    public Double getMilimeterDiameterBefore(AbstractOperation<?> operation) throws ImpossibleAssemblyPresetDistributionException {
+    public Double getMilimeterDiameterBefore(AbstractOperation<?> operation) {
         try {
             return getLastOperationBefore(operation).getAfterThisMilimeterDiameter();
         } catch (NullPointerException e) {
@@ -290,13 +289,8 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
 
     @JsonIgnore
     public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility() {
-        try {
-            return CalculatorManager.getCalculatorInstance().getAssemblyPresetDistributionPossibility(this);
-        } catch (ImpossibleAssemblyPresetDistributionException e) {
-            e.printStackTrace();
-        }
-
-        return (new CalculatorEmptyImpl()).getAssemblyPresetDistributionPossibility(this);
+        return CalculatorManager.getCalculatorInstance().getAssemblyPresetDistributionPossibility(this);
+        //return (new CalculatorEmptyImpl()).getAssemblyPresetDistributionPossibility(this);
     }
 
     public List<Long> getSuppliesCountsCommonDividers() {

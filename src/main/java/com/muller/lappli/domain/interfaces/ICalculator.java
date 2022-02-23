@@ -66,11 +66,9 @@ public interface ICalculator {
      * supplied components counts and the forcing of a central utility component
      *
      * @param strand the protagonist strand
-     * @param forceCentralUtilityComponent true means we force a strand's utility component
-     * to be at the center of assemblies
      * @return the central diameter
      */
-    public default Double getMilimeterCentralVoidDiameter(Strand strand, Boolean forceCentralUtilityComponent) {
+    public default Double getMilimeterCentralVoidDiameter(Strand strand) {
         return (
             strand.getSuppliedComponentsAverageMilimeterDiameter() *
             getSuppliedComponentsAverageDiameterCentralVoidDiameter(
@@ -106,10 +104,8 @@ public interface ICalculator {
      * @param strand the Strand to describe
      * @return an AssemblyPresetDistributionPossibility which describes its Assemblies
      * at best
-     * @throws ImpossibleAssemblyPresetDistributionException if the Strand is not conform
      */
-    public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility(Strand strand)
-        throws ImpossibleAssemblyPresetDistributionException;
+    public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility(Strand strand);
 
     /**
      * Calculates the assembly void at the given Assembly for the Strand
@@ -117,19 +113,16 @@ public interface ICalculator {
      * @param strand the Strand to analyse
      * @param assemblyIndex the index of the Assembly to analyse
      * @return the assembly void in the analysed Assembly
-     * @throws ImpossibleAssemblyPresetDistributionException
      */
-    public Double getSuppliedComponentsAverageDiameterAssemblyVoid(Strand strand, Long assemblyIndex)
-        throws ImpossibleAssemblyPresetDistributionException;
+    public Double getSuppliedComponentsAverageDiameterAssemblyVoid(Strand strand, Long assemblyIndex);
 
     /**
      * Same as {@link ICalculator#getSuppliedComponentsAverageDiameterAssemblyVoid},
      * but the result is in milimeters
      *
      * @return the assembly void in the analysed Assembly in milimeters
-     * @throws ImpossibleAssemblyPresetDistributionException
      */
-    public default Double getMilimeterAssemblyVoid(Strand strand, Long assemblyIndex) throws ImpossibleAssemblyPresetDistributionException {
+    public default Double getMilimeterAssemblyVoid(Strand strand, Long assemblyIndex) {
         return (
             getSuppliedComponentsAverageDiameterAssemblyVoid(strand, assemblyIndex) * strand.getSuppliedComponentsAverageMilimeterDiameter()
         );

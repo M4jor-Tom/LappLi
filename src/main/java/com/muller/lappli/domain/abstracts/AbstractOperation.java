@@ -9,7 +9,6 @@ import com.muller.lappli.domain.IntersticeAssembly;
 import com.muller.lappli.domain.Sheathing;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.enumeration.OperationKind;
-import com.muller.lappli.domain.exception.ImpossibleAssemblyPresetDistributionException;
 import javax.persistence.MappedSuperclass;
 
 /**
@@ -61,7 +60,7 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
      * @return the diameter just under this operation
      * @throws ImpossibleAssemblyPresetDistributionException
      */
-    public Double getBeforeThisMilimeterDiameter() throws ImpossibleAssemblyPresetDistributionException {
+    public Double getBeforeThisMilimeterDiameter() {
         try {
             return getOwnerStrand().getMilimeterDiameterBefore(this);
         } catch (NullPointerException e) {
@@ -75,7 +74,7 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
      * is added
      * @throws ImpossibleAssemblyPresetDistributionException
      */
-    public Double getAfterThisMilimeterDiameter() throws ImpossibleAssemblyPresetDistributionException {
+    public Double getAfterThisMilimeterDiameter() {
         try {
             return getBeforeThisMilimeterDiameter() + getMilimeterDiameterIncidency();
         } catch (NullPointerException e) {

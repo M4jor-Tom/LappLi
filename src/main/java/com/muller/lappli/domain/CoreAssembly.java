@@ -5,7 +5,6 @@ import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.OperationKind;
-import com.muller.lappli.domain.exception.ImpossibleAssemblyPresetDistributionException;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -59,7 +58,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     }
 
     @Override
-    public Double getBeforeThisMilimeterDiameter() throws ImpossibleAssemblyPresetDistributionException {
+    public Double getBeforeThisMilimeterDiameter() {
         try {
             AbstractOperation<?> lastOperationBeforeThis = getOwnerStrand().getLastOperationBefore(this);
 
@@ -113,8 +112,6 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
                 .getSuppliedComponentsAverageDiameterAssemblyVoid(getOwnerStrand(), getAssemblyLayer() - 1);
         } catch (NullPointerException e) {} catch (IndexOutOfBoundsException e) {
             onIndexOutOfBoundsException(e);
-        } catch (ImpossibleAssemblyPresetDistributionException e) {
-            e.printStackTrace();
         }
 
         return Double.NaN;
