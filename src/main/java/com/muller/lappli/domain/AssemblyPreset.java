@@ -80,8 +80,6 @@ public class AssemblyPreset implements Cloneable {
             getUtilityComponentsCount() +
             ", completionComponentsCount=" +
             getCompletionComponentsCount() +
-            ", totalComponentsCount=" +
-            getTotalComponentsCount() +
             "}"
         );
     }
