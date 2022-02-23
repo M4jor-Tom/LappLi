@@ -5,7 +5,6 @@ import com.muller.lappli.domain.AssemblyPresetDistributionPossibility;
 import com.muller.lappli.domain.CalculatorManager;
 import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.Strand;
-import com.muller.lappli.domain.exception.ImpossibleAssemblyPresetDistributionException;
 import com.muller.lappli.domain.interfaces.IAssemblyPresetDistributionCalculator;
 import java.util.List;
 
@@ -91,20 +90,14 @@ public enum AssemblyPresetDistribution {
         return null;
     }
 
-    public AssemblyPreset getAssemblyPresetAtAssembly(Long assemblyIndex, Boolean forceCentralUtilityComponent)
-        throws ImpossibleAssemblyPresetDistributionException {
+    public AssemblyPreset getAssemblyPresetAtAssembly(Long assemblyIndex, Boolean forceCentralUtilityComponent) {
         return getAssemblyPresetDistributionPossibility(forceCentralUtilityComponent).getAssemblyPresets().get(assemblyIndex.intValue());
     }
 
-    public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility(Boolean forceCentralUtilityComponent)
-        throws ImpossibleAssemblyPresetDistributionException {
+    public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility(Boolean forceCentralUtilityComponent) {
         AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility = forceCentralUtilityComponent
             ? getAssemblyPresetDistributionCalculator().getForcedCentralUtilityComponentAssemblyPresetDistributionPossibilities()
             : getAssemblyPresetDistributionCalculator().getFaclutativeCentralCompletionComponentAssemblyPresetDistributionPossibilities();
-
-        if (assemblyPresetDistributionPossibility == null) {
-            throw new ImpossibleAssemblyPresetDistributionException();
-        }
 
         return assemblyPresetDistributionPossibility;
     }
