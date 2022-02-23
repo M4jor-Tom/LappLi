@@ -71,4 +71,18 @@ public class AssemblyPreset implements Cloneable {
         // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
         return getClass().hashCode();
     }
+
+    @Override
+    public String toString() {
+        return (
+            "AssemblyPreset{" +
+            "utilityComponentsCount=" +
+            getUtilityComponentsCount() +
+            ", completionComponentsCount=" +
+            getCompletionComponentsCount() +
+            ", totalComponentsCount=" +
+            getTotalComponentsCount() +
+            "}"
+        );
+    }
 }
