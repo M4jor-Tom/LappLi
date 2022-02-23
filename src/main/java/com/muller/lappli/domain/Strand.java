@@ -266,15 +266,6 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         resetAssemblies();
 
         AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility = getAssemblyPresetDistributionPossibility();
-        Boolean assemblyPresetDistributionPossibilityHasCentralComponent = assemblyPresetDistributionPossibility.hasCentralComponent();
-
-        if (assemblyPresetDistributionPossibilityHasCentralComponent) {
-            //SupplyPosition supplyPositionToSet = new SupplyPosition();
-
-            //if (getForceCentralUtilityComponent()) {}
-
-            setCentralAssembly(new CentralAssembly()/*.supplyPosition(supplyPositionToSet)*/);
-        }
 
         Long coreAssemblyAssemblyLayer = Long.valueOf(1);
         for (AssemblyPreset assemblyPreset : assemblyPresetDistributionPossibility.getAssemblyPresetsAfterCentral()) {
