@@ -365,7 +365,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
      */
     @JsonIgnoreProperties("ownerStrand")
     public Set<AbstractAssembly<?>> getAssemblies() {
-        HashSet<AbstractAssembly<?>> assemblies = new HashSet<>();
+        LinkedHashSet<AbstractAssembly<?>> assemblies = new LinkedHashSet<>();
 
         if (getCentralAssembly() != null) {
             assemblies.add(getCentralAssembly());
@@ -374,7 +374,10 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         assemblies.addAll(getCoreAssemblies());
         assemblies.addAll(getIntersticeAssemblies());
 
-        return assemblies;
+        List<AbstractAssembly<?>> sortedAssembliesList = new ArrayList<AbstractAssembly<?>>(assemblies);
+        sortedAssembliesList.sort(getOperationComparator());
+
+        return new LinkedHashSet<AbstractAssembly<?>>(sortedAssembliesList);
     }
 
     /**
@@ -569,7 +572,11 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     }
 
     public Set<CoreAssembly> getCoreAssemblies() {
-        return this.coreAssemblies;
+        List<CoreAssembly> coreAssemblyList = new ArrayList<CoreAssembly>(this.coreAssemblies);
+
+        coreAssemblyList.sort(getOperationComparator());
+
+        return new LinkedHashSet<CoreAssembly>(coreAssemblyList);
     }
 
     public void setCoreAssemblies(Set<CoreAssembly> coreAssemblies) {
