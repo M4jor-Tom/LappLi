@@ -80,7 +80,8 @@ public class AssemblyPresetDistributionPossibility implements Cloneable {
         //In this case, milimeterCentralVoidDiameter is so big that we have to use a
         //central completion component to hold it.
         //This is characterized by a new AssemblyPreset(0, 1)
-        List<AssemblyPreset> centerCompletionComponentAssemblyPresets = List.of(new AssemblyPreset(0, 1));
+        List<AssemblyPreset> centerCompletionComponentAssemblyPresets = new ArrayList<AssemblyPreset>();
+        centerCompletionComponentAssemblyPresets.add(new AssemblyPreset(0, 1));
 
         //Once the centerCompletionComponentAssemblyPresets is created, we need to
         //add the natives assembly presets around its central completion component
