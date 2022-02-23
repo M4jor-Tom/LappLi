@@ -134,7 +134,14 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     public AssemblyPreset suggestAssemblyPreset() {
         try {
-            return getOwnerStrand().getAssemblyPresetDistributionPossibility().getAssemblyPresets().get(getAssemblyLayer().intValue() - 1);
+            AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility = getOwnerStrand()
+                .getAssemblyPresetDistributionPossibility();
+
+            Integer indexOfFirstCoreAssembly = assemblyPresetDistributionPossibility.hasCentralComponent() ? 1 : 0;
+
+            return assemblyPresetDistributionPossibility
+                .getAssemblyPresets()
+                .get(indexOfFirstCoreAssembly + getAssemblyLayer().intValue() - 1);
         } catch (NullPointerException e) {} catch (IndexOutOfBoundsException e) {
             onIndexOutOfBoundsException(e);
         }
