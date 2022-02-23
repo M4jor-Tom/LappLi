@@ -180,4 +180,16 @@ public class AssemblyPresetDistributionPossibility implements Cloneable {
         // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
         return getClass().hashCode();
     }
+
+    @Override
+    public String toString() {
+        return (
+            "AssemblyPresetDistributionPossibility{" +
+            "assemblyPresets=" +
+            getAssemblyPresets() +
+            ", milimeterDiameterBeforeCentralCompletionComponent=" +
+            getMilimeterDiameterBeforeCentralCompletionComponent() +
+            "}"
+        );
+    }
 }
