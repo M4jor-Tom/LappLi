@@ -455,7 +455,11 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     }
 
     public Set<CoreAssembly> getCoreAssemblies() {
-        return this.coreAssemblies;
+        List<CoreAssembly> coreAssemblyList = new ArrayList<CoreAssembly>(this.coreAssemblies);
+
+        coreAssemblyList.sort(getOperationComparator());
+
+        return new LinkedHashSet<CoreAssembly>(coreAssemblyList);
     }
 
     public void setCoreAssemblies(Set<CoreAssembly> coreAssemblies) {
