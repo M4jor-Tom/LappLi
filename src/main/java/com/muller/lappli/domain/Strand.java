@@ -10,6 +10,7 @@ import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.AssemblyPresetDistribution;
 import com.muller.lappli.domain.enumeration.SupplyKind;
+import com.muller.lappli.domain.exception.ImpossibleAssemblyPresetDistributionException;
 import com.muller.lappli.domain.exception.NoIntersticeAvailableException;
 import com.muller.lappli.domain.interfaces.ISupplyPositionOwner;
 import java.io.Serializable;
@@ -467,6 +468,14 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return (
             AssemblyPresetDistribution.forStrand(this).getAssemblyPresetDistributionPossibility(getForceCentralUtilityComponent()) != null
         );
+    }
+
+    public Strand checkAssemblyPresetDistributionIsPossible() throws ImpossibleAssemblyPresetDistributionException {
+        if (!assemblyPresetDistributionIsPossible()) {
+            throw new ImpossibleAssemblyPresetDistributionException();
+        }
+
+        return this;
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
