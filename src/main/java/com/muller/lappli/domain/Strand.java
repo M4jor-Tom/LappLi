@@ -248,7 +248,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     }
 
     public Strand resetAssemblies() {
-        setCentralAssembly(new CentralAssembly().supplyPosition(new SupplyPosition()));
+        setCentralAssembly(new CentralAssembly());
         setCoreAssemblies(new HashSet<CoreAssembly>());
 
         try {
@@ -269,11 +269,11 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         Boolean assemblyPresetDistributionPossibilityHasCentralComponent = assemblyPresetDistributionPossibility.hasCentralComponent();
 
         if (assemblyPresetDistributionPossibilityHasCentralComponent) {
-            SupplyPosition supplyPositionToSet = new SupplyPosition();
+            //SupplyPosition supplyPositionToSet = new SupplyPosition();
 
-            if (getForceCentralUtilityComponent()) {}
+            //if (getForceCentralUtilityComponent()) {}
 
-            setCentralAssembly(new CentralAssembly().supplyPosition(supplyPositionToSet));
+            setCentralAssembly(new CentralAssembly()/*.supplyPosition(supplyPositionToSet)*/);
         }
 
         Long coreAssemblyAssemblyLayer = Long.valueOf(1);
