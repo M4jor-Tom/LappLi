@@ -8,6 +8,7 @@ import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
+import com.muller.lappli.domain.enumeration.AssemblyPresetDistribution;
 import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.exception.NoIntersticeAvailableException;
 import com.muller.lappli.domain.interfaces.ISupplyPositionOwner;
@@ -460,6 +461,12 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         }
 
         return sortedSupplies;
+    }
+
+    public Boolean assemblyPresetDistributionIsPossible() {
+        return (
+            AssemblyPresetDistribution.forStrand(this).getAssemblyPresetDistributionPossibility(getForceCentralUtilityComponent()) != null
+        );
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
