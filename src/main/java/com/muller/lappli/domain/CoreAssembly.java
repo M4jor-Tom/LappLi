@@ -230,6 +230,9 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
             ", assemblyLayer=" + getAssemblyLayer() +
             ", forcedMeanMilimeterComponentDiameter=" + getForcedMeanMilimeterComponentDiameter() +
             ", componentsCount=" + getComponentsCount() +
+            ", beforeThisMilimeterDiameter=" + getBeforeThisMilimeterDiameter() +
+            ", milimeterDiameterIncidency=" + getMilimeterDiameterIncidency() +
+            ", milimeterAssemblyVoid=" + getMilimeterAssemblyVoid() +
             "}";
     }
 }
