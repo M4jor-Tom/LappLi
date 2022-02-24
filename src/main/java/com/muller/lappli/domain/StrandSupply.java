@@ -66,7 +66,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     public Long getSuppliedComponentsDividedCount() {
         if (getStrand() != null && getApparitions() != null) {
-            return getStrand().getSuppliedComponentsCount() / getApparitions();
+            return getStrand().getUndividedSuppliedComponentsCount() / getApparitions();
         }
 
         return DomainManager.ERROR_LONG_POSITIVE_VALUE;

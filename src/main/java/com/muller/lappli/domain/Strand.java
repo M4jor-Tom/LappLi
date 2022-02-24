@@ -261,7 +261,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return commonDividers;
     }
 
-    public Long getSuppliedComponentsCount() {
+    public Long getUndividedSuppliedComponentsCount() {
         Long count = Long.valueOf(0);
 
         for (SupplyPosition supplyPosition : getSupplyPositions()) {
