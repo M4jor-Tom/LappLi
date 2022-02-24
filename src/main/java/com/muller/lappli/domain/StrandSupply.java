@@ -227,7 +227,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
      * @return the seeked operation
      */
     @JsonIgnore
-    @JsonIgnoreProperties("ownerStrand")
+    @JsonIgnoreProperties("ownerStrandSupply")
     public AbstractOperation<?> getLastOperationBefore(AbstractOperation<?> operation) {
         AbstractOperation<?> beforeOperation = null;
 
@@ -259,7 +259,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         }
     }
 
-    @JsonIgnoreProperties("ownerStrand")
+    @JsonIgnoreProperties("ownerStrandSupply")
     public CoreAssembly getLastCoreAssembly() {
         CoreAssembly lastCoreAssembly = null;
 
@@ -311,7 +311,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     /**
      * @return all the assemblies
      */
-    @JsonIgnoreProperties("ownerStrand")
+    @JsonIgnoreProperties("ownerStrandSupply")
     public Set<AbstractAssembly<?>> getAssemblies() {
         LinkedHashSet<AbstractAssembly<?>> assemblies = new LinkedHashSet<>();
 
@@ -331,7 +331,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     /**
      * @return all operations which are not assemblies
      */
-    @JsonIgnoreProperties("ownerStrand")
+    @JsonIgnoreProperties("ownerStrandSupply")
     public Set<AbstractOperation<?>> getNonAssemblyOperations() {
         HashSet<AbstractOperation<?>> operations = new HashSet<>();
 
@@ -343,7 +343,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     /**
      * @return all the operations
      */
-    @JsonIgnoreProperties("ownerStrand")
+    @JsonIgnoreProperties("ownerStrandSupply")
     public Set<AbstractOperation<?>> getOperations() {
         LinkedHashSet<AbstractOperation<?>> operations = new LinkedHashSet<>();
 
