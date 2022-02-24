@@ -205,6 +205,22 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return lastCoreAssembly;
     }
 
+    @JsonIgnore
+    /**
+     * Finds the futureStudy's StrandSupply which owns this Strand
+     *
+     * @return a StrandSupply
+     */
+    public StrandSupply getFutureStudyStrandSupply() {
+        for (StrandSupply strandSupply : getFutureStudy().getStrandSupplies()) {
+            if (strandSupply.getStrand() == this) {
+                return strandSupply;
+            }
+        }
+
+        return null;
+    }
+
     public List<Long> getSuppliesCountsCommonDividers() {
         List<Long> commonDividers = new ArrayList<Long>();
 
