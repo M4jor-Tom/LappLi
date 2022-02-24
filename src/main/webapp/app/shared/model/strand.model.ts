@@ -28,7 +28,7 @@ export interface IStrand {
   oneStudySupplies?: IOneStudySupply[] | null;
   centralAssembly?: ICentralAssembly | null;
   suppliesCountsCommonDividers?: number[];
-  suppliesCount?: number;
+  undividedSuppliedComponentsCount?: number;
   futureStudy?: IStudy;
 }
 

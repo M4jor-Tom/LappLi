@@ -71,9 +71,9 @@ export const StrandCompute = (props: RouteComponentProps<{ strand_id: string; st
     if (!apparitionsIsCommonDivider) {
       alert(translate('lappLiApp.strandSupply.errors.apparitionsIsNotSubSupplyCountsCommonDivider'));
       //  alert(apparitions + " must be included in " + strandEntity.suppliesCountsCommonDividers.concat());
-    } else if (apparitions * subSuppliesToAssembleCheck !== strandEntity.suppliesCount) {
+    } else if (apparitions * subSuppliesToAssembleCheck !== strandEntity.undividedSuppliedComponentsCount) {
       alert(translate('lappLiApp.strandSupply.errors.computedSuppliesCountInequalToReadSuppliesCount'));
-      //  alert(apparitions + " * " + subSuppliesToAssembleCheck + " must be equal to " + strandEntity.suppliesCount);
+      //  alert(apparitions + " * " + subSuppliesToAssembleCheck + " must be equal to " + strandEntity.undividedSuppliedComponentsCount);
     } else {
       dispatch(createEntity(entity));
     }
