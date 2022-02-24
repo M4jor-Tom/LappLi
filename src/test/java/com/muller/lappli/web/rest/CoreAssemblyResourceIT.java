@@ -7,7 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.CoreAssembly;
-import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.repository.CoreAssemblyRepository;
 import java.util.List;
 import java.util.Random;
@@ -64,15 +64,15 @@ class CoreAssemblyResourceIT {
             .assemblyLayer(DEFAULT_ASSEMBLY_LAYER)
             .forcedMeanMilimeterComponentDiameter(DEFAULT_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER);
         // Add required entity
-        Strand strand;
-        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
-            strand = StrandResourceIT.createEntity(em);
-            em.persist(strand);
+        StrandSupply strandSupply;
+        if (TestUtil.findAll(em, StrandSupply.class).isEmpty()) {
+            strandSupply = StrandSupplyResourceIT.createEntity(em);
+            em.persist(strandSupply);
             em.flush();
         } else {
-            strand = TestUtil.findAll(em, Strand.class).get(0);
+            strandSupply = TestUtil.findAll(em, StrandSupply.class).get(0);
         }
-        coreAssembly.setOwnerStrand(strand);
+        coreAssembly.setOwnerStrandSupply(strandSupply);
         return coreAssembly;
     }
 
@@ -87,15 +87,15 @@ class CoreAssemblyResourceIT {
             .assemblyLayer(UPDATED_ASSEMBLY_LAYER)
             .forcedMeanMilimeterComponentDiameter(UPDATED_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER);
         // Add required entity
-        Strand strand;
-        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
-            strand = StrandResourceIT.createUpdatedEntity(em);
-            em.persist(strand);
+        StrandSupply strandSupply;
+        if (TestUtil.findAll(em, StrandSupply.class).isEmpty()) {
+            strandSupply = StrandSupplyResourceIT.createUpdatedEntity(em);
+            em.persist(strandSupply);
             em.flush();
         } else {
-            strand = TestUtil.findAll(em, Strand.class).get(0);
+            strandSupply = TestUtil.findAll(em, StrandSupply.class).get(0);
         }
-        coreAssembly.setOwnerStrand(strand);
+        coreAssembly.setOwnerStrandSupply(strandSupply);
         return coreAssembly;
     }
 

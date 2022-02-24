@@ -54,7 +54,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
               <Translate contentKey="lappLiApp.strand.designation">Designation</Translate>
             </span>
           </dt>
-          <dd>{strandEntity.designation}</dd>
+          <dd>{strandEntity.id}</dd>
           <dd>
             <div className="table-responsive">
               {/* [DUPLICATE] */}

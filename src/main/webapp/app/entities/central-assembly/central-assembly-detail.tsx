@@ -30,9 +30,9 @@ export const CentralAssemblyDetail = (props: RouteComponentProps<{ id: string }>
           </dt>
           <dd>{centralAssemblyEntity.id}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.centralAssembly.ownerStrand">Owner Strand</Translate>
+            <Translate contentKey="lappLiApp.centralAssembly.ownerStrandSupply">Owner Strand Supply</Translate>
           </dt>
-          <dd>{centralAssemblyEntity.ownerStrand ? centralAssemblyEntity.ownerStrand.designation : ''}</dd>
+          <dd>{centralAssemblyEntity.ownerStrandSupply ? centralAssemblyEntity.ownerStrandSupply.designation : ''}</dd>
           <dt>
             <Translate contentKey="lappLiApp.centralAssembly.supplyPosition">Supply Position</Translate>
           </dt>

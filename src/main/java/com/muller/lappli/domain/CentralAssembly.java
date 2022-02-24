@@ -25,14 +25,14 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     private Long id;
 
     @JsonIgnoreProperties(
-        value = { "supplyPositions", "coreAssemblies", "intersticeAssemblies", "sheathings", "centralAssembly", "futureStudy" },
+        value = { "coreAssemblies", "intersticeAssemblies", "sheathings", "strand", "centralAssembly", "study" },
         allowSetters = true
     )
     @OneToOne(optional = false)
     @NotNull
     @MapsId
     @JoinColumn(name = "id")
-    private Strand ownerStrand;
+    private StrandSupply ownerStrandSupply;
 
     @JsonIgnoreProperties(
         value = {
@@ -73,7 +73,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @Override
     public Double getMilimeterDiameterIncidency() {
         try {
-            return getOwnerStrand().getFutureStudyStrandSupply().getSuppliedComponentsAverageMilimeterDiameter();
+            return getOwnerStrandSupply().getSuppliedComponentsAverageMilimeterDiameter();
         } catch (NullPointerException e) {
             return Double.NaN;
         }
@@ -111,16 +111,16 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         this.id = id;
     }
 
-    public Strand getOwnerStrand() {
-        return this.ownerStrand;
+    public StrandSupply getOwnerStrandSupply() {
+        return this.ownerStrandSupply;
     }
 
-    public void setOwnerStrand(Strand strand) {
-        this.ownerStrand = strand;
+    public void setOwnerStrandSupply(StrandSupply strandSupply) {
+        this.ownerStrandSupply = strandSupply;
     }
 
-    public CentralAssembly ownerStrand(Strand strand) {
-        this.setOwnerStrand(strand);
+    public CentralAssembly ownerStrandSupply(StrandSupply strandSupply) {
+        this.setOwnerStrandSupply(strandSupply);
         return this;
     }
 

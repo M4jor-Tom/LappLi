@@ -36,11 +36,11 @@ export const SheathingDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{sheathingEntity.operationLayer}</dd>
           <dt>
-            <span id="thickness">
-              <Translate contentKey="lappLiApp.sheathing.thickness">Thickness</Translate>
+            <span id="milimeterThickness">
+              <Translate contentKey="lappLiApp.sheathing.milimeterThickness">Milimeter Thickness</Translate>
             </span>
           </dt>
-          <dd>{sheathingEntity.thickness}</dd>
+          <dd>{sheathingEntity.milimeterThickness}</dd>
           <dt>
             <span id="sheathingKind">
               <Translate contentKey="lappLiApp.sheathing.sheathingKind">Sheathing Kind</Translate>
@@ -52,9 +52,9 @@ export const SheathingDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{sheathingEntity.material ? sheathingEntity.material.designation : ''}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.sheathing.ownerStrand">Owner Strand</Translate>
+            <Translate contentKey="lappLiApp.sheathing.ownerStrandSupply">Owner Strand Supply</Translate>
           </dt>
-          <dd>{sheathingEntity.ownerStrand ? sheathingEntity.ownerStrand.designation : ''}</dd>
+          <dd>{sheathingEntity.ownerStrandSupply ? sheathingEntity.ownerStrandSupply.designation : ''}</dd>
         </dl>
         <Button tag={Link} to="/sheathing" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

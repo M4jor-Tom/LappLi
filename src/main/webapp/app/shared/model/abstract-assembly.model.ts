@@ -1,9 +1,9 @@
 import { IAbstractOperation } from './abstract-operation.model';
-import { IStrand } from './strand.model';
+import { IStrandSupply } from './strand-supply.model';
 
 export interface IAbstractAssembly extends IAbstractOperation {
   assemblyLayer?: number;
-  ownerStrand?: IStrand;
+  ownerStrandSupply?: IStrandSupply;
 }
 
 export const defaultValue: Readonly<IAbstractAssembly> = {};

@@ -120,7 +120,7 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                         <td>{strandSupply.description}</td>
                         <td>
                           {strandSupply.strand ? (
-                            <Link to={`${props.match.url}/strand/${strandSupply.strand.id}`}>{strandSupply.strand.designation}</Link>
+                            <Link to={`${props.match.url}/strand/${strandSupply.strand.id}`}>{strandSupply.strand.id}</Link>
                           ) : (
                             ''
                           )}
@@ -194,7 +194,7 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                   <tbody>
                     {studyEntity.strands.map((strand, i) => (
                       <tr key={`entity-${i}`} data-cy="entityTable">
-                        <td>{strand.designation}</td>
+                        <td>{strand.id}</td>
                         <td className="text-right">
                           <div className="btn-group flex-btn-group-container">
                             <Button

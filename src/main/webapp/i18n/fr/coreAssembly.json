@@ -18,10 +18,9 @@
         "title": "Core Assembly"
       },
       "id": "ID",
-      "productionStep": "Production Step",
-      "assemblyStep": "Assembly Step",
-      "assemblyMean": "Assembly Mean",
-      "strand": "Strand"
+      "assemblyLayer": "Assembly Layer",
+      "forcedMeanMilimeterComponentDiameter": "Forced Mean Milimeter Component Diameter",
+      "ownerStrandSupply": "Owner Strand Supply"
     }
   }
 }

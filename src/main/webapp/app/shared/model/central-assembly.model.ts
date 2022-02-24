@@ -1,11 +1,10 @@
-import { IStrand } from 'app/shared/model/strand.model';
+import { IStrandSupply } from 'app/shared/model/strand-supply.model';
+import { ISupplyPosition } from 'app/shared/model/supply-position.model';
 import { IAbstractAssembly } from './abstract-assembly.model';
-import { ISupplyPosition } from './supply-position.model';
 
 export interface ICentralAssembly extends IAbstractAssembly {
   id?: number;
-  supplyPosition?: ISupplyPosition;
-  //  productionStep?: number;
+  supplyPosition?: ISupplyPosition | null;
 }
 
 export const defaultValue: Readonly<ICentralAssembly> = {};

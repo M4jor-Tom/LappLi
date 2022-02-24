@@ -28,7 +28,7 @@ public class CalculatorEmptyImpl implements ICalculator {
     }
 
     @Override
-    public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility(Strand strand) {
+    public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility(StrandSupply strandSupply) {
         return new AssemblyPresetDistributionPossibility();
     }
 

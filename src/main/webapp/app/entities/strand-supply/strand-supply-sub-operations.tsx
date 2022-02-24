@@ -11,6 +11,7 @@ import { getOut } from '../index-management/index-management-lib';
 import { defaultValue as strandDefaultValue } from 'app/shared/model/strand.model';
 import { ISheathing } from 'app/shared/model/sheathing.model';
 import { OperationKind } from 'app/shared/model/enumerations/operation-kind.model';
+import { IStrandSupply } from 'app/shared/model/strand-supply.model';
 
 export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_supply_id: string; study_id: string }>) => {
   const dispatch = useAppDispatch();
@@ -19,9 +20,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
     dispatch(getEntity(props.match.params.strand_supply_id));
   }, []);
 
-  const strandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
-
-  const strand = strandSupplyEntity.strand ? strandSupplyEntity.strand : strandDefaultValue;
+  const strandSupplyEntity: IStrandSupply = useAppSelector(state => state.strandSupply.entity);
 
   const { match } = props;
 
@@ -54,10 +53,10 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
         <Translate contentKey="lappLiApp.sheathing.detail.title">Sheathing</Translate>
       </Link>
       <div className="table-responsive">
-        {strand.centralAssembly ||
-        (strand.coreAssemblies && strand.coreAssemblies.length > 0) ||
-        (strand.intersticeAssemblies && strand.intersticeAssemblies.length > 0) ||
-        (strand.nonAssemblyOperations && strand.nonAssemblyOperations.length > 0) ? (
+        {strandSupplyEntity.centralAssembly ||
+        (strandSupplyEntity.coreAssemblies && strandSupplyEntity.coreAssemblies.length > 0) ||
+        (strandSupplyEntity.intersticeAssemblies && strandSupplyEntity.intersticeAssemblies.length > 0) ||
+        (strandSupplyEntity.nonAssemblyOperations && strandSupplyEntity.nonAssemblyOperations.length > 0) ? (
           <Table responsive>
             <thead>
               <tr>
@@ -89,7 +88,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
               </tr>
             </thead>
             <tbody>
-              {strand.centralAssembly ? (
+              {strandSupplyEntity.centralAssembly ? (
                 <tr data-cy="entityTable">
                   <td>
                     <Translate contentKey="lappLiApp.centralAssembly.home.title" />
@@ -97,17 +96,17 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   <td>
                     <Translate contentKey="lappLiApp.centralAssembly.centralOperationLayer" />
                   </td>
-                  <td>{strand.centralAssembly.productionStep}</td>
-                  <td>{strand.centralAssembly.productDesignation}</td>
-                  <td>{strand.centralAssembly.milimeterDiameterIncidency}</td>
-                  <td>{strand.centralAssembly.afterThisMilimeterDiameter}</td>
+                  <td>{strandSupplyEntity.centralAssembly.productionStep}</td>
+                  <td>{strandSupplyEntity.centralAssembly.productDesignation}</td>
+                  <td>{strandSupplyEntity.centralAssembly.milimeterDiameterIncidency}</td>
+                  <td>{strandSupplyEntity.centralAssembly.afterThisMilimeterDiameter}</td>
                   <td>{/* NO ASSEMBLY STEP (CENTRAL ASSEMBLY) */}</td>
                   <td>{/* NO ASSEMBLY MEAN (CENTRAL ASSEMBLY) */}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button
                         tag={Link}
-                        to={`${props.match.url}/central-assembly/${strand.centralAssembly.id}/supply`}
+                        to={`${props.match.url}/central-assembly/${strandSupplyEntity.centralAssembly.id}/supply`}
                         color="primary"
                         size="sm"
                         data-cy="entityEditButton"
@@ -120,7 +119,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                       &nbsp;
                       <Button
                         tag={Link}
-                        to={`${props.match.url}/central-assembly/${strand.centralAssembly.id}/edit`}
+                        to={`${props.match.url}/central-assembly/${strandSupplyEntity.centralAssembly.id}/edit`}
                         color="primary"
                         size="sm"
                         data-cy="entityEditButton"
@@ -133,7 +132,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                       &nbsp;
                       <Button
                         tag={Link}
-                        to={`${props.match.url}/central-assembly/${strand.centralAssembly.id}/delete`}
+                        to={`${props.match.url}/central-assembly/${strandSupplyEntity.centralAssembly.id}/delete`}
                         color="danger"
                         size="sm"
                         data-cy="entityDeleteButton"
@@ -149,8 +148,8 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
               ) : (
                 ''
               )}
-              {strand.coreAssemblies
-                ? strand.coreAssemblies.map((coreAssembly, i) => (
+              {strandSupplyEntity.coreAssemblies
+                ? strandSupplyEntity.coreAssemblies.map((coreAssembly, i) => (
                     <tr key={`entity-core-assembly-${i}`} data-cy="entityTable">
                       <td>
                         <Translate contentKey="lappLiApp.coreAssembly.home.title" />
@@ -207,8 +206,8 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                     </tr>
                   ))
                 : ''}
-              {strand.intersticeAssemblies
-                ? strand.intersticeAssemblies.map((intersticialAssembly, i) => (
+              {strandSupplyEntity.intersticeAssemblies
+                ? strandSupplyEntity.intersticeAssemblies.map((intersticialAssembly, i) => (
                     <tr key={`entity-interstice-assembly-${i}`} data-cy="entityTable">
                       <td>
                         <Translate contentKey="lappLiApp.intersticeAssembly.home.title" />
@@ -266,9 +265,9 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   ))
                 : ''}
             </tbody>
-            {strand.nonAssemblyOperations && strand.nonAssemblyOperations.length > 0 ? (
+            {strandSupplyEntity.nonAssemblyOperations && strandSupplyEntity.nonAssemblyOperations.length > 0 ? (
               <tbody>
-                {strand.nonAssemblyOperations.map((operation, i) => (
+                {strandSupplyEntity.nonAssemblyOperations.map((operation, i) => (
                   <tr key={`entity-operation-${i}`} data-cy="entityTable">
                     <td>
                       {translate('lappLiApp.OperationKind.' + operation.operationKind)}

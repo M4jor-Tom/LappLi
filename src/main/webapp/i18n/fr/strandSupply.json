@@ -27,8 +27,15 @@
       "apparitions": "Apparitions",
       "markingType": "Type de Marquage",
       "description": "Description",
-      "strand": "Toron",
-      "study": "Etude"
+      "diameterAssemblyStep": "Diameter Assembly Step",
+      "assemblyMean": "Assembly Mean",
+      "forceCentralUtilityComponent": "Force Central Utility Component",
+      "coreAssemblies": "Core Assemblies",
+      "intersticeAssemblies": "Interstice Assemblies",
+      "sheathings": "Sheathings",
+      "strand": "Strand",
+      "centralAssembly": "Central Assembly",
+      "study": "Study"
     }
   }
 }

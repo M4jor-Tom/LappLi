@@ -1,11 +1,11 @@
-id;apparitions;marking_type;description;strand_id;study_id
-1;3;NUMBERED;bluetooth;1;1
-2;3;LONGITUDINALLY_COLORED;Concrete;2;2
-3;3;RINGY_COLORED;interfaces enhance Michigan;3;3
-4;3;NUMBERED;violet website Optional;4;4
-5;3;LIFTING;local;5;5
-6;3;LIFTING;auxiliary;6;6
-7;3;LONGITUDINALLY_COLORED;Group deposit;7;7
-8;3;NUMBERED;Colorado orchestrate Group;8;8
-9;3;NUMBERED;program Bedfordshire;9;9
-10;3;LONGITUDINALLY_COLORED;vertical Associate;10;10
+id;apparitions;marking_type;description;diameter_assembly_step;assembly_mean;force_central_utility_component;strand_id;study_id
+1;62219;NUMBERED;bluetooth;786;LEFT;false;1;1
+2;14112;SPIRALLY_COLORED;responsive interfaces enhance;57378;LEFT;false;2;2
+3;60012;NUMBERED;violet website Optional;19919;RIGHT;false;3;3
+4;28532;LONGITUDINALLY_COLORED;leverage;81245;RIGHT;false;4;4
+5;46860;LONGITUDINALLY_COLORED;Group deposit;27990;STRAIGHT;true;5;5
+6;58598;LIFTING;orchestrate;93216;LEFT;false;6;6
+7;58887;NUMBERED;program Bedfordshire;96017;LEFT;true;7;7
+8;33909;LIFTING;Associate;22144;RIGHT;true;8;8
+9;49253;SPIRALLY_COLORED;Practical Avon Krone;75972;STRAIGHT;true;9;9
+10;74555;RINGY_COLORED;customized overriding solution;2159;RIGHT;false;10;10

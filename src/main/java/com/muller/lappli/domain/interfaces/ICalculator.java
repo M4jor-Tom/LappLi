@@ -105,7 +105,7 @@ public interface ICalculator {
      * @return an AssemblyPresetDistributionPossibility which describes its Assemblies
      * at best
      */
-    public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility(Strand strand);
+    public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility(StrandSupply strandSupply);
 
     /**
      * Calculates the assembly void at the given Assembly for the Strand

@@ -31,9 +31,7 @@ entity IntersticeAssembly {
 }
 
 entity Strand {
-	diameterAssemblyStep Double required
-    assemblyMean AssemblyMean required
-    forceCentralUtilityComponent Boolean
+
 }
 
 entity Study {
@@ -45,6 +43,9 @@ entity StrandSupply {
 	apparitions Long required
     markingType MarkingType required
     description String
+	diameterAssemblyStep Double required
+    assemblyMean AssemblyMean required
+    forceCentralUtilityComponent Boolean
 }
 
 entity Lifter {
@@ -150,7 +151,7 @@ entity UserData {
 }
 
 relationship OneToOne {
-	CentralAssembly{ownerStrand(designation) required} to Strand{centralAssembly(productionStep)} with jpaDerivedIdentifier
+	CentralAssembly{ownerStrandSupply(designation) required} to StrandSupply{centralAssembly(productionStep)} with jpaDerivedIdentifier
     CentralAssembly{supplyPosition} to SupplyPosition{ownerCentralAssembly(productDesignation)}
 }
 
@@ -177,14 +178,14 @@ relationship OneToMany {
 }
 
 relationship OneToMany {
-	//Operations in a strand
+	//Operations in a StrandSupply
     
     //Assemblies
-	Strand{coreAssemblies(productionStep)} to CoreAssembly{ownerStrand(designation) required}
-	Strand{intersticeAssemblies(productionStep)} to IntersticeAssembly{ownerStrand(designation) required}
+	StrandSupply{coreAssemblies(productionStep)} to CoreAssembly{ownerStrandSupply(designation) required}
+	StrandSupply{intersticeAssemblies(productionStep)} to IntersticeAssembly{ownerStrandSupply(designation) required}
     
     //Sheathings
-    Strand{sheathings(productionStep)} to Sheathing{ownerStrand(designation) required}
+    StrandSupply{sheathings(productionStep)} to Sheathing{ownerStrandSupply(designation) required}
 }
 
 relationship OneToMany {

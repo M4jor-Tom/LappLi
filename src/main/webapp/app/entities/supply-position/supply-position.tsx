@@ -114,7 +114,7 @@ export const SupplyPosition = (props: RouteComponentProps<{ url: string }>) => {
                   </td>
                   <td>
                     {supplyPosition.ownerStrand ? (
-                      <Link to={`strand/${supplyPosition.ownerStrand.id}`}>{supplyPosition.ownerStrand.designation}</Link>
+                      <Link to={`strand/${supplyPosition.ownerStrand.id}`}>{supplyPosition.ownerStrand.id}</Link>
                     ) : (
                       ''
                     )}

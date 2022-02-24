@@ -4,10 +4,10 @@
   "relationships": [
     {
       "relationshipType": "one-to-one",
-      "otherEntityName": "strand",
+      "otherEntityName": "strandSupply",
       "otherEntityRelationshipName": "centralAssembly",
       "relationshipValidateRules": "required",
-      "relationshipName": "ownerStrand",
+      "relationshipName": "ownerStrandSupply",
       "otherEntityField": "designation",
       "ownerSide": true,
       "useJPADerivedIdentifier": true,

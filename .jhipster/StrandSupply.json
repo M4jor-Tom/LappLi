@@ -15,9 +15,45 @@
     {
       "fieldName": "description",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "diameterAssemblyStep",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "assemblyMean",
+      "fieldType": "AssemblyMean",
+      "fieldValues": "RIGHT,LEFT,STRAIGHT",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "forceCentralUtilityComponent",
+      "fieldType": "Boolean"
     }
   ],
   "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "coreAssembly",
+      "otherEntityRelationshipName": "ownerStrandSupply",
+      "relationshipName": "coreAssemblies",
+      "otherEntityField": "productionStep"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "intersticeAssembly",
+      "otherEntityRelationshipName": "ownerStrandSupply",
+      "relationshipName": "intersticeAssemblies",
+      "otherEntityField": "productionStep"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "sheathing",
+      "otherEntityRelationshipName": "ownerStrandSupply",
+      "relationshipName": "sheathings",
+      "otherEntityField": "productionStep"
+    },
     {
       "relationshipType": "many-to-one",
       "otherEntityName": "strand",
@@ -25,6 +61,14 @@
       "relationshipValidateRules": "required",
       "relationshipName": "strand",
       "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "centralAssembly",
+      "otherEntityRelationshipName": "ownerStrandSupply",
+      "relationshipName": "centralAssembly",
+      "otherEntityField": "productionStep",
+      "ownerSide": false
     },
     {
       "relationshipType": "many-to-one",

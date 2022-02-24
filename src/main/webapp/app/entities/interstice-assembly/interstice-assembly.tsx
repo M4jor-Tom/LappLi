@@ -61,7 +61,7 @@ export const IntersticeAssembly = (props: RouteComponentProps<{ url: string }>) 
                   </Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.intersticeAssembly.ownerStrand">Owner Strand</Translate>
+                  <Translate contentKey="lappLiApp.intersticeAssembly.ownerStrandSupply">Owner Strand Supply</Translate>
                 </th>
                 <th />
               </tr>
@@ -78,8 +78,10 @@ export const IntersticeAssembly = (props: RouteComponentProps<{ url: string }>) 
                   <td>{intersticeAssembly.intersticeLayer}</td>
                   <td>{intersticeAssembly.forcedMeanMilimeterComponentDiameter}</td>
                   <td>
-                    {intersticeAssembly.ownerStrand ? (
-                      <Link to={`strand/${intersticeAssembly.ownerStrand.id}`}>{intersticeAssembly.ownerStrand.designation}</Link>
+                    {intersticeAssembly.ownerStrandSupply ? (
+                      <Link to={`strand-supply/${intersticeAssembly.ownerStrandSupply.id}`}>
+                        {intersticeAssembly.ownerStrandSupply.designation}
+                      </Link>
                     ) : (
                       ''
                     )}

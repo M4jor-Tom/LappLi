@@ -7,7 +7,6 @@ import com.muller.lappli.service.StrandService;
 import com.muller.lappli.service.SupplyPositionService;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,16 +52,6 @@ public class StrandServiceImpl implements StrandService {
             strandRepository
                 .findById(strand.getId())
                 .map(existingStrand -> {
-                    if (strand.getDiameterAssemblyStep() != null) {
-                        existingStrand.setDiameterAssemblyStep(strand.getDiameterAssemblyStep());
-                    }
-                    if (strand.getAssemblyMean() != null) {
-                        existingStrand.setAssemblyMean(strand.getAssemblyMean());
-                    }
-                    if (strand.getForceCentralUtilityComponent() != null) {
-                        existingStrand.setForceCentralUtilityComponent(strand.getForceCentralUtilityComponent());
-                    }
-
                     return existingStrand;
                 })
                 .map(strandRepository::save)
@@ -74,21 +63,6 @@ public class StrandServiceImpl implements StrandService {
     public List<Strand> findAll() {
         log.debug("Request to get all Strands");
         return onListRead(strandRepository.findAll());
-    }
-
-    /**
-     *  Get all the strands where CentralAssembly is {@code null}.
-     *  @return the list of entities.
-     */
-    @Transactional(readOnly = true)
-    public List<Strand> findAllWhereCentralAssemblyIsNull() {
-        log.debug("Request to get all strands where CentralAssembly is null");
-        return onListRead(
-            StreamSupport
-                .stream(strandRepository.findAll().spliterator(), false)
-                .filter(strand -> strand.getCentralAssembly() == null)
-                .collect(Collectors.toList())
-        );
     }
 
     @Override

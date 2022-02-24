@@ -36,10 +36,10 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = { "supplyPositions", "coreAssemblies", "intersticeAssemblies", "sheathings", "centralAssembly", "futureStudy" },
+        value = { "coreAssemblies", "intersticeAssemblies", "sheathings", "strand", "centralAssembly", "study" },
         allowSetters = true
     )
-    private Strand ownerStrand;
+    private StrandSupply ownerStrandSupply;
 
     @Override
     public CoreAssembly getThis() {
@@ -60,17 +60,15 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     @Override
     public Double getBeforeThisMilimeterDiameter() {
         try {
-            AbstractOperation<?> lastOperationBeforeThis = getOwnerStrand().getLastOperationBefore(this);
+            AbstractOperation<?> lastOperationBeforeThis = getOwnerStrandSupply().getLastOperationBefore(this);
 
             if (lastOperationBeforeThis == null) {
                 //If the CoreAssembly is the one at the center,
                 //and there's no CentralAssembly under it
-                return CalculatorManager
-                    .getCalculatorInstance()
-                    .getMilimeterCentralVoidDiameter(getOwnerStrand().getFutureStudyStrandSupply());
+                return CalculatorManager.getCalculatorInstance().getMilimeterCentralVoidDiameter(getOwnerStrandSupply());
             }
 
-            return getOwnerStrand().getMilimeterDiameterBefore(this);
+            return getOwnerStrandSupply().getMilimeterDiameterBefore(this);
         } catch (NullPointerException e) {
             return Double.NaN;
         }
@@ -79,7 +77,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     @Override
     public Double getMilimeterDiameterIncidency() {
         try {
-            return getOwnerStrand().getFutureStudyStrandSupply().getSuppliedComponentsAverageMilimeterDiameter();
+            return getOwnerStrandSupply().getSuppliedComponentsAverageMilimeterDiameter();
         } catch (NullPointerException e) {
             return Double.NaN;
         }
@@ -88,7 +86,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     @Override
     public Double getDiameterAssemblyStep() {
         try {
-            return getOwnerStrand().getDiameterAssemblyStep();
+            return getOwnerStrandSupply().getDiameterAssemblyStep();
         } catch (NullPointerException e) {
             return Double.NaN;
         }
@@ -97,7 +95,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     @Override
     public AssemblyMean getAssemblyMean() {
         try {
-            return getOwnerStrand().getAssemblyMean();
+            return getOwnerStrandSupply().getAssemblyMean();
         } catch (NullPointerException e) {
             return null;
         }
@@ -111,7 +109,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         try {
             return CalculatorManager
                 .getCalculatorInstance()
-                .getSuppliedComponentsAverageDiameterAssemblyVoid(getOwnerStrand().getFutureStudyStrandSupply(), getAssemblyLayer() - 1);
+                .getSuppliedComponentsAverageDiameterAssemblyVoid(getOwnerStrandSupply(), getAssemblyLayer() - 1);
         } catch (NullPointerException e) {} catch (IndexOutOfBoundsException e) {
             onIndexOutOfBoundsException(e);
         }
@@ -125,8 +123,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     public Double getMilimeterAssemblyVoid() {
         try {
             return (
-                getSuppliedComponentsAverageDiameterAssemblyVoid() *
-                getOwnerStrand().getFutureStudyStrandSupply().getSuppliedComponentsAverageMilimeterDiameter()
+                getSuppliedComponentsAverageDiameterAssemblyVoid() * getOwnerStrandSupply().getSuppliedComponentsAverageMilimeterDiameter()
             );
         } catch (NullPointerException e) {
             return Double.NaN;
@@ -139,7 +136,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     public AssemblyPreset suggestAssemblyPreset() {
         try {
-            AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility = getOwnerStrand()
+            AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility = getOwnerStrandSupply()
                 .getAssemblyPresetDistributionPossibility();
 
             Integer indexOfFirstCoreAssembly = assemblyPresetDistributionPossibility.hasCentralComponent() ? 1 : 0;
@@ -202,16 +199,16 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         this.forcedMeanMilimeterComponentDiameter = forcedMeanMilimeterComponentDiameter;
     }
 
-    public Strand getOwnerStrand() {
-        return this.ownerStrand;
+    public StrandSupply getOwnerStrandSupply() {
+        return this.ownerStrandSupply;
     }
 
-    public void setOwnerStrand(Strand strand) {
-        this.ownerStrand = strand;
+    public void setOwnerStrandSupply(StrandSupply strandSupply) {
+        this.ownerStrandSupply = strandSupply;
     }
 
-    public CoreAssembly ownerStrand(Strand strand) {
-        this.setOwnerStrand(strand);
+    public CoreAssembly ownerStrandSupply(StrandSupply strandSupply) {
+        this.setOwnerStrandSupply(strandSupply);
         return this;
     }
 

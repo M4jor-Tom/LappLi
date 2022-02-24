@@ -54,7 +54,7 @@ export const SupplyPositionDetail = (props: RouteComponentProps<{ id: string }>)
           <dt>
             <Translate contentKey="lappLiApp.supplyPosition.ownerStrand">Owner Strand</Translate>
           </dt>
-          <dd>{supplyPositionEntity.ownerStrand ? supplyPositionEntity.ownerStrand.designation : ''}</dd>
+          <dd>{supplyPositionEntity.ownerStrand ? supplyPositionEntity.ownerStrand.id : ''}</dd>
           <dt>
             <Translate contentKey="lappLiApp.supplyPosition.ownerIntersticeAssembly">Owner Interstice Assembly</Translate>
           </dt>

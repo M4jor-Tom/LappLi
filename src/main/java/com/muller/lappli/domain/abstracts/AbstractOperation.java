@@ -8,6 +8,7 @@ import com.muller.lappli.domain.CoreAssembly;
 import com.muller.lappli.domain.IntersticeAssembly;
 import com.muller.lappli.domain.Sheathing;
 import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import javax.persistence.MappedSuperclass;
 
@@ -39,12 +40,10 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
     public abstract Double getMilimeterDiameterIncidency();
 
     /**
-     * @return the strand which owns this assembly
+     * @return the StrandSupply which owns this assembly
      */
-    @JsonIgnoreProperties(
-        value = { "operations", "nonAssemblyOperations", "assemblies", "centralAssembly", "coreAssemblies", "IntersticeAssemblies" }
-    )
-    public abstract Strand getOwnerStrand();
+    @JsonIgnoreProperties(value = { "operations", "nonAssemblyOperations" })
+    public abstract StrandSupply getOwnerStrandSupply();
 
     /**
      * @return the step at which this is producted
@@ -62,7 +61,7 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
      */
     public Double getBeforeThisMilimeterDiameter() {
         try {
-            return getOwnerStrand().getMilimeterDiameterBefore(this);
+            return getOwnerStrandSupply().getMilimeterDiameterBefore(this);
         } catch (NullPointerException e) {
             return Double.NaN;
         }
@@ -92,7 +91,7 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
      */
     public String getDesignation() {
         try {
-            return getOwnerStrand().getDesignation();
+            return getOwnerStrandSupply().getDesignation();
         } catch (NullPointerException e) {
             return "";
         }

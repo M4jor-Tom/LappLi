@@ -5,6 +5,7 @@ import com.muller.lappli.domain.AssemblyPresetDistributionPossibility;
 import com.muller.lappli.domain.CalculatorManager;
 import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.interfaces.IAssemblyPresetDistributionCalculator;
 import java.util.List;
 
@@ -102,8 +103,8 @@ public enum AssemblyPresetDistribution {
         return assemblyPresetDistributionPossibility;
     }
 
-    public static AssemblyPresetDistribution forStrand(Strand strand) {
-        return forSuppliedComponentsCount(strand.getFutureStudyStrandSupply().getSuppliedComponentsDividedCount());
+    public static AssemblyPresetDistribution forStrandSupply(StrandSupply strandSupply) {
+        return forSuppliedComponentsCount(strandSupply.getSuppliedComponentsDividedCount());
     }
 
     public static AssemblyPresetDistribution forSuppliedComponentsCount(Long suppliedComponentsCount) {
