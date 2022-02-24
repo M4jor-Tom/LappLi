@@ -71,22 +71,22 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     @OneToOne(mappedBy = "ownerStrandSupply")
     private CentralAssembly centralAssembly;
 
-    @OneToMany(mappedBy = "ownerStrandSupply")
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
     private Set<CoreAssembly> coreAssemblies = new HashSet<>();
 
-    @OneToMany(mappedBy = "ownerStrandSupply")
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "supplyPositions", "ownerStrandSupply" }, allowSetters = true)
     private Set<IntersticeAssembly> intersticeAssemblies = new HashSet<>();
 
-    @OneToMany(mappedBy = "ownerStrandSupply")
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "material", "ownerStrandSupply" }, allowSetters = true)
     private Set<Sheathing> sheathings = new HashSet<>();
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @NotNull
     @JsonIgnoreProperties(
         value = { "supplyPositions", "coreAssemblies", "intersticeAssemblies", "sheathings", "centralAssembly", "futureStudy" },
