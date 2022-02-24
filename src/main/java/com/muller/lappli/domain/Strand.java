@@ -354,10 +354,6 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return suppliedComponentsMilimeterDiametersSum;
     }
 
-    public Double getSuppliedComponentsAverageMilimeterDiameter() {
-        return getSuppliedComponentsMilimeterDiametersSum() / getSuppliedComponentsCount();
-    }
-
     public Set<BangleSupply> getBangleSupplies() {
         return getSuppliesByKind(SupplyKind.BANGLE);
     }

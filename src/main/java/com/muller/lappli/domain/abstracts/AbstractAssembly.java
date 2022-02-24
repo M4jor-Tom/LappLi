@@ -13,7 +13,7 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends Ab
     @Override
     public Double getMilimeterDiameterIncidency() {
         try {
-            return getOwnerStrand().getSuppliedComponentsAverageMilimeterDiameter();
+            return getOwnerStrand().getFutureStudyStrandSupply().getSuppliedComponentsAverageMilimeterDiameter();
         } catch (NullPointerException e) {
             return Double.NaN;
         }
