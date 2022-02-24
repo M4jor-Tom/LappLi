@@ -11,7 +11,6 @@ import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.AssemblyPresetDistribution;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.domain.exception.ImpossibleAssemblyPresetDistributionException;
-import com.muller.lappli.domain.exception.NoIntersticeAvailableException;
 import com.muller.lappli.domain.interfaces.Designable;
 import java.io.Serializable;
 import java.util.ArrayList;
