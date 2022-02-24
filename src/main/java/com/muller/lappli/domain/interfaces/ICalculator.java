@@ -68,12 +68,12 @@ public interface ICalculator {
      * @param strand the protagonist strand
      * @return the central diameter
      */
-    public default Double getMilimeterCentralVoidDiameter(Strand strand) {
+    public default Double getMilimeterCentralVoidDiameter(StrandSupply strandSupply) {
         return (
-            strand.getSuppliedComponentsAverageMilimeterDiameter() *
+            strandSupply.getSuppliedComponentsAverageMilimeterDiameter() *
             getSuppliedComponentsAverageDiameterCentralVoidDiameter(
-                getSuppliesCountAtAssembly(strand, Long.valueOf(0)),
-                strand.getDiameterAssemblyStep()
+                getSuppliesCountAtAssembly(strandSupply, Long.valueOf(0)),
+                strandSupply.getDiameterAssemblyStep()
             )
         );
     }
@@ -95,7 +95,7 @@ public interface ICalculator {
      *
      * @return the amount of supplied components at a given assembly index
      */
-    public Long getSuppliesCountAtAssembly(Strand strand, Long assemblyIndex);
+    public Long getSuppliesCountAtAssembly(StrandSupply strandSupply, Long assemblyIndex);
 
     /**
      * Generates a new AssemblyPresetDistributionPossibility which represents
@@ -114,7 +114,7 @@ public interface ICalculator {
      * @param assemblyIndex the index of the Assembly to analyse
      * @return the assembly void in the analysed Assembly
      */
-    public Double getSuppliedComponentsAverageDiameterAssemblyVoid(Strand strand, Long assemblyIndex);
+    public Double getSuppliedComponentsAverageDiameterAssemblyVoid(StrandSupply strandSupply, Long assemblyIndex);
 
     /**
      * Same as {@link ICalculator#getSuppliedComponentsAverageDiameterAssemblyVoid},
@@ -122,9 +122,10 @@ public interface ICalculator {
      *
      * @return the assembly void in the analysed Assembly in milimeters
      */
-    public default Double getMilimeterAssemblyVoid(Strand strand, Long assemblyIndex) {
+    public default Double getMilimeterAssemblyVoid(StrandSupply strandSupply, Long assemblyIndex) {
         return (
-            getSuppliedComponentsAverageDiameterAssemblyVoid(strand, assemblyIndex) * strand.getSuppliedComponentsAverageMilimeterDiameter()
+            getSuppliedComponentsAverageDiameterAssemblyVoid(strandSupply, assemblyIndex) *
+            strandSupply.getSuppliedComponentsAverageMilimeterDiameter()
         );
     }
 

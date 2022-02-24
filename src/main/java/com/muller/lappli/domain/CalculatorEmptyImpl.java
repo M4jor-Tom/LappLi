@@ -16,7 +16,7 @@ public class CalculatorEmptyImpl implements ICalculator {
     }
 
     @Override
-    public Long getSuppliesCountAtAssembly(Strand strand, Long assemblyIndex) {
+    public Long getSuppliesCountAtAssembly(StrandSupply strandSupply, Long assemblyIndex) {
         return DomainManager.ERROR_LONG_POSITIVE_VALUE;
     }
 
@@ -71,7 +71,7 @@ public class CalculatorEmptyImpl implements ICalculator {
     }
 
     @Override
-    public Double getSuppliedComponentsAverageDiameterAssemblyVoid(Strand strand, Long assemblyIndex) {
+    public Double getSuppliedComponentsAverageDiameterAssemblyVoid(StrandSupply strandSupply, Long assemblyIndex) {
         return Double.NaN;
     }
 

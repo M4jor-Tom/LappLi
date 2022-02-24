@@ -65,7 +65,9 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
             if (lastOperationBeforeThis == null) {
                 //If the CoreAssembly is the one at the center,
                 //and there's no CentralAssembly under it
-                return CalculatorManager.getCalculatorInstance().getMilimeterCentralVoidDiameter(getOwnerStrand());
+                return CalculatorManager
+                    .getCalculatorInstance()
+                    .getMilimeterCentralVoidDiameter(getOwnerStrand().getFutureStudyStrandSupply());
             }
 
             return getOwnerStrand().getMilimeterDiameterBefore(this);
@@ -77,7 +79,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     @Override
     public Double getMilimeterDiameterIncidency() {
         try {
-            return getOwnerStrand().getSuppliedComponentsAverageMilimeterDiameter();
+            return getOwnerStrand().getFutureStudyStrandSupply().getSuppliedComponentsAverageMilimeterDiameter();
         } catch (NullPointerException e) {
             return Double.NaN;
         }
@@ -109,7 +111,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         try {
             return CalculatorManager
                 .getCalculatorInstance()
-                .getSuppliedComponentsAverageDiameterAssemblyVoid(getOwnerStrand(), getAssemblyLayer() - 1);
+                .getSuppliedComponentsAverageDiameterAssemblyVoid(getOwnerStrand().getFutureStudyStrandSupply(), getAssemblyLayer() - 1);
         } catch (NullPointerException e) {} catch (IndexOutOfBoundsException e) {
             onIndexOutOfBoundsException(e);
         }
@@ -122,7 +124,10 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
      */
     public Double getMilimeterAssemblyVoid() {
         try {
-            return getSuppliedComponentsAverageDiameterAssemblyVoid() * getOwnerStrand().getSuppliedComponentsAverageMilimeterDiameter();
+            return (
+                getSuppliedComponentsAverageDiameterAssemblyVoid() *
+                getOwnerStrand().getFutureStudyStrandSupply().getSuppliedComponentsAverageMilimeterDiameter()
+            );
         } catch (NullPointerException e) {
             return Double.NaN;
         }

@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.enumeration.MarkingType;
@@ -64,6 +65,15 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         }
     }
 
+    @JsonIgnore
+    public Double getDiameterAssemblyStep() {
+        if (getStrand() != null) {
+            return getStrand().getDiameterAssemblyStep();
+        }
+
+        return Double.NaN;
+    }
+
     public Long getSuppliedComponentsDividedCount() {
         if (getStrand() != null && getApparitions() != null) {
             return getStrand().getUndividedSuppliedComponentsCount() / getApparitions();
@@ -77,6 +87,11 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
             return getStrand().getSuppliedComponentsMilimeterDiametersSum() / getSuppliedComponentsDividedCount();
         }
 
+        return null;
+    }
+
+    public Boolean getForceCentralUtilityComponent() {
+        //TODO: Implement this through a new field with a JDL
         return null;
     }
 
