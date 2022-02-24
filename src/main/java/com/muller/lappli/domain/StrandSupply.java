@@ -64,6 +64,22 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         }
     }
 
+    public Long getSuppliedComponentsDividedCount() {
+        if (getStrand() != null && getApparitions() != null) {
+            return getStrand().getUndividedSuppliedComponentsCount() / getApparitions();
+        }
+
+        return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+    }
+
+    public Double getSuppliedComponentsAverageMilimeterDiameter() {
+        if (getStrand() != null) {
+            return getStrand().getSuppliedComponentsMilimeterDiametersSum() / getSuppliedComponentsDividedCount();
+        }
+
+        return null;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override
