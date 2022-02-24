@@ -280,6 +280,22 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return this;
     }
 
+    /**
+     * Finds the futureStudy's StrandSupply which owns this Strand
+     *
+     * @return a StrandSupply
+     */
+    @JsonIgnore
+    public StrandSupply getFutureStudyStrandSupply() {
+        for (StrandSupply strandSupply : getFutureStudy().getStrandSupplies()) {
+            if (strandSupply.getStrand() == this) {
+                return strandSupply;
+            }
+        }
+
+        return null;
+    }
+
     @JsonIgnore
     public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility() {
         return CalculatorManager.getCalculatorInstance().getAssemblyPresetDistributionPossibility(this);
