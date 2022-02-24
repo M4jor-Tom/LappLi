@@ -261,7 +261,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return commonDividers;
     }
 
-    public Long getSuppliesCount() {
+    public Long getSuppliedComponentsCount() {
         Long count = Long.valueOf(0);
 
         for (SupplyPosition supplyPosition : getSupplyPositions()) {
@@ -355,7 +355,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     }
 
     public Double getSuppliedComponentsAverageMilimeterDiameter() {
-        return getSuppliedComponentsMilimeterDiametersSum() / getSuppliesCount();
+        return getSuppliedComponentsMilimeterDiametersSum() / getSuppliedComponentsCount();
     }
 
     public Set<BangleSupply> getBangleSupplies() {
