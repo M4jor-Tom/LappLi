@@ -344,7 +344,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return suppliedComponentsMilimeterDiameter;
     }
 
-    private Double getSuppliedComponentsMilimeterDiametersSum() {
+    public Double getSuppliedComponentsMilimeterDiametersSum() {
         Double suppliedComponentsMilimeterDiametersSum = 0.0;
 
         for (Double suppliedComponentMilimeterDiameter : getSuppliedComponentsMilimeterDiameters()) {
