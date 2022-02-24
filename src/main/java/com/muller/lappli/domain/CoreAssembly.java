@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
+import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import java.io.Serializable;
@@ -32,10 +33,6 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     @Column(name = "forced_mean_milimeter_component_diameter")
     private Double forcedMeanMilimeterComponentDiameter;
 
-    @NotNull
-    @Column(name = "components_count", nullable = false)
-    private Long componentsCount;
-
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
@@ -61,6 +58,34 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     }
 
     @Override
+    public Double getBeforeThisMilimeterDiameter() {
+        try {
+            AbstractOperation<?> lastOperationBeforeThis = getOwnerStrand().getLastOperationBefore(this);
+
+            if (lastOperationBeforeThis == null) {
+                //If the CoreAssembly is the one at the center,
+                //and there's no CentralAssembly under it
+                return CalculatorManager
+                    .getCalculatorInstance()
+                    .getMilimeterCentralVoidDiameter(getOwnerStrand().getFutureStudyStrandSupply());
+            }
+
+            return getOwnerStrand().getMilimeterDiameterBefore(this);
+        } catch (NullPointerException e) {
+            return Double.NaN;
+        }
+    }
+
+    @Override
+    public Double getMilimeterDiameterIncidency() {
+        try {
+            return getOwnerStrand().getFutureStudyStrandSupply().getSuppliedComponentsAverageMilimeterDiameter();
+        } catch (NullPointerException e) {
+            return Double.NaN;
+        }
+    }
+
+    @Override
     public Double getDiameterAssemblyStep() {
         try {
             return getOwnerStrand().getDiameterAssemblyStep();
@@ -76,6 +101,62 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         } catch (NullPointerException e) {
             return null;
         }
+    }
+
+    /**
+     * @return the assembly void, with the supplied components'
+     * average milimeter diameter as a unit
+     */
+    public Double getSuppliedComponentsAverageDiameterAssemblyVoid() {
+        try {
+            return CalculatorManager
+                .getCalculatorInstance()
+                .getSuppliedComponentsAverageDiameterAssemblyVoid(getOwnerStrand().getFutureStudyStrandSupply(), getAssemblyLayer() - 1);
+        } catch (NullPointerException e) {} catch (IndexOutOfBoundsException e) {
+            onIndexOutOfBoundsException(e);
+        }
+
+        return Double.NaN;
+    }
+
+    /**
+     * @return the assembly void in milimeters
+     */
+    public Double getMilimeterAssemblyVoid() {
+        try {
+            return (
+                getSuppliedComponentsAverageDiameterAssemblyVoid() *
+                getOwnerStrand().getFutureStudyStrandSupply().getSuppliedComponentsAverageMilimeterDiameter()
+            );
+        } catch (NullPointerException e) {
+            return Double.NaN;
+        }
+    }
+
+    public Long getComponentsCount() {
+        return suggestAssemblyPreset().getTotalComponentsCount();
+    }
+
+    public AssemblyPreset suggestAssemblyPreset() {
+        try {
+            AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility = getOwnerStrand()
+                .getAssemblyPresetDistributionPossibility();
+
+            Integer indexOfFirstCoreAssembly = assemblyPresetDistributionPossibility.hasCentralComponent() ? 1 : 0;
+
+            return assemblyPresetDistributionPossibility
+                .getAssemblyPresets()
+                .get(indexOfFirstCoreAssembly + getAssemblyLayer().intValue() - 1);
+        } catch (NullPointerException e) {} catch (IndexOutOfBoundsException e) {
+            onIndexOutOfBoundsException(e);
+        }
+
+        return new AssemblyPreset(DomainManager.ERROR_LONG_POSITIVE_VALUE, DomainManager.ERROR_LONG_POSITIVE_VALUE);
+    }
+
+    private void onIndexOutOfBoundsException(IndexOutOfBoundsException e) {
+        DomainManager.noticeInPrompt("The following exception is normal into an Intergation Test context");
+        e.printStackTrace();
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -121,19 +202,6 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         this.forcedMeanMilimeterComponentDiameter = forcedMeanMilimeterComponentDiameter;
     }
 
-    public Long getComponentsCount() {
-        return this.componentsCount;
-    }
-
-    public CoreAssembly componentsCount(Long componentsCount) {
-        this.setComponentsCount(componentsCount);
-        return this;
-    }
-
-    public void setComponentsCount(Long componentsCount) {
-        this.componentsCount = componentsCount;
-    }
-
     public Strand getOwnerStrand() {
         return this.ownerStrand;
     }
@@ -174,6 +242,9 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
             ", assemblyLayer=" + getAssemblyLayer() +
             ", forcedMeanMilimeterComponentDiameter=" + getForcedMeanMilimeterComponentDiameter() +
             ", componentsCount=" + getComponentsCount() +
+            ", beforeThisMilimeterDiameter=" + getBeforeThisMilimeterDiameter() +
+            ", milimeterDiameterIncidency=" + getMilimeterDiameterIncidency() +
+            ", milimeterAssemblyVoid=" + getMilimeterAssemblyVoid() +
             "}";
     }
 }

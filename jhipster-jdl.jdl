@@ -20,7 +20,6 @@ entity CoreAssembly {
 	//@Readonly productionStep Long required
 	assemblyLayer Long required
     forcedMeanMilimeterComponentDiameter Double
-    componentsCount Long required
 }
 
 entity IntersticeAssembly {
@@ -34,6 +33,7 @@ entity IntersticeAssembly {
 entity Strand {
 	diameterAssemblyStep Double required
     assemblyMean AssemblyMean required
+    forceCentralUtilityComponent Boolean
 }
 
 entity Study {

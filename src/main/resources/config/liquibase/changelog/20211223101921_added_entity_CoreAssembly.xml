@@ -20,9 +20,6 @@
             <column name="forced_mean_milimeter_component_diameter" type="double">
                 <constraints nullable="true" />
             </column>
-            <column name="components_count" type="bigint">
-                <constraints nullable="false" />
-            </column>
             <column name="owner_strand_id" type="bigint">
                 <constraints nullable="false" />
             </column>
@@ -49,7 +46,6 @@
             <column name="id" type="numeric"/>
             <column name="assembly_layer" type="numeric"/>
             <column name="forced_mean_milimeter_component_diameter" type="numeric"/>
-            <column name="components_count" type="numeric"/>
             <column name="owner_strand_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

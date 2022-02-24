@@ -8,7 +8,9 @@ import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
+import com.muller.lappli.domain.enumeration.AssemblyPresetDistribution;
 import com.muller.lappli.domain.enumeration.SupplyKind;
+import com.muller.lappli.domain.exception.ImpossibleAssemblyPresetDistributionException;
 import com.muller.lappli.domain.exception.NoIntersticeAvailableException;
 import com.muller.lappli.domain.interfaces.ISupplyPositionOwner;
 import java.io.Serializable;
@@ -49,6 +51,9 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     @Enumerated(EnumType.STRING)
     @Column(name = "assembly_mean", nullable = false)
     private AssemblyMean assemblyMean;
+
+    @Column(name = "force_central_utility_component")
+    private Boolean forceCentralUtilityComponent;
 
     @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -157,6 +162,42 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     }
 
     /**
+     * @return true if we forced a specific Component, whatever it is,
+     * to be at the center of the Strand
+     */
+    public Boolean forcesCenterDiameterWithSuppliedComponent() {
+        try {
+            for (AbstractSupply<?> supply : getSupplies()) {
+                if (getCentralAssembly().getSupplyPosition().getSupply() == supply) {
+                    //If one of the CoreAssemblies' dedicated supplies IS the same supply
+                    //(having same ref) than the one used in the CentralAssembly, it means that
+                    //automatic assembly is used
+                    return false;
+                }
+            }
+        } catch (NullPointerException e) {
+            //If there's no Supply at the center of the Strand,
+            //it means that the center diameter is calculated
+            //after AssemblyPresetDistributionPossibility is chosen.
+            //We know it's one without any center.
+            return false;
+        }
+
+        //If not, it means we especialy dedicate a Supply to be in the center
+        return true;
+    }
+
+    /**
+     * Tells if the Strand shall use AssemblyPresetDistributionPossibilities
+     * to design the Strand's Assemlies
+     *
+     * @return a Boolean
+     */
+    public Boolean shallUseAssemblyPresetDistributionPossibilities() {
+        return !forcesCenterDiameterWithSuppliedComponent();
+    }
+
+    /**
      * Get the operation before the selected one
      *
      * @param operation the selected operation for which the previous one is seeked
@@ -185,6 +226,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
      *
      * @param operation under which we want a diameter
      * @return the diameter in milimeter
+     * @throws ImpossibleAssemblyPresetDistributionException
      */
     public Double getMilimeterDiameterBefore(AbstractOperation<?> operation) {
         try {
@@ -205,12 +247,45 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return lastCoreAssembly;
     }
 
-    @JsonIgnore
+    public Strand resetAssemblies() {
+        setCentralAssembly(new CentralAssembly());
+        setCoreAssemblies(new HashSet<CoreAssembly>());
+
+        try {
+            //No Exception shall be thrown here
+            setIntersticeAssemblies(new HashSet<IntersticeAssembly>());
+        } catch (NoIntersticeAvailableException e) {
+            DomainManager.noticeInPrompt("THIS EXCEPTION IS ABNORMAL, CHECK Strand.setIntersticeAssemblies");
+            e.printStackTrace();
+        }
+
+        return this;
+    }
+
+    public Strand autoGenerateAssemblies() {
+        resetAssemblies();
+
+        AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility = getAssemblyPresetDistributionPossibility();
+
+        Long coreAssemblyAssemblyLayer = Long.valueOf(1);
+        for (AssemblyPreset assemblyPreset : assemblyPresetDistributionPossibility.getAssemblyPresetsAfterCentral()) {
+            addCoreAssemblies(
+                new CoreAssembly()
+                    .ownerStrand(this)
+                    .assemblyLayer(coreAssemblyAssemblyLayer++)
+                    .forcedMeanMilimeterComponentDiameter(Double.NaN)
+            );
+        }
+
+        return this;
+    }
+
     /**
      * Finds the futureStudy's StrandSupply which owns this Strand
      *
      * @return a StrandSupply
      */
+    @JsonIgnore
     public StrandSupply getFutureStudyStrandSupply() {
         for (StrandSupply strandSupply : getFutureStudy().getStrandSupplies()) {
             if (strandSupply.getStrand() == this) {
@@ -219,6 +294,12 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         }
 
         return null;
+    }
+
+    @JsonIgnore
+    public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility() {
+        return CalculatorManager.getCalculatorInstance().getAssemblyPresetDistributionPossibility(this);
+        //return (new CalculatorEmptyImpl()).getAssemblyPresetDistributionPossibility(this);
     }
 
     public List<Long> getSuppliesCountsCommonDividers() {
@@ -389,6 +470,20 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return sortedSupplies;
     }
 
+    public Boolean assemblyPresetDistributionIsPossible() {
+        return (
+            AssemblyPresetDistribution.forStrand(this).getAssemblyPresetDistributionPossibility(getForceCentralUtilityComponent()) != null
+        );
+    }
+
+    public Strand checkAssemblyPresetDistributionIsPossible() throws ImpossibleAssemblyPresetDistributionException {
+        if (!assemblyPresetDistributionIsPossible()) {
+            throw new ImpossibleAssemblyPresetDistributionException();
+        }
+
+        return this;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override
@@ -433,6 +528,19 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
 
     public void setAssemblyMean(AssemblyMean assemblyMean) {
         this.assemblyMean = assemblyMean;
+    }
+
+    public Boolean getForceCentralUtilityComponent() {
+        return this.forceCentralUtilityComponent;
+    }
+
+    public Strand forceCentralUtilityComponent(Boolean forceCentralUtilityComponent) {
+        this.setForceCentralUtilityComponent(forceCentralUtilityComponent);
+        return this;
+    }
+
+    public void setForceCentralUtilityComponent(Boolean forceCentralUtilityComponent) {
+        this.forceCentralUtilityComponent = forceCentralUtilityComponent;
     }
 
     public Set<SupplyPosition> getSupplyPositions() {
@@ -506,7 +614,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     }
 
     public void setIntersticeAssemblies(Set<IntersticeAssembly> intersticeAssemblies) throws NoIntersticeAvailableException {
-        if (getCoreAssemblies() == null) {
+        if (getCoreAssemblies() == null && intersticeAssemblies != null) {
             throw new NoIntersticeAvailableException("No CoreAssembly found in strand");
         }
         if (this.intersticeAssemblies != null) {
@@ -624,6 +732,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
             "id=" + getId() +
             ", diameterAssemblyStep=" + getDiameterAssemblyStep() +
             ", assemblyMean='" + getAssemblyMean() + "'" +
+            ", forceCentralUtilityComponent='" + getForceCentralUtilityComponent() + "'" +
             "}";
     }
 }

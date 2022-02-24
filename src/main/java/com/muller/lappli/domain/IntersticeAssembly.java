@@ -83,6 +83,11 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     }
 
     @Override
+    public Double getMilimeterDiameterIncidency() {
+        return 0.0;
+    }
+
+    @Override
     public Long getProductionStep() {
         return DomainManager.ERROR_LONG_POSITIVE_VALUE;
     }

@@ -11,13 +11,7 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends Ab
     public abstract Long getAssemblyLayer();
 
     @Override
-    public Double getMilimeterDiameterIncidency() {
-        try {
-            return getOwnerStrand().getFutureStudyStrandSupply().getSuppliedComponentsAverageMilimeterDiameter();
-        } catch (NullPointerException e) {
-            return Double.NaN;
-        }
-    }
+    public abstract Double getMilimeterDiameterIncidency();
 
     @Override
     public Long getOperationLayer() {

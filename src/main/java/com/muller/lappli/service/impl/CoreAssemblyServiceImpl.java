@@ -44,9 +44,6 @@ public class CoreAssemblyServiceImpl implements CoreAssemblyService {
                 if (coreAssembly.getForcedMeanMilimeterComponentDiameter() != null) {
                     existingCoreAssembly.setForcedMeanMilimeterComponentDiameter(coreAssembly.getForcedMeanMilimeterComponentDiameter());
                 }
-                if (coreAssembly.getComponentsCount() != null) {
-                    existingCoreAssembly.setComponentsCount(coreAssembly.getComponentsCount());
-                }
 
                 return existingCoreAssembly;
             })

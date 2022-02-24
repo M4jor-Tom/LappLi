@@ -11,6 +11,10 @@
       "fieldType": "AssemblyMean",
       "fieldValues": "RIGHT,LEFT,STRAIGHT",
       "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "forceCentralUtilityComponent",
+      "fieldType": "Boolean"
     }
   ],
   "relationships": [
