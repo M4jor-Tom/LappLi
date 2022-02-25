@@ -111,7 +111,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
                 .getCalculatorInstance()
                 .getSuppliedComponentsAverageDiameterAssemblyVoid(getOwnerStrandSupply(), getAssemblyLayer() - 1);
         } catch (NullPointerException e) {} catch (IndexOutOfBoundsException e) {
-            onIndexOutOfBoundsException(e);
+            e.printStackTrace();
         }
 
         return Double.NaN;
@@ -136,9 +136,12 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     public AssemblyPreset suggestAssemblyPreset() {
         try {
-            if (getOwnerStrandSupply().getSuppliedComponentsDividedCount().equals(Long.valueOf(0))) {
-                return new AssemblyPreset(DomainManager.ERROR_LONG_POSITIVE_VALUE, DomainManager.ERROR_LONG_POSITIVE_VALUE);
+            if (getOwnerStrandSupply() == null) {
+                return AssemblyPreset.forError();
+            } else if (Long.valueOf(0).equals(getOwnerStrandSupply().getSuppliedComponentsDividedCount())) {
+                return AssemblyPreset.forError();
             }
+
             AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility = getOwnerStrandSupply()
                 .getAssemblyPresetDistributionPossibility();
 
@@ -147,15 +150,11 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
             return assemblyPresetDistributionPossibility
                 .getAssemblyPresets()
                 .get(indexOfFirstCoreAssembly + getAssemblyLayer().intValue() - 1);
-        } catch (NullPointerException e) {} catch (IndexOutOfBoundsException e) {
-            onIndexOutOfBoundsException(e);
+        } /*catch (NullPointerException e) {}*/catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
         }
 
-        return new AssemblyPreset(DomainManager.ERROR_LONG_POSITIVE_VALUE, DomainManager.ERROR_LONG_POSITIVE_VALUE);
-    }
-
-    private void onIndexOutOfBoundsException(IndexOutOfBoundsException e) {
-        DomainManager.noticeInPrompt("The following exception is normal into an Intergation Test context\n\n" + e.getMessage());
+        return AssemblyPreset.forError();
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
