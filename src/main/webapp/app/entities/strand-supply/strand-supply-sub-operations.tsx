@@ -64,7 +64,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   <Translate contentKey="lappLiApp.strandSupply.operationKind">Operation Kind</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.operation.operationLayer">Operation Layer</Translate>
+                  <Translate contentKey="lappLiApp.operation.layer">Layer</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.operation.productionStep">Production Step</Translate>
@@ -154,7 +154,11 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                       <td>
                         <Translate contentKey="lappLiApp.coreAssembly.home.title" />
                       </td>
-                      <td>{coreAssembly.operationLayer}</td>
+                      <td>
+                        {translate('lappLiApp.operation.detail.title') + ':'}&nbsp;{coreAssembly.operationLayer}
+                        <br />
+                        {translate('lappLiApp.assembly.detail.title') + ':'}&nbsp;{coreAssembly.assemblyLayer}
+                      </td>
                       <td>{coreAssembly.productionStep}</td>
                       <td>{coreAssembly.productDesignation}</td>
                       <td>{coreAssembly.milimeterDiameterIncidency}</td>
