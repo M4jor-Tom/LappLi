@@ -102,8 +102,8 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   <td>{strandSupplyEntity.centralAssembly.productionStep}</td>
                   <td>1</td>
                   <td>{/* NO PRODUCT DESIGNATION (ASSEMBLY) */}</td>
-                  <td>{strandSupplyEntity.centralAssembly.milimeterDiameterIncidency}</td>
-                  <td>{strandSupplyEntity.centralAssembly.afterThisMilimeterDiameter}</td>
+                  <td>{strandSupplyEntity.centralAssembly.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
+                  <td>{strandSupplyEntity.centralAssembly.mullerStandardizedFormatAfterThisMilimeterDiameter}</td>
                   <td>{/* NO ASSEMBLY STEP (CENTRAL ASSEMBLY) */}</td>
                   <td>{/* NO ASSEMBLY MEAN (CENTRAL ASSEMBLY) */}</td>
                   <td className="text-right">
@@ -166,8 +166,8 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                       <td>{coreAssembly.componentsCount}</td>
                       <td>{coreAssembly.productionStep}</td>
                       <td>{/* NO PRODUCT DESIGNATION (ASSEMBLY) */}</td>
-                      <td>{coreAssembly.milimeterDiameterIncidency}</td>
-                      <td>{coreAssembly.afterThisMilimeterDiameter}</td>
+                      <td>{coreAssembly.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
+                      <td>{coreAssembly.mullerStandardizedFormatAfterThisMilimeterDiameter}</td>
                       <td>{coreAssembly.diameterAssemblyStep}</td>
                       <td>{coreAssembly.assemblyMean}</td>
                       <td className="text-right">
@@ -224,8 +224,8 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                       <td>{intersticialAssembly.operationLayer}</td>
                       <td>{intersticialAssembly.productionStep}</td>
                       <td>{/* NO PRODUCT DESIGNATION (ASSEMBLY) */}</td>
-                      <td>{intersticialAssembly.milimeterDiameterIncidency}</td>
-                      <td>{intersticialAssembly.afterThisMilimeterDiameter}</td>
+                      <td>{intersticialAssembly.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
+                      <td>{intersticialAssembly.mullerStandardizedFormatAfterThisMilimeterDiameter}</td>
                       <td>{intersticialAssembly.diameterAssemblyStep}</td>
                       <td>{intersticialAssembly.assemblyMean}</td>
                       <td className="text-right">
