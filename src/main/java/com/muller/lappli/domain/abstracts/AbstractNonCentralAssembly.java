@@ -1,6 +1,5 @@
 package com.muller.lappli.domain.abstracts;
 
-import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 
 /**

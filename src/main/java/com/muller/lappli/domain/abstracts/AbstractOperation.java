@@ -8,7 +8,6 @@ import com.muller.lappli.domain.CoreAssembly;
 import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.IntersticeAssembly;
 import com.muller.lappli.domain.Sheathing;
-import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import javax.persistence.MappedSuperclass;
