@@ -110,7 +110,9 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     @Override
     public String getDesignation() {
-        if (getStrand() == null) {
+        if (getApparitions() == null) {
+            return "";
+        } else if (getStrand() == null) {
             return getApparitions() + " x [?]";
         }
 
