@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.muller.lappli.domain.CentralAssembly;
 import com.muller.lappli.domain.CoreAssembly;
+import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.IntersticeAssembly;
 import com.muller.lappli.domain.Sheathing;
 import com.muller.lappli.domain.Strand;
@@ -37,6 +38,14 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
      * sometimes a litle bit more, sometimes a little but less
      */
     public abstract Double getMilimeterDiameterIncidency();
+
+    /**
+     * @return the standardized {@link String} value of
+     * {@link AbstractOperation#getMilimeterDiameterIncidency}
+     */
+    public String getMullerStandardizedFormatMilimeterDiameterIncidency() {
+        return DomainManager.mullerStandardizedFormat(getMilimeterDiameterIncidency());
+    }
 
     /**
      * @return the strand which owns this assembly
@@ -80,6 +89,14 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
         } catch (NullPointerException e) {
             return Double.NaN;
         }
+    }
+
+    /**
+     * @return the standardized {@link String} value of
+     * {@link AbstractOperation#getAfterThisMilimeterDiameter}
+     */
+    public String getMullerStandardizedFormatAfterThisMilimeterDiameter() {
+        return DomainManager.mullerStandardizedFormat(getAfterThisMilimeterDiameter());
     }
 
     /**
