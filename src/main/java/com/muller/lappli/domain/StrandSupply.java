@@ -67,20 +67,20 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     private Boolean forceCentralUtilityComponent;
 
     @JsonIgnoreProperties(value = { "ownerStrandSupply", "supplyPosition" }, allowSetters = true)
-    @OneToOne(mappedBy = "ownerStrandSupply")
+    @OneToOne(mappedBy = "ownerStrandSupply", cascade = CascadeType.REMOVE)
     private CentralAssembly centralAssembly;
 
-    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
     private Set<CoreAssembly> coreAssemblies = new HashSet<>();
 
-    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "supplyPositions", "ownerStrandSupply" }, allowSetters = true)
     private Set<IntersticeAssembly> intersticeAssemblies = new HashSet<>();
 
-    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "material", "ownerStrandSupply" }, allowSetters = true)
     private Set<Sheathing> sheathings = new HashSet<>();
