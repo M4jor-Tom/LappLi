@@ -1,5 +1,6 @@
 package com.muller.lappli.domain.abstracts;
 
+import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 
 /**
@@ -19,14 +20,6 @@ public abstract class AbstractNonCentralAssembly<T extends AbstractNonCentralAss
 
     @Override
     public String getProductDesignation() {
-        String designation = "";
-
-        if (getOwnerStrandSupply() != null) {
-            for (AbstractSupply<?> supply : getOwnerStrandSupply().getStrand().getSupplies()) {
-                designation += supply.getDesignation();
-            }
-        }
-
-        return designation;
+        return getOwnerStrandSupply().getDesignation();
     }
 }
