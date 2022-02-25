@@ -102,6 +102,28 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return commonDividers;
     }
 
+    public String getDesignation() {
+        return getUndividedCountDesignation(Long.valueOf(1));
+    }
+
+    public String getUndividedCountDesignation(Long supplyComponentsDivider) {
+        String designation = "";
+        Boolean isFirstWrittenSupplyDesignation = true;
+
+        if (getSupplies() == null) {
+            return "";
+        } else for (AbstractSupply<?> supply : getSupplies()) {
+            if (isFirstWrittenSupplyDesignation) {
+                isFirstWrittenSupplyDesignation = false;
+            } else {
+                designation += " + ";
+            }
+            designation += supply.getDesignation();
+        }
+
+        return designation;
+    }
+
     public Long getUndividedSuppliedComponentsCount() {
         Long count = Long.valueOf(0);
 
