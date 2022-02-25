@@ -280,8 +280,8 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                     <td>{operation.operationLayer}</td>
                     <td>{operation.productionStep}</td>
                     <td>{operation.productDesignation}</td>
-                    <td>{operation.milimeterDiameterIncidency}</td>
-                    <td>{operation.afterThisMilimeterDiameter}</td>
+                    <td>{operation.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
+                    <td>{operation.mullerStandardizedFormatAfterThisMilimeterDiameter}</td>
                     <td>{/* NO ASSEMBLY STEP */}</td>
                     <td>{/* NO ASSEMBLY MEAN */}</td>
 
