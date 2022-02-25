@@ -20,6 +20,6 @@ public abstract class AbstractNonCentralAssembly<T extends AbstractNonCentralAss
 
     @Override
     public String getProductDesignation() {
-        return getOwnerStrandSupply().getDesignation();
+        return "";
     }
 }
