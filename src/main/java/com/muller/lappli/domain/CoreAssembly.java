@@ -152,8 +152,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     }
 
     private void onIndexOutOfBoundsException(IndexOutOfBoundsException e) {
-        DomainManager.noticeInPrompt("The following exception is normal into an Intergation Test context");
-        e.printStackTrace();
+        DomainManager.noticeInPrompt("The following exception is normal into an Intergation Test context\n\n" + e.getMessage());
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
