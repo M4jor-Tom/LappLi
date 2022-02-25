@@ -136,6 +136,9 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     public AssemblyPreset suggestAssemblyPreset() {
         try {
+            if (getOwnerStrandSupply().getSuppliedComponentsDividedCount().equals(Long.valueOf(0))) {
+                return new AssemblyPreset(DomainManager.ERROR_LONG_POSITIVE_VALUE, DomainManager.ERROR_LONG_POSITIVE_VALUE);
+            }
             AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility = getOwnerStrandSupply()
                 .getAssemblyPresetDistributionPossibility();
 
