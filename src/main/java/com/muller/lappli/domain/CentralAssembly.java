@@ -73,7 +73,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @Override
     public Double getMilimeterDiameterIncidency() {
         try {
-            return getOwnerStrandSupply().getSuppliedComponentsAverageMilimeterDiameter();
+            return getOwnerStrandSupply().getStrand().getSuppliedComponentsAverageMilimeterDiameter();
         } catch (NullPointerException e) {
             return Double.NaN;
         }

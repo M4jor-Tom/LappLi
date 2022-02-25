@@ -106,6 +106,10 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return getUndividedCountDesignation(Long.valueOf(1));
     }
 
+    public Double getSuppliedComponentsAverageMilimeterDiameter() {
+        return getSuppliedComponentsMilimeterDiametersSum() / getUndividedSuppliedComponentsCount();
+    }
+
     public String getUndividedCountDesignation(Long supplyComponentsDivider) {
         String designation = "";
         Boolean isFirstWrittenSupplyDesignation = true;
@@ -153,7 +157,11 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         List<Double> suppliedComponentsMilimeterDiameter = new ArrayList<Double>();
 
         for (AbstractSupply<?> supply : getSupplies()) {
-            suppliedComponentsMilimeterDiameter.add(supply == null ? Double.NaN : supply.getCylindricComponent().getMilimeterDiameter());
+            for (Long i = Long.valueOf(0); i < supply.getApparitions(); i++) {
+                suppliedComponentsMilimeterDiameter.add(
+                    supply == null ? Double.NaN : supply.getCylindricComponent().getMilimeterDiameter()
+                );
+            }
         }
 
         return suppliedComponentsMilimeterDiameter;

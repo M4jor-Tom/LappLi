@@ -367,14 +367,6 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         return DomainManager.ERROR_LONG_POSITIVE_VALUE;
     }
 
-    public Double getSuppliedComponentsAverageMilimeterDiameter() {
-        if (getStrand() != null) {
-            return getStrand().getSuppliedComponentsMilimeterDiametersSum() / getSuppliedComponentsDividedCount();
-        }
-
-        return null;
-    }
-
     public Boolean assemblyPresetDistributionIsPossible() {
         return (
             AssemblyPresetDistribution.forStrandSupply(this).getAssemblyPresetDistributionPossibility(getForceCentralUtilityComponent()) !=

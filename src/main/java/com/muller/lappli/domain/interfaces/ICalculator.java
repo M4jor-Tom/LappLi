@@ -70,7 +70,7 @@ public interface ICalculator {
      */
     public default Double getMilimeterCentralVoidDiameter(StrandSupply strandSupply) {
         return (
-            strandSupply.getSuppliedComponentsAverageMilimeterDiameter() *
+            strandSupply.getStrand().getSuppliedComponentsAverageMilimeterDiameter() *
             getSuppliedComponentsAverageDiameterCentralVoidDiameter(
                 getSuppliesCountAtAssembly(strandSupply, Long.valueOf(0)),
                 strandSupply.getDiameterAssemblyStep()
@@ -125,7 +125,7 @@ public interface ICalculator {
     public default Double getMilimeterAssemblyVoid(StrandSupply strandSupply, Long assemblyIndex) {
         return (
             getSuppliedComponentsAverageDiameterAssemblyVoid(strandSupply, assemblyIndex) *
-            strandSupply.getSuppliedComponentsAverageMilimeterDiameter()
+            strandSupply.getStrand().getSuppliedComponentsAverageMilimeterDiameter()
         );
     }
 

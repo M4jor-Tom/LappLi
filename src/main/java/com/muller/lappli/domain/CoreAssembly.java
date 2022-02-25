@@ -77,7 +77,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     @Override
     public Double getMilimeterDiameterIncidency() {
         try {
-            return getOwnerStrandSupply().getSuppliedComponentsAverageMilimeterDiameter();
+            return 2 * getOwnerStrandSupply().getStrand().getSuppliedComponentsAverageMilimeterDiameter();
         } catch (NullPointerException e) {
             return Double.NaN;
         }
@@ -123,7 +123,8 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     public Double getMilimeterAssemblyVoid() {
         try {
             return (
-                getSuppliedComponentsAverageDiameterAssemblyVoid() * getOwnerStrandSupply().getSuppliedComponentsAverageMilimeterDiameter()
+                getSuppliedComponentsAverageDiameterAssemblyVoid() *
+                getOwnerStrandSupply().getStrand().getSuppliedComponentsAverageMilimeterDiameter()
             );
         } catch (NullPointerException e) {
             return Double.NaN;
