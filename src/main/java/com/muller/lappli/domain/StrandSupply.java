@@ -110,11 +110,11 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     @Override
     public String getDesignation() {
-        try {
-            return getApparitions().toString() + " x " + getStrand().getId().toString();
-        } catch (NullPointerException e) {
+        if (getStrand() == null) {
             return getApparitions() + " x [?]";
         }
+
+        return getApparitions().toString() + " x (" + getStrand().getUndividedCountDesignation(getApparitions()) + ")";
     }
 
     /**
