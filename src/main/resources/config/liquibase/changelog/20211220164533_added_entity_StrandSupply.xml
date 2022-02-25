@@ -30,7 +30,7 @@
                 <constraints nullable="false" />
             </column>
             <column name="force_central_utility_component" type="boolean">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="strand_id" type="bigint">
                 <constraints nullable="false" />

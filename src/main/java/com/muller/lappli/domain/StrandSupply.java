@@ -63,7 +63,8 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     @Column(name = "assembly_mean", nullable = false)
     private AssemblyMean assemblyMean;
 
-    @Column(name = "force_central_utility_component")
+    @NotNull
+    @Column(name = "force_central_utility_component", nullable = false)
     private Boolean forceCentralUtilityComponent;
 
     @JsonIgnoreProperties(value = { "ownerStrandSupply", "supplyPosition" }, allowSetters = true)

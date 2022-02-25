@@ -256,6 +256,23 @@ class StrandSupplyResourceIT {
 
     @Test
     @Transactional
+    void checkForceCentralUtilityComponentIsRequired() throws Exception {
+        int databaseSizeBeforeTest = strandSupplyRepository.findAll().size();
+        // set the field null
+        strandSupply.setForceCentralUtilityComponent(null);
+
+        // Create the StrandSupply, which fails.
+
+        restStrandSupplyMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(strandSupply)))
+            .andExpect(status().isBadRequest());
+
+        List<StrandSupply> strandSupplyList = strandSupplyRepository.findAll();
+        assertThat(strandSupplyList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllStrandSupplies() throws Exception {
         // Initialize the database
         strandSupplyRepository.saveAndFlush(strandSupply);

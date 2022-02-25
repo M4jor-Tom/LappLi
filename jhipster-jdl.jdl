@@ -45,7 +45,7 @@ entity StrandSupply {
     description String
 	diameterAssemblyStep Double required
     assemblyMean AssemblyMean required
-    forceCentralUtilityComponent Boolean
+    forceCentralUtilityComponent Boolean required
 }
 
 entity Lifter {
@@ -169,7 +169,7 @@ relationship OneToMany {
 
 relationship OneToMany {
     //Strand's SupplyPositions
-    Strand{supplyPositions} to SupplyPosition{ownerStrand(designation)}
+    Strand{supplyPositions} to SupplyPosition{ownerStrand(id)}
 }
 
 relationship OneToMany {
@@ -209,7 +209,7 @@ relationship ManyToOne {
 }
 
 relationship ManyToOne {
-	StrandSupply{strand(designation) required} to Strand
+	StrandSupply{strand(id) required} to Strand
 }
 
 relationship ManyToOne {

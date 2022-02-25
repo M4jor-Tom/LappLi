@@ -29,7 +29,8 @@
     },
     {
       "fieldName": "forceCentralUtilityComponent",
-      "fieldType": "Boolean"
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
     }
   ],
   "relationships": [
@@ -60,7 +61,7 @@
       "otherEntityRelationshipName": "strandSupply",
       "relationshipValidateRules": "required",
       "relationshipName": "strand",
-      "otherEntityField": "designation"
+      "otherEntityField": "id"
     },
     {
       "relationshipType": "one-to-one",

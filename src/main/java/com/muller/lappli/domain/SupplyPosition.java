@@ -29,7 +29,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     @Column(name = "supply_apparitions_usage", nullable = false)
     private Long supplyApparitionsUsage;
 
-    @JsonIgnoreProperties(value = { "ownerStrand", "supplyPosition" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrandSupply", "supplyPosition" }, allowSetters = true)
     @OneToOne(mappedBy = "supplyPosition")
     private CentralAssembly ownerCentralAssembly;
 
@@ -68,7 +68,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     private Strand ownerStrand;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "supplyPositions", "ownerStrand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "supplyPositions", "ownerStrandSupply" }, allowSetters = true)
     private IntersticeAssembly ownerIntersticeAssembly;
 
     @Override

@@ -49,7 +49,7 @@
       "otherEntityName": "strand",
       "otherEntityRelationshipName": "supplyPositions",
       "relationshipName": "ownerStrand",
-      "otherEntityField": "designation"
+      "otherEntityField": "id"
     },
     {
       "relationshipType": "many-to-one",
