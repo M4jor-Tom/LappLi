@@ -101,7 +101,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   </td>
                   <td>{strandSupplyEntity.centralAssembly.productionStep}</td>
                   <td>1</td>
-                  <td>{strandSupplyEntity.centralAssembly.productDesignation}</td>
+                  <td>{/* NO PRODUCT DESIGNATION (ASSEMBLY) */}</td>
                   <td>{strandSupplyEntity.centralAssembly.milimeterDiameterIncidency}</td>
                   <td>{strandSupplyEntity.centralAssembly.afterThisMilimeterDiameter}</td>
                   <td>{/* NO ASSEMBLY STEP (CENTRAL ASSEMBLY) */}</td>
@@ -163,9 +163,9 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                         <br />
                         {translate('lappLiApp.assembly.detail.title') + ':'}&nbsp;{coreAssembly.assemblyLayer}
                       </td>
-                      <td>{coreAssembly.productionStep}</td>
                       <td>{coreAssembly.componentsCount}</td>
-                      <td>{coreAssembly.productDesignation}</td>
+                      <td>{coreAssembly.productionStep}</td>
+                      <td>{/* NO PRODUCT DESIGNATION (ASSEMBLY) */}</td>
                       <td>{coreAssembly.milimeterDiameterIncidency}</td>
                       <td>{coreAssembly.afterThisMilimeterDiameter}</td>
                       <td>{coreAssembly.diameterAssemblyStep}</td>
@@ -223,7 +223,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                       </td>
                       <td>{intersticialAssembly.operationLayer}</td>
                       <td>{intersticialAssembly.productionStep}</td>
-                      <td>{intersticialAssembly.productDesignation}</td>
+                      <td>{/* NO PRODUCT DESIGNATION (ASSEMBLY) */}</td>
                       <td>{intersticialAssembly.milimeterDiameterIncidency}</td>
                       <td>{intersticialAssembly.afterThisMilimeterDiameter}</td>
                       <td>{intersticialAssembly.diameterAssemblyStep}</td>
