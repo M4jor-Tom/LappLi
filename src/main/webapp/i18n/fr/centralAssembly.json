@@ -19,7 +19,8 @@
       },
       "id": "ID",
       "ownerStrandSupply": "Owner Strand Supply",
-      "supplyPosition": "Supply Position"
+      "supplyPosition": "Supply Position",
+      "centralOperationLayer": "Couche d'opération centrale"
     }
   }
 }

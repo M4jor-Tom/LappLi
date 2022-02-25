@@ -36,7 +36,8 @@
       "strand": "Strand",
       "centralAssembly": "Central Assembly",
       "study": "Study",
-      "operations": "opérations"
+      "operations": "opérations",
+      "operationKind": "Genre d'opération"
     }
   }
 }

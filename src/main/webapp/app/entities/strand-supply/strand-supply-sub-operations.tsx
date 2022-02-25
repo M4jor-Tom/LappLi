@@ -61,7 +61,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
             <thead>
               <tr>
                 <th>
-                  <Translate contentKey="lappLiApp.strand.operationKind">Operation Kind</Translate>
+                  <Translate contentKey="lappLiApp.strandSupply.operationKind">Operation Kind</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.operation.operationLayer">Operation Layer</Translate>
