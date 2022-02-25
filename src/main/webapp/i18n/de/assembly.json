@@ -11,7 +11,8 @@
       "assemblyLayer": "Assembly Layer",
       "diameterAssemblyStep": "Assembly Step (D)",
       "assemblyMean": "Assembly Mean",
-      "subSupply": "Assembly Supply"
+      "subSupply": "Assembly Supply",
+      "suppliedComponentsCount": "Supplied Components Count"
     }
   }
 }

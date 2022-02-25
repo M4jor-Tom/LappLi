@@ -67,6 +67,9 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   <Translate contentKey="lappLiApp.operation.layer">Layer</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.assembly.suppliedComponentsCount">Components Count</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.operation.productionStep">Production Step</Translate>
                 </th>
                 <th>
@@ -97,6 +100,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                     <Translate contentKey="lappLiApp.centralAssembly.centralOperationLayer" />
                   </td>
                   <td>{strandSupplyEntity.centralAssembly.productionStep}</td>
+                  <td>1</td>
                   <td>{strandSupplyEntity.centralAssembly.productDesignation}</td>
                   <td>{strandSupplyEntity.centralAssembly.milimeterDiameterIncidency}</td>
                   <td>{strandSupplyEntity.centralAssembly.afterThisMilimeterDiameter}</td>
@@ -160,6 +164,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                         {translate('lappLiApp.assembly.detail.title') + ':'}&nbsp;{coreAssembly.assemblyLayer}
                       </td>
                       <td>{coreAssembly.productionStep}</td>
+                      <td>{coreAssembly.componentsCount}</td>
                       <td>{coreAssembly.productDesignation}</td>
                       <td>{coreAssembly.milimeterDiameterIncidency}</td>
                       <td>{coreAssembly.afterThisMilimeterDiameter}</td>

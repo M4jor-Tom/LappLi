@@ -11,7 +11,8 @@
       "assemblyLayer": "Couche d'Assemblage",
       "diameterAssemblyStep": "Pas d'Assemblage (D)",
       "assemblyMean": "Sens d'Assemblage",
-      "subSupply": "Approvisionnement de couche"
+      "subSupply": "Approvisionnement de couche",
+      "suppliedComponentsCount": "Nombre de composants approvisionnés"
     }
   }
 }
