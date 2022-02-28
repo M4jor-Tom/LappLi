@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
+import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.enumeration.AssemblyPresetDistribution;
 import com.muller.lappli.domain.interfaces.IAssemblyPresetDistributionCalculator;
 import com.muller.lappli.domain.interfaces.ICalculator;
@@ -47,17 +48,8 @@ public class CalculatorMullerSecretImpl implements ICalculator {
             return getCalculatedCloneAssemblyPresetDistributionPossibility(strandSupply);
         }
 
-        Double milimeterDiameterBeforeCentralCompletionComponent = Double.NaN;
-
-        try {
-            milimeterDiameterBeforeCentralCompletionComponent =
-                strandSupply.getCentralAssembly().getSupplyPosition().getSupply().getCylindricComponent().getMilimeterDiameter();
-        } catch (NullPointerException e) {
-            //e.printStackTrace();
-        }
-
         AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility = new AssemblyPresetDistributionPossibility(
-            milimeterDiameterBeforeCentralCompletionComponent,
+            DEFAULT_MILIMETER_DIAMETER_BEFORE_CENTRAL_COMPLETION_COMPONENT,
             new ArrayList<AssemblyPreset>()
         );
 
@@ -90,19 +82,30 @@ public class CalculatorMullerSecretImpl implements ICalculator {
                 //Normally it's okay, check this
 
                 try {
+                    AbstractSupply<?> centralAssemblySupply = strandSupply.getCentralAssembly().getSupplyPosition().getSupply();
+
                     newAssemblyPresetTotalComponentsCount =
-                        Double
-                            .valueOf(
-                                Math.floor(
-                                    suggestSuppliedComponentsCountWithMilimeterDiameters(
-                                        milimeterDiameterBeforeCentralCompletionComponent,
-                                        strandSupply.getSuppliedComponentsAverageMilimeterDiameter(),
-                                        strandSupply.getDiameterAssemblyStep()
+                        centralAssemblySupply == null
+                            ? AssemblyPresetDistribution
+                                .forSuppliedComponentsCount(strandSupply.getSuppliedComponentsDividedCount())
+                                .getAssemblyPresetDistributionPossibility(strandSupply.getForceCentralUtilityComponent())
+                                .getAssemblyPresetsAfterCentral()
+                                .get(0)
+                                .getTotalComponentsCount()
+                            : Double
+                                .valueOf(
+                                    Math.floor(
+                                        suggestSuppliedComponentsCountWithMilimeterDiameters(
+                                            centralAssemblySupply.getCylindricComponent().getMilimeterDiameter(),
+                                            strandSupply.getStrand().getSuppliedComponentsAverageMilimeterDiameter(),
+                                            strandSupply.getDiameterAssemblyStep()
+                                        )
                                     )
                                 )
-                            )
-                            .longValue();
-                } catch (NullPointerException e) {}
+                                .longValue();
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
 
                 //TODO: prompt out
                 //DomainManager.noticeInPrompt("newAssemblyPresetTotalComponentsCount = " + newAssemblyPresetTotalComponentsCount);
