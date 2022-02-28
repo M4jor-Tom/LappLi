@@ -274,7 +274,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     }
 
     public StrandSupply resetAssemblies() {
-        setCentralAssembly(new CentralAssembly());
+        setCentralAssembly(new CentralAssembly().supplyPosition(null));
         setCoreAssemblies(new HashSet<CoreAssembly>());
 
         //try {
