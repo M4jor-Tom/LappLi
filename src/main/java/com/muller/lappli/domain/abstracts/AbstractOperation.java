@@ -76,6 +76,14 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
     }
 
     /**
+     * @return the standardized {@link String} value of
+     * {@link AbstractOperation#getBeforeThisMilimeterDiameter}
+     */
+    public String getMullerStandardizedFormatBeforeThisMilimeterDiameter() {
+        return DomainManager.mullerStandardizedFormat(getBeforeThisMilimeterDiameter());
+    }
+
+    /**
      * @return the diameter of {@link #getOwnerStrand()}
      * in milimeters after {@link #getMilimeterDiameterIncidency()}
      * is added
