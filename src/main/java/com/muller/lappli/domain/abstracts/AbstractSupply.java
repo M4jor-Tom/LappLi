@@ -69,7 +69,6 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
     /**
      * @return the diameter in milimeters of the CylindricComponent
      */
-    @JsonIgnore
     public Double getMilimeterDiameter() {
         if (getCylindricComponent() == null) {
             return Double.NaN;
@@ -81,7 +80,6 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
     /**
      * @return the linear mass in grams per meter of the CylindricComponent
      */
-    @JsonIgnore
     public Double getGramPerMeterLinearMass() {
         if (getCylindricComponent() == null) {
             return Double.NaN;

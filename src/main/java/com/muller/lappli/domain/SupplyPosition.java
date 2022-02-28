@@ -151,6 +151,30 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
         return null;
     }
 
+    public SupplyPosition supply(AbstractSupply<?> supply) {
+        setSupply(supply);
+        return this;
+    }
+
+    public void setSupply(AbstractSupply<?> supply) {
+        switch (supply.getSupplyKind()) {
+            case BANGLE:
+                setBangleSupply((BangleSupply) supply);
+                break;
+            case CUSTOM_COMPONENT:
+                setCustomComponentSupply((CustomComponentSupply) supply);
+                break;
+            case ELEMENT:
+                setElementSupply((ElementSupply) supply);
+                break;
+            case ONE_STUDY:
+                setOneStudySupply((OneStudySupply) supply);
+                break;
+            default:
+                break;
+        }
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override
