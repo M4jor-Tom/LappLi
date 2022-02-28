@@ -1,6 +1,5 @@
 package com.muller.lappli.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
@@ -93,18 +92,6 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
         } catch (NullPointerException e) {
             return null;
         }
-    }
-
-    @Override
-    @JsonIgnore
-    public Double getMilimeterDiameter() {
-        return getCustomComponent().getMilimeterDiameter();
-    }
-
-    @Override
-    @JsonIgnore
-    public Double getGramPerMeterLinearMass() {
-        return getCustomComponent().getGramPerMeterLinearMass();
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

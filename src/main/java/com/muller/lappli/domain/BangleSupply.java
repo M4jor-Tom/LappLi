@@ -1,6 +1,5 @@
 package com.muller.lappli.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import com.muller.lappli.domain.enumeration.SupplyKind;
@@ -82,26 +81,6 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     @Override
     public Double getMeterPerHourSpeed() {
         return Double.valueOf(LIFTING_METER_PER_HOUR_SPEED);
-    }
-
-    @Override
-    @JsonIgnore
-    public Double getMilimeterDiameter() {
-        try {
-            return getBangle().getMilimeterDiameter();
-        } catch (NullPointerException e) {
-            return Double.NaN;
-        }
-    }
-
-    @Override
-    @JsonIgnore
-    public Double getGramPerMeterLinearMass() {
-        try {
-            return getBangle().getGramPerMeterLinearMass();
-        } catch (NullPointerException e) {
-            return Double.NaN;
-        }
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
