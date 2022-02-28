@@ -157,7 +157,14 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     }
 
     public void setSupply(AbstractSupply<?> supply) {
-        switch (supply.getSupplyKind()) {
+        setBangleSupply(null);
+        setCustomComponentSupply(null);
+        setElementSupply(null);
+        setOneStudySupply(null);
+
+        if (supply == null) {
+            return;
+        } else switch (supply.getSupplyKind()) {
             case BANGLE:
                 setBangleSupply((BangleSupply) supply);
                 break;
