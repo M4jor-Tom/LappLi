@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
@@ -156,6 +157,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
         return this;
     }
 
+    @JsonIgnore
     public void setSupply(AbstractSupply<?> supply) {
         setBangleSupply(null);
         setCustomComponentSupply(null);
