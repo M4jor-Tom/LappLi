@@ -294,7 +294,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility = getAssemblyPresetDistributionPossibility();
 
         if (assemblyPresetDistributionPossibility.hasCentralComponent()) {
-            getCentralAssembly().setSupplyPosition(new SupplyPosition().supplyApparitionsUsage(Long.valueOf(0)));
+            getCentralAssembly().setSupplyPosition(new SupplyPosition().supplyApparitionsUsage(Long.valueOf(1)).supply(null));
         }
 
         Long coreAssemblyAssemblyLayer = Long.valueOf(1);
