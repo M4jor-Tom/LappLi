@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
+import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import com.muller.lappli.domain.interfaces.ISupplyPositionOwner;
 import java.io.Serializable;
@@ -68,6 +69,22 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @Override
     public Double getAfterThisMilimeterDiameter() {
         return getMilimeterDiameterIncidency();
+    }
+
+    public Long getComponentsCount() {
+        SupplyPosition supplyPosition = getSupplyPosition();
+
+        if (supplyPosition == null) {
+            return Long.valueOf(0);
+        }
+
+        AbstractSupply<?> supply = supplyPosition.getSupply();
+
+        if (supply == null) {
+            return Long.valueOf(0);
+        }
+
+        return supply.getApparitions();
     }
 
     @Override

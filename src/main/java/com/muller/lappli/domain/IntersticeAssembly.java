@@ -199,6 +199,21 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         return this;
     }
 
+    @Override
+    public Long getComponentsCount() {
+        if (getOwnerStrandSupply() == null) {
+            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+        }
+
+        Long componentsCount = Long.valueOf(0);
+
+        for (SupplyPosition supplyPosition : getSupplyPositions()) {
+            componentsCount += supplyPosition.getSupply().getApparitions();
+        }
+
+        return componentsCount / getOwnerStrandSupply().getApparitions();
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

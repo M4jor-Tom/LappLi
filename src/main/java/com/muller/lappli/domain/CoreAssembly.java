@@ -131,6 +131,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         }
     }
 
+    @Override
     public Long getComponentsCount() {
         return suggestAssemblyPreset().getTotalComponentsCount();
     }
