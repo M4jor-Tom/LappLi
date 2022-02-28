@@ -67,7 +67,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     @Column(name = "force_central_utility_component", nullable = false)
     private Boolean forceCentralUtilityComponent;
 
-    @JsonIgnoreProperties(value = { "ownerStrandSupply", "supplyPosition" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
     @OneToOne(mappedBy = "ownerStrandSupply", cascade = CascadeType.REMOVE)
     private CentralAssembly centralAssembly;
 
