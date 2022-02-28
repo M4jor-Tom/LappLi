@@ -78,6 +78,15 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
 
     @Override
     public Double getMilimeterDiameterIncidency() {
+        AbstractSupply<?> supply = null;
+        if (getSupplyPosition() == null) {
+            return 0.0;
+        } else if ((supply = getSupplyPosition().getSupply()) == null) {
+            return 0.0;
+        } else if (Long.valueOf(0).equals(supply.getApparitions())) {
+            return 0.0;
+        }
+
         try {
             return getOwnerStrandSupply().getStrand().getSuppliedComponentsAverageMilimeterDiameter();
         } catch (NullPointerException e) {
