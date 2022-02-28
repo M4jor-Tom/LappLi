@@ -37,6 +37,14 @@ public class AssemblyPreset implements Cloneable {
         return getTotalComponentsCount().equals(Long.valueOf(1));
     }
 
+    public Boolean isCentralUtilityComponent() {
+        return forCentralUtilityComponent().equals(this);
+    }
+
+    public Boolean isCentralCompletionComponent() {
+        return forCentralCompletionComponent().equals(this);
+    }
+
     public Long getTotalComponentsCount() {
         if (
             DomainManager.ERROR_LONG_POSITIVE_VALUE.equals(getUtilityComponentsCount()) ||
