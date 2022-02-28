@@ -13,6 +13,13 @@ public class AssemblyPresetTest {
     }
 
     @Test
+    public void instanceVerifier() throws Exception {
+        assertThat(AssemblyPreset.forCentralCompletionComponent().isCentralAccordingToTotalComponentsCount()).isTrue();
+
+        assertThat(AssemblyPreset.forCentralUtilityComponent().isCentralAccordingToTotalComponentsCount()).isTrue();
+    }
+
+    @Test
     public void cloneVerifier() throws Exception {
         AssemblyPreset original = new AssemblyPreset(10, 5);
         AssemblyPreset clone = original.clone();

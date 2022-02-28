@@ -20,6 +20,14 @@ public class AssemblyPreset implements Cloneable {
         return new AssemblyPreset(DomainManager.ERROR_LONG_POSITIVE_VALUE, DomainManager.ERROR_LONG_POSITIVE_VALUE);
     }
 
+    public static AssemblyPreset forCentralUtilityComponent() {
+        return new AssemblyPreset(Long.valueOf(1), Long.valueOf(0));
+    }
+
+    public static AssemblyPreset forCentralCompletionComponent() {
+        return new AssemblyPreset(Long.valueOf(0), Long.valueOf(1));
+    }
+
     @Override
     public AssemblyPreset clone() throws CloneNotSupportedException {
         return new AssemblyPreset(getUtilityComponentsCount(), getCompletionComponentsCount());
