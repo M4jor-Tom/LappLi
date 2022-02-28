@@ -167,7 +167,11 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                       <td>{coreAssembly.productionStep}</td>
                       <td>{/* NO PRODUCT DESIGNATION (ASSEMBLY) */}</td>
                       <td>{coreAssembly.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
-                      <td>{coreAssembly.mullerStandardizedFormatAfterThisMilimeterDiameter}</td>
+                      <td>
+                        {coreAssembly.mullerStandardizedFormatBeforeThisMilimeterDiameter +
+                          ' -> ' +
+                          coreAssembly.mullerStandardizedFormatAfterThisMilimeterDiameter}
+                      </td>
                       <td>{coreAssembly.diameterAssemblyStep}</td>
                       <td>{coreAssembly.assemblyMean}</td>
                       <td className="text-right">
