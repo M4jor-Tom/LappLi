@@ -35,18 +35,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @JoinColumn(name = "id")
     private StrandSupply ownerStrandSupply;
 
-    @JsonIgnoreProperties(
-        value = {
-            "ownerCentralAssembly",
-            "elementSupply",
-            "bangleSupply",
-            "customComponentSupply",
-            "oneStudySupply",
-            "ownerStrand",
-            "ownerIntersticeAssembly",
-        },
-        allowSetters = true
-    )
+    @JsonIgnoreProperties(value = { "ownerCentralAssembly", "ownerStrand", "ownerIntersticeAssembly" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private SupplyPosition supplyPosition;
