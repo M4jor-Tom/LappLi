@@ -100,7 +100,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                     <Translate contentKey="lappLiApp.centralAssembly.centralOperationLayer" />
                   </td>
                   <td>{strandSupplyEntity.centralAssembly.productionStep}</td>
-                  <td>1</td>
+                  <td>{strandSupplyEntity.centralAssembly.supplyPosition.supply === null ? 0 : 1}</td>
                   <td>{/* NO PRODUCT DESIGNATION (ASSEMBLY) */}</td>
                   <td>{strandSupplyEntity.centralAssembly.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
                   <td>{strandSupplyEntity.centralAssembly.mullerStandardizedFormatAfterThisMilimeterDiameter}</td>
