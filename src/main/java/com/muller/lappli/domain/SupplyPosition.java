@@ -326,6 +326,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
         return "SupplyPosition{" +
             "id=" + getId() +
             ", supplyApparitionsUsage=" + getSupplyApparitionsUsage() +
+            ", supply=" + getSupply() +
             "}";
     }
 }
