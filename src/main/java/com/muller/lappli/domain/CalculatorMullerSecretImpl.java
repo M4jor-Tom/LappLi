@@ -29,7 +29,7 @@ public class CalculatorMullerSecretImpl implements ICalculator {
             .forStrandSupply(strandSupply)
             .getAssemblyPresetDistributionPossibility(strandSupply.getForceCentralUtilityComponent())
             .getCloneWithCalculatedCentralComponent(
-                strandSupply.getSuppliedComponentsAverageMilimeterDiameter(),
+                strandSupply.getStrand().getSuppliedComponentsAverageMilimeterDiameter(),
                 strandSupply.getDiameterAssemblyStep()
             );
     }
@@ -219,7 +219,7 @@ public class CalculatorMullerSecretImpl implements ICalculator {
 
         return suggestSuppliedComponentsCountWithMilimeterDiameters(
             assembly.getBeforeThisMilimeterDiameter(),
-            strandSupply.getSuppliedComponentsAverageMilimeterDiameter(),
+            strandSupply.getStrand().getSuppliedComponentsAverageMilimeterDiameter(),
             strandSupply.getDiameterAssemblyStep()
         );
     }
