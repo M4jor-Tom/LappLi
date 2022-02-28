@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.muller.lappli.domain.enumeration.AssemblyPresetDistribution;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,12 @@ public class AssemblyPresetDistributionPossibility implements Cloneable {
     ) {
         setMilimeterDiameterBeforeCentralCompletionComponent(milimeterDiameterBeforeCentralCompletionComponent);
         setAssemblyPresets(assemblyPresets);
+    }
+
+    public static AssemblyPresetDistributionPossibility forStrandSupply(StrandSupply strandSupply) {
+        return AssemblyPresetDistribution
+            .forStrandSupply(strandSupply)
+            .getAssemblyPresetDistributionPossibility(strandSupply.getForceCentralUtilityComponent());
     }
 
     @Override
