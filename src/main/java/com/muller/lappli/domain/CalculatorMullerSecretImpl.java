@@ -160,7 +160,11 @@ public class CalculatorMullerSecretImpl implements ICalculator {
                 .getTotalComponentsCount();
         }
 
-        return null;
+        return strandSupply
+            .getAssemblyPresetDistributionPossibility()
+            .getAssemblyPresets()
+            .get(assemblyIndex.intValue())
+            .getTotalComponentsCount();
     }
 
     @Override
