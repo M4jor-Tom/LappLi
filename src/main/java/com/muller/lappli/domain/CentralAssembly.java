@@ -83,7 +83,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         } else {
             AbstractSupply<?> supply = getSupplyPosition() == null ? null : getSupplyPosition().getSupply();
             if (supply == null) {
-                return CalculatorManager.getCalculatorInstance().getMilimeterCentralVoidDiameter(getOwnerStrandSupply());
+                return Double.NaN;
             } else if (Long.valueOf(1).equals(supply.getApparitions())) {
                 return supply.getMilimeterDiameter();
             }
