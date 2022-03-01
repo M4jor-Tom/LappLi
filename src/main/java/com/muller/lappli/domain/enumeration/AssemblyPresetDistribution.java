@@ -4,7 +4,6 @@ import com.muller.lappli.domain.AssemblyPreset;
 import com.muller.lappli.domain.AssemblyPresetDistributionPossibility;
 import com.muller.lappli.domain.CalculatorManager;
 import com.muller.lappli.domain.DomainManager;
-import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.interfaces.IAssemblyPresetDistributionCalculator;
 import java.util.List;
