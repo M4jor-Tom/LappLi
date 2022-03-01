@@ -54,6 +54,11 @@ public class Bangle extends AbstractAssemblableAtom<Bangle> implements Article, 
         return getNumber();
     }
 
+    @Override
+    public Boolean isUtility() {
+        return false;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
