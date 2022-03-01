@@ -17,8 +17,20 @@ public abstract class AbstractNonCentralAssembly<T extends AbstractNonCentralAss
      */
     public abstract AssemblyMean getAssemblyMean();
 
+    public abstract Long getComponentsCountWhereIsUtilityNotCompletion(Boolean isUtilityNotCompletion);
+
     @Override
     public String getProductDesignation() {
         return "";
+    }
+
+    @Override
+    public Long getCompletionComponentsCount() {
+        return getComponentsCountWhereIsUtilityNotCompletion(false);
+    }
+
+    @Override
+    public Long getUtilityComponentsCount() {
+        return getComponentsCountWhereIsUtilityNotCompletion(true);
     }
 }

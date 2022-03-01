@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
+import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import com.muller.lappli.domain.interfaces.ISupplyPositionOwner;
@@ -100,6 +101,27 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         } catch (NullPointerException e) {
             return null;
         }
+    }
+
+    public Long getComponentsCountWhereIsUtilityNotCompletion(Boolean isUtilityNotCompletion) {
+        Long count = Long.valueOf(0);
+
+        for (SupplyPosition supplyPosition : getSupplyPositions()) {
+            AbstractSupply<?> supply = null;
+
+            if (supplyPosition != null) {
+                supply = supplyPosition.getSupply();
+
+                if (supply.getCylindricComponent() == null) {} else if (
+                    (supply.getCylindricComponent().isUtility() && isUtilityNotCompletion) ||
+                    (supply.getCylindricComponent().isCompletion() && !isUtilityNotCompletion)
+                ) {
+                    count += supply.getApparitions() / getOwnerStrandSupply().getApparitions();
+                }
+            }
+        }
+
+        return count;
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
