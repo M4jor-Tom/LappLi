@@ -220,23 +220,28 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   ))
                 : ''}
               {strandSupplyEntity.intersticeAssemblies
-                ? strandSupplyEntity.intersticeAssemblies.map((intersticialAssembly, i) => (
+                ? strandSupplyEntity.intersticeAssemblies.map((intersticeAssembly, i) => (
                     <tr key={`entity-interstice-assembly-${i}`} data-cy="entityTable">
                       <td>
                         <Translate contentKey="lappLiApp.intersticeAssembly.home.title" />
                       </td>
-                      <td>{intersticialAssembly.operationLayer}</td>
-                      <td>{intersticialAssembly.productionStep}</td>
+                      <td>
+                        {translate('lappLiApp.operation.detail.title') + ':'}&nbsp;{intersticeAssembly.operationLayer}
+                        <br />
+                        {translate('lappLiApp.assembly.detail.title') + ':'}&nbsp;{intersticeAssembly.assemblyLayer}
+                      </td>
+                      <td>{intersticeAssembly.componentsCount}</td>
+                      <td>{intersticeAssembly.productionStep}</td>
                       <td>{/* NO PRODUCT DESIGNATION (ASSEMBLY) */}</td>
-                      <td>{intersticialAssembly.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
-                      <td>{intersticialAssembly.mullerStandardizedFormatAfterThisMilimeterDiameter}</td>
-                      <td>{intersticialAssembly.diameterAssemblyStep}</td>
-                      <td>{intersticialAssembly.assemblyMean}</td>
+                      <td>{intersticeAssembly.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
+                      <td>{intersticeAssembly.mullerStandardizedFormatAfterThisMilimeterDiameter}</td>
+                      <td>{intersticeAssembly.diameterAssemblyStep}</td>
+                      <td>{intersticeAssembly.assemblyMean}</td>
                       <td className="text-right">
                         <div className="btn-group flex-btn-group-container">
                           <Button
                             tag={Link}
-                            to={`${props.match.url}/interstice-assembly/${intersticialAssembly.id}/supply`}
+                            to={`${props.match.url}/interstice-assembly/${intersticeAssembly.id}/supply`}
                             color="primary"
                             size="sm"
                             data-cy="entityEditButton"
@@ -249,7 +254,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                           &nbsp;
                           <Button
                             tag={Link}
-                            to={`${props.match.url}/interstice-assembly/${intersticialAssembly.id}/edit`}
+                            to={`${props.match.url}/interstice-assembly/${intersticeAssembly.id}/edit`}
                             color="primary"
                             size="sm"
                             data-cy="entityEditButton"
@@ -262,7 +267,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                           &nbsp;
                           <Button
                             tag={Link}
-                            to={`${props.match.url}/interstice-assembly/${intersticialAssembly.id}/delete`}
+                            to={`${props.match.url}/interstice-assembly/${intersticeAssembly.id}/delete`}
                             color="danger"
                             size="sm"
                             data-cy="entityDeleteButton"
