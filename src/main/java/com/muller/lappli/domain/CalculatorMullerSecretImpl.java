@@ -20,8 +20,17 @@ public class CalculatorMullerSecretImpl implements ICalculator {
             return 0.0;
         }
 
+        Double calculationDiameterAssemblyStep = diameterAssemblyStep;
+
+        if (Double.valueOf(0.0).equals(diameterAssemblyStep)) {
+            calculationDiameterAssemblyStep = Double.POSITIVE_INFINITY;
+        }
+
         return (
-            Math.sqrt((1 + (Math.pow(Math.PI / diameterAssemblyStep, 2))) / (Math.pow(Math.tan(Math.PI / componentsCount), 2)) + 1) - 1
+            Math.sqrt(
+                (1 + (Math.pow(Math.PI / calculationDiameterAssemblyStep, 2))) / (Math.pow(Math.tan(Math.PI / componentsCount), 2)) + 1
+            ) -
+            1
         );
     }
 
