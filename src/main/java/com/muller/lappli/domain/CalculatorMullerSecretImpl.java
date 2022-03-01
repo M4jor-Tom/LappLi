@@ -171,18 +171,22 @@ public class CalculatorMullerSecretImpl implements ICalculator {
 
     @Override
     public Long getSuppliesCountAtAssembly(StrandSupply strandSupply, Long assemblyIndex) {
+        AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility = null;
+
         if (strandSupply.forcesCenterDiameterWithSuppliedComponent()) {
-            return getCalculatedCloneAssemblyPresetDistributionPossibility(strandSupply)
-                .getAssemblyPresets()
-                .get(assemblyIndex.intValue())
-                .getTotalComponentsCount();
+            assemblyPresetDistributionPossibility = getCalculatedCloneAssemblyPresetDistributionPossibility(strandSupply);
+        } else {
+            assemblyPresetDistributionPossibility = strandSupply.getAssemblyPresetDistributionPossibility();
         }
 
-        return strandSupply
-            .getAssemblyPresetDistributionPossibility()
-            .getAssemblyPresets()
-            .get(assemblyIndex.intValue())
-            .getTotalComponentsCount();
+        try {
+            return assemblyPresetDistributionPossibility.getAssemblyPresets().get(assemblyIndex.intValue()).getTotalComponentsCount();
+        } catch (IndexOutOfBoundsException e) {
+            DomainManager.noticeInPrompt("THIS EXCEPTION IS NORMAL INTO A TEST PROCESS");
+            e.printStackTrace();
+        }
+
+        return DomainManager.ERROR_LONG_POSITIVE_VALUE;
     }
 
     @Override
