@@ -29,9 +29,13 @@ public class AssemblyPresetDistributionPossibility implements Cloneable {
     }
 
     public static AssemblyPresetDistributionPossibility forStrandSupply(StrandSupply strandSupply) {
-        return AssemblyPresetDistribution
-            .forStrandSupply(strandSupply)
-            .getAssemblyPresetDistributionPossibility(strandSupply.getForceCentralUtilityComponent());
+        AssemblyPresetDistribution assemblyPresetDistribution = AssemblyPresetDistribution.forStrandSupply(strandSupply);
+
+        if (assemblyPresetDistribution == null) {
+            return null;
+        }
+
+        return assemblyPresetDistribution.getAssemblyPresetDistributionPossibility(strandSupply.getForceCentralUtilityComponent());
     }
 
     @Override

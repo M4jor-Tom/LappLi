@@ -372,10 +372,13 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     }
 
     public Boolean assemblyPresetDistributionIsPossible() {
-        return (
-            AssemblyPresetDistribution.forStrandSupply(this).getAssemblyPresetDistributionPossibility(getForceCentralUtilityComponent()) !=
-            null
-        );
+        AssemblyPresetDistribution assemblyPresetDistribution = AssemblyPresetDistribution.forStrandSupply(this);
+
+        if (assemblyPresetDistribution == null) {
+            return false;
+        }
+
+        return (assemblyPresetDistribution.getAssemblyPresetDistributionPossibility(getForceCentralUtilityComponent()) != null);
     }
 
     public StrandSupply checkAssemblyPresetDistributionIsPossible() throws ImpossibleAssemblyPresetDistributionException {
