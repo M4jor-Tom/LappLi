@@ -16,7 +16,9 @@ public class CalculatorMullerSecretImpl implements ICalculator {
 
     @Override
     public Double getSuppliedComponentsAverageDiameterCentralVoidDiameter(Long componentsCount, Double diameterAssemblyStep) {
-        if (Long.valueOf(0).equals(componentsCount) || Long.valueOf(1).equals(componentsCount)) {
+        if (DomainManager.ERROR_LONG_POSITIVE_VALUE.equals(componentsCount)) {
+            return Double.NaN;
+        } else if (Long.valueOf(0).equals(componentsCount) || Long.valueOf(1).equals(componentsCount)) {
             return 0.0;
         }
 
