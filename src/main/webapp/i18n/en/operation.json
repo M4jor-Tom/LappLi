@@ -4,7 +4,11 @@
       "home": {
         "notFound": "No operation found"
       },
+      "detail": {
+        "title": "Operation"
+      },
       "ownerStrand": "Owner Strand",
+      "layer": "Layer",
       "operationLayer": "Operation Layer",
       "productionStep": "Production Step",
       "productDesignation": "Product Designation",

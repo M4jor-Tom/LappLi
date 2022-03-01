@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.muller.lappli.domain.enumeration.AssemblyPresetDistribution;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,16 @@ public class AssemblyPresetDistributionPossibility implements Cloneable {
     ) {
         setMilimeterDiameterBeforeCentralCompletionComponent(milimeterDiameterBeforeCentralCompletionComponent);
         setAssemblyPresets(assemblyPresets);
+    }
+
+    public static AssemblyPresetDistributionPossibility forStrandSupply(StrandSupply strandSupply) {
+        AssemblyPresetDistribution assemblyPresetDistribution = AssemblyPresetDistribution.forStrandSupply(strandSupply);
+
+        if (assemblyPresetDistribution == null) {
+            return null;
+        }
+
+        return assemblyPresetDistribution.getAssemblyPresetDistributionPossibility(strandSupply.getForceCentralUtilityComponent());
     }
 
     @Override
@@ -107,14 +118,18 @@ public class AssemblyPresetDistributionPossibility implements Cloneable {
         return getMilimeterDiameterBeforeCentralCompletionComponent().isNaN();
     }
 
-    public Boolean hasCentralComponent() {
+    public AssemblyPreset getFirstAssemblyPreset() {
         if (getAssemblyPresets().isEmpty()) {
-            return false;
+            return AssemblyPreset.forError();
         }
 
-        AssemblyPreset firstAssemblyPreset = getAssemblyPresets().get(0);
+        return getAssemblyPresets().get(0);
+    }
 
-        if (firstAssemblyPreset == null) {
+    public Boolean hasCentralComponent() {
+        AssemblyPreset firstAssemblyPreset = getFirstAssemblyPreset();
+
+        if (firstAssemblyPreset == null || AssemblyPreset.forError().equals(firstAssemblyPreset)) {
             return false;
         }
 

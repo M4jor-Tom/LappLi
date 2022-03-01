@@ -18,9 +18,11 @@
         "title": "Interstice Assembly"
       },
       "id": "ID",
-      "intersticeLayer": "Couche Intersticielle",
-      "productionStep": "Production Step",
-      "strand": "Strand"
+      "assemblyLayer": "Assembly Layer",
+      "intersticeLayer": "Interstice Layer",
+      "forcedMeanMilimeterComponentDiameter": "Forced Mean Milimeter Component Diameter",
+      "supplyPositions": "Supply Positions",
+      "ownerStrandSupply": "Owner Strand Supply"
     }
   }
 }

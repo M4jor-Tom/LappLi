@@ -4,31 +4,25 @@ import { Button, Row, Col, FormText } from 'reactstrap';
 import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { ICentralAssembly } from 'app/shared/model/central-assembly.model';
-import { getEntities as getCentralAssemblies } from 'app/entities/central-assembly/central-assembly.reducer';
 import { IStudy } from 'app/shared/model/study.model';
+import { getEntities as getStudies } from 'app/entities/study/study.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './strand.reducer';
 import { IStrand } from 'app/shared/model/strand.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getOut } from '../index-management/index-management-lib';
-import { getEntities as getStudies } from '../study/study.reducer';
-import { AssemblyMean } from 'app/shared/model/enumerations/assembly-mean.model';
 
 export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const centralAssemblies = useAppSelector(state => state.centralAssembly.entities);
   const studies = useAppSelector(state => state.study.entities);
   const strandEntity = useAppSelector(state => state.strand.entity);
   const loading = useAppSelector(state => state.strand.loading);
   const updating = useAppSelector(state => state.strand.updating);
   const updateSuccess = useAppSelector(state => state.strand.updateSuccess);
-  const assemblyMeanValues = Object.keys(AssemblyMean);
-
   const getOutCount = props.match.params.study_id ? 2 : 1;
 
   const getOutUrl = getOut(props.match.url, getOutCount);
@@ -44,7 +38,6 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
       dispatch(getEntity(props.match.params.id));
     }
 
-    dispatch(getCentralAssemblies({}));
     dispatch(getStudies({}));
   }, []);
 
@@ -72,7 +65,6 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
     isNew
       ? {}
       : {
-          assemblyMean: 'RIGHT',
           ...strandEntity,
           futureStudy: strandEntity?.futureStudy?.id,
         };
@@ -102,38 +94,6 @@ export const StrandUpdate = (props: RouteComponentProps<{ study_id: string; id: 
                   validate={{ required: true }}
                 />
               ) : null}
-              <ValidatedField
-                label={translate('lappLiApp.strand.diameterAssemblyStep')}
-                id="strand-diameterAssemblyStep"
-                name="diameterAssemblyStep"
-                data-cy="diameterAssemblyStep"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
-              />
-              <ValidatedField
-                label={translate('lappLiApp.strand.assemblyMean')}
-                id="strand-assemblyMean"
-                name="assemblyMean"
-                data-cy="assemblyMean"
-                type="select"
-              >
-                {assemblyMeanValues.map(assemblyMean => (
-                  <option value={assemblyMean} key={assemblyMean}>
-                    {translate('lappLiApp.AssemblyMean' + assemblyMean)}
-                  </option>
-                ))}
-              </ValidatedField>
-              <ValidatedField
-                label={translate('lappLiApp.strand.forceCentralUtilityComponent')}
-                id="strand-forceCentralUtilityComponent"
-                name="forceCentralUtilityComponent"
-                data-cy="forceCentralUtilityComponent"
-                check
-                type="checkbox"
-              />
               <ValidatedField
                 id="strand-futureStudy"
                 name="futureStudy"

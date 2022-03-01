@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
+import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import com.muller.lappli.domain.interfaces.ISupplyPositionOwner;
 import java.io.Serializable;
@@ -25,27 +26,16 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     private Long id;
 
     @JsonIgnoreProperties(
-        value = { "supplyPositions", "coreAssemblies", "intersticeAssemblies", "sheathings", "centralAssembly", "futureStudy" },
+        value = { "coreAssemblies", "intersticeAssemblies", "sheathings", "strand", "centralAssembly", "study" },
         allowSetters = true
     )
     @OneToOne(optional = false)
     @NotNull
     @MapsId
     @JoinColumn(name = "id")
-    private Strand ownerStrand;
+    private StrandSupply ownerStrandSupply;
 
-    @JsonIgnoreProperties(
-        value = {
-            "ownerCentralAssembly",
-            "elementSupply",
-            "bangleSupply",
-            "customComponentSupply",
-            "oneStudySupply",
-            "ownerStrand",
-            "ownerIntersticeAssembly",
-        },
-        allowSetters = true
-    )
+    @JsonIgnoreProperties(value = { "ownerCentralAssembly", "ownerStrand", "ownerIntersticeAssembly" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private SupplyPosition supplyPosition;
@@ -70,13 +60,38 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         return getMilimeterDiameterIncidency();
     }
 
+    public Long getComponentsCount() {
+        SupplyPosition supplyPosition = getSupplyPosition();
+
+        if (supplyPosition == null) {
+            return Long.valueOf(0);
+        }
+
+        AbstractSupply<?> supply = supplyPosition.getSupply();
+
+        if (supply == null) {
+            return Long.valueOf(0);
+        }
+
+        return supply.getApparitions();
+    }
+
     @Override
     public Double getMilimeterDiameterIncidency() {
-        try {
-            return getOwnerStrand().getFutureStudyStrandSupply().getSuppliedComponentsAverageMilimeterDiameter();
-        } catch (NullPointerException e) {
+        if (getOwnerStrandSupply() == null) {
             return Double.NaN;
+        } else {
+            AbstractSupply<?> supply = getSupplyPosition() == null ? null : getSupplyPosition().getSupply();
+            if (supply == null) {
+                //When no Supply has been set, but one is required
+                //TODO: return suggestion formula instead of 0-returning formula
+                return CalculatorManager.getCalculatorInstance().getMilimeterCentralVoidDiameter(getOwnerStrandSupply());
+            } else if (Long.valueOf(1).equals(supply.getApparitions())) {
+                return supply.getMilimeterDiameter();
+            }
         }
+
+        return Double.NaN;
     }
 
     @Override
@@ -111,16 +126,16 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         this.id = id;
     }
 
-    public Strand getOwnerStrand() {
-        return this.ownerStrand;
+    public StrandSupply getOwnerStrandSupply() {
+        return this.ownerStrandSupply;
     }
 
-    public void setOwnerStrand(Strand strand) {
-        this.ownerStrand = strand;
+    public void setOwnerStrandSupply(StrandSupply strandSupply) {
+        this.ownerStrandSupply = strandSupply;
     }
 
-    public CentralAssembly ownerStrand(Strand strand) {
-        this.setOwnerStrand(strand);
+    public CentralAssembly ownerStrandSupply(StrandSupply strandSupply) {
+        this.setOwnerStrandSupply(strandSupply);
         return this;
     }
 

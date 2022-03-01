@@ -46,8 +46,6 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
     dispatch(getStudy(props.match.params.study_id));
   }, []);
 
-  const strandEntity: IStrand = strandSupplyEntity.strand;
-
   useEffect(() => {
     if (updateSuccess) {
       handleClose();
@@ -59,17 +57,17 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
   const intersticeLayersCount = 0;
 
   const saveEntities = values => {
-    const updatedStrand: IStrand = {
-      id: strandEntity.id,
+    const updatedStrandSupply: IStrandSupply = {
+      id: strandSupplyEntity.id,
       diameterAssemblyStep: values.diameterAssemblyStep,
       assemblyMean: values,
     };
 
-    dispatch(updateStrandEntity(updatedStrand));
+    dispatch(updateStrandEntity(updatedStrandSupply));
 
     if (setCentralAssembly) {
       const centralAssemblyEntity: ICentralAssembly = {
-        ownerStrand: strandEntity,
+        ownerStrandSupply: strandSupplyEntity,
         supplyPosition: {
           supplyApparitionsUsage: 1,
           supply: {},
@@ -81,7 +79,7 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
 
     for (let i: number; i < coreLayersCount; i++) {
       const coreAssemblyEntity: ICoreAssembly = {
-        ownerStrand: strandEntity,
+        ownerStrandSupply: strandSupplyEntity,
         assemblyLayer: NaN,
         componentsCount: NaN,
       };
@@ -91,7 +89,7 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
 
     for (let i: number; i < intersticeLayersCount; i++) {
       const intersticeAssemblyEntity: IIntersticeAssembly = {
-        ownerStrand: strandEntity,
+        ownerStrandSupply: strandSupplyEntity,
         assemblyLayer: NaN,
         intersticeLayer: NaN,
         supplyPosition: {

@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
@@ -29,7 +30,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     @Column(name = "supply_apparitions_usage", nullable = false)
     private Long supplyApparitionsUsage;
 
-    @JsonIgnoreProperties(value = { "ownerStrand", "supplyPosition" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrandSupply", "supplyPosition" }, allowSetters = true)
     @OneToOne(mappedBy = "supplyPosition")
     private CentralAssembly ownerCentralAssembly;
 
@@ -68,7 +69,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     private Strand ownerStrand;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "supplyPositions", "ownerStrand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "supplyPositions", "ownerStrandSupply" }, allowSetters = true)
     private IntersticeAssembly ownerIntersticeAssembly;
 
     @Override
@@ -156,8 +157,16 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
         return this;
     }
 
+    @JsonIgnore
     public void setSupply(AbstractSupply<?> supply) {
-        switch (supply.getSupplyKind()) {
+        setBangleSupply(null);
+        setCustomComponentSupply(null);
+        setElementSupply(null);
+        setOneStudySupply(null);
+
+        if (supply == null) {
+            return;
+        } else switch (supply.getSupplyKind()) {
             case BANGLE:
                 setBangleSupply((BangleSupply) supply);
                 break;

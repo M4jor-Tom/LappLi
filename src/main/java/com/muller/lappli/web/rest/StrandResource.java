@@ -135,15 +135,10 @@ public class StrandResource {
     /**
      * {@code GET  /strands} : get all the strands.
      *
-     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of strands in body.
      */
     @GetMapping("/strands")
-    public List<Strand> getAllStrands(@RequestParam(required = false) String filter) {
-        if ("centralassembly-is-null".equals(filter)) {
-            log.debug("REST request to get all Strands where centralAssembly is null");
-            return strandService.findAllWhereCentralAssemblyIsNull();
-        }
+    public List<Strand> getAllStrands() {
         log.debug("REST request to get all Strands");
         return strandService.findAll();
     }

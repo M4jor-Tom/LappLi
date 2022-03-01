@@ -2,7 +2,7 @@ package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.CentralAssembly;
 import com.muller.lappli.repository.CentralAssemblyRepository;
-import com.muller.lappli.repository.StrandRepository;
+import com.muller.lappli.repository.StrandSupplyRepository;
 import com.muller.lappli.service.CentralAssemblyService;
 import java.util.List;
 import java.util.Optional;
@@ -22,18 +22,18 @@ public class CentralAssemblyServiceImpl implements CentralAssemblyService {
 
     private final CentralAssemblyRepository centralAssemblyRepository;
 
-    private final StrandRepository strandRepository;
+    private final StrandSupplyRepository strandSupplyRepository;
 
-    public CentralAssemblyServiceImpl(CentralAssemblyRepository centralAssemblyRepository, StrandRepository strandRepository) {
+    public CentralAssemblyServiceImpl(CentralAssemblyRepository centralAssemblyRepository, StrandSupplyRepository strandSupplyRepository) {
         this.centralAssemblyRepository = centralAssemblyRepository;
-        this.strandRepository = strandRepository;
+        this.strandSupplyRepository = strandSupplyRepository;
     }
 
     @Override
     public CentralAssembly save(CentralAssembly centralAssembly) {
         log.debug("Request to save CentralAssembly : {}", centralAssembly);
-        Long strandId = centralAssembly.getOwnerStrand().getId();
-        strandRepository.findById(strandId).ifPresent(centralAssembly::ownerStrand);
+        Long strandSupplyId = centralAssembly.getOwnerStrandSupply().getId();
+        strandSupplyRepository.findById(strandSupplyId).ifPresent(centralAssembly::ownerStrandSupply);
         return centralAssemblyRepository.save(centralAssembly);
     }
 

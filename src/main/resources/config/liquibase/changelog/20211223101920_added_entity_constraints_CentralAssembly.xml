@@ -10,9 +10,9 @@
 
         <addForeignKeyConstraint baseColumnNames="id"
                                  baseTableName="central_assembly"
-                                 constraintName="fk_central_assembly__owner_strand_id"
+                                 constraintName="fk_central_assembly__owner_strand_supply_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="strand"/>
+                                 referencedTableName="strand_supply"/>
 
         <addForeignKeyConstraint baseColumnNames="supply_position_id"
                                  baseTableName="central_assembly"

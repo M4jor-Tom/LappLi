@@ -9,6 +9,7 @@ import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.Study;
+import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.repository.StrandSupplyRepository;
 import java.util.List;
@@ -41,6 +42,15 @@ class StrandSupplyResourceIT {
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
+    private static final Double DEFAULT_DIAMETER_ASSEMBLY_STEP = 1D;
+    private static final Double UPDATED_DIAMETER_ASSEMBLY_STEP = 2D;
+
+    private static final AssemblyMean DEFAULT_ASSEMBLY_MEAN = AssemblyMean.RIGHT;
+    private static final AssemblyMean UPDATED_ASSEMBLY_MEAN = AssemblyMean.LEFT;
+
+    private static final Boolean DEFAULT_FORCE_CENTRAL_UTILITY_COMPONENT = false;
+    private static final Boolean UPDATED_FORCE_CENTRAL_UTILITY_COMPONENT = true;
+
     private static final String ENTITY_API_URL = "/api/strand-supplies";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -68,7 +78,10 @@ class StrandSupplyResourceIT {
         StrandSupply strandSupply = new StrandSupply()
             .apparitions(DEFAULT_APPARITIONS)
             .markingType(DEFAULT_MARKING_TYPE)
-            .description(DEFAULT_DESCRIPTION);
+            .description(DEFAULT_DESCRIPTION)
+            .diameterAssemblyStep(DEFAULT_DIAMETER_ASSEMBLY_STEP)
+            .assemblyMean(DEFAULT_ASSEMBLY_MEAN)
+            .forceCentralUtilityComponent(DEFAULT_FORCE_CENTRAL_UTILITY_COMPONENT);
         // Add required entity
         Strand strand;
         if (TestUtil.findAll(em, Strand.class).isEmpty()) {
@@ -102,7 +115,10 @@ class StrandSupplyResourceIT {
         StrandSupply strandSupply = new StrandSupply()
             .apparitions(UPDATED_APPARITIONS)
             .markingType(UPDATED_MARKING_TYPE)
-            .description(UPDATED_DESCRIPTION);
+            .description(UPDATED_DESCRIPTION)
+            .diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP)
+            .assemblyMean(UPDATED_ASSEMBLY_MEAN)
+            .forceCentralUtilityComponent(UPDATED_FORCE_CENTRAL_UTILITY_COMPONENT);
         // Add required entity
         Strand strand;
         if (TestUtil.findAll(em, Strand.class).isEmpty()) {
@@ -147,6 +163,9 @@ class StrandSupplyResourceIT {
         assertThat(testStrandSupply.getApparitions()).isEqualTo(DEFAULT_APPARITIONS);
         assertThat(testStrandSupply.getMarkingType()).isEqualTo(DEFAULT_MARKING_TYPE);
         assertThat(testStrandSupply.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testStrandSupply.getDiameterAssemblyStep()).isEqualTo(DEFAULT_DIAMETER_ASSEMBLY_STEP);
+        assertThat(testStrandSupply.getAssemblyMean()).isEqualTo(DEFAULT_ASSEMBLY_MEAN);
+        assertThat(testStrandSupply.getForceCentralUtilityComponent()).isEqualTo(DEFAULT_FORCE_CENTRAL_UTILITY_COMPONENT);
     }
 
     @Test
@@ -203,6 +222,57 @@ class StrandSupplyResourceIT {
 
     @Test
     @Transactional
+    void checkDiameterAssemblyStepIsRequired() throws Exception {
+        int databaseSizeBeforeTest = strandSupplyRepository.findAll().size();
+        // set the field null
+        strandSupply.setDiameterAssemblyStep(null);
+
+        // Create the StrandSupply, which fails.
+
+        restStrandSupplyMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(strandSupply)))
+            .andExpect(status().isBadRequest());
+
+        List<StrandSupply> strandSupplyList = strandSupplyRepository.findAll();
+        assertThat(strandSupplyList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkAssemblyMeanIsRequired() throws Exception {
+        int databaseSizeBeforeTest = strandSupplyRepository.findAll().size();
+        // set the field null
+        strandSupply.setAssemblyMean(null);
+
+        // Create the StrandSupply, which fails.
+
+        restStrandSupplyMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(strandSupply)))
+            .andExpect(status().isBadRequest());
+
+        List<StrandSupply> strandSupplyList = strandSupplyRepository.findAll();
+        assertThat(strandSupplyList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkForceCentralUtilityComponentIsRequired() throws Exception {
+        int databaseSizeBeforeTest = strandSupplyRepository.findAll().size();
+        // set the field null
+        strandSupply.setForceCentralUtilityComponent(null);
+
+        // Create the StrandSupply, which fails.
+
+        restStrandSupplyMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(strandSupply)))
+            .andExpect(status().isBadRequest());
+
+        List<StrandSupply> strandSupplyList = strandSupplyRepository.findAll();
+        assertThat(strandSupplyList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllStrandSupplies() throws Exception {
         // Initialize the database
         strandSupplyRepository.saveAndFlush(strandSupply);
@@ -215,7 +285,12 @@ class StrandSupplyResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(strandSupply.getId().intValue())))
             .andExpect(jsonPath("$.[*].apparitions").value(hasItem(DEFAULT_APPARITIONS.intValue())))
             .andExpect(jsonPath("$.[*].markingType").value(hasItem(DEFAULT_MARKING_TYPE.toString())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].diameterAssemblyStep").value(hasItem(DEFAULT_DIAMETER_ASSEMBLY_STEP.doubleValue())))
+            .andExpect(jsonPath("$.[*].assemblyMean").value(hasItem(DEFAULT_ASSEMBLY_MEAN.toString())))
+            .andExpect(
+                jsonPath("$.[*].forceCentralUtilityComponent").value(hasItem(DEFAULT_FORCE_CENTRAL_UTILITY_COMPONENT.booleanValue()))
+            );
     }
 
     @Test
@@ -232,7 +307,10 @@ class StrandSupplyResourceIT {
             .andExpect(jsonPath("$.id").value(strandSupply.getId().intValue()))
             .andExpect(jsonPath("$.apparitions").value(DEFAULT_APPARITIONS.intValue()))
             .andExpect(jsonPath("$.markingType").value(DEFAULT_MARKING_TYPE.toString()))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION));
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
+            .andExpect(jsonPath("$.diameterAssemblyStep").value(DEFAULT_DIAMETER_ASSEMBLY_STEP.doubleValue()))
+            .andExpect(jsonPath("$.assemblyMean").value(DEFAULT_ASSEMBLY_MEAN.toString()))
+            .andExpect(jsonPath("$.forceCentralUtilityComponent").value(DEFAULT_FORCE_CENTRAL_UTILITY_COMPONENT.booleanValue()));
     }
 
     @Test
@@ -254,7 +332,13 @@ class StrandSupplyResourceIT {
         StrandSupply updatedStrandSupply = strandSupplyRepository.findById(strandSupply.getId()).get();
         // Disconnect from session so that the updates on updatedStrandSupply are not directly saved in db
         em.detach(updatedStrandSupply);
-        updatedStrandSupply.apparitions(UPDATED_APPARITIONS).markingType(UPDATED_MARKING_TYPE).description(UPDATED_DESCRIPTION);
+        updatedStrandSupply
+            .apparitions(UPDATED_APPARITIONS)
+            .markingType(UPDATED_MARKING_TYPE)
+            .description(UPDATED_DESCRIPTION)
+            .diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP)
+            .assemblyMean(UPDATED_ASSEMBLY_MEAN)
+            .forceCentralUtilityComponent(UPDATED_FORCE_CENTRAL_UTILITY_COMPONENT);
 
         restStrandSupplyMockMvc
             .perform(
@@ -271,6 +355,9 @@ class StrandSupplyResourceIT {
         assertThat(testStrandSupply.getApparitions()).isEqualTo(UPDATED_APPARITIONS);
         assertThat(testStrandSupply.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
         assertThat(testStrandSupply.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testStrandSupply.getDiameterAssemblyStep()).isEqualTo(UPDATED_DIAMETER_ASSEMBLY_STEP);
+        assertThat(testStrandSupply.getAssemblyMean()).isEqualTo(UPDATED_ASSEMBLY_MEAN);
+        assertThat(testStrandSupply.getForceCentralUtilityComponent()).isEqualTo(UPDATED_FORCE_CENTRAL_UTILITY_COMPONENT);
     }
 
     @Test
@@ -341,7 +428,7 @@ class StrandSupplyResourceIT {
         StrandSupply partialUpdatedStrandSupply = new StrandSupply();
         partialUpdatedStrandSupply.setId(strandSupply.getId());
 
-        partialUpdatedStrandSupply.description(UPDATED_DESCRIPTION);
+        partialUpdatedStrandSupply.description(UPDATED_DESCRIPTION).diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP);
 
         restStrandSupplyMockMvc
             .perform(
@@ -358,6 +445,9 @@ class StrandSupplyResourceIT {
         assertThat(testStrandSupply.getApparitions()).isEqualTo(DEFAULT_APPARITIONS);
         assertThat(testStrandSupply.getMarkingType()).isEqualTo(DEFAULT_MARKING_TYPE);
         assertThat(testStrandSupply.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testStrandSupply.getDiameterAssemblyStep()).isEqualTo(UPDATED_DIAMETER_ASSEMBLY_STEP);
+        assertThat(testStrandSupply.getAssemblyMean()).isEqualTo(DEFAULT_ASSEMBLY_MEAN);
+        assertThat(testStrandSupply.getForceCentralUtilityComponent()).isEqualTo(DEFAULT_FORCE_CENTRAL_UTILITY_COMPONENT);
     }
 
     @Test
@@ -372,7 +462,13 @@ class StrandSupplyResourceIT {
         StrandSupply partialUpdatedStrandSupply = new StrandSupply();
         partialUpdatedStrandSupply.setId(strandSupply.getId());
 
-        partialUpdatedStrandSupply.apparitions(UPDATED_APPARITIONS).markingType(UPDATED_MARKING_TYPE).description(UPDATED_DESCRIPTION);
+        partialUpdatedStrandSupply
+            .apparitions(UPDATED_APPARITIONS)
+            .markingType(UPDATED_MARKING_TYPE)
+            .description(UPDATED_DESCRIPTION)
+            .diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP)
+            .assemblyMean(UPDATED_ASSEMBLY_MEAN)
+            .forceCentralUtilityComponent(UPDATED_FORCE_CENTRAL_UTILITY_COMPONENT);
 
         restStrandSupplyMockMvc
             .perform(
@@ -389,6 +485,9 @@ class StrandSupplyResourceIT {
         assertThat(testStrandSupply.getApparitions()).isEqualTo(UPDATED_APPARITIONS);
         assertThat(testStrandSupply.getMarkingType()).isEqualTo(UPDATED_MARKING_TYPE);
         assertThat(testStrandSupply.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testStrandSupply.getDiameterAssemblyStep()).isEqualTo(UPDATED_DIAMETER_ASSEMBLY_STEP);
+        assertThat(testStrandSupply.getAssemblyMean()).isEqualTo(UPDATED_ASSEMBLY_MEAN);
+        assertThat(testStrandSupply.getForceCentralUtilityComponent()).isEqualTo(UPDATED_FORCE_CENTRAL_UTILITY_COMPONENT);
     }
 
     @Test

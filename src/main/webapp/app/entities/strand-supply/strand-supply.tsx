@@ -59,6 +59,15 @@ export const StrandSupply = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.strandSupply.description">Description</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.strandSupply.diameterAssemblyStep">Diameter Assembly Step</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.strandSupply.assemblyMean">Assembly Mean</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.strandSupply.forceCentralUtilityComponent">Force Central Utility Component</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.strandSupply.strand">Strand</Translate>
                 </th>
                 <th>
@@ -80,9 +89,12 @@ export const StrandSupply = (props: RouteComponentProps<{ url: string }>) => {
                     <Translate contentKey={`lappLiApp.MarkingType.${strandSupply.markingType}`} />
                   </td>
                   <td>{strandSupply.description}</td>
+                  <td>{strandSupply.diameterAssemblyStep}</td>
                   <td>
-                    {strandSupply.strand ? <Link to={`strand/${strandSupply.strand.id}`}>{strandSupply.strand.designation}</Link> : ''}
+                    <Translate contentKey={`lappLiApp.AssemblyMean.${strandSupply.assemblyMean}`} />
                   </td>
+                  <td>{strandSupply.forceCentralUtilityComponent ? 'true' : 'false'}</td>
+                  <td>{strandSupply.strand ? <Link to={`strand/${strandSupply.strand.id}`}>{strandSupply.strand.id}</Link> : ''}</td>
                   <td>{strandSupply.study ? <Link to={`study/${strandSupply.study.id}`}>{strandSupply.study.number}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

@@ -1,4 +1,5 @@
 import { SupplyKind } from 'app/shared/model/enumerations/supply-kind.model';
+import { IStrandSupply } from 'app/shared/model/strand-supply.model';
 import { IStrand } from 'app/shared/model/strand.model';
 import { IStudy } from 'app/shared/model/study.model';
 import React from 'react';
@@ -62,13 +63,18 @@ function getStudySupplyRedirectionUrl(props: RouteComponentProps<{ study_id: str
     : '/' + SupplyKind.STRAND + '-supply';
 }
 
-function isStrandSupply(props: RouteComponentProps<{ strand_id: string; id: string }>): string {
-  const [ret] = useState(props.match.params && props.match.params.strand_id);
+function isStrandSupply(props: RouteComponentProps<{ strand_supply_id: string; id: string }>): string {
+  const [ret] = useState(props.match.params && props.match.params.strand_supply_id);
   return ret;
 }
 
-function getStrandSupplyRedirectionUrl(props: RouteComponentProps<{ strand_id: string; id: string }>, supplyKind: SupplyKind): string {
-  return isStrandSupply(props) ? '/' + SupplyOwner.STRAND + '/' + props.match.params.strand_id + '/supply' : '/' + supplyKind + '-supply';
+function getStrandSupplyRedirectionUrl(
+  props: RouteComponentProps<{ strand_supply_id: string; id: string }>,
+  supplyKind: SupplyKind
+): string {
+  return isStrandSupply(props)
+    ? '/' + SupplyOwner.STRAND + '/' + props.match.params.strand_supply_id + '/supply'
+    : '/' + supplyKind + '-supply';
 }
 
 function getSupplyOwner(props: RouteComponentProps<{ study_id: string | null; strand_id: string | null; id: string }>): SupplyOwner {
@@ -109,29 +115,36 @@ function getStudyValidateField(props: RouteComponentProps<{ study_id: string | n
   );
 }
 
-function getStrandValidatedField(
-  props: RouteComponentProps<{ strand_id: string | null; id: string }>,
-  strands: readonly IStrand[],
+function getStrandSupplyValidatedField(
+  props: RouteComponentProps<{ strand_supply_id: string | null; id: string }>,
+  strandSupplies: readonly IStrandSupply[],
   fieldId: string
 ) {
   return isStrandSupply(props) ? (
     useState(!props.match.params || !props.match.params.id)[0] ? (
-      <ValidatedField id={fieldId} name="ownerStrand" data-cy="ownerStrand" type="hidden" value={props.match.params.strand_id} required />
+      <ValidatedField
+        id={fieldId}
+        name="ownerStrand"
+        data-cy="ownerStrand"
+        type="hidden"
+        value={props.match.params.strand_supply_id}
+        required
+      />
     ) : (
       ''
     )
   ) : (
     <ValidatedField
-      id={fieldId}
-      name="ownerStrand"
-      data-cy="ownerStrand"
-      label={translate('lappLiApp.assembly.ownerStrand')}
+      id="core-assembly-ownerStrandSupply"
+      name="ownerStrandSupply"
+      data-cy="ownerStrandSupply"
+      label={translate('lappLiApp.operation.ownerStrandSupply')}
       type="select"
       required
     >
       <option value="" key="0" />
-      {strands
-        ? strands.map(otherEntity => (
+      {strandSupplies
+        ? strandSupplies.map(otherEntity => (
             <option value={otherEntity.id} key={otherEntity.id}>
               {otherEntity.designation}
             </option>
@@ -140,21 +153,21 @@ function getStrandValidatedField(
     </ValidatedField>
   );
 }
-
+/*
 function getSupplyStrandValidatedField(
   props: RouteComponentProps<{ strand_id: string | null; id: string }>,
   strands: readonly IStrand[],
   supplyKind: SupplyKind
 ) {
-  return getStrandValidatedField(props, strands, supplyKind + '-supply-strand');
-}
+  return getStrandSupplyValidatedField(props, strands, supplyKind + '-supply-strand');
+}*/
 
-function getAssemblyStrandValidatedField(
-  props: RouteComponentProps<{ strand_id: string | null; id: string }>,
-  strands: readonly IStrand[],
+function getAssemblyStrandSupplyValidatedField(
+  props: RouteComponentProps<{ strand_supply_id: string | null; id: string }>,
+  strandSupplies: readonly IStrandSupply[],
   assemblyKind: AssemblyKind
 ) {
-  return getStrandValidatedField(props, strands, assemblyKind + '-assmelby-strand');
+  return getStrandSupplyValidatedField(props, strandSupplies, assemblyKind + '-assembly-strand');
 }
 
 export {
@@ -162,8 +175,8 @@ export {
   getOutFromStudySupplyStrandSheathing,
   getOutFromStudySupplyStrandAssemblyComponent,
   getOutFromStudySupplyStrandSupplyComponent,
-  getSupplyStrandValidatedField,
-  getAssemblyStrandValidatedField,
+  getStrandSupplyValidatedField,
+  getAssemblyStrandSupplyValidatedField,
   getOut,
   isStrandSupply,
   getStrandSupplyRedirectionUrl,

@@ -54,6 +54,11 @@ public class CustomComponent extends AbstractDomainObject<CustomComponent> imple
         return this;
     }
 
+    @Override
+    public Boolean isUtility() {
+        return true;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override

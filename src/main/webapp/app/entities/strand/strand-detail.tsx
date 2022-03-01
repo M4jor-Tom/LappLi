@@ -30,25 +30,10 @@ export const StrandDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{strandEntity.id}</dd>
           <dt>
-            <span id="designation">
-              <Translate contentKey="lappLiApp.strand.designation">Designation</Translate>
-            </span>
+            <Translate contentKey="lappLiApp.strand.futureStudy">Future Study</Translate>
           </dt>
-          <dt>
-            <dd>{strandEntity.designation}</dd>
-            <span id="forcesCentralUtilityComponent">
-              <Translate contentKey="lappLiApp.strand.forcesCentralUtilityComponent">Forces Central Utility Component</Translate>
-            </span>
-          </dt>
-          <dd>{strandEntity.forceCentralUtilityComponent ? 'true' : 'false'}</dd>
+          <dd>{strandEntity.futureStudy ? strandEntity.futureStudy.number : ''}</dd>
         </dl>
-        <Button tag={Link} to={`/strand/${strandEntity.id}/supply`} replace color="primary">
-          <FontAwesomeIcon icon="pencil-alt" />{' '}
-          <span className="d-none d-md-inline">
-            <Translate contentKey="lappLiApp.strand.subSupplies">Supply</Translate>
-          </span>
-        </Button>
-        &nbsp;
         <Button tag={Link} to="/strand" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
           <span className="d-none d-md-inline">

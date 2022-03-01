@@ -16,6 +16,18 @@ public class AssemblyPreset implements Cloneable {
         setCompletionComponentsCount(completionComponentsCount);
     }
 
+    public static AssemblyPreset forError() {
+        return new AssemblyPreset(DomainManager.ERROR_LONG_POSITIVE_VALUE, DomainManager.ERROR_LONG_POSITIVE_VALUE);
+    }
+
+    public static AssemblyPreset forCentralUtilityComponent() {
+        return new AssemblyPreset(Long.valueOf(1), Long.valueOf(0));
+    }
+
+    public static AssemblyPreset forCentralCompletionComponent() {
+        return new AssemblyPreset(Long.valueOf(0), Long.valueOf(1));
+    }
+
     @Override
     public AssemblyPreset clone() throws CloneNotSupportedException {
         return new AssemblyPreset(getUtilityComponentsCount(), getCompletionComponentsCount());
@@ -25,7 +37,21 @@ public class AssemblyPreset implements Cloneable {
         return getTotalComponentsCount().equals(Long.valueOf(1));
     }
 
+    public Boolean isCentralUtilityComponent() {
+        return forCentralUtilityComponent().equals(this);
+    }
+
+    public Boolean isCentralCompletionComponent() {
+        return forCentralCompletionComponent().equals(this);
+    }
+
     public Long getTotalComponentsCount() {
+        if (
+            DomainManager.ERROR_LONG_POSITIVE_VALUE.equals(getUtilityComponentsCount()) ||
+            DomainManager.ERROR_LONG_POSITIVE_VALUE.equals(getCompletionComponentsCount())
+        ) {
+            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+        }
         return getUtilityComponentsCount() + getCompletionComponentsCount();
     }
 

@@ -78,8 +78,8 @@ export const CoreAssembly = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{coreAssembly.forcedMeanMilimeterComponentDiameter}</td>
                   <td>{coreAssembly.componentsCount}</td>
                   <td>
-                    {coreAssembly.ownerStrand ? (
-                      <Link to={`strand/${coreAssembly.ownerStrand.id}`}>{coreAssembly.ownerStrand.designation}</Link>
+                    {coreAssembly.ownerStrandSupply ? (
+                      <Link to={`strand/${coreAssembly.ownerStrandSupply.id}`}>{coreAssembly.ownerStrandSupply.designation}</Link>
                     ) : (
                       ''
                     )}

@@ -73,13 +73,10 @@ public class CacheConfiguration {
             createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName());
             createCache(cm, com.muller.lappli.domain.UserData.class.getName());
             createCache(cm, com.muller.lappli.domain.UserData.class.getName() + ".studies");
-            createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".coreAssemblies");
             createCache(cm, com.muller.lappli.domain.CentralAssembly.class.getName());
             createCache(cm, com.muller.lappli.domain.CoreAssembly.class.getName());
             createCache(cm, com.muller.lappli.domain.IntersticeAssembly.class.getName());
-            createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".intersticeAssemblies");
             createCache(cm, com.muller.lappli.domain.Study.class.getName() + ".strands");
-            createCache(cm, com.muller.lappli.domain.Strand.class.getName() + ".sheathings");
             createCache(cm, com.muller.lappli.domain.Sheathing.class.getName());
             createCache(cm, com.muller.lappli.domain.ElementSupply.class.getName() + ".ownerSupplyPositions");
             createCache(cm, com.muller.lappli.domain.BangleSupply.class.getName() + ".ownerSupplyPositions");
@@ -88,6 +85,9 @@ public class CacheConfiguration {
             createCache(cm, com.muller.lappli.domain.OneStudySupply.class.getName() + ".ownerSupplyPositions");
             createCache(cm, com.muller.lappli.domain.IntersticeAssembly.class.getName() + ".supplyPositions");
             createCache(cm, com.muller.lappli.domain.SupplyPosition.class.getName());
+            createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".coreAssemblies");
+            createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".intersticeAssemblies");
+            createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".sheathings");
             // jhipster-needle-ehcache-add-entry
         };
     }

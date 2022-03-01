@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -135,10 +136,15 @@ public class StrandSupplyResource {
     /**
      * {@code GET  /strand-supplies} : get all the strandSupplies.
      *
+     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of strandSupplies in body.
      */
     @GetMapping("/strand-supplies")
-    public List<StrandSupply> getAllStrandSupplies() {
+    public List<StrandSupply> getAllStrandSupplies(@RequestParam(required = false) String filter) {
+        if ("centralassembly-is-null".equals(filter)) {
+            log.debug("REST request to get all StrandSupplys where centralAssembly is null");
+            return strandSupplyService.findAllWhereCentralAssemblyIsNull();
+        }
         log.debug("REST request to get all StrandSupplies");
         return strandSupplyService.findAll();
     }

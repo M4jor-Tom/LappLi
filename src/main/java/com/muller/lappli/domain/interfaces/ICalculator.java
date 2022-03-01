@@ -69,10 +69,22 @@ public interface ICalculator {
      * @return the central diameter
      */
     public default Double getMilimeterCentralVoidDiameter(StrandSupply strandSupply) {
+        AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility = strandSupply.getAssemblyPresetDistributionPossibility();
+
+        if (assemblyPresetDistributionPossibility == null) {
+            return Double.NaN;
+        }
+
+        Long indexOfFirst3OrMoreComposedCoreAssembly = Long.valueOf(0);
+
+        if (assemblyPresetDistributionPossibility.getFirstAssemblyPreset().isCentralAccordingToTotalComponentsCount()) {
+            indexOfFirst3OrMoreComposedCoreAssembly = Long.valueOf(1);
+        }
+
         return (
-            strandSupply.getSuppliedComponentsAverageMilimeterDiameter() *
+            strandSupply.getStrand().getSuppliedComponentsAverageMilimeterDiameter() *
             getSuppliedComponentsAverageDiameterCentralVoidDiameter(
-                getSuppliesCountAtAssembly(strandSupply, Long.valueOf(0)),
+                getSuppliesCountAtAssembly(strandSupply, indexOfFirst3OrMoreComposedCoreAssembly),
                 strandSupply.getDiameterAssemblyStep()
             )
         );
@@ -105,7 +117,7 @@ public interface ICalculator {
      * @return an AssemblyPresetDistributionPossibility which describes its Assemblies
      * at best
      */
-    public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility(Strand strand);
+    public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility(StrandSupply strandSupply);
 
     /**
      * Calculates the assembly void at the given Assembly for the Strand
@@ -125,7 +137,7 @@ public interface ICalculator {
     public default Double getMilimeterAssemblyVoid(StrandSupply strandSupply, Long assemblyIndex) {
         return (
             getSuppliedComponentsAverageDiameterAssemblyVoid(strandSupply, assemblyIndex) *
-            strandSupply.getSuppliedComponentsAverageMilimeterDiameter()
+            strandSupply.getStrand().getSuppliedComponentsAverageMilimeterDiameter()
         );
     }
 

@@ -209,7 +209,7 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string }>)
                 {strands
                   ? strands.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.designation}
+                        {otherEntity.id}
                       </option>
                     ))
                   : null}
