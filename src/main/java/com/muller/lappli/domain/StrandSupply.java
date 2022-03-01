@@ -274,7 +274,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     }
 
     public StrandSupply resetAssemblies() {
-        setCentralAssembly(new CentralAssembly().supplyPosition(null));
+        setCentralAssembly(null);
         setCoreAssemblies(new HashSet<CoreAssembly>());
 
         //try {
@@ -294,7 +294,9 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility = getAssemblyPresetDistributionPossibility();
 
         if (assemblyPresetDistributionPossibility.hasCentralComponent()) {
-            getCentralAssembly().setSupplyPosition(new SupplyPosition().supplyApparitionsUsage(Long.valueOf(1)).supply(null));
+            setCentralAssembly(
+                new CentralAssembly().supplyPosition(new SupplyPosition().supplyApparitionsUsage(Long.valueOf(1)).supply(null))
+            );
         }
 
         Long coreAssemblyAssemblyLayer = Long.valueOf(1);
