@@ -125,7 +125,7 @@ public class CalculatorMullerSecretImpl implements ICalculator {
 
             //But we need the utility Components count, to substract it to the
             //remaining supplied Components count
-            Long newAssemblyPresetUtilityComponentsCount = Math.max(
+            Long newAssemblyPresetUtilityComponentsCount = Math.min(
                 newAssemblyPresetTotalComponentsCount,
                 remainingSuppliesComponentsToSpend
             );
