@@ -136,29 +136,6 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         return suggestAssemblyPreset().getTotalComponentsCount();
     }
 
-    public AssemblyPreset suggestAssemblyPreset() {
-        try {
-            if (getOwnerStrandSupply() == null) {
-                return AssemblyPreset.forError();
-            } else if (Long.valueOf(0).equals(getOwnerStrandSupply().getSuppliedComponentsDividedCount())) {
-                return AssemblyPreset.forError();
-            }
-
-            AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility = getOwnerStrandSupply()
-                .getAssemblyPresetDistributionPossibility();
-
-            Integer indexOfFirstCoreAssembly = assemblyPresetDistributionPossibility.hasCentralComponent() ? 1 : 0;
-
-            return assemblyPresetDistributionPossibility
-                .getAssemblyPresets()
-                .get(indexOfFirstCoreAssembly + getAssemblyLayer().intValue() - 1);
-        } /*catch (NullPointerException e) {}*/catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
-        }
-
-        return AssemblyPreset.forError();
-    }
-
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override
