@@ -184,8 +184,8 @@ public class CalculatorMullerSecretImpl implements ICalculator {
         try {
             return assemblyPresetDistributionPossibility.getAssemblyPresets().get(assemblyIndex.intValue()).getTotalComponentsCount();
         } catch (IndexOutOfBoundsException e) {
-            DomainManager.noticeInPrompt("THIS EXCEPTION IS NORMAL INTO A TEST PROCESS");
-            e.printStackTrace();
+            //DomainManager.noticeInPrompt("THIS EXCEPTION IS NORMAL INTO A TEST PROCESS");
+            //e.printStackTrace();
         }
 
         return DomainManager.ERROR_LONG_POSITIVE_VALUE;
