@@ -69,10 +69,22 @@ public interface ICalculator {
      * @return the central diameter
      */
     public default Double getMilimeterCentralVoidDiameter(StrandSupply strandSupply) {
+        AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility = strandSupply.getAssemblyPresetDistributionPossibility();
+
+        if (assemblyPresetDistributionPossibility == null) {
+            return Double.NaN;
+        }
+
+        Long indexOfFirst3OrMoreComposedCoreAssembly = Long.valueOf(0);
+
+        if (assemblyPresetDistributionPossibility.getFirstAssemblyPreset().isCentralAccordingToTotalComponentsCount()) {
+            indexOfFirst3OrMoreComposedCoreAssembly = Long.valueOf(1);
+        }
+
         return (
             strandSupply.getStrand().getSuppliedComponentsAverageMilimeterDiameter() *
             getSuppliedComponentsAverageDiameterCentralVoidDiameter(
-                getSuppliesCountAtAssembly(strandSupply, Long.valueOf(0)),
+                getSuppliesCountAtAssembly(strandSupply, indexOfFirst3OrMoreComposedCoreAssembly),
                 strandSupply.getDiameterAssemblyStep()
             )
         );
