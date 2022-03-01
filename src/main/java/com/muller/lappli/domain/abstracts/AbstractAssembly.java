@@ -15,10 +15,6 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends Ab
 
     public abstract Long getComponentsCount();
 
-    public abstract Long getCompletionComponentsCount();
-
-    public abstract Long getUtilityComponentsCount();
-
     @Override
     public Long getOperationLayer() {
         return Long.valueOf(0);

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.enumeration.OperationKind;
-import com.muller.lappli.domain.interfaces.CylindricComponent;
 import com.muller.lappli.domain.interfaces.ISupplyPositionOwner;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -109,36 +108,6 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @Override
     public Long getAssemblyLayer() {
         return Long.valueOf(0);
-    }
-
-    @Override
-    public Long getCompletionComponentsCount() {
-        if (getCylindricComponent() == null) {
-            return Long.valueOf(0);
-        }
-
-        return Long.valueOf(getCylindricComponent().isCompletion() ? 1 : 0);
-    }
-
-    @Override
-    public Long getUtilityComponentsCount() {
-        if (getCylindricComponent() == null) {
-            return Long.valueOf(0);
-        }
-
-        return Long.valueOf(getCylindricComponent().isUtility() ? 1 : 0);
-    }
-
-    public CylindricComponent getCylindricComponent() {
-        AbstractSupply<?> supply = null;
-
-        if (getSupplyPosition() == null) {
-            return null;
-        } else if ((supply = getSupplyPosition().getSupply()) == null) {
-            return null;
-        }
-
-        return supply.getCylindricComponent();
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

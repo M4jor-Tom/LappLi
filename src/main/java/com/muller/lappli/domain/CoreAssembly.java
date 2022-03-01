@@ -3,7 +3,6 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
-import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import java.io.Serializable;
@@ -158,21 +157,6 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         }
 
         return AssemblyPreset.forError();
-    }
-
-    public Long getComponentsCountWhereIsUtilityNotCompletion(Boolean isUtilityNotCompletion) {
-        Long count = Long.valueOf(0);
-
-        for (AbstractSupply<?> supply : getOwnerStrandSupply().getStrand().getSupplies()) {
-            if (supply.getCylindricComponent() == null) {} else if (
-                (supply.getCylindricComponent().isUtility() && isUtilityNotCompletion) ||
-                (supply.getCylindricComponent().isCompletion() && !isUtilityNotCompletion)
-            ) {
-                count += supply.getApparitions() / getOwnerStrandSupply().getApparitions();
-            }
-        }
-
-        return count;
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
