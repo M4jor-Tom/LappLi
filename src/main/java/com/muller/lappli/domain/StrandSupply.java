@@ -263,6 +263,15 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     }
 
     @JsonIgnoreProperties("ownerStrandSupply")
+    public CoreAssembly getFirstCoreAssembly() {
+        for (CoreAssembly coreAssembly : getCoreAssemblies()) {
+            return coreAssembly;
+        }
+
+        return null;
+    }
+
+    @JsonIgnoreProperties("ownerStrandSupply")
     public CoreAssembly getLastCoreAssembly() {
         CoreAssembly lastCoreAssembly = null;
 
