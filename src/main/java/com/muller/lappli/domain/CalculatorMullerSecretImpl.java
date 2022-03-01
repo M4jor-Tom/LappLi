@@ -26,6 +26,15 @@ public class CalculatorMullerSecretImpl implements ICalculator {
     }
 
     public AssemblyPresetDistributionPossibility getCalculatedCloneAssemblyPresetDistributionPossibility(StrandSupply strandSupply) {
+        AssemblyPresetDistribution assemblyPresetDistribution = AssemblyPresetDistribution.forStrandSupply(strandSupply);
+
+        if (assemblyPresetDistribution == null) {
+            return new AssemblyPresetDistributionPossibility(
+                DEFAULT_MILIMETER_DIAMETER_BEFORE_CENTRAL_COMPLETION_COMPONENT,
+                AssemblyPreset.forError()
+            );
+        }
+
         return AssemblyPresetDistribution
             .forStrandSupply(strandSupply)
             .getAssemblyPresetDistributionPossibility(strandSupply.getForceCentralUtilityComponent())
