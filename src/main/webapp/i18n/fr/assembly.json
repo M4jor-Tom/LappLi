@@ -12,7 +12,9 @@
       "diameterAssemblyStep": "Pas d'Assemblage (D)",
       "assemblyMean": "Sens d'Assemblage",
       "subSupply": "Approvisionnement de couche",
-      "suppliedComponentsCount": "Nombre de composants approvisionnés"
+      "suppliedComponentsCount": "Nombre de composants approvisionnés",
+      "utilitySuppliedComponentsCount": "Utiles",
+      "completionSuppliedComponentsCount": "Complétages"
     }
   }
 }

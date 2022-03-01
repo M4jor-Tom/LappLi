@@ -12,6 +12,7 @@ import { defaultValue as strandDefaultValue } from 'app/shared/model/strand.mode
 import { ISheathing } from 'app/shared/model/sheathing.model';
 import { OperationKind } from 'app/shared/model/enumerations/operation-kind.model';
 import { IStrandSupply } from 'app/shared/model/strand-supply.model';
+import CentralAssembly from '../central-assembly/central-assembly';
 
 export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_supply_id: string; study_id: string }>) => {
   const dispatch = useAppDispatch();
@@ -99,7 +100,13 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   <td>
                     <Translate contentKey="lappLiApp.centralAssembly.centralOperationLayer" />
                   </td>
-                  <td>{strandSupplyEntity.centralAssembly.supplyPosition.supply === null ? 0 : 1}</td>
+                  <td>
+                    {translate('lappLiApp.assembly.utilitySuppliedComponentsCount') + ':'}&nbsp;
+                    {strandSupplyEntity.centralAssembly.utilityComponentsCount}
+                    <br />
+                    {translate('lappLiApp.assembly.completionSuppliedComponentsCount') + ':'}&nbsp;
+                    {strandSupplyEntity.centralAssembly.completionComponentsCount}
+                  </td>
                   <td>{strandSupplyEntity.centralAssembly.productionStep}</td>
                   <td>{/* NO PRODUCT DESIGNATION (ASSEMBLY) */}</td>
                   <td>{strandSupplyEntity.centralAssembly.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
@@ -163,7 +170,13 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                         <br />
                         {translate('lappLiApp.assembly.detail.title') + ':'}&nbsp;{coreAssembly.assemblyLayer}
                       </td>
-                      <td>{coreAssembly.componentsCount}</td>
+                      <td>
+                        {translate('lappLiApp.assembly.utilitySuppliedComponentsCount') + ':'}&nbsp;
+                        {coreAssembly.utilityComponentsCount}
+                        <br />
+                        {translate('lappLiApp.assembly.completionSuppliedComponentsCount') + ':'}&nbsp;
+                        {coreAssembly.completionComponentsCount}
+                      </td>
                       <td>{coreAssembly.productionStep}</td>
                       <td>{/* NO PRODUCT DESIGNATION (ASSEMBLY) */}</td>
                       <td>{coreAssembly.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
@@ -230,7 +243,13 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                         <br />
                         {translate('lappLiApp.assembly.detail.title') + ':'}&nbsp;{intersticeAssembly.assemblyLayer}
                       </td>
-                      <td>{intersticeAssembly.componentsCount}</td>
+                      <td>
+                        {translate('lappLiApp.assembly.utilitySuppliedComponentsCount') + ':'}&nbsp;
+                        {intersticeAssembly.utilityComponentsCount}
+                        <br />
+                        {translate('lappLiApp.assembly.completionSuppliedComponentsCount') + ':'}&nbsp;
+                        {intersticeAssembly.completionComponentsCount}
+                      </td>
                       <td>{intersticeAssembly.productionStep}</td>
                       <td>{/* NO PRODUCT DESIGNATION (ASSEMBLY) */}</td>
                       <td>{intersticeAssembly.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
