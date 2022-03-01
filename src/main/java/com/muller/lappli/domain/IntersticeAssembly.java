@@ -89,7 +89,8 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
 
     @Override
     public Long getProductionStep() {
-        return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
