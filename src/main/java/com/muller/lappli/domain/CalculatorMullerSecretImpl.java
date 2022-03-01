@@ -240,6 +240,10 @@ public class CalculatorMullerSecretImpl implements ICalculator {
 
         List<AbstractAssembly<?>> assemblies = new ArrayList<AbstractAssembly<?>>(strandSupply.getCoreAssemblies());
 
+        if (assemblies.isEmpty()) {
+            return Double.NaN;
+        }
+
         AbstractAssembly<?> assembly = assemblies.get(assemblyIndex.intValue());
 
         return suggestSuppliedComponentsCountWithMilimeterDiameters(
