@@ -40,10 +40,6 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
   };
 
   useEffect(() => {
-    dispatch(resetCentralAssemblyEntity());
-    dispatch(resetCoreAssembly());
-    dispatch(resetIntersticeAssembly());
-
     dispatch(getStrandSupplyWithAutoAssemblyGeneration(props.match.params.strand_supply_id));
     dispatch(getStudy(props.match.params.study_id));
   }, []);
