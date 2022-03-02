@@ -32,6 +32,15 @@ export const getEntity = createAsyncThunk(
   { serializeError: serializeAxiosError }
 );
 
+export const getEntityWithAutoAssemblyGeneration = createAsyncThunk(
+  'strandSupply/fetch_entity',
+  async (id: string | number) => {
+    const requestUrl = `${apiUrl}/${id}/autoGenerateAssemblies`;
+    return axios.get<IStrandSupply>(requestUrl);
+  },
+  { serializeError: serializeAxiosError }
+);
+
 export const createEntity = createAsyncThunk(
   'strandSupply/create_entity',
   async (entity: IStrandSupply, thunkAPI) => {
