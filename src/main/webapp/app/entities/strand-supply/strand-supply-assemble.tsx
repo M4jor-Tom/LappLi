@@ -61,13 +61,13 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
   const saveEntities = values => {
     const updatedStrandSupply: IStrandSupply = {
       id: strandSupplyEntity.id,
-      diameterAssemblyStep: values.diameterAssemblyStep,
-      assemblyMean: values,
+      ...strandSupplyEntity,
+      ...values,
     };
 
     dispatch(updateStrandSupplyEntity(updatedStrandSupply));
 
-    if (setCentralAssembly) {
+    /*  if (setCentralAssembly) {
       const centralAssemblyEntity: ICentralAssembly = {
         ownerStrandSupply: strandSupplyEntity,
         supplyPosition: {
@@ -83,7 +83,6 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
       const coreAssemblyEntity: ICoreAssembly = {
         ownerStrandSupply: strandSupplyEntity,
         assemblyLayer: NaN,
-        componentsCount: NaN,
       };
 
       dispatch(createCoreAssemblyEntity(coreAssemblyEntity));
@@ -101,7 +100,7 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
       };
 
       dispatch(createIntersticeAssemblyEntity(intersticeAssemblyEntity));
-    }
+    }*/
   };
 
   return (
