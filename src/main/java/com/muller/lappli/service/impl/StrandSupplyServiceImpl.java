@@ -1,11 +1,16 @@
 package com.muller.lappli.service.impl;
 
+import com.muller.lappli.domain.AssemblyPreset;
+import com.muller.lappli.domain.CentralAssembly;
+import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.StrandSupply;
+import com.muller.lappli.domain.abstracts.AbstractAssembly;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.repository.StrandSupplyRepository;
 import com.muller.lappli.service.StrandSupplyService;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
@@ -101,7 +106,13 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
     @Transactional(readOnly = true)
     public Optional<StrandSupply> findOne(Long id, Boolean autoGenerateAssemblies) {
         log.debug("Request to get StrandSupply : {}", id);
-        return onOptionalRead(strandSupplyRepository.findById(id));
+        Optional<StrandSupply> strandSupplyOptional = strandSupplyRepository.findById(id);
+
+        if (autoGenerateAssemblies && strandSupplyOptional.isPresent()) {
+            strandSupplyOptional.get().autoGenerateAssemblies();
+        }
+
+        return onOptionalRead(strandSupplyOptional);
     }
 
     @Override
