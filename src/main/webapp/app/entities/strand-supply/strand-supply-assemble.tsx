@@ -48,10 +48,6 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
     }
   }, [updateSuccess]);
 
-  const setCentralAssembly = false;
-  const coreLayersCount = 0;
-  const intersticeLayersCount = 0;
-
   const saveEntities = values => {
     const updatedStrandSupply: IStrandSupply = {
       id: strandSupplyEntity.id,
@@ -60,41 +56,6 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
     };
 
     dispatch(updateStrandSupplyEntity(updatedStrandSupply));
-
-    /*  if (setCentralAssembly) {
-      const centralAssemblyEntity: ICentralAssembly = {
-        ownerStrandSupply: strandSupplyEntity,
-        supplyPosition: {
-          supplyApparitionsUsage: 1,
-          supply: {},
-        },
-      };
-
-      dispatch(createCentralAssemblyEntity(centralAssemblyEntity));
-    }
-
-    for (let i: number; i < coreLayersCount; i++) {
-      const coreAssemblyEntity: ICoreAssembly = {
-        ownerStrandSupply: strandSupplyEntity,
-        assemblyLayer: NaN,
-      };
-
-      dispatch(createCoreAssemblyEntity(coreAssemblyEntity));
-    }
-
-    for (let i: number; i < intersticeLayersCount; i++) {
-      const intersticeAssemblyEntity: IIntersticeAssembly = {
-        ownerStrandSupply: strandSupplyEntity,
-        assemblyLayer: NaN,
-        intersticeLayer: NaN,
-        supplyPosition: {
-          supplyApparitionsUsage: NaN,
-          supply: {},
-        },
-      };
-
-      dispatch(createIntersticeAssemblyEntity(intersticeAssemblyEntity));
-    }*/
   };
 
   return (
