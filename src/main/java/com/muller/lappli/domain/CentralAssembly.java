@@ -36,7 +36,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     private StrandSupply ownerStrandSupply;
 
     @JsonIgnoreProperties(value = { "ownerCentralAssembly", "ownerStrand", "ownerIntersticeAssembly" }, allowSetters = true)
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
     private SupplyPosition supplyPosition;
 
