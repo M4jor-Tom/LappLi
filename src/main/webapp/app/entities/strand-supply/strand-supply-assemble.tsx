@@ -136,6 +136,15 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
                 </option>
               ))}
             </ValidatedField>
+            <ValidatedField
+              label={translate('lappLiApp.strandSupply.forceCentralUtilityComponent')}
+              id="strand-supply-forceCentralUtilityComponent"
+              name="forceCentralUtilityComponent"
+              data-cy="forceCentralUtilityComponent"
+              check
+              type="checkbox"
+            />
+            <br />
             <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" onClick={handleClose} replace color="info">
               <FontAwesomeIcon icon="arrow-left" />
               &nbsp;
