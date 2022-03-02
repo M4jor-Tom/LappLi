@@ -1,29 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, FormText } from 'reactstrap';
-import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
+import { Button, Row, Col } from 'reactstrap';
+import { Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import { IStrand } from 'app/shared/model/strand.model';
 import {
   getEntityWithAutoAssemblyGeneration as getStrandSupplyWithAutoAssemblyGeneration,
   updateEntity as updateStrandSupplyEntity,
 } from 'app/entities/strand-supply/strand-supply.reducer';
-import { IStudy } from 'app/shared/model/study.model';
-import { getEntity as getStudy } from 'app/entities/study/study.reducer';
-import { createEntity as createCentralAssemblyEntity, reset as resetCentralAssemblyEntity } from '../strand-supply/strand-supply.reducer';
-import { createEntity as createCoreAssemblyEntity, reset as resetCoreAssembly } from '../strand-supply/strand-supply.reducer';
-import { createEntity as createIntersticeAssemblyEntity, reset as resetIntersticeAssembly } from '../strand-supply/strand-supply.reducer';
 import { IStrandSupply } from 'app/shared/model/strand-supply.model';
-import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
-import { getOut, getStudyValidateField } from '../index-management/index-management-lib';
-import { toNumber } from 'lodash';
-import { ICoreAssembly } from 'app/shared/model/core-assembly.model';
-import { ICentralAssembly } from 'app/shared/model/central-assembly.model';
-import { IIntersticeAssembly } from 'app/shared/model/interstice-assembly.model';
+import { getOut } from '../index-management/index-management-lib';
 import { AssemblyMean } from 'app/shared/model/enumerations/assembly-mean.model';
 
 export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_id: string; study_id: string }>) => {
