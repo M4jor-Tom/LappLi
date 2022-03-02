@@ -118,11 +118,11 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
               name="diameterAssemblyStep"
               required
               id="diameter-assembly-step"
-              label={translate('lappLiApp.strand.diameterAssemblyStep')}
+              label={translate('lappLiApp.strandSupply.diameterAssemblyStep')}
               validate={{ required: true }}
             />
             <ValidatedField
-              label={translate('lappLiApp.strand.assemblyMean')}
+              label={translate('lappLiApp.strandSupply.assemblyMean')}
               id="strand-assembly-mean"
               name="assemblyMean"
               data-cy="assemblyMean"
