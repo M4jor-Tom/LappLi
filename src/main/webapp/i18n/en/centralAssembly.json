@@ -18,7 +18,7 @@
         "title": "Central Assembly"
       },
       "id": "ID",
-      "productionStep": "Production Step",
+      "ownerStrandSupply": "Owner Strand Supply",
       "strand": "Strand",
       "centralOperationLayer": "Central Operation Layer"
     }

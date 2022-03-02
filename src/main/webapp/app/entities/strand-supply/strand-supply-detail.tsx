@@ -48,9 +48,27 @@ export const StrandSupplyDetail = (props: RouteComponentProps<{ id: string }>) =
           </dt>
           <dd>{strandSupplyEntity.description}</dd>
           <dt>
+            <span id="diameterAssemblyStep">
+              <Translate contentKey="lappLiApp.strandSupply.diameterAssemblyStep">Diameter Assembly Step</Translate>
+            </span>
+          </dt>
+          <dd>{strandSupplyEntity.diameterAssemblyStep}</dd>
+          <dt>
+            <span id="assemblyMean">
+              <Translate contentKey="lappLiApp.strandSupply.assemblyMean">Assembly Mean</Translate>
+            </span>
+          </dt>
+          <dd>{strandSupplyEntity.assemblyMean}</dd>
+          <dt>
+            <span id="forceCentralUtilityComponent">
+              <Translate contentKey="lappLiApp.strandSupply.forceCentralUtilityComponent">Force Central Utility Component</Translate>
+            </span>
+          </dt>
+          <dd>{strandSupplyEntity.forceCentralUtilityComponent ? 'true' : 'false'}</dd>
+          <dt>
             <Translate contentKey="lappLiApp.strandSupply.strand">Strand</Translate>
           </dt>
-          <dd>{strandSupplyEntity.strand ? strandSupplyEntity.strand.designation : ''}</dd>
+          <dd>{strandSupplyEntity.strand ? strandSupplyEntity.strand.id : ''}</dd>
           <dt>
             <Translate contentKey="lappLiApp.strandSupply.study">Study</Translate>
           </dt>

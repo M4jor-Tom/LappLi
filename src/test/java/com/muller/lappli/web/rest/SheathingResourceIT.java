@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.Material;
 import com.muller.lappli.domain.Sheathing;
-import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.enumeration.SheathingKind;
 import com.muller.lappli.repository.SheathingRepository;
 import java.util.List;
@@ -80,15 +80,15 @@ class SheathingResourceIT {
         }
         sheathing.setMaterial(material);
         // Add required entity
-        Strand strand;
-        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
-            strand = StrandResourceIT.createEntity(em);
-            em.persist(strand);
+        StrandSupply strandSupply;
+        if (TestUtil.findAll(em, StrandSupply.class).isEmpty()) {
+            strandSupply = StrandSupplyResourceIT.createEntity(em);
+            em.persist(strandSupply);
             em.flush();
         } else {
-            strand = TestUtil.findAll(em, Strand.class).get(0);
+            strandSupply = TestUtil.findAll(em, StrandSupply.class).get(0);
         }
-        sheathing.setOwnerStrand(strand);
+        sheathing.setOwnerStrandSupply(strandSupply);
         return sheathing;
     }
 
@@ -114,15 +114,15 @@ class SheathingResourceIT {
         }
         sheathing.setMaterial(material);
         // Add required entity
-        Strand strand;
-        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
-            strand = StrandResourceIT.createUpdatedEntity(em);
-            em.persist(strand);
+        StrandSupply strandSupply;
+        if (TestUtil.findAll(em, StrandSupply.class).isEmpty()) {
+            strandSupply = StrandSupplyResourceIT.createUpdatedEntity(em);
+            em.persist(strandSupply);
             em.flush();
         } else {
-            strand = TestUtil.findAll(em, Strand.class).get(0);
+            strandSupply = TestUtil.findAll(em, StrandSupply.class).get(0);
         }
-        sheathing.setOwnerStrand(strand);
+        sheathing.setOwnerStrandSupply(strandSupply);
         return sheathing;
     }
 

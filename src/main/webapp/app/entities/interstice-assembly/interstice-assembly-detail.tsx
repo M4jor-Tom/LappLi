@@ -50,9 +50,9 @@ export const IntersticeAssemblyDetail = (props: RouteComponentProps<{ id: string
           </dt>
           <dd>{intersticeAssemblyEntity.forcedMeanMilimeterComponentDiameter}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.intersticeAssembly.ownerStrand">Owner Strand</Translate>
+            <Translate contentKey="lappLiApp.intersticeAssembly.ownerStrandSupply">Owner Strand Supply</Translate>
           </dt>
-          <dd>{intersticeAssemblyEntity.ownerStrand ? intersticeAssemblyEntity.ownerStrand.designation : ''}</dd>
+          <dd>{intersticeAssemblyEntity.ownerStrandSupply ? intersticeAssemblyEntity.ownerStrandSupply.designation : ''}</dd>
         </dl>
         <Button tag={Link} to="/interstice-assembly" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

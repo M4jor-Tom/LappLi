@@ -4,8 +4,8 @@ import { Button, Row, Col, FormText } from 'reactstrap';
 import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { IStrand } from 'app/shared/model/strand.model';
-import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
+import { IStrandSupply } from 'app/shared/model/strand-supply.model';
+import { getEntities as getStrandSupplies } from 'app/entities/strand-supply/strand-supply.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './core-assembly.reducer';
 import { ICoreAssembly } from 'app/shared/model/core-assembly.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -13,18 +13,18 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import {
   AssemblyKind,
-  getAssemblyStrandValidatedField,
+  getAssemblyStrandSupplyValidatedField,
   getOutFromStudySupplyStrandAssemblyComponent,
 } from '../index-management/index-management-lib';
 
-export const CoreAssemblyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
+export const CoreAssemblyUpdate = (props: RouteComponentProps<{ id: string; strand_supply_id: string | null }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
   const redirectionUrl = getOutFromStudySupplyStrandAssemblyComponent(props.match.url, isNew);
 
-  const strands = useAppSelector(state => state.strand.entities);
+  const strandSupplies = useAppSelector(state => state.strandSupply.entities);
   const coreAssemblyEntity = useAppSelector(state => state.coreAssembly.entity);
   const loading = useAppSelector(state => state.coreAssembly.loading);
   const updating = useAppSelector(state => state.coreAssembly.updating);
@@ -33,7 +33,7 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ strand_id: strin
     props.history.push(redirectionUrl);
   };
 
-  const strandValidatedField = getAssemblyStrandValidatedField(props, strands, AssemblyKind.CORE);
+  const strandValidatedField = getAssemblyStrandSupplyValidatedField(props, strandSupplies, AssemblyKind.CORE);
 
   useEffect(() => {
     if (isNew) {
@@ -42,7 +42,7 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ strand_id: strin
       dispatch(getEntity(props.match.params.id));
     }
 
-    dispatch(getStrands({}));
+    dispatch(getStrandSupplies({}));
   }, []);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ strand_id: strin
     const entity = {
       ...coreAssemblyEntity,
       ...values,
-      ownerStrand: strands.find(it => it.id.toString() === values.ownerStrand.toString()),
+      ownerStrandSupply: strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString()),
     };
 
     if (isNew) {
@@ -70,7 +70,7 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ strand_id: strin
       ? {}
       : {
           ...coreAssemblyEntity,
-          ownerStrand: coreAssemblyEntity?.ownerStrand?.id,
+          ownerStrandSupply: coreAssemblyEntity?.ownerStrandSupply?.id,
         };
 
   return (
@@ -115,17 +115,6 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ strand_id: strin
                 name="forcedMeanMilimeterComponentDiameter"
                 data-cy="forcedMeanMilimeterComponentDiameter"
                 type="text"
-              />
-              <ValidatedField
-                label={translate('lappLiApp.coreAssembly.componentsCount')}
-                id="core-assembly-componentsCount"
-                name="componentsCount"
-                data-cy="componentsCount"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
               />
               {strandValidatedField}
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/core-assembly" replace color="info">

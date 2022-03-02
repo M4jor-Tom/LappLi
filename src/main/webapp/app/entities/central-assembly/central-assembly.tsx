@@ -50,7 +50,7 @@ export const CentralAssembly = (props: RouteComponentProps<{ url: string }>) => 
                   <Translate contentKey="lappLiApp.centralAssembly.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.centralAssembly.ownerStrand">Owner Strand</Translate>
+                  <Translate contentKey="lappLiApp.centralAssembly.ownerStrandSupply">Owner Strand Supply</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.centralAssembly.supplyPosition">Supply Position</Translate>
@@ -67,8 +67,10 @@ export const CentralAssembly = (props: RouteComponentProps<{ url: string }>) => 
                     </Button>
                   </td>
                   <td>
-                    {centralAssembly.ownerStrand ? (
-                      <Link to={`strand/${centralAssembly.ownerStrand.id}`}>{centralAssembly.ownerStrand.designation}</Link>
+                    {centralAssembly.ownerStrandSupply ? (
+                      <Link to={`strand-supply/${centralAssembly.ownerStrandSupply.id}`}>
+                        {centralAssembly.ownerStrandSupply.designation}
+                      </Link>
                     ) : (
                       ''
                     )}

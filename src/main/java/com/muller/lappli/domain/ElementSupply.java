@@ -98,19 +98,7 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
 
     @JsonIgnore
     public String getInsulationMaterialDesignation() {
-        return getElement().getElementKind().getInsulationMaterial().getDesignation();
-    }
-
-    @Override
-    @JsonIgnore
-    public Double getGramPerMeterLinearMass() {
-        return getElement().getElementKind().getGramPerMeterLinearMass();
-    }
-
-    @Override
-    @JsonIgnore
-    public Double getMilimeterDiameter() {
-        return getElement().getElementKind().getMilimeterDiameter();
+        return getSurfaceMaterial().getDesignation();
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

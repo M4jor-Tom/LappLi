@@ -6,10 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IMaterial } from 'app/shared/model/material.model';
 import { getEntities as getMaterials } from 'app/entities/material/material.reducer';
-import { IStrand } from 'app/shared/model/strand.model';
-import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
+import { IStrandSupply } from 'app/shared/model/strand-supply.model';
+import { getEntities as getStrandSupplies } from 'app/entities/strand-supply/strand-supply.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './sheathing.reducer';
-import { getEntity as getStrandSupply } from 'app/entities/strand-supply/strand-supply.reducer';
 import { ISheathing } from 'app/shared/model/sheathing.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
@@ -25,7 +24,7 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
   const redirectionUrl = getOutFromStudySupplyStrandSheathing(props.match.url, isNew);
 
   const materials = useAppSelector(state => state.material.entities);
-  const strands = useAppSelector(state => state.strand.entities);
+  const strandSupplies = useAppSelector(state => state.strandSupply.entities);
   const sheathingEntity = useAppSelector(state => state.sheathing.entity);
   const loading = useAppSelector(state => state.sheathing.loading);
   const updating = useAppSelector(state => state.sheathing.updating);
@@ -35,8 +34,6 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
     props.history.push(redirectionUrl);
   };
 
-  const strandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
-
   useEffect(() => {
     if (isNew) {
       dispatch(reset());
@@ -45,11 +42,7 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
     }
 
     dispatch(getMaterials({}));
-    dispatch(getStrands({}));
-
-    if (props.match.params.strand_supply_id) {
-      dispatch(getStrandSupply(props.match.params.strand_supply_id));
-    }
+    dispatch(getStrandSupplies({}));
   }, []);
 
   useEffect(() => {
@@ -64,9 +57,7 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
       ...values,
       __typeName: 'Sheathing',
       material: materials.find(it => it.id.toString() === values.material.toString()),
-      ownerStrand: props.match.params.strand_supply_id
-        ? strands.find(it => it.id.toString() === strandSupplyEntity?.strand?.id.toString())
-        : strands.find(it => it.id.toString() === values.ownerStrand.toString()),
+      ownerStrandSupply: strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString()),
     };
 
     if (isNew) {
@@ -84,7 +75,7 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
           sheathingKind: 'TUBE',
           ...sheathingEntity,
           material: sheathingEntity?.material?.id,
-          ownerStrand: sheathingEntity?.ownerStrand?.id,
+          ownerStrandSupply: sheathingEntity?.ownerStrandSupply?.id,
         };
 
   const titleTranslateContentKeyText = isNew ? 'lappLiApp.sheathing.home.createLabel' : 'lappLiApp.sheathing.home.createOrEditLabel';
@@ -173,16 +164,16 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
                 ''
               ) : (
                 <ValidatedField
-                  id="sheathing-ownerStrand"
-                  name="ownerStrand"
-                  data-cy="ownerStrand"
-                  label={translate('lappLiApp.sheathing.ownerStrand')}
+                  id="sheathing-ownerStrandSupply"
+                  name="ownerStrandSupply"
+                  data-cy="ownerStrandSupply"
+                  label={translate('lappLiApp.sheathing.ownerStrandSupply')}
                   type="select"
                   required
                 >
                   <option value="" key="0" />
-                  {strands
-                    ? strands.map(otherEntity => (
+                  {strandSupplies
+                    ? strandSupplies.map(otherEntity => (
                         <option value={otherEntity.id} key={otherEntity.id}>
                           {otherEntity.designation}
                         </option>

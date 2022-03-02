@@ -1,4 +1,4 @@
-id;operation_layer;milimeter_thickness;sheathing_kind;material_id;owner_strand_id
+id;operation_layer;milimeter_thickness;sheathing_kind;material_id;owner_strand_supply_id
 1;1;5;STUFFING;1;1
 2;1;5;HALF_STUFFING;2;2
 3;1;5;HALF_STUFFING;3;3

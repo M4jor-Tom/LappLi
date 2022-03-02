@@ -62,7 +62,7 @@ export const Sheathing = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.sheathing.material">Material</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.sheathing.ownerStrand">Owner Strand</Translate>
+                  <Translate contentKey="lappLiApp.sheathing.ownerStrandSupply">Owner Strand Supply</Translate>
                 </th>
                 <th />
               </tr>
@@ -84,8 +84,8 @@ export const Sheathing = (props: RouteComponentProps<{ url: string }>) => {
                     {sheathing.material ? <Link to={`material/${sheathing.material.id}`}>{sheathing.material.designation}</Link> : ''}
                   </td>
                   <td>
-                    {sheathing.ownerStrand ? (
-                      <Link to={`strand/${sheathing.ownerStrand.id}`}>{sheathing.ownerStrand.designation}</Link>
+                    {sheathing.ownerStrandSupply ? (
+                      <Link to={`strand-supply/${sheathing.ownerStrandSupply.id}`}>{sheathing.ownerStrandSupply.designation}</Link>
                     ) : (
                       ''
                     )}

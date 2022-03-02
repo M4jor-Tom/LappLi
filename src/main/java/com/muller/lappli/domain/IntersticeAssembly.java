@@ -39,7 +39,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     @Column(name = "forced_mean_milimeter_component_diameter")
     private Double forcedMeanMilimeterComponentDiameter;
 
-    @OneToMany(mappedBy = "ownerIntersticeAssembly")
+    @OneToMany(mappedBy = "ownerIntersticeAssembly", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
         value = {
@@ -58,10 +58,10 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = { "supplyPositions", "coreAssemblies", "intersticeAssemblies", "sheathings", "centralAssembly", "futureStudy" },
+        value = { "coreAssemblies", "intersticeAssemblies", "sheathings", "strand", "centralAssembly", "study" },
         allowSetters = true
     )
-    private Strand ownerStrand;
+    private StrandSupply ownerStrandSupply;
 
     @Override
     public IntersticeAssembly getThis() {
@@ -76,21 +76,27 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     @Override
     public Double getDiameterAssemblyStep() {
         try {
-            return getOwnerStrand().getDiameterAssemblyStep();
+            return getOwnerStrandSupply().getDiameterAssemblyStep();
         } catch (NullPointerException e) {
             return Double.NaN;
         }
     }
 
     @Override
+    public Double getMilimeterDiameterIncidency() {
+        return 0.0;
+    }
+
+    @Override
     public Long getProductionStep() {
-        return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
     public AssemblyMean getAssemblyMean() {
         try {
-            return getOwnerStrand().getAssemblyMean();
+            return getOwnerStrandSupply().getAssemblyMean();
         } catch (NullPointerException e) {
             return null;
         }
@@ -181,17 +187,32 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         return this;
     }
 
-    public Strand getOwnerStrand() {
-        return this.ownerStrand;
+    public StrandSupply getOwnerStrandSupply() {
+        return this.ownerStrandSupply;
     }
 
-    public void setOwnerStrand(Strand strand) {
-        this.ownerStrand = strand;
+    public void setOwnerStrandSupply(StrandSupply strandSupply) {
+        this.ownerStrandSupply = strandSupply;
     }
 
-    public IntersticeAssembly ownerStrand(Strand strand) {
-        this.setOwnerStrand(strand);
+    public IntersticeAssembly ownerStrandSupply(StrandSupply strandSupply) {
+        this.setOwnerStrandSupply(strandSupply);
         return this;
+    }
+
+    @Override
+    public Long getComponentsCount() {
+        if (getOwnerStrandSupply() == null) {
+            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+        }
+
+        Long componentsCount = Long.valueOf(0);
+
+        for (SupplyPosition supplyPosition : getSupplyPositions()) {
+            componentsCount += supplyPosition.getSupply().getApparitions();
+        }
+
+        return componentsCount / getOwnerStrandSupply().getApparitions();
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

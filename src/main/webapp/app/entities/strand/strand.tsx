@@ -50,9 +50,6 @@ export const Strand = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.strand.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.strand.designation">Designation</Translate>
-                </th>
-                <th>
                   <Translate contentKey="lappLiApp.strand.futureStudy">Future Study</Translate>
                 </th>
                 <th />
@@ -66,7 +63,6 @@ export const Strand = (props: RouteComponentProps<{ url: string }>) => {
                       {strand.id}
                     </Button>
                   </td>
-                  <td>{strand.designation}</td>
                   <td>{strand.futureStudy ? <Link to={`study/${strand.futureStudy.id}`}>{strand.futureStudy.number}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

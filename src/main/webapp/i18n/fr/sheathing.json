@@ -21,7 +21,8 @@
       "thickness": "Epaisseur",
       "milimeterThickness": "Milimeter Thickness",
       "material": "Matériau",
-      "ownerStrand": "Owner Strand"
+      "material": "Material",
+      "ownerStrandSupply": "Owner Strand Supply"
     }
   }
 }

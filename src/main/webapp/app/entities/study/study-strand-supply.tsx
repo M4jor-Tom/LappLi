@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, RouteComponentProps, useParams } from 'react-router-dom';
 import { Button, Row, Col, Table } from 'reactstrap';
-import { Translate, TextFormat, ValidatedForm } from 'react-jhipster';
+import { Translate, TextFormat, ValidatedForm, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { getEntities, getEntity } from './study.reducer';
@@ -120,7 +120,7 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                         <td>{strandSupply.description}</td>
                         <td>
                           {strandSupply.strand ? (
-                            <Link to={`${props.match.url}/strand/${strandSupply.strand.id}`}>{strandSupply.strand.designation}</Link>
+                            <Link to={`${props.match.url}/strand/${strandSupply.strand.id}`}>{strandSupply.strand.id}</Link>
                           ) : (
                             ''
                           )}
@@ -136,7 +136,7 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                             >
                               <FontAwesomeIcon icon="pencil-alt" />{' '}
                               <span className="d-none d-md-inline">
-                                <Translate contentKey="lappLiApp.strand.operations">Operations</Translate>
+                                <Translate contentKey="lappLiApp.strandSupply.operations">Operations</Translate>
                               </span>
                             </Button>
                             &nbsp;
@@ -183,18 +183,10 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
             <div className="table-responsive">
               {studyEntity.strands && studyEntity.strands.length > 0 ? (
                 <Table>
-                  <thead>
-                    <tr>
-                      <th>
-                        <Translate contentKey="lappLiApp.strand.designation">Designation</Translate>
-                      </th>
-                      <th />
-                    </tr>
-                  </thead>
                   <tbody>
                     {studyEntity.strands.map((strand, i) => (
                       <tr key={`entity-${i}`} data-cy="entityTable">
-                        <td>{strand.designation}</td>
+                        <td>{translate('lappLiApp.strand.detail.title') + '#' + strand.id}</td>
                         <td className="text-right">
                           <div className="btn-group flex-btn-group-container">
                             <Button

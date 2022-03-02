@@ -29,10 +29,10 @@
     },
     {
       "relationshipType": "many-to-one",
-      "otherEntityName": "strand",
+      "otherEntityName": "strandSupply",
       "otherEntityRelationshipName": "sheathings",
       "relationshipValidateRules": "required",
-      "relationshipName": "ownerStrand",
+      "relationshipName": "ownerStrandSupply",
       "otherEntityField": "designation"
     }
   ],

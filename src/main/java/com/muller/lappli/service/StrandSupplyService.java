@@ -30,6 +30,12 @@ public interface StrandSupplyService extends ReadTriggerableService<StrandSupply
      * @return the list of entities.
      */
     List<StrandSupply> findAll();
+    /**
+     * Get all the StrandSupply where CentralAssembly is {@code null}.
+     *
+     * @return the {@link List} of entities.
+     */
+    List<StrandSupply> findAllWhereCentralAssemblyIsNull();
 
     /**
      * Get the "id" strandSupply.

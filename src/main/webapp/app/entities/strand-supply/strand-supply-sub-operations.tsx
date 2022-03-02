@@ -11,6 +11,8 @@ import { getOut } from '../index-management/index-management-lib';
 import { defaultValue as strandDefaultValue } from 'app/shared/model/strand.model';
 import { ISheathing } from 'app/shared/model/sheathing.model';
 import { OperationKind } from 'app/shared/model/enumerations/operation-kind.model';
+import { IStrandSupply } from 'app/shared/model/strand-supply.model';
+import CentralAssembly from '../central-assembly/central-assembly';
 
 export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_supply_id: string; study_id: string }>) => {
   const dispatch = useAppDispatch();
@@ -19,9 +21,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
     dispatch(getEntity(props.match.params.strand_supply_id));
   }, []);
 
-  const strandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
-
-  const strand = strandSupplyEntity.strand ? strandSupplyEntity.strand : strandDefaultValue;
+  const strandSupplyEntity: IStrandSupply = useAppSelector(state => state.strandSupply.entity);
 
   const { match } = props;
 
@@ -54,18 +54,21 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
         <Translate contentKey="lappLiApp.sheathing.detail.title">Sheathing</Translate>
       </Link>
       <div className="table-responsive">
-        {strand.centralAssembly ||
-        (strand.coreAssemblies && strand.coreAssemblies.length > 0) ||
-        (strand.intersticeAssemblies && strand.intersticeAssemblies.length > 0) ||
-        (strand.nonAssemblyOperations && strand.nonAssemblyOperations.length > 0) ? (
+        {strandSupplyEntity.centralAssembly ||
+        (strandSupplyEntity.coreAssemblies && strandSupplyEntity.coreAssemblies.length > 0) ||
+        (strandSupplyEntity.intersticeAssemblies && strandSupplyEntity.intersticeAssemblies.length > 0) ||
+        (strandSupplyEntity.nonAssemblyOperations && strandSupplyEntity.nonAssemblyOperations.length > 0) ? (
           <Table responsive>
             <thead>
               <tr>
                 <th>
-                  <Translate contentKey="lappLiApp.strand.operationKind">Operation Kind</Translate>
+                  <Translate contentKey="lappLiApp.strandSupply.operationKind">Operation Kind</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.operation.operationLayer">Operation Layer</Translate>
+                  <Translate contentKey="lappLiApp.operation.layer">Layer</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.assembly.suppliedComponentsCount">Components Count</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.operation.productionStep">Production Step</Translate>
@@ -89,7 +92,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
               </tr>
             </thead>
             <tbody>
-              {strand.centralAssembly ? (
+              {strandSupplyEntity.centralAssembly && strandSupplyEntity.centralAssembly.supplyPosition ? (
                 <tr data-cy="entityTable">
                   <td>
                     <Translate contentKey="lappLiApp.centralAssembly.home.title" />
@@ -97,17 +100,24 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   <td>
                     <Translate contentKey="lappLiApp.centralAssembly.centralOperationLayer" />
                   </td>
-                  <td>{strand.centralAssembly.productionStep}</td>
-                  <td>{strand.centralAssembly.productDesignation}</td>
-                  <td>{strand.centralAssembly.milimeterDiameterIncidency}</td>
-                  <td>{strand.centralAssembly.afterThisMilimeterDiameter}</td>
+                  <td>
+                    {translate('lappLiApp.assembly.utilitySuppliedComponentsCount') + ':'}&nbsp;
+                    {strandSupplyEntity.centralAssembly.utilityComponentsCount}
+                    <br />
+                    {translate('lappLiApp.assembly.completionSuppliedComponentsCount') + ':'}&nbsp;
+                    {strandSupplyEntity.centralAssembly.completionComponentsCount}
+                  </td>
+                  <td>{strandSupplyEntity.centralAssembly.productionStep}</td>
+                  <td>{/* NO PRODUCT DESIGNATION (ASSEMBLY) */}</td>
+                  <td>{strandSupplyEntity.centralAssembly.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
+                  <td>{strandSupplyEntity.centralAssembly.mullerStandardizedFormatAfterThisMilimeterDiameter}</td>
                   <td>{/* NO ASSEMBLY STEP (CENTRAL ASSEMBLY) */}</td>
                   <td>{/* NO ASSEMBLY MEAN (CENTRAL ASSEMBLY) */}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button
                         tag={Link}
-                        to={`${props.match.url}/central-assembly/${strand.centralAssembly.id}/supply`}
+                        to={`${props.match.url}/central-assembly/${strandSupplyEntity.centralAssembly.id}/supply`}
                         color="primary"
                         size="sm"
                         data-cy="entityEditButton"
@@ -120,7 +130,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                       &nbsp;
                       <Button
                         tag={Link}
-                        to={`${props.match.url}/central-assembly/${strand.centralAssembly.id}/edit`}
+                        to={`${props.match.url}/central-assembly/${strandSupplyEntity.centralAssembly.id}/edit`}
                         color="primary"
                         size="sm"
                         data-cy="entityEditButton"
@@ -133,7 +143,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                       &nbsp;
                       <Button
                         tag={Link}
-                        to={`${props.match.url}/central-assembly/${strand.centralAssembly.id}/delete`}
+                        to={`${props.match.url}/central-assembly/${strandSupplyEntity.centralAssembly.id}/delete`}
                         color="danger"
                         size="sm"
                         data-cy="entityDeleteButton"
@@ -149,17 +159,32 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
               ) : (
                 ''
               )}
-              {strand.coreAssemblies
-                ? strand.coreAssemblies.map((coreAssembly, i) => (
+              {strandSupplyEntity.coreAssemblies
+                ? strandSupplyEntity.coreAssemblies.map((coreAssembly, i) => (
                     <tr key={`entity-core-assembly-${i}`} data-cy="entityTable">
                       <td>
                         <Translate contentKey="lappLiApp.coreAssembly.home.title" />
                       </td>
-                      <td>{coreAssembly.operationLayer}</td>
+                      <td>
+                        {translate('lappLiApp.operation.detail.title') + ':'}&nbsp;{coreAssembly.operationLayer}
+                        <br />
+                        {translate('lappLiApp.assembly.detail.title') + ':'}&nbsp;{coreAssembly.assemblyLayer}
+                      </td>
+                      <td>
+                        {translate('lappLiApp.assembly.utilitySuppliedComponentsCount') + ':'}&nbsp;
+                        {coreAssembly.utilityComponentsCount}
+                        <br />
+                        {translate('lappLiApp.assembly.completionSuppliedComponentsCount') + ':'}&nbsp;
+                        {coreAssembly.completionComponentsCount}
+                      </td>
                       <td>{coreAssembly.productionStep}</td>
-                      <td>{coreAssembly.productDesignation}</td>
-                      <td>{coreAssembly.milimeterDiameterIncidency}</td>
-                      <td>{coreAssembly.afterThisMilimeterDiameter}</td>
+                      <td>{/* NO PRODUCT DESIGNATION (ASSEMBLY) */}</td>
+                      <td>{coreAssembly.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
+                      <td>
+                        {coreAssembly.mullerStandardizedFormatBeforeThisMilimeterDiameter +
+                          ' -> ' +
+                          coreAssembly.mullerStandardizedFormatAfterThisMilimeterDiameter}
+                      </td>
                       <td>{coreAssembly.diameterAssemblyStep}</td>
                       <td>{coreAssembly.assemblyMean}</td>
                       <td className="text-right">
@@ -207,24 +232,35 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                     </tr>
                   ))
                 : ''}
-              {strand.intersticeAssemblies
-                ? strand.intersticeAssemblies.map((intersticialAssembly, i) => (
+              {strandSupplyEntity.intersticeAssemblies
+                ? strandSupplyEntity.intersticeAssemblies.map((intersticeAssembly, i) => (
                     <tr key={`entity-interstice-assembly-${i}`} data-cy="entityTable">
                       <td>
                         <Translate contentKey="lappLiApp.intersticeAssembly.home.title" />
                       </td>
-                      <td>{intersticialAssembly.operationLayer}</td>
-                      <td>{intersticialAssembly.productionStep}</td>
-                      <td>{intersticialAssembly.productDesignation}</td>
-                      <td>{intersticialAssembly.milimeterDiameterIncidency}</td>
-                      <td>{intersticialAssembly.afterThisMilimeterDiameter}</td>
-                      <td>{intersticialAssembly.diameterAssemblyStep}</td>
-                      <td>{intersticialAssembly.assemblyMean}</td>
+                      <td>
+                        {translate('lappLiApp.operation.detail.title') + ':'}&nbsp;{intersticeAssembly.operationLayer}
+                        <br />
+                        {translate('lappLiApp.assembly.detail.title') + ':'}&nbsp;{intersticeAssembly.assemblyLayer}
+                      </td>
+                      <td>
+                        {translate('lappLiApp.assembly.utilitySuppliedComponentsCount') + ':'}&nbsp;
+                        {intersticeAssembly.utilityComponentsCount}
+                        <br />
+                        {translate('lappLiApp.assembly.completionSuppliedComponentsCount') + ':'}&nbsp;
+                        {intersticeAssembly.completionComponentsCount}
+                      </td>
+                      <td>{intersticeAssembly.productionStep}</td>
+                      <td>{/* NO PRODUCT DESIGNATION (ASSEMBLY) */}</td>
+                      <td>{intersticeAssembly.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
+                      <td>{intersticeAssembly.mullerStandardizedFormatAfterThisMilimeterDiameter}</td>
+                      <td>{intersticeAssembly.diameterAssemblyStep}</td>
+                      <td>{intersticeAssembly.assemblyMean}</td>
                       <td className="text-right">
                         <div className="btn-group flex-btn-group-container">
                           <Button
                             tag={Link}
-                            to={`${props.match.url}/interstice-assembly/${intersticialAssembly.id}/supply`}
+                            to={`${props.match.url}/interstice-assembly/${intersticeAssembly.id}/supply`}
                             color="primary"
                             size="sm"
                             data-cy="entityEditButton"
@@ -237,7 +273,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                           &nbsp;
                           <Button
                             tag={Link}
-                            to={`${props.match.url}/interstice-assembly/${intersticialAssembly.id}/edit`}
+                            to={`${props.match.url}/interstice-assembly/${intersticeAssembly.id}/edit`}
                             color="primary"
                             size="sm"
                             data-cy="entityEditButton"
@@ -250,7 +286,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                           &nbsp;
                           <Button
                             tag={Link}
-                            to={`${props.match.url}/interstice-assembly/${intersticialAssembly.id}/delete`}
+                            to={`${props.match.url}/interstice-assembly/${intersticeAssembly.id}/delete`}
                             color="danger"
                             size="sm"
                             data-cy="entityDeleteButton"
@@ -266,9 +302,9 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   ))
                 : ''}
             </tbody>
-            {strand.nonAssemblyOperations && strand.nonAssemblyOperations.length > 0 ? (
+            {strandSupplyEntity.nonAssemblyOperations && strandSupplyEntity.nonAssemblyOperations.length > 0 ? (
               <tbody>
-                {strand.nonAssemblyOperations.map((operation, i) => (
+                {strandSupplyEntity.nonAssemblyOperations.map((operation, i) => (
                   <tr key={`entity-operation-${i}`} data-cy="entityTable">
                     <td>
                       {translate('lappLiApp.OperationKind.' + operation.operationKind)}
@@ -280,8 +316,8 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                     <td>{operation.operationLayer}</td>
                     <td>{operation.productionStep}</td>
                     <td>{operation.productDesignation}</td>
-                    <td>{operation.milimeterDiameterIncidency}</td>
-                    <td>{operation.afterThisMilimeterDiameter}</td>
+                    <td>{operation.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
+                    <td>{operation.mullerStandardizedFormatAfterThisMilimeterDiameter}</td>
                     <td>{/* NO ASSEMBLY STEP */}</td>
                     <td>{/* NO ASSEMBLY MEAN */}</td>
 

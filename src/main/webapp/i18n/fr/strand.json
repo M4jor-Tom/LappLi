@@ -21,19 +21,14 @@
         "compute": "Calcul Toron"
       },
       "id": "ID",
-      "designation": "Désignation",
-      "coreAssemblies": "Assemblages Principaux",
-      "intersticeAssemblies": "Assemblages Intersticiels",
+      "supplyPositions": "Supply Positions",
+      "futureStudy": "Future Study",
       "elementSupplies": "Approvisionnements d'Elements",
       "bangleSupplies": "Approvisionnements de Joncs",
       "customComponentSupplies": "Approvisionnements de Composants Custom",
       "subSupplies": "Approvisionnements du Toron",
-      "operations": "Opérations",
-      "operationKind": "Genre d'Opération",
       "noSuppliesFound": "Aucun approvisionnement trouvé",
-      "oneStudySupplies": "Approvisionnements Mono-Torons",
-      "diameterAssemblyStep": "Pas d'Assemblage (D)",
-      "assemblyMean": "Sens d'assemblage"
+      "oneStudySupplies": "Approvisionnements Mono-Torons"
     }
   }
 }

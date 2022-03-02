@@ -68,12 +68,24 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
     /**
      * @return the diameter in milimeters of the CylindricComponent
      */
-    public abstract Double getMilimeterDiameter();
+    public Double getMilimeterDiameter() {
+        if (getCylindricComponent() == null) {
+            return Double.NaN;
+        }
+
+        return getCylindricComponent().getMilimeterDiameter();
+    }
 
     /**
      * @return the linear mass in grams per meter of the CylindricComponent
      */
-    public abstract Double getGramPerMeterLinearMass();
+    public Double getGramPerMeterLinearMass() {
+        if (getCylindricComponent() == null) {
+            return Double.NaN;
+        }
+
+        return getCylindricComponent().getGramPerMeterLinearMass();
+    }
 
     /**
      * @return the representated component
