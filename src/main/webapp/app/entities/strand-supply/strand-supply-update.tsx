@@ -175,26 +175,34 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
                 check
                 type="checkbox"
               />
-              <ValidatedField
-                id="strand-supply-strand"
-                name="strand"
-                data-cy="strand"
-                label={translate('lappLiApp.strandSupply.strand')}
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {strands
-                  ? strands.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
+              {isNew ? (
+                <ValidatedField
+                  id="strand-supply-strand"
+                  name="strand"
+                  data-cy="strand"
+                  label={translate('lappLiApp.strandSupply.strand')}
+                  type="select"
+                  required
+                >
+                  <option value="" key="0" />
+                  {strands
+                    ? strands.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </ValidatedField>
+              ) : (
+                ''
+              )}
+              {isNew ? (
+                <FormText>
+                  <Translate contentKey="entity.validation.required">This field is required.</Translate>
+                </FormText>
+              ) : (
+                ''
+              )}
               {studyValidateField}
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={getOutUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
