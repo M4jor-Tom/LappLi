@@ -30,7 +30,6 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
   const dispatch = useAppDispatch();
 
   const strandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
-  const studyEntity = useAppSelector(state => state.study.entity);
   const updating = useAppSelector(state => state.strandSupply.updating);
   const updateSuccess = useAppSelector(state => state.strandSupply.updateSuccess);
   const assemblyMeanValues = Object.keys(AssemblyMean);
@@ -41,7 +40,6 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
 
   useEffect(() => {
     dispatch(getStrandSupplyWithAutoAssemblyGeneration(props.match.params.strand_supply_id));
-    dispatch(getStudy(props.match.params.study_id));
   }, []);
 
   useEffect(() => {
