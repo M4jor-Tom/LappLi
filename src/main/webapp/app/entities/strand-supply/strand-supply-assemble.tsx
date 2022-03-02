@@ -5,7 +5,10 @@ import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'r
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IStrand } from 'app/shared/model/strand.model';
-import { getEntity as getStrandSupply, updateEntity as updateStrandSupplyEntity } from 'app/entities/strand-supply/strand-supply.reducer';
+import {
+  getEntityWithAutoAssemblyGeneration as getStrandSupplyWithAutoAssemblyGeneration,
+  updateEntity as updateStrandSupplyEntity,
+} from 'app/entities/strand-supply/strand-supply.reducer';
 import { IStudy } from 'app/shared/model/study.model';
 import { getEntity as getStudy } from 'app/entities/study/study.reducer';
 import { createEntity as createCentralAssemblyEntity, reset as resetCentralAssemblyEntity } from '../strand-supply/strand-supply.reducer';
@@ -41,7 +44,7 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
     dispatch(resetCoreAssembly());
     dispatch(resetIntersticeAssembly());
 
-    dispatch(getStrandSupply(props.match.params.strand_supply_id));
+    dispatch(getStrandSupplyWithAutoAssemblyGeneration(props.match.params.strand_supply_id));
     dispatch(getStudy(props.match.params.study_id));
   }, []);
 
