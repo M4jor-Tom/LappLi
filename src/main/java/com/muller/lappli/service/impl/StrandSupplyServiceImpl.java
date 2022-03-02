@@ -99,7 +99,7 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<StrandSupply> findOne(Long id) {
+    public Optional<StrandSupply> findOne(Long id, Boolean autoGenerateAssemblies) {
         log.debug("Request to get StrandSupply : {}", id);
         return onOptionalRead(strandSupplyRepository.findById(id));
     }
