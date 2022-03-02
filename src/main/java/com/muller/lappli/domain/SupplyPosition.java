@@ -107,7 +107,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     /**
      * @return the SupplyPosition owner
      */
-    @JsonIgnoreProperties(
+    @JsonIgnore/*Properties(
         value = {
             "supplyPosition",
             "supplyPositions",
@@ -122,7 +122,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
             "oneStudySupplies",
         },
         allowSetters = true
-    )
+    )*/
     public ISupplyPositionOwner getOwner() {
         if (getOwnerStrand() != null) {
             return getOwnerStrand();
