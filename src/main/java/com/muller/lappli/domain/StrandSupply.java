@@ -68,10 +68,10 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     private Boolean forceCentralUtilityComponent;
 
     @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
-    @OneToOne(mappedBy = "ownerStrandSupply", cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "ownerStrandSupply", cascade = CascadeType.ALL)
     private CentralAssembly centralAssembly;
 
-    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
     private Set<CoreAssembly> coreAssemblies = new HashSet<>();
