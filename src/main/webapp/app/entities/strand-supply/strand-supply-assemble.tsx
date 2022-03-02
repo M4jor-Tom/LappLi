@@ -4,7 +4,7 @@ import { Button, Row, Col } from 'reactstrap';
 import { Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  getEntityWithAutoAssemblyGeneration as getStrandSupplyWithAutoAssemblyGeneration,
+  getEntityWithAutoAssemblyGeneration as getStrandSupplyEntityWithAutoAssemblyGeneration,
   updateEntity as updateStrandSupplyEntity,
 } from 'app/entities/strand-supply/strand-supply.reducer';
 import { IStrandSupply } from 'app/shared/model/strand-supply.model';
@@ -25,7 +25,7 @@ export const StrandSupplyAssemble = (props: RouteComponentProps<{ strand_supply_
   };
 
   useEffect(() => {
-    dispatch(getStrandSupplyWithAutoAssemblyGeneration(props.match.params.strand_supply_id));
+    dispatch(getStrandSupplyEntityWithAutoAssemblyGeneration(props.match.params.strand_supply_id));
   }, []);
 
   useEffect(() => {
