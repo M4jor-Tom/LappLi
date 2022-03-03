@@ -2,6 +2,7 @@ package com.muller.lappli.domain.abstracts;
 
 import com.muller.lappli.domain.AssemblyPreset;
 import com.muller.lappli.domain.AssemblyPresetDistributionPossibility;
+import com.muller.lappli.domain.DomainManager;
 import javax.persistence.MappedSuperclass;
 
 /**
@@ -10,10 +11,27 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends AbstractOperation<T> {
 
-    public abstract Long getAssemblyLayer();
-
     @Override
     public abstract Double getMilimeterDiameterIncidency();
+
+    public Long getAssemblyCountUnderThisPlus1() {
+        if (getOwnerStrandSupply() == null) {
+            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+        }
+
+        Long count = Long.valueOf(0);
+
+        for (AbstractOperation<?> operation : getOwnerStrandSupply().getOperations()) {
+            if (operation instanceof AbstractAssembly<?>) {
+                count++;
+            }
+            if (equals(operation)) {
+                return count;
+            }
+        }
+
+        return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+    }
 
     public abstract Long getComponentsCount();
 
@@ -32,7 +50,7 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends Ab
 
             return assemblyPresetDistributionPossibility
                 .getAssemblyPresets()
-                .get(indexOfFirstCoreAssembly + getAssemblyLayer().intValue() - 1);
+                .get(indexOfFirstCoreAssembly + getAssemblyCountUnderThisPlus1().intValue() - 1);
         } /*catch (NullPointerException e) {}*/catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
         }

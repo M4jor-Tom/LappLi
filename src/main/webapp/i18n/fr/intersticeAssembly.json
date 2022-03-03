@@ -18,7 +18,6 @@
         "title": "Interstice Assembly"
       },
       "id": "ID",
-      "assemblyLayer": "Assembly Layer",
       "intersticeLayer": "Interstice Layer",
       "forcedMeanMilimeterComponentDiameter": "Forced Mean Milimeter Component Diameter",
       "supplyPositions": "Supply Positions",

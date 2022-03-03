@@ -165,11 +165,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                       <td>
                         <Translate contentKey="lappLiApp.coreAssembly.home.title" />
                       </td>
-                      <td>
-                        {translate('lappLiApp.operation.detail.title') + ':'}&nbsp;{coreAssembly.operationLayer}
-                        <br />
-                        {translate('lappLiApp.assembly.detail.title') + ':'}&nbsp;{coreAssembly.assemblyLayer}
-                      </td>
+                      <td>{coreAssembly.operationLayer}</td>
                       <td>
                         {translate('lappLiApp.assembly.utilitySuppliedComponentsCount') + ':'}&nbsp;
                         {coreAssembly.utilityComponentsCount}
@@ -238,11 +234,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                       <td>
                         <Translate contentKey="lappLiApp.intersticeAssembly.home.title" />
                       </td>
-                      <td>
-                        {translate('lappLiApp.operation.detail.title') + ':'}&nbsp;{intersticeAssembly.operationLayer}
-                        <br />
-                        {translate('lappLiApp.assembly.detail.title') + ':'}&nbsp;{intersticeAssembly.assemblyLayer}
-                      </td>
+                      <td>{intersticeAssembly.operationLayer}</td>
                       <td>
                         {translate('lappLiApp.assembly.utilitySuppliedComponentsCount') + ':'}&nbsp;
                         {intersticeAssembly.utilityComponentsCount}

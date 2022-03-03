@@ -29,8 +29,8 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     private Long id;
 
     @NotNull
-    @Column(name = "assembly_layer", nullable = false)
-    private Long assemblyLayer;
+    @Column(name = "operation_layer", nullable = false)
+    private Long operationLayer;
 
     @NotNull
     @Column(name = "interstice_layer", nullable = false)
@@ -117,17 +117,17 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         this.id = id;
     }
 
-    public Long getAssemblyLayer() {
-        return this.assemblyLayer;
+    public Long getOperationLayer() {
+        return this.operationLayer;
     }
 
-    public IntersticeAssembly assemblyLayer(Long assemblyLayer) {
-        this.setAssemblyLayer(assemblyLayer);
+    public IntersticeAssembly operationLayer(Long operationLayer) {
+        this.setOperationLayer(operationLayer);
         return this;
     }
 
-    public void setAssemblyLayer(Long assemblyLayer) {
-        this.assemblyLayer = assemblyLayer;
+    public void setOperationLayer(Long operationLayer) {
+        this.operationLayer = operationLayer;
     }
 
     public Long getIntersticeLayer() {
@@ -239,7 +239,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     public String toString() {
         return "IntersticeAssembly{" +
             "id=" + getId() +
-            ", assemblyLayer=" + getAssemblyLayer() +
+            ", operationLayer=" + getOperationLayer() +
             ", intersticeLayer=" + getIntersticeLayer() +
             ", forcedMeanMilimeterComponentDiameter=" + getForcedMeanMilimeterComponentDiameter() +
             "}";

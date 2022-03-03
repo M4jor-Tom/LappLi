@@ -99,10 +99,10 @@ export const IntersticeAssemblyUpdate = (props: RouteComponentProps<{ strand_sup
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.intersticeAssembly.assemblyLayer')}
-                id="interstice-assembly-assemblyLayer"
-                name="assemblyLayer"
-                data-cy="assemblyLayer"
+                label={translate('lappLiApp.intersticeAssembly.operationLayer')}
+                id="interstice-assembly-operationLayer"
+                name="operationLayer"
+                data-cy="operationLayer"
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
