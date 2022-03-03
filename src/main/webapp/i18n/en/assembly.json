@@ -11,7 +11,6 @@
       "delete": {
         "question": "Delete assemblies ?"
       },
-      "assemblyLayer": "Assembly Layer",
       "diameterAssemblyStep": "Assembly Step (D)",
       "assemblyMean": "Assembly Mean",
       "subSupply": "Assembly Supply",

@@ -99,10 +99,10 @@ export const CoreAssemblyUpdate = (props: RouteComponentProps<{ id: string; stra
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.coreAssembly.assemblyLayer')}
-                id="core-assembly-assemblyLayer"
-                name="assemblyLayer"
-                data-cy="assemblyLayer"
+                label={translate('lappLiApp.coreAssembly.operationLayer')}
+                id="core-assembly-operationLayer"
+                name="operationLayer"
+                data-cy="operationLayer"
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },

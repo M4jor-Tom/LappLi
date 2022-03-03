@@ -138,37 +138,28 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
                         } else if (o2 instanceof CentralAssembly) {
                             return 1;
                         } else if (o1 instanceof AbstractNonCentralAssembly && o2 instanceof AbstractNonCentralAssembly) {
-                            //o1 and o2 are both Assemblies which are not CenralAssemblies
-                            Long o1AssemblyLayer = ((AbstractNonCentralAssembly<?>) o1).getAssemblyLayer();
-                            Long o2AssemblyLayer = ((AbstractNonCentralAssembly<?>) o2).getAssemblyLayer();
-                            if (o1AssemblyLayer == o2AssemblyLayer) {
-                                //If they are at the same Assembly level, one MUST be
-                                //an IntersticeAssembly
-                                if (o1 instanceof IntersticeAssembly && o2 instanceof IntersticeAssembly) {
-                                    //They're both IntersticeAssemblies,
-                                    //let's compare them on intersticeLayer
-                                    Long o1IntersticeLayer = ((IntersticeAssembly) o1).getIntersticeLayer();
-                                    Long o2IntersticeLayer = ((IntersticeAssembly) o2).getIntersticeLayer();
+                            //If they are at the same Assembly level, one MUST be
+                            //an IntersticeAssembly
+                            if (o1 instanceof IntersticeAssembly && o2 instanceof IntersticeAssembly) {
+                                //They're both IntersticeAssemblies,
+                                //let's compare them on intersticeLayer
+                                Long o1IntersticeLayer = ((IntersticeAssembly) o1).getIntersticeLayer();
+                                Long o2IntersticeLayer = ((IntersticeAssembly) o2).getIntersticeLayer();
 
-                                    if (o1IntersticeLayer == o2IntersticeLayer) {
-                                        //TODO: Handle data corruption,
-                                        //this equality cannot be true,
-                                        //layer indexation reveals complete equality
-                                    }
-
-                                    return (int) (o1IntersticeLayer - o2IntersticeLayer);
-                                } else if (o1 instanceof IntersticeAssembly) {
-                                    return 1;
-                                } else if (o2 instanceof IntersticeAssembly) {
-                                    return -1;
+                                if (o1IntersticeLayer == o2IntersticeLayer) {
+                                    //TODO: Handle data corruption,
+                                    //this equality cannot be true,
+                                    //layer indexation reveals complete equality
                                 }
-                                //TODO: Handle data corruption
-                                //at least one must be an IntersticeAssembly
-                            }
 
-                            //They're both CoreAssemblies with different assemblyLayers,
-                            //let's compare them on that
-                            return (int) (o1AssemblyLayer - o2AssemblyLayer);
+                                return (int) (o1IntersticeLayer - o2IntersticeLayer);
+                            } else if (o1 instanceof IntersticeAssembly) {
+                                return 1;
+                            } else if (o2 instanceof IntersticeAssembly) {
+                                return -1;
+                            }
+                            //TODO: Handle data corruption
+                            //at least one must be an IntersticeAssembly
                         }
 
                         if (o1.getOperationLayer() == o2.getOperationLayer()) {
@@ -309,12 +300,12 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
             );
         }
 
-        Long coreAssemblyAssemblyLayer = Long.valueOf(1);
+        Long coreAssemblyOperationLayer = Long.valueOf(1);
         for (AssemblyPreset assemblyPreset : assemblyPresetDistributionPossibility.getAssemblyPresetsAfterCentral()) {
             addCoreAssemblies(
                 new CoreAssembly()
                     .ownerStrandSupply(this)
-                    .assemblyLayer(coreAssemblyAssemblyLayer++)
+                    .operationLayer(coreAssemblyOperationLayer++)
                     .forcedMeanMilimeterComponentDiameter(Double.NaN)
             );
         }
