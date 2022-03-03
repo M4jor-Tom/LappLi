@@ -1,5 +1,22 @@
 service * with serviceImpl
 
+entity Tape {
+	number Long required unique
+    designation String required unique
+    milimeterWidth Double required
+    milimeterDiameterIncidency Double required
+}
+
+entity TapeKind {
+	targetCoveringRate Double required
+    designation String unique required
+}
+
+entity TapeLaying {
+	operationLayer Long required
+	assemblyMean AssemblyMean required
+}
+
 entity Sheathing {
 	operationLayer Long required
 	milimeterThickness Double required
@@ -202,6 +219,14 @@ relationship OneToMany {
 
 relationship OneToMany {
 	Material{materialMarkingStatistics(markingType)} to MaterialMarkingStatistic{material(designation) required}
+}
+
+relationship ManyToOne {
+    TapeLaying{Tape(designation) required} to Tape 
+}
+
+relationship ManyToOne {
+    Tape{tapeKind(designation) required} to TapeKind
 }
 
 relationship ManyToOne {
