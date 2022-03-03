@@ -4,7 +4,7 @@ import { Button, Row, Col, Table } from 'reactstrap';
 import { translate, Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { getEntity } from '../strand-supply/strand-supply.reducer';
+import { getEntity, getEntityWithAutoAssemblyGeneration } from '../strand-supply/strand-supply.reducer';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getOut } from '../index-management/index-management-lib';
@@ -18,7 +18,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getEntity(props.match.params.strand_supply_id));
+    dispatch(getEntityWithAutoAssemblyGeneration(props.match.params.strand_supply_id));
   }, []);
 
   const strandSupplyEntity: IStrandSupply = useAppSelector(state => state.strandSupply.entity);
@@ -32,26 +32,6 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
       <h2 data-cy="strandDetailsHeading">
         <Translate contentKey="lappLiApp.strand.detail.title">Strand</Translate>
       </h2>
-      {strandSupplyEntity.hasAssemblies ? (
-        <Button tag={Link} to={`${props.match.url}/assemblies/delete`} color="danger" size="sm" data-cy="entityDeleteButton">
-          <FontAwesomeIcon icon="trash" />{' '}
-          <span className="d-none d-md-inline">
-            <Translate contentKey="lappLiApp.assembly.detail.title">Assembly</Translate>
-          </span>
-        </Button>
-      ) : (
-        <Link
-          to={`${props.match.url}/assemblies/new`}
-          className="btn btn-primary jh-create-entity"
-          id="jh-create-entity"
-          data-cy="entityCreateButton"
-        >
-          <FontAwesomeIcon icon="plus" />
-          &nbsp;
-          <Translate contentKey="lappLiApp.assembly.detail.title">Assembly</Translate>
-        </Link>
-      )}
-      &nbsp;
       <Link
         to={`${props.match.url}/sheathing/new`}
         className="btn btn-primary jh-create-entity"
