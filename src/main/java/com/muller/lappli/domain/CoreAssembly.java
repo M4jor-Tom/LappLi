@@ -109,7 +109,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         try {
             return CalculatorManager
                 .getCalculatorInstance()
-                .getSuppliedComponentsAverageDiameterAssemblyVoid(getOwnerStrandSupply(), getAssemblyLayer() - 1);
+                .getSuppliedComponentsAverageDiameterAssemblyVoid(getOwnerStrandSupply(), getAssemblyCountUnderThisPlus1() - 1);
         } catch (NullPointerException e) {} catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
