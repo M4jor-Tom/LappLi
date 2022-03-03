@@ -36,11 +36,28 @@ public class StudyServiceImpl implements StudyService {
     public Study save(Study study, Boolean shouldBeAuthored) throws SaveException {
         log.debug("Request to save Study : {}", study);
 
+        //If study creation is legal
         if (study.isAuthored() == shouldBeAuthored && SecurityUtils.getCurrentUserLogin().isPresent()) {
             Optional<UserData> userDataOptional = userDataService.findOrCreateUserDataByLogin(SecurityUtils.getCurrentUserLogin().get());
 
             if (userDataOptional.isPresent()) {
+                //If its UserData author is found
+
+                //Precising study's author in case it's null
                 study.setAuthor(userDataOptional.get());
+
+                //Double check UserData exists in database
+                Boolean userDataExistsInDatabase = userDataOptional.get().getId() != null;
+                if (userDataOptional.get().getId() != null) {
+                    userDataExistsInDatabase = userDataService.findOne(userDataOptional.get().getId()).isPresent();
+                }
+
+                if (!userDataExistsInDatabase) {
+                    //If UserData does not exists in database
+
+                    //Save it
+                    userDataService.save(userDataOptional.get());
+                }
                 return studyRepository.save(study);
             }
         }
