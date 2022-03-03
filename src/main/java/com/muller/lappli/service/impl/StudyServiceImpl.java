@@ -37,7 +37,7 @@ public class StudyServiceImpl implements StudyService {
         log.debug("Request to save Study : {}", study);
 
         if (study.isAuthored() == shouldBeAuthored && SecurityUtils.getCurrentUserLogin().isPresent()) {
-            Optional<UserData> userDataOptional = userDataService.findUserDataByLogin(SecurityUtils.getCurrentUserLogin().get());
+            Optional<UserData> userDataOptional = userDataService.findOrCreateUserDataByLogin(SecurityUtils.getCurrentUserLogin().get());
 
             if (userDataOptional.isPresent()) {
                 study.setAuthor(userDataOptional.get());

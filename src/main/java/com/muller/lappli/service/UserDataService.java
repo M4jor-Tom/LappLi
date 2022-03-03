@@ -53,5 +53,5 @@ public interface UserDataService {
      * @param userLogin the user's login
      * @return the userData of the user
      */
-    Optional<UserData> findUserDataByLogin(String userLogin);
+    Optional<UserData> findOrCreateUserDataByLogin(String userLogin);
 }
