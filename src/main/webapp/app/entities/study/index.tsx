@@ -51,6 +51,11 @@ const Routes = ({ match }) => (
 
       {/* (CUD ACCESS): STRAND SUPPLIES */}
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyZoneUrlPefix}/:id/edit`} component={StrandSupplyUpdate} />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/strand-supply/:id/edit`}
+        component={StrandSupplyUpdate}
+      />
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyZoneUrlPefix}/:id/delete`} component={StrandSupplyDeleteDialog} />
 
       {/* (CUD ACCESS): STRANDS */}
