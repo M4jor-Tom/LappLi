@@ -32,6 +32,19 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
       <h2 data-cy="strandDetailsHeading">
         <Translate contentKey="lappLiApp.strand.detail.title">Strand</Translate>
       </h2>
+      <Button
+        tag={Link}
+        to={`${props.match.url}/strand-supply/${strandSupplyEntity.id}/edit`}
+        color="primary"
+        size="sm"
+        data-cy="entityEditButton"
+      >
+        <FontAwesomeIcon icon="pencil-alt" />{' '}
+        <span className="d-none d-md-inline">
+          <Translate contentKey="lappLiApp.assembly.detail.title">Assembly</Translate>
+        </span>
+      </Button>
+      &nbsp;
       <Link
         to={`${props.match.url}/sheathing/new`}
         className="btn btn-primary jh-create-entity"
