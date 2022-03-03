@@ -149,7 +149,7 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                             >
                               <FontAwesomeIcon icon="pencil-alt" />{' '}
                               <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.edit">Edit</Translate>
+                                <Translate contentKey="lappLiApp.assembly.detail.title">Assembly</Translate>
                               </span>
                             </Button>
                             &nbsp;
