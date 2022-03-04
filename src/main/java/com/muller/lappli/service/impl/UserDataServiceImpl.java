@@ -1,9 +1,11 @@
 package com.muller.lappli.service.impl;
 
+import com.muller.lappli.domain.User;
 import com.muller.lappli.domain.UserData;
 import com.muller.lappli.repository.UserDataRepository;
 import com.muller.lappli.repository.UserRepository;
 import com.muller.lappli.service.UserDataService;
+import com.muller.lappli.service.UserService;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -24,9 +26,12 @@ public class UserDataServiceImpl implements UserDataService {
 
     private final UserRepository userRepository;
 
-    public UserDataServiceImpl(UserDataRepository userDataRepository, UserRepository userRepository) {
+    private final UserService userService;
+
+    public UserDataServiceImpl(UserDataRepository userDataRepository, UserRepository userRepository, UserService userService) {
         this.userDataRepository = userDataRepository;
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -70,10 +75,20 @@ public class UserDataServiceImpl implements UserDataService {
     }
 
     @Override
-    public Optional<UserData> findUserDataByLogin(String userLogin) {
-        for (UserData userData : findAll()) {
-            if (userData.getUser().getLogin().equals(userLogin)) {
-                return Optional.of(userData);
+    public Optional<UserData> findOrCreateUserDataByLogin(String userLogin) {
+        if (userLogin != null) {
+            for (UserData userData : findAll()) {
+                if (userLogin.equals(userData.getUser().getLogin())) {
+                    return Optional.of(userData);
+                }
+            }
+
+            UserData newUserData = new UserData();
+
+            Optional<User> optionalUser = userService.getUserWithAuthoritiesByLogin(userLogin);
+
+            if (optionalUser.isPresent()) {
+                return Optional.of(newUserData.user(optionalUser.get()));
             }
         }
 

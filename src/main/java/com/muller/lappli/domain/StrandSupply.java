@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
 import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
@@ -68,10 +69,10 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     private Boolean forceCentralUtilityComponent;
 
     @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
-    @OneToOne(mappedBy = "ownerStrandSupply", cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "ownerStrandSupply", cascade = CascadeType.ALL)
     private CentralAssembly centralAssembly;
 
-    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
     private Set<CoreAssembly> coreAssemblies = new HashSet<>();
@@ -137,37 +138,28 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
                         } else if (o2 instanceof CentralAssembly) {
                             return 1;
                         } else if (o1 instanceof AbstractNonCentralAssembly && o2 instanceof AbstractNonCentralAssembly) {
-                            //o1 and o2 are both Assemblies which are not CenralAssemblies
-                            Long o1AssemblyLayer = ((AbstractNonCentralAssembly<?>) o1).getAssemblyLayer();
-                            Long o2AssemblyLayer = ((AbstractNonCentralAssembly<?>) o2).getAssemblyLayer();
-                            if (o1AssemblyLayer == o2AssemblyLayer) {
-                                //If they are at the same Assembly level, one MUST be
-                                //an IntersticeAssembly
-                                if (o1 instanceof IntersticeAssembly && o2 instanceof IntersticeAssembly) {
-                                    //They're both IntersticeAssemblies,
-                                    //let's compare them on intersticeLayer
-                                    Long o1IntersticeLayer = ((IntersticeAssembly) o1).getIntersticeLayer();
-                                    Long o2IntersticeLayer = ((IntersticeAssembly) o2).getIntersticeLayer();
+                            //If they are at the same Assembly level, one MUST be
+                            //an IntersticeAssembly
+                            if (o1 instanceof IntersticeAssembly && o2 instanceof IntersticeAssembly) {
+                                //They're both IntersticeAssemblies,
+                                //let's compare them on intersticeLayer
+                                Long o1IntersticeLayer = ((IntersticeAssembly) o1).getIntersticeLayer();
+                                Long o2IntersticeLayer = ((IntersticeAssembly) o2).getIntersticeLayer();
 
-                                    if (o1IntersticeLayer == o2IntersticeLayer) {
-                                        //TODO: Handle data corruption,
-                                        //this equality cannot be true,
-                                        //layer indexation reveals complete equality
-                                    }
-
-                                    return (int) (o1IntersticeLayer - o2IntersticeLayer);
-                                } else if (o1 instanceof IntersticeAssembly) {
-                                    return 1;
-                                } else if (o2 instanceof IntersticeAssembly) {
-                                    return -1;
+                                if (o1IntersticeLayer == o2IntersticeLayer) {
+                                    //TODO: Handle data corruption,
+                                    //this equality cannot be true,
+                                    //layer indexation reveals complete equality
                                 }
-                                //TODO: Handle data corruption
-                                //at least one must be an IntersticeAssembly
-                            }
 
-                            //They're both CoreAssemblies with different assemblyLayers,
-                            //let's compare them on that
-                            return (int) (o1AssemblyLayer - o2AssemblyLayer);
+                                return (int) (o1IntersticeLayer - o2IntersticeLayer);
+                            } else if (o1 instanceof IntersticeAssembly) {
+                                return 1;
+                            } else if (o2 instanceof IntersticeAssembly) {
+                                return -1;
+                            }
+                            //TODO: Handle data corruption
+                            //at least one must be an IntersticeAssembly
                         }
 
                         if (o1.getOperationLayer() == o2.getOperationLayer()) {
@@ -308,12 +300,12 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
             );
         }
 
-        Long coreAssemblyAssemblyLayer = Long.valueOf(1);
+        Long coreAssemblyOperationLayer = Long.valueOf(1);
         for (AssemblyPreset assemblyPreset : assemblyPresetDistributionPossibility.getAssemblyPresetsAfterCentral()) {
             addCoreAssemblies(
                 new CoreAssembly()
                     .ownerStrandSupply(this)
-                    .assemblyLayer(coreAssemblyAssemblyLayer++)
+                    .operationLayer(coreAssemblyOperationLayer++)
                     .forcedMeanMilimeterComponentDiameter(Double.NaN)
             );
         }
@@ -398,6 +390,19 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         }
 
         return this;
+    }
+
+    @JsonProperty("hasAssemblies")
+    public Boolean hasAssemblies() {
+        if (getCentralAssembly() != null) {
+            return true;
+        } else if (getCoreAssemblies() != null) {
+            return !getCoreAssemblies().isEmpty();
+        } else if (getIntersticeAssemblies() != null) {
+            return !getIntersticeAssemblies().isEmpty();
+        }
+
+        return false;
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

@@ -8,7 +8,9 @@
       "detail": {
         "title": "Assembly"
       },
-      "assemblyLayer": "Assembly Layer",
+      "delete": {
+        "question": "Delete assemblies ?"
+      },
       "diameterAssemblyStep": "Assembly Step (D)",
       "assemblyMean": "Assembly Mean",
       "subSupply": "Assembly Supply",

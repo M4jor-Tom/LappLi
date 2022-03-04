@@ -30,11 +30,11 @@ export const IntersticeAssemblyDetail = (props: RouteComponentProps<{ id: string
           </dt>
           <dd>{intersticeAssemblyEntity.id}</dd>
           <dt>
-            <span id="assemblyLayer">
-              <Translate contentKey="lappLiApp.intersticeAssembly.assemblyLayer">Assembly Layer</Translate>
+            <span id="operationLayer">
+              <Translate contentKey="lappLiApp.intersticeAssembly.operationLayer">Operation Layer</Translate>
             </span>
           </dt>
-          <dd>{intersticeAssemblyEntity.assemblyLayer}</dd>
+          <dd>{intersticeAssemblyEntity.operationLayer}</dd>
           <dt>
             <span id="intersticeLayer">
               <Translate contentKey="lappLiApp.intersticeAssembly.intersticeLayer">Interstice Layer</Translate>

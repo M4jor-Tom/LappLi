@@ -2,7 +2,7 @@
   "name": "CoreAssembly",
   "fields": [
     {
-      "fieldName": "assemblyLayer",
+      "fieldName": "operationLayer",
       "fieldType": "Long",
       "fieldValidateRules": ["required"]
     },

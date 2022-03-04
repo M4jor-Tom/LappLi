@@ -27,8 +27,8 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     private Long id;
 
     @NotNull
-    @Column(name = "assembly_layer", nullable = false)
-    private Long assemblyLayer;
+    @Column(name = "operation_layer", nullable = false)
+    private Long operationLayer;
 
     @Column(name = "forced_mean_milimeter_component_diameter")
     private Double forcedMeanMilimeterComponentDiameter;
@@ -109,7 +109,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         try {
             return CalculatorManager
                 .getCalculatorInstance()
-                .getSuppliedComponentsAverageDiameterAssemblyVoid(getOwnerStrandSupply(), getAssemblyLayer() - 1);
+                .getSuppliedComponentsAverageDiameterAssemblyVoid(getOwnerStrandSupply(), getAssemblyCountUnderThisPlus1() - 1);
         } catch (NullPointerException e) {} catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
@@ -153,17 +153,17 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     }
 
     @Override
-    public Long getAssemblyLayer() {
-        return this.assemblyLayer;
+    public Long getOperationLayer() {
+        return this.operationLayer;
     }
 
-    public CoreAssembly assemblyLayer(Long assemblyLayer) {
-        this.setAssemblyLayer(assemblyLayer);
+    public CoreAssembly operationLayer(Long operationLayer) {
+        this.setOperationLayer(operationLayer);
         return this;
     }
 
-    public void setAssemblyLayer(Long assemblyLayer) {
-        this.assemblyLayer = assemblyLayer;
+    public void setOperationLayer(Long operationLayer) {
+        this.operationLayer = operationLayer;
     }
 
     public Double getForcedMeanMilimeterComponentDiameter() {
@@ -216,7 +216,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     public String toString() {
         return "CoreAssembly{" +
             "id=" + getId() +
-            ", assemblyLayer=" + getAssemblyLayer() +
+            ", operationLayer=" + getOperationLayer() +
             ", forcedMeanMilimeterComponentDiameter=" + getForcedMeanMilimeterComponentDiameter() +
             ", componentsCount=" + getComponentsCount() +
             ", beforeThisMilimeterDiameter=" + getBeforeThisMilimeterDiameter() +

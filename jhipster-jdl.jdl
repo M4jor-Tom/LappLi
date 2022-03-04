@@ -18,12 +18,12 @@ entity CentralAssembly {
 entity CoreAssembly {
 	//@Readonly operationLayer Long required
 	//@Readonly productionStep Long required
-	assemblyLayer Long required
+	operationLayer Long required
     forcedMeanMilimeterComponentDiameter Double
 }
 
 entity IntersticeAssembly {
-	assemblyLayer Long required
+	operationLayer Long required
     intersticeLayer Long required
 	//@Readonly operationLayer Long required
 	//@Readonly productionStep Long required

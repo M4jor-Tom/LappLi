@@ -30,8 +30,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class IntersticeAssemblyResourceIT {
 
-    private static final Long DEFAULT_ASSEMBLY_LAYER = 1L;
-    private static final Long UPDATED_ASSEMBLY_LAYER = 2L;
+    private static final Long DEFAULT_OPERATION_LAYER = 1L;
+    private static final Long UPDATED_OPERATION_LAYER = 2L;
 
     private static final Long DEFAULT_INTERSTICE_LAYER = 1L;
     private static final Long UPDATED_INTERSTICE_LAYER = 2L;
@@ -64,7 +64,7 @@ class IntersticeAssemblyResourceIT {
      */
     public static IntersticeAssembly createEntity(EntityManager em) {
         IntersticeAssembly intersticeAssembly = new IntersticeAssembly()
-            .assemblyLayer(DEFAULT_ASSEMBLY_LAYER)
+            .operationLayer(DEFAULT_OPERATION_LAYER)
             .intersticeLayer(DEFAULT_INTERSTICE_LAYER)
             .forcedMeanMilimeterComponentDiameter(DEFAULT_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER);
         // Add required entity
@@ -88,7 +88,7 @@ class IntersticeAssemblyResourceIT {
      */
     public static IntersticeAssembly createUpdatedEntity(EntityManager em) {
         IntersticeAssembly intersticeAssembly = new IntersticeAssembly()
-            .assemblyLayer(UPDATED_ASSEMBLY_LAYER)
+            .operationLayer(UPDATED_OPERATION_LAYER)
             .intersticeLayer(UPDATED_INTERSTICE_LAYER)
             .forcedMeanMilimeterComponentDiameter(UPDATED_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER);
         // Add required entity
@@ -124,7 +124,7 @@ class IntersticeAssemblyResourceIT {
         List<IntersticeAssembly> intersticeAssemblyList = intersticeAssemblyRepository.findAll();
         assertThat(intersticeAssemblyList).hasSize(databaseSizeBeforeCreate + 1);
         IntersticeAssembly testIntersticeAssembly = intersticeAssemblyList.get(intersticeAssemblyList.size() - 1);
-        assertThat(testIntersticeAssembly.getAssemblyLayer()).isEqualTo(DEFAULT_ASSEMBLY_LAYER);
+        assertThat(testIntersticeAssembly.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testIntersticeAssembly.getIntersticeLayer()).isEqualTo(DEFAULT_INTERSTICE_LAYER);
         assertThat(testIntersticeAssembly.getForcedMeanMilimeterComponentDiameter())
             .isEqualTo(DEFAULT_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER);
@@ -152,10 +152,10 @@ class IntersticeAssemblyResourceIT {
 
     @Test
     @Transactional
-    void checkAssemblyLayerIsRequired() throws Exception {
+    void checkOperationLayerIsRequired() throws Exception {
         int databaseSizeBeforeTest = intersticeAssemblyRepository.findAll().size();
         // set the field null
-        intersticeAssembly.setAssemblyLayer(null);
+        intersticeAssembly.setOperationLayer(null);
 
         // Create the IntersticeAssembly, which fails.
 
@@ -200,7 +200,7 @@ class IntersticeAssemblyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(intersticeAssembly.getId().intValue())))
-            .andExpect(jsonPath("$.[*].assemblyLayer").value(hasItem(DEFAULT_ASSEMBLY_LAYER.intValue())))
+            .andExpect(jsonPath("$.[*].operationLayer").value(hasItem(DEFAULT_OPERATION_LAYER.intValue())))
             .andExpect(jsonPath("$.[*].intersticeLayer").value(hasItem(DEFAULT_INTERSTICE_LAYER.intValue())))
             .andExpect(
                 jsonPath("$.[*].forcedMeanMilimeterComponentDiameter")
@@ -220,7 +220,7 @@ class IntersticeAssemblyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(intersticeAssembly.getId().intValue()))
-            .andExpect(jsonPath("$.assemblyLayer").value(DEFAULT_ASSEMBLY_LAYER.intValue()))
+            .andExpect(jsonPath("$.operationLayer").value(DEFAULT_OPERATION_LAYER.intValue()))
             .andExpect(jsonPath("$.intersticeLayer").value(DEFAULT_INTERSTICE_LAYER.intValue()))
             .andExpect(
                 jsonPath("$.forcedMeanMilimeterComponentDiameter").value(DEFAULT_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER.doubleValue())
@@ -247,7 +247,7 @@ class IntersticeAssemblyResourceIT {
         // Disconnect from session so that the updates on updatedIntersticeAssembly are not directly saved in db
         em.detach(updatedIntersticeAssembly);
         updatedIntersticeAssembly
-            .assemblyLayer(UPDATED_ASSEMBLY_LAYER)
+            .operationLayer(UPDATED_OPERATION_LAYER)
             .intersticeLayer(UPDATED_INTERSTICE_LAYER)
             .forcedMeanMilimeterComponentDiameter(UPDATED_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER);
 
@@ -263,7 +263,7 @@ class IntersticeAssemblyResourceIT {
         List<IntersticeAssembly> intersticeAssemblyList = intersticeAssemblyRepository.findAll();
         assertThat(intersticeAssemblyList).hasSize(databaseSizeBeforeUpdate);
         IntersticeAssembly testIntersticeAssembly = intersticeAssemblyList.get(intersticeAssemblyList.size() - 1);
-        assertThat(testIntersticeAssembly.getAssemblyLayer()).isEqualTo(UPDATED_ASSEMBLY_LAYER);
+        assertThat(testIntersticeAssembly.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
         assertThat(testIntersticeAssembly.getIntersticeLayer()).isEqualTo(UPDATED_INTERSTICE_LAYER);
         assertThat(testIntersticeAssembly.getForcedMeanMilimeterComponentDiameter())
             .isEqualTo(UPDATED_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER);
@@ -351,7 +351,7 @@ class IntersticeAssemblyResourceIT {
         List<IntersticeAssembly> intersticeAssemblyList = intersticeAssemblyRepository.findAll();
         assertThat(intersticeAssemblyList).hasSize(databaseSizeBeforeUpdate);
         IntersticeAssembly testIntersticeAssembly = intersticeAssemblyList.get(intersticeAssemblyList.size() - 1);
-        assertThat(testIntersticeAssembly.getAssemblyLayer()).isEqualTo(DEFAULT_ASSEMBLY_LAYER);
+        assertThat(testIntersticeAssembly.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testIntersticeAssembly.getIntersticeLayer()).isEqualTo(DEFAULT_INTERSTICE_LAYER);
         assertThat(testIntersticeAssembly.getForcedMeanMilimeterComponentDiameter())
             .isEqualTo(DEFAULT_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER);
@@ -370,7 +370,7 @@ class IntersticeAssemblyResourceIT {
         partialUpdatedIntersticeAssembly.setId(intersticeAssembly.getId());
 
         partialUpdatedIntersticeAssembly
-            .assemblyLayer(UPDATED_ASSEMBLY_LAYER)
+            .operationLayer(UPDATED_OPERATION_LAYER)
             .intersticeLayer(UPDATED_INTERSTICE_LAYER)
             .forcedMeanMilimeterComponentDiameter(UPDATED_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER);
 
@@ -386,7 +386,7 @@ class IntersticeAssemblyResourceIT {
         List<IntersticeAssembly> intersticeAssemblyList = intersticeAssemblyRepository.findAll();
         assertThat(intersticeAssemblyList).hasSize(databaseSizeBeforeUpdate);
         IntersticeAssembly testIntersticeAssembly = intersticeAssemblyList.get(intersticeAssemblyList.size() - 1);
-        assertThat(testIntersticeAssembly.getAssemblyLayer()).isEqualTo(UPDATED_ASSEMBLY_LAYER);
+        assertThat(testIntersticeAssembly.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
         assertThat(testIntersticeAssembly.getIntersticeLayer()).isEqualTo(UPDATED_INTERSTICE_LAYER);
         assertThat(testIntersticeAssembly.getForcedMeanMilimeterComponentDiameter())
             .isEqualTo(UPDATED_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER);

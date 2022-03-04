@@ -43,7 +43,7 @@ public interface StrandSupplyService extends ReadTriggerableService<StrandSupply
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<StrandSupply> findOne(Long id);
+    Optional<StrandSupply> findOne(Long id, Boolean autoGenerateAssemblies);
 
     /**
      * Delete the "id" strandSupply.
