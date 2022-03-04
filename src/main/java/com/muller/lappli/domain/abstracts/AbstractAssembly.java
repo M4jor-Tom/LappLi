@@ -46,6 +46,10 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends Ab
             AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility = getOwnerStrandSupply()
                 .getAssemblyPresetDistributionPossibility();
 
+            if (assemblyPresetDistributionPossibility == null) {
+                return AssemblyPreset.forError();
+            }
+
             Integer indexOfFirstCoreAssembly = assemblyPresetDistributionPossibility.hasCentralComponent() ? 1 : 0;
 
             return assemblyPresetDistributionPossibility
