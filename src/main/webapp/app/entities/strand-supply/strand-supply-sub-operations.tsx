@@ -33,12 +33,27 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
         <Translate contentKey="lappLiApp.strand.detail.title">Strand</Translate>
       </h2>
       {strandSupplyEntity.hasAssemblies ? (
-        <Button tag={Link} to={`${props.match.url}/assemblies/delete`} color="danger" size="sm" data-cy="entityDeleteButton">
-          <FontAwesomeIcon icon="trash" />{' '}
-          <span className="d-none d-md-inline">
-            <Translate contentKey="lappLiApp.assembly.detail.title">Assembly</Translate>
-          </span>
-        </Button>
+        <>
+          <Button tag={Link} to={`${props.match.url}/assemblies/delete`} color="danger" size="sm" data-cy="entityDeleteButton">
+            <FontAwesomeIcon icon="trash" />{' '}
+            <span className="d-none d-md-inline">
+              <Translate contentKey="lappLiApp.assembly.detail.title">Assembly</Translate>
+            </span>
+          </Button>
+          &nbsp;
+          <Button
+            tag={Link}
+            to={`${props.match.url}/strand-supply/${strandSupplyEntity.id}/edit`}
+            color="primary"
+            size="sm"
+            data-cy="entityEditButton"
+          >
+            <FontAwesomeIcon icon="pencil-alt" />{' '}
+            <span className="d-none d-md-inline">
+              <Translate contentKey="lappLiApp.assembly.detail.title">Assembly</Translate>
+            </span>
+          </Button>
+        </>
       ) : (
         <Link
           to={`${props.match.url}/assemblies/new`}
