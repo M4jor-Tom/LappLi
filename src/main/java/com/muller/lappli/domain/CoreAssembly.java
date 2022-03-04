@@ -152,6 +152,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         this.id = id;
     }
 
+    @Override
     public Long getOperationLayer() {
         return this.operationLayer;
     }

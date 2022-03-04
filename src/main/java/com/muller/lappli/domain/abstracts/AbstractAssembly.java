@@ -22,7 +22,7 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends Ab
         Long count = Long.valueOf(0);
 
         for (AbstractOperation<?> operation : getOwnerStrandSupply().getOperations()) {
-            if (operation instanceof AbstractAssembly<?>) {
+            if (operation instanceof AbstractNonCentralAssembly<?>) {
                 count++;
             }
             if (equals(operation)) {
