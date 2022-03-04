@@ -158,7 +158,23 @@ public class StrandSupplyResource {
     @GetMapping("/strand-supplies/{id}")
     public ResponseEntity<StrandSupply> getStrandSupply(@PathVariable Long id) {
         log.debug("REST request to get StrandSupply : {}", id);
-        Optional<StrandSupply> strandSupply = strandSupplyService.findOne(id);
+        Optional<StrandSupply> strandSupply = strandSupplyService.findOne(id, false);
+        return ResponseUtil.wrapOrNotFound(strandSupply);
+    }
+
+    /**
+     * {@code GET  /strand-supplies/:id} : get the "id" strandSupply.
+     *
+     * @param id the id of the strandSupply to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the strandSupply, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/strand-supplies/{id}/{autoGenerateAssemblies}")
+    public ResponseEntity<StrandSupply> getStrandSupplyWithAutoAssemblyGeneration(
+        @PathVariable Long id,
+        @PathVariable String autoGenerateAssemblies
+    ) {
+        log.debug("REST request to get StrandSupply with Auto Assembly Generation : {}", id);
+        Optional<StrandSupply> strandSupply = strandSupplyService.findOne(id, true);
         return ResponseUtil.wrapOrNotFound(strandSupply);
     }
 

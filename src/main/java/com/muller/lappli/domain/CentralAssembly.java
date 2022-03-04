@@ -36,7 +36,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     private StrandSupply ownerStrandSupply;
 
     @JsonIgnoreProperties(value = { "ownerCentralAssembly", "ownerStrand", "ownerIntersticeAssembly" }, allowSetters = true)
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
     private SupplyPosition supplyPosition;
 
@@ -84,7 +84,6 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
             AbstractSupply<?> supply = getSupplyPosition() == null ? null : getSupplyPosition().getSupply();
             if (supply == null) {
                 //When no Supply has been set, but one is required
-                //TODO: return suggestion formula instead of 0-returning formula
                 return CalculatorManager.getCalculatorInstance().getMilimeterCentralVoidDiameter(getOwnerStrandSupply());
             } else if (Long.valueOf(1).equals(supply.getApparitions())) {
                 return supply.getMilimeterDiameter();

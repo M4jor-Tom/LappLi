@@ -32,16 +32,40 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
       <h2 data-cy="strandDetailsHeading">
         <Translate contentKey="lappLiApp.strand.detail.title">Strand</Translate>
       </h2>
-      <Link
-        to={`${props.match.url}/assemblies/new`}
-        className="btn btn-primary jh-create-entity"
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-      >
-        <FontAwesomeIcon icon="plus" />
-        &nbsp;
-        <Translate contentKey="lappLiApp.assembly.detail.title">Assembly</Translate>
-      </Link>
+      {strandSupplyEntity.hasAssemblies ? (
+        <>
+          <Button tag={Link} to={`${props.match.url}/assemblies/delete`} color="danger" size="sm" data-cy="entityDeleteButton">
+            <FontAwesomeIcon icon="trash" />{' '}
+            <span className="d-none d-md-inline">
+              <Translate contentKey="lappLiApp.assembly.detail.title">Assembly</Translate>
+            </span>
+          </Button>
+          &nbsp;
+          <Button
+            tag={Link}
+            to={`${props.match.url}/strand-supply/${strandSupplyEntity.id}/edit`}
+            color="primary"
+            size="sm"
+            data-cy="entityEditButton"
+          >
+            <FontAwesomeIcon icon="pencil-alt" />{' '}
+            <span className="d-none d-md-inline">
+              <Translate contentKey="lappLiApp.assembly.detail.title">Assembly</Translate>
+            </span>
+          </Button>
+        </>
+      ) : (
+        <Link
+          to={`${props.match.url}/assemblies/new`}
+          className="btn btn-primary jh-create-entity"
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+        >
+          <FontAwesomeIcon icon="plus" />
+          &nbsp;
+          <Translate contentKey="lappLiApp.assembly.detail.title">Assembly</Translate>
+        </Link>
+      )}
       &nbsp;
       <Link
         to={`${props.match.url}/sheathing/new`}

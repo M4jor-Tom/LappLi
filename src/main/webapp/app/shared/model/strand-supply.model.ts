@@ -16,6 +16,7 @@ export interface IStrandSupply {
   description?: string | null;
   diameterAssemblyStep?: number;
   assemblyMean?: AssemblyMean;
+  hasAssemblies?: boolean;
   forceCentralUtilityComponent?: boolean | null;
   coreAssemblies?: ICoreAssembly[] | null;
   intersticeAssemblies?: IIntersticeAssembly[] | null;

@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
 import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
@@ -68,10 +69,10 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     private Boolean forceCentralUtilityComponent;
 
     @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
-    @OneToOne(mappedBy = "ownerStrandSupply", cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "ownerStrandSupply", cascade = CascadeType.ALL)
     private CentralAssembly centralAssembly;
 
-    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
     private Set<CoreAssembly> coreAssemblies = new HashSet<>();
@@ -389,6 +390,19 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         }
 
         return this;
+    }
+
+    @JsonProperty("hasAssemblies")
+    public Boolean hasAssemblies() {
+        if (getCentralAssembly() != null) {
+            return true;
+        } else if (getCoreAssemblies() != null) {
+            return !getCoreAssemblies().isEmpty();
+        } else if (getIntersticeAssemblies() != null) {
+            return !getIntersticeAssemblies().isEmpty();
+        }
+
+        return false;
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

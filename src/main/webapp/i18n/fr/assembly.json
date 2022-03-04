@@ -8,6 +8,9 @@
       "detail": {
         "title": "Assemblage"
       },
+      "delete": {
+        "question": "Supprimer les assemblages ?"
+      },
       "diameterAssemblyStep": "Pas d'Assemblage (D)",
       "assemblyMean": "Sens d'Assemblage",
       "subSupply": "Approvisionnement de couche",
