@@ -30,7 +30,7 @@
         "coreAssembly": "Assemblage Principal",
         "intersticeAssembly": "Assemblage Intersticiel",
         "sheathing": "Gainage",
-        "supplyPosition": "Supply Position",
+        "supplyPosition": "Position d'Approvisionnement",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

@@ -15,8 +15,7 @@ import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 import {
   getOutFromStudySupplyStrandSupplyComponent,
   getStrandSupplyRedirectionUrl,
-  getSupplyStrandValidatedField,
-  isStrandSupply,
+  getStrandSupplyValidatedField,
 } from '../index-management/index-management-lib';
 
 import { createEntity as createSupplyPositionEntity } from '../supply-position/supply-position.reducer';

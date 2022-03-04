@@ -21,15 +21,12 @@
         "compute": "Compute Strand"
       },
       "id": "ID",
-      "designation": "Designation",
-      "coreAssemblies": "Core Assemblies",
-      "intersticeAssemblies": "Interstice Assemblies",
+      "supplyPositions": "Supply Positions",
+      "futureStudy": "Future Study",
       "elementSupplies": "Element Supplies",
       "bangleSupplies": "Bangle Supplies",
       "customComponentSupplies": "Custom Component Supplies",
       "subSupplies": "Sub Supplies",
-      "operations": "Operations",
-      "operationKind": "OperationKind",
       "noSuppliesFound": "No Supplies Found",
       "oneStudySupplies": "One Study Supplies"
     }

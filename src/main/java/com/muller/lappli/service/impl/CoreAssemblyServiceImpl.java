@@ -38,14 +38,11 @@ public class CoreAssemblyServiceImpl implements CoreAssemblyService {
         return coreAssemblyRepository
             .findById(coreAssembly.getId())
             .map(existingCoreAssembly -> {
-                if (coreAssembly.getAssemblyLayer() != null) {
-                    existingCoreAssembly.setAssemblyLayer(coreAssembly.getAssemblyLayer());
+                if (coreAssembly.getOperationLayer() != null) {
+                    existingCoreAssembly.setOperationLayer(coreAssembly.getOperationLayer());
                 }
                 if (coreAssembly.getForcedMeanMilimeterComponentDiameter() != null) {
                     existingCoreAssembly.setForcedMeanMilimeterComponentDiameter(coreAssembly.getForcedMeanMilimeterComponentDiameter());
-                }
-                if (coreAssembly.getComponentsCount() != null) {
-                    existingCoreAssembly.setComponentsCount(coreAssembly.getComponentsCount());
                 }
 
                 return existingCoreAssembly;

@@ -7,7 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.CentralAssembly;
-import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.repository.CentralAssemblyRepository;
 import java.util.List;
 import java.util.Random;
@@ -56,15 +56,15 @@ class CentralAssemblyResourceIT {
     public static CentralAssembly createEntity(EntityManager em) {
         CentralAssembly centralAssembly = new CentralAssembly();
         // Add required entity
-        Strand strand;
-        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
-            strand = StrandResourceIT.createEntity(em);
-            em.persist(strand);
+        StrandSupply strandSupply;
+        if (TestUtil.findAll(em, StrandSupply.class).isEmpty()) {
+            strandSupply = StrandSupplyResourceIT.createEntity(em);
+            em.persist(strandSupply);
             em.flush();
         } else {
-            strand = TestUtil.findAll(em, Strand.class).get(0);
+            strandSupply = TestUtil.findAll(em, StrandSupply.class).get(0);
         }
-        centralAssembly.setOwnerStrand(strand);
+        centralAssembly.setOwnerStrandSupply(strandSupply);
         return centralAssembly;
     }
 
@@ -77,15 +77,15 @@ class CentralAssemblyResourceIT {
     public static CentralAssembly createUpdatedEntity(EntityManager em) {
         CentralAssembly centralAssembly = new CentralAssembly();
         // Add required entity
-        Strand strand;
-        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
-            strand = StrandResourceIT.createUpdatedEntity(em);
-            em.persist(strand);
+        StrandSupply strandSupply;
+        if (TestUtil.findAll(em, StrandSupply.class).isEmpty()) {
+            strandSupply = StrandSupplyResourceIT.createUpdatedEntity(em);
+            em.persist(strandSupply);
             em.flush();
         } else {
-            strand = TestUtil.findAll(em, Strand.class).get(0);
+            strandSupply = TestUtil.findAll(em, StrandSupply.class).get(0);
         }
-        centralAssembly.setOwnerStrand(strand);
+        centralAssembly.setOwnerStrandSupply(strandSupply);
         return centralAssembly;
     }
 
@@ -111,7 +111,7 @@ class CentralAssemblyResourceIT {
         CentralAssembly testCentralAssembly = centralAssemblyList.get(centralAssemblyList.size() - 1);
 
         // Validate the id for MapsId, the ids must be same
-        assertThat(testCentralAssembly.getId()).isEqualTo(testCentralAssembly.getOwnerStrand().getId());
+        assertThat(testCentralAssembly.getId()).isEqualTo(testCentralAssembly.getOwnerStrandSupply().getId());
     }
 
     @Test
@@ -142,8 +142,8 @@ class CentralAssemblyResourceIT {
         int databaseSizeBeforeCreate = centralAssemblyRepository.findAll().size();
 
         // Add a new parent entity
-        Strand strand = StrandResourceIT.createUpdatedEntity(em);
-        em.persist(strand);
+        StrandSupply strandSupply = StrandSupplyResourceIT.createUpdatedEntity(em);
+        em.persist(strandSupply);
         em.flush();
 
         // Load the centralAssembly
@@ -152,8 +152,8 @@ class CentralAssemblyResourceIT {
         // Disconnect from session so that the updates on updatedCentralAssembly are not directly saved in db
         em.detach(updatedCentralAssembly);
 
-        // Update the Strand with new association value
-        updatedCentralAssembly.setOwnerStrand(strand);
+        // Update the StrandSupply with new association value
+        updatedCentralAssembly.setOwnerStrandSupply(strandSupply);
 
         // Update the entity
         restCentralAssemblyMockMvc
@@ -171,7 +171,7 @@ class CentralAssemblyResourceIT {
         // Validate the id for MapsId, the ids must be same
         // Uncomment the following line for assertion. However, please note that there is a known issue and uncommenting will fail the test.
         // Please look at https://github.com/jhipster/generator-jhipster/issues/9100. You can modify this test as necessary.
-        // assertThat(testCentralAssembly.getId()).isEqualTo(testCentralAssembly.getStrand().getId());
+        // assertThat(testCentralAssembly.getId()).isEqualTo(testCentralAssembly.getStrandSupply().getId());
     }
 
     @Test

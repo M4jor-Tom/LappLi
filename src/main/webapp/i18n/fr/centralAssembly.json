@@ -18,9 +18,9 @@
         "title": "Central Assembly"
       },
       "id": "ID",
-      "productionStep": "Production Step",
-      "strand": "Strand",
-      "centralOperationLayer": "Couche d'opération centrale"
+      "ownerStrandSupply": "Owner Strand Supply",
+      "supplyPosition": "Supply Position",
+      "centralOperationLayer": "Centre"
     }
   }
 }

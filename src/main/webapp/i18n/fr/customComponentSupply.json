@@ -2,20 +2,20 @@
   "lappLiApp": {
     "customComponentSupply": {
       "home": {
-        "title": "CustomComponentSupplies",
+        "title": "Approvisionnements de Composants Custom",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Custom Component Supply",
-        "createOrEditLabel": "Créer ou éditer un Custom Component Supply",
-        "notFound": "Aucun Custom Component Supply trouvé"
+        "createLabel": "Créer un nouvel Approvisionnement de Composant Custom",
+        "createOrEditLabel": "Créer ou éditer un Approvisionnement de Composant Custom",
+        "notFound": "Aucun Approvisionnement de Composant Custom trouvé"
       },
-      "created": "Un nouveau Custom Component Supply a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Custom Component Supply avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Custom Component Supply avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouvel Approvisionnement de Composant Custom a été créé avec l'identifiant {{ param }}",
+      "updated": "L'Approvisionnement de Composant Custom avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "L'Approvisionnement de Composant Custom avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Custom Component Supply {{ id }} ?"
+        "question": "Etes-vous certain de vouloir supprimer l'Approvisionnement de Composant Custom {{ id }} ?"
       },
       "detail": {
-        "title": "Custom Component Supply"
+        "title": "Approvisionnement de Composant Custom"
       },
       "id": "ID",
       "apparitions": "Apparitions",

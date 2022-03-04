@@ -1,8 +1,11 @@
 package com.muller.lappli.domain;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class DomainManager {
+
+    private static DecimalFormat JACQUES_DOUBLE_DECIMAL_FORMAT = new DecimalFormat("#.##");
 
     /**
      * When displaying hours,
@@ -94,5 +97,16 @@ public class DomainManager {
         zeroOrOneList.add(Long.valueOf(0));
         zeroOrOneList.add(Long.valueOf(1));
         return trueCountIsIn(zeroOrOneList, booleans);
+    }
+
+    /**
+     * Prints a value as a {@link String}, as Muller
+     * standardizes it
+     *
+     * @param value the value to be formatted
+     * @return the String formated value
+     */
+    public static final String mullerStandardizedFormat(Double value) {
+        return JACQUES_DOUBLE_DECIMAL_FORMAT.format(value);
     }
 }

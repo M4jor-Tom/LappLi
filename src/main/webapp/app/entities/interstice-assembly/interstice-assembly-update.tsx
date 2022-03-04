@@ -4,8 +4,8 @@ import { Button, Row, Col, FormText } from 'reactstrap';
 import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { IStrand } from 'app/shared/model/strand.model';
-import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
+import { IStrandSupply } from 'app/shared/model/strand-supply.model';
+import { getEntities as getStrandSupplies } from 'app/entities/strand-supply/strand-supply.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './interstice-assembly.reducer';
 import { IIntersticeAssembly } from 'app/shared/model/interstice-assembly.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -13,18 +13,18 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import {
   AssemblyKind,
-  getAssemblyStrandValidatedField,
+  getAssemblyStrandSupplyValidatedField,
   getOutFromStudySupplyStrandAssemblyComponent,
 } from '../index-management/index-management-lib';
 
-export const IntersticeAssemblyUpdate = (props: RouteComponentProps<{ strand_id: string; id: string }>) => {
+export const IntersticeAssemblyUpdate = (props: RouteComponentProps<{ strand_supply_id: string | null; id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
   const redirectionUrl = getOutFromStudySupplyStrandAssemblyComponent(props.match.url, isNew);
 
-  const strands = useAppSelector(state => state.strand.entities);
+  const strandSupplies = useAppSelector(state => state.intersticeAssembly.entities);
   const intersticeAssemblyEntity = useAppSelector(state => state.intersticeAssembly.entity);
   const loading = useAppSelector(state => state.intersticeAssembly.loading);
   const updating = useAppSelector(state => state.intersticeAssembly.updating);
@@ -33,7 +33,7 @@ export const IntersticeAssemblyUpdate = (props: RouteComponentProps<{ strand_id:
     props.history.push(redirectionUrl);
   };
 
-  const strandValidatedField = getAssemblyStrandValidatedField(props, strands, AssemblyKind.INTERSTICE);
+  const strandValidatedField = getAssemblyStrandSupplyValidatedField(props, strandSupplies, AssemblyKind.INTERSTICE);
 
   useEffect(() => {
     if (isNew) {
@@ -42,7 +42,7 @@ export const IntersticeAssemblyUpdate = (props: RouteComponentProps<{ strand_id:
       dispatch(getEntity(props.match.params.id));
     }
 
-    dispatch(getStrands({}));
+    dispatch(getStrandSupplies({}));
   }, []);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export const IntersticeAssemblyUpdate = (props: RouteComponentProps<{ strand_id:
     const entity = {
       ...intersticeAssemblyEntity,
       ...values,
-      ownerStrand: strands.find(it => it.id.toString() === values.ownerStrand.toString()),
+      ownerStrandSupply: strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString()),
     };
 
     if (isNew) {
@@ -70,7 +70,7 @@ export const IntersticeAssemblyUpdate = (props: RouteComponentProps<{ strand_id:
       ? {}
       : {
           ...intersticeAssemblyEntity,
-          ownerStrand: intersticeAssemblyEntity?.ownerStrand?.id,
+          ownerStrandSupply: intersticeAssemblyEntity?.ownerStrandSupply?.id,
         };
 
   return (
@@ -99,10 +99,10 @@ export const IntersticeAssemblyUpdate = (props: RouteComponentProps<{ strand_id:
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.intersticeAssembly.assemblyLayer')}
-                id="interstice-assembly-assemblyLayer"
-                name="assemblyLayer"
-                data-cy="assemblyLayer"
+                label={translate('lappLiApp.intersticeAssembly.operationLayer')}
+                id="interstice-assembly-operationLayer"
+                name="operationLayer"
+                data-cy="operationLayer"
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },

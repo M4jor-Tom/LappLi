@@ -30,11 +30,11 @@ export const CoreAssemblyDetail = (props: RouteComponentProps<{ id: string }>) =
           </dt>
           <dd>{coreAssemblyEntity.id}</dd>
           <dt>
-            <span id="assemblyLayer">
-              <Translate contentKey="lappLiApp.coreAssembly.assemblyLayer">Assembly Layer</Translate>
+            <span id="operationLayer">
+              <Translate contentKey="lappLiApp.coreAssembly.operationLayer">Operation Layer</Translate>
             </span>
           </dt>
-          <dd>{coreAssemblyEntity.assemblyLayer}</dd>
+          <dd>{coreAssemblyEntity.operationLayer}</dd>
           <dt>
             <span id="forcedMeanMilimeterComponentDiameter">
               <Translate contentKey="lappLiApp.coreAssembly.forcedMeanMilimeterComponentDiameter">
@@ -52,7 +52,7 @@ export const CoreAssemblyDetail = (props: RouteComponentProps<{ id: string }>) =
           <dt>
             <Translate contentKey="lappLiApp.coreAssembly.ownerStrand">Owner Strand</Translate>
           </dt>
-          <dd>{coreAssemblyEntity.ownerStrand ? coreAssemblyEntity.ownerStrand.designation : ''}</dd>
+          <dd>{coreAssemblyEntity.ownerStrandSupply ? coreAssemblyEntity.ownerStrandSupply.designation : ''}</dd>
         </dl>
         <Button tag={Link} to="/core-assembly" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

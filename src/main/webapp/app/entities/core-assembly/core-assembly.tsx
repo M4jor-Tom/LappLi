@@ -50,7 +50,7 @@ export const CoreAssembly = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.coreAssembly.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.coreAssembly.assemblyLayer">Assembly Layer</Translate>
+                  <Translate contentKey="lappLiApp.coreAssembly.operationLayer">Operation Layer</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.coreAssembly.forcedMeanMilimeterComponentDiameter">
@@ -74,12 +74,12 @@ export const CoreAssembly = (props: RouteComponentProps<{ url: string }>) => {
                       {coreAssembly.id}
                     </Button>
                   </td>
-                  <td>{coreAssembly.assemblyLayer}</td>
+                  <td>{coreAssembly.operationLayer}</td>
                   <td>{coreAssembly.forcedMeanMilimeterComponentDiameter}</td>
                   <td>{coreAssembly.componentsCount}</td>
                   <td>
-                    {coreAssembly.ownerStrand ? (
-                      <Link to={`strand/${coreAssembly.ownerStrand.id}`}>{coreAssembly.ownerStrand.designation}</Link>
+                    {coreAssembly.ownerStrandSupply ? (
+                      <Link to={`strand-supply/${coreAssembly.ownerStrandSupply.id}`}>{coreAssembly.ownerStrandSupply.designation}</Link>
                     ) : (
                       ''
                     )}

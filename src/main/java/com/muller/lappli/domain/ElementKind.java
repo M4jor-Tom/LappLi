@@ -92,6 +92,11 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
         return this;
     }
 
+    @Override
+    public Boolean isUtility() {
+        return true;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override

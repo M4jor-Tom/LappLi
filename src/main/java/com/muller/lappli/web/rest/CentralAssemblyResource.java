@@ -57,7 +57,7 @@ public class CentralAssemblyResource extends AbstractAssemblyResource<CentralAss
         if (centralAssembly.getId() != null) {
             throw new BadRequestAlertException("A new centralAssembly cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        if (Objects.isNull(centralAssembly.getOwnerStrand())) {
+        if (Objects.isNull(centralAssembly.getOwnerStrandSupply())) {
             throw new BadRequestAlertException("Invalid association value provided", ENTITY_NAME, "null");
         }
         CentralAssembly result = centralAssemblyService.save(centralAssembly);

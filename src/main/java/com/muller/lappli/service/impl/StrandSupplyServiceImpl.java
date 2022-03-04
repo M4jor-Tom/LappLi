@@ -1,13 +1,13 @@
 package com.muller.lappli.service.impl;
 
-import com.muller.lappli.domain.Sheathing;
 import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.repository.StrandSupplyRepository;
-import com.muller.lappli.service.SheathingService;
 import com.muller.lappli.service.StrandSupplyService;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -24,11 +24,8 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
 
     private final StrandSupplyRepository strandSupplyRepository;
 
-    private final SheathingService sheathingService;
-
-    public StrandSupplyServiceImpl(StrandSupplyRepository strandSupplyRepository, SheathingService sheathingService) {
+    public StrandSupplyServiceImpl(StrandSupplyRepository strandSupplyRepository) {
         this.strandSupplyRepository = strandSupplyRepository;
-        this.sheathingService = sheathingService;
     }
 
     public StrandSupply onRead(StrandSupply domainObject) {
@@ -64,6 +61,15 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
                     if (strandSupply.getDescription() != null) {
                         existingStrandSupply.setDescription(strandSupply.getDescription());
                     }
+                    if (strandSupply.getDiameterAssemblyStep() != null) {
+                        existingStrandSupply.setDiameterAssemblyStep(strandSupply.getDiameterAssemblyStep());
+                    }
+                    if (strandSupply.getAssemblyMean() != null) {
+                        existingStrandSupply.setAssemblyMean(strandSupply.getAssemblyMean());
+                    }
+                    if (strandSupply.getForceCentralUtilityComponent() != null) {
+                        existingStrandSupply.setForceCentralUtilityComponent(strandSupply.getForceCentralUtilityComponent());
+                    }
 
                     return existingStrandSupply;
                 })
@@ -78,32 +84,35 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         return onListRead(strandSupplyRepository.findAll());
     }
 
+    /**
+     *  Get all the strandSupplies where CentralAssembly is {@code null}.
+     *  @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<StrandSupply> findAllWhereCentralAssemblyIsNull() {
+        log.debug("Request to get all strandSupplies where CentralAssembly is null");
+        return StreamSupport
+            .stream(strandSupplyRepository.findAll().spliterator(), false)
+            .filter(strandSupply -> strandSupply.getCentralAssembly() == null)
+            .collect(Collectors.toList());
+    }
+
     @Override
     @Transactional(readOnly = true)
-    public Optional<StrandSupply> findOne(Long id) {
+    public Optional<StrandSupply> findOne(Long id, Boolean autoGenerateAssemblies) {
         log.debug("Request to get StrandSupply : {}", id);
-        return onOptionalRead(strandSupplyRepository.findById(id));
+        Optional<StrandSupply> strandSupplyOptional = strandSupplyRepository.findById(id);
+
+        if (autoGenerateAssemblies && strandSupplyOptional.isPresent()) {
+            strandSupplyOptional.get().autoGenerateAssemblies();
+        }
+
+        return onOptionalRead(strandSupplyOptional);
     }
 
     @Override
     public void delete(Long id) {
         log.debug("Request to delete StrandSupply : {}", id);
-        Optional<StrandSupply> strandSupplyOptional = findOne(id);
-
-        if (strandSupplyOptional.isPresent()) {
-            //If we're deleting some StrandSupply which exists
-            if (strandSupplyOptional.get().getStrand() != null) {
-                //If it observes through a Strand
-                if (strandSupplyOptional.get().getStrand().getSheathings() != null) {
-                    //If the strand owns Sheathings
-                    for (Sheathing sheathing : strandSupplyOptional.get().getStrand().getSheathings()) {
-                        //Delete those, it is logical through interface to do so
-                        sheathingService.delete(sheathing.getId());
-                    }
-                }
-            }
-        }
-
         strandSupplyRepository.deleteById(id);
     }
 }

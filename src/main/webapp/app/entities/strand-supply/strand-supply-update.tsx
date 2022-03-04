@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IStrand } from 'app/shared/model/strand.model';
 import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
+import { ICentralAssembly } from 'app/shared/model/central-assembly.model';
+import { getEntities as getCentralAssemblies } from 'app/entities/central-assembly/central-assembly.reducer';
 import { IStudy } from 'app/shared/model/study.model';
 import { getEntities as getStudies } from 'app/entities/study/study.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './strand-supply.reducer';
@@ -14,6 +16,7 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
+import { AssemblyMean } from 'app/shared/model/enumerations/assembly-mean.model';
 import { getOut, getStrandSupplyUpdateComponentRedirectionUrl, getStudyValidateField } from '../index-management/index-management-lib';
 
 export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: string | null; study_id: string | null; id: string }>) => {
@@ -22,13 +25,14 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
   const strands = useAppSelector(state => state.strand.entities);
+  const centralAssemblies = useAppSelector(state => state.centralAssembly.entities);
   const studies = useAppSelector(state => state.study.entities);
   const strandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
   const loading = useAppSelector(state => state.strandSupply.loading);
   const updating = useAppSelector(state => state.strandSupply.updating);
   const updateSuccess = useAppSelector(state => state.strandSupply.updateSuccess);
   const markingTypeValues = Object.keys(MarkingType);
-
+  const assemblyMeanValues = Object.keys(AssemblyMean);
   const getOutCount = props.match.params.study_id ? 2 : 1;
 
   const getOutUrl = getOut(props.match.url, getOutCount);
@@ -47,6 +51,7 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
     }
 
     dispatch(getStrands({}));
+    dispatch(getCentralAssemblies({}));
     dispatch(getStudies({}));
   }, []);
 
@@ -76,6 +81,7 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
       ? {}
       : {
           markingType: 'LIFTING',
+          assemblyMean: 'RIGHT',
           ...strandSupplyEntity,
           strand: strandSupplyEntity?.strand?.id,
           study: strandSupplyEntity?.study?.id,
@@ -137,34 +143,65 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
                 data-cy="description"
                 type="text"
               />
-              {props.match.params.study_id ? (
-                ''
-              ) : (
+              <ValidatedField
+                label={translate('lappLiApp.strandSupply.diameterAssemblyStep')}
+                id="strand-supply-diameterAssemblyStep"
+                name="diameterAssemblyStep"
+                data-cy="diameterAssemblyStep"
+                type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
+              />
+              <ValidatedField
+                label={translate('lappLiApp.strandSupply.assemblyMean')}
+                id="strand-supply-assemblyMean"
+                name="assemblyMean"
+                data-cy="assemblyMean"
+                type="select"
+              >
+                {assemblyMeanValues.map(assemblyMean => (
+                  <option value={assemblyMean} key={assemblyMean}>
+                    {translate('lappLiApp.AssemblyMean.' + assemblyMean)}
+                  </option>
+                ))}
+              </ValidatedField>
+              <ValidatedField
+                label={translate('lappLiApp.strandSupply.forceCentralUtilityComponent')}
+                id="strand-supply-forceCentralUtilityComponent"
+                name="forceCentralUtilityComponent"
+                data-cy="forceCentralUtilityComponent"
+                check
+                type="checkbox"
+              />
+              {isNew ? (
                 <ValidatedField
                   id="strand-supply-strand"
                   name="strand"
                   data-cy="strand"
                   label={translate('lappLiApp.strandSupply.strand')}
                   type="select"
-                  value={strands ? strands.length : ''}
                   required
                 >
                   <option value="" key="0" />
                   {strands
                     ? strands.map(otherEntity => (
                         <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.designation}
+                          {otherEntity.id}
                         </option>
                       ))
                     : null}
                 </ValidatedField>
-              )}
-              {props.match.params.study_id ? (
-                ''
               ) : (
+                ''
+              )}
+              {isNew ? (
                 <FormText>
                   <Translate contentKey="entity.validation.required">This field is required.</Translate>
                 </FormText>
+              ) : (
+                ''
               )}
               {studyValidateField}
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={getOutUrl} replace color="info">
@@ -174,12 +211,6 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
                   <Translate contentKey="entity.action.back">Back</Translate>
                 </span>
               </Button>
-              {/* &nbsp;
-              <Link to={`strand/new`} className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
-                <FontAwesomeIcon icon="plus" />
-                &nbsp;
-                <Translate contentKey="lappLiApp.strand.home.createLabel">Create Strand</Translate>
-              </Link>*/}
               &nbsp;
               <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
                 <FontAwesomeIcon icon="save" />

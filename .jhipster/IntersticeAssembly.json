@@ -2,7 +2,7 @@
   "name": "IntersticeAssembly",
   "fields": [
     {
-      "fieldName": "assemblyLayer",
+      "fieldName": "operationLayer",
       "fieldType": "Long",
       "fieldValidateRules": ["required"]
     },
@@ -25,10 +25,10 @@
     },
     {
       "relationshipType": "many-to-one",
-      "otherEntityName": "strand",
+      "otherEntityName": "strandSupply",
       "otherEntityRelationshipName": "intersticeAssemblies",
       "relationshipValidateRules": "required",
-      "relationshipName": "ownerStrand",
+      "relationshipName": "ownerStrandSupply",
       "otherEntityField": "designation"
     }
   ],

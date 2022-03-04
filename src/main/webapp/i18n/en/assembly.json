@@ -2,15 +2,21 @@
   "lappLiApp": {
     "assembly": {
       "home": {
-        "notFound": "No assembly found"
+        "notFound": "No assembly found",
+        "createLabel": "Create a new Assembly"
       },
       "detail": {
         "title": "Assembly"
       },
-      "assemblyLayer": "Assembly Layer",
+      "delete": {
+        "question": "Delete assemblies ?"
+      },
       "diameterAssemblyStep": "Assembly Step (D)",
       "assemblyMean": "Assembly Mean",
-      "subSupply": "Assembly Supply"
+      "subSupply": "Assembly Supply",
+      "suppliedComponentsCount": "Supplied Components Count",
+      "utilitySuppliedComponentsCount": "Utility",
+      "completionSuppliedComponentsCount": "Completion"
     }
   }
 }

@@ -16,6 +16,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 import { getOut, getStudyValidateField } from '../index-management/index-management-lib';
 import { toNumber } from 'lodash';
+import { AssemblyMean } from 'app/shared/model/enumerations/assembly-mean.model';
 
 export const StrandCompute = (props: RouteComponentProps<{ strand_id: string; study_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
@@ -59,6 +60,9 @@ export const StrandCompute = (props: RouteComponentProps<{ strand_id: string; st
       study: studyEntity,
       strand: strandEntity,
       markingType: 'LIFTING',
+      assemblyMean: AssemblyMean.STRAIGHT,
+      diameterAssemblyStep: 0,
+      forceCentralUtilityComponent: false,
       ...values,
     };
 
@@ -71,20 +75,13 @@ export const StrandCompute = (props: RouteComponentProps<{ strand_id: string; st
     if (!apparitionsIsCommonDivider) {
       alert(translate('lappLiApp.strandSupply.errors.apparitionsIsNotSubSupplyCountsCommonDivider'));
       //  alert(apparitions + " must be included in " + strandEntity.suppliesCountsCommonDividers.concat());
-    } else if (apparitions * subSuppliesToAssembleCheck !== strandEntity.suppliesCount) {
+    } else if (apparitions * subSuppliesToAssembleCheck !== strandEntity.undividedSuppliedComponentsCount) {
       alert(translate('lappLiApp.strandSupply.errors.computedSuppliesCountInequalToReadSuppliesCount'));
-      //  alert(apparitions + " * " + subSuppliesToAssembleCheck + " must be equal to " + strandEntity.suppliesCount);
+      //  alert(apparitions + " * " + subSuppliesToAssembleCheck + " must be equal to " + strandEntity.undividedSuppliedComponentsCount);
     } else {
       dispatch(createEntity(entity));
     }
   };
-
-  /*  const defaultValues = {
-    markingType: 'LIFTING',
-    ...strandSupplyEntity,
-    strand: strandSupplyEntity?.strand?.id,
-    study: strandSupplyEntity?.study?.id,
-  };*/
 
   return (
     <div>
@@ -100,7 +97,7 @@ export const StrandCompute = (props: RouteComponentProps<{ strand_id: string; st
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <ValidatedForm /* defaultValues={defaultValues}*/ onSubmit={saveEntity}>
+            <ValidatedForm onSubmit={saveEntity}>
               <ValidatedField
                 label={translate('lappLiApp.strandSupply.subSuppliesToAssemble')}
                 id="sub-supplies-to-assemble"

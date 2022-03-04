@@ -2,20 +2,20 @@
   "lappLiApp": {
     "elementSupply": {
       "home": {
-        "title": "ElementSupplies",
+        "title": "Approvisionnements d' Elements",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Element Supply",
-        "createOrEditLabel": "Créer ou éditer un Element Supply",
-        "notFound": "Aucun Element Supply trouvé"
+        "createLabel": "Créer un nouvel Approvisionnement d'Element",
+        "createOrEditLabel": "Créer ou éditer un Approvisionnement d'Element",
+        "notFound": "Aucun Approvisionnement d'Element trouvé"
       },
-      "created": "Un nouveau Element Supply a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Element Supply avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Element Supply avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouvel Approvisionnement d'Element a été créé avec l'identifiant {{ param }}",
+      "updated": "L'Approvisionnement d'Element avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "L'Approvisionnement d'Element avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Element Supply {{ id }} ?"
+        "question": "Etes-vous certain de vouloir supprimer l'Approvisionnement d'Element {{ id }} ?"
       },
       "detail": {
-        "title": "Element Supply"
+        "title": "Approvisionnement d'Element"
       },
       "id": "ID",
       "element": "Element",

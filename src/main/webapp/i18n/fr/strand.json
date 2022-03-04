@@ -2,36 +2,33 @@
   "lappLiApp": {
     "strand": {
       "home": {
-        "title": "Strands",
+        "title": "Torons",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Strand",
-        "createOrEditLabel": "Créer ou éditer un Strand",
-        "notFound": "Aucun Strand trouvé"
+        "createLabel": "Créer un nouveau Toron",
+        "createOrEditLabel": "Créer ou éditer un Toron",
+        "notFound": "Aucun Toron trouvé"
       },
-      "created": "Un nouveau Strand a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Strand avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Strand avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouveau Toron a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Toron avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Toron avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Strand {{ id }} ?"
+        "question": "Etes-vous certain de vouloir supprimer le Toron {{ id }} ?"
       },
       "detail": {
-        "title": "Strand"
+        "title": "Toron"
       },
       "action": {
         "compute": "Calcul Toron"
       },
       "id": "ID",
-      "designation": "Designation",
-      "coreAssemblies": "Core Assemblies",
-      "intersticeAssemblies": "Interstice Assemblies",
-      "elementSupplies": "Element Supplies",
-      "bangleSupplies": "Bangle Supplies",
-      "customComponentSupplies": "Custom Component Supplies",
-      "subSupplies": "Approvisionnements du toron",
-      "operations": "Opérations",
-      "operationKind": "Genre d'Opération",
+      "supplyPositions": "Supply Positions",
+      "futureStudy": "Future Study",
+      "elementSupplies": "Approvisionnements d'Elements",
+      "bangleSupplies": "Approvisionnements de Joncs",
+      "customComponentSupplies": "Approvisionnements de Composants Custom",
+      "subSupplies": "Approvisionnements du Toron",
       "noSuppliesFound": "Aucun approvisionnement trouvé",
-      "oneStudySupplies": "One Study Supplies"
+      "oneStudySupplies": "Approvisionnements Mono-Torons"
     }
   }
 }

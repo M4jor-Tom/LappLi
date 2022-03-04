@@ -46,10 +46,10 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = { "supplyPositions", "coreAssemblies", "intersticeAssemblies", "sheathings", "centralAssembly", "futureStudy" },
+        value = { "coreAssemblies", "intersticeAssemblies", "sheathings", "strand", "centralAssembly", "study" },
         allowSetters = true
     )
-    private Strand ownerStrand;
+    private StrandSupply ownerStrandSupply;
 
     @Override
     public Double getMilimeterDiameterIncidency() {
@@ -153,16 +153,16 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
         return this;
     }
 
-    public Strand getOwnerStrand() {
-        return this.ownerStrand;
+    public StrandSupply getOwnerStrandSupply() {
+        return this.ownerStrandSupply;
     }
 
-    public void setOwnerStrand(Strand strand) {
-        this.ownerStrand = strand;
+    public void setOwnerStrandSupply(StrandSupply strandSupply) {
+        this.ownerStrandSupply = strandSupply;
     }
 
-    public Sheathing ownerStrand(Strand strand) {
-        this.setOwnerStrand(strand);
+    public Sheathing ownerStrandSupply(StrandSupply strandSupply) {
+        this.setOwnerStrandSupply(strandSupply);
         return this;
     }
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Table } from 'reactstrap';
-import { Translate } from 'react-jhipster';
+import { translate, Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { getEntity } from '../strand/strand.reducer';
@@ -35,7 +35,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
       <div>
         {/* md="8">*/}
         <h2 data-cy="strandDetailsHeading">
-          <Translate contentKey="lappLiApp.strand.detail.title">Strand</Translate>
+          {translate('lappLiApp.strand.detail.title') + '#' + strandEntity.id}
           &nbsp;
           {strandSupplyExistsInStudy ? (
             ''
@@ -49,12 +49,6 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
           )}
         </h2>
         <dl className="jh-entity-details">
-          <dt>
-            <span id="designation">
-              <Translate contentKey="lappLiApp.strand.designation">Designation</Translate>
-            </span>
-          </dt>
-          <dd>{strandEntity.designation}</dd>
           <dd>
             <div className="table-responsive">
               {/* [DUPLICATE] */}

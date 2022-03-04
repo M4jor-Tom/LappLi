@@ -1,4 +1,4 @@
-id;assembly_layer;interstice_layer;forced_mean_milimeter_component_diameter;owner_strand_id
+id;operation_layer;interstice_layer;forced_mean_milimeter_component_diameter;owner_strand_supply_id
 1;2;1;null;1
 2;2;1;null;2
 3;2;1;null;3

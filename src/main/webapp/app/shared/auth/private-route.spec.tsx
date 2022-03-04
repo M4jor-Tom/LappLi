@@ -114,6 +114,12 @@ describe('hasAnyAuthority', () => {
     expect(hasAnyAuthority([AUTHORITIES.USER, AUTHORITIES.ADMIN], [AUTHORITIES.USER, AUTHORITIES.ADMIN])).toEqual(true);
     expect(hasAnyAuthority([AUTHORITIES.USER, AUTHORITIES.ADMIN], [AUTHORITIES.USER, 'ROLEADMIN'])).toEqual(true);
     expect(hasAnyAuthority([AUTHORITIES.USER, AUTHORITIES.ADMIN], [AUTHORITIES.ADMIN])).toEqual(true);
+
+    expect(hasAnyAuthority([AUTHORITIES.STUDIST], [AUTHORITIES.STUDIST])).toEqual(true);
+    expect(hasAnyAuthority([AUTHORITIES.STUDIST, AUTHORITIES.ADMIN], [AUTHORITIES.STUDIST])).toEqual(true);
+    expect(hasAnyAuthority([AUTHORITIES.STUDIST, AUTHORITIES.ADMIN], [AUTHORITIES.STUDIST, AUTHORITIES.ADMIN])).toEqual(true);
+    expect(hasAnyAuthority([AUTHORITIES.STUDIST, AUTHORITIES.ADMIN], [AUTHORITIES.STUDIST, 'ROLEADMIN'])).toEqual(true);
+    expect(hasAnyAuthority([AUTHORITIES.STUDIST, AUTHORITIES.ADMIN], [AUTHORITIES.ADMIN])).toEqual(true);
   });
 
   it('Should return false when authorities is valid and hasAnyAuthorities does not contain an authority', () => {

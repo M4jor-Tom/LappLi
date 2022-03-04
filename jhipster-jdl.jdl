@@ -18,13 +18,12 @@ entity CentralAssembly {
 entity CoreAssembly {
 	//@Readonly operationLayer Long required
 	//@Readonly productionStep Long required
-	assemblyLayer Long required
+	operationLayer Long required
     forcedMeanMilimeterComponentDiameter Double
-    componentsCount Long required
 }
 
 entity IntersticeAssembly {
-	assemblyLayer Long required
+	operationLayer Long required
     intersticeLayer Long required
 	//@Readonly operationLayer Long required
 	//@Readonly productionStep Long required
@@ -32,8 +31,7 @@ entity IntersticeAssembly {
 }
 
 entity Strand {
-	diameterAssemblyStep Double required
-    assemblyMean AssemblyMean required
+
 }
 
 entity Study {
@@ -45,6 +43,9 @@ entity StrandSupply {
 	apparitions Long required
     markingType MarkingType required
     description String
+	diameterAssemblyStep Double required
+    assemblyMean AssemblyMean required
+    forceCentralUtilityComponent Boolean required
 }
 
 entity Lifter {
@@ -150,7 +151,7 @@ entity UserData {
 }
 
 relationship OneToOne {
-	CentralAssembly{ownerStrand(designation) required} to Strand{centralAssembly(productionStep)} with jpaDerivedIdentifier
+	CentralAssembly{ownerStrandSupply(designation) required} to StrandSupply{centralAssembly(productionStep)} with jpaDerivedIdentifier
     CentralAssembly{supplyPosition} to SupplyPosition{ownerCentralAssembly(productDesignation)}
 }
 
@@ -168,7 +169,7 @@ relationship OneToMany {
 
 relationship OneToMany {
     //Strand's SupplyPositions
-    Strand{supplyPositions} to SupplyPosition{ownerStrand(designation)}
+    Strand{supplyPositions} to SupplyPosition{ownerStrand(id)}
 }
 
 relationship OneToMany {
@@ -177,14 +178,14 @@ relationship OneToMany {
 }
 
 relationship OneToMany {
-	//Operations in a strand
+	//Operations in a StrandSupply
     
     //Assemblies
-	Strand{coreAssemblies(productionStep)} to CoreAssembly{ownerStrand(designation) required}
-	Strand{intersticeAssemblies(productionStep)} to IntersticeAssembly{ownerStrand(designation) required}
+	StrandSupply{coreAssemblies(productionStep)} to CoreAssembly{ownerStrandSupply(designation) required}
+	StrandSupply{intersticeAssemblies(productionStep)} to IntersticeAssembly{ownerStrandSupply(designation) required}
     
     //Sheathings
-    Strand{sheathings(productionStep)} to Sheathing{ownerStrand(designation) required}
+    StrandSupply{sheathings(productionStep)} to Sheathing{ownerStrandSupply(designation) required}
 }
 
 relationship OneToMany {
@@ -208,7 +209,7 @@ relationship ManyToOne {
 }
 
 relationship ManyToOne {
-	StrandSupply{strand(designation) required} to Strand
+	StrandSupply{strand(id) required} to Strand
 }
 
 relationship ManyToOne {

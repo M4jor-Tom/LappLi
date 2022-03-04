@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -135,10 +136,15 @@ public class StrandSupplyResource {
     /**
      * {@code GET  /strand-supplies} : get all the strandSupplies.
      *
+     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of strandSupplies in body.
      */
     @GetMapping("/strand-supplies")
-    public List<StrandSupply> getAllStrandSupplies() {
+    public List<StrandSupply> getAllStrandSupplies(@RequestParam(required = false) String filter) {
+        if ("centralassembly-is-null".equals(filter)) {
+            log.debug("REST request to get all StrandSupplys where centralAssembly is null");
+            return strandSupplyService.findAllWhereCentralAssemblyIsNull();
+        }
         log.debug("REST request to get all StrandSupplies");
         return strandSupplyService.findAll();
     }
@@ -152,7 +158,23 @@ public class StrandSupplyResource {
     @GetMapping("/strand-supplies/{id}")
     public ResponseEntity<StrandSupply> getStrandSupply(@PathVariable Long id) {
         log.debug("REST request to get StrandSupply : {}", id);
-        Optional<StrandSupply> strandSupply = strandSupplyService.findOne(id);
+        Optional<StrandSupply> strandSupply = strandSupplyService.findOne(id, false);
+        return ResponseUtil.wrapOrNotFound(strandSupply);
+    }
+
+    /**
+     * {@code GET  /strand-supplies/:id} : get the "id" strandSupply.
+     *
+     * @param id the id of the strandSupply to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the strandSupply, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/strand-supplies/{id}/{autoGenerateAssemblies}")
+    public ResponseEntity<StrandSupply> getStrandSupplyWithAutoAssemblyGeneration(
+        @PathVariable Long id,
+        @PathVariable String autoGenerateAssemblies
+    ) {
+        log.debug("REST request to get StrandSupply with Auto Assembly Generation : {}", id);
+        Optional<StrandSupply> strandSupply = strandSupplyService.findOne(id, true);
         return ResponseUtil.wrapOrNotFound(strandSupply);
     }
 

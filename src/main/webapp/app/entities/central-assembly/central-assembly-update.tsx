@@ -4,8 +4,8 @@ import { Button, Row, Col, FormText } from 'reactstrap';
 import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { IStrand } from 'app/shared/model/strand.model';
-import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
+import { IStrandSupply } from 'app/shared/model/strand-supply.model';
+import { getEntities as getStrandSupplies } from 'app/entities/strand-supply/strand-supply.reducer';
 import { ISupplyPosition } from 'app/shared/model/supply-position.model';
 import { getEntities as getSupplyPositions } from 'app/entities/supply-position/supply-position.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './central-assembly.reducer';
@@ -19,7 +19,7 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ id: string }>
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const strands = useAppSelector(state => state.strand.entities);
+  const strandSupplies = useAppSelector(state => state.strandSupply.entities);
   const supplyPositions = useAppSelector(state => state.supplyPosition.entities);
   const centralAssemblyEntity = useAppSelector(state => state.centralAssembly.entity);
   const loading = useAppSelector(state => state.centralAssembly.loading);
@@ -36,7 +36,7 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ id: string }>
       dispatch(getEntity(props.match.params.id));
     }
 
-    dispatch(getStrands({}));
+    dispatch(getStrandSupplies({}));
     dispatch(getSupplyPositions({}));
   }, []);
 
@@ -50,7 +50,7 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ id: string }>
     const entity = {
       ...centralAssemblyEntity,
       ...values,
-      ownerStrand: strands.find(it => it.id.toString() === values.ownerStrand.toString()),
+      ownerStrandSupply: strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString()),
       supplyPosition: supplyPositions.find(it => it.id.toString() === values.supplyPosition.toString()),
     };
 
@@ -66,7 +66,7 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ id: string }>
       ? {}
       : {
           ...centralAssemblyEntity,
-          ownerStrand: centralAssemblyEntity?.ownerStrand?.id,
+          ownerStrandSupply: centralAssemblyEntity?.ownerStrandSupply?.id,
           supplyPosition: centralAssemblyEntity?.supplyPosition?.id,
         };
 
@@ -96,16 +96,16 @@ export const CentralAssemblyUpdate = (props: RouteComponentProps<{ id: string }>
                 />
               ) : null}
               <ValidatedField
-                id="central-assembly-ownerStrand"
-                name="ownerStrand"
-                data-cy="ownerStrand"
-                label={translate('lappLiApp.centralAssembly.ownerStrand')}
+                id="central-assembly-ownerStrandSupply"
+                name="ownerStrandSupply"
+                data-cy="ownerStrandSupply"
+                label={translate('lappLiApp.centralAssembly.ownerStrandSupply')}
                 type="select"
                 required
               >
                 <option value="" key="0" />
-                {strands
-                  ? strands.map(otherEntity => (
+                {strandSupplies
+                  ? strandSupplies.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.designation}
                       </option>

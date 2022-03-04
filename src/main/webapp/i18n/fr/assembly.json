@@ -2,15 +2,21 @@
   "lappLiApp": {
     "assembly": {
       "home": {
-        "notFound": "Aucun asseblage trouvé"
+        "notFound": "Aucun asseblage trouvé",
+        "createLabel": "Créer un nouvel Assemblage"
       },
       "detail": {
         "title": "Assemblage"
       },
-      "assemblyLayer": "Couche d'Assemblage",
+      "delete": {
+        "question": "Supprimer les assemblages ?"
+      },
       "diameterAssemblyStep": "Pas d'Assemblage (D)",
       "assemblyMean": "Sens d'Assemblage",
-      "subSupply": "Approvisionnement de couche"
+      "subSupply": "Approvisionnement de couche",
+      "suppliedComponentsCount": "Nombre de composants approvisionnés",
+      "utilitySuppliedComponentsCount": "Utiles",
+      "completionSuppliedComponentsCount": "Complétages"
     }
   }
 }

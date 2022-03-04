@@ -7,7 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.CoreAssembly;
-import com.muller.lappli.domain.Strand;
+import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.repository.CoreAssemblyRepository;
 import java.util.List;
 import java.util.Random;
@@ -30,14 +30,11 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class CoreAssemblyResourceIT {
 
-    private static final Long DEFAULT_ASSEMBLY_LAYER = 1L;
-    private static final Long UPDATED_ASSEMBLY_LAYER = 2L;
+    private static final Long DEFAULT_OPERATION_LAYER = 1L;
+    private static final Long UPDATED_OPERATION_LAYER = 2L;
 
     private static final Double DEFAULT_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER = 1D;
     private static final Double UPDATED_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER = 2D;
-
-    private static final Long DEFAULT_COMPONENTS_COUNT = 1L;
-    private static final Long UPDATED_COMPONENTS_COUNT = 2L;
 
     private static final String ENTITY_API_URL = "/api/core-assemblies";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -64,19 +61,18 @@ class CoreAssemblyResourceIT {
      */
     public static CoreAssembly createEntity(EntityManager em) {
         CoreAssembly coreAssembly = new CoreAssembly()
-            .assemblyLayer(DEFAULT_ASSEMBLY_LAYER)
-            .forcedMeanMilimeterComponentDiameter(DEFAULT_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER)
-            .componentsCount(DEFAULT_COMPONENTS_COUNT);
+            .operationLayer(DEFAULT_OPERATION_LAYER)
+            .forcedMeanMilimeterComponentDiameter(DEFAULT_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER);
         // Add required entity
-        Strand strand;
-        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
-            strand = StrandResourceIT.createEntity(em);
-            em.persist(strand);
+        StrandSupply strandSupply;
+        if (TestUtil.findAll(em, StrandSupply.class).isEmpty()) {
+            strandSupply = StrandSupplyResourceIT.createEntity(em);
+            em.persist(strandSupply);
             em.flush();
         } else {
-            strand = TestUtil.findAll(em, Strand.class).get(0);
+            strandSupply = TestUtil.findAll(em, StrandSupply.class).get(0);
         }
-        coreAssembly.setOwnerStrand(strand);
+        coreAssembly.setOwnerStrandSupply(strandSupply);
         return coreAssembly;
     }
 
@@ -88,19 +84,18 @@ class CoreAssemblyResourceIT {
      */
     public static CoreAssembly createUpdatedEntity(EntityManager em) {
         CoreAssembly coreAssembly = new CoreAssembly()
-            .assemblyLayer(UPDATED_ASSEMBLY_LAYER)
-            .forcedMeanMilimeterComponentDiameter(UPDATED_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER)
-            .componentsCount(UPDATED_COMPONENTS_COUNT);
+            .operationLayer(UPDATED_OPERATION_LAYER)
+            .forcedMeanMilimeterComponentDiameter(UPDATED_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER);
         // Add required entity
-        Strand strand;
-        if (TestUtil.findAll(em, Strand.class).isEmpty()) {
-            strand = StrandResourceIT.createUpdatedEntity(em);
-            em.persist(strand);
+        StrandSupply strandSupply;
+        if (TestUtil.findAll(em, StrandSupply.class).isEmpty()) {
+            strandSupply = StrandSupplyResourceIT.createUpdatedEntity(em);
+            em.persist(strandSupply);
             em.flush();
         } else {
-            strand = TestUtil.findAll(em, Strand.class).get(0);
+            strandSupply = TestUtil.findAll(em, StrandSupply.class).get(0);
         }
-        coreAssembly.setOwnerStrand(strand);
+        coreAssembly.setOwnerStrandSupply(strandSupply);
         return coreAssembly;
     }
 
@@ -122,9 +117,8 @@ class CoreAssemblyResourceIT {
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeCreate + 1);
         CoreAssembly testCoreAssembly = coreAssemblyList.get(coreAssemblyList.size() - 1);
-        assertThat(testCoreAssembly.getAssemblyLayer()).isEqualTo(DEFAULT_ASSEMBLY_LAYER);
+        assertThat(testCoreAssembly.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testCoreAssembly.getForcedMeanMilimeterComponentDiameter()).isEqualTo(DEFAULT_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER);
-        assertThat(testCoreAssembly.getComponentsCount()).isEqualTo(DEFAULT_COMPONENTS_COUNT);
     }
 
     @Test
@@ -147,27 +141,10 @@ class CoreAssemblyResourceIT {
 
     @Test
     @Transactional
-    void checkAssemblyLayerIsRequired() throws Exception {
+    void checkOperationLayerIsRequired() throws Exception {
         int databaseSizeBeforeTest = coreAssemblyRepository.findAll().size();
         // set the field null
-        coreAssembly.setAssemblyLayer(null);
-
-        // Create the CoreAssembly, which fails.
-
-        restCoreAssemblyMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(coreAssembly)))
-            .andExpect(status().isBadRequest());
-
-        List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
-        assertThat(coreAssemblyList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkComponentsCountIsRequired() throws Exception {
-        int databaseSizeBeforeTest = coreAssemblyRepository.findAll().size();
-        // set the field null
-        coreAssembly.setComponentsCount(null);
+        coreAssembly.setOperationLayer(null);
 
         // Create the CoreAssembly, which fails.
 
@@ -191,12 +168,11 @@ class CoreAssemblyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(coreAssembly.getId().intValue())))
-            .andExpect(jsonPath("$.[*].assemblyLayer").value(hasItem(DEFAULT_ASSEMBLY_LAYER.intValue())))
+            .andExpect(jsonPath("$.[*].operationLayer").value(hasItem(DEFAULT_OPERATION_LAYER.intValue())))
             .andExpect(
                 jsonPath("$.[*].forcedMeanMilimeterComponentDiameter")
                     .value(hasItem(DEFAULT_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER.doubleValue()))
-            )
-            .andExpect(jsonPath("$.[*].componentsCount").value(hasItem(DEFAULT_COMPONENTS_COUNT.intValue())));
+            );
     }
 
     @Test
@@ -211,11 +187,10 @@ class CoreAssemblyResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(coreAssembly.getId().intValue()))
-            .andExpect(jsonPath("$.assemblyLayer").value(DEFAULT_ASSEMBLY_LAYER.intValue()))
+            .andExpect(jsonPath("$.operationLayer").value(DEFAULT_OPERATION_LAYER.intValue()))
             .andExpect(
                 jsonPath("$.forcedMeanMilimeterComponentDiameter").value(DEFAULT_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER.doubleValue())
-            )
-            .andExpect(jsonPath("$.componentsCount").value(DEFAULT_COMPONENTS_COUNT.intValue()));
+            );
     }
 
     @Test
@@ -238,9 +213,8 @@ class CoreAssemblyResourceIT {
         // Disconnect from session so that the updates on updatedCoreAssembly are not directly saved in db
         em.detach(updatedCoreAssembly);
         updatedCoreAssembly
-            .assemblyLayer(UPDATED_ASSEMBLY_LAYER)
-            .forcedMeanMilimeterComponentDiameter(UPDATED_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER)
-            .componentsCount(UPDATED_COMPONENTS_COUNT);
+            .operationLayer(UPDATED_OPERATION_LAYER)
+            .forcedMeanMilimeterComponentDiameter(UPDATED_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER);
 
         restCoreAssemblyMockMvc
             .perform(
@@ -254,9 +228,8 @@ class CoreAssemblyResourceIT {
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeUpdate);
         CoreAssembly testCoreAssembly = coreAssemblyList.get(coreAssemblyList.size() - 1);
-        assertThat(testCoreAssembly.getAssemblyLayer()).isEqualTo(UPDATED_ASSEMBLY_LAYER);
+        assertThat(testCoreAssembly.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
         assertThat(testCoreAssembly.getForcedMeanMilimeterComponentDiameter()).isEqualTo(UPDATED_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER);
-        assertThat(testCoreAssembly.getComponentsCount()).isEqualTo(UPDATED_COMPONENTS_COUNT);
     }
 
     @Test
@@ -339,9 +312,8 @@ class CoreAssemblyResourceIT {
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeUpdate);
         CoreAssembly testCoreAssembly = coreAssemblyList.get(coreAssemblyList.size() - 1);
-        assertThat(testCoreAssembly.getAssemblyLayer()).isEqualTo(DEFAULT_ASSEMBLY_LAYER);
+        assertThat(testCoreAssembly.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testCoreAssembly.getForcedMeanMilimeterComponentDiameter()).isEqualTo(DEFAULT_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER);
-        assertThat(testCoreAssembly.getComponentsCount()).isEqualTo(DEFAULT_COMPONENTS_COUNT);
     }
 
     @Test
@@ -357,9 +329,8 @@ class CoreAssemblyResourceIT {
         partialUpdatedCoreAssembly.setId(coreAssembly.getId());
 
         partialUpdatedCoreAssembly
-            .assemblyLayer(UPDATED_ASSEMBLY_LAYER)
-            .forcedMeanMilimeterComponentDiameter(UPDATED_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER)
-            .componentsCount(UPDATED_COMPONENTS_COUNT);
+            .operationLayer(UPDATED_OPERATION_LAYER)
+            .forcedMeanMilimeterComponentDiameter(UPDATED_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER);
 
         restCoreAssemblyMockMvc
             .perform(
@@ -373,9 +344,8 @@ class CoreAssemblyResourceIT {
         List<CoreAssembly> coreAssemblyList = coreAssemblyRepository.findAll();
         assertThat(coreAssemblyList).hasSize(databaseSizeBeforeUpdate);
         CoreAssembly testCoreAssembly = coreAssemblyList.get(coreAssemblyList.size() - 1);
-        assertThat(testCoreAssembly.getAssemblyLayer()).isEqualTo(UPDATED_ASSEMBLY_LAYER);
+        assertThat(testCoreAssembly.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
         assertThat(testCoreAssembly.getForcedMeanMilimeterComponentDiameter()).isEqualTo(UPDATED_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER);
-        assertThat(testCoreAssembly.getComponentsCount()).isEqualTo(UPDATED_COMPONENTS_COUNT);
     }
 
     @Test

@@ -50,7 +50,7 @@ export const IntersticeAssembly = (props: RouteComponentProps<{ url: string }>) 
                   <Translate contentKey="lappLiApp.intersticeAssembly.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.intersticeAssembly.assemblyLayer">Assembly Layer</Translate>
+                  <Translate contentKey="lappLiApp.intersticeAssembly.operationLayer">Operation Layer</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.intersticeAssembly.intersticeLayer">Interstice Layer</Translate>
@@ -61,7 +61,7 @@ export const IntersticeAssembly = (props: RouteComponentProps<{ url: string }>) 
                   </Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.intersticeAssembly.ownerStrand">Owner Strand</Translate>
+                  <Translate contentKey="lappLiApp.intersticeAssembly.ownerStrandSupply">Owner Strand Supply</Translate>
                 </th>
                 <th />
               </tr>
@@ -74,12 +74,14 @@ export const IntersticeAssembly = (props: RouteComponentProps<{ url: string }>) 
                       {intersticeAssembly.id}
                     </Button>
                   </td>
-                  <td>{intersticeAssembly.assemblyLayer}</td>
+                  <td>{intersticeAssembly.operationLayer}</td>
                   <td>{intersticeAssembly.intersticeLayer}</td>
                   <td>{intersticeAssembly.forcedMeanMilimeterComponentDiameter}</td>
                   <td>
-                    {intersticeAssembly.ownerStrand ? (
-                      <Link to={`strand/${intersticeAssembly.ownerStrand.id}`}>{intersticeAssembly.ownerStrand.designation}</Link>
+                    {intersticeAssembly.ownerStrandSupply ? (
+                      <Link to={`strand-supply/${intersticeAssembly.ownerStrandSupply.id}`}>
+                        {intersticeAssembly.ownerStrandSupply.designation}
+                      </Link>
                     ) : (
                       ''
                     )}

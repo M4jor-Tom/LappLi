@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
@@ -29,7 +30,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     @Column(name = "supply_apparitions_usage", nullable = false)
     private Long supplyApparitionsUsage;
 
-    @JsonIgnoreProperties(value = { "ownerStrand", "supplyPosition" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrandSupply", "supplyPosition" }, allowSetters = true)
     @OneToOne(mappedBy = "supplyPosition")
     private CentralAssembly ownerCentralAssembly;
 
@@ -68,7 +69,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     private Strand ownerStrand;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "supplyPositions", "ownerStrand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "supplyPositions", "ownerStrandSupply" }, allowSetters = true)
     private IntersticeAssembly ownerIntersticeAssembly;
 
     @Override
@@ -106,7 +107,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     /**
      * @return the SupplyPosition owner
      */
-    @JsonIgnoreProperties(
+    @JsonIgnore/*Properties(
         value = {
             "supplyPosition",
             "supplyPositions",
@@ -121,7 +122,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
             "oneStudySupplies",
         },
         allowSetters = true
-    )
+    )*/
     public ISupplyPositionOwner getOwner() {
         if (getOwnerStrand() != null) {
             return getOwnerStrand();
@@ -149,6 +150,38 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
         }
 
         return null;
+    }
+
+    public SupplyPosition supply(AbstractSupply<?> supply) {
+        setSupply(supply);
+        return this;
+    }
+
+    @JsonIgnore
+    public void setSupply(AbstractSupply<?> supply) {
+        setBangleSupply(null);
+        setCustomComponentSupply(null);
+        setElementSupply(null);
+        setOneStudySupply(null);
+
+        if (supply == null) {
+            return;
+        } else switch (supply.getSupplyKind()) {
+            case BANGLE:
+                setBangleSupply((BangleSupply) supply);
+                break;
+            case CUSTOM_COMPONENT:
+                setCustomComponentSupply((CustomComponentSupply) supply);
+                break;
+            case ELEMENT:
+                setElementSupply((ElementSupply) supply);
+                break;
+            case ONE_STUDY:
+                setOneStudySupply((OneStudySupply) supply);
+                break;
+            default:
+                break;
+        }
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -302,6 +335,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
         return "SupplyPosition{" +
             "id=" + getId() +
             ", supplyApparitionsUsage=" + getSupplyApparitionsUsage() +
+            ", supply=" + getSupply() +
             "}";
     }
 }

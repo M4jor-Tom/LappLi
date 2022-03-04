@@ -92,6 +92,11 @@ public class Element extends AbstractAssemblableAtom<Element> implements Article
         return getDesignation() + " " + getColorDesignation();
     }
 
+    @Override
+    public Boolean isUtility() {
+        return true;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {

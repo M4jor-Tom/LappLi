@@ -30,11 +30,11 @@ export const IntersticeAssemblyDetail = (props: RouteComponentProps<{ id: string
           </dt>
           <dd>{intersticeAssemblyEntity.id}</dd>
           <dt>
-            <span id="assemblyLayer">
-              <Translate contentKey="lappLiApp.intersticeAssembly.assemblyLayer">Assembly Layer</Translate>
+            <span id="operationLayer">
+              <Translate contentKey="lappLiApp.intersticeAssembly.operationLayer">Operation Layer</Translate>
             </span>
           </dt>
-          <dd>{intersticeAssemblyEntity.assemblyLayer}</dd>
+          <dd>{intersticeAssemblyEntity.operationLayer}</dd>
           <dt>
             <span id="intersticeLayer">
               <Translate contentKey="lappLiApp.intersticeAssembly.intersticeLayer">Interstice Layer</Translate>
@@ -50,9 +50,9 @@ export const IntersticeAssemblyDetail = (props: RouteComponentProps<{ id: string
           </dt>
           <dd>{intersticeAssemblyEntity.forcedMeanMilimeterComponentDiameter}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.intersticeAssembly.ownerStrand">Owner Strand</Translate>
+            <Translate contentKey="lappLiApp.intersticeAssembly.ownerStrandSupply">Owner Strand Supply</Translate>
           </dt>
-          <dd>{intersticeAssemblyEntity.ownerStrand ? intersticeAssemblyEntity.ownerStrand.designation : ''}</dd>
+          <dd>{intersticeAssemblyEntity.ownerStrandSupply ? intersticeAssemblyEntity.ownerStrandSupply.designation : ''}</dd>
         </dl>
         <Button tag={Link} to="/interstice-assembly" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

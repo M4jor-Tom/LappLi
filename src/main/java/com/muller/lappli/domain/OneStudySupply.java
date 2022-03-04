@@ -323,6 +323,11 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         private Double gramPerMeterLinearMass;
 
         @Override
+        public Boolean isUtility() {
+            return true;
+        }
+
+        @Override
         public String getDesignation() {
             return designation;
         }

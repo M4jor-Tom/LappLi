@@ -27,8 +27,17 @@
       "apparitions": "Apparitions",
       "markingType": "Marking Type",
       "description": "Description",
+      "diameterAssemblyStep": "Diameter Assembly Step",
+      "assemblyMean": "Assembly Mean",
+      "forceCentralUtilityComponent": "Force Central Utility Component",
+      "coreAssemblies": "Core Assemblies",
+      "intersticeAssemblies": "Interstice Assemblies",
+      "sheathings": "Sheathings",
       "strand": "Strand",
-      "study": "Study"
+      "centralAssembly": "Central Assembly",
+      "study": "Study",
+      "operations": "operations",
+      "operationKind": "Operation Kind"
     }
   }
 }
