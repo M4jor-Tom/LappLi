@@ -40,19 +40,21 @@ public class CalculatorMullerSecretImpl implements ICalculator {
         AssemblyPresetDistribution assemblyPresetDistribution = AssemblyPresetDistribution.forStrandSupply(strandSupply);
 
         if (assemblyPresetDistribution == null) {
-            return new AssemblyPresetDistributionPossibility(
-                DEFAULT_MILIMETER_DIAMETER_BEFORE_CENTRAL_COMPLETION_COMPONENT,
-                AssemblyPreset.forError()
-            );
+            return null;
         }
 
-        return AssemblyPresetDistribution
+        AssemblyPresetDistributionPossibility assemblyPresetDistributionPossibility = AssemblyPresetDistribution
             .forStrandSupply(strandSupply)
-            .getAssemblyPresetDistributionPossibility(strandSupply.getForceCentralUtilityComponent())
-            .getCloneWithCalculatedCentralComponent(
-                strandSupply.getStrand().getSuppliedComponentsAverageMilimeterDiameter(),
-                strandSupply.getDiameterAssemblyStep()
-            );
+            .getAssemblyPresetDistributionPossibility(strandSupply.getForceCentralUtilityComponent());
+
+        if (assemblyPresetDistributionPossibility == null) {
+            return null;
+        }
+
+        return assemblyPresetDistributionPossibility.getCloneWithCalculatedCentralComponent(
+            strandSupply.getStrand().getSuppliedComponentsAverageMilimeterDiameter(),
+            strandSupply.getDiameterAssemblyStep()
+        );
     }
 
     @Override
@@ -179,6 +181,10 @@ public class CalculatorMullerSecretImpl implements ICalculator {
             assemblyPresetDistributionPossibility = getCalculatedCloneAssemblyPresetDistributionPossibility(strandSupply);
         } else {
             assemblyPresetDistributionPossibility = strandSupply.getAssemblyPresetDistributionPossibility();
+        }
+
+        if (assemblyPresetDistributionPossibility == null) {
+            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
         }
 
         try {
