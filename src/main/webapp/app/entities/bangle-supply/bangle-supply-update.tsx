@@ -79,7 +79,6 @@ export const BangleSupplyUpdate = (props: RouteComponentProps<{ id: string; stra
       ? {}
       : {
           ...bangleSupplyEntity,
-          __typeName: 'BangleSupply',
           bangle: bangleSupplyEntity?.bangle?.id,
         };
 

@@ -80,7 +80,6 @@ export const ElementSupplyUpdate = (props: RouteComponentProps<{ id: string; str
     isNew
       ? {}
       : {
-          __typeName: 'ElementSupply',
           markingType: 'LIFTING',
           ...elementSupplyEntity,
           element: elementSupplyEntity?.element?.id,
