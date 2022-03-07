@@ -1,0 +1,36 @@
+{
+  "name": "TapeLaying",
+  "fields": [
+    {
+      "fieldName": "operationLayer",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "assemblyMean",
+      "fieldType": "AssemblyMean",
+      "fieldValues": "RIGHT,LEFT,STRAIGHT",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "tape",
+      "otherEntityRelationshipName": "tapeLaying",
+      "relationshipValidateRules": "required",
+      "relationshipName": "tape",
+      "otherEntityField": "designation"
+    }
+  ],
+  "entityTableName": "tape_laying",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220307090107"
+}

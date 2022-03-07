@@ -1,0 +1,45 @@
+{
+  "name": "Tape",
+  "fields": [
+    {
+      "fieldName": "number",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "designation",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "milimeterWidth",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "milimeterDiameterIncidency",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "tapeKind",
+      "otherEntityRelationshipName": "tape",
+      "relationshipValidateRules": "required",
+      "relationshipName": "tapeKind",
+      "otherEntityField": "designation"
+    }
+  ],
+  "entityTableName": "tape",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220307090105"
+}

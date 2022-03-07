@@ -1,0 +1,25 @@
+{
+  "lappLiApp": {
+    "tapeKind": {
+      "home": {
+        "title": "TapeKinds",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Tape Kind",
+        "createOrEditLabel": "Créer ou éditer un Tape Kind",
+        "notFound": "Aucun Tape Kind trouvé"
+      },
+      "created": "Un nouveau Tape Kind a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Tape Kind avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Tape Kind avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Tape Kind {{ id }} ?"
+      },
+      "detail": {
+        "title": "Tape Kind"
+      },
+      "id": "ID",
+      "targetCoveringRate": "Target Covering Rate",
+      "designation": "Designation"
+    }
+  }
+}
