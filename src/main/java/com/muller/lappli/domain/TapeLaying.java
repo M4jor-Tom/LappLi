@@ -61,8 +61,11 @@ public class TapeLaying extends AbstractOperation<TapeLaying> implements Seriali
 
     @Override
     public Double getMilimeterDiameterIncidency() {
-        // TODO Auto-generated method stub
-        return null;
+        if (getTape() == null) {
+            return Double.NaN;
+        }
+
+        return getTape().getMilimeterDiameterIncidency();
     }
 
     @Override
