@@ -16,7 +16,8 @@
       "subSupply": "Assembly Supply",
       "suppliedComponentsCount": "Supplied Components Count",
       "utilitySuppliedComponentsCount": "Utility",
-      "completionSuppliedComponentsCount": "Completion"
+      "completionSuppliedComponentsCount": "Completion",
+      "milimeterAssemblyVoid": "Assembly Void (mm)"
     }
   }
 }

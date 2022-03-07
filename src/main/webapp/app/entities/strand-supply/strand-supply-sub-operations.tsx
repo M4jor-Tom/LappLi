@@ -123,6 +123,9 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                 <th>
                   <Translate contentKey="lappLiApp.assembly.assemblyMean">Assembly Mean</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="lappLiApp.assembly.milimeterAssemblyVoid">Assembly Void</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -148,6 +151,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   <td>{strandSupplyEntity.centralAssembly.mullerStandardizedFormatAfterThisMilimeterDiameter}</td>
                   <td>{/* NO ASSEMBLY STEP (CENTRAL ASSEMBLY) */}</td>
                   <td>{/* NO ASSEMBLY MEAN (CENTRAL ASSEMBLY) */}</td>
+                  <td>{/* NO ASSEMBLY VOID (CENTRAL ASSEMBLY) */}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button
@@ -218,6 +222,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                       </td>
                       <td>{coreAssembly.diameterAssemblyStep}</td>
                       <td>{coreAssembly.assemblyMean}</td>
+                      <td>{coreAssembly.mullerStandardizedFormatMilimeterAssemblyVoid}</td>
                       <td className="text-right">
                         <div className="btn-group flex-btn-group-container">
                           <Button
@@ -283,6 +288,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                       <td>{intersticeAssembly.mullerStandardizedFormatAfterThisMilimeterDiameter}</td>
                       <td>{intersticeAssembly.diameterAssemblyStep}</td>
                       <td>{intersticeAssembly.assemblyMean}</td>
+                      <td>{/* NO ASSEMBLY VOID (INTERSTICE ASSEMBLY) */}</td>
                       <td className="text-right">
                         <div className="btn-group flex-btn-group-container">
                           <Button
@@ -348,6 +354,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                     <td>{operation.mullerStandardizedFormatAfterThisMilimeterDiameter}</td>
                     <td>{/* NO ASSEMBLY STEP */}</td>
                     <td>{/* NO ASSEMBLY MEAN */}</td>
+                    <td>{/* NO ASSEMBLY VOID */}</td>
 
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
