@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ITape } from 'app/shared/model/tape.model';
 import { getEntities as getTapes } from 'app/entities/tape/tape.reducer';
 import { IStrandSupply } from 'app/shared/model/strand-supply.model';
-import { getEntities as getStrandSupplies } from 'app/entities/strand-supply/strand-supply.reducer';
+import { getEntities as getStrandSupplies, getEntity as getStrandSupplyEntity } from 'app/entities/strand-supply/strand-supply.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './tape-laying.reducer';
 import { ITapeLaying } from 'app/shared/model/tape-laying.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -16,7 +16,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { AssemblyMean } from 'app/shared/model/enumerations/assembly-mean.model';
 import { getOutFromStudySupplyStrandTapeLaying } from '../index-management/index-management-lib';
 
-export const TapeLayingUpdate = (props: RouteComponentProps<{ id: string }>) => {
+export const TapeLayingUpdate = (props: RouteComponentProps<{ strand_supply_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
@@ -25,6 +25,7 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ id: string }>) => 
 
   const tapes = useAppSelector(state => state.tape.entities);
   const strandSupplies = useAppSelector(state => state.strandSupply.entities);
+  const futureOwnerStrandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
   const tapeLayingEntity = useAppSelector(state => state.tapeLaying.entity);
   const loading = useAppSelector(state => state.tapeLaying.loading);
   const updating = useAppSelector(state => state.tapeLaying.updating);
@@ -52,12 +53,21 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ id: string }>) => 
   }, [updateSuccess]);
 
   const saveEntity = values => {
+    let futureOwnerStrandSupply: IStrandSupply = {};
+
+    if (values.ownerStrandSupply) {
+      futureOwnerStrandSupply = strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString());
+    } else {
+      dispatch(getStrandSupplyEntity(props.match.params.strand_supply_id));
+      futureOwnerStrandSupply = futureOwnerStrandSupplyEntity;
+    }
+
     const entity = {
       ...tapeLayingEntity,
       ...values,
       __typeName: 'TapeLaying',
       tape: tapes.find(it => it.id.toString() === values.tape.toString()),
-      ownerStrandSupply: strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString()),
+      ownerStrandSupply: futureOwnerStrandSupply,
     };
 
     if (isNew) {
