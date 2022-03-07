@@ -82,7 +82,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     @JsonIgnoreProperties(value = { "supplyPositions", "ownerStrandSupply" }, allowSetters = true)
     private Set<IntersticeAssembly> intersticeAssemblies = new HashSet<>();
 
-    @OneToMany(mappedBy = "ownerStrandSupply")
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "tape", "ownerStrandSupply" }, allowSetters = true)
     private Set<TapeLaying> tapeLayings = new HashSet<>();
