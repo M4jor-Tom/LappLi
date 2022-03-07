@@ -52,6 +52,7 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ id: string }>) => 
     const entity = {
       ...tapeLayingEntity,
       ...values,
+      __typeName: 'TapeLaying',
       tape: tapes.find(it => it.id.toString() === values.tape.toString()),
       ownerStrandSupply: strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString()),
     };
