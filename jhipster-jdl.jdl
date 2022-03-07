@@ -225,7 +225,7 @@ relationship OneToMany {
 }
 
 relationship ManyToOne {
-    TapeLaying{Tape(designation) required} to Tape 
+    TapeLaying{tape(designation) required} to Tape
 }
 
 relationship ManyToOne {
