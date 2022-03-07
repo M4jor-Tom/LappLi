@@ -18,6 +18,7 @@
         "title": "Gaine"
       },
       "id": "ID",
+      "sheathingKind": "Sheathing Kind",
       "thickness": "Epaisseur",
       "milimeterThickness": "Milimeter Thickness",
       "material": "Matériau",
