@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.muller.lappli.IntegrationTest;
+import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.Tape;
 import com.muller.lappli.domain.TapeLaying;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
@@ -72,6 +73,16 @@ class TapeLayingResourceIT {
             tape = TestUtil.findAll(em, Tape.class).get(0);
         }
         tapeLaying.setTape(tape);
+        // Add required entity
+        StrandSupply strandSupply;
+        if (TestUtil.findAll(em, StrandSupply.class).isEmpty()) {
+            strandSupply = StrandSupplyResourceIT.createEntity(em);
+            em.persist(strandSupply);
+            em.flush();
+        } else {
+            strandSupply = TestUtil.findAll(em, StrandSupply.class).get(0);
+        }
+        tapeLaying.setOwnerStrandSupply(strandSupply);
         return tapeLaying;
     }
 
@@ -93,6 +104,16 @@ class TapeLayingResourceIT {
             tape = TestUtil.findAll(em, Tape.class).get(0);
         }
         tapeLaying.setTape(tape);
+        // Add required entity
+        StrandSupply strandSupply;
+        if (TestUtil.findAll(em, StrandSupply.class).isEmpty()) {
+            strandSupply = StrandSupplyResourceIT.createUpdatedEntity(em);
+            em.persist(strandSupply);
+            em.flush();
+        } else {
+            strandSupply = TestUtil.findAll(em, StrandSupply.class).get(0);
+        }
+        tapeLaying.setOwnerStrandSupply(strandSupply);
         return tapeLaying;
     }
 

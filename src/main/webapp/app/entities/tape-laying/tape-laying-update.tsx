@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { ITape } from 'app/shared/model/tape.model';
 import { getEntities as getTapes } from 'app/entities/tape/tape.reducer';
+import { IStrandSupply } from 'app/shared/model/strand-supply.model';
+import { getEntities as getStrandSupplies } from 'app/entities/strand-supply/strand-supply.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './tape-laying.reducer';
 import { ITapeLaying } from 'app/shared/model/tape-laying.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -19,6 +21,7 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ id: string }>) => 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
   const tapes = useAppSelector(state => state.tape.entities);
+  const strandSupplies = useAppSelector(state => state.strandSupply.entities);
   const tapeLayingEntity = useAppSelector(state => state.tapeLaying.entity);
   const loading = useAppSelector(state => state.tapeLaying.loading);
   const updating = useAppSelector(state => state.tapeLaying.updating);
@@ -36,6 +39,7 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ id: string }>) => 
     }
 
     dispatch(getTapes({}));
+    dispatch(getStrandSupplies({}));
   }, []);
 
   useEffect(() => {
@@ -49,6 +53,7 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ id: string }>) => 
       ...tapeLayingEntity,
       ...values,
       tape: tapes.find(it => it.id.toString() === values.tape.toString()),
+      ownerStrandSupply: strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString()),
     };
 
     if (isNew) {
@@ -65,6 +70,7 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ id: string }>) => 
           assemblyMean: 'RIGHT',
           ...tapeLayingEntity,
           tape: tapeLayingEntity?.tape?.id,
+          ownerStrandSupply: tapeLayingEntity?.ownerStrandSupply?.id,
         };
 
   return (
@@ -127,6 +133,26 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ id: string }>) => 
                 <option value="" key="0" />
                 {tapes
                   ? tapes.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.designation}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
+              <ValidatedField
+                id="tape-laying-ownerStrandSupply"
+                name="ownerStrandSupply"
+                data-cy="ownerStrandSupply"
+                label={translate('lappLiApp.tapeLaying.ownerStrandSupply')}
+                type="select"
+                required
+              >
+                <option value="" key="0" />
+                {strandSupplies
+                  ? strandSupplies.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.designation}
                       </option>

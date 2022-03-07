@@ -20,7 +20,8 @@
       "id": "ID",
       "operationLayer": "Operation Layer",
       "assemblyMean": "Assembly Mean",
-      "tape": "Tape"
+      "tape": "Tape",
+      "ownerStrandSupply": "Owner Strand Supply"
     }
   }
 }

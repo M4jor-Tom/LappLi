@@ -58,6 +58,9 @@ export const TapeLaying = (props: RouteComponentProps<{ url: string }>) => {
                 <th>
                   <Translate contentKey="lappLiApp.tapeLaying.tape">Tape</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="lappLiApp.tapeLaying.ownerStrandSupply">Owner Strand Supply</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -74,6 +77,13 @@ export const TapeLaying = (props: RouteComponentProps<{ url: string }>) => {
                     <Translate contentKey={`lappLiApp.AssemblyMean.${tapeLaying.assemblyMean}`} />
                   </td>
                   <td>{tapeLaying.tape ? <Link to={`tape/${tapeLaying.tape.id}`}>{tapeLaying.tape.designation}</Link> : ''}</td>
+                  <td>
+                    {tapeLaying.ownerStrandSupply ? (
+                      <Link to={`strand-supply/${tapeLaying.ownerStrandSupply.id}`}>{tapeLaying.ownerStrandSupply.designation}</Link>
+                    ) : (
+                      ''
+                    )}
+                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${tapeLaying.id}`} color="info" size="sm" data-cy="entityDetailsButton">

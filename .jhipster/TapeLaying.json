@@ -21,6 +21,14 @@
       "relationshipValidateRules": "required",
       "relationshipName": "tape",
       "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "strandSupply",
+      "otherEntityRelationshipName": "tapeLayings",
+      "relationshipValidateRules": "required",
+      "relationshipName": "ownerStrandSupply",
+      "otherEntityField": "designation"
     }
   ],
   "entityTableName": "tape_laying",

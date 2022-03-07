@@ -37,6 +37,14 @@ public class TapeLaying implements Serializable {
     @JsonIgnoreProperties(value = { "tapeKind" }, allowSetters = true)
     private Tape tape;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(
+        value = { "coreAssemblies", "intersticeAssemblies", "tapeLayings", "sheathings", "strand", "centralAssembly", "study" },
+        allowSetters = true
+    )
+    private StrandSupply ownerStrandSupply;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -88,6 +96,19 @@ public class TapeLaying implements Serializable {
 
     public TapeLaying tape(Tape tape) {
         this.setTape(tape);
+        return this;
+    }
+
+    public StrandSupply getOwnerStrandSupply() {
+        return this.ownerStrandSupply;
+    }
+
+    public void setOwnerStrandSupply(StrandSupply strandSupply) {
+        this.ownerStrandSupply = strandSupply;
+    }
+
+    public TapeLaying ownerStrandSupply(StrandSupply strandSupply) {
+        this.setOwnerStrandSupply(strandSupply);
         return this;
     }
 

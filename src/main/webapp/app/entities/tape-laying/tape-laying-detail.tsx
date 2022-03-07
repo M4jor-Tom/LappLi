@@ -45,6 +45,10 @@ export const TapeLayingDetail = (props: RouteComponentProps<{ id: string }>) => 
             <Translate contentKey="lappLiApp.tapeLaying.tape">Tape</Translate>
           </dt>
           <dd>{tapeLayingEntity.tape ? tapeLayingEntity.tape.designation : ''}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.tapeLaying.ownerStrandSupply">Owner Strand Supply</Translate>
+          </dt>
+          <dd>{tapeLayingEntity.ownerStrandSupply ? tapeLayingEntity.ownerStrandSupply.designation : ''}</dd>
         </dl>
         <Button tag={Link} to="/tape-laying" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

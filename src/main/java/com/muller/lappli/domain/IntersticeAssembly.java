@@ -58,7 +58,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = { "coreAssemblies", "intersticeAssemblies", "sheathings", "strand", "centralAssembly", "study" },
+        value = { "coreAssemblies", "intersticeAssemblies", "tapeLayings", "sheathings", "strand", "centralAssembly", "study" },
         allowSetters = true
     )
     private StrandSupply ownerStrandSupply;
