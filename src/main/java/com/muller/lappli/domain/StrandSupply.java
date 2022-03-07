@@ -350,6 +350,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     public Set<AbstractOperation<?>> getNonAssemblyOperations() {
         HashSet<AbstractOperation<?>> operations = new HashSet<>();
 
+        operations.addAll(getTapeLayings());
         operations.addAll(getSheathings());
 
         return operations;
