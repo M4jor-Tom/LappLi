@@ -341,6 +341,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                         : ''}
                     </td>
                     <td>{operation.operationLayer}</td>
+                    <td>{/* NO COMPONENTS COUNT */}</td>
                     <td>{operation.productionStep}</td>
                     <td>{operation.productDesignation}</td>
                     <td>{operation.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
@@ -352,7 +353,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                       <div className="btn-group flex-btn-group-container">
                         <Button
                           tag={Link}
-                          to={`${props.match.url}/${operation.operationKind.toLowerCase()}/${operation.id}/edit`}
+                          to={`${props.match.url}/${operation.operationKind.toLowerCase().replace('_', '-')}/${operation.id}/edit`}
                           color="primary"
                           size="sm"
                           data-cy="entityEditButton"
@@ -365,7 +366,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                         &nbsp;
                         <Button
                           tag={Link}
-                          to={`${props.match.url}/${operation.operationKind.toLowerCase()}/${operation.id}/delete`}
+                          to={`${props.match.url}/${operation.operationKind.toLowerCase().replace('_', '-')}/${operation.id}/delete`}
                           color="danger"
                           size="sm"
                           data-cy="entityDeleteButton"
