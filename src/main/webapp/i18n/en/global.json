@@ -31,6 +31,9 @@
         "intersticeAssembly": "Interstice Assembly",
         "sheathing": "Sheathing",
         "supplyPosition": "Supply Position",
+        "tape": "Tape",
+        "tapeKind": "Tape Kind",
+        "tapeLaying": "Tape Laying",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
