@@ -33,6 +33,8 @@ import SheathingUpdate from '../sheathing/sheathing-update';
 import SheathingDeleteDialog from '../sheathing/sheathing-delete-dialog';
 import { StrandSupplyAssemble } from '../strand-supply/strand-supply-assemble';
 import { StrandSupplyAssemblyDeleteDialog } from '../strand-supply/strand-supply-assembly-delete';
+import { TapeLayingUpdate } from '../tape-laying/tape-laying-update';
+import { TapeLayingDeleteDialog } from '../tape-laying/tape-laying-delete-dialog';
 
 const studySuppliesUrlPrefix = '/:study_id/study-supplies';
 
@@ -81,6 +83,18 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}`} component={StrandSupplySubOperation} />
 
       {/* (CUD ACCESS): OPERATIONS */}
+      <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/tape-laying/new`} component={TapeLayingUpdate} />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/tape-laying/:id/edit`}
+        component={TapeLayingUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/tape-laying/:id/delete`}
+        component={TapeLayingDeleteDialog}
+      />
+
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/sheathing/new`} component={SheathingUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/sheathing/:id/edit`} component={SheathingUpdate} />
       <ErrorBoundaryRoute
