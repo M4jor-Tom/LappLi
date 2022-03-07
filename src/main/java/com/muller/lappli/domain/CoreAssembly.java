@@ -131,6 +131,14 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         }
     }
 
+    /**
+     * @return the standardized {@link String} value of
+     * {@link CoreAssembly#getMilimeterAssemblyVoid}
+     */
+    public String getMullerStandardizedFormatMilimeterAssemblyVoid() {
+        return DomainManager.mullerStandardizedFormat(getMilimeterAssemblyVoid());
+    }
+
     @Override
     public Long getComponentsCount() {
         return suggestAssemblyPreset().getTotalComponentsCount();
