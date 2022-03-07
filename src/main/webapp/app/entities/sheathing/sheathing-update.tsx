@@ -71,7 +71,6 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
     isNew
       ? {}
       : {
-          __typeName: 'Sheathing',
           sheathingKind: 'TUBE',
           ...sheathingEntity,
           material: sheathingEntity?.material?.id,
