@@ -84,6 +84,11 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "tape", "ownerStrandSupply" }, allowSetters = true)
+    private Set<TapeLaying> tapeLayings = new HashSet<>();
+
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "material", "ownerStrandSupply" }, allowSetters = true)
     private Set<Sheathing> sheathings = new HashSet<>();
 
@@ -345,6 +350,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     public Set<AbstractOperation<?>> getNonAssemblyOperations() {
         HashSet<AbstractOperation<?>> operations = new HashSet<>();
 
+        operations.addAll(getTapeLayings());
         operations.addAll(getSheathings());
 
         return operations;
@@ -558,6 +564,37 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     public StrandSupply removeIntersticeAssemblies(IntersticeAssembly intersticeAssembly) {
         this.intersticeAssemblies.remove(intersticeAssembly);
         intersticeAssembly.setOwnerStrandSupply(null);
+        return this;
+    }
+
+    public Set<TapeLaying> getTapeLayings() {
+        return this.tapeLayings;
+    }
+
+    public void setTapeLayings(Set<TapeLaying> tapeLayings) {
+        if (this.tapeLayings != null) {
+            this.tapeLayings.forEach(i -> i.setOwnerStrandSupply(null));
+        }
+        if (tapeLayings != null) {
+            tapeLayings.forEach(i -> i.setOwnerStrandSupply(this));
+        }
+        this.tapeLayings = tapeLayings;
+    }
+
+    public StrandSupply tapeLayings(Set<TapeLaying> tapeLayings) {
+        this.setTapeLayings(tapeLayings);
+        return this;
+    }
+
+    public StrandSupply addTapeLayings(TapeLaying tapeLaying) {
+        this.tapeLayings.add(tapeLaying);
+        tapeLaying.setOwnerStrandSupply(this);
+        return this;
+    }
+
+    public StrandSupply removeTapeLayings(TapeLaying tapeLaying) {
+        this.tapeLayings.remove(tapeLaying);
+        tapeLaying.setOwnerStrandSupply(null);
         return this;
     }
 

@@ -32,6 +32,7 @@
       "forceCentralUtilityComponent": "Force Central Utility Component",
       "coreAssemblies": "Core Assemblies",
       "intersticeAssemblies": "Interstice Assemblies",
+      "tapeLayings": "Tape Layings",
       "sheathings": "Sheathings",
       "strand": "Strand",
       "centralAssembly": "Central Assembly",

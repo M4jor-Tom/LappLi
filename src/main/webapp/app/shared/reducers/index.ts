@@ -57,6 +57,12 @@ import intersticeAssembly from 'app/entities/interstice-assembly/interstice-asse
 import sheathing from 'app/entities/sheathing/sheathing.reducer';
 // prettier-ignore
 import supplyPosition from 'app/entities/supply-position/supply-position.reducer';
+// prettier-ignore
+import tape from 'app/entities/tape/tape.reducer';
+// prettier-ignore
+import tapeKind from 'app/entities/tape-kind/tape-kind.reducer';
+// prettier-ignore
+import tapeLaying from 'app/entities/tape-laying/tape-laying.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -93,6 +99,9 @@ const rootReducer = {
   intersticeAssembly,
   sheathing,
   supplyPosition,
+  tape,
+  tapeKind,
+  tapeLaying,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };

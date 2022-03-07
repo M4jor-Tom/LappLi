@@ -26,7 +26,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     private Long id;
 
     @JsonIgnoreProperties(
-        value = { "coreAssemblies", "intersticeAssemblies", "sheathings", "strand", "centralAssembly", "study" },
+        value = { "coreAssemblies", "intersticeAssemblies", "tapeLayings", "sheathings", "strand", "centralAssembly", "study" },
         allowSetters = true
     )
     @OneToOne(optional = false)

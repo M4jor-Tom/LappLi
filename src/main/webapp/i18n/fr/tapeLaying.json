@@ -1,0 +1,27 @@
+{
+  "lappLiApp": {
+    "tapeLaying": {
+      "home": {
+        "title": "TapeLayings",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Tape Laying",
+        "createOrEditLabel": "Créer ou éditer un Tape Laying",
+        "notFound": "Aucun Tape Laying trouvé"
+      },
+      "created": "Un nouveau Tape Laying a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Tape Laying avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Tape Laying avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Tape Laying {{ id }} ?"
+      },
+      "detail": {
+        "title": "Tape Laying"
+      },
+      "id": "ID",
+      "operationLayer": "Operation Layer",
+      "assemblyMean": "Assembly Mean",
+      "tape": "Tape",
+      "ownerStrandSupply": "Owner Strand Supply"
+    }
+  }
+}

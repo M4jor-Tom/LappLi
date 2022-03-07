@@ -68,6 +68,17 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
       )}
       &nbsp;
       <Link
+        to={`${props.match.url}/tape-laying/new`}
+        className="btn btn-primary jh-create-entity"
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+      >
+        <FontAwesomeIcon icon="plus" />
+        &nbsp;
+        <Translate contentKey="lappLiApp.tapeLaying.detail.title">Tape Laying</Translate>
+      </Link>
+      &nbsp;
+      <Link
         to={`${props.match.url}/sheathing/new`}
         className="btn btn-primary jh-create-entity"
         id="jh-create-entity"

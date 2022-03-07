@@ -19,6 +19,10 @@ enum SupplyOwner {
   STUDY = 'study',
 }
 
+function getOutFromStudySupplyStrandTapeLaying(url: string, isNew: boolean): string {
+  return getOutFromStudySupplyStrandComponent(url, isNew);
+}
+
 function getOutFromStudySupplyStrandSheathing(url: string, isNew: boolean): string {
   return getOutFromStudySupplyStrandComponent(url, isNew);
 }
@@ -172,6 +176,7 @@ function getAssemblyStrandSupplyValidatedField(
 
 export {
   AssemblyKind,
+  getOutFromStudySupplyStrandTapeLaying,
   getOutFromStudySupplyStrandSheathing,
   getOutFromStudySupplyStrandAssemblyComponent,
   getOutFromStudySupplyStrandSupplyComponent,
