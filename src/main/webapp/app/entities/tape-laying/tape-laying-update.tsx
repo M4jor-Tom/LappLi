@@ -14,11 +14,14 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { AssemblyMean } from 'app/shared/model/enumerations/assembly-mean.model';
+import { getOutFromStudySupplyStrandTapeLaying } from '../index-management/index-management-lib';
 
 export const TapeLayingUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
+
+  const redirectionUrl = getOutFromStudySupplyStrandTapeLaying(props.match.url, isNew);
 
   const tapes = useAppSelector(state => state.tape.entities);
   const strandSupplies = useAppSelector(state => state.strandSupply.entities);
@@ -28,7 +31,7 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ id: string }>) => 
   const updateSuccess = useAppSelector(state => state.tapeLaying.updateSuccess);
   const assemblyMeanValues = Object.keys(AssemblyMean);
   const handleClose = () => {
-    props.history.push('/tape-laying');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {
@@ -163,7 +166,7 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ id: string }>) => 
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/tape-laying" replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
