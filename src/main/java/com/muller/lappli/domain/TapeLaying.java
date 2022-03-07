@@ -1,7 +1,9 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
+import com.muller.lappli.domain.enumeration.OperationKind;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -14,7 +16,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "tape_laying")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class TapeLaying implements Serializable {
+public class TapeLaying extends AbstractOperation<TapeLaying> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,6 +48,37 @@ public class TapeLaying implements Serializable {
     private StrandSupply ownerStrandSupply;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    @Override
+    public TapeLaying getThis() {
+        return this;
+    }
+
+    @Override
+    public OperationKind getOperationKind() {
+        return OperationKind.TAPE_LAYING;
+    }
+
+    @Override
+    public Double getMilimeterDiameterIncidency() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Long getProductionStep() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getProductDesignation() {
+        if (getTape() == null) {
+            return "";
+        }
+
+        return getTape().getDesignation();
+    }
 
     public Long getId() {
         return this.id;
@@ -99,6 +132,7 @@ public class TapeLaying implements Serializable {
         return this;
     }
 
+    @Override
     public StrandSupply getOwnerStrandSupply() {
         return this.ownerStrandSupply;
     }
