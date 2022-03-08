@@ -432,6 +432,18 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         return maxOperationLayer;
     }
 
+    public StrandSupply handleNonCentralOperationAdd(INonCentralOperation<?> nonCentralOperation) {
+        if (nonCentralOperation == null) {
+            return this;
+        } else if (nonCentralOperation.getOperationLayer() == null) {
+            provideOperationLayerIfNeededTo(nonCentralOperation);
+        } else if (isUsedOperationLayer(nonCentralOperation.getOperationLayer())) {
+            moveOthersOperationLayersForThisOne(nonCentralOperation);
+        }
+
+        return this;
+    }
+
     public void provideOperationLayerIfNeededTo(INonCentralOperation<?> nonCentralOperation) {
         if (nonCentralOperation == null) {
             return;
