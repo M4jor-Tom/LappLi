@@ -372,6 +372,20 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         return new LinkedHashSet<AbstractOperation<?>>(sortedOperationList);
     }
 
+    public Boolean isUsedOperationLayer(Long operationLayer) {
+        if (operationLayer == null) {
+            return false;
+        }
+
+        for (AbstractOperation<?> operation : getOperations()) {
+            if (operationLayer.equals(operation.getOperationLayer())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public Long getSuppliedComponentsDividedCount() {
         if (getStrand() != null && getApparitions() != null) {
             return getStrand().getUndividedSuppliedComponentsCount() / getApparitions();
