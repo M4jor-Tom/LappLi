@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import com.muller.lappli.domain.enumeration.SheathingKind;
+import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -16,7 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "sheathing")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Sheathing extends AbstractOperation<Sheathing> implements Serializable {
+public class Sheathing extends AbstractOperation<Sheathing> implements Serializable, INonAssemblyOperation<Sheathing> {
 
     private static final long serialVersionUID = 1L;
 
@@ -105,11 +106,13 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
         return this.operationLayer;
     }
 
+    @Override
     public Sheathing operationLayer(Long operationLayer) {
         this.setOperationLayer(operationLayer);
         return this;
     }
 
+    @Override
     public void setOperationLayer(Long operationLayer) {
         this.operationLayer = operationLayer;
     }
@@ -153,6 +156,7 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
         return this;
     }
 
+    @Override
     public StrandSupply getOwnerStrandSupply() {
         return this.ownerStrandSupply;
     }
