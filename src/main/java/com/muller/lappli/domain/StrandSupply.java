@@ -329,6 +329,19 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
      * @return all the assemblies
      */
     @JsonIgnoreProperties("ownerStrandSupply")
+    public Set<AbstractNonCentralAssembly<?>> getNonCentralAssemblies() {
+        Set<AbstractNonCentralAssembly<?>> assemblies = new HashSet<>();
+
+        assemblies.addAll(getCoreAssemblies());
+        assemblies.addAll(getIntersticeAssemblies());
+
+        return assemblies;
+    }
+
+    /**
+     * @return all the assemblies
+     */
+    @JsonIgnoreProperties("ownerStrandSupply")
     public Set<AbstractAssembly<?>> getAssemblies() {
         LinkedHashSet<AbstractAssembly<?>> assemblies = new LinkedHashSet<>();
 
@@ -336,8 +349,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
             assemblies.add(getCentralAssembly());
         }
 
-        assemblies.addAll(getCoreAssemblies());
-        assemblies.addAll(getIntersticeAssemblies());
+        assemblies.addAll(getNonCentralAssemblies());
 
         List<AbstractAssembly<?>> sortedAssembliesList = new ArrayList<AbstractAssembly<?>>(assemblies);
         sortedAssembliesList.sort(getOperationComparator());
