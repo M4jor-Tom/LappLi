@@ -107,11 +107,11 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     @JsonIgnoreProperties(value = { "strands", "strandSupplies", "author" }, allowSetters = true)
     private Study study;
 
-    public static Set<IOperation<?>> sortNonCentralOperations(Set<INonCentralOperation<?>> nonCentralOperations) {
-        List<INonCentralOperation<?>> sortedOperationList = new ArrayList<INonCentralOperation<?>>();
+    public static Set<IOperation<?>> sortOperations(Set<IOperation<?>> operations) {
+        List<IOperation<?>> sortedOperationList = new ArrayList<IOperation<?>>();
 
-        for (INonCentralOperation<?> nonCentralOperation : nonCentralOperations) {
-            sortedOperationList.add(nonCentralOperation);
+        for (IOperation<?> operation : operations) {
+            sortedOperationList.add(operation);
         }
 
         sortedOperationList.sort(getOperationComparator());
