@@ -24,4 +24,8 @@ public abstract class AbstractNonCentralAssembly<T extends AbstractNonCentralAss
     public String getProductDesignation() {
         return "";
     }
+
+    public AbstractOperation<T> toOperation() {
+        return this;
+    }
 }

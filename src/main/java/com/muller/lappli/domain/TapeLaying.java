@@ -51,6 +51,11 @@ public class TapeLaying extends AbstractOperation<TapeLaying> implements Seriali
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override
+    public AbstractOperation<TapeLaying> toOperation() {
+        return this;
+    }
+
+    @Override
     public TapeLaying getThis() {
         return this;
     }
