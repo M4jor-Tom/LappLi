@@ -13,6 +13,7 @@ import com.muller.lappli.domain.enumeration.AssemblyPresetDistribution;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.domain.exception.ImpossibleAssemblyPresetDistributionException;
 import com.muller.lappli.domain.interfaces.Designable;
+import com.muller.lappli.domain.interfaces.INonCentralOperation;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -404,6 +405,18 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         }
 
         return maxOperationLayer;
+    }
+
+    public void provideOperationLayerIfNeededTo(INonCentralOperation<?> operation) {
+        if (operation == null) {
+            return;
+        }
+
+        if (operation.getOperationLayer() != null) {
+            return;
+        }
+
+        operation.setOperationLayer(getMaxOperationLayer() + 1);
     }
 
     public Long getSuppliedComponentsDividedCount() {
