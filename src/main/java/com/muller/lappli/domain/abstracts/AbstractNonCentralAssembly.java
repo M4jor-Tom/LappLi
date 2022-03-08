@@ -2,6 +2,7 @@ package com.muller.lappli.domain.abstracts;
 
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.interfaces.INonCentralOperation;
+import com.muller.lappli.domain.interfaces.IOperation;
 
 /**
  * This class represents an assembly, which is a layer of the {@link com.muller.lappli.domain.Strand} in {@link AbstractAssembly#getOwnerStrand()}
@@ -11,7 +12,7 @@ public abstract class AbstractNonCentralAssembly<T extends AbstractNonCentralAss
     implements INonCentralOperation<T> {
 
     /**
-     * @return the assembly step measured in {@link AbstractOperation#getAfterThisMilimeterDiameter}s
+     * @return the assembly step measured in {@link IOperation#getAfterThisMilimeterDiameter}s
      */
     public abstract Double getDiameterAssemblyStep();
 
@@ -25,7 +26,7 @@ public abstract class AbstractNonCentralAssembly<T extends AbstractNonCentralAss
         return "";
     }
 
-    public AbstractOperation<T> toOperation() {
+    public IOperation<T> toOperation() {
         return this;
     }
 }

@@ -36,4 +36,11 @@ public interface IOperation<T extends IOperation<T>> {
      * @return the designation of what is represented in the operation
      */
     public String getProductDesignation();
+
+    /**
+     * @return the diameter of {@link #getOwnerStrand()}
+     * in milimeters after {@link #getMilimeterDiameterIncidency()}
+     * is added
+     */
+    public Double getAfterThisMilimeterDiameter();
 }

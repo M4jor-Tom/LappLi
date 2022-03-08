@@ -5,6 +5,7 @@ import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import com.muller.lappli.domain.enumeration.SheathingKind;
 import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
+import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -53,7 +54,7 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
     private StrandSupply ownerStrandSupply;
 
     @Override
-    public AbstractOperation<Sheathing> toOperation() {
+    public IOperation<Sheathing> toOperation() {
         return this;
     }
 

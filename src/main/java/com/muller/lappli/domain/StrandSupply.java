@@ -15,6 +15,7 @@ import com.muller.lappli.domain.exception.ImpossibleAssemblyPresetDistributionEx
 import com.muller.lappli.domain.interfaces.Designable;
 import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
 import com.muller.lappli.domain.interfaces.INonCentralOperation;
+import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -37,8 +38,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     private static final long serialVersionUID = 1L;
 
-    @Transient
-    private Comparator<AbstractOperation<?>> operationComparator;
+    private static Comparator<IOperation<?>> operationComparator = null;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -107,9 +107,19 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     @JsonIgnoreProperties(value = { "strands", "strandSupplies", "author" }, allowSetters = true)
     private Study study;
 
-    public StrandSupply() {
-        this.operationComparator = null;
+    public static Set<IOperation<?>> sortNonCentralOperations(Set<INonCentralOperation<?>> nonCentralOperations) {
+        List<INonCentralOperation<?>> sortedOperationList = new ArrayList<INonCentralOperation<?>>();
+
+        for (INonCentralOperation<?> nonCentralOperation : nonCentralOperations) {
+            sortedOperationList.add(nonCentralOperation);
+        }
+
+        sortedOperationList.sort(getOperationComparator());
+
+        return new LinkedHashSet<IOperation<?>>(sortedOperationList);
     }
+
+    public StrandSupply() {}
 
     @Override
     public StrandSupply getThis() {
@@ -133,12 +143,12 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
      *
      * @return a Comparator for the class AbstractOperation
      */
-    private Comparator<AbstractOperation<?>> getOperationComparator() {
+    private static Comparator<IOperation<?>> getOperationComparator() {
         if (operationComparator == null) {
             operationComparator =
-                new Comparator<AbstractOperation<?>>() {
+                new Comparator<IOperation<?>>() {
                     @Override
-                    public int compare(AbstractOperation<?> o1, AbstractOperation<?> o2) {
+                    public int compare(IOperation<?> o1, IOperation<?> o2) {
                         //One is instanceof CentralAssembly, stop thinking. It's it.
                         if (o1 instanceof CentralAssembly) {
                             return -1;
@@ -230,10 +240,10 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
      */
     @JsonIgnore
     @JsonIgnoreProperties("ownerStrandSupply")
-    public AbstractOperation<?> getLastOperationBefore(AbstractOperation<?> operation) {
-        AbstractOperation<?> beforeOperation = null;
+    public IOperation<?> getLastOperationBefore(IOperation<?> operation) {
+        IOperation<?> beforeOperation = null;
 
-        for (AbstractOperation<?> operationChecked : getOperations()) {
+        for (IOperation<?> operationChecked : getOperations()) {
             if (operationChecked.equals(operation)) {
                 //Current operation is the searched one, we seek the prefious one
                 return beforeOperation;
@@ -253,7 +263,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
      * @return the diameter in milimeter
      * @throws ImpossibleAssemblyPresetDistributionException
      */
-    public Double getMilimeterDiameterBefore(AbstractOperation<?> operation) {
+    public Double getMilimeterDiameterBefore(IOperation<?> operation) {
         try {
             return getLastOperationBefore(operation).getAfterThisMilimeterDiameter();
         } catch (NullPointerException e) {
@@ -385,18 +395,18 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
      * @return all the operations
      */
     @JsonIgnoreProperties("ownerStrandSupply")
-    public Set<AbstractOperation<?>> getOperations() {
-        LinkedHashSet<AbstractOperation<?>> operations = new LinkedHashSet<>();
+    public Set<IOperation<?>> getOperations() {
+        LinkedHashSet<IOperation<?>> operations = new LinkedHashSet<>();
 
         for (INonAssemblyOperation<?> nonAssemblyOperation : getNonAssemblyOperations()) {
             operations.add(nonAssemblyOperation.toOperation());
         }
         operations.addAll(getAssemblies());
 
-        List<AbstractOperation<?>> sortedOperationList = new ArrayList<AbstractOperation<?>>(operations);
+        List<IOperation<?>> sortedOperationList = new ArrayList<IOperation<?>>(operations);
         sortedOperationList.sort(getOperationComparator());
 
-        return new LinkedHashSet<AbstractOperation<?>>(sortedOperationList);
+        return new LinkedHashSet<IOperation<?>>(sortedOperationList);
     }
 
     public Boolean isUsedOperationLayer(Long operationLayer) {
@@ -404,7 +414,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
             return false;
         }
 
-        for (AbstractOperation<?> operation : getOperations()) {
+        for (IOperation<?> operation : getOperations()) {
             if (operationLayer.equals(operation.getOperationLayer())) {
                 return true;
             }
@@ -416,7 +426,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     private List<Long> getOperationLayerList() {
         List<Long> operationlayerList = new ArrayList<Long>();
 
-        for (AbstractOperation<?> operationToGetLayer : getOperations()) {
+        for (IOperation<?> operationToGetLayer : getOperations()) {
             operationlayerList.add(operationToGetLayer.getOperationLayer());
         }
 

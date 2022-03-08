@@ -3,6 +3,7 @@ package com.muller.lappli.domain.abstracts;
 import com.muller.lappli.domain.AssemblyPreset;
 import com.muller.lappli.domain.AssemblyPresetDistributionPossibility;
 import com.muller.lappli.domain.DomainManager;
+import com.muller.lappli.domain.interfaces.IOperation;
 import javax.persistence.MappedSuperclass;
 
 /**
@@ -21,7 +22,7 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends Ab
 
         Long count = Long.valueOf(0);
 
-        for (AbstractOperation<?> operation : getOwnerStrandSupply().getOperations()) {
+        for (IOperation<?> operation : getOwnerStrandSupply().getOperations()) {
             if (operation instanceof AbstractNonCentralAssembly<?>) {
                 count++;
             }
