@@ -309,12 +309,13 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
         Long coreAssemblyOperationLayer = Long.valueOf(1);
         for (AssemblyPreset assemblyPreset : assemblyPresetDistributionPossibility.getAssemblyPresetsAfterCentral()) {
-            addCoreAssemblies(
-                new CoreAssembly()
-                    .ownerStrandSupply(this)
-                    .operationLayer(coreAssemblyOperationLayer++)
-                    .forcedMeanMilimeterComponentDiameter(Double.NaN)
-            );
+            CoreAssembly coreAssembly = new CoreAssembly()
+                .ownerStrandSupply(this)
+                .operationLayer(coreAssemblyOperationLayer++)
+                .forcedMeanMilimeterComponentDiameter(Double.NaN);
+
+            moveOthersOperationLayersForThisOne(coreAssembly);
+            addCoreAssemblies(coreAssembly);
         }
 
         return this;
