@@ -65,6 +65,13 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      */
     public abstract Long getApparitions();
 
+    public T apparitions(Long apparitions) {
+        this.setApparitions(apparitions);
+        return getThis();
+    }
+
+    public abstract void setApparitions(Long apparitions);
+
     /**
      * @return the diameter in milimeters of the CylindricComponent
      */

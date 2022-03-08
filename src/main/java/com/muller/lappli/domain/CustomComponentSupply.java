@@ -109,15 +109,12 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
         this.id = id;
     }
 
+    @Override
     public Long getApparitions() {
         return this.apparitions;
     }
 
-    public CustomComponentSupply apparitions(Long apparitions) {
-        this.setApparitions(apparitions);
-        return this;
-    }
-
+    @Override
     public void setApparitions(Long apparitions) {
         this.apparitions = apparitions;
     }
