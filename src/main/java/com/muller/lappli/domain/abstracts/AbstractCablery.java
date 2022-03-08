@@ -7,4 +7,7 @@ import javax.persistence.*;
  * This class represents AbstractDomainObjects which are CylindricComponents
  */
 @MappedSuperclass
-public abstract class AbstractCablery<T> extends AbstractDomainObject<T> implements CylindricComponent {}
+public abstract class AbstractCablery<T> extends AbstractDomainObject<T> implements CylindricComponent {
+
+    public AbstractCablery() {}
+}

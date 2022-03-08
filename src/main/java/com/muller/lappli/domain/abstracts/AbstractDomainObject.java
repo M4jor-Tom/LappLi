@@ -10,6 +10,8 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class AbstractDomainObject<T> {
 
+    public AbstractDomainObject() {}
+
     /**
      * @return the object at its concretest state
      */

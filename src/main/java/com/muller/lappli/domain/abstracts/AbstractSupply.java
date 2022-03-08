@@ -54,6 +54,10 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      */
     protected static final Long LIFTING_METER_PER_HOUR_SPEED = Long.valueOf(5000);
 
+    public AbstractSupply() {
+        this.observerStrandSupply = null;
+    }
+
     /**
      * @return the SupplyPositions which owns this
      */
