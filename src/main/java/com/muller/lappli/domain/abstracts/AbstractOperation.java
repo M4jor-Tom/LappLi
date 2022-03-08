@@ -8,9 +8,8 @@ import com.muller.lappli.domain.CoreAssembly;
 import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.IntersticeAssembly;
 import com.muller.lappli.domain.Sheathing;
-import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.TapeLaying;
-import com.muller.lappli.domain.enumeration.OperationKind;
+import com.muller.lappli.domain.interfaces.IOperation;
 import javax.persistence.MappedSuperclass;
 
 /**
@@ -28,18 +27,7 @@ import javax.persistence.MappedSuperclass;
     }
 )
 @MappedSuperclass
-public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
-
-    /**
-     * @return the operation kind of this
-     */
-    public abstract OperationKind getOperationKind();
-
-    /**
-     * @return twice the "thikness" of the operation in the general case,
-     * sometimes a litle bit more, sometimes a little but less
-     */
-    public abstract Double getMilimeterDiameterIncidency();
+public abstract class AbstractOperation<T> extends AbstractDomainObject<T> implements IOperation<AbstractOperation<T>> {
 
     /**
      * @return the standardized {@link String} value of
@@ -48,22 +36,6 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
     public String getMullerStandardizedFormatMilimeterDiameterIncidency() {
         return DomainManager.mullerStandardizedFormat(getMilimeterDiameterIncidency());
     }
-
-    /**
-     * @return the StrandSupply which owns this assembly
-     */
-    @JsonIgnoreProperties(value = { "operations", "nonAssemblyOperations" })
-    public abstract StrandSupply getOwnerStrandSupply();
-
-    /**
-     * @return the step at which this is producted
-     */
-    public abstract Long getProductionStep();
-
-    /**
-     * @return the designation of what is represented in the operation
-     */
-    public abstract String getProductDesignation();
 
     /**
      * @return the diameter just under this operation
@@ -106,11 +78,6 @@ public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
     public String getMullerStandardizedFormatAfterThisMilimeterDiameter() {
         return DomainManager.mullerStandardizedFormat(getAfterThisMilimeterDiameter());
     }
-
-    /**
-     * @return the layer at which this operation is
-     */
-    public abstract Long getOperationLayer();
 
     /**
      * @return the designation of the owner strand
