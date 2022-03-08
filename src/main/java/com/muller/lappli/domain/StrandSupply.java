@@ -386,6 +386,26 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         return false;
     }
 
+    private List<Long> getOperationLayerList() {
+        List<Long> operationlayerList = new ArrayList<Long>();
+
+        for (AbstractOperation<?> operationToGetLayer : getOperations()) {
+            operationlayerList.add(operationToGetLayer.getOperationLayer());
+        }
+
+        return operationlayerList;
+    }
+
+    private Long getMaxOperationLayer() {
+        Long maxOperationLayer = DomainManager.ERROR_LONG_POSITIVE_VALUE;
+
+        for (Long operationLayer : getOperationLayerList()) {
+            maxOperationLayer = Math.max(maxOperationLayer, operationLayer);
+        }
+
+        return maxOperationLayer;
+    }
+
     public Long getSuppliedComponentsDividedCount() {
         if (getStrand() != null && getApparitions() != null) {
             return getStrand().getUndividedSuppliedComponentsCount() / getApparitions();
