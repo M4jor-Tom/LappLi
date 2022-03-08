@@ -444,7 +444,17 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         operation.setOperationLayer(getMaxOperationLayer() + 1);
     }
 
-    public void moveOthersOperationLayersForThisOne(AbstractOperation<?> operation) {}
+    public void moveOthersOperationLayersForThisOne(INonCentralOperation<?> operation) {
+        if (operation == null) {
+            return;
+        }
+
+        for (INonCentralOperation<?> nonCentralOperation : getNonCentralOperations()) {
+            if (nonCentralOperation.getOperationLayer() >= operation.getOperationLayer()) {
+                nonCentralOperation.setOperationLayer(nonCentralOperation.getOperationLayer() + 1);
+            }
+        }
+    }
 
     public Long getSuppliedComponentsDividedCount() {
         if (getStrand() != null && getApparitions() != null) {
