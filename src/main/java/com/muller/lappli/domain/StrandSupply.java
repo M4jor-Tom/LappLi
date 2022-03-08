@@ -13,6 +13,7 @@ import com.muller.lappli.domain.enumeration.AssemblyPresetDistribution;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.domain.exception.ImpossibleAssemblyPresetDistributionException;
 import com.muller.lappli.domain.interfaces.Designable;
+import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
 import com.muller.lappli.domain.interfaces.INonCentralOperation;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -348,8 +349,8 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
      * @return all operations which are not assemblies
      */
     @JsonIgnoreProperties("ownerStrandSupply")
-    public Set<AbstractOperation<?>> getNonAssemblyOperations() {
-        HashSet<AbstractOperation<?>> operations = new HashSet<>();
+    public Set<INonAssemblyOperation<?>> getNonAssemblyOperations() {
+        HashSet<INonAssemblyOperation<?>> operations = new HashSet<>();
 
         operations.addAll(getTapeLayings());
         operations.addAll(getSheathings());
@@ -364,7 +365,9 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     public Set<AbstractOperation<?>> getOperations() {
         LinkedHashSet<AbstractOperation<?>> operations = new LinkedHashSet<>();
 
-        operations.addAll(getNonAssemblyOperations());
+        for (INonCentralOperation<?> nonCentralOperation : getNonAssemblyOperations()) {
+            operations.add(nonCentralOperation.toOperation());
+        }
         operations.addAll(getAssemblies());
 
         List<AbstractOperation<?>> sortedOperationList = new ArrayList<AbstractOperation<?>>(operations);
@@ -418,6 +421,8 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
         operation.setOperationLayer(getMaxOperationLayer() + 1);
     }
+
+    public void moveOthersOperationLayersForThisOne(AbstractOperation<?> operation) {}
 
     public Long getSuppliedComponentsDividedCount() {
         if (getStrand() != null && getApparitions() != null) {
