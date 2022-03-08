@@ -325,7 +325,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         return CalculatorManager.getCalculatorInstance().getAssemblyPresetDistributionPossibility(this);
     }
 
-    @JsonIgnoreProperties("ownerStrandSupply")
+    @JsonIgnore
     public Set<INonCentralOperation<?>> getNonCentralOperations() {
         Set<INonCentralOperation<?>> nonCentralOperations = new HashSet<INonCentralOperation<?>>();
 
@@ -370,7 +370,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     /**
      * @return all operations which are not assemblies
      */
-    @JsonIgnoreProperties("ownerStrandSupply")
+    @JsonIgnore
     public Set<INonAssemblyOperation<?>> getNonAssemblyOperations() {
         HashSet<INonAssemblyOperation<?>> operations = new HashSet<>();
 
