@@ -447,7 +447,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     public void provideOperationLayerIfNeededTo(INonCentralOperation<?> nonCentralOperation) {
         if (nonCentralOperation == null) {
-            return;
+            throw new NullPointerException("nonCentralOperation is null");
         }
 
         if (nonCentralOperation.getOperationLayer() != null) {
@@ -459,7 +459,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     public void moveOthersOperationLayersForThisOne(INonCentralOperation<?> nonCentralOperation) {
         if (nonCentralOperation == null) {
-            return;
+            throw new NullPointerException("nonCentralOperation is null");
         }
 
         for (INonCentralOperation<?> nonCentralOperationToMoveLayer : getNonCentralOperations()) {
