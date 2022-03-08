@@ -103,11 +103,7 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
         return this.apparitions;
     }
 
-    public BangleSupply apparitions(Long apparitions) {
-        this.setApparitions(apparitions);
-        return this;
-    }
-
+    @Override
     public void setApparitions(Long apparitions) {
         this.apparitions = apparitions;
     }

@@ -121,11 +121,7 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
         return this.apparitions;
     }
 
-    public ElementSupply apparitions(Long apparitions) {
-        this.setApparitions(apparitions);
-        return this;
-    }
-
+    @Override
     public void setApparitions(Long apparitions) {
         this.apparitions = apparitions;
     }
