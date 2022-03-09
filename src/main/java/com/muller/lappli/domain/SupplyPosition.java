@@ -72,6 +72,10 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     @JsonIgnoreProperties(value = { "supplyPositions", "ownerStrandSupply" }, allowSetters = true)
     private IntersticeAssembly ownerIntersticeAssembly;
 
+    public SupplyPosition() {
+        super();
+    }
+
     @Override
     public SupplyPosition getThis() {
         return this;

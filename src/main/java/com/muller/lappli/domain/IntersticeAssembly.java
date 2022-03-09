@@ -63,6 +63,11 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     )
     private StrandSupply ownerStrandSupply;
 
+    public IntersticeAssembly() {
+        super();
+        setSupplyPositions(new HashSet<>());
+    }
+
     @Override
     public IntersticeAssembly getThis() {
         return this;

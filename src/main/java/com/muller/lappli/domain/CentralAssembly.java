@@ -40,6 +40,10 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @JoinColumn(unique = true)
     private SupplyPosition supplyPosition;
 
+    public CentralAssembly() {
+        super();
+    }
+
     @Override
     public CentralAssembly getThis() {
         return this;

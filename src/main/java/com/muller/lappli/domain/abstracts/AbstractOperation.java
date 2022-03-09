@@ -30,6 +30,10 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class AbstractOperation<T> extends AbstractDomainObject<T> {
 
+    public AbstractOperation() {
+        super();
+    }
+
     /**
      * @return the operation kind of this
      */

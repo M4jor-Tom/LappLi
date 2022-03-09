@@ -41,6 +41,10 @@ public class Tape implements Serializable {
     @NotNull
     private TapeKind tapeKind;
 
+    public Tape() {
+        super();
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {

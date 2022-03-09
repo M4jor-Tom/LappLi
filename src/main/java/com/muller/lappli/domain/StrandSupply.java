@@ -106,7 +106,10 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     private Study study;
 
     public StrandSupply() {
+        super();
         this.operationComparator = null;
+        setCoreAssemblies(new HashSet<>());
+        setIntersticeAssemblies(new HashSet<>());
     }
 
     @Override

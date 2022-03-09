@@ -51,6 +51,10 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
     )
     private StrandSupply ownerStrandSupply;
 
+    public Sheathing() {
+        super();
+    }
+
     @Override
     public Double getMilimeterDiameterIncidency() {
         if (getMilimeterThickness() == null) {

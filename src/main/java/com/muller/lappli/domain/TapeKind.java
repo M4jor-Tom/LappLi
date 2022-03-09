@@ -29,6 +29,10 @@ public class TapeKind implements Serializable {
     @Column(name = "designation", nullable = false, unique = true)
     private String designation;
 
+    public TapeKind() {
+        super();
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {

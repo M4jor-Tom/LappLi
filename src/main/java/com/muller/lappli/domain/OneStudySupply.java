@@ -84,7 +84,9 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     private Material surfaceMaterial;
 
     public OneStudySupply() {
+        super();
         this.oneStudyComponent = null;
+        setOwnerSupplyPositions(new HashSet<>());
     }
 
     @Override

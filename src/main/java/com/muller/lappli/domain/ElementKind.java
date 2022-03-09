@@ -52,7 +52,7 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
     private EditionListManager<ElementKind> editionListManager;
 
     public ElementKind() {
-        //this("", Double.NaN, Double.NaN, Double.NaN, new Copper(), new Material());
+        super();
     }
 
     public ElementKind(
@@ -63,6 +63,7 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
         Copper copper,
         Material insulationMaterial
     ) {
+        super();
         setDesignation(designation);
         setGramPerMeterLinearMass(gramPerMeterLinearMass);
         setMilimeterDiameter(milimeterDiameter);

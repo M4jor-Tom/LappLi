@@ -11,6 +11,10 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends AbstractOperation<T> {
 
+    public AbstractAssembly() {
+        super();
+    }
+
     @Override
     public abstract Double getMilimeterDiameterIncidency();
 

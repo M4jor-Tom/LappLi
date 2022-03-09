@@ -41,6 +41,10 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     )
     private StrandSupply ownerStrandSupply;
 
+    public CoreAssembly() {
+        super();
+    }
+
     @Override
     public CoreAssembly getThis() {
         return this;
