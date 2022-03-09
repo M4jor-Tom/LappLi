@@ -58,6 +58,18 @@ public class Lifter extends AbstractDomainObject<Lifter> implements Serializable
     @Column(name = "supports_rsd_marking_technique", nullable = false)
     private Boolean supportsRsdMarkingTechnique;
 
+    public Lifter() {
+        super();
+        setIndex(null);
+        setMinimumMilimeterDiameter(null);
+        setMaximumMilimeterDiameter(null);
+        setSupportsSpirallyColoredMarkingType(null);
+        setSupportsLongitudinallyColoredMarkingType(null);
+        setSupportsNumberedMarkingType(null);
+        setSupportsInkJetMarkingTechnique(null);
+        setSupportsRsdMarkingTechnique(null);
+    }
+
     @Override
     public Lifter getThis() {
         return this;

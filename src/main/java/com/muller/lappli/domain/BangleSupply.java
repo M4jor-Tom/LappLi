@@ -54,6 +54,13 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     @NotNull
     private Bangle bangle;
 
+    public BangleSupply() {
+        super();
+        setApparitions(null);
+        setDescription(null);
+        setOwnerSupplyPositions(null);
+    }
+
     @Override
     public BangleSupply getThis() {
         return this;

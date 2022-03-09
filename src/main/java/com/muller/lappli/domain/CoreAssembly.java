@@ -41,6 +41,13 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     )
     private StrandSupply ownerStrandSupply;
 
+    public CoreAssembly() {
+        super();
+        setOperationLayer(null);
+        setForcedMeanMilimeterComponentDiameter(Double.NaN);
+        setOwnerStrandSupply(null);
+    }
+
     @Override
     public CoreAssembly getThis() {
         return this;

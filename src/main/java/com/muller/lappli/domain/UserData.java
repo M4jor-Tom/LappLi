@@ -35,6 +35,12 @@ public class UserData extends AbstractDomainObject<UserData> implements Serializ
     @JsonIgnoreProperties(value = { "strandSupplies" }, allowSetters = true)
     private Set<Study> studies = new HashSet<>();
 
+    public UserData() {
+        super();
+        setUser(null);
+        setStudies(new HashSet<>());
+    }
+
     @Override
     public UserData getThis() {
         return this;

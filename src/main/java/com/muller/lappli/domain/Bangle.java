@@ -44,6 +44,15 @@ public class Bangle extends AbstractAssemblableAtom<Bangle> implements Article, 
     //@JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material material;
 
+    public Bangle() {
+        super();
+        setNumber(null);
+        setDesignation(null);
+        setGramPerMeterLinearMass(Double.NaN);
+        setMilimeterDiameter(Double.NaN);
+        setMaterial(null);
+    }
+
     @Override
     public Bangle getThis() {
         return this;

@@ -31,7 +31,11 @@ public class Copper extends AbstractDomainObject<Copper> implements Article, Ser
     @Column(name = "designation", nullable = false, unique = true)
     private String designation;
 
-    public Copper() {}
+    public Copper() {
+        super();
+        setNumber(null);
+        setDesignation(null);
+    }
 
     public Copper(Long number, String designation) {
         setNumber(number);

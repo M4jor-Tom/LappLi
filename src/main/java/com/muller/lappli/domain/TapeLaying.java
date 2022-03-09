@@ -47,6 +47,14 @@ public class TapeLaying extends AbstractOperation<TapeLaying> implements Seriali
     )
     private StrandSupply ownerStrandSupply;
 
+    public TapeLaying() {
+        super();
+        setOperationLayer(null);
+        setAssemblyMean(null);
+        setTape(null);
+        setOwnerStrandSupply(null);
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override

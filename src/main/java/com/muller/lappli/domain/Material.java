@@ -43,7 +43,12 @@ public class Material extends AbstractDomainObject<Material> implements Article,
     @JsonIgnoreProperties(value = { "material" }, allowSetters = true)
     private Set<MaterialMarkingStatistic> materialMarkingStatistics = new HashSet<>();
 
-    public Material() {}
+    public Material() {
+        super();
+        setNumber(null);
+        setDesignation(null);
+        setKilogramPerCubeMeterVolumicDensity(Double.NaN);
+    }
 
     public Material(
         Long number,

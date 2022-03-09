@@ -62,6 +62,15 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
     @NotNull
     private Element element;
 
+    public ElementSupply() {
+        super();
+        setApparitions(null);
+        setMarkingType(null);
+        setDescription(null);
+        setOwnerSupplyPositions(new HashSet<>());
+        setElement(null);
+    }
+
     @Override
     public ElementSupply getThis() {
         return this;

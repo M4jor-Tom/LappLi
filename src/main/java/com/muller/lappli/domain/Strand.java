@@ -46,6 +46,12 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return this;
     }
 
+    public Strand() {
+        super();
+        setSupplyPositions(new HashSet<>());
+        setFutureStudy(null);
+    }
+
     /**
      * Finds the futureStudy's StrandSupply which owns this Strand
      *

@@ -49,6 +49,16 @@ public class CustomComponent extends AbstractDomainObject<CustomComponent> imple
     @JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material surfaceMaterial;
 
+    public CustomComponent() {
+        super();
+        setNumber(null);
+        setDesignation(null);
+        setGramPerMeterLinearMass(Double.NaN);
+        setMilimeterDiameter(Double.NaN);
+        setSurfaceColor(null);
+        setSurfaceMaterial(null);
+    }
+
     @Override
     public CustomComponent getThis() {
         return this;
