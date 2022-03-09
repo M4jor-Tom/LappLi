@@ -52,7 +52,7 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
     private EditionListManager<ElementKind> editionListManager;
 
     public ElementKind() {
-        this(null, Double.NaN, Double.NaN, Double.NaN, null, null);
+        super();
     }
 
     public ElementKind(

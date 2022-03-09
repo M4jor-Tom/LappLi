@@ -33,8 +33,6 @@ public class Copper extends AbstractDomainObject<Copper> implements Article, Ser
 
     public Copper() {
         super();
-        setNumber(null);
-        setDesignation(null);
     }
 
     public Copper(Long number, String designation) {

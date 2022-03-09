@@ -43,9 +43,6 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     public CoreAssembly() {
         super();
-        setOperationLayer(null);
-        setForcedMeanMilimeterComponentDiameter(Double.NaN);
-        setOwnerStrandSupply(null);
     }
 
     @Override

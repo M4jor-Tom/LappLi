@@ -43,11 +43,6 @@ public class Tape implements Serializable {
 
     public Tape() {
         super();
-        setNumber(null);
-        setDesignation(null);
-        setMilimeterWidth(Double.NaN);
-        setMilimeterDiameterIncidency(Double.NaN);
-        setTapeKind(null);
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

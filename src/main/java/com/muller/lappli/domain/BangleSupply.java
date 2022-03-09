@@ -56,9 +56,6 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
 
     public BangleSupply() {
         super();
-        setApparitions(null);
-        setDescription(null);
-        setOwnerSupplyPositions(null);
     }
 
     @Override

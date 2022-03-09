@@ -42,9 +42,6 @@ public class Element extends AbstractAssemblableAtom<Element> implements Article
 
     public Element() {
         super();
-        setNumber(null);
-        setColor(null);
-        setElementKind(null);
     }
 
     @Override

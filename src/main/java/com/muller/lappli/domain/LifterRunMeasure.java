@@ -49,12 +49,6 @@ public class LifterRunMeasure extends AbstractDomainObject<LifterRunMeasure> imp
 
     public LifterRunMeasure() {
         super();
-        setMilimeterDiameter(Double.NaN);
-        setMeterPerHourSpeed(Double.NaN);
-        setMarkingType(null);
-        setMarkingTechnique(null);
-        setHourPreparationTime(Double.NaN);
-        setLifter(null);
     }
 
     @Override

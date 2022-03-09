@@ -46,11 +46,6 @@ public class Bangle extends AbstractAssemblableAtom<Bangle> implements Article, 
 
     public Bangle() {
         super();
-        setNumber(null);
-        setDesignation(null);
-        setGramPerMeterLinearMass(Double.NaN);
-        setMilimeterDiameter(Double.NaN);
-        setMaterial(null);
     }
 
     @Override

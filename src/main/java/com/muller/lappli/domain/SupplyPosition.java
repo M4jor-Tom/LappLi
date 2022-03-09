@@ -74,14 +74,6 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
 
     public SupplyPosition() {
         super();
-        setSupplyApparitionsUsage(null);
-        setOwnerCentralAssembly(null);
-        setOwnerIntersticeAssembly(null);
-        setOwnerStrand(null);
-        setBangleSupply(null);
-        setCustomComponentSupply(null);
-        setElementSupply(null);
-        setOneStudySupply(null);
     }
 
     @Override

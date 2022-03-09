@@ -46,10 +46,6 @@ public class MaterialMarkingStatistic extends AbstractDomainObject<MaterialMarki
 
     public MaterialMarkingStatistic() {
         super();
-        setMarkingType(null);
-        setMarkingTechnique(null);
-        setMeterPerHourSpeed(null);
-        setMaterial(null);
     }
 
     @Override

@@ -37,7 +37,6 @@ public class UserData extends AbstractDomainObject<UserData> implements Serializ
 
     public UserData() {
         super();
-        setUser(null);
         setStudies(new HashSet<>());
     }
 

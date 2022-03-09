@@ -46,9 +46,6 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
 
     public ElementKindEdition() {
         super();
-        setNewGramPerMeterLinearMass(Double.NaN);
-        setNewMilimeterDiameter(Double.NaN);
-        setNewInsulationThickness(Double.NaN);
     }
 
     @Override

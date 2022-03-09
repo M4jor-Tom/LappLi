@@ -45,9 +45,7 @@ public class Material extends AbstractDomainObject<Material> implements Article,
 
     public Material() {
         super();
-        setNumber(null);
-        setDesignation(null);
-        setKilogramPerCubeMeterVolumicDensity(Double.NaN);
+        setMaterialMarkingStatistics(new HashSet<>());
     }
 
     public Material(

@@ -65,11 +65,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
 
     public IntersticeAssembly() {
         super();
-        setOperationLayer(null);
-        setIntersticeLayer(null);
-        setForcedMeanMilimeterComponentDiameter(null);
         setSupplyPositions(new HashSet<>());
-        setOwnerStrandSupply(null);
     }
 
     @Override

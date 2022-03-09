@@ -108,18 +108,8 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     public StrandSupply() {
         super();
         this.operationComparator = null;
-        setApparitions(null);
-        setMarkingType(null);
-        setDescription(null);
-        setDiameterAssemblyStep(Double.NaN);
-        setAssemblyMean(null);
-        setForceCentralUtilityComponent(null);
-        setCentralAssembly(null);
         setCoreAssemblies(new HashSet<>());
         setIntersticeAssemblies(new HashSet<>());
-        setTapeLayings(null);
-        setSheathings(null);
-        setStrand(null);
     }
 
     @Override

@@ -63,9 +63,6 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
 
     public CustomComponentSupply() {
         super();
-        setApparitions(null);
-        setDescription(null);
-        setMarkingType(null);
         setOwnerSupplyPositions(new HashSet<>());
     }
 

@@ -60,14 +60,6 @@ public class Lifter extends AbstractDomainObject<Lifter> implements Serializable
 
     public Lifter() {
         super();
-        setIndex(null);
-        setMinimumMilimeterDiameter(null);
-        setMaximumMilimeterDiameter(null);
-        setSupportsSpirallyColoredMarkingType(null);
-        setSupportsLongitudinallyColoredMarkingType(null);
-        setSupportsNumberedMarkingType(null);
-        setSupportsInkJetMarkingTechnique(null);
-        setSupportsRsdMarkingTechnique(null);
     }
 
     @Override

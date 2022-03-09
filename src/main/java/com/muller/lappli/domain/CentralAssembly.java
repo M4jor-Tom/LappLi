@@ -42,8 +42,6 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
 
     public CentralAssembly() {
         super();
-        setOwnerStrandSupply(null);
-        setSupplyPosition(null);
     }
 
     @Override

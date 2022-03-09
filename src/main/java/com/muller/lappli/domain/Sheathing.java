@@ -53,11 +53,6 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
 
     public Sheathing() {
         super();
-        setOperationLayer(null);
-        setMilimeterThickness(Double.NaN);
-        setSheathingKind(null);
-        setMaterial(null);
-        setOwnerStrandSupply(null);
     }
 
     @Override

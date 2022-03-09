@@ -51,12 +51,6 @@ public class CustomComponent extends AbstractDomainObject<CustomComponent> imple
 
     public CustomComponent() {
         super();
-        setNumber(null);
-        setDesignation(null);
-        setGramPerMeterLinearMass(Double.NaN);
-        setMilimeterDiameter(Double.NaN);
-        setSurfaceColor(null);
-        setSurfaceMaterial(null);
     }
 
     @Override

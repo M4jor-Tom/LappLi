@@ -86,14 +86,6 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     public OneStudySupply() {
         super();
         this.oneStudyComponent = null;
-        setApparitions(null);
-        setNumber(null);
-        setComponentDesignation(null);
-        setDescription(null);
-        setMarkingType(null);
-        setGramPerMeterLinearMass(Double.NaN);
-        setMilimeterDiameter(Double.NaN);
-        setSurfaceColor(null);
         setOwnerSupplyPositions(new HashSet<>());
     }
 

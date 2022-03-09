@@ -60,7 +60,6 @@ public class Study extends AbstractDomainObject<Study> implements Serializable {
         super();
         actualize();
         setAuthor(new UserData());
-        setNumber(null);
         setStrands(new HashSet<>());
         setStrandSupplies(new HashSet<>());
     }
