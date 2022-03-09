@@ -14,7 +14,9 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class AbstractMarkedLiftedSupply<T> extends AbstractLiftedSupply<T> {
 
-    public AbstractMarkedLiftedSupply() {}
+    public AbstractMarkedLiftedSupply() {
+        super();
+    }
 
     /**
      * @return the color which appears at the surface of the marked supply

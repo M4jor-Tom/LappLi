@@ -9,5 +9,7 @@ import javax.persistence.*;
 @MappedSuperclass
 public abstract class AbstractCablery<T> extends AbstractDomainObject<T> implements CylindricComponent {
 
-    public AbstractCablery() {}
+    public AbstractCablery() {
+        super();
+    }
 }

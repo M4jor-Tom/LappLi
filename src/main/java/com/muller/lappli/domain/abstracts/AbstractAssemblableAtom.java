@@ -9,5 +9,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class AbstractAssemblableAtom<T> extends AbstractCableAtom<T> implements Assemblable {
 
-    public AbstractAssemblableAtom() {}
+    public AbstractAssemblableAtom() {
+        super();
+    }
 }

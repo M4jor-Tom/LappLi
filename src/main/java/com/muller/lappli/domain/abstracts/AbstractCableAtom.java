@@ -8,5 +8,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class AbstractCableAtom<T> extends AbstractCablery<T> {
 
-    public AbstractCableAtom() {}
+    public AbstractCableAtom() {
+        super();
+    }
 }

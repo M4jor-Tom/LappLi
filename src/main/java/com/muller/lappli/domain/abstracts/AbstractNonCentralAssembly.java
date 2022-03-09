@@ -7,7 +7,9 @@ import com.muller.lappli.domain.enumeration.AssemblyMean;
  */
 public abstract class AbstractNonCentralAssembly<T extends AbstractNonCentralAssembly<T>> extends AbstractAssembly<T> {
 
-    public AbstractNonCentralAssembly() {}
+    public AbstractNonCentralAssembly() {
+        super();
+    }
 
     /**
      * @return the assembly step measured in {@link AbstractOperation#getAfterThisMilimeterDiameter}s
