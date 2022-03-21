@@ -442,6 +442,20 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         return this;
     }
 
+    public void layerUncheckedInsertNonCentralOperation(INonCentralOperation<?> nonCentralOperation) throws UnknownOperationException {
+        if (nonCentralOperation instanceof CoreAssembly) {
+            addCoreAssemblies((CoreAssembly) nonCentralOperation);
+        } else if (nonCentralOperation instanceof IntersticeAssembly) {
+            addIntersticeAssemblies((IntersticeAssembly) nonCentralOperation);
+        } else if (nonCentralOperation instanceof TapeLaying) {
+            addTapeLayings((TapeLaying) nonCentralOperation);
+        } else if (nonCentralOperation instanceof Sheathing) {
+            addSheathings((Sheathing) nonCentralOperation);
+        } else {
+            throw new UnknownOperationException(nonCentralOperation);
+        }
+    }
+
     public void provideOperationLayerIfNeededTo(INonCentralOperation<?> nonCentralOperation) {
         if (nonCentralOperation == null) {
             throw new NullPointerException("nonCentralOperation is null");
