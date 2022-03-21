@@ -29,9 +29,9 @@ class StrandSupplyTest {
         TapeLaying tapeLayingAtLayer2ThenShouldBeAtLayer3 = new TapeLaying().operationLayer(2L);
         TapeLaying tapeLayingWhichShouldBeAtLayer3ThenAt4 = new TapeLaying().operationLayer(null);
 
-        strandSupply.insertNonCentralOperation(tapeLayingWhichMustRemainAtLayer1);
-        strandSupply.insertNonCentralOperation(tapeLayingAtLayer2ThenShouldBeAtLayer3);
-        strandSupply.insertNonCentralOperation(tapeLayingWhichShouldBeAtLayer3ThenAt4);
+        strandSupply.addTapeLayings(tapeLayingWhichMustRemainAtLayer1);
+        strandSupply.addTapeLayings(tapeLayingAtLayer2ThenShouldBeAtLayer3);
+        strandSupply.addTapeLayings(tapeLayingWhichShouldBeAtLayer3ThenAt4);
 
         assertThat(tapeLayingWhichMustRemainAtLayer1.getOperationLayer()).isEqualTo(1L);
         assertThat(tapeLayingAtLayer2ThenShouldBeAtLayer3.getOperationLayer()).isEqualTo(2L);
@@ -39,7 +39,7 @@ class StrandSupplyTest {
 
         TapeLaying tapeLayingWhichTakesOperationLayer2 = new TapeLaying().operationLayer(2L);
 
-        strandSupply.insertNonCentralOperation(tapeLayingWhichTakesOperationLayer2);
+        strandSupply.addTapeLayings(tapeLayingWhichTakesOperationLayer2);
 
         assertThat(tapeLayingWhichMustRemainAtLayer1.getOperationLayer()).isEqualTo(1L);
         assertThat(tapeLayingWhichTakesOperationLayer2.getOperationLayer()).isEqualTo(2L);

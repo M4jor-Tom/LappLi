@@ -443,33 +443,6 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         return this;
     }
 
-    public StrandSupply insertNonCentralOperation(INonCentralOperation<?> nonCentralOperation) {
-        prepareInsertNonCentralOperation(nonCentralOperation);
-
-        try {
-            layerUncheckedInsertNonCentralOperation(nonCentralOperation);
-        } catch (UnknownOperationException e) {
-            DomainManager.noticeInPrompt(e.getMessage());
-            e.printStackTrace();
-        }
-
-        return this;
-    }
-
-    public void layerUncheckedInsertNonCentralOperation(INonCentralOperation<?> nonCentralOperation) throws UnknownOperationException {
-        if (nonCentralOperation instanceof CoreAssembly) {
-            addCoreAssemblies((CoreAssembly) nonCentralOperation);
-        } else if (nonCentralOperation instanceof IntersticeAssembly) {
-            addIntersticeAssemblies((IntersticeAssembly) nonCentralOperation);
-        } else if (nonCentralOperation instanceof TapeLaying) {
-            addTapeLayings((TapeLaying) nonCentralOperation);
-        } else if (nonCentralOperation instanceof Sheathing) {
-            addSheathings((Sheathing) nonCentralOperation);
-        } else {
-            throw new UnknownOperationException(nonCentralOperation);
-        }
-    }
-
     public void provideOperationLayerIfNeededTo(INonCentralOperation<?> nonCentralOperation) {
         if (nonCentralOperation == null) {
             throw new NullPointerException("nonCentralOperation is null");
@@ -647,6 +620,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     }
 
     public StrandSupply addCoreAssemblies(CoreAssembly coreAssembly) {
+        prepareInsertNonCentralOperation(coreAssembly);
         this.coreAssemblies.add(coreAssembly);
         coreAssembly.setOwnerStrandSupply(this);
         return this;
@@ -678,6 +652,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     }
 
     public StrandSupply addIntersticeAssemblies(IntersticeAssembly intersticeAssembly) {
+        prepareInsertNonCentralOperation(intersticeAssembly);
         this.intersticeAssemblies.add(intersticeAssembly);
         intersticeAssembly.setOwnerStrandSupply(this);
         return this;
@@ -709,6 +684,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     }
 
     public StrandSupply addTapeLayings(TapeLaying tapeLaying) {
+        prepareInsertNonCentralOperation(tapeLaying);
         this.tapeLayings.add(tapeLaying);
         tapeLaying.setOwnerStrandSupply(this);
         return this;
@@ -740,6 +716,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     }
 
     public StrandSupply addSheathings(Sheathing sheathing) {
+        prepareInsertNonCentralOperation(sheathing);
         this.sheathings.add(sheathing);
         sheathing.setOwnerStrandSupply(this);
         return this;
