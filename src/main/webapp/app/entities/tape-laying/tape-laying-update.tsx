@@ -118,10 +118,6 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ strand_supply_id: 
                 name="operationLayer"
                 data-cy="operationLayer"
                 type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
               />
               <ValidatedField
                 label={translate('lappLiApp.tapeLaying.assemblyMean')}
