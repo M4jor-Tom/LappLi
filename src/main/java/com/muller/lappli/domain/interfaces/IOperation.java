@@ -1,9 +1,27 @@
 package com.muller.lappli.domain.interfaces;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.muller.lappli.domain.CentralAssembly;
+import com.muller.lappli.domain.CoreAssembly;
+import com.muller.lappli.domain.IntersticeAssembly;
+import com.muller.lappli.domain.Sheathing;
 import com.muller.lappli.domain.StrandSupply;
+import com.muller.lappli.domain.TapeLaying;
 import com.muller.lappli.domain.enumeration.OperationKind;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "__typeName")
+@JsonSubTypes(
+    {
+        @JsonSubTypes.Type(value = CentralAssembly.class, name = "CentralAssembly"),
+        @JsonSubTypes.Type(value = CoreAssembly.class, name = "CoreAssembly"),
+        @JsonSubTypes.Type(value = IntersticeAssembly.class, name = "IntersticeAssembly"),
+        @JsonSubTypes.Type(value = TapeLaying.class, name = "TapeLaying"),
+        @JsonSubTypes.Type(value = Sheathing.class, name = "Sheathing"),
+    }
+)
 public interface IOperation<T extends IOperation<T>> {
     /**
      * @return the layer at which the operation is
