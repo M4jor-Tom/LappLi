@@ -431,7 +431,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         return maxOperationLayer;
     }
 
-    public StrandSupply insertNonCentralOperation(INonCentralOperation<?> nonCentralOperation) {
+    public StrandSupply prepareInsertNonCentralOperation(INonCentralOperation<?> nonCentralOperation) {
         if (nonCentralOperation == null) {
             return this;
         } else if (nonCentralOperation.getOperationLayer() == null) {
@@ -439,6 +439,12 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         } else if (isUsedOperationLayer(nonCentralOperation.getOperationLayer())) {
             moveOthersOperationLayersForThisOne(nonCentralOperation);
         }
+
+        return this;
+    }
+
+    public StrandSupply insertNonCentralOperation(INonCentralOperation<?> nonCentralOperation) {
+        prepareInsertNonCentralOperation(nonCentralOperation);
 
         try {
             layerUncheckedInsertNonCentralOperation(nonCentralOperation);
