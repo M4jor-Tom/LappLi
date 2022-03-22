@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.muller.lappli.domain.interfaces.IOperation;
 import com.muller.lappli.web.rest.TestUtil;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +28,7 @@ class StrandSupplyTest {
 
         TapeLaying tapeLayingWhichMustRemainAtLayer1 = new TapeLaying().operationLayer(1L);
         TapeLaying tapeLayingAtLayer2ThenShouldBeAtLayer3 = new TapeLaying().operationLayer(2L);
-        TapeLaying tapeLayingWhichShouldBeAtLayer3ThenAt4 = new TapeLaying().operationLayer(null);
+        TapeLaying tapeLayingWhichShouldBeAtLayer3ThenAt4 = new TapeLaying().operationLayer(IOperation.UNDEFINED_OPERATION_LAYER);
 
         strandSupply.addTapeLayings(tapeLayingWhichMustRemainAtLayer1);
         strandSupply.addTapeLayings(tapeLayingAtLayer2ThenShouldBeAtLayer3);

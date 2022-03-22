@@ -82,6 +82,7 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ strand_supply_id: 
       ? {}
       : {
           assemblyMean: 'RIGHT',
+          operationLayer: -2,
           ...tapeLayingEntity,
           tape: tapeLayingEntity?.tape?.id,
           ownerStrandSupply: tapeLayingEntity?.ownerStrandSupply?.id,
@@ -118,6 +119,10 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ strand_supply_id: 
                 name="operationLayer"
                 data-cy="operationLayer"
                 type="text"
+                defaultValue={-2}
+                validate={{
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
               />
               <ValidatedField
                 label={translate('lappLiApp.tapeLaying.assemblyMean')}

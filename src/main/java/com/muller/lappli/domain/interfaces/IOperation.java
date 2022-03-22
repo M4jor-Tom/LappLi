@@ -23,6 +23,10 @@ import com.muller.lappli.domain.enumeration.OperationKind;
     }
 )
 public interface IOperation<T extends IOperation<T>> {
+    public static final Long UNDEFINED_OPERATION_LAYER = -2L;
+
+    public T getThis();
+
     /**
      * @return the layer at which the operation is
      */

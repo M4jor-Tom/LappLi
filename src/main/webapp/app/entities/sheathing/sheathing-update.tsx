@@ -82,6 +82,7 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
       ? {}
       : {
           sheathingKind: 'TUBE',
+          operationLayer: -2,
           ...sheathingEntity,
           material: sheathingEntity?.material?.id,
           ownerStrandSupply: sheathingEntity?.ownerStrandSupply?.id,
@@ -120,6 +121,10 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
                 name="operationLayer"
                 data-cy="operationLayer"
                 type="text"
+                defaultValue={-2}
+                validate={{
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
               />
               <ValidatedField
                 label={translate('lappLiApp.sheathing.milimeterThickness')}

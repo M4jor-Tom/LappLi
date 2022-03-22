@@ -434,7 +434,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     public StrandSupply prepareInsertNonCentralOperation(INonCentralOperation<?> nonCentralOperation) {
         if (nonCentralOperation == null) {
             return this;
-        } else if (nonCentralOperation.getOperationLayer() == null) {
+        } else if (!nonCentralOperation.isOperationLayerDefined()) {
             provideOperationLayerIfNeededTo(nonCentralOperation);
         } else if (isUsedOperationLayer(nonCentralOperation.getOperationLayer())) {
             moveOthersOperationLayersForThisOne(nonCentralOperation);
@@ -448,7 +448,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
             throw new NullPointerException("nonCentralOperation is null");
         }
 
-        if (nonCentralOperation.getOperationLayer() != null) {
+        if (nonCentralOperation.isOperationLayerDefined()) {
             return;
         }
 
