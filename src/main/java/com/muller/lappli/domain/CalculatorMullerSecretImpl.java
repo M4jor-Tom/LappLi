@@ -109,15 +109,17 @@ public class CalculatorMullerSecretImpl implements ICalculator {
                 try {
                     AbstractSupply<?> centralAssemblySupply = strandSupply.getCentralAssembly().getSupplyPosition().getSupply();
 
-                    newAssemblyPresetTotalComponentsCount =
-                        centralAssemblySupply == null
-                            ? AssemblyPresetDistribution
+                    if (centralAssemblySupply == null) {
+                        newAssemblyPresetTotalComponentsCount =
+                            AssemblyPresetDistribution
                                 .forSuppliedComponentsCount(strandSupply.getSuppliedComponentsDividedCount())
                                 .getAssemblyPresetDistributionPossibility(strandSupply.getForceCentralUtilityComponent())
                                 .getAssemblyPresetsAfterCentral()
                                 .get(0)
-                                .getTotalComponentsCount()
-                            : Double
+                                .getTotalComponentsCount();
+                    } else {
+                        newAssemblyPresetTotalComponentsCount =
+                            Double
                                 .valueOf(
                                     Math.floor(
                                         suggestSuppliedComponentsCountWithMilimeterDiameters(
@@ -128,6 +130,7 @@ public class CalculatorMullerSecretImpl implements ICalculator {
                                     )
                                 )
                                 .longValue();
+                    }
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
