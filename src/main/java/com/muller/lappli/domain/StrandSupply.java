@@ -623,7 +623,6 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     }
 
     public StrandSupply addCoreAssemblies(CoreAssembly coreAssembly) {
-        prepareInsertNonCentralOperation(coreAssembly);
         this.coreAssemblies.add(coreAssembly);
         coreAssembly.setOwnerStrandSupply(this);
         return this;
@@ -655,7 +654,6 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     }
 
     public StrandSupply addIntersticeAssemblies(IntersticeAssembly intersticeAssembly) {
-        prepareInsertNonCentralOperation(intersticeAssembly);
         this.intersticeAssemblies.add(intersticeAssembly);
         intersticeAssembly.setOwnerStrandSupply(this);
         return this;
@@ -687,7 +685,6 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     }
 
     public StrandSupply addTapeLayings(TapeLaying tapeLaying) {
-        prepareInsertNonCentralOperation(tapeLaying);
         this.tapeLayings.add(tapeLaying);
         tapeLaying.setOwnerStrandSupply(this);
         return this;
@@ -719,7 +716,6 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     }
 
     public StrandSupply addSheathings(Sheathing sheathing) {
-        prepareInsertNonCentralOperation(sheathing);
         this.sheathings.add(sheathing);
         sheathing.setOwnerStrandSupply(this);
         return this;
