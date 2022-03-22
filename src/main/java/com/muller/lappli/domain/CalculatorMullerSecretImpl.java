@@ -99,7 +99,7 @@ public class CalculatorMullerSecretImpl implements ICalculator {
 
             //Here, we find out the new AssemblyPreset's total Components count
             if (generatingFirstCoreAssemblyPreset) {
-                //TODO: Check first CoreAssembly's has positive assemblyVoid,
+                //TODO: Check first CoreAssembly has positive assemblyVoid,
                 //to suggest a components count
                 //Normally it's okay, check this
 
