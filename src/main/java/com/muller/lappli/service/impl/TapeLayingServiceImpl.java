@@ -2,7 +2,9 @@ package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.TapeLaying;
 import com.muller.lappli.repository.TapeLayingRepository;
+import com.muller.lappli.service.StrandSupplyService;
 import com.muller.lappli.service.TapeLayingService;
+import com.muller.lappli.service.abstracts.AbstractNonCentralOperationServiceImpl;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -15,24 +17,26 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class TapeLayingServiceImpl implements TapeLayingService {
+public class TapeLayingServiceImpl extends AbstractNonCentralOperationServiceImpl<TapeLaying> implements TapeLayingService {
 
     private final Logger log = LoggerFactory.getLogger(TapeLayingServiceImpl.class);
 
     private final TapeLayingRepository tapeLayingRepository;
 
-    public TapeLayingServiceImpl(TapeLayingRepository tapeLayingRepository) {
+    public TapeLayingServiceImpl(TapeLayingRepository tapeLayingRepository, StrandSupplyService strandSupplyService) {
+        super(strandSupplyService);
         this.tapeLayingRepository = tapeLayingRepository;
     }
 
     @Override
     public TapeLaying save(TapeLaying tapeLaying) {
         log.debug("Request to save TapeLaying : {}", tapeLaying);
+        actualizeOwnerStrandSupply(tapeLaying);
         return tapeLayingRepository.save(tapeLaying);
     }
 
     @Override
-    public Optional<TapeLaying> partialUpdate(TapeLaying tapeLaying) {
+    public Optional<TapeLaying> partialUpdate(TapeLaying tapeLaying, Boolean actualizeOwnerStrandSupply) {
         log.debug("Request to partially update TapeLaying : {}", tapeLaying);
 
         return tapeLayingRepository
@@ -45,6 +49,9 @@ public class TapeLayingServiceImpl implements TapeLayingService {
                     existingTapeLaying.setAssemblyMean(tapeLaying.getAssemblyMean());
                 }
 
+                if (actualizeOwnerStrandSupply) {
+                    actualizeOwnerStrandSupply(existingTapeLaying);
+                }
                 return existingTapeLaying;
             })
             .map(tapeLayingRepository::save);

@@ -22,7 +22,7 @@ public interface TapeLayingService {
      * @param tapeLaying the entity to update partially.
      * @return the persisted entity.
      */
-    Optional<TapeLaying> partialUpdate(TapeLaying tapeLaying);
+    Optional<TapeLaying> partialUpdate(TapeLaying tapeLaying, Boolean actualizeOwnerStrandSupply);
 
     /**
      * Get all the tapeLayings.

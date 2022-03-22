@@ -124,7 +124,7 @@ public class SheathingResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Sheathing> result = sheathingService.partialUpdate(sheathing);
+        Optional<Sheathing> result = sheathingService.partialUpdate(sheathing, true);
 
         return ResponseUtil.wrapOrNotFound(
             result,
