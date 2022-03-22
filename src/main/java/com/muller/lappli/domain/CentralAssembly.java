@@ -172,9 +172,14 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     // prettier-ignore
     @Override
     public String toString() {
+        String supplyPositionToString = getSupplyPosition() == null
+            ? "null"
+            : getSupplyPosition().toString();
+        
         return "CentralAssembly{" +
             "id=" + getId() +
             ", productionStep=" + getProductionStep() +
+            ", supplyPosition=" + supplyPositionToString +
             "}";
     }
 }
