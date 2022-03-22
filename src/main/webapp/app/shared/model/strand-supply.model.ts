@@ -8,6 +8,7 @@ import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
 import { AssemblyMean } from 'app/shared/model/enumerations/assembly-mean.model';
 import { IAbstractNonCentralAssembly } from './abstract-non-central-assembly.model';
 import { ITapeLaying } from './tape-laying.model';
+import { IAbstractOperation } from './abstract-operation.model';
 
 export interface IStrandSupply {
   id?: number;
@@ -19,13 +20,9 @@ export interface IStrandSupply {
   assemblyMean?: AssemblyMean;
   hasAssemblies?: boolean;
   forceCentralUtilityComponent?: boolean;
-  coreAssemblies?: ICoreAssembly[] | null;
-  intersticeAssemblies?: IIntersticeAssembly[] | null;
-  tapeLayings?: ITapeLaying[] | null;
-  sheathings?: ISheathing[] | null;
   strand?: IStrand;
   centralAssembly?: ICentralAssembly | null;
-  nonAssemblyOperations?: IAbstractNonCentralAssembly[] | null;
+  nonCentralOperations?: IAbstractOperation[];
   study?: IStudy;
 }
 
