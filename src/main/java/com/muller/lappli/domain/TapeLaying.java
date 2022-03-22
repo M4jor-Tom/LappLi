@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.OperationKind;
+import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -16,7 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "tape_laying")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class TapeLaying extends AbstractOperation<TapeLaying> implements Serializable {
+public class TapeLaying extends AbstractOperation<TapeLaying> implements Serializable, INonAssemblyOperation<TapeLaying> {
 
     private static final long serialVersionUID = 1L;
 
@@ -52,6 +53,11 @@ public class TapeLaying extends AbstractOperation<TapeLaying> implements Seriali
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    @Override
+    public AbstractOperation<TapeLaying> toOperation() {
+        return this;
+    }
 
     @Override
     public TapeLaying getThis() {
@@ -100,15 +106,18 @@ public class TapeLaying extends AbstractOperation<TapeLaying> implements Seriali
         this.id = id;
     }
 
+    @Override
     public Long getOperationLayer() {
         return this.operationLayer;
     }
 
+    @Override
     public TapeLaying operationLayer(Long operationLayer) {
         this.setOperationLayer(operationLayer);
         return this;
     }
 
+    @Override
     public void setOperationLayer(Long operationLayer) {
         this.operationLayer = operationLayer;
     }

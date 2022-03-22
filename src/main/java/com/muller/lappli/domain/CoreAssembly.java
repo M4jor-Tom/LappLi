@@ -5,6 +5,7 @@ import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.OperationKind;
+import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -64,7 +65,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     @Override
     public Double getBeforeThisMilimeterDiameter() {
         try {
-            AbstractOperation<?> lastOperationBeforeThis = getOwnerStrandSupply().getLastOperationBefore(this);
+            IOperation<?> lastOperationBeforeThis = getOwnerStrandSupply().getLastOperationBefore(this);
 
             if (lastOperationBeforeThis == null) {
                 //If the CoreAssembly is the one at the center,

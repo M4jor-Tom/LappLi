@@ -124,7 +124,7 @@ public class TapeLayingResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<TapeLaying> result = tapeLayingService.partialUpdate(tapeLaying);
+        Optional<TapeLaying> result = tapeLayingService.partialUpdate(tapeLaying, true);
 
         return ResponseUtil.wrapOrNotFound(
             result,

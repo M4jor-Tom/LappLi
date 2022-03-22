@@ -6,13 +6,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
 import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
-import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.AssemblyPresetDistribution;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.domain.exception.ImpossibleAssemblyPresetDistributionException;
+import com.muller.lappli.domain.exception.UnknownOperationException;
 import com.muller.lappli.domain.interfaces.Designable;
+import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
+import com.muller.lappli.domain.interfaces.INonCentralOperation;
+import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -35,8 +38,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     private static final long serialVersionUID = 1L;
 
-    @Transient
-    private Comparator<AbstractOperation<?>> operationComparator;
+    private static Comparator<IOperation<?>> operationComparator = null;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -134,12 +136,12 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
      *
      * @return a Comparator for the class AbstractOperation
      */
-    private Comparator<AbstractOperation<?>> getOperationComparator() {
+    private static Comparator<IOperation<?>> getOperationComparator() {
         if (operationComparator == null) {
             operationComparator =
-                new Comparator<AbstractOperation<?>>() {
+                new Comparator<IOperation<?>>() {
                     @Override
-                    public int compare(AbstractOperation<?> o1, AbstractOperation<?> o2) {
+                    public int compare(IOperation<?> o1, IOperation<?> o2) {
                         //One is instanceof CentralAssembly, stop thinking. It's it.
                         if (o1 instanceof CentralAssembly) {
                             return -1;
@@ -231,10 +233,10 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
      */
     @JsonIgnore
     @JsonIgnoreProperties("ownerStrandSupply")
-    public AbstractOperation<?> getLastOperationBefore(AbstractOperation<?> operation) {
-        AbstractOperation<?> beforeOperation = null;
+    public IOperation<?> getLastOperationBefore(IOperation<?> operation) {
+        IOperation<?> beforeOperation = null;
 
-        for (AbstractOperation<?> operationChecked : getOperations()) {
+        for (IOperation<?> operationChecked : getOperations()) {
             if (operationChecked.equals(operation)) {
                 //Current operation is the searched one, we seek the prefious one
                 return beforeOperation;
@@ -254,7 +256,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
      * @return the diameter in milimeter
      * @throws ImpossibleAssemblyPresetDistributionException
      */
-    public Double getMilimeterDiameterBefore(AbstractOperation<?> operation) {
+    public Double getMilimeterDiameterBefore(IOperation<?> operation) {
         try {
             return getLastOperationBefore(operation).getAfterThisMilimeterDiameter();
         } catch (NullPointerException e) {
@@ -310,12 +312,13 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
         Long coreAssemblyOperationLayer = Long.valueOf(1);
         for (AssemblyPreset assemblyPreset : assemblyPresetDistributionPossibility.getAssemblyPresetsAfterCentral()) {
-            addCoreAssemblies(
-                new CoreAssembly()
-                    .ownerStrandSupply(this)
-                    .operationLayer(coreAssemblyOperationLayer++)
-                    .forcedMeanMilimeterComponentDiameter(Double.NaN)
-            );
+            CoreAssembly coreAssembly = new CoreAssembly()
+                .ownerStrandSupply(this)
+                .operationLayer(coreAssemblyOperationLayer++)
+                .forcedMeanMilimeterComponentDiameter(Double.NaN);
+
+            moveOthersOperationLayersForThisOne(coreAssembly);
+            addCoreAssemblies(coreAssembly);
         }
 
         return this;
@@ -324,6 +327,29 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     @JsonIgnore
     public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility() {
         return CalculatorManager.getCalculatorInstance().getAssemblyPresetDistributionPossibility(this);
+    }
+
+    @JsonIgnore
+    public Set<INonCentralOperation<?>> getNonCentralOperations() {
+        Set<INonCentralOperation<?>> nonCentralOperations = new HashSet<INonCentralOperation<?>>();
+
+        nonCentralOperations.addAll(getNonCentralAssemblies());
+        nonCentralOperations.addAll(getNonAssemblyOperations());
+
+        return nonCentralOperations;
+    }
+
+    /**
+     * @return all the assemblies
+     */
+    @JsonIgnoreProperties("ownerStrandSupply")
+    public Set<AbstractNonCentralAssembly<?>> getNonCentralAssemblies() {
+        Set<AbstractNonCentralAssembly<?>> assemblies = new HashSet<>();
+
+        assemblies.addAll(getCoreAssemblies());
+        assemblies.addAll(getIntersticeAssemblies());
+
+        return assemblies;
     }
 
     /**
@@ -337,8 +363,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
             assemblies.add(getCentralAssembly());
         }
 
-        assemblies.addAll(getCoreAssemblies());
-        assemblies.addAll(getIntersticeAssemblies());
+        assemblies.addAll(getNonCentralAssemblies());
 
         List<AbstractAssembly<?>> sortedAssembliesList = new ArrayList<AbstractAssembly<?>>(assemblies);
         sortedAssembliesList.sort(getOperationComparator());
@@ -349,9 +374,9 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     /**
      * @return all operations which are not assemblies
      */
-    @JsonIgnoreProperties("ownerStrandSupply")
-    public Set<AbstractOperation<?>> getNonAssemblyOperations() {
-        HashSet<AbstractOperation<?>> operations = new HashSet<>();
+    @JsonIgnore
+    public Set<INonAssemblyOperation<?>> getNonAssemblyOperations() {
+        HashSet<INonAssemblyOperation<?>> operations = new HashSet<>();
 
         operations.addAll(getTapeLayings());
         operations.addAll(getSheathings());
@@ -363,16 +388,91 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
      * @return all the operations
      */
     @JsonIgnoreProperties("ownerStrandSupply")
-    public Set<AbstractOperation<?>> getOperations() {
-        LinkedHashSet<AbstractOperation<?>> operations = new LinkedHashSet<>();
+    public Set<IOperation<?>> getOperations() {
+        LinkedHashSet<IOperation<?>> operations = new LinkedHashSet<>();
 
-        operations.addAll(getNonAssemblyOperations());
+        for (INonAssemblyOperation<?> nonAssemblyOperation : getNonAssemblyOperations()) {
+            operations.add(nonAssemblyOperation.toOperation());
+        }
         operations.addAll(getAssemblies());
 
-        List<AbstractOperation<?>> sortedOperationList = new ArrayList<AbstractOperation<?>>(operations);
+        List<IOperation<?>> sortedOperationList = new ArrayList<IOperation<?>>(operations);
         sortedOperationList.sort(getOperationComparator());
 
-        return new LinkedHashSet<AbstractOperation<?>>(sortedOperationList);
+        return new LinkedHashSet<IOperation<?>>(sortedOperationList);
+    }
+
+    public Boolean isUsedOperationLayer(Long operationLayer) {
+        if (operationLayer == null) {
+            return false;
+        }
+
+        for (IOperation<?> operation : getOperations()) {
+            if (operationLayer.equals(operation.getOperationLayer())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private List<Long> getOperationLayerList() {
+        List<Long> operationlayerList = new ArrayList<Long>();
+
+        for (IOperation<?> operationToGetLayer : getOperations()) {
+            operationlayerList.add(operationToGetLayer.getOperationLayer());
+        }
+
+        return operationlayerList;
+    }
+
+    private Long getMaxOperationLayer() {
+        Long maxOperationLayer = DomainManager.ERROR_LONG_POSITIVE_VALUE;
+
+        for (Long operationLayer : getOperationLayerList()) {
+            maxOperationLayer = Math.max(maxOperationLayer, operationLayer);
+        }
+
+        return maxOperationLayer;
+    }
+
+    public StrandSupply prepareInsertNonCentralOperation(INonCentralOperation<?> nonCentralOperation) {
+        if (nonCentralOperation == null) {
+            return this;
+        } else if (!nonCentralOperation.isOperationLayerDefined()) {
+            provideOperationLayerIfNeededTo(nonCentralOperation);
+        } else if (isUsedOperationLayer(nonCentralOperation.getOperationLayer())) {
+            moveOthersOperationLayersForThisOne(nonCentralOperation);
+        }
+
+        return this;
+    }
+
+    public void provideOperationLayerIfNeededTo(INonCentralOperation<?> nonCentralOperation) {
+        if (nonCentralOperation == null) {
+            throw new NullPointerException("nonCentralOperation is null");
+        }
+
+        if (nonCentralOperation.isOperationLayerDefined()) {
+            return;
+        }
+
+        nonCentralOperation.setOperationLayer(getMaxOperationLayer() + 1);
+    }
+
+    public void moveOthersOperationLayersForThisOne(INonCentralOperation<?> nonCentralOperation) {
+        if (nonCentralOperation == null) {
+            throw new NullPointerException("nonCentralOperation is null");
+        }
+
+        for (INonCentralOperation<?> nonCentralOperationToMoveLayer : getNonCentralOperations()) {
+            if (
+                nonCentralOperationToMoveLayer.getOperationLayer() >= nonCentralOperation.getOperationLayer() &&
+                !nonCentralOperationToMoveLayer.equals(nonCentralOperation)
+            ) {
+                nonCentralOperationToMoveLayer.setOperationLayer(nonCentralOperationToMoveLayer.getOperationLayer() + 1);
+            }
+        }
     }
 
     public Long getSuppliedComponentsDividedCount() {

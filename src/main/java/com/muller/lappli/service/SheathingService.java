@@ -22,7 +22,7 @@ public interface SheathingService {
      * @param sheathing the entity to update partially.
      * @return the persisted entity.
      */
-    Optional<Sheathing> partialUpdate(Sheathing sheathing);
+    Optional<Sheathing> partialUpdate(Sheathing sheathing, Boolean actualizeOwnerStrandSupply);
 
     /**
      * Get all the sheathings.
