@@ -1,0 +1,26 @@
+{
+  "lappLiApp": {
+    "tapeLaying": {
+      "home": {
+        "title": "Tape Layings",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Tape Laying erstellen",
+        "createOrEditLabel": "Tape Laying erstellen oder bearbeiten",
+        "notFound": "Keine Tape Layings gefunden"
+      },
+      "created": "Tape Laying erstellt mit ID {{ param }}",
+      "updated": "Tape Laying aktualisiert mit ID {{ param }}",
+      "deleted": "Tape Laying gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Tape Laying {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Tape Laying"
+      },
+      "id": "ID",
+      "operationLayer": "Operation Layer",
+      "assemblyMean": "Assembly Mean",
+      "tape": "Tape"
+    }
+  }
+}

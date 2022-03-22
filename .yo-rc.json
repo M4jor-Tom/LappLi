@@ -66,8 +66,11 @@
       "CoreAssembly",
       "IntersticeAssembly",
       "Sheathing",
-      "SupplyPosition"
+      "SupplyPosition",
+      "Tape",
+      "TapeKind",
+      "TapeLaying"
     ],
-    "lastLiquibaseTimestamp": 1643102431000
+    "lastLiquibaseTimestamp": 1646643667000
   }
 }

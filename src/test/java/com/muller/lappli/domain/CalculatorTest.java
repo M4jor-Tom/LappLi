@@ -14,6 +14,7 @@ public class CalculatorTest {
         TestUtil.equalsVerifier(CalculatorEmptyImpl.class);
 
         if (CalculatorManager.getCalculatorInstance().isTargetCalculatorInstance()) {
+            logger.info("Target class found, using it for tests");
             TestUtil.equalsVerifier(CalculatorManager.getCalculatorInstance().getClass());
         } else {
             logger.warn("Target class not found, using empty implementation for tests instead");

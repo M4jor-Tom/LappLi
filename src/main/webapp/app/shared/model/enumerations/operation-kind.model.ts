@@ -5,5 +5,7 @@ export enum OperationKind {
 
   INTERSTICE_ASSEMBLY = 'INTERSTICE_ASSEMBLY',
 
+  TAPE_LAYING = 'TAPE_LAYING',
+
   SHEATHING = 'SHEATHING',
 }

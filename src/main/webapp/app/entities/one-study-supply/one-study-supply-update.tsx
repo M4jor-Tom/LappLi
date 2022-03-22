@@ -82,7 +82,6 @@ export const OneStudySupplyUpdate = (props: RouteComponentProps<{ id: string; st
     isNew
       ? {}
       : {
-          __typeName: 'OneStudySupply',
           markingType: 'LIFTING',
           surfaceColor: 'NATURAL',
           ...oneStudySupplyEntity,

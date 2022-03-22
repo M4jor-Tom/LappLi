@@ -1,15 +1,25 @@
 package com.muller.lappli.service.impl;
 
+import com.muller.lappli.domain.CoreAssembly;
+import com.muller.lappli.domain.IntersticeAssembly;
+import com.muller.lappli.domain.Sheathing;
 import com.muller.lappli.domain.StrandSupply;
+import com.muller.lappli.domain.TapeLaying;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
+import com.muller.lappli.domain.interfaces.INonCentralOperation;
 import com.muller.lappli.repository.StrandSupplyRepository;
+import com.muller.lappli.service.CoreAssemblyService;
+import com.muller.lappli.service.IntersticeAssemblyService;
+import com.muller.lappli.service.SheathingService;
 import com.muller.lappli.service.StrandSupplyService;
+import com.muller.lappli.service.TapeLayingService;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +34,26 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
 
     private final StrandSupplyRepository strandSupplyRepository;
 
-    public StrandSupplyServiceImpl(StrandSupplyRepository strandSupplyRepository) {
+    private final CoreAssemblyService coreAssemblyService;
+
+    private final IntersticeAssemblyService intersticeAssemblyService;
+
+    private final TapeLayingService tapeLayingService;
+
+    private final SheathingService sheathingService;
+
+    public StrandSupplyServiceImpl(
+        StrandSupplyRepository strandSupplyRepository,
+        @Lazy CoreAssemblyService coreAssemblyService,
+        @Lazy IntersticeAssemblyService intersticeAssemblyService,
+        @Lazy TapeLayingService tapeLayingService,
+        @Lazy SheathingService sheathingService
+    ) {
         this.strandSupplyRepository = strandSupplyRepository;
+        this.coreAssemblyService = coreAssemblyService;
+        this.intersticeAssemblyService = intersticeAssemblyService;
+        this.tapeLayingService = tapeLayingService;
+        this.sheathingService = sheathingService;
     }
 
     public StrandSupply onRead(StrandSupply domainObject) {
@@ -36,6 +64,37 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         }
 
         return domainObject;
+    }
+
+    @Override
+    public void actualizeNonCentralOperationsFor(StrandSupply toActualize, INonCentralOperation<?> toInsert) {
+        partialUpdate(toActualize.prepareInsertNonCentralOperation(toInsert));
+
+        //Update non central operations
+        //[NON_CENTRAL_OPERATION]
+        for (CoreAssembly coreAssembly : toActualize.getCoreAssemblies()) {
+            coreAssemblyService.partialUpdate(coreAssembly);
+        }
+
+        for (IntersticeAssembly intersticeAssembly : toActualize.getIntersticeAssemblies()) {
+            intersticeAssemblyService.partialUpdate(intersticeAssembly);
+        }
+
+        for (TapeLaying tapeLaying : toActualize.getTapeLayings()) {
+            Boolean actualizeOwnerStrandSupply = false;
+            if (toInsert instanceof TapeLaying) {
+                actualizeOwnerStrandSupply = !tapeLaying.equals((TapeLaying) toInsert);
+            }
+            tapeLayingService.partialUpdate(tapeLaying, actualizeOwnerStrandSupply);
+        }
+
+        for (Sheathing sheathing : toActualize.getSheathings()) {
+            Boolean actualizeOwnerStrandSupply = false;
+            if (toInsert instanceof Sheathing) {
+                actualizeOwnerStrandSupply = !sheathing.equals((Sheathing) toInsert);
+            }
+            sheathingService.partialUpdate(sheathing, actualizeOwnerStrandSupply);
+        }
     }
 
     @Override

@@ -50,6 +50,13 @@
     },
     {
       "relationshipType": "one-to-many",
+      "otherEntityName": "tapeLaying",
+      "otherEntityRelationshipName": "ownerStrandSupply",
+      "relationshipName": "tapeLayings",
+      "otherEntityField": "productionStep"
+    },
+    {
+      "relationshipType": "one-to-many",
       "otherEntityName": "sheathing",
       "otherEntityRelationshipName": "ownerStrandSupply",
       "relationshipName": "sheathings",

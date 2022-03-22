@@ -18,6 +18,7 @@ public abstract class AbstractEdition<C extends Commitable<C>> extends AbstractD
      * Sets AbstractEdition.editionInstant to now
      */
     public AbstractEdition() {
+        super();
         setEditionInstant(Instant.now());
     }
 

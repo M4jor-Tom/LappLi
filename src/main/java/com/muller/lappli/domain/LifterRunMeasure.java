@@ -47,6 +47,10 @@ public class LifterRunMeasure extends AbstractDomainObject<LifterRunMeasure> imp
     @NotNull
     private Lifter lifter;
 
+    public LifterRunMeasure() {
+        super();
+    }
+
     @Override
     public LifterRunMeasure getThis() {
         return this;

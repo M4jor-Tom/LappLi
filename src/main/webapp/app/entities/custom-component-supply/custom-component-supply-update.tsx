@@ -84,7 +84,6 @@ export const CustomComponentSupplyUpdate = (props: RouteComponentProps<{ id: str
     isNew
       ? {}
       : {
-          __typeName: 'CustomComponentSupply',
           markingType: 'LIFTING',
           ...customComponentSupplyEntity,
           customComponent: customComponentSupplyEntity?.customComponent?.id,

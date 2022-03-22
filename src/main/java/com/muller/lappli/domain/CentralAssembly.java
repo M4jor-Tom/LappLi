@@ -26,7 +26,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     private Long id;
 
     @JsonIgnoreProperties(
-        value = { "coreAssemblies", "intersticeAssemblies", "sheathings", "strand", "centralAssembly", "study" },
+        value = { "coreAssemblies", "intersticeAssemblies", "tapeLayings", "sheathings", "strand", "centralAssembly", "study" },
         allowSetters = true
     )
     @OneToOne(optional = false)
@@ -39,6 +39,10 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
     private SupplyPosition supplyPosition;
+
+    public CentralAssembly() {
+        super();
+    }
 
     @Override
     public CentralAssembly getThis() {

@@ -62,6 +62,11 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
     @NotNull
     private Element element;
 
+    public ElementSupply() {
+        super();
+        setOwnerSupplyPositions(new HashSet<>());
+    }
+
     @Override
     public ElementSupply getThis() {
         return this;
@@ -121,11 +126,7 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
         return this.apparitions;
     }
 
-    public ElementSupply apparitions(Long apparitions) {
-        this.setApparitions(apparitions);
-        return this;
-    }
-
+    @Override
     public void setApparitions(Long apparitions) {
         this.apparitions = apparitions;
     }

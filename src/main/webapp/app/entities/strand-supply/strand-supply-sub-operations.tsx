@@ -14,6 +14,11 @@ import { OperationKind } from 'app/shared/model/enumerations/operation-kind.mode
 import { IStrandSupply } from 'app/shared/model/strand-supply.model';
 import CentralAssembly from '../central-assembly/central-assembly';
 
+import { IAbstractNonCentralAssembly, isNonCentralAssembly } from 'app/shared/model/abstract-non-central-assembly.model';
+import { isCoreAssembly } from 'app/shared/model/core-assembly.model';
+import { IAbstractOperation } from 'app/shared/model/abstract-operation.model';
+import { isAssembly } from 'app/shared/model/abstract-assembly.model';
+
 export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_supply_id: string; study_id: string }>) => {
   const dispatch = useAppDispatch();
 
@@ -26,6 +31,20 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
   const { match } = props;
 
   const getOutCount: number = props.match.params.study_id ? 2 : 0;
+
+  const componentsCountRender = (operation: IAbstractOperation) => {
+    return isAssembly(operation)
+      ? translate('lappLiApp.assembly.utilitySuppliedComponentsCount') +
+          ':' +
+          String.fromCharCode(160) +
+          operation.utilityComponentsCount +
+          '\n' +
+          translate('lappLiApp.assembly.completionSuppliedComponentsCount') +
+          ':' +
+          String.fromCharCode(160) +
+          operation.completionComponentsCount
+      : '';
+  };
 
   return (
     <div>
@@ -68,6 +87,17 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
       )}
       &nbsp;
       <Link
+        to={`${props.match.url}/tape-laying/new`}
+        className="btn btn-primary jh-create-entity"
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+      >
+        <FontAwesomeIcon icon="plus" />
+        &nbsp;
+        <Translate contentKey="lappLiApp.tapeLaying.detail.title">Tape Laying</Translate>
+      </Link>
+      &nbsp;
+      <Link
         to={`${props.match.url}/sheathing/new`}
         className="btn btn-primary jh-create-entity"
         id="jh-create-entity"
@@ -79,9 +109,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
       </Link>
       <div className="table-responsive">
         {strandSupplyEntity.centralAssembly ||
-        (strandSupplyEntity.coreAssemblies && strandSupplyEntity.coreAssemblies.length > 0) ||
-        (strandSupplyEntity.intersticeAssemblies && strandSupplyEntity.intersticeAssemblies.length > 0) ||
-        (strandSupplyEntity.nonAssemblyOperations && strandSupplyEntity.nonAssemblyOperations.length > 0) ? (
+        (strandSupplyEntity.nonCentralOperations && strandSupplyEntity.nonCentralOperations.length > 0) ? (
           <Table responsive>
             <thead>
               <tr>
@@ -112,6 +140,9 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                 <th>
                   <Translate contentKey="lappLiApp.assembly.assemblyMean">Assembly Mean</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="lappLiApp.assembly.milimeterAssemblyVoid">Assembly Void</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -137,6 +168,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   <td>{strandSupplyEntity.centralAssembly.mullerStandardizedFormatAfterThisMilimeterDiameter}</td>
                   <td>{/* NO ASSEMBLY STEP (CENTRAL ASSEMBLY) */}</td>
                   <td>{/* NO ASSEMBLY MEAN (CENTRAL ASSEMBLY) */}</td>
+                  <td>{/* NO ASSEMBLY VOID (CENTRAL ASSEMBLY) */}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button
@@ -183,144 +215,10 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
               ) : (
                 ''
               )}
-              {strandSupplyEntity.coreAssemblies
-                ? strandSupplyEntity.coreAssemblies.map((coreAssembly, i) => (
-                    <tr key={`entity-core-assembly-${i}`} data-cy="entityTable">
-                      <td>
-                        <Translate contentKey="lappLiApp.coreAssembly.home.title" />
-                      </td>
-                      <td>{coreAssembly.operationLayer}</td>
-                      <td>
-                        {translate('lappLiApp.assembly.utilitySuppliedComponentsCount') + ':'}&nbsp;
-                        {coreAssembly.utilityComponentsCount}
-                        <br />
-                        {translate('lappLiApp.assembly.completionSuppliedComponentsCount') + ':'}&nbsp;
-                        {coreAssembly.completionComponentsCount}
-                      </td>
-                      <td>{coreAssembly.productionStep}</td>
-                      <td>{/* NO PRODUCT DESIGNATION (ASSEMBLY) */}</td>
-                      <td>{coreAssembly.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
-                      <td>
-                        {coreAssembly.mullerStandardizedFormatBeforeThisMilimeterDiameter +
-                          ' -> ' +
-                          coreAssembly.mullerStandardizedFormatAfterThisMilimeterDiameter}
-                      </td>
-                      <td>{coreAssembly.diameterAssemblyStep}</td>
-                      <td>{coreAssembly.assemblyMean}</td>
-                      <td className="text-right">
-                        <div className="btn-group flex-btn-group-container">
-                          <Button
-                            tag={Link}
-                            to={`${props.match.url}/core-assembly/${coreAssembly.id}/supply`}
-                            color="primary"
-                            size="sm"
-                            data-cy="entityEditButton"
-                          >
-                            <FontAwesomeIcon icon="pencil-alt" />{' '}
-                            <span className="d-none d-md-inline">
-                              <Translate contentKey="lappLiApp.assembly.subSupply">Assembly Supply</Translate>
-                            </span>
-                          </Button>
-                          &nbsp;
-                          <Button
-                            tag={Link}
-                            to={`${props.match.url}/core-assembly/${coreAssembly.id}/edit`}
-                            color="primary"
-                            size="sm"
-                            data-cy="entityEditButton"
-                          >
-                            <FontAwesomeIcon icon="pencil-alt" />{' '}
-                            <span className="d-none d-md-inline">
-                              <Translate contentKey="entity.action.edit">Edit</Translate>
-                            </span>
-                          </Button>
-                          &nbsp;
-                          <Button
-                            tag={Link}
-                            to={`${props.match.url}/core-assembly/${coreAssembly.id}/delete`}
-                            color="danger"
-                            size="sm"
-                            data-cy="entityDeleteButton"
-                          >
-                            <FontAwesomeIcon icon="trash" />{' '}
-                            <span className="d-none d-md-inline">
-                              <Translate contentKey="entity.action.delete">Delete</Translate>
-                            </span>
-                          </Button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                : ''}
-              {strandSupplyEntity.intersticeAssemblies
-                ? strandSupplyEntity.intersticeAssemblies.map((intersticeAssembly, i) => (
-                    <tr key={`entity-interstice-assembly-${i}`} data-cy="entityTable">
-                      <td>
-                        <Translate contentKey="lappLiApp.intersticeAssembly.home.title" />
-                      </td>
-                      <td>{intersticeAssembly.operationLayer}</td>
-                      <td>
-                        {translate('lappLiApp.assembly.utilitySuppliedComponentsCount') + ':'}&nbsp;
-                        {intersticeAssembly.utilityComponentsCount}
-                        <br />
-                        {translate('lappLiApp.assembly.completionSuppliedComponentsCount') + ':'}&nbsp;
-                        {intersticeAssembly.completionComponentsCount}
-                      </td>
-                      <td>{intersticeAssembly.productionStep}</td>
-                      <td>{/* NO PRODUCT DESIGNATION (ASSEMBLY) */}</td>
-                      <td>{intersticeAssembly.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
-                      <td>{intersticeAssembly.mullerStandardizedFormatAfterThisMilimeterDiameter}</td>
-                      <td>{intersticeAssembly.diameterAssemblyStep}</td>
-                      <td>{intersticeAssembly.assemblyMean}</td>
-                      <td className="text-right">
-                        <div className="btn-group flex-btn-group-container">
-                          <Button
-                            tag={Link}
-                            to={`${props.match.url}/interstice-assembly/${intersticeAssembly.id}/supply`}
-                            color="primary"
-                            size="sm"
-                            data-cy="entityEditButton"
-                          >
-                            <FontAwesomeIcon icon="pencil-alt" />{' '}
-                            <span className="d-none d-md-inline">
-                              <Translate contentKey="lappLiApp.assembly.subSupply">Assembly Supply</Translate>
-                            </span>
-                          </Button>
-                          &nbsp;
-                          <Button
-                            tag={Link}
-                            to={`${props.match.url}/interstice-assembly/${intersticeAssembly.id}/edit`}
-                            color="primary"
-                            size="sm"
-                            data-cy="entityEditButton"
-                          >
-                            <FontAwesomeIcon icon="pencil-alt" />{' '}
-                            <span className="d-none d-md-inline">
-                              <Translate contentKey="entity.action.edit">Edit</Translate>
-                            </span>
-                          </Button>
-                          &nbsp;
-                          <Button
-                            tag={Link}
-                            to={`${props.match.url}/interstice-assembly/${intersticeAssembly.id}/delete`}
-                            color="danger"
-                            size="sm"
-                            data-cy="entityDeleteButton"
-                          >
-                            <FontAwesomeIcon icon="trash" />{' '}
-                            <span className="d-none d-md-inline">
-                              <Translate contentKey="entity.action.delete">Delete</Translate>
-                            </span>
-                          </Button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                : ''}
             </tbody>
-            {strandSupplyEntity.nonAssemblyOperations && strandSupplyEntity.nonAssemblyOperations.length > 0 ? (
+            {strandSupplyEntity.nonCentralOperations && strandSupplyEntity.nonCentralOperations.length > 0 ? (
               <tbody>
-                {strandSupplyEntity.nonAssemblyOperations.map((operation, i) => (
+                {strandSupplyEntity.nonCentralOperations.map((operation, i) => (
                   <tr key={`entity-operation-${i}`} data-cy="entityTable">
                     <td>
                       {translate('lappLiApp.OperationKind.' + operation.operationKind)}
@@ -330,18 +228,23 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                         : ''}
                     </td>
                     <td>{operation.operationLayer}</td>
+                    <td>{componentsCountRender(operation)}</td>
                     <td>{operation.productionStep}</td>
                     <td>{operation.productDesignation}</td>
                     <td>{operation.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
-                    <td>{operation.mullerStandardizedFormatAfterThisMilimeterDiameter}</td>
-                    <td>{/* NO ASSEMBLY STEP */}</td>
-                    <td>{/* NO ASSEMBLY MEAN */}</td>
-
+                    <td>
+                      {operation.mullerStandardizedFormatBeforeThisMilimeterDiameter}
+                      &nbsp;&#62;&nbsp;
+                      {operation.mullerStandardizedFormatAfterThisMilimeterDiameter}
+                    </td>
+                    <td>{isNonCentralAssembly(operation) ? operation.diameterAssemblyStep : ''}</td>
+                    <td>{isNonCentralAssembly(operation) ? operation.assemblyMean : ''}</td>
+                    <td>{isCoreAssembly(operation) ? operation.mullerStandardizedFormatMilimeterAssemblyVoid : ''}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button
                           tag={Link}
-                          to={`${props.match.url}/${operation.operationKind.toLowerCase()}/${operation.id}/edit`}
+                          to={`${props.match.url}/${operation.operationKind.toLowerCase().replace('_', '-')}/${operation.id}/edit`}
                           color="primary"
                           size="sm"
                           data-cy="entityEditButton"
@@ -354,7 +257,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                         &nbsp;
                         <Button
                           tag={Link}
-                          to={`${props.match.url}/${operation.operationKind.toLowerCase()}/${operation.id}/delete`}
+                          to={`${props.match.url}/${operation.operationKind.toLowerCase().replace('_', '-')}/${operation.id}/delete`}
                           color="danger"
                           size="sm"
                           data-cy="entityDeleteButton"

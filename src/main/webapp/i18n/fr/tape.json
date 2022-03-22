@@ -1,0 +1,28 @@
+{
+  "lappLiApp": {
+    "tape": {
+      "home": {
+        "title": "Tapes",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Tape",
+        "createOrEditLabel": "Créer ou éditer un Tape",
+        "notFound": "Aucun Tape trouvé"
+      },
+      "created": "Un nouveau Tape a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Tape avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Tape avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Tape {{ id }} ?"
+      },
+      "detail": {
+        "title": "Tape"
+      },
+      "id": "ID",
+      "number": "Number",
+      "designation": "Designation",
+      "milimeterWidth": "Milimeter Width",
+      "milimeterDiameterIncidency": "Milimeter Diameter Incidency",
+      "tapeKind": "Tape Kind"
+    }
+  }
+}

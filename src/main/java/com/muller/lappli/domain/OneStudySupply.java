@@ -84,7 +84,9 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     private Material surfaceMaterial;
 
     public OneStudySupply() {
+        super();
         this.oneStudyComponent = null;
+        setOwnerSupplyPositions(new HashSet<>());
     }
 
     @Override
@@ -130,11 +132,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         return this.apparitions;
     }
 
-    public OneStudySupply apparitions(Long apparitions) {
-        this.setApparitions(apparitions);
-        return this;
-    }
-
+    @Override
     public void setApparitions(Long apparitions) {
         this.apparitions = apparitions;
     }

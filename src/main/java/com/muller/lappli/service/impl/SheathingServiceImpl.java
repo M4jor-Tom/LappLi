@@ -3,6 +3,8 @@ package com.muller.lappli.service.impl;
 import com.muller.lappli.domain.Sheathing;
 import com.muller.lappli.repository.SheathingRepository;
 import com.muller.lappli.service.SheathingService;
+import com.muller.lappli.service.StrandSupplyService;
+import com.muller.lappli.service.abstracts.AbstractNonCentralOperationServiceImpl;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -15,24 +17,26 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class SheathingServiceImpl implements SheathingService {
+public class SheathingServiceImpl extends AbstractNonCentralOperationServiceImpl<Sheathing> implements SheathingService {
 
     private final Logger log = LoggerFactory.getLogger(SheathingServiceImpl.class);
 
     private final SheathingRepository sheathingRepository;
 
-    public SheathingServiceImpl(SheathingRepository sheathingRepository) {
+    public SheathingServiceImpl(SheathingRepository sheathingRepository, StrandSupplyService strandSupplyService) {
+        super(strandSupplyService);
         this.sheathingRepository = sheathingRepository;
     }
 
     @Override
     public Sheathing save(Sheathing sheathing) {
         log.debug("Request to save Sheathing : {}", sheathing);
+        actualizeOwnerStrandSupply(sheathing);
         return sheathingRepository.save(sheathing);
     }
 
     @Override
-    public Optional<Sheathing> partialUpdate(Sheathing sheathing) {
+    public Optional<Sheathing> partialUpdate(Sheathing sheathing, Boolean actualizeOwnerStrandSupply) {
         log.debug("Request to partially update Sheathing : {}", sheathing);
 
         return sheathingRepository
@@ -48,6 +52,9 @@ public class SheathingServiceImpl implements SheathingService {
                     existingSheathing.setSheathingKind(sheathing.getSheathingKind());
                 }
 
+                if (actualizeOwnerStrandSupply) {
+                    actualizeOwnerStrandSupply(existingSheathing);
+                }
                 return existingSheathing;
             })
             .map(sheathingRepository::save);

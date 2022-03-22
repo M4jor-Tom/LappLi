@@ -31,6 +31,7 @@ public abstract class AbstractLiftedSupply<T> extends AbstractSupply<T> {
      * @param bestLifterList the bestLifterList to set
      */
     public AbstractLiftedSupply(List<Lifter> bestLifterList) {
+        super();
         setBestLifterList(bestLifterList);
     }
 

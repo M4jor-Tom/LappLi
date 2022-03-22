@@ -88,6 +88,10 @@ public class CacheConfiguration {
             createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".coreAssemblies");
             createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".intersticeAssemblies");
             createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".sheathings");
+            createCache(cm, com.muller.lappli.domain.Tape.class.getName());
+            createCache(cm, com.muller.lappli.domain.TapeKind.class.getName());
+            createCache(cm, com.muller.lappli.domain.TapeLaying.class.getName());
+            createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".tapeLayings");
             // jhipster-needle-ehcache-add-entry
         };
     }

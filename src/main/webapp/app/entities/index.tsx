@@ -27,6 +27,9 @@ import CoreAssembly from './core-assembly';
 import IntersticeAssembly from './interstice-assembly';
 import Sheathing from './sheathing';
 import SupplyPosition from './supply-position';
+import Tape from './tape';
+import TapeKind from './tape-kind';
+import TapeLaying from './tape-laying';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -56,6 +59,9 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}interstice-assembly`} component={IntersticeAssembly} />
       <ErrorBoundaryRoute path={`${match.url}sheathing`} component={Sheathing} />
       <ErrorBoundaryRoute path={`${match.url}supply-position`} component={SupplyPosition} />
+      <ErrorBoundaryRoute path={`${match.url}tape`} component={Tape} />
+      <ErrorBoundaryRoute path={`${match.url}tape-kind`} component={TapeKind} />
+      <ErrorBoundaryRoute path={`${match.url}tape-laying`} component={TapeLaying} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>

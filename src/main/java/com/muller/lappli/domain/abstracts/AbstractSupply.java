@@ -54,6 +54,11 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      */
     protected static final Long LIFTING_METER_PER_HOUR_SPEED = Long.valueOf(5000);
 
+    public AbstractSupply() {
+        super();
+        this.observerStrandSupply = null;
+    }
+
     /**
      * @return the SupplyPositions which owns this
      */
@@ -64,6 +69,13 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      * @return the apparitions of the CylindricComponent inside the final Cable
      */
     public abstract Long getApparitions();
+
+    public T apparitions(Long apparitions) {
+        this.setApparitions(apparitions);
+        return getThis();
+    }
+
+    public abstract void setApparitions(Long apparitions);
 
     /**
      * @return the diameter in milimeters of the CylindricComponent

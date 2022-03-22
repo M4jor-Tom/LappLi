@@ -16,7 +16,8 @@
       "subSupply": "Approvisionnement de couche",
       "suppliedComponentsCount": "Nombre de composants approvisionnés",
       "utilitySuppliedComponentsCount": "Utiles",
-      "completionSuppliedComponentsCount": "Complétages"
+      "completionSuppliedComponentsCount": "Complétages",
+      "milimeterAssemblyVoid": "Vide d'assemblage (mm)"
     }
   }
 }

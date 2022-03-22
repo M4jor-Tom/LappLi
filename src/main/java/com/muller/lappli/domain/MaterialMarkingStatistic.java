@@ -44,6 +44,10 @@ public class MaterialMarkingStatistic extends AbstractDomainObject<MaterialMarki
     @JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material material;
 
+    public MaterialMarkingStatistic() {
+        super();
+    }
+
     @Override
     public MaterialMarkingStatistic getThis() {
         return this;
