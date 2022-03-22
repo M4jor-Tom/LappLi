@@ -93,8 +93,11 @@ public class CalculatorMullerSecretImpl implements ICalculator {
 
         Boolean generatingFirstCoreAssemblyPreset = true;
 
-        //We need to spend all of the supplied Components
-        while (remainingSuppliesComponentsToSpend > 0) {
+        if (Long.valueOf(1L).equals(strandSupply.getSuppliedComponentsDividedCount())) {
+            //We only have 1 component to assemble
+            assemblyPresetDistributionPossibility = AssemblyPresetDistribution.FOR_1.getAssemblyPresetDistributionPossibility(false);
+        } else while (remainingSuppliesComponentsToSpend > 0) {
+            //We need to spend all of the supplied Components
             Long newAssemblyPresetTotalComponentsCount = null;
 
             //Here, we find out the new AssemblyPreset's total Components count
