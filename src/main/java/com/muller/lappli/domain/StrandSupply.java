@@ -461,7 +461,10 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         }
 
         for (INonCentralOperation<?> nonCentralOperationToMoveLayer : getNonCentralOperations()) {
-            if (nonCentralOperationToMoveLayer.getOperationLayer() >= nonCentralOperation.getOperationLayer()) {
+            if (
+                nonCentralOperationToMoveLayer.getOperationLayer() >= nonCentralOperation.getOperationLayer() &&
+                !nonCentralOperationToMoveLayer.equals(nonCentralOperation)
+            ) {
                 nonCentralOperationToMoveLayer.setOperationLayer(nonCentralOperationToMoveLayer.getOperationLayer() + 1);
             }
         }
