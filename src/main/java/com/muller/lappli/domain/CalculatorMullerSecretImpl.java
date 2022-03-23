@@ -108,8 +108,9 @@ public class CalculatorMullerSecretImpl implements ICalculator {
 
                 try {
                     AbstractSupply<?> centralAssemblySupply = strandSupply.getCentralAssembly().getSupplyPosition().getSupply();
+                    Boolean thereMustBeACentralUtilityComponent = strandSupply.getForceCentralUtilityComponent(); //centralAssemblySupply != null;
 
-                    if (centralAssemblySupply == null) {
+                    if (!thereMustBeACentralUtilityComponent) {
                         newAssemblyPresetTotalComponentsCount =
                             AssemblyPresetDistribution
                                 .forSuppliedComponentsCount(strandSupply.getSuppliedComponentsDividedCount())
@@ -118,12 +119,21 @@ public class CalculatorMullerSecretImpl implements ICalculator {
                                 .get(0)
                                 .getTotalComponentsCount();
                     } else {
+                        Double centralMilimeterDiameter = centralAssemblySupply == null
+                            //If centralAssemblySuply is null, it means the user haven't chosen
+                            //which component to put in the center. We then pick ponderated
+                            //average of all components.
+                            ? strandSupply.getStrand().getSuppliedComponentsAverageMilimeterDiameter()
+                            //If centralAssemblySupply is not null, it means the user have chosen
+                            //which component to put in the center. We pick it.
+                            : centralAssemblySupply.getCylindricComponent().getMilimeterDiameter();
+
                         newAssemblyPresetTotalComponentsCount =
                             Double
                                 .valueOf(
                                     Math.floor(
                                         suggestSuppliedComponentsCountWithMilimeterDiameters(
-                                            centralAssemblySupply.getCylindricComponent().getMilimeterDiameter(),
+                                            centralMilimeterDiameter,
                                             strandSupply.getStrand().getSuppliedComponentsAverageMilimeterDiameter(),
                                             strandSupply.getDiameterAssemblyStep()
                                         )
