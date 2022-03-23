@@ -264,10 +264,18 @@ public class CalculatorMullerSecretImpl implements ICalculator {
 
         AbstractAssembly<?> assembly = assemblies.get(assemblyIndex.intValue());
 
-        return suggestSuppliedComponentsCountWithMilimeterDiameters(
-            assembly.getBeforeThisMilimeterDiameter(),
-            strandSupply.getStrand().getSuppliedComponentsAverageMilimeterDiameter(),
-            strandSupply.getDiameterAssemblyStep()
+        Double suppliedComponentsAverageMilimeterDiameter = strandSupply.getStrand().getSuppliedComponentsAverageMilimeterDiameter();
+
+        return (
+            (
+                suggestSuppliedComponentsCountWithMilimeterDiameters(
+                    assembly.getBeforeThisMilimeterDiameter(),
+                    suppliedComponentsAverageMilimeterDiameter,
+                    strandSupply.getDiameterAssemblyStep()
+                ) -
+                assembly.getComponentsCount()
+            ) *
+            suppliedComponentsAverageMilimeterDiameter
         );
     }
 
