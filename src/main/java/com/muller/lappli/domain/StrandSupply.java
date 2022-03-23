@@ -108,7 +108,6 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     public StrandSupply() {
         super();
-        this.operationComparator = null;
         setCoreAssemblies(new HashSet<>());
         setIntersticeAssemblies(new HashSet<>());
     }
