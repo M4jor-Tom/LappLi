@@ -8,7 +8,7 @@ export interface IAbstractOperation {
   milimeterDiameterIncidency?: number;
   mullerStandardizedFormatMilimeterDiameterIncidency?: string;
   beforeThisMilimeterDiameter?: number;
-  mullerStandardizedFormatBeforeThisMilimeterDiameter?: number;
+  mullerStandardizedFormatBeforeThisMilimeterDiameter?: string;
   afterThisMilimeterDiameter?: number;
   mullerStandardizedFormatAfterThisMilimeterDiameter?: string;
   operationLayer?: number;
