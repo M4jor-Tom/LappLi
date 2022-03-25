@@ -128,10 +128,10 @@ export const ElementKindUpdate = (props: RouteComponentProps<{ id: string }>) =>
                 }}
               />
               <ValidatedField
-                label={translate('lappLiApp.elementKind.insulationThickness')}
-                id="element-kind-insulationThickness"
-                name="insulationThickness"
-                data-cy="insulationThickness"
+                label={translate('lappLiApp.elementKind.milimeterInsulationThickness')}
+                id="element-kind-milimeterInsulationThickness"
+                name="milimeterInsulationThickness"
+                data-cy="milimeterInsulationThickness"
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },

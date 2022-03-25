@@ -21,7 +21,7 @@
       "editionDateTime": "Moment d'édition",
       "newGramPerMeterLinearMass": "Nouvelle masse linéique (g/m)",
       "newMilimeterDiameter": "Nouveau diamètre (mm)",
-      "newInsulationThickness": "Nouvelle épaisseur d'isolant (mm)",
+      "newMilimeterInsulationThickness": "New Milimeter Insulation Thickness",
       "editedElementKind": "Genre d'Élément Édité"
     }
   }

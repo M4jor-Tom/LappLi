@@ -15,7 +15,7 @@
       "fieldType": "Double"
     },
     {
-      "fieldName": "newInsulationThickness",
+      "fieldName": "newMilimeterInsulationThickness",
       "fieldType": "Double"
     }
   ],
