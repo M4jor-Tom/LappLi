@@ -2,31 +2,31 @@
   "lappLiApp": {
     "lifter": {
       "home": {
-        "title": "Lifters",
+        "title": "Releveuses",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Lifter",
-        "createOrEditLabel": "Créer ou éditer un Lifter",
-        "notFound": "Aucun Lifter trouvé"
+        "createLabel": "Créer une nouvelle Releveuse",
+        "createOrEditLabel": "Créer ou éditer une Releveuse",
+        "notFound": "Aucun Releveuse trouvé"
       },
-      "created": "Un nouveau Lifter a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Lifter avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Lifter avec l'identifiant {{ param }} a été supprimé",
+      "created": "Une nouvelle Releveuse a été créé avec l'identifiant {{ param }}",
+      "updated": "La Releveuse avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "La Releveuse avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Lifter {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer la Releveuse {{ id }} ?"
       },
       "detail": {
-        "title": "Lifter"
+        "title": "Releveuse"
       },
       "id": "ID",
-      "index": "Index",
+      "index": "Indice",
       "name": "Releveuse",
-      "minimumMilimeterDiameter": "Minimum Milimeter Diameter",
-      "maximumMilimeterDiameter": "Maximum Milimeter Diameter",
-      "supportsSpirallyColoredMarkingType": "Supports Spirally Colored Marking Type",
-      "supportsLongitudinallyColoredMarkingType": "Supports Longitudinally Colored Marking Type",
-      "supportsNumberedMarkingType": "Supports Numbered Marking Type",
-      "supportsInkJetMarkingTechnique": "Supports Ink Jet Marking Technique",
-      "supportsRsdMarkingTechnique": "Supports Rsd Marking Technique"
+      "minimumMilimeterDiameter": "Diamètre Minimum (mm)",
+      "maximumMilimeterDiameter": "Diamètre Maximum (mm)",
+      "supportsSpirallyColoredMarkingType": "Supporte le Marquage Spirallé",
+      "supportsLongitudinallyColoredMarkingType": "Supporte le Marquage Longitudinal",
+      "supportsNumberedMarkingType": "Supporte le Marquage Numéroté",
+      "supportsInkJetMarkingTechnique": "Supporte le Marquage au Jet d'encre",
+      "supportsRsdMarkingTechnique": "Supporte le Marquage au RSD"
     }
   }
 }

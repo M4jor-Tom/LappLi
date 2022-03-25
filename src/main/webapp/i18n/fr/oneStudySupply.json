@@ -12,7 +12,7 @@
       "updated": "L'Appovisionnement Mono-Toron avec l'identifiant {{ param }} a été mis à jour",
       "deleted": "L'Appovisionnement Mono-Toron avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer l'Appovisionnement Mono-Toron {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer l'Appovisionnement Mono-Toron {{ id }} ?"
       },
       "detail": {
         "title": "Appovisionnement Mono-Toron"
@@ -26,7 +26,7 @@
       "gramPerMeterLinearMass": "Masse linéique (g/m)",
       "milimeterDiameter": "Diamètre (mm)",
       "surfaceColor": "Couleur de surface",
-      "surfaceMaterial": "Materiau de surface",
+      "surfaceMaterial": "Matériau de surface",
       "strand": "Toron"
     }
   }

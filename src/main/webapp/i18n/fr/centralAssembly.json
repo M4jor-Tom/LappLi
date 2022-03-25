@@ -2,24 +2,24 @@
   "lappLiApp": {
     "centralAssembly": {
       "home": {
-        "title": "CentralAssemblies",
+        "title": "Assemblages centraux",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Central Assembly",
-        "createOrEditLabel": "Créer ou éditer un Central Assembly",
-        "notFound": "Aucun Central Assembly trouvé"
+        "createLabel": "Créer un nouvel Assemblage Central",
+        "createOrEditLabel": "Créer ou éditer un Assemblage Central",
+        "notFound": "Aucun Assemblage Central trouvé"
       },
-      "created": "Un nouveau Central Assembly a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Central Assembly avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Central Assembly avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouvel Assemblage Central a été créé avec l'identifiant {{ param }}",
+      "updated": "L'Assemblage Central avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "L'Assemblage Central avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Central Assembly {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer l'Assemblage Central {{ id }} ?"
       },
       "detail": {
-        "title": "Central Assembly"
+        "title": "Assemblage Central"
       },
       "id": "ID",
-      "ownerStrandSupply": "Owner Strand Supply",
-      "supplyPosition": "Supply Position",
+      "ownerStrandSupply": "Approvisionnement de Toron Propriétaire",
+      "supplyPosition": "Position d'Approvisionnement",
       "centralOperationLayer": "Centre"
     }
   }

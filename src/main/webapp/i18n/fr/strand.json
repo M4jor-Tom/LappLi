@@ -12,7 +12,7 @@
       "updated": "Le Toron avec l'identifiant {{ param }} a été mis à jour",
       "deleted": "Le Toron avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Toron {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer le Toron {{ id }} ?"
       },
       "detail": {
         "title": "Toron"
@@ -21,9 +21,9 @@
         "compute": "Calcul Toron"
       },
       "id": "ID",
-      "supplyPositions": "Supply Positions",
-      "futureStudy": "Future Study",
-      "elementSupplies": "Approvisionnements d'Elements",
+      "supplyPositions": "Positions d'Approvisionnements",
+      "futureStudy": "Étude Future",
+      "elementSupplies": "Approvisionnements d'Élements",
       "bangleSupplies": "Approvisionnements de Joncs",
       "customComponentSupplies": "Approvisionnements de Composants Custom",
       "subSupplies": "Approvisionnements du Toron",

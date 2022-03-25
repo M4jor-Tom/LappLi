@@ -2,28 +2,28 @@
   "lappLiApp": {
     "elementKind": {
       "home": {
-        "title": "ElementKinds",
+        "title": "Genres d'Éléments",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Element Kind",
-        "createOrEditLabel": "Créer ou éditer un Element Kind",
-        "notFound": "Aucun Element Kind trouvé"
+        "createLabel": "Créer un nouveau Genre d'Élément",
+        "createOrEditLabel": "Créer ou éditer un Genre d'Élément",
+        "notFound": "Aucun Genre d'Élément trouvé"
       },
-      "created": "Un nouveau Element Kind a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Element Kind avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Element Kind avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouveau Genre d'Élément a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Genre d'Élément avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Genre d'Élément avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Element Kind {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer le Genre d'Élément {{ id }} ?"
       },
       "detail": {
-        "title": "Element Kind"
+        "title": "Genre d'Élément"
       },
       "id": "ID",
-      "designation": "Designation",
-      "gramPerMeterLinearMass": "Gram Per Meter Linear Mass",
-      "milimeterDiameter": "Milimeter Diameter",
-      "milimeterInsulationThickness": "Milimeter Insulation Thickness",
-      "copper": "Copper",
-      "insulationMaterial": "Insulation Material"
+      "designation": "Désignation",
+      "gramPerMeterLinearMass": "Masse linéique (g/m)",
+      "milimeterDiameter": "Diamètre (mm)",
+      "milimeterInsulationThickness": "Épaisseur d'Isolant (mm)",
+      "copper": "Cuivre",
+      "insulationMaterial": "Matériau d'isolation"
     }
   }
 }

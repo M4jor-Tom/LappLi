@@ -2,24 +2,24 @@
   "lappLiApp": {
     "coreAssembly": {
       "home": {
-        "title": "CoreAssemblies",
+        "title": "Assemblages Principaux",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Core Assembly",
-        "createOrEditLabel": "Créer ou éditer un Core Assembly",
-        "notFound": "Aucun Core Assembly trouvé"
+        "createLabel": "Créer un nouveau Assemblage Principal",
+        "createOrEditLabel": "Créer ou éditer un Assemblage Principal",
+        "notFound": "Aucun Assemblage Principal trouvé"
       },
-      "created": "Un nouveau Core Assembly a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Core Assembly avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Core Assembly avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouveau Assemblage Principal a été créé avec l'identifiant {{ param }}",
+      "updated": "L'Assemblage Principal avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "L'Assemblage Principal avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Core Assembly {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer l'Assemblage Principal {{ id }} ?"
       },
       "detail": {
-        "title": "Core Assembly"
+        "title": "Assemblage Principal"
       },
       "id": "ID",
-      "forcedMeanMilimeterComponentDiameter": "Forced Mean Milimeter Component Diameter",
-      "ownerStrandSupply": "Owner Strand Supply"
+      "forcedMeanMilimeterComponentDiameter": "Diamètre de composant moyen forcé (mm)",
+      "ownerStrandSupply": "Approvisionnement de Toron Propriétaire"
     }
   }
 }

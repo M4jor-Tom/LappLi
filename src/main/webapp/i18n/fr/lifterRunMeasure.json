@@ -2,27 +2,27 @@
   "lappLiApp": {
     "lifterRunMeasure": {
       "home": {
-        "title": "LifterRunMeasures",
+        "title": "Mesures d'Utilisations de Releveuses",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Lifter Run Measure",
-        "createOrEditLabel": "Créer ou éditer un Lifter Run Measure",
-        "notFound": "Aucun Lifter Run Measure trouvé"
+        "createLabel": "Créer une nouvelle Mesure d'Utilisation de Releveuse",
+        "createOrEditLabel": "Créer ou éditer un Mesure d'Utilisation de Releveuse",
+        "notFound": "Aucun Mesure d'Utilisation de Releveuse trouvé"
       },
-      "created": "Un nouveau Lifter Run Measure a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Lifter Run Measure avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Lifter Run Measure avec l'identifiant {{ param }} a été supprimé",
+      "created": "Une nouvelle Mesure d'Utilisation de Releveuse a été créé avec l'identifiant {{ param }}",
+      "updated": "La Mesure d'Utilisation de Releveuse avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "La Mesure d'Utilisation de Releveuse avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Lifter Run Measure {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer la Mesure d'Utilisation de Releveuse {{ id }} ?"
       },
       "detail": {
-        "title": "Lifter Run Measure"
+        "title": "Mesure d'Utilisation de Releveuse"
       },
       "id": "ID",
-      "milimeterDiameter": "Milimeter Diameter",
-      "meterPerHourSpeed": "Meter Per Hour Speed",
-      "markingType": "Marking Type",
-      "markingTechnique": "Marking Technique",
-      "hourPreparationTime": "Hour Preparation Time",
+      "milimeterDiameter": "Diamètre (mm)",
+      "meterPerHourSpeed": "Vitesse (m/h)",
+      "markingType": "Type de Marquage",
+      "markingTechnique": "Technique de Marquage",
+      "hourPreparationTime": "Temps de Préparation (h)",
       "lifter": "Releveuse"
     }
   }

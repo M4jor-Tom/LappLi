@@ -2,26 +2,26 @@
   "lappLiApp": {
     "material": {
       "home": {
-        "title": "Materials",
+        "title": "Matériaux",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Material",
-        "createOrEditLabel": "Créer ou éditer un Material",
-        "notFound": "Aucun Material trouvé"
+        "createLabel": "Créer un nouveau Matériau",
+        "createOrEditLabel": "Créer ou éditer un Matériau",
+        "notFound": "Aucun Matériau trouvé"
       },
-      "created": "Un nouveau Material a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Material avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Material avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouveau Matériau a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Matériau avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Matériau avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Material {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer le Matériau {{ id }} ?"
       },
       "detail": {
-        "title": "Material"
+        "title": "Matériau"
       },
       "id": "ID",
-      "number": "Number",
-      "designation": "Designation",
-      "kilogramPerCubeMeterVolumicDensity": "Kilogram Per Cube Meter Volumic Density",
-      "materialMarkingStatistics": "Material Marking Statistics"
+      "number": "Numéro",
+      "designation": "Désignation",
+      "kilogramPerCubeMeterVolumicDensity": "Densité Volumique (kg/m³)",
+      "materialMarkingStatistics": "Statistiques de Marquages de Matériaux"
     }
   }
 }
