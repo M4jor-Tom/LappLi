@@ -82,7 +82,6 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ strand_supply_id: 
       ? {}
       : {
           assemblyMean: 'RIGHT',
-          operationLayer: -2,
           ...tapeLayingEntity,
           tape: tapeLayingEntity?.tape?.id,
           ownerStrandSupply: tapeLayingEntity?.ownerStrandSupply?.id,

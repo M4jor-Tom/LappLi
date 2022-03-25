@@ -82,7 +82,6 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
       ? {}
       : {
           sheathingKind: 'TUBE',
-          operationLayer: -2,
           ...sheathingEntity,
           material: sheathingEntity?.material?.id,
           ownerStrandSupply: sheathingEntity?.ownerStrandSupply?.id,
