@@ -21,7 +21,7 @@
       "designation": "Désignation",
       "gramPerMeterLinearMass": "Masse linéique (g/m)",
       "milimeterDiameter": "Diamètre (mm)",
-      "milimeterInsulationThickness": "Milimeter Insulation Thickness",
+      "milimeterInsulationThickness": "Épaisseur d'Isolant (mm)",
       "copper": "Cuivre",
       "insulationMaterial": "Matériau d'isolation"
     }
