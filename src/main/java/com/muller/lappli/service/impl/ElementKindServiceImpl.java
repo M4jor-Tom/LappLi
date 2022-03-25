@@ -58,8 +58,8 @@ public class ElementKindServiceImpl implements ElementKindService {
                 if (elementKind.getMilimeterDiameter() != null) {
                     existingElementKind.setMilimeterDiameter(elementKind.getMilimeterDiameter());
                 }
-                if (elementKind.getInsulationThickness() != null) {
-                    existingElementKind.setInsulationThickness(elementKind.getInsulationThickness());
+                if (elementKind.getMilimeterInsulationThickness() != null) {
+                    existingElementKind.setMilimeterInsulationThickness(elementKind.getMilimeterInsulationThickness());
                 }
 
                 return existingElementKind;

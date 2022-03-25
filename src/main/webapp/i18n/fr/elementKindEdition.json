@@ -21,7 +21,7 @@
       "editionDateTime": "Edition Date Time",
       "newGramPerMeterLinearMass": "New Gram Per Meter Linear Mass",
       "newMilimeterDiameter": "New Milimeter Diameter",
-      "newInsulationThickness": "New Insulation Thickness",
+      "newMilimeterInsulationThickness": "New Milimeter Insulation Thickness",
       "editedElementKind": "Edited Element Kind"
     }
   }

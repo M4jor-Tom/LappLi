@@ -59,8 +59,8 @@ public class ElementKindEditionServiceImpl implements ElementKindEditionService 
                 if (elementKindEdition.getNewMilimeterDiameter() != null) {
                     existingElementKindEdition.setNewMilimeterDiameter(elementKindEdition.getNewMilimeterDiameter());
                 }
-                if (elementKindEdition.getNewInsulationThickness() != null) {
-                    existingElementKindEdition.setNewInsulationThickness(elementKindEdition.getNewInsulationThickness());
+                if (elementKindEdition.getNewMilimeterInsulationThickness() != null) {
+                    existingElementKindEdition.setNewMilimeterInsulationThickness(elementKindEdition.getNewMilimeterInsulationThickness());
                 }
 
                 return existingElementKindEdition;

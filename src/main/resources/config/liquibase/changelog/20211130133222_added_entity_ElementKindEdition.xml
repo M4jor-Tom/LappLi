@@ -23,7 +23,7 @@
             <column name="new_milimeter_diameter" type="double">
                 <constraints nullable="true" />
             </column>
-            <column name="new_insulation_thickness" type="double">
+            <column name="new_milimeter_insulation_thickness" type="double">
                 <constraints nullable="true" />
             </column>
             <column name="edited_element_kind_id" type="bigint">
@@ -54,7 +54,7 @@
             <column name="edition_date_time" type="date"/>
             <column name="new_gram_per_meter_linear_mass" type="numeric"/>
             <column name="new_milimeter_diameter" type="numeric"/>
-            <column name="new_insulation_thickness" type="numeric"/>
+            <column name="new_milimeter_insulation_thickness" type="numeric"/>
             <column name="edited_element_kind_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

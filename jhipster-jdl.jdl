@@ -137,7 +137,7 @@ entity ElementKindEdition {
 	editionDateTime Instant required
     newGramPerMeterLinearMass Double
     newMilimeterDiameter Double
-    newInsulationThickness Double
+    newMilimeterInsulationThickness Double
 }
 
 entity Element {
@@ -149,7 +149,7 @@ entity ElementKind {
 	designation String unique required
     gramPerMeterLinearMass Double required
     milimeterDiameter Double required
-    insulationThickness Double required
+    milimeterInsulationThickness Double required
 }
 
 entity Copper {
