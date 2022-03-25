@@ -12,17 +12,16 @@
       "updated": "La Gaine avec l'identifiant {{ param }} a été mis à jour",
       "deleted": "La Gaine avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer la Gaine {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer la Gaine {{ id }} ?"
       },
       "detail": {
         "title": "Gaine"
       },
       "id": "ID",
-      "sheathingKind": "Sheathing Kind",
-      "thickness": "Epaisseur",
-      "milimeterThickness": "Milimeter Thickness",
+      "sheathingKind": "Genre de Gainage",
+      "milimeterThickness": "Épaisseur (mm)",
       "material": "Matériau",
-      "ownerStrandSupply": "Owner Strand Supply"
+      "ownerStrandSupply": "Approvisionnement de Toron Propriétaire"
     }
   }
 }

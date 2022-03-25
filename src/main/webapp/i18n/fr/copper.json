@@ -2,24 +2,24 @@
   "lappLiApp": {
     "copper": {
       "home": {
-        "title": "Coppers",
+        "title": "Cuivres",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Copper",
-        "createOrEditLabel": "Créer ou éditer un Copper",
-        "notFound": "Aucun Copper trouvé"
+        "createLabel": "Créer un nouveau Cuivre",
+        "createOrEditLabel": "Créer ou éditer un Cuivre",
+        "notFound": "Aucun Cuivre trouvé"
       },
-      "created": "Un nouveau Copper a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Copper avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Copper avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouveau Cuivre a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Cuivre avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Cuivre avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Copper {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer le Cuivre {{ id }} ?"
       },
       "detail": {
-        "title": "Copper"
+        "title": "Cuivre"
       },
       "id": "ID",
-      "number": "Number",
-      "designation": "Designation"
+      "number": "Numéro",
+      "designation": "Désignation"
     }
   }
 }

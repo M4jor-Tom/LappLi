@@ -2,24 +2,24 @@
   "lappLiApp": {
     "tapeKind": {
       "home": {
-        "title": "TapeKinds",
+        "title": "Genres de Rubans",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Tape Kind",
-        "createOrEditLabel": "Créer ou éditer un Tape Kind",
-        "notFound": "Aucun Tape Kind trouvé"
+        "createLabel": "Créer un nouveau Genre de Ruban",
+        "createOrEditLabel": "Créer ou éditer un Genre de Ruban",
+        "notFound": "Aucun Genre de Ruban trouvé"
       },
-      "created": "Un nouveau Tape Kind a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Tape Kind avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Tape Kind avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouveau Genre de Ruban a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Genre de Ruban avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Genre de Ruban avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Tape Kind {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer le Genre de Ruban {{ id }} ?"
       },
       "detail": {
-        "title": "Tape Kind"
+        "title": "Genre de Ruban"
       },
       "id": "ID",
-      "targetCoveringRate": "Target Covering Rate",
-      "designation": "Designation"
+      "targetCoveringRate": "Taux de Recouvement Ciblé",
+      "designation": "Désignation"
     }
   }
 }

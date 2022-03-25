@@ -2,9 +2,9 @@
   "lappLiApp": {
     "AssemblyMean": {
       "null": "",
-      "RIGHT": "RIGHT",
-      "LEFT": "LEFT",
-      "STRAIGHT": "STRAIGHT"
+      "RIGHT": "Droite",
+      "LEFT": "Gauche",
+      "STRAIGHT": "Tout droit"
     }
   }
 }

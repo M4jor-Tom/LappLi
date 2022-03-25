@@ -2,28 +2,28 @@
   "lappLiApp": {
     "customComponent": {
       "home": {
-        "title": "CustomComponents",
+        "title": "Composants Customs",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Custom Component",
-        "createOrEditLabel": "Créer ou éditer un Custom Component",
-        "notFound": "Aucun Custom Component trouvé"
+        "createLabel": "Créer un nouveau Composant Custom",
+        "createOrEditLabel": "Créer ou éditer un Composant Custom",
+        "notFound": "Aucun Composant Custom trouvé"
       },
-      "created": "Un nouveau Custom Component a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Custom Component avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Custom Component avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouveau Composant Custom a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Composant Custom avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Composant Custom avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Custom Component {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer le Composant Custom {{ id }} ?"
       },
       "detail": {
-        "title": "Custom Component"
+        "title": "Composant Custom"
       },
       "id": "ID",
-      "number": "Number",
-      "designation": "Designation",
-      "gramPerMeterLinearMass": "Gram Per Meter Linear Mass",
-      "milimeterDiameter": "Milimeter Diameter",
-      "surfaceColor": "Surface Color",
-      "surfaceMaterial": "Surface Material"
+      "number": "Numéro",
+      "designation": "Désignation",
+      "gramPerMeterLinearMass": "Masse Linéique (g/m)",
+      "milimeterDiameter": "Diamètre (mm)",
+      "surfaceColor": "Couleur de Surface",
+      "surfaceMaterial": "Matériau de Surface"
     }
   }
 }

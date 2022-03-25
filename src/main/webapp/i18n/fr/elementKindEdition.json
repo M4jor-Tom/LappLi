@@ -2,27 +2,27 @@
   "lappLiApp": {
     "elementKindEdition": {
       "home": {
-        "title": "ElementKindEditions",
+        "title": "Éditions de Genres d'Éléments",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Element Kind Edition",
-        "createOrEditLabel": "Créer ou éditer un Element Kind Edition",
-        "notFound": "Aucun Element Kind Edition trouvé"
+        "createLabel": "Créer une nouvelle Édition de Genre d'Élément",
+        "createOrEditLabel": "Créer ou éditer une Édition de Genre d'Élément",
+        "notFound": "Aucune Édition de Genre d'Élément trouvé"
       },
-      "created": "Un nouveau Element Kind Edition a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Element Kind Edition avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Element Kind Edition avec l'identifiant {{ param }} a été supprimé",
+      "created": "Une nouvelle Édition de Genre d'Élément a été créé avec l'identifiant {{ param }}",
+      "updated": "L'Édition de Genre d'Élément avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "L'Édition de Genre d'Élément avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Element Kind Edition {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer l'Édition de Genre d'Élément {{ id }} ?"
       },
       "detail": {
-        "title": "Element Kind Edition"
+        "title": "Édition de Genre d'Élément"
       },
       "id": "ID",
-      "editionDateTime": "Edition Date Time",
-      "newGramPerMeterLinearMass": "New Gram Per Meter Linear Mass",
-      "newMilimeterDiameter": "New Milimeter Diameter",
-      "newInsulationThickness": "New Insulation Thickness",
-      "editedElementKind": "Edited Element Kind"
+      "editionDateTime": "Moment d'édition",
+      "newGramPerMeterLinearMass": "Nouvelle masse linéique (g/m)",
+      "newMilimeterDiameter": "Nouveau diamètre (mm)",
+      "newInsulationThickness": "Nouvelle épaisseur d'isolant (mm)",
+      "editedElementKind": "Genre d'Élément Édité"
     }
   }
 }

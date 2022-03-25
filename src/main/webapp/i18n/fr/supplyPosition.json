@@ -2,30 +2,30 @@
   "lappLiApp": {
     "supplyPosition": {
       "home": {
-        "title": "SupplyPositions",
+        "title": "Positions d'Approvisionnements",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Supply Position",
-        "createOrEditLabel": "Créer ou éditer un Supply Position",
-        "notFound": "Aucun Supply Position trouvé"
+        "createLabel": "Créer une nouvelle Position d'Approvisionnement",
+        "createOrEditLabel": "Créer ou éditer une Position d'Approvisionnement",
+        "notFound": "Aucune Position d'Approvisionnement trouvé"
       },
-      "created": "Un nouveau Supply Position a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Supply Position avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Supply Position avec l'identifiant {{ param }} a été supprimé",
+      "created": "Une nouvelle Position d'Approvisionnement a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Position d'Approvisionnement avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Position d'Approvisionnement avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Supply Position {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer le Position d'Approvisionnement {{ id }} ?"
       },
       "detail": {
-        "title": "Supply Position"
+        "title": "Position d'Approvisionnement"
       },
       "id": "ID",
-      "supplyApparitionsUsage": "Supply Apparitions Usage",
-      "ownerCentralAssembly": "Owner Central Assembly",
-      "elementSupply": "Element Supply",
-      "bangleSupply": "Bangle Supply",
-      "customComponentSupply": "Custom Component Supply",
-      "oneStudySupply": "One Study Supply",
-      "ownerStrand": "Owner Strand",
-      "ownerIntersticeAssembly": "Owner Interstice Assembly"
+      "supplyApparitionsUsage": "Utilisations des Apparitions d'Approvisionnement",
+      "ownerCentralAssembly": "Assemblage Central Propriétaire",
+      "elementSupply": "Approvisionnement d'Élement",
+      "bangleSupply": "Approvisionnement de Jonc",
+      "customComponentSupply": "Approvisionnement de Composant Custom",
+      "oneStudySupply": "Approvisionnement Mono-Toron",
+      "ownerStrand": "Toron Propriétaire",
+      "ownerIntersticeAssembly": "Assemblage Inersticiel Propriétaire"
     }
   }
 }

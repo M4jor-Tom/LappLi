@@ -2,23 +2,23 @@
   "lappLiApp": {
     "elementSupply": {
       "home": {
-        "title": "Approvisionnements d' Elements",
+        "title": "Approvisionnements d'Éléments",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouvel Approvisionnement d'Element",
-        "createOrEditLabel": "Créer ou éditer un Approvisionnement d'Element",
-        "notFound": "Aucun Approvisionnement d'Element trouvé"
+        "createLabel": "Créer un nouvel Approvisionnement d'Élément",
+        "createOrEditLabel": "Créer ou éditer un Approvisionnement d'Élément",
+        "notFound": "Aucun Approvisionnement d'Élément trouvé"
       },
-      "created": "Un nouvel Approvisionnement d'Element a été créé avec l'identifiant {{ param }}",
-      "updated": "L'Approvisionnement d'Element avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "L'Approvisionnement d'Element avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouvel Approvisionnement d'Élément a été créé avec l'identifiant {{ param }}",
+      "updated": "L'Approvisionnement d'Élément avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "L'Approvisionnement d'Élément avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer l'Approvisionnement d'Element {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer l'Approvisionnement d'Élément {{ id }} ?"
       },
       "detail": {
-        "title": "Approvisionnement d'Element"
+        "title": "Approvisionnement d'Élément"
       },
       "id": "ID",
-      "element": "Element",
+      "element": "Élément",
       "meterQuantity": "Quantité (m)"
     }
   }
