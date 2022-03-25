@@ -59,7 +59,9 @@ export const ElementKindEdition = (props: RouteComponentProps<{ url: string }>) 
                   <Translate contentKey="lappLiApp.elementKindEdition.newMilimeterDiameter">New Milimeter Diameter</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.elementKindEdition.newInsulationThickness">New Insulation Thickness</Translate>
+                  <Translate contentKey="lappLiApp.elementKindEdition.newMilimeterInsulationThickness">
+                    New Milimeter Insulation Thickness
+                  </Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.elementKindEdition.editedElementKind">Edited Element Kind</Translate>
@@ -82,7 +84,7 @@ export const ElementKindEdition = (props: RouteComponentProps<{ url: string }>) 
                   </td>
                   <td>{elementKindEdition.newGramPerMeterLinearMass}</td>
                   <td>{elementKindEdition.newMilimeterDiameter}</td>
-                  <td>{elementKindEdition.newInsulationThickness}</td>
+                  <td>{elementKindEdition.newMilimeterInsulationThickness}</td>
                   <td>
                     {elementKindEdition.editedElementKind ? (
                       <Link to={`element-kind/${elementKindEdition.editedElementKind.id}`}>

@@ -36,8 +36,8 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
     @Column(name = "new_milimeter_diameter")
     private Double newMilimeterDiameter;
 
-    @Column(name = "new_insulation_thickness")
-    private Double newInsulationThickness;
+    @Column(name = "new_milimeter_insulation_thickness")
+    private Double newMilimeterInsulationThickness;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -66,8 +66,8 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
         if (getNewMilimeterDiameter() != null) {
             elementKind.setMilimeterDiameter(getNewMilimeterDiameter());
         }
-        if (getNewInsulationThickness() != null) {
-            elementKind.setInsulationThickness(getNewInsulationThickness());
+        if (getNewMilimeterInsulationThickness() != null) {
+            elementKind.setMilimeterInsulationThickness(getNewMilimeterInsulationThickness());
         }
 
         return elementKind;
@@ -132,17 +132,17 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
         this.newMilimeterDiameter = newMilimeterDiameter;
     }
 
-    public Double getNewInsulationThickness() {
-        return this.newInsulationThickness;
+    public Double getNewMilimeterInsulationThickness() {
+        return this.newMilimeterInsulationThickness;
     }
 
-    public ElementKindEdition newInsulationThickness(Double newInsulationThickness) {
-        this.setNewInsulationThickness(newInsulationThickness);
+    public ElementKindEdition newMilimeterInsulationThickness(Double newMilimeterInsulationThickness) {
+        this.setNewMilimeterInsulationThickness(newMilimeterInsulationThickness);
         return this;
     }
 
-    public void setNewInsulationThickness(Double newInsulationThickness) {
-        this.newInsulationThickness = newInsulationThickness;
+    public void setNewMilimeterInsulationThickness(Double newMilimeterInsulationThickness) {
+        this.newMilimeterInsulationThickness = newMilimeterInsulationThickness;
     }
 
     public ElementKind getEditedElementKind() {
@@ -185,7 +185,7 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
             ", editionDateTime='" + getEditionDateTime() + "'" +
             ", newGramPerMeterLinearMass=" + getNewGramPerMeterLinearMass() +
             ", newMilimeterDiameter=" + getNewMilimeterDiameter() +
-            ", newInsulationThickness=" + getNewInsulationThickness() +
+            ", newMilimeterInsulationThickness=" + getNewMilimeterInsulationThickness() +
             "}";
     }
 }

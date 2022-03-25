@@ -41,8 +41,8 @@ class ElementKindResourceIT {
     private static final Double DEFAULT_MILIMETER_DIAMETER = 1D;
     private static final Double UPDATED_MILIMETER_DIAMETER = 2D;
 
-    private static final Double DEFAULT_INSULATION_THICKNESS = 1D;
-    private static final Double UPDATED_INSULATION_THICKNESS = 2D;
+    private static final Double DEFAULT_MILIMETER_INSULATION_THICKNESS = 1D;
+    private static final Double UPDATED_MILIMETER_INSULATION_THICKNESS = 2D;
 
     private static final String ENTITY_API_URL = "/api/element-kinds";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -72,7 +72,7 @@ class ElementKindResourceIT {
             .designation(DEFAULT_DESIGNATION)
             .gramPerMeterLinearMass(DEFAULT_GRAM_PER_METER_LINEAR_MASS)
             .milimeterDiameter(DEFAULT_MILIMETER_DIAMETER)
-            .insulationThickness(DEFAULT_INSULATION_THICKNESS);
+            .milimeterInsulationThickness(DEFAULT_MILIMETER_INSULATION_THICKNESS);
         // Add required entity
         Copper copper;
         if (TestUtil.findAll(em, Copper.class).isEmpty()) {
@@ -107,7 +107,7 @@ class ElementKindResourceIT {
             .designation(UPDATED_DESIGNATION)
             .gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS)
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
-            .insulationThickness(UPDATED_INSULATION_THICKNESS);
+            .milimeterInsulationThickness(UPDATED_MILIMETER_INSULATION_THICKNESS);
         // Add required entity
         Copper copper;
         if (TestUtil.findAll(em, Copper.class).isEmpty()) {
@@ -152,7 +152,7 @@ class ElementKindResourceIT {
         assertThat(testElementKind.getDesignation()).isEqualTo(DEFAULT_DESIGNATION);
         assertThat(testElementKind.getGramPerMeterLinearMass()).isEqualTo(DEFAULT_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testElementKind.getMilimeterDiameter()).isEqualTo(DEFAULT_MILIMETER_DIAMETER);
-        assertThat(testElementKind.getInsulationThickness()).isEqualTo(DEFAULT_INSULATION_THICKNESS);
+        assertThat(testElementKind.getMilimeterInsulationThickness()).isEqualTo(DEFAULT_MILIMETER_INSULATION_THICKNESS);
     }
 
     @Test
@@ -226,10 +226,10 @@ class ElementKindResourceIT {
 
     @Test
     @Transactional
-    void checkInsulationThicknessIsRequired() throws Exception {
+    void checkMilimeterInsulationThicknessIsRequired() throws Exception {
         int databaseSizeBeforeTest = elementKindRepository.findAll().size();
         // set the field null
-        elementKind.setInsulationThickness(null);
+        elementKind.setMilimeterInsulationThickness(null);
 
         // Create the ElementKind, which fails.
 
@@ -256,7 +256,7 @@ class ElementKindResourceIT {
             .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)))
             .andExpect(jsonPath("$.[*].gramPerMeterLinearMass").value(hasItem(DEFAULT_GRAM_PER_METER_LINEAR_MASS.doubleValue())))
             .andExpect(jsonPath("$.[*].milimeterDiameter").value(hasItem(DEFAULT_MILIMETER_DIAMETER.doubleValue())))
-            .andExpect(jsonPath("$.[*].insulationThickness").value(hasItem(DEFAULT_INSULATION_THICKNESS.doubleValue())));
+            .andExpect(jsonPath("$.[*].milimeterInsulationThickness").value(hasItem(DEFAULT_MILIMETER_INSULATION_THICKNESS.doubleValue())));
     }
 
     @Test
@@ -274,7 +274,7 @@ class ElementKindResourceIT {
             .andExpect(jsonPath("$.designation").value(DEFAULT_DESIGNATION))
             .andExpect(jsonPath("$.gramPerMeterLinearMass").value(DEFAULT_GRAM_PER_METER_LINEAR_MASS.doubleValue()))
             .andExpect(jsonPath("$.milimeterDiameter").value(DEFAULT_MILIMETER_DIAMETER.doubleValue()))
-            .andExpect(jsonPath("$.insulationThickness").value(DEFAULT_INSULATION_THICKNESS.doubleValue()));
+            .andExpect(jsonPath("$.milimeterInsulationThickness").value(DEFAULT_MILIMETER_INSULATION_THICKNESS.doubleValue()));
     }
 
     @Test
@@ -300,7 +300,7 @@ class ElementKindResourceIT {
             .designation(UPDATED_DESIGNATION)
             .gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS)
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
-            .insulationThickness(UPDATED_INSULATION_THICKNESS);
+            .milimeterInsulationThickness(UPDATED_MILIMETER_INSULATION_THICKNESS);
 
         restElementKindMockMvc
             .perform(
@@ -318,7 +318,7 @@ class ElementKindResourceIT {
         assertThat(testElementKind.getDesignation()).isEqualTo(DEFAULT_DESIGNATION); //UPDATED_DESIGNATION);
         assertThat(testElementKind.getGramPerMeterLinearMass()).isEqualTo(DEFAULT_GRAM_PER_METER_LINEAR_MASS); //UPDATED_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testElementKind.getMilimeterDiameter()).isEqualTo(DEFAULT_MILIMETER_DIAMETER); //UPDATED_MILIMETER_DIAMETER);
-        assertThat(testElementKind.getInsulationThickness()).isEqualTo(DEFAULT_INSULATION_THICKNESS); //UPDATED_INSULATION_THICKNESS);
+        assertThat(testElementKind.getMilimeterInsulationThickness()).isEqualTo(DEFAULT_MILIMETER_INSULATION_THICKNESS); //UPDATED_INSULATION_THICKNESS);
     }
 
     /*

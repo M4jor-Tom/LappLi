@@ -42,8 +42,8 @@ class ElementKindEditionResourceIT {
     private static final Double DEFAULT_NEW_MILIMETER_DIAMETER = 1D;
     private static final Double UPDATED_NEW_MILIMETER_DIAMETER = 2D;
 
-    private static final Double DEFAULT_NEW_INSULATION_THICKNESS = 1D;
-    private static final Double UPDATED_NEW_INSULATION_THICKNESS = 2D;
+    private static final Double DEFAULT_NEW_MILIMETER_INSULATION_THICKNESS = 1D;
+    private static final Double UPDATED_NEW_MILIMETER_INSULATION_THICKNESS = 2D;
 
     private static final String ENTITY_API_URL = "/api/element-kind-editions";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -72,7 +72,7 @@ class ElementKindEditionResourceIT {
         ElementKindEdition elementKindEdition = new ElementKindEdition()
             .newGramPerMeterLinearMass(DEFAULT_NEW_GRAM_PER_METER_LINEAR_MASS)
             .newMilimeterDiameter(DEFAULT_NEW_MILIMETER_DIAMETER)
-            .newInsulationThickness(DEFAULT_NEW_INSULATION_THICKNESS);
+            .newMilimeterInsulationThickness(DEFAULT_NEW_MILIMETER_INSULATION_THICKNESS);
         // Add required entity
         ElementKind elementKind;
         if (TestUtil.findAll(em, ElementKind.class).isEmpty()) {
@@ -96,7 +96,7 @@ class ElementKindEditionResourceIT {
         ElementKindEdition elementKindEdition = new ElementKindEdition()
             .newGramPerMeterLinearMass(UPDATED_NEW_GRAM_PER_METER_LINEAR_MASS)
             .newMilimeterDiameter(UPDATED_NEW_MILIMETER_DIAMETER)
-            .newInsulationThickness(UPDATED_NEW_INSULATION_THICKNESS);
+            .newMilimeterInsulationThickness(UPDATED_NEW_MILIMETER_INSULATION_THICKNESS);
         // Add required entity
         ElementKind elementKind;
         if (TestUtil.findAll(em, ElementKind.class).isEmpty()) {
@@ -133,7 +133,7 @@ class ElementKindEditionResourceIT {
         //assertThat(testElementKindEdition.getEditionDateTime()).isEqualTo(DEFAULT_EDITION_DATE_TIME);
         assertThat(testElementKindEdition.getNewGramPerMeterLinearMass()).isEqualTo(DEFAULT_NEW_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testElementKindEdition.getNewMilimeterDiameter()).isEqualTo(DEFAULT_NEW_MILIMETER_DIAMETER);
-        assertThat(testElementKindEdition.getNewInsulationThickness()).isEqualTo(DEFAULT_NEW_INSULATION_THICKNESS);
+        assertThat(testElementKindEdition.getNewMilimeterInsulationThickness()).isEqualTo(DEFAULT_NEW_MILIMETER_INSULATION_THICKNESS);
     }
 
     @Test
@@ -171,7 +171,9 @@ class ElementKindEditionResourceIT {
             //.andExpect(jsonPath("$.[*].editionDateTime").value(hasItem(DEFAULT_EDITION_DATE_TIME.toString())))
             .andExpect(jsonPath("$.[*].newGramPerMeterLinearMass").value(hasItem(DEFAULT_NEW_GRAM_PER_METER_LINEAR_MASS.doubleValue())))
             .andExpect(jsonPath("$.[*].newMilimeterDiameter").value(hasItem(DEFAULT_NEW_MILIMETER_DIAMETER.doubleValue())))
-            .andExpect(jsonPath("$.[*].newInsulationThickness").value(hasItem(DEFAULT_NEW_INSULATION_THICKNESS.doubleValue())));
+            .andExpect(
+                jsonPath("$.[*].newMilimeterInsulationThickness").value(hasItem(DEFAULT_NEW_MILIMETER_INSULATION_THICKNESS.doubleValue()))
+            );
     }
 
     @Test
@@ -189,7 +191,7 @@ class ElementKindEditionResourceIT {
             //.andExpect(jsonPath("$.editionDateTime").value(DEFAULT_EDITION_DATE_TIME.toString()))
             .andExpect(jsonPath("$.newGramPerMeterLinearMass").value(DEFAULT_NEW_GRAM_PER_METER_LINEAR_MASS.doubleValue()))
             .andExpect(jsonPath("$.newMilimeterDiameter").value(DEFAULT_NEW_MILIMETER_DIAMETER.doubleValue()))
-            .andExpect(jsonPath("$.newInsulationThickness").value(DEFAULT_NEW_INSULATION_THICKNESS.doubleValue()));
+            .andExpect(jsonPath("$.newMilimeterInsulationThickness").value(DEFAULT_NEW_MILIMETER_INSULATION_THICKNESS.doubleValue()));
     }
 
     @Test
@@ -214,7 +216,7 @@ class ElementKindEditionResourceIT {
         updatedElementKindEdition
             .newGramPerMeterLinearMass(UPDATED_NEW_GRAM_PER_METER_LINEAR_MASS)
             .newMilimeterDiameter(UPDATED_NEW_MILIMETER_DIAMETER)
-            .newInsulationThickness(UPDATED_NEW_INSULATION_THICKNESS);
+            .newMilimeterInsulationThickness(UPDATED_NEW_MILIMETER_INSULATION_THICKNESS);
 
         restElementKindEditionMockMvc
             .perform(
@@ -231,7 +233,7 @@ class ElementKindEditionResourceIT {
         ElementKindEdition testElementKindEdition = elementKindEditionList.get(elementKindEditionList.size() - 1);
         assertThat(testElementKindEdition.getNewGramPerMeterLinearMass()).isEqualTo(DEFAULT_NEW_GRAM_PER_METER_LINEAR_MASS); //UPDATED_NEW_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testElementKindEdition.getNewMilimeterDiameter()).isEqualTo(DEFAULT_NEW_MILIMETER_DIAMETER); //UPDATED_NEW_MILIMETER_DIAMETER);
-        assertThat(testElementKindEdition.getNewInsulationThickness()).isEqualTo(DEFAULT_NEW_INSULATION_THICKNESS); //UPDATED_NEW_INSULATION_THICKNESS);
+        assertThat(testElementKindEdition.getNewMilimeterInsulationThickness()).isEqualTo(DEFAULT_NEW_MILIMETER_INSULATION_THICKNESS); //UPDATED_NEW_INSULATION_THICKNESS);
     }
     /*
     @Test
@@ -338,7 +340,7 @@ class ElementKindEditionResourceIT {
         partialUpdatedElementKindEdition
             .newGramPerMeterLinearMass(UPDATED_NEW_GRAM_PER_METER_LINEAR_MASS)
             .newMilimeterDiameter(UPDATED_NEW_MILIMETER_DIAMETER)
-            .newInsulationThickness(UPDATED_NEW_INSULATION_THICKNESS);
+            .newMilimeterInsulationThickness(UPDATED_NEW_MILIMETER_INSULATION_THICKNESS);
 
         restElementKindEditionMockMvc
             .perform(

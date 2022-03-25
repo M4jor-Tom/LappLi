@@ -109,10 +109,10 @@ export const ElementKindEditionUpdate = (props: RouteComponentProps<{ id: string
                 type="text"
               />
               <ValidatedField
-                label={translate('lappLiApp.elementKindEdition.newInsulationThickness')}
-                id="element-kind-edition-newInsulationThickness"
-                name="newInsulationThickness"
-                data-cy="newInsulationThickness"
+                label={translate('lappLiApp.elementKindEdition.newMilimeterInsulationThickness')}
+                id="element-kind-edition-newMilimeterInsulationThickness"
+                name="newMilimeterInsulationThickness"
+                data-cy="newMilimeterInsulationThickness"
                 type="text"
               />
               <ValidatedField

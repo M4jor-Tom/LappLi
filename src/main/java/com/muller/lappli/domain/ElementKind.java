@@ -36,8 +36,8 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
     private Double milimeterDiameter;
 
     @NotNull
-    @Column(name = "insulation_thickness", nullable = false)
-    private Double insulationThickness;
+    @Column(name = "milimeter_insulation_thickness", nullable = false)
+    private Double milimeterInsulationThickness;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -67,7 +67,7 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
         setDesignation(designation);
         setGramPerMeterLinearMass(gramPerMeterLinearMass);
         setMilimeterDiameter(milimeterDiameter);
-        setInsulationThickness(insulationThickness);
+        setMilimeterInsulationThickness(insulationThickness);
         setCopper(copper);
         setInsulationMaterial(insulationMaterial);
     }
@@ -77,7 +77,7 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
             String.valueOf(elementKind.getDesignation()),
             Double.valueOf(elementKind.getGramPerMeterLinearMass()),
             Double.valueOf(elementKind.getMilimeterDiameter()),
-            Double.valueOf(elementKind.getInsulationThickness()),
+            Double.valueOf(elementKind.getMilimeterInsulationThickness()),
             (Copper) elementKind.getCopper().copy(),
             (Material) elementKind.getInsulationMaterial().copy()
         );
@@ -156,17 +156,17 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
         this.milimeterDiameter = milimeterDiameter;
     }
 
-    public Double getInsulationThickness() {
-        return this.insulationThickness;
+    public Double getMilimeterInsulationThickness() {
+        return this.milimeterInsulationThickness;
     }
 
-    public ElementKind insulationThickness(Double insulationThickness) {
-        this.setInsulationThickness(insulationThickness);
+    public ElementKind milimeterInsulationThickness(Double milimeterInsulationThickness) {
+        this.setMilimeterInsulationThickness(milimeterInsulationThickness);
         return this;
     }
 
-    public void setInsulationThickness(Double insulationThickness) {
-        this.insulationThickness = insulationThickness;
+    public void setMilimeterInsulationThickness(Double milimeterInsulationThickness) {
+        this.milimeterInsulationThickness = milimeterInsulationThickness;
     }
 
     public Copper getCopper() {
@@ -232,7 +232,7 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
             ", designation='" + getDesignation() + "'" +
             ", gramPerMeterLinearMass=" + getGramPerMeterLinearMass() +
             ", milimeterDiameter=" + getMilimeterDiameter() +
-            ", insulationThickness=" + getInsulationThickness() +
+            ", milimeterInsulationThickness=" + getMilimeterInsulationThickness() +
             "}";
     }
 }

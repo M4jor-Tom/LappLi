@@ -48,11 +48,11 @@ export const ElementKindDetail = (props: RouteComponentProps<{ id: string }>) =>
           </dt>
           <dd>{elementKindEntity.milimeterDiameter}</dd>
           <dt>
-            <span id="insulationThickness">
-              <Translate contentKey="lappLiApp.elementKind.insulationThickness">Insulation Thickness</Translate>
+            <span id="milimeterInsulationThickness">
+              <Translate contentKey="lappLiApp.elementKind.milimeterInsulationThickness">Milimeter Insulation Thickness</Translate>
             </span>
           </dt>
-          <dd>{elementKindEntity.insulationThickness}</dd>
+          <dd>{elementKindEntity.milimeterInsulationThickness}</dd>
           <dt>
             <Translate contentKey="lappLiApp.elementKind.copper">Copper</Translate>
           </dt>

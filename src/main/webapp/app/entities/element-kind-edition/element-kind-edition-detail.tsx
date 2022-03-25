@@ -52,11 +52,13 @@ export const ElementKindEditionDetail = (props: RouteComponentProps<{ id: string
           </dt>
           <dd>{elementKindEditionEntity.newMilimeterDiameter}</dd>
           <dt>
-            <span id="newInsulationThickness">
-              <Translate contentKey="lappLiApp.elementKindEdition.newInsulationThickness">New Insulation Thickness</Translate>
+            <span id="newMilimeterInsulationThickness">
+              <Translate contentKey="lappLiApp.elementKindEdition.newMilimeterInsulationThickness">
+                New Milimeter Insulation Thickness
+              </Translate>
             </span>
           </dt>
-          <dd>{elementKindEditionEntity.newInsulationThickness}</dd>
+          <dd>{elementKindEditionEntity.newMilimeterInsulationThickness}</dd>
           <dt>
             <Translate contentKey="lappLiApp.elementKindEdition.editedElementKind">Edited Element Kind</Translate>
           </dt>

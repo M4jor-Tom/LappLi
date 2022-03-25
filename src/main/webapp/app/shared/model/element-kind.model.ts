@@ -6,7 +6,7 @@ export interface IElementKind {
   designation?: string;
   gramPerMeterLinearMass?: number;
   milimeterDiameter?: number;
-  insulationThickness?: number;
+  milimeterInsulationThickness?: number;
   copper?: ICopper;
   insulationMaterial?: IMaterial;
 }
