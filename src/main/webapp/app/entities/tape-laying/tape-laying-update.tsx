@@ -113,7 +113,7 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ strand_supply_id: 
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.tapeLaying.operationLayer')}
+                label={translate('lappLiApp.operation.operationLayer')}
                 id="tape-laying-operationLayer"
                 name="operationLayer"
                 data-cy="operationLayer"
@@ -124,7 +124,7 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ strand_supply_id: 
                 }}
               />
               <ValidatedField
-                label={translate('lappLiApp.tapeLaying.assemblyMean')}
+                label={translate('lappLiApp.assembly.assemblyMean')}
                 id="tape-laying-assemblyMean"
                 name="assemblyMean"
                 data-cy="assemblyMean"
