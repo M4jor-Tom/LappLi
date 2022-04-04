@@ -17,6 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element_kind_edition")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Deprecated
 public class ElementKindEdition extends AbstractEdition<ElementKind> implements Serializable {
 
     private static final long serialVersionUID = 1L;
