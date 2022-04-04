@@ -37,11 +37,14 @@ public class LiftedSupplyResourceIT {
 
     private OneStudySupply correspondingOneStudySupply;
 
+    private OneStudySupply unCorrespondingOneStudySupply;
+
     private Lifter lifter;
 
     @BeforeEach
     void initTest() {
         correspondingOneStudySupply = OneStudySupplyResourceIT.createEntity(em);
+        unCorrespondingOneStudySupply = OneStudySupplyResourceIT.createEntity(em);
         lifter = LifterResourceIT.createEntity(em);
     }
 
@@ -58,5 +61,20 @@ public class LiftedSupplyResourceIT {
         restMockMvc
             .perform(get(OneStudySupplyResourceIT.ENTITY_API_URL_ID, correspondingOneStudySupply.getId()))
             .andExpect(jsonPath("$.bestLiftersNames").value("MR01 "));
+    }
+
+    @Test
+    @Transactional
+    void bestLifterListDoesntSetOnUnCorrespondingRead() throws Exception {
+        unCorrespondingOneStudySupply.milimeterDiameter(1.5);
+        lifter.index(1L).minimumMilimeterDiameter(0.0).maximumMilimeterDiameter(1.0);
+
+        unCorrespondingOneStudySupply.markingType(MarkingType.LIFTING);
+        oneStudySupplyRepository.saveAndFlush(unCorrespondingOneStudySupply);
+        lifterRepository.saveAndFlush(lifter);
+
+        restMockMvc
+            .perform(get(OneStudySupplyResourceIT.ENTITY_API_URL_ID, unCorrespondingOneStudySupply.getId()))
+            .andExpect(jsonPath("$.bestLiftersNames").value(""));
     }
 }
