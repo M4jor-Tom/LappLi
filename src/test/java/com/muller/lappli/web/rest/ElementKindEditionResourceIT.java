@@ -31,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 @IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser
+@Deprecated
 class ElementKindEditionResourceIT {
 
     //private static final Instant DEFAULT_EDITION_DATE_TIME = Instant.ofEpochMilli(0L);

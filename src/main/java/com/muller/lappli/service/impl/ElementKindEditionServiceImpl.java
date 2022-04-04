@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@Deprecated
 public class ElementKindEditionServiceImpl implements ElementKindEditionService {
 
     private final Logger log = LoggerFactory.getLogger(ElementKindEditionServiceImpl.class);
