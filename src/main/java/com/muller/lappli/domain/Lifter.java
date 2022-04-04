@@ -114,7 +114,7 @@ public class Lifter extends AbstractDomainObject<Lifter> implements Serializable
         return (supportsMilimeterDiameter(bangleSupply.getMilimeterDiameter()));
     }
 
-    private Boolean supportsOneStudySupply(OneStudySupply oneStudySupply) {
+    public Boolean supportsOneStudySupply(OneStudySupply oneStudySupply) {
         return (
             supportsMarkingType(oneStudySupply.getMarkingType()) &&
             supportsMilimeterDiameter(oneStudySupply.getMilimeterDiameter()) &&
