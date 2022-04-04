@@ -57,8 +57,8 @@ class OneStudySupplyResourceIT {
     private static final Color DEFAULT_SURFACE_COLOR = Color.NATURAL;
     private static final Color UPDATED_SURFACE_COLOR = Color.WHITE;
 
-    private static final String ENTITY_API_URL = "/api/one-study-supplies";
-    private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
+    public static final String ENTITY_API_URL = "/api/one-study-supplies";
+    public static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
     private static Random random = new Random();
     private static AtomicLong count = new AtomicLong(random.nextInt() + (2 * Integer.MAX_VALUE));
