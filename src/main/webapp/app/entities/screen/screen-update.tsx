@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { ICopperFiber } from 'app/shared/model/copper-fiber.model';
 import { getEntities as getCopperFibers } from 'app/entities/copper-fiber/copper-fiber.reducer';
+import { IStrandSupply } from 'app/shared/model/strand-supply.model';
+import { getEntities as getStrandSupplies } from 'app/entities/strand-supply/strand-supply.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './screen.reducer';
 import { IScreen } from 'app/shared/model/screen.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -18,6 +20,7 @@ export const ScreenUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
   const copperFibers = useAppSelector(state => state.copperFiber.entities);
+  const strandSupplies = useAppSelector(state => state.strandSupply.entities);
   const screenEntity = useAppSelector(state => state.screen.entity);
   const loading = useAppSelector(state => state.screen.loading);
   const updating = useAppSelector(state => state.screen.updating);
@@ -34,6 +37,7 @@ export const ScreenUpdate = (props: RouteComponentProps<{ id: string }>) => {
     }
 
     dispatch(getCopperFibers({}));
+    dispatch(getStrandSupplies({}));
   }, []);
 
   useEffect(() => {
@@ -47,6 +51,7 @@ export const ScreenUpdate = (props: RouteComponentProps<{ id: string }>) => {
       ...screenEntity,
       ...values,
       copperFiber: copperFibers.find(it => it.id.toString() === values.copperFiber.toString()),
+      ownerStrandSupply: strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString()),
     };
 
     if (isNew) {
@@ -62,6 +67,7 @@ export const ScreenUpdate = (props: RouteComponentProps<{ id: string }>) => {
       : {
           ...screenEntity,
           copperFiber: screenEntity?.copperFiber?.id,
+          ownerStrandSupply: screenEntity?.ownerStrandSupply?.id,
         };
 
   return (
@@ -126,6 +132,26 @@ export const ScreenUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 <option value="" key="0" />
                 {copperFibers
                   ? copperFibers.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.designation}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
+              <ValidatedField
+                id="screen-ownerStrandSupply"
+                name="ownerStrandSupply"
+                data-cy="ownerStrandSupply"
+                label={translate('lappLiApp.screen.ownerStrandSupply')}
+                type="select"
+                required
+              >
+                <option value="" key="0" />
+                {strandSupplies
+                  ? strandSupplies.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.designation}
                       </option>

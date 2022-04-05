@@ -61,6 +61,9 @@ export const Screen = (props: RouteComponentProps<{ url: string }>) => {
                 <th>
                   <Translate contentKey="lappLiApp.screen.copperFiber">Copper Fiber</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="lappLiApp.screen.ownerStrandSupply">Owner Strand Supply</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -77,6 +80,13 @@ export const Screen = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{screen.forcedDiameterAssemblyStep}</td>
                   <td>
                     {screen.copperFiber ? <Link to={`copper-fiber/${screen.copperFiber.id}`}>{screen.copperFiber.designation}</Link> : ''}
+                  </td>
+                  <td>
+                    {screen.ownerStrandSupply ? (
+                      <Link to={`strand-supply/${screen.ownerStrandSupply.id}`}>{screen.ownerStrandSupply.designation}</Link>
+                    ) : (
+                      ''
+                    )}
                   </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

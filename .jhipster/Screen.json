@@ -24,6 +24,14 @@
       "relationshipValidateRules": "required",
       "relationshipName": "copperFiber",
       "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "strandSupply",
+      "otherEntityRelationshipName": "screens",
+      "relationshipValidateRules": "required",
+      "relationshipName": "ownerStrandSupply",
+      "otherEntityField": "designation"
     }
   ],
   "entityTableName": "screen",

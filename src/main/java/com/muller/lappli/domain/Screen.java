@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -35,6 +36,14 @@ public class Screen implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     private CopperFiber copperFiber;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(
+        value = { "coreAssemblies", "intersticeAssemblies", "tapeLayings", "screens", "sheathings", "strand", "centralAssembly", "study" },
+        allowSetters = true
+    )
+    private StrandSupply ownerStrandSupply;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -100,6 +109,19 @@ public class Screen implements Serializable {
 
     public Screen copperFiber(CopperFiber copperFiber) {
         this.setCopperFiber(copperFiber);
+        return this;
+    }
+
+    public StrandSupply getOwnerStrandSupply() {
+        return this.ownerStrandSupply;
+    }
+
+    public void setOwnerStrandSupply(StrandSupply strandSupply) {
+        this.ownerStrandSupply = strandSupply;
+    }
+
+    public Screen ownerStrandSupply(StrandSupply strandSupply) {
+        this.setOwnerStrandSupply(strandSupply);
         return this;
     }
 

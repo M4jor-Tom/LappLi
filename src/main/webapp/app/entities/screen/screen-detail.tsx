@@ -51,6 +51,10 @@ export const ScreenDetail = (props: RouteComponentProps<{ id: string }>) => {
             <Translate contentKey="lappLiApp.screen.copperFiber">Copper Fiber</Translate>
           </dt>
           <dd>{screenEntity.copperFiber ? screenEntity.copperFiber.designation : ''}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.screen.ownerStrandSupply">Owner Strand Supply</Translate>
+          </dt>
+          <dd>{screenEntity.ownerStrandSupply ? screenEntity.ownerStrandSupply.designation : ''}</dd>
         </dl>
         <Button tag={Link} to="/screen" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

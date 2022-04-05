@@ -21,7 +21,8 @@
       "operationLayer": "Operation Layer",
       "assemblyMeanIsSameThanAssemblys": "Assembly Mean Is Same Than Assemblys",
       "forcedDiameterAssemblyStep": "Forced Diameter Assembly Step",
-      "copperFiber": "Copper Fiber"
+      "copperFiber": "Copper Fiber",
+      "ownerStrandSupply": "Owner Strand Supply"
     }
   }
 }

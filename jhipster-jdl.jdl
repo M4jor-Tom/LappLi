@@ -217,6 +217,9 @@ relationship OneToMany {
     //TapeLaying
     StrandSupply{tapeLayings(productionStep)} to TapeLaying{ownerStrandSupply(designation) required}
 
+    //Screens
+    StrandSupply{screens(productionStep)} to Screen{ownerStrandSupply(designation) required}
+
     //Sheathings
     StrandSupply{sheathings(productionStep)} to Sheathing{ownerStrandSupply(designation) required}
 }

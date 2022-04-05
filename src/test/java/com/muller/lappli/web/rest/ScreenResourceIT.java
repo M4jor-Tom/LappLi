@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.CopperFiber;
 import com.muller.lappli.domain.Screen;
+import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.repository.ScreenRepository;
 import java.util.List;
 import java.util.Random;
@@ -77,6 +78,16 @@ class ScreenResourceIT {
             copperFiber = TestUtil.findAll(em, CopperFiber.class).get(0);
         }
         screen.setCopperFiber(copperFiber);
+        // Add required entity
+        StrandSupply strandSupply;
+        if (TestUtil.findAll(em, StrandSupply.class).isEmpty()) {
+            strandSupply = StrandSupplyResourceIT.createEntity(em);
+            em.persist(strandSupply);
+            em.flush();
+        } else {
+            strandSupply = TestUtil.findAll(em, StrandSupply.class).get(0);
+        }
+        screen.setOwnerStrandSupply(strandSupply);
         return screen;
     }
 
@@ -101,6 +112,16 @@ class ScreenResourceIT {
             copperFiber = TestUtil.findAll(em, CopperFiber.class).get(0);
         }
         screen.setCopperFiber(copperFiber);
+        // Add required entity
+        StrandSupply strandSupply;
+        if (TestUtil.findAll(em, StrandSupply.class).isEmpty()) {
+            strandSupply = StrandSupplyResourceIT.createUpdatedEntity(em);
+            em.persist(strandSupply);
+            em.flush();
+        } else {
+            strandSupply = TestUtil.findAll(em, StrandSupply.class).get(0);
+        }
+        screen.setOwnerStrandSupply(strandSupply);
         return screen;
     }
 

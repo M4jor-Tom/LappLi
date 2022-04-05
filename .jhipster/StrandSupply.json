@@ -57,6 +57,13 @@
     },
     {
       "relationshipType": "one-to-many",
+      "otherEntityName": "screen",
+      "otherEntityRelationshipName": "ownerStrandSupply",
+      "relationshipName": "screens",
+      "otherEntityField": "productionStep"
+    },
+    {
+      "relationshipType": "one-to-many",
       "otherEntityName": "sheathing",
       "otherEntityRelationshipName": "ownerStrandSupply",
       "relationshipName": "sheathings",

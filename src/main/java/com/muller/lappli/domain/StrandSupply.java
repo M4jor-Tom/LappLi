@@ -90,6 +90,11 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "copperFiber", "ownerStrandSupply" }, allowSetters = true)
+    private Set<Screen> screens = new HashSet<>();
+
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "material", "ownerStrandSupply" }, allowSetters = true)
     private Set<Sheathing> sheathings = new HashSet<>();
 
@@ -699,6 +704,37 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     public StrandSupply removeTapeLayings(TapeLaying tapeLaying) {
         this.tapeLayings.remove(tapeLaying);
         tapeLaying.setOwnerStrandSupply(null);
+        return this;
+    }
+
+    public Set<Screen> getScreens() {
+        return this.screens;
+    }
+
+    public void setScreens(Set<Screen> screens) {
+        if (this.screens != null) {
+            this.screens.forEach(i -> i.setOwnerStrandSupply(null));
+        }
+        if (screens != null) {
+            screens.forEach(i -> i.setOwnerStrandSupply(this));
+        }
+        this.screens = screens;
+    }
+
+    public StrandSupply screens(Set<Screen> screens) {
+        this.setScreens(screens);
+        return this;
+    }
+
+    public StrandSupply addScreens(Screen screen) {
+        this.screens.add(screen);
+        screen.setOwnerStrandSupply(this);
+        return this;
+    }
+
+    public StrandSupply removeScreens(Screen screen) {
+        this.screens.remove(screen);
+        screen.setOwnerStrandSupply(null);
         return this;
     }
 
