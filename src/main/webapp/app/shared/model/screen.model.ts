@@ -1,13 +1,12 @@
 import { ICopperFiber } from 'app/shared/model/copper-fiber.model';
 import { IStrandSupply } from 'app/shared/model/strand-supply.model';
+import { IAbstractOperation } from './abstract-operation.model';
 
-export interface IScreen {
+export interface IScreen extends IAbstractOperation {
   id?: number;
-  operationLayer?: number;
   assemblyMeanIsSameThanAssemblys?: boolean;
   forcedDiameterAssemblyStep?: number | null;
   copperFiber?: ICopperFiber;
-  ownerStrandSupply?: IStrandSupply;
 }
 
 export const defaultValue: Readonly<IScreen> = {
