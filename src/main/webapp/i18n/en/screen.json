@@ -1,0 +1,27 @@
+{
+  "lappLiApp": {
+    "screen": {
+      "home": {
+        "title": "Screens",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Screen",
+        "createOrEditLabel": "Create or edit a Screen",
+        "notFound": "No Screens found"
+      },
+      "created": "A new Screen is created with identifier {{ param }}",
+      "updated": "A Screen is updated with identifier {{ param }}",
+      "deleted": "A Screen is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Screen {{ id }}?"
+      },
+      "detail": {
+        "title": "Screen"
+      },
+      "id": "ID",
+      "operationLayer": "Operation Layer",
+      "assemblyMeanIsSameThanAssemblys": "Assembly Mean Is Same Than Assemblys",
+      "forcedDiameterAssemblyStep": "Forced Diameter Assembly Step",
+      "copperFiber": "Copper Fiber"
+    }
+  }
+}

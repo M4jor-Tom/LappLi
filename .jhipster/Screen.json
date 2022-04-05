@@ -1,0 +1,39 @@
+{
+  "name": "Screen",
+  "fields": [
+    {
+      "fieldName": "operationLayer",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "assemblyMeanIsSameThanAssemblys",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "forcedDiameterAssemblyStep",
+      "fieldType": "Long"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "copperFiber",
+      "otherEntityRelationshipName": "screen",
+      "relationshipValidateRules": "required",
+      "relationshipName": "copperFiber",
+      "otherEntityField": "designation"
+    }
+  ],
+  "entityTableName": "screen",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220405132505"
+}

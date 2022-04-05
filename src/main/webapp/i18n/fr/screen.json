@@ -1,0 +1,27 @@
+{
+  "lappLiApp": {
+    "screen": {
+      "home": {
+        "title": "Screens",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Screen",
+        "createOrEditLabel": "Créer ou éditer un Screen",
+        "notFound": "Aucun Screen trouvé"
+      },
+      "created": "Un nouveau Screen a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Screen avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Screen avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Screen {{ id }} ?"
+      },
+      "detail": {
+        "title": "Screen"
+      },
+      "id": "ID",
+      "operationLayer": "Operation Layer",
+      "assemblyMeanIsSameThanAssemblys": "Assembly Mean Is Same Than Assemblys",
+      "forcedDiameterAssemblyStep": "Forced Diameter Assembly Step",
+      "copperFiber": "Copper Fiber"
+    }
+  }
+}

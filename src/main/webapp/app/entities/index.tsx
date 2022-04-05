@@ -30,6 +30,8 @@ import SupplyPosition from './supply-position';
 import Tape from './tape';
 import TapeKind from './tape-kind';
 import TapeLaying from './tape-laying';
+import Screen from './screen';
+import CopperFiber from './copper-fiber';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -62,6 +64,8 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}tape`} component={Tape} />
       <ErrorBoundaryRoute path={`${match.url}tape-kind`} component={TapeKind} />
       <ErrorBoundaryRoute path={`${match.url}tape-laying`} component={TapeLaying} />
+      <ErrorBoundaryRoute path={`${match.url}screen`} component={Screen} />
+      <ErrorBoundaryRoute path={`${match.url}copper-fiber`} component={CopperFiber} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>
