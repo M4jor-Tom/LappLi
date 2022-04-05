@@ -91,6 +91,28 @@ public class Screen extends AbstractOperation<Screen> implements Serializable, I
         return getCopperFiber().getDesignation();
     }
 
+    public Double getDiameterAssemblyStep() {
+        if (getForcedDiameterAssemblyStep() == null) {
+            return getAssemblyMeanIsSameThanAssemblys() ? 3.0 : 8.0;
+        }
+
+        return getForcedDiameterAssemblyStep().doubleValue();
+    }
+
+    public AssemblyMean getAssemblyMean() {
+        if (getOwnerStrandSupply() == null) {
+            return null;
+        } else if (getOwnerStrandSupply().getAssemblyMean() == null) {
+            return null;
+        } else if (AssemblyMean.STRAIGHT.equals(getOwnerStrandSupply().getAssemblyMean())) {
+            return AssemblyMean.STRAIGHT;
+        } else if (getAssemblyMeanIsSameThanAssemblys()) {
+            return getOwnerStrandSupply().getAssemblyMean();
+        }
+
+        return AssemblyMean.LEFT.equals(getOwnerStrandSupply().getAssemblyMean()) ? AssemblyMean.RIGHT : AssemblyMean.LEFT;
+    }
+
     public Long getId() {
         return this.id;
     }
