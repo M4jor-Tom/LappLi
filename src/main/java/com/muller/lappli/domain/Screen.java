@@ -1,6 +1,11 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractOperation;
+import com.muller.lappli.domain.enumeration.AssemblyMean;
+import com.muller.lappli.domain.enumeration.OperationKind;
+import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
+import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -13,7 +18,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "screen")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Screen implements Serializable {
+public class Screen extends AbstractOperation<Screen> implements Serializable, INonAssemblyOperation<Screen> {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,6 +51,45 @@ public class Screen implements Serializable {
     private StrandSupply ownerStrandSupply;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    @Override
+    public Screen getThis() {
+        return this;
+    }
+
+    @Override
+    public IOperation<Screen> toOperation() {
+        return this;
+    }
+
+    @Override
+    public OperationKind getOperationKind() {
+        return OperationKind.SCREEN;
+    }
+
+    @Override
+    public Double getMilimeterDiameterIncidency() {
+        if (getCopperFiber() == null) {
+            return Double.NaN;
+        }
+
+        return getCopperFiber().getMilimeterDiameter() * 2;
+    }
+
+    @Override
+    public Long getProductionStep() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getProductDesignation() {
+        if (getCopperFiber() == null) {
+            return "";
+        }
+
+        return getCopperFiber().getDesignation();
+    }
 
     public Long getId() {
         return this.id;
