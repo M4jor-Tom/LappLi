@@ -201,7 +201,7 @@ relationship OneToMany {
 	StrandSupply{coreAssemblies(productionStep)} to CoreAssembly{ownerStrandSupply(designation) required}
 	StrandSupply{intersticeAssemblies(productionStep)} to IntersticeAssembly{ownerStrandSupply(designation) required}
     
-    //TapeLaying
+    //TapeLayings
     StrandSupply{tapeLayings(productionStep)} to TapeLaying{ownerStrandSupply(designation) required}
 
     //Sheathings
