@@ -7,5 +7,7 @@ export enum OperationKind {
 
   TAPE_LAYING = 'TAPE_LAYING',
 
+  SCREEN = 'SCREEN',
+
   SHEATHING = 'SHEATHING',
 }
