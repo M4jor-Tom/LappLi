@@ -6,5 +6,6 @@ public enum OperationKind {
     INTERSTICE_ASSEMBLY,
     TAPE_LAYING,
     SCREEN,
+    STRIP_LAYING,
     SHEATHING,
 }
