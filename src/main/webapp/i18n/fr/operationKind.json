@@ -6,6 +6,7 @@
       "CORE_ASSEMBLY": "Assemblage Principal",
       "INTERSTICE_ASSEMBLY": "Assemblage Intersticiel",
       "TAPE_LAYING": "Pose de Ruban",
+      "SCREEN": "Guipage",
       "SHEATHING": "Gainage"
     }
   }

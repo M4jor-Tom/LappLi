@@ -1,5 +1,11 @@
 service * with serviceImpl
 
+entity Screen {
+    operationLayer Long required
+    assemblyMeanIsSameThanAssemblys Boolean required
+    forcedDiameterAssemblyStep Long
+}
+
 entity Tape {
 	number Long required unique
     designation String required unique
@@ -163,6 +169,13 @@ entity Material {
     kilogramPerCubeMeterVolumicDensity Double required
 }
 
+entity CopperFiber {
+    number Long unique
+    designation String unique
+    copperIsRedNotTinned Boolean required
+    milimeterDiameter Double required
+}
+
 entity UserData {
 
 }
@@ -204,6 +217,9 @@ relationship OneToMany {
     //TapeLayings
     StrandSupply{tapeLayings(productionStep)} to TapeLaying{ownerStrandSupply(designation) required}
 
+    //Screens
+    StrandSupply{screens(productionStep)} to Screen{ownerStrandSupply(designation) required}
+
     //Sheathings
     StrandSupply{sheathings(productionStep)} to Sheathing{ownerStrandSupply(designation) required}
 }
@@ -222,6 +238,10 @@ relationship OneToMany {
 
 relationship OneToMany {
 	Material{materialMarkingStatistics(markingType)} to MaterialMarkingStatistic{material(designation) required}
+}
+
+relationship ManyToOne {
+    Screen{copperFiber(designation) required} to CopperFiber
 }
 
 relationship ManyToOne {

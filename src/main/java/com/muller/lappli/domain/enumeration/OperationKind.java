@@ -5,5 +5,6 @@ public enum OperationKind {
     CORE_ASSEMBLY,
     INTERSTICE_ASSEMBLY,
     TAPE_LAYING,
+    SCREEN,
     SHEATHING,
 }

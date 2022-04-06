@@ -92,6 +92,9 @@ public class CacheConfiguration {
             createCache(cm, com.muller.lappli.domain.TapeKind.class.getName());
             createCache(cm, com.muller.lappli.domain.TapeLaying.class.getName());
             createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".tapeLayings");
+            createCache(cm, com.muller.lappli.domain.Screen.class.getName());
+            createCache(cm, com.muller.lappli.domain.CopperFiber.class.getName());
+            createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".screens");
             // jhipster-needle-ehcache-add-entry
         };
     }
