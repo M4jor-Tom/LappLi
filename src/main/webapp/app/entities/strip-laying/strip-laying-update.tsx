@@ -118,11 +118,12 @@ export const StripLayingUpdate = (props: RouteComponentProps<{ strand_supply_id:
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.stripLaying.operationLayer')}
+                label={translate('lappLiApp.operation.operationLayer')}
                 id="strip-laying-operationLayer"
                 name="operationLayer"
                 data-cy="operationLayer"
                 type="text"
+                defaultValue={-2}
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
                   validate: v => isNumber(v) || translate('entity.validation.number'),
