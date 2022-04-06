@@ -258,6 +258,10 @@ relationship ManyToOne {
 }
 
 relationship ManyToOne {
+    StripLaying{strip(designation) required} to Strip
+}
+
+relationship ManyToOne {
     TapeLaying{tape(designation) required} to Tape
 }
 
