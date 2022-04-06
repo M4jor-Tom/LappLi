@@ -109,6 +109,8 @@ public class Screen
             return null;
         } else if (getOwnerStrandSupply().getAssemblyMean() == null) {
             return null;
+        } else if (getAssemblyMeanIsSameThanAssemblys() == null) {
+            return null;
         } else if (AssemblyMean.STRAIGHT.equals(getOwnerStrandSupply().getAssemblyMean())) {
             return AssemblyMean.STRAIGHT;
         } else if (getAssemblyMeanIsSameThanAssemblys()) {
