@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity, deleteEntity } from './strip-laying.reducer';
+import { getOutFromStudySupplyStrandStripLaying } from '../index-management/index-management-lib';
 
 export const StripLayingDeleteDialog = (props: RouteComponentProps<{ id: string }>) => {
   const [loadModal, setLoadModal] = useState(false);
@@ -19,8 +20,10 @@ export const StripLayingDeleteDialog = (props: RouteComponentProps<{ id: string 
   const stripLayingEntity = useAppSelector(state => state.stripLaying.entity);
   const updateSuccess = useAppSelector(state => state.stripLaying.updateSuccess);
 
+  const redirectionUrl = getOutFromStudySupplyStrandStripLaying(props.match.url, false);
+
   const handleClose = () => {
-    props.history.push('/strip-laying');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {
