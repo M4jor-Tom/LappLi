@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity, deleteEntity } from './screen.reducer';
+import { getOutFromStudySupplyStrandScreen } from '../index-management/index-management-lib';
 
 export const ScreenDeleteDialog = (props: RouteComponentProps<{ id: string }>) => {
   const [loadModal, setLoadModal] = useState(false);
@@ -16,11 +17,13 @@ export const ScreenDeleteDialog = (props: RouteComponentProps<{ id: string }>) =
     setLoadModal(true);
   }, []);
 
+  const redirectionUrl = getOutFromStudySupplyStrandScreen(props.match.url, false);
+
   const screenEntity = useAppSelector(state => state.screen.entity);
   const updateSuccess = useAppSelector(state => state.screen.updateSuccess);
 
   const handleClose = () => {
-    props.history.push('/screen');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {

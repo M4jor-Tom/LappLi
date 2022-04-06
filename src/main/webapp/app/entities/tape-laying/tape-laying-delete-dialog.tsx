@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity, deleteEntity } from './tape-laying.reducer';
+import { getOutFromStudySupplyStrandTapeLaying } from '../index-management/index-management-lib';
 
 export const TapeLayingDeleteDialog = (props: RouteComponentProps<{ id: string }>) => {
   const [loadModal, setLoadModal] = useState(false);
@@ -16,11 +17,13 @@ export const TapeLayingDeleteDialog = (props: RouteComponentProps<{ id: string }
     setLoadModal(true);
   }, []);
 
+  const redirectionUrl = getOutFromStudySupplyStrandTapeLaying(props.match.url, false);
+
   const tapeLayingEntity = useAppSelector(state => state.tapeLaying.entity);
   const updateSuccess = useAppSelector(state => state.tapeLaying.updateSuccess);
 
   const handleClose = () => {
-    props.history.push('/tape-laying');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {
