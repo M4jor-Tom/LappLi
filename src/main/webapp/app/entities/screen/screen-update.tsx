@@ -119,7 +119,7 @@ export const ScreenUpdate = (props: RouteComponentProps<{ strand_supply_id: stri
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.screen.operationLayer')}
+                label={translate('lappLiApp.operation.operationLayer')}
                 id="screen-operationLayer"
                 name="operationLayer"
                 data-cy="operationLayer"
