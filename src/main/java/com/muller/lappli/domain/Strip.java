@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -12,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "strip")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Strip implements Serializable {
+public class Strip extends AbstractDomainObject<Strip> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,6 +35,11 @@ public class Strip implements Serializable {
     private Double milimeterThickness;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    @Override
+    public Strip getThis() {
+        return this;
+    }
 
     public Long getId() {
         return this.id;
