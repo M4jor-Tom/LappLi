@@ -35,7 +35,7 @@ export const StripLayingUpdate = (props: RouteComponentProps<{ strand_supply_id:
   //  Design for operation -- END
 
   const handleClose = () => {
-    props.history.push('/strip-laying');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {
@@ -177,7 +177,7 @@ export const StripLayingUpdate = (props: RouteComponentProps<{ strand_supply_id:
                   <Translate contentKey="entity.validation.required">This field is required.</Translate>
                 </FormText>
               )}
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/strip-laying" replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
