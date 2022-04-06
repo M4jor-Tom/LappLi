@@ -95,6 +95,11 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
+    private Set<StripLaying> stripLayings = new HashSet<>();
+
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "material", "ownerStrandSupply" }, allowSetters = true)
     private Set<Sheathing> sheathings = new HashSet<>();
 
@@ -738,6 +743,37 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     public StrandSupply removeScreens(Screen screen) {
         this.screens.remove(screen);
         screen.setOwnerStrandSupply(null);
+        return this;
+    }
+
+    public Set<StripLaying> getStripLayings() {
+        return this.stripLayings;
+    }
+
+    public void setStripLayings(Set<StripLaying> stripLayings) {
+        if (this.stripLayings != null) {
+            this.stripLayings.forEach(i -> i.setOwnerStrandSupply(null));
+        }
+        if (stripLayings != null) {
+            stripLayings.forEach(i -> i.setOwnerStrandSupply(this));
+        }
+        this.stripLayings = stripLayings;
+    }
+
+    public StrandSupply stripLayings(Set<StripLaying> stripLayings) {
+        this.setStripLayings(stripLayings);
+        return this;
+    }
+
+    public StrandSupply addStripLayings(StripLaying stripLaying) {
+        this.stripLayings.add(stripLaying);
+        stripLaying.setOwnerStrandSupply(this);
+        return this;
+    }
+
+    public StrandSupply removeStripLayings(StripLaying stripLaying) {
+        this.stripLayings.remove(stripLaying);
+        stripLaying.setOwnerStrandSupply(null);
         return this;
     }
 

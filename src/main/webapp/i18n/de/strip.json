@@ -1,0 +1,26 @@
+{
+  "lappLiApp": {
+    "strip": {
+      "home": {
+        "title": "Strips",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Strip erstellen",
+        "createOrEditLabel": "Strip erstellen oder bearbeiten",
+        "notFound": "Keine Strips gefunden"
+      },
+      "created": "Strip erstellt mit ID {{ param }}",
+      "updated": "Strip aktualisiert mit ID {{ param }}",
+      "deleted": "Strip gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Strip {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Strip"
+      },
+      "id": "ID",
+      "number": "Number",
+      "designation": "Designation",
+      "milimeterThickness": "Milimeter Thickness"
+    }
+  }
+}

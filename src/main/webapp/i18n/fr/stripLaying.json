@@ -1,0 +1,25 @@
+{
+  "lappLiApp": {
+    "stripLaying": {
+      "home": {
+        "title": "StripLayings",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Strip Laying",
+        "createOrEditLabel": "Créer ou éditer un Strip Laying",
+        "notFound": "Aucun Strip Laying trouvé"
+      },
+      "created": "Un nouveau Strip Laying a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Strip Laying avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Strip Laying avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Strip Laying {{ id }} ?"
+      },
+      "detail": {
+        "title": "Strip Laying"
+      },
+      "id": "ID",
+      "operationLayer": "Operation Layer",
+      "ownerStrandSupply": "Owner Strand Supply"
+    }
+  }
+}
