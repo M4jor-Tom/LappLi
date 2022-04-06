@@ -72,6 +72,7 @@ export const StripLayingUpdate = (props: RouteComponentProps<{ strand_supply_id:
     const entity = {
       ...stripLayingEntity,
       ...values,
+      __typeName: 'StripLaying',
       strip: strips.find(it => it.id.toString() === values.strip.toString()),
       ownerStrandSupply: futureOwnerStrandSupply,
     };
