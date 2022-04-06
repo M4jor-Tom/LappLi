@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.muller.lappli.domain.CentralAssembly;
 import com.muller.lappli.domain.CoreAssembly;
 import com.muller.lappli.domain.IntersticeAssembly;
+import com.muller.lappli.domain.Screen;
 import com.muller.lappli.domain.Sheathing;
 import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.TapeLaying;
@@ -19,6 +20,7 @@ import com.muller.lappli.domain.enumeration.OperationKind;
         @JsonSubTypes.Type(value = CoreAssembly.class, name = "CoreAssembly"),
         @JsonSubTypes.Type(value = IntersticeAssembly.class, name = "IntersticeAssembly"),
         @JsonSubTypes.Type(value = TapeLaying.class, name = "TapeLaying"),
+        @JsonSubTypes.Type(value = Screen.class, name = "Screen"),
         @JsonSubTypes.Type(value = Sheathing.class, name = "Sheathing"),
     }
 )
