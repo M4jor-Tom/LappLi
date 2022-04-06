@@ -3,6 +3,8 @@ package com.muller.lappli.service.impl;
 import com.muller.lappli.domain.Screen;
 import com.muller.lappli.repository.ScreenRepository;
 import com.muller.lappli.service.ScreenService;
+import com.muller.lappli.service.StrandSupplyService;
+import com.muller.lappli.service.abstracts.AbstractNonCentralOperationServiceImpl;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -15,13 +17,14 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class ScreenServiceImpl implements ScreenService {
+public class ScreenServiceImpl extends AbstractNonCentralOperationServiceImpl<Screen> implements ScreenService {
 
     private final Logger log = LoggerFactory.getLogger(ScreenServiceImpl.class);
 
     private final ScreenRepository screenRepository;
 
-    public ScreenServiceImpl(ScreenRepository screenRepository) {
+    public ScreenServiceImpl(ScreenRepository screenRepository, StrandSupplyService strandSupplyService) {
+        super(strandSupplyService);
         this.screenRepository = screenRepository;
     }
 
@@ -32,7 +35,7 @@ public class ScreenServiceImpl implements ScreenService {
     }
 
     @Override
-    public Optional<Screen> partialUpdate(Screen screen) {
+    public Optional<Screen> partialUpdate(Screen screen, Boolean actualizeOwnerStrandSupply) {
         log.debug("Request to partially update Screen : {}", screen);
 
         return screenRepository
@@ -48,6 +51,9 @@ public class ScreenServiceImpl implements ScreenService {
                     existingScreen.setForcedDiameterAssemblyStep(screen.getForcedDiameterAssemblyStep());
                 }
 
+                if (actualizeOwnerStrandSupply) {
+                    actualizeOwnerStrandSupply(existingScreen);
+                }
                 return existingScreen;
             })
             .map(screenRepository::save);

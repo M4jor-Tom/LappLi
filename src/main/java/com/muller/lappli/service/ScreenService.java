@@ -22,7 +22,7 @@ public interface ScreenService {
      * @param screen the entity to update partially.
      * @return the persisted entity.
      */
-    Optional<Screen> partialUpdate(Screen screen);
+    Optional<Screen> partialUpdate(Screen screen, Boolean actualizeOwnerStrandSupply);
 
     /**
      * Get all the screens.
