@@ -7,14 +7,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ICopperFiber } from 'app/shared/model/copper-fiber.model';
 import { getEntities as getCopperFibers } from 'app/entities/copper-fiber/copper-fiber.reducer';
 import { IStrandSupply } from 'app/shared/model/strand-supply.model';
-import { getEntities as getStrandSupplies } from 'app/entities/strand-supply/strand-supply.reducer';
+import { getEntities as getStrandSupplies, getEntity as getStrandSupplyEntity } from 'app/entities/strand-supply/strand-supply.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './screen.reducer';
 import { IScreen } from 'app/shared/model/screen.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { getOutFromStudySupplyStrandScreen } from '../index-management/index-management-lib';
 
-export const ScreenUpdate = (props: RouteComponentProps<{ id: string }>) => {
+export const ScreenUpdate = (props: RouteComponentProps<{ strand_supply_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
@@ -25,8 +26,16 @@ export const ScreenUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const loading = useAppSelector(state => state.screen.loading);
   const updating = useAppSelector(state => state.screen.updating);
   const updateSuccess = useAppSelector(state => state.screen.updateSuccess);
+
+  //  Design for operation -- START
+
+  const redirectionUrl = getOutFromStudySupplyStrandScreen(props.match.url, isNew);
+  const futureOwnerStrandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
+
+  //  Design for operation -- END
+
   const handleClose = () => {
-    props.history.push('/screen');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {
@@ -47,11 +56,25 @@ export const ScreenUpdate = (props: RouteComponentProps<{ id: string }>) => {
   }, [updateSuccess]);
 
   const saveEntity = values => {
+    //  Design for operation -- START
+
+    let futureOwnerStrandSupply: IStrandSupply = {};
+
+    if (values.ownerStrandSupply) {
+      futureOwnerStrandSupply = strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString());
+    } else {
+      dispatch(getStrandSupplyEntity(props.match.params.strand_supply_id));
+      futureOwnerStrandSupply = futureOwnerStrandSupplyEntity;
+    }
+
+    //  Design for operation -- END
+
     const entity = {
       ...screenEntity,
       ...values,
+      __typeName: 'Screen',
       copperFiber: copperFibers.find(it => it.id.toString() === values.copperFiber.toString()),
-      ownerStrandSupply: strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString()),
+      ownerStrandSupply: futureOwnerStrandSupply,
     };
 
     if (isNew) {
@@ -101,6 +124,7 @@ export const ScreenUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 name="operationLayer"
                 data-cy="operationLayer"
                 type="text"
+                defaultValue={-2}
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
                   validate: v => isNumber(v) || translate('entity.validation.number'),
@@ -141,27 +165,35 @@ export const ScreenUpdate = (props: RouteComponentProps<{ id: string }>) => {
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              <ValidatedField
-                id="screen-ownerStrandSupply"
-                name="ownerStrandSupply"
-                data-cy="ownerStrandSupply"
-                label={translate('lappLiApp.screen.ownerStrandSupply')}
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {strandSupplies
-                  ? strandSupplies.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.designation}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/screen" replace color="info">
+              {props.match.params ? (
+                ''
+              ) : (
+                <ValidatedField
+                  id="screen-ownerStrandSupply"
+                  name="ownerStrandSupply"
+                  data-cy="ownerStrandSupply"
+                  label={translate('lappLiApp.screen.ownerStrandSupply')}
+                  type="select"
+                  required
+                >
+                  <option value="" key="0" />
+                  {strandSupplies
+                    ? strandSupplies.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.designation}
+                        </option>
+                      ))
+                    : null}
+                </ValidatedField>
+              )}
+              {props.match.params ? (
+                ''
+              ) : (
+                <FormText>
+                  <Translate contentKey="entity.validation.required">This field is required.</Translate>
+                </FormText>
+              )}
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
