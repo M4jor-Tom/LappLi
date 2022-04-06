@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -12,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "tape_kind")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class TapeKind implements Serializable {
+public class TapeKind extends AbstractDomainObject<TapeKind> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,6 +35,11 @@ public class TapeKind implements Serializable {
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    @Override
+    public TapeKind getThis() {
+        return this;
+    }
 
     public Long getId() {
         return this.id;
