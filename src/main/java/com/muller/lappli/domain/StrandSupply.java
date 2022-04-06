@@ -347,6 +347,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     public Set<AbstractNonCentralAssembly<?>> getNonCentralAssemblies() {
         Set<AbstractNonCentralAssembly<?>> assemblies = new HashSet<>();
 
+        //[NON_CENTRAL_ASSEMBLIES]
         assemblies.addAll(getCoreAssemblies());
         assemblies.addAll(getIntersticeAssemblies());
 
@@ -379,6 +380,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     public Set<INonAssemblyOperation<?>> getNonAssemblyOperations() {
         HashSet<INonAssemblyOperation<?>> operations = new HashSet<>();
 
+        //[NON_ASSEMBLY_OPERATIONS]
         operations.addAll(getTapeLayings());
         operations.addAll(getSheathings());
 
