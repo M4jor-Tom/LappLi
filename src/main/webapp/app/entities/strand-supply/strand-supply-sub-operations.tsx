@@ -109,6 +109,17 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
       </Link>
       &nbsp;
       <Link
+        to={`${props.match.url}/strip-laying/new`}
+        className="btn btn-primary jh-create-entity"
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+      >
+        <FontAwesomeIcon icon="plus" />
+        &nbsp;
+        <Translate contentKey="lappLiApp.strip-laying.detail.title">Strip Laying</Translate>
+      </Link>
+      &nbsp;
+      <Link
         to={`${props.match.url}/sheathing/new`}
         className="btn btn-primary jh-create-entity"
         id="jh-create-entity"
