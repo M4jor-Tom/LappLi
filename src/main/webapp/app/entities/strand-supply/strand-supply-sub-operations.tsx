@@ -116,7 +116,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
       >
         <FontAwesomeIcon icon="plus" />
         &nbsp;
-        <Translate contentKey="lappLiApp.strip-laying.detail.title">Strip Laying</Translate>
+        <Translate contentKey="lappLiApp.stripLaying.detail.title">Strip Laying</Translate>
       </Link>
       &nbsp;
       <Link
