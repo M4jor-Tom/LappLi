@@ -385,6 +385,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         HashSet<INonAssemblyOperation<?>> operations = new HashSet<>();
 
         operations.addAll(getTapeLayings());
+        operations.addAll(getScreens());
         operations.addAll(getSheathings());
 
         return operations;
