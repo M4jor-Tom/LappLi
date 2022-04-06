@@ -9,6 +9,7 @@ import com.muller.lappli.domain.IntersticeAssembly;
 import com.muller.lappli.domain.Screen;
 import com.muller.lappli.domain.Sheathing;
 import com.muller.lappli.domain.StrandSupply;
+import com.muller.lappli.domain.StripLaying;
 import com.muller.lappli.domain.TapeLaying;
 import com.muller.lappli.domain.enumeration.OperationKind;
 
@@ -21,6 +22,7 @@ import com.muller.lappli.domain.enumeration.OperationKind;
         @JsonSubTypes.Type(value = IntersticeAssembly.class, name = "IntersticeAssembly"),
         @JsonSubTypes.Type(value = TapeLaying.class, name = "TapeLaying"),
         @JsonSubTypes.Type(value = Screen.class, name = "Screen"),
+        @JsonSubTypes.Type(value = StripLaying.class, name = "StripLaying"),
         @JsonSubTypes.Type(value = Sheathing.class, name = "Sheathing"),
     }
 )
