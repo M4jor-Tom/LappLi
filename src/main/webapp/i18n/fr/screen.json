@@ -2,27 +2,27 @@
   "lappLiApp": {
     "screen": {
       "home": {
-        "title": "Screens",
+        "title": "Guipages",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Screen",
-        "createOrEditLabel": "Créer ou éditer un Screen",
-        "notFound": "Aucun Screen trouvé"
+        "createLabel": "Créer un nouveau Guipage",
+        "createOrEditLabel": "Créer ou éditer un Guipage",
+        "notFound": "Aucun Guipage trouvé"
       },
-      "created": "Un nouveau Screen a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Screen avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Screen avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouveau Guipage a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Guipage avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Guipage avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Screen {{ id }} ?"
+        "question": "Etes-vous certain de vouloir supprimer le Guipage {{ id }} ?"
       },
       "detail": {
-        "title": "Screen"
+        "title": "Guipage"
       },
       "id": "ID",
       "operationLayer": "Operation Layer",
-      "assemblyMeanIsSameThanAssemblys": "Assembly Mean Is Same Than Assemblys",
-      "forcedDiameterAssemblyStep": "Forced Diameter Assembly Step",
-      "copperFiber": "Copper Fiber",
-      "ownerStrandSupply": "Owner Strand Supply"
+      "assemblyMeanIsSameThanAssemblys": "Pas d'assemblage à 3D (sinon 8D)",
+      "forcedDiameterAssemblyStep": "Pas d'assemblage forcé (D)",
+      "copperFiber": "Fibre de cuivre",
+      "ownerStrandSupply": "Approvisionnement de Toron Propriétaire"
     }
   }
 }
