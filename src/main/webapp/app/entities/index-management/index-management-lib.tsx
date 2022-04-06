@@ -19,6 +19,8 @@ enum SupplyOwner {
   STUDY = 'study',
 }
 
+//  [OPERATION]
+
 function getOutFromStudySupplyStrandTapeLaying(url: string, isNew: boolean): string {
   return getOutFromStudySupplyStrandComponent(url, isNew);
 }
