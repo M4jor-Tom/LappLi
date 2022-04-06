@@ -120,6 +120,7 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ strand_supply_id: 
                 type="text"
                 defaultValue={-2}
                 validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
               />
