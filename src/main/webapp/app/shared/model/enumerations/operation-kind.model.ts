@@ -9,5 +9,7 @@ export enum OperationKind {
 
   SCREEN = 'SCREEN',
 
+  STRIP_LAYING = 'STRIP_LAYING',
+
   SHEATHING = 'SHEATHING',
 }
