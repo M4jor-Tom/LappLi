@@ -7,14 +7,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IStrip } from 'app/shared/model/strip.model';
 import { getEntities as getStrips } from 'app/entities/strip/strip.reducer';
 import { IStrandSupply } from 'app/shared/model/strand-supply.model';
-import { getEntities as getStrandSupplies } from 'app/entities/strand-supply/strand-supply.reducer';
+import { getEntities as getStrandSupplies, getEntity as getStrandSupplyEntity } from 'app/entities/strand-supply/strand-supply.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './strip-laying.reducer';
 import { IStripLaying } from 'app/shared/model/strip-laying.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { getOutFromStudySupplyStrandStripLaying } from '../index-management/index-management-lib';
 
-export const StripLayingUpdate = (props: RouteComponentProps<{ id: string }>) => {
+export const StripLayingUpdate = (props: RouteComponentProps<{ strand_supply_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
@@ -25,6 +26,14 @@ export const StripLayingUpdate = (props: RouteComponentProps<{ id: string }>) =>
   const loading = useAppSelector(state => state.stripLaying.loading);
   const updating = useAppSelector(state => state.stripLaying.updating);
   const updateSuccess = useAppSelector(state => state.stripLaying.updateSuccess);
+
+  //  Design for operation -- START
+
+  const redirectionUrl = getOutFromStudySupplyStrandStripLaying(props.match.url, isNew);
+  const futureOwnerStrandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
+
+  //  Design for operation -- END
+
   const handleClose = () => {
     props.history.push('/strip-laying');
   };
@@ -47,11 +56,24 @@ export const StripLayingUpdate = (props: RouteComponentProps<{ id: string }>) =>
   }, [updateSuccess]);
 
   const saveEntity = values => {
+    //  Design for operation -- START
+
+    let futureOwnerStrandSupply: IStrandSupply = {};
+
+    if (values.ownerStrandSupply) {
+      futureOwnerStrandSupply = strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString());
+    } else {
+      dispatch(getStrandSupplyEntity(props.match.params.strand_supply_id));
+      futureOwnerStrandSupply = futureOwnerStrandSupplyEntity;
+    }
+
+    //  Design for operation -- END
+
     const entity = {
       ...stripLayingEntity,
       ...values,
       strip: strips.find(it => it.id.toString() === values.strip.toString()),
-      ownerStrandSupply: strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString()),
+      ownerStrandSupply: futureOwnerStrandSupply,
     };
 
     if (isNew) {
@@ -126,26 +148,34 @@ export const StripLayingUpdate = (props: RouteComponentProps<{ id: string }>) =>
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              <ValidatedField
-                id="strip-laying-ownerStrandSupply"
-                name="ownerStrandSupply"
-                data-cy="ownerStrandSupply"
-                label={translate('lappLiApp.stripLaying.ownerStrandSupply')}
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {strandSupplies
-                  ? strandSupplies.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.designation}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
+              {props.match.params ? (
+                ''
+              ) : (
+                <ValidatedField
+                  id="strip-laying-ownerStrandSupply"
+                  name="ownerStrandSupply"
+                  data-cy="ownerStrandSupply"
+                  label={translate('lappLiApp.stripLaying.ownerStrandSupply')}
+                  type="select"
+                  required
+                >
+                  <option value="" key="0" />
+                  {strandSupplies
+                    ? strandSupplies.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.designation}
+                        </option>
+                      ))
+                    : null}
+                </ValidatedField>
+              )}
+              {props.match.params ? (
+                ''
+              ) : (
+                <FormText>
+                  <Translate contentKey="entity.validation.required">This field is required.</Translate>
+                </FormText>
+              )}
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/strip-laying" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
