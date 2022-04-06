@@ -124,7 +124,7 @@ public class StripLayingResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<StripLaying> result = stripLayingService.partialUpdate(stripLaying);
+        Optional<StripLaying> result = stripLayingService.partialUpdate(stripLaying, true);
 
         return ResponseUtil.wrapOrNotFound(
             result,

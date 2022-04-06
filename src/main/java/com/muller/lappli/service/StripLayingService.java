@@ -22,7 +22,7 @@ public interface StripLayingService {
      * @param stripLaying the entity to update partially.
      * @return the persisted entity.
      */
-    Optional<StripLaying> partialUpdate(StripLaying stripLaying);
+    Optional<StripLaying> partialUpdate(StripLaying stripLaying, Boolean actualizeOwnerStrandSupply);
 
     /**
      * Get all the stripLayings.
