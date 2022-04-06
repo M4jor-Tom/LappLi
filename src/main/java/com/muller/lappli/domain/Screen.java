@@ -6,6 +6,7 @@ import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
 import com.muller.lappli.domain.interfaces.IOperation;
+import com.muller.lappli.domain.interfaces.MeanedAssemblableOperation;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -18,7 +19,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "screen")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Screen extends AbstractOperation<Screen> implements Serializable, INonAssemblyOperation<Screen> {
+public class Screen
+    extends AbstractOperation<Screen>
+    implements Serializable, INonAssemblyOperation<Screen>, MeanedAssemblableOperation<Screen> {
 
     private static final long serialVersionUID = 1L;
 
@@ -91,6 +94,7 @@ public class Screen extends AbstractOperation<Screen> implements Serializable, I
         return getCopperFiber().getDesignation();
     }
 
+    @Override
     public Double getDiameterAssemblyStep() {
         if (getForcedDiameterAssemblyStep() == null) {
             return getAssemblyMeanIsSameThanAssemblys() ? 3.0 : 8.0;
@@ -99,6 +103,7 @@ public class Screen extends AbstractOperation<Screen> implements Serializable, I
         return getForcedDiameterAssemblyStep().doubleValue();
     }
 
+    @Override
     public AssemblyMean getAssemblyMean() {
         if (getOwnerStrandSupply() == null) {
             return null;
