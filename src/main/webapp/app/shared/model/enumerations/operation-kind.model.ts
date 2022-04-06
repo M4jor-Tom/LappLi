@@ -1,3 +1,4 @@
+//  [OPERATION]
 export enum OperationKind {
   CENTRAL_ASSEMBLY = 'CENTRAL_ASSEMBLY',
 
