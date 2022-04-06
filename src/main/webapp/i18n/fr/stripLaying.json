@@ -1,0 +1,26 @@
+{
+  "lappLiApp": {
+    "stripLaying": {
+      "home": {
+        "title": "Poses de Feuillard",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer une nouvelle Pose de Feuillard",
+        "createOrEditLabel": "Créer ou éditer une Pose de Feuillard",
+        "notFound": "Aucune Pose de Feuillard trouvé"
+      },
+      "created": "Une nouvelle Pose de Feuillard a été créé avec l'identifiant {{ param }}",
+      "updated": "La Pose de Feuillard avec l'identifiant {{ param }} a été mise à jour",
+      "deleted": "La Pose de Feuillard avec l'identifiant {{ param }} a été supprimée",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer la Pose de Feuillard {{ id }} ?"
+      },
+      "detail": {
+        "title": "Pose de Feuillard"
+      },
+      "id": "ID",
+      "operationLayer": "Couche d'opération",
+      "strip": "Feuillard",
+      "ownerStrandSupply": "Approvisionnement de Toron Propriétaire"
+    }
+  }
+}

@@ -29,6 +29,10 @@ function getOutFromStudySupplyStrandScreen(url: string, isNew: boolean): string 
   return getOutFromStudySupplyStrandComponent(url, isNew);
 }
 
+function getOutFromStudySupplyStrandStripLaying(url: string, isNew: boolean): string {
+  return getOutFromStudySupplyStrandComponent(url, isNew);
+}
+
 function getOutFromStudySupplyStrandSheathing(url: string, isNew: boolean): string {
   return getOutFromStudySupplyStrandComponent(url, isNew);
 }
@@ -184,6 +188,7 @@ export {
   AssemblyKind,
   getOutFromStudySupplyStrandTapeLaying,
   getOutFromStudySupplyStrandScreen,
+  getOutFromStudySupplyStrandStripLaying,
   getOutFromStudySupplyStrandSheathing,
   getOutFromStudySupplyStrandAssemblyComponent,
   getOutFromStudySupplyStrandSupplyComponent,

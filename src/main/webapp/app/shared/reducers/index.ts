@@ -67,6 +67,10 @@ import tapeLaying from 'app/entities/tape-laying/tape-laying.reducer';
 import screen from 'app/entities/screen/screen.reducer';
 // prettier-ignore
 import copperFiber from 'app/entities/copper-fiber/copper-fiber.reducer';
+// prettier-ignore
+import strip from 'app/entities/strip/strip.reducer';
+// prettier-ignore
+import stripLaying from 'app/entities/strip-laying/strip-laying.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -108,6 +112,8 @@ const rootReducer = {
   tapeLaying,
   screen,
   copperFiber,
+  strip,
+  stripLaying,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };

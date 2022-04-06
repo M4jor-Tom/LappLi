@@ -33,6 +33,8 @@
       "coreAssemblies": "Core Assemblies",
       "intersticeAssemblies": "Interstice Assemblies",
       "tapeLayings": "Tape Layings",
+      "screens": "Screens",
+      "stripLayings": "Strip Layings",
       "sheathings": "Sheathings",
       "strand": "Strand",
       "centralAssembly": "Central Assembly",

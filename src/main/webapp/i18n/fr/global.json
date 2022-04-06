@@ -36,6 +36,8 @@
         "tapeLaying": "Tape Laying",
         "screen": "Screen",
         "copperFiber": "Copper Fiber",
+        "strip": "Strip",
+        "stripLaying": "Strip Laying",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

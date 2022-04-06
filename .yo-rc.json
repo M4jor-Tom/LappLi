@@ -71,8 +71,10 @@
       "TapeKind",
       "TapeLaying",
       "Screen",
-      "CopperFiber"
+      "CopperFiber",
+      "Strip",
+      "StripLaying"
     ],
-    "lastLiquibaseTimestamp": 1649165106000
+    "lastLiquibaseTimestamp": 1649247462000
   }
 }

@@ -18,6 +18,16 @@ entity TapeKind {
     designation String unique required
 }
 
+entity Strip {
+    number Long required unique
+    designation String unique required
+    milimeterThickness Double required
+}
+
+entity StripLaying {
+    operationLayer Long required
+}
+
 entity TapeLaying {
 	operationLayer Long required
 	assemblyMean AssemblyMean required
@@ -220,6 +230,9 @@ relationship OneToMany {
     //Screens
     StrandSupply{screens(productionStep)} to Screen{ownerStrandSupply(designation) required}
 
+    //StripLayings
+    StrandSupply{stripLayings(productionStep)} to StripLaying{ownerStrandSupply(designation) required}
+
     //Sheathings
     StrandSupply{sheathings(productionStep)} to Sheathing{ownerStrandSupply(designation) required}
 }
@@ -242,6 +255,10 @@ relationship OneToMany {
 
 relationship ManyToOne {
     Screen{copperFiber(designation) required} to CopperFiber
+}
+
+relationship ManyToOne {
+    StripLaying{strip(designation) required} to Strip
 }
 
 relationship ManyToOne {
