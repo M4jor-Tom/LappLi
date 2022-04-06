@@ -35,6 +35,8 @@ import { StrandSupplyAssemble } from '../strand-supply/strand-supply-assemble';
 import { StrandSupplyAssemblyDeleteDialog } from '../strand-supply/strand-supply-assembly-delete';
 import { TapeLayingUpdate } from '../tape-laying/tape-laying-update';
 import { TapeLayingDeleteDialog } from '../tape-laying/tape-laying-delete-dialog';
+import ScreenUpdate from '../screen/screen-update';
+import ScreenDeleteDialog from '../screen/screen-delete-dialog';
 
 const studySuppliesUrlPrefix = '/:study_id/study-supplies';
 
@@ -93,6 +95,14 @@ const Routes = ({ match }) => (
         exact
         path={`${match.url + strandSupplyOperationZoneUrlPrefix}/tape-laying/:id/delete`}
         component={TapeLayingDeleteDialog}
+      />
+
+      <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/screen/new`} component={ScreenUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/screen/:id/edit`} component={ScreenUpdate} />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/screen/:id/delete`}
+        component={ScreenDeleteDialog}
       />
 
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/sheathing/new`} component={SheathingUpdate} />
