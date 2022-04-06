@@ -1,6 +1,8 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractOperation;
+import com.muller.lappli.domain.enumeration.OperationKind;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -13,7 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "strip_laying")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class StripLaying implements Serializable {
+public class StripLaying extends AbstractOperation<StripLaying> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -49,6 +51,40 @@ public class StripLaying implements Serializable {
     private StrandSupply ownerStrandSupply;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    @Override
+    public StripLaying getThis() {
+        return this;
+    }
+
+    @Override
+    public OperationKind getOperationKind() {
+        return OperationKind.STRIP_LAYING;
+    }
+
+    @Override
+    public Double getMilimeterDiameterIncidency() {
+        if (getStrip() == null) {
+            return Double.NaN;
+        }
+
+        return getStrip().getMilimeterThickness() * 2;
+    }
+
+    @Override
+    public Long getProductionStep() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getProductDesignation() {
+        if (getStrip() == null) {
+            return "";
+        }
+
+        return getStrip().getDesignation();
+    }
 
     public Long getId() {
         return this.id;
