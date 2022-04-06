@@ -2,7 +2,11 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
+import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.OperationKind;
+import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
+import com.muller.lappli.domain.interfaces.IOperation;
+import com.muller.lappli.domain.interfaces.MeanedAssemblableOperation;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -15,7 +19,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "strip_laying")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class StripLaying extends AbstractOperation<StripLaying> implements Serializable {
+public class StripLaying
+    extends AbstractOperation<StripLaying>
+    implements Serializable, INonAssemblyOperation<StripLaying>, MeanedAssemblableOperation<StripLaying> {
 
     private static final long serialVersionUID = 1L;
 
@@ -84,6 +90,24 @@ public class StripLaying extends AbstractOperation<StripLaying> implements Seria
         }
 
         return getStrip().getDesignation();
+    }
+
+    @Override
+    public IOperation<StripLaying> toOperation() {
+        // TODO Auto-generated method stub
+        return this;
+    }
+
+    @Override
+    public Double getDiameterAssemblyStep() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
+    public AssemblyMean getAssemblyMean() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     public Long getId() {
