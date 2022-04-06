@@ -53,6 +53,9 @@ export const StripLaying = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.stripLaying.operationLayer">Operation Layer</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.stripLaying.strip">Strip</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.stripLaying.ownerStrandSupply">Owner Strand Supply</Translate>
                 </th>
                 <th />
@@ -67,6 +70,7 @@ export const StripLaying = (props: RouteComponentProps<{ url: string }>) => {
                     </Button>
                   </td>
                   <td>{stripLaying.operationLayer}</td>
+                  <td>{stripLaying.strip ? <Link to={`strip/${stripLaying.strip.id}`}>{stripLaying.strip.designation}</Link> : ''}</td>
                   <td>
                     {stripLaying.ownerStrandSupply ? (
                       <Link to={`strand-supply/${stripLaying.ownerStrandSupply.id}`}>{stripLaying.ownerStrandSupply.designation}</Link>

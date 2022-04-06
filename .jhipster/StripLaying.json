@@ -10,6 +10,14 @@
   "relationships": [
     {
       "relationshipType": "many-to-one",
+      "otherEntityName": "strip",
+      "otherEntityRelationshipName": "stripLaying",
+      "relationshipValidateRules": "required",
+      "relationshipName": "strip",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
       "otherEntityName": "strandSupply",
       "otherEntityRelationshipName": "stripLayings",
       "relationshipValidateRules": "required",

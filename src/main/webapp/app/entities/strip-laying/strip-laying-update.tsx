@@ -4,6 +4,8 @@ import { Button, Row, Col, FormText } from 'reactstrap';
 import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { IStrip } from 'app/shared/model/strip.model';
+import { getEntities as getStrips } from 'app/entities/strip/strip.reducer';
 import { IStrandSupply } from 'app/shared/model/strand-supply.model';
 import { getEntities as getStrandSupplies } from 'app/entities/strand-supply/strand-supply.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './strip-laying.reducer';
@@ -17,6 +19,7 @@ export const StripLayingUpdate = (props: RouteComponentProps<{ id: string }>) =>
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
+  const strips = useAppSelector(state => state.strip.entities);
   const strandSupplies = useAppSelector(state => state.strandSupply.entities);
   const stripLayingEntity = useAppSelector(state => state.stripLaying.entity);
   const loading = useAppSelector(state => state.stripLaying.loading);
@@ -33,6 +36,7 @@ export const StripLayingUpdate = (props: RouteComponentProps<{ id: string }>) =>
       dispatch(getEntity(props.match.params.id));
     }
 
+    dispatch(getStrips({}));
     dispatch(getStrandSupplies({}));
   }, []);
 
@@ -46,6 +50,7 @@ export const StripLayingUpdate = (props: RouteComponentProps<{ id: string }>) =>
     const entity = {
       ...stripLayingEntity,
       ...values,
+      strip: strips.find(it => it.id.toString() === values.strip.toString()),
       ownerStrandSupply: strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString()),
     };
 
@@ -61,6 +66,7 @@ export const StripLayingUpdate = (props: RouteComponentProps<{ id: string }>) =>
       ? {}
       : {
           ...stripLayingEntity,
+          strip: stripLayingEntity?.strip?.id,
           ownerStrandSupply: stripLayingEntity?.ownerStrandSupply?.id,
         };
 
@@ -100,6 +106,26 @@ export const StripLayingUpdate = (props: RouteComponentProps<{ id: string }>) =>
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
               />
+              <ValidatedField
+                id="strip-laying-strip"
+                name="strip"
+                data-cy="strip"
+                label={translate('lappLiApp.stripLaying.strip')}
+                type="select"
+                required
+              >
+                <option value="" key="0" />
+                {strips
+                  ? strips.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.designation}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
               <ValidatedField
                 id="strip-laying-ownerStrandSupply"
                 name="ownerStrandSupply"

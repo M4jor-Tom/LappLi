@@ -8,6 +8,12 @@
     -->
     <changeSet id="20220406121742-2" author="jhipster">
 
+        <addForeignKeyConstraint baseColumnNames="strip_id"
+                                 baseTableName="strip_laying"
+                                 constraintName="fk_strip_laying__strip_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="strip"/>
+
         <addForeignKeyConstraint baseColumnNames="owner_strand_supply_id"
                                  baseTableName="strip_laying"
                                  constraintName="fk_strip_laying__owner_strand_supply_id"

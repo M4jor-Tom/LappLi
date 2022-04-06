@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.StrandSupply;
+import com.muller.lappli.domain.Strip;
 import com.muller.lappli.domain.StripLaying;
 import com.muller.lappli.repository.StripLayingRepository;
 import java.util.List;
@@ -59,6 +60,16 @@ class StripLayingResourceIT {
     public static StripLaying createEntity(EntityManager em) {
         StripLaying stripLaying = new StripLaying().operationLayer(DEFAULT_OPERATION_LAYER);
         // Add required entity
+        Strip strip;
+        if (TestUtil.findAll(em, Strip.class).isEmpty()) {
+            strip = StripResourceIT.createEntity(em);
+            em.persist(strip);
+            em.flush();
+        } else {
+            strip = TestUtil.findAll(em, Strip.class).get(0);
+        }
+        stripLaying.setStrip(strip);
+        // Add required entity
         StrandSupply strandSupply;
         if (TestUtil.findAll(em, StrandSupply.class).isEmpty()) {
             strandSupply = StrandSupplyResourceIT.createEntity(em);
@@ -79,6 +90,16 @@ class StripLayingResourceIT {
      */
     public static StripLaying createUpdatedEntity(EntityManager em) {
         StripLaying stripLaying = new StripLaying().operationLayer(UPDATED_OPERATION_LAYER);
+        // Add required entity
+        Strip strip;
+        if (TestUtil.findAll(em, Strip.class).isEmpty()) {
+            strip = StripResourceIT.createUpdatedEntity(em);
+            em.persist(strip);
+            em.flush();
+        } else {
+            strip = TestUtil.findAll(em, Strip.class).get(0);
+        }
+        stripLaying.setStrip(strip);
         // Add required entity
         StrandSupply strandSupply;
         if (TestUtil.findAll(em, StrandSupply.class).isEmpty()) {

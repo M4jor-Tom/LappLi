@@ -36,6 +36,10 @@ export const StripLayingDetail = (props: RouteComponentProps<{ id: string }>) =>
           </dt>
           <dd>{stripLayingEntity.operationLayer}</dd>
           <dt>
+            <Translate contentKey="lappLiApp.stripLaying.strip">Strip</Translate>
+          </dt>
+          <dd>{stripLayingEntity.strip ? stripLayingEntity.strip.designation : ''}</dd>
+          <dt>
             <Translate contentKey="lappLiApp.stripLaying.ownerStrandSupply">Owner Strand Supply</Translate>
           </dt>
           <dd>{stripLayingEntity.ownerStrandSupply ? stripLayingEntity.ownerStrandSupply.designation : ''}</dd>

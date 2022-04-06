@@ -28,6 +28,10 @@ public class StripLaying implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
+    private Strip strip;
+
+    @ManyToOne(optional = false)
+    @NotNull
     @JsonIgnoreProperties(
         value = {
             "coreAssemblies",
@@ -70,6 +74,19 @@ public class StripLaying implements Serializable {
 
     public void setOperationLayer(Long operationLayer) {
         this.operationLayer = operationLayer;
+    }
+
+    public Strip getStrip() {
+        return this.strip;
+    }
+
+    public void setStrip(Strip strip) {
+        this.strip = strip;
+    }
+
+    public StripLaying strip(Strip strip) {
+        this.setStrip(strip);
+        return this;
     }
 
     public StrandSupply getOwnerStrandSupply() {
