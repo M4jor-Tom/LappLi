@@ -5,6 +5,7 @@ import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
+import com.muller.lappli.domain.interfaces.MeanedAssemblableOperation;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -17,7 +18,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "tape_laying")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class TapeLaying extends AbstractOperation<TapeLaying> implements Serializable, INonAssemblyOperation<TapeLaying> {
+public class TapeLaying
+    extends AbstractOperation<TapeLaying>
+    implements Serializable, INonAssemblyOperation<TapeLaying>, MeanedAssemblableOperation<TapeLaying> {
 
     private static final long serialVersionUID = 1L;
 
@@ -91,6 +94,12 @@ public class TapeLaying extends AbstractOperation<TapeLaying> implements Seriali
         }
 
         return getTape().getDesignation();
+    }
+
+    @Override
+    public Double getDiameterAssemblyStep() {
+        // TODO Add method in ICalculator to compute this
+        return Double.NaN;
     }
 
     public Long getId() {

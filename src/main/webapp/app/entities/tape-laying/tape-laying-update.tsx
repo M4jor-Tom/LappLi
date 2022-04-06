@@ -21,16 +21,21 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ strand_supply_id: 
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const redirectionUrl = getOutFromStudySupplyStrandTapeLaying(props.match.url, isNew);
-
   const tapes = useAppSelector(state => state.tape.entities);
   const strandSupplies = useAppSelector(state => state.strandSupply.entities);
-  const futureOwnerStrandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
   const tapeLayingEntity = useAppSelector(state => state.tapeLaying.entity);
   const loading = useAppSelector(state => state.tapeLaying.loading);
   const updating = useAppSelector(state => state.tapeLaying.updating);
   const updateSuccess = useAppSelector(state => state.tapeLaying.updateSuccess);
   const assemblyMeanValues = Object.keys(AssemblyMean);
+
+  //  Design for operation -- START
+
+  const redirectionUrl = getOutFromStudySupplyStrandTapeLaying(props.match.url, isNew);
+  const futureOwnerStrandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
+
+  //  Design for operation -- END
+
   const handleClose = () => {
     props.history.push(redirectionUrl);
   };
@@ -53,6 +58,8 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ strand_supply_id: 
   }, [updateSuccess]);
 
   const saveEntity = values => {
+    //  Design for operation -- START
+
     let futureOwnerStrandSupply: IStrandSupply = {};
 
     if (values.ownerStrandSupply) {
@@ -61,6 +68,8 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ strand_supply_id: 
       dispatch(getStrandSupplyEntity(props.match.params.strand_supply_id));
       futureOwnerStrandSupply = futureOwnerStrandSupplyEntity;
     }
+
+    //  Design for operation -- END
 
     const entity = {
       ...tapeLayingEntity,
@@ -120,6 +129,7 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ strand_supply_id: 
                 type="text"
                 defaultValue={-2}
                 validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
               />
