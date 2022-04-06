@@ -124,7 +124,7 @@ public class ScreenResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Screen> result = screenService.partialUpdate(screen);
+        Optional<Screen> result = screenService.partialUpdate(screen, true);
 
         return ResponseUtil.wrapOrNotFound(
             result,

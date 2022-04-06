@@ -31,6 +31,7 @@ public class ScreenServiceImpl extends AbstractNonCentralOperationServiceImpl<Sc
     @Override
     public Screen save(Screen screen) {
         log.debug("Request to save Screen : {}", screen);
+        actualizeOwnerStrandSupply(screen);
         return screenRepository.save(screen);
     }
 

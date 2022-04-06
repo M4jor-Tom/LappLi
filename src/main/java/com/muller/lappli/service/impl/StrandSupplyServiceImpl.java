@@ -2,6 +2,7 @@ package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.CoreAssembly;
 import com.muller.lappli.domain.IntersticeAssembly;
+import com.muller.lappli.domain.Screen;
 import com.muller.lappli.domain.Sheathing;
 import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.TapeLaying;
@@ -10,6 +11,7 @@ import com.muller.lappli.domain.interfaces.INonCentralOperation;
 import com.muller.lappli.repository.StrandSupplyRepository;
 import com.muller.lappli.service.CoreAssemblyService;
 import com.muller.lappli.service.IntersticeAssemblyService;
+import com.muller.lappli.service.ScreenService;
 import com.muller.lappli.service.SheathingService;
 import com.muller.lappli.service.StrandSupplyService;
 import com.muller.lappli.service.TapeLayingService;
@@ -40,6 +42,8 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
 
     private final TapeLayingService tapeLayingService;
 
+    private final ScreenService screenService;
+
     private final SheathingService sheathingService;
 
     public StrandSupplyServiceImpl(
@@ -47,12 +51,14 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         @Lazy CoreAssemblyService coreAssemblyService,
         @Lazy IntersticeAssemblyService intersticeAssemblyService,
         @Lazy TapeLayingService tapeLayingService,
+        @Lazy ScreenService screenService,
         @Lazy SheathingService sheathingService
     ) {
         this.strandSupplyRepository = strandSupplyRepository;
         this.coreAssemblyService = coreAssemblyService;
         this.intersticeAssemblyService = intersticeAssemblyService;
         this.tapeLayingService = tapeLayingService;
+        this.screenService = screenService;
         this.sheathingService = sheathingService;
     }
 
@@ -86,6 +92,14 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
                 actualizeOwnerStrandSupply = !tapeLaying.equals((TapeLaying) toInsert);
             }
             tapeLayingService.partialUpdate(tapeLaying, actualizeOwnerStrandSupply);
+        }
+
+        for (Screen screen : toActualize.getScreens()) {
+            Boolean actualizeOwnerStrandSupply = false;
+            if (toInsert instanceof Screen) {
+                actualizeOwnerStrandSupply = !screen.equals((Screen) toInsert);
+            }
+            screenService.partialUpdate(screen, actualizeOwnerStrandSupply);
         }
 
         for (Sheathing sheathing : toActualize.getSheathings()) {
