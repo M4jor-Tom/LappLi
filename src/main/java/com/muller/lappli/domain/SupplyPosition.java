@@ -143,6 +143,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
      * @return the owned Supply
      */
     public AbstractSupply<?> getSupply() {
+        //[SUPPLY]
         if (getBangleSupply() != null) {
             return getBangleSupply();
         } else if (getCustomComponentSupply() != null) {
@@ -163,6 +164,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
 
     @JsonIgnore
     public void setSupply(AbstractSupply<?> supply) {
+        //[SUPPLY]
         setBangleSupply(null);
         setCustomComponentSupply(null);
         setElementSupply(null);
