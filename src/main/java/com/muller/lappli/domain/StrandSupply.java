@@ -265,11 +265,13 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
      * @throws ImpossibleAssemblyPresetDistributionException
      */
     public Double getMilimeterDiameterBefore(IOperation<?> operation) {
-        try {
-            return getLastOperationBefore(operation).getAfterThisMilimeterDiameter();
-        } catch (NullPointerException e) {
+        IOperation<?> lastOperationBeforeThis = getLastOperationBefore(operation);
+
+        if (lastOperationBeforeThis == null) {
             return Double.NaN;
         }
+
+        return lastOperationBeforeThis.getAfterThisMilimeterDiameter();
     }
 
     @JsonIgnoreProperties("ownerStrandSupply")
