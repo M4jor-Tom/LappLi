@@ -26,6 +26,7 @@ import javax.persistence.Transient;
  * A supply object refers to the instanciation of a CylindricComponent
  * inside a Strand or Cable
  */
+//[SUPPLY]
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "__typeName")
 @JsonSubTypes(

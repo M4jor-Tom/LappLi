@@ -13,6 +13,7 @@ import com.muller.lappli.domain.StripLaying;
 import com.muller.lappli.domain.TapeLaying;
 import com.muller.lappli.domain.enumeration.OperationKind;
 
+//[OPERATION]
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "__typeName")
 @JsonSubTypes(
