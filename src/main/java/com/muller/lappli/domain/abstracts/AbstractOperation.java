@@ -27,11 +27,11 @@ public abstract class AbstractOperation<T extends AbstractOperation<T>> extends 
      * @throws ImpossibleAssemblyPresetDistributionException
      */
     public Double getBeforeThisMilimeterDiameter() {
-        try {
-            return getOwnerStrandSupply().getMilimeterDiameterBefore(this);
-        } catch (NullPointerException e) {
+        if (getOwnerStrandSupply() == null) {
             return Double.NaN;
         }
+
+        return getOwnerStrandSupply().getMilimeterDiameterBefore(this);
     }
 
     /**
@@ -44,11 +44,7 @@ public abstract class AbstractOperation<T extends AbstractOperation<T>> extends 
 
     @Override
     public Double getAfterThisMilimeterDiameter() {
-        try {
-            return getBeforeThisMilimeterDiameter() + getMilimeterDiameterIncidency();
-        } catch (NullPointerException e) {
-            return Double.NaN;
-        }
+        return getBeforeThisMilimeterDiameter() + getMilimeterDiameterIncidency();
     }
 
     /**
@@ -63,10 +59,10 @@ public abstract class AbstractOperation<T extends AbstractOperation<T>> extends 
      * @return the designation of the owner strand
      */
     public String getDesignation() {
-        try {
-            return getOwnerStrandSupply().getDesignation();
-        } catch (NullPointerException e) {
+        if (getOwnerStrandSupply() == null) {
             return "";
         }
+
+        return getOwnerStrandSupply().getDesignation();
     }
 }
