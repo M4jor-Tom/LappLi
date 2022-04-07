@@ -94,7 +94,6 @@ public class StripLaying
 
     @Override
     public IOperation<StripLaying> toOperation() {
-        // TODO Auto-generated method stub
         return this;
     }
 
