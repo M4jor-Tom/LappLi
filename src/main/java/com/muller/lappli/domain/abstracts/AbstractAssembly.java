@@ -74,9 +74,4 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends Ab
     public Long getUtilityComponentsCount() {
         return suggestAssemblyPreset().getUtilityComponentsCount();
     }
-
-    @Override
-    public Long getOperationLayer() {
-        return Long.valueOf(0);
-    }
 }
