@@ -1,7 +1,5 @@
 package com.muller.lappli.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssemblableAtom;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.interfaces.Article;
@@ -50,48 +48,49 @@ public class Element extends AbstractAssemblableAtom<Element> implements Article
     }
 
     @Override
-    @JsonIgnore
     public Double getMilimeterDiameter() {
+        if (getElementKind() == null) {
+            return Double.NaN;
+        }
+
         return getElementKind().getMilimeterDiameter();
     }
 
     @Override
-    @JsonIgnore
     public Double getGramPerMeterLinearMass() {
+        if (getElementKind() == null) {
+            return Double.NaN;
+        }
+
         return getElementKind().getGramPerMeterLinearMass();
     }
 
     @Override
-    @JsonIgnore
     public Long getArticleNumber() {
         return getNumber();
     }
 
     @Override
-    @JsonIgnore
     public String getDesignation() {
-        try {
-            return getElementKind().getDesignation();
-        } catch (NullPointerException e) {
+        if (getElementKind() == null) {
             return "";
         }
+
+        return getElementKind().getDesignation();
     }
 
-    @JsonIgnore
     public String getColorDesignation() {
-        try {
-            return getColor().getDesignation();
-        } catch (NullPointerException e) {
+        if (getColor() == null) {
             return "";
         }
+
+        return getColor().getDesignation();
     }
 
-    @JsonIgnoreProperties(allowGetters = true)
     public String getNumberWithDesignationWithColor() {
         return getNumber() + " - " + getDesignationWithColor();
     }
 
-    @JsonIgnoreProperties(allowGetters = true)
     public String getDesignationWithColor() {
         return getDesignation() + " " + getColorDesignation();
     }
