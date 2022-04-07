@@ -152,11 +152,9 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      * @throws IllegalStrandSupplyException if the given strandSupply is not this' observer
      */
     public T checkStrandSupplyObserverIs(StrandSupply strandSupply) throws IllegalStrandSupplyException {
-        try {
-            if (getObserverStrandSupply().equals(strandSupply)) {
-                throw new IllegalStrandSupplyException();
-            }
-        } catch (NullPointerException e) {}
+        if (!getObserverStrandSupply().equals(strandSupply)) {
+            throw new IllegalStrandSupplyException();
+        }
 
         return getThis();
     }
@@ -173,11 +171,13 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      * {@link com.muller.lappli.domain.StrandSupply#getApparitions()}
      */
     public Long getApparitionDivisionRemain() {
-        try {
-            return getApparitions() % getObserverStrandSupply().getApparitions();
-        } catch (NullPointerException e) {
+        if (getApparitions() == null || getObserverStrandSupply() == null) {
+            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+        } else if (getObserverStrandSupply().getApparitions() == null) {
             return DomainManager.ERROR_LONG_POSITIVE_VALUE;
         }
+
+        return getApparitions() % getObserverStrandSupply().getApparitions();
     }
 
     public StrandSupply getObserverStrandSupply() {
@@ -199,25 +199,27 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      * leaves a remain after the observerStrandSupply's apparitions count divides it
      */
     public Long getDividedApparitions() {
-        try {
-            return getApparitions() / getObserverStrandSupply().getApparitions();
-        } catch (NullPointerException e) {
+        if (getApparitions() == null || getObserverStrandSupply() == null) {
+            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+        } else if (getObserverStrandSupply().getApparitions() == null) {
             return DomainManager.ERROR_LONG_POSITIVE_VALUE;
         }
+
+        return getApparitions() / getObserverStrandSupply().getApparitions();
     }
 
     /**
      * @return the designation of the representated component
      */
     public String getDesignation() {
-        try {
-            if (getApparitions().equals(Long.valueOf(1))) {
-                return getCylindricComponent().getDesignation();
-            }
-            return getApparitions().toString() + " x " + getCylindricComponent().getDesignation();
-        } catch (NullPointerException e) {
+        if (getApparitions() == null) {
             return "";
+        } else if (getCylindricComponent() == null) {
+            return "";
+        } else if (getApparitions().equals(Long.valueOf(1))) {
+            return getCylindricComponent().getDesignation();
         }
+        return getApparitions().toString() + " x " + getCylindricComponent().getDesignation();
     }
 
     /**
@@ -244,11 +246,11 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      * @return the formated preparation time in hours of the supply operation
      */
     public Double getHourPreparationTime() {
-        try {
-            return (5.0 * getApparitions() + 5) / 60.0;
-        } catch (NullPointerException e) {
+        if (getApparitions() == null) {
             return Double.NaN;
         }
+
+        return (5.0 * getApparitions() + 5) / 60.0;
     }
 
     /**
@@ -262,6 +264,10 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      * @return the execution time in hours of the supply operation
      */
     public Double getHourExecutionTime() {
+        if (getMeterPerHourSpeed() == null) {
+            return Double.NaN;
+        }
+
         return getMeterQuantity() / getMeterPerHourSpeed();
     }
 
@@ -281,10 +287,10 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      * @return the necessary quantity of that CylindricComponent to make the final Cable
      */
     public Long getMeterQuantity() {
-        try {
-            return AbstractSupply.UNITY_METRIC_QUANTITY * getApparitions();
-        } catch (NullPointerException e) {
+        if (getApparitions() == null) {
             return DomainManager.ERROR_LONG_POSITIVE_VALUE;
         }
+
+        return AbstractSupply.UNITY_METRIC_QUANTITY * getApparitions();
     }
 }
