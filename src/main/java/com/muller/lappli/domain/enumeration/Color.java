@@ -119,7 +119,7 @@ public enum Color {
      * @return the designation
      */
     public String getDesignation() {
-        if (isComposite()) {
+        if (!isComposite()) {
             return this.designation;
         }
 
