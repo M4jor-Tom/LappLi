@@ -1,10 +1,9 @@
 import { IAbstractAssembly } from './abstract-assembly.model';
 import { IAbstractOperation } from './abstract-operation.model';
 import { AssemblyMean } from './enumerations/assembly-mean.model';
+import { IMeanedAssemblableOperation } from './meaned-assemblable-operation.model';
 
-export interface IAbstractNonCentralAssembly extends IAbstractAssembly {
-  diameterAssemblyStep?: number;
-  assemblyMean?: AssemblyMean;
+export interface IAbstractNonCentralAssembly extends IAbstractAssembly, IMeanedAssemblableOperation {
   forcedMeanMilimeterComponentDiameter?: number;
   componentsCount?: number;
 }
