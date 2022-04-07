@@ -1,7 +1,7 @@
-import { IAbstractAssembly } from './abstract-assembly.model';
+import { IAbstractAssembly, isAssembly } from './abstract-assembly.model';
 import { IAbstractOperation } from './abstract-operation.model';
 import { AssemblyMean } from './enumerations/assembly-mean.model';
-import { IMeanedAssemblableOperation } from './meaned-assemblable-operation.model';
+import { IMeanedAssemblableOperation, isMeanedAssemblableOperation } from './meaned-assemblable-operation.model';
 
 export interface IAbstractNonCentralAssembly extends IAbstractAssembly, IMeanedAssemblableOperation {
   forcedMeanMilimeterComponentDiameter?: number;
@@ -10,8 +10,8 @@ export interface IAbstractNonCentralAssembly extends IAbstractAssembly, IMeanedA
 
 export function isNonCentralAssembly(object: IAbstractOperation): object is IAbstractNonCentralAssembly {
   return (
-    Object.prototype.hasOwnProperty.call(object, 'diameterAssemblyStep') &&
-    Object.prototype.hasOwnProperty.call(object, 'assemblyMean') &&
+    isMeanedAssemblableOperation(object) &&
+    isAssembly(object) &&
     Object.prototype.hasOwnProperty.call(object, 'forcedMeanMilimeterComponentDiameter') &&
     Object.prototype.hasOwnProperty.call(object, 'componentsCount')
   );
