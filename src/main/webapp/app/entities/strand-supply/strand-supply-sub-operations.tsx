@@ -18,6 +18,8 @@ import { IAbstractNonCentralAssembly, isNonCentralAssembly } from 'app/shared/mo
 import { isCoreAssembly } from 'app/shared/model/core-assembly.model';
 import { IAbstractOperation } from 'app/shared/model/abstract-operation.model';
 import { isAssembly } from 'app/shared/model/abstract-assembly.model';
+import { isAssemblableOperation } from 'app/shared/model/assemblable-operation.model';
+import { isMeanedAssemblableOperation } from 'app/shared/model/meaned-assemblable-operation.model';
 
 export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_supply_id: string; study_id: string }>) => {
   const dispatch = useAppDispatch();
@@ -259,8 +261,8 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                       &nbsp;&#62;&nbsp;
                       {operation.mullerStandardizedFormatAfterThisMilimeterDiameter}
                     </td>
-                    <td>{isNonCentralAssembly(operation) ? operation.diameterAssemblyStep : ''}</td>
-                    <td>{isNonCentralAssembly(operation) ? operation.assemblyMean : ''}</td>
+                    <td>{isAssemblableOperation(operation) ? operation.diameterAssemblyStep : ''}</td>
+                    <td>{isMeanedAssemblableOperation(operation) ? operation.assemblyMean : ''}</td>
                     <td>{isCoreAssembly(operation) ? operation.mullerStandardizedFormatMilimeterAssemblyVoid : ''}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
