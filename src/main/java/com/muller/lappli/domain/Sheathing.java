@@ -89,11 +89,11 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
 
     @Override
     public String getProductDesignation() {
-        try {
-            return getMaterial().getDesignation();
-        } catch (NullPointerException e) {
+        if (getMaterial() == null) {
             return "";
         }
+
+        return getMaterial().getDesignation();
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

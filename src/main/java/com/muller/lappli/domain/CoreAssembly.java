@@ -63,46 +63,44 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     @Override
     public Double getBeforeThisMilimeterDiameter() {
-        try {
-            IOperation<?> lastOperationBeforeThis = getOwnerStrandSupply().getLastOperationBefore(this);
-
-            if (lastOperationBeforeThis == null) {
-                //If the CoreAssembly is the one at the center,
-                //and there's no CentralAssembly under it
-                return CalculatorManager.getCalculatorInstance().getMilimeterCentralVoidDiameter(getOwnerStrandSupply());
-            }
-
-            return getOwnerStrandSupply().getMilimeterDiameterBefore(this);
-        } catch (NullPointerException e) {
+        if (getOwnerStrandSupply() == null) {
             return Double.NaN;
+        } else if (getOwnerStrandSupply().getLastOperationBefore(this) == null) {
+            //If the CoreAssembly is the one at the center,
+            //and there's no CentralAssembly under it
+            return CalculatorManager.getCalculatorInstance().getMilimeterCentralVoidDiameter(getOwnerStrandSupply());
         }
+
+        return getOwnerStrandSupply().getMilimeterDiameterBefore(this);
     }
 
     @Override
     public Double getMilimeterDiameterIncidency() {
-        try {
-            return 2 * getOwnerStrandSupply().getStrand().getSuppliedComponentsAverageMilimeterDiameter();
-        } catch (NullPointerException e) {
+        if (getOwnerStrandSupply() == null) {
+            return Double.NaN;
+        } else if (getOwnerStrandSupply().getStrand() == null) {
             return Double.NaN;
         }
+
+        return 2 * getOwnerStrandSupply().getStrand().getSuppliedComponentsAverageMilimeterDiameter();
     }
 
     @Override
     public Double getDiameterAssemblyStep() {
-        try {
-            return getOwnerStrandSupply().getDiameterAssemblyStep();
-        } catch (NullPointerException e) {
+        if (getOwnerStrandSupply() == null) {
             return Double.NaN;
         }
+
+        return getOwnerStrandSupply().getDiameterAssemblyStep();
     }
 
     @Override
     public AssemblyMean getAssemblyMean() {
-        try {
-            return getOwnerStrandSupply().getAssemblyMean();
-        } catch (NullPointerException e) {
+        if (getOwnerStrandSupply() == null) {
             return null;
         }
+
+        return getOwnerStrandSupply().getAssemblyMean();
     }
 
     /**
@@ -125,14 +123,16 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
      * @return the assembly void in milimeters
      */
     public Double getMilimeterAssemblyVoid() {
-        try {
-            return (
-                getSuppliedComponentsAverageDiameterAssemblyVoid() *
-                getOwnerStrandSupply().getStrand().getSuppliedComponentsAverageMilimeterDiameter()
-            );
-        } catch (NullPointerException e) {
+        if (getOwnerStrandSupply() == null) {
+            return Double.NaN;
+        } else if (getOwnerStrandSupply().getStrand() == null) {
             return Double.NaN;
         }
+
+        return (
+            getSuppliedComponentsAverageDiameterAssemblyVoid() *
+            getOwnerStrandSupply().getStrand().getSuppliedComponentsAverageMilimeterDiameter()
+        );
     }
 
     /**
@@ -145,7 +145,13 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     @Override
     public Long getComponentsCount() {
-        return suggestAssemblyPreset().getTotalComponentsCount();
+        AssemblyPreset suggestedAssemblyPreset = suggestAssemblyPreset();
+
+        if (suggestedAssemblyPreset == null) {
+            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+        }
+
+        return suggestedAssemblyPreset.getTotalComponentsCount();
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

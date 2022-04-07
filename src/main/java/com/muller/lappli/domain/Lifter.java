@@ -68,15 +68,13 @@ public class Lifter extends AbstractDomainObject<Lifter> implements Serializable
     }
 
     public String getName() {
-        try {
-            String prefix;
-
-            prefix = getIndex() >= 10 ? "MR" : "MR0";
-
-            return prefix + getIndex();
-        } catch (NullPointerException e) {
-            return "";
+        if (getIndex() == null) {
+            return null;
         }
+
+        String prefix = getIndex() >= 10 ? "MR" : "MR0";
+
+        return prefix + getIndex();
     }
 
     public Boolean supportsSupply(AbstractLiftedSupply<?> abstractLiftedSupply) {

@@ -83,20 +83,20 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
 
     @Override
     public Material getSurfaceMaterial() {
-        try {
-            return getCustomComponent().getSurfaceMaterial();
-        } catch (NullPointerException e) {
+        if (getCustomComponent() == null) {
             return null;
         }
+
+        return getCustomComponent().getSurfaceMaterial();
     }
 
     @Override
     public Color getSurfaceColor() {
-        try {
-            return getCustomComponent().getSurfaceColor();
-        } catch (NullPointerException e) {
+        if (getCustomComponent() == null) {
             return null;
         }
+
+        return getCustomComponent().getSurfaceColor();
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

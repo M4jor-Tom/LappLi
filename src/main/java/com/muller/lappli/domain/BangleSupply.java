@@ -75,11 +75,11 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
 
     @Override
     public Material getSurfaceMaterial() {
-        try {
-            return getBangle().getMaterial();
-        } catch (NullPointerException e) {
+        if (getBangle() == null) {
             return null;
         }
+
+        return getBangle().getMaterial();
     }
 
     @Override

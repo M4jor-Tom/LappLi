@@ -80,11 +80,11 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
 
     @Override
     public Double getDiameterAssemblyStep() {
-        try {
-            return getOwnerStrandSupply().getDiameterAssemblyStep();
-        } catch (NullPointerException e) {
+        if (getOwnerStrandSupply() == null) {
             return Double.NaN;
         }
+
+        return getOwnerStrandSupply().getDiameterAssemblyStep();
     }
 
     @Override
@@ -100,11 +100,11 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
 
     @Override
     public AssemblyMean getAssemblyMean() {
-        try {
-            return getOwnerStrandSupply().getAssemblyMean();
-        } catch (NullPointerException e) {
+        if (getOwnerStrandSupply() == null) {
             return null;
         }
+
+        return getOwnerStrandSupply().getAssemblyMean();
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

@@ -1,6 +1,5 @@
 package com.muller.lappli.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
@@ -83,26 +82,30 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
     }
 
     @Override
-    @JsonIgnore
     public Material getSurfaceMaterial() {
-        try {
-            return getElement().getElementKind().getInsulationMaterial();
-        } catch (NullPointerException e) {
+        if (getElement() == null) {
+            return null;
+        } else if (getElement().getElementKind() == null) {
             return null;
         }
+
+        return getElement().getElementKind().getInsulationMaterial();
     }
 
     @Override
     public Color getSurfaceColor() {
-        try {
-            return getElement().getColor();
-        } catch (NullPointerException e) {
+        if (getElement() == null) {
             return null;
         }
+
+        return getElement().getColor();
     }
 
-    @JsonIgnore
     public String getInsulationMaterialDesignation() {
+        if (getSurfaceMaterial() == null) {
+            return "";
+        }
+
         return getSurfaceMaterial().getDesignation();
     }
 
