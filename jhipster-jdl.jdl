@@ -54,6 +54,12 @@ entity TapeLaying {
 	assemblyMean AssemblyMean required
 }
 
+entity Plait {
+    targetCoveringRate Double
+    targetDegreeAngle Double
+    targetingCoveringRateNotAngle Boolean required
+}
+
 entity Sheathing {
 	operationLayer Long required
 	milimeterThickness Double required
@@ -261,6 +267,9 @@ relationship OneToMany {
     //StripLayings
     StrandSupply{stripLayings(productionStep)} to StripLaying{ownerStrandSupply(designation) required}
 
+    //Plaits
+    StrandSupply{plaits(productionStep)} to Plait{ownerStrandSupply(designation) required}
+
     //Sheathings
     StrandSupply{sheathings(productionStep)} to Sheathing{ownerStrandSupply(designation) required}
 
@@ -290,6 +299,11 @@ relationship ManyToOne {
 
 relationship ManyToOne {
     Screen{copperFiber(designation)} to CopperFiber
+}
+
+relationship ManyToOne {
+    Plait{copperFiber(designation) required} to CopperFiber
+    Plait{metalFiber(designation) required} to MetalFiber
 }
 
 relationship ManyToOne {
