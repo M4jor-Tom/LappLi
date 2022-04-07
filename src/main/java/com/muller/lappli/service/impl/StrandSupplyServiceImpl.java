@@ -78,6 +78,11 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         return domainObject;
     }
 
+    //[TODO] Fix a bug: When inserting an operation in the end of an operation
+    //[TODO] Set with provideOperationLayerIfNeededTo(), but an operation of
+    //[TODO] the same type has already been set in the middle of it
+    //[TODO] with moveOthersOperationLayersForThisOne(), a double move
+    //[TODO] occures on operations which are under the prviously inserted one
     @Override
     public void actualizeNonCentralOperationsFor(StrandSupply toActualize, INonCentralOperation<?> toInsert) {
         partialUpdate(toActualize.prepareInsertNonCentralOperation(toInsert));
