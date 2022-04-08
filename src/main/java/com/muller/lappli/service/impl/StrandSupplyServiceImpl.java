@@ -78,11 +78,6 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         return domainObject;
     }
 
-    //[TODO] Fix a bug: When inserting an operation in the end of an operation
-    //[TODO] Set with provideOperationLayerIfNeededTo(), but an operation of
-    //[TODO] the same type has already been set in the middle of it
-    //[TODO] with moveOthersOperationLayersForThisOne(), a double move
-    //[TODO] occures on operations which are under the prviously inserted one
     @Override
     public void actualizeNonCentralOperationsFor(StrandSupply toActualize, INonCentralOperation<?> toInsert) {
         partialUpdate(toActualize.prepareInsertNonCentralOperation(toInsert));
@@ -100,7 +95,7 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         for (TapeLaying tapeLaying : toActualize.getTapeLayings()) {
             Boolean actualizeOwnerStrandSupply = false;
             if (toInsert instanceof TapeLaying) {
-                actualizeOwnerStrandSupply = !tapeLaying.equals((TapeLaying) toInsert);
+                actualizeOwnerStrandSupply = tapeLaying.equals((TapeLaying) toInsert);
             }
             tapeLayingService.partialUpdate(tapeLaying, actualizeOwnerStrandSupply);
         }
@@ -108,7 +103,7 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         for (Screen screen : toActualize.getScreens()) {
             Boolean actualizeOwnerStrandSupply = false;
             if (toInsert instanceof Screen) {
-                actualizeOwnerStrandSupply = !screen.equals((Screen) toInsert);
+                actualizeOwnerStrandSupply = screen.equals((Screen) toInsert);
             }
             screenService.partialUpdate(screen, actualizeOwnerStrandSupply);
         }
@@ -116,7 +111,7 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         for (StripLaying stripLaying : toActualize.getStripLayings()) {
             Boolean actualizeOwnerStrandSupply = false;
             if (toInsert instanceof StripLaying) {
-                actualizeOwnerStrandSupply = !stripLaying.equals((StripLaying) toInsert);
+                actualizeOwnerStrandSupply = stripLaying.equals((StripLaying) toInsert);
             }
             stripLayingService.partialUpdate(stripLaying, actualizeOwnerStrandSupply);
         }
@@ -124,7 +119,7 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         for (Sheathing sheathing : toActualize.getSheathings()) {
             Boolean actualizeOwnerStrandSupply = false;
             if (toInsert instanceof Sheathing) {
-                actualizeOwnerStrandSupply = !sheathing.equals((Sheathing) toInsert);
+                actualizeOwnerStrandSupply = sheathing.equals((Sheathing) toInsert);
             }
             sheathingService.partialUpdate(sheathing, actualizeOwnerStrandSupply);
         }
