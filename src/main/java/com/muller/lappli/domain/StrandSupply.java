@@ -85,12 +85,12 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "tape", "ownerStrandSupply" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
     private Set<TapeLaying> tapeLayings = new HashSet<>();
 
     @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "copperFiber", "ownerStrandSupply" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
     private Set<Screen> screens = new HashSet<>();
 
     @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
@@ -100,7 +100,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "material", "ownerStrandSupply" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
     private Set<Sheathing> sheathings = new HashSet<>();
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
