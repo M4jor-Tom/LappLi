@@ -7,22 +7,14 @@ import java.util.Optional;
 /**
  * Service Interface for managing {@link Screen}.
  */
-public interface ScreenService {
-    /**
-     * Save a screen.
-     *
-     * @param screen the entity to save.
-     * @return the persisted entity.
-     */
-    Screen save(Screen screen);
-
+public interface ScreenService extends INonCentralOperationService<Screen> {
     /**
      * Partially updates a screen.
      *
      * @param screen the entity to update partially.
      * @return the persisted entity.
      */
-    Optional<Screen> partialUpdate(Screen screen, Boolean actualizeOwnerStrandSupply);
+    Optional<Screen> partialUpdate(Screen screen);
 
     /**
      * Get all the screens.

@@ -29,14 +29,17 @@ public class ScreenServiceImpl extends AbstractNonCentralOperationServiceImpl<Sc
     }
 
     @Override
-    public Screen save(Screen screen) {
+    public Screen save(Screen screen, Boolean actualizeOwnerStrandSupply) {
         log.debug("Request to save Screen : {}", screen);
-        actualizeOwnerStrandSupply(screen);
+
+        if (actualizeOwnerStrandSupply) {
+            actualizeOwnerStrandSupply(screen);
+        }
         return screenRepository.save(screen);
     }
 
     @Override
-    public Optional<Screen> partialUpdate(Screen screen, Boolean actualizeOwnerStrandSupply) {
+    public Optional<Screen> partialUpdate(Screen screen) {
         log.debug("Request to partially update Screen : {}", screen);
 
         return screenRepository
@@ -52,9 +55,6 @@ public class ScreenServiceImpl extends AbstractNonCentralOperationServiceImpl<Sc
                     existingScreen.setForcedDiameterAssemblyStep(screen.getForcedDiameterAssemblyStep());
                 }
 
-                if (actualizeOwnerStrandSupply) {
-                    actualizeOwnerStrandSupply(existingScreen);
-                }
                 return existingScreen;
             })
             .map(screenRepository::save);

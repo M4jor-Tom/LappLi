@@ -55,7 +55,7 @@ public class StripLayingResource {
         if (stripLaying.getId() != null) {
             throw new BadRequestAlertException("A new stripLaying cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        StripLaying result = stripLayingService.save(stripLaying);
+        StripLaying result = stripLayingService.save(stripLaying, true);
         return ResponseEntity
             .created(new URI("/api/strip-layings/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -89,7 +89,7 @@ public class StripLayingResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        StripLaying result = stripLayingService.save(stripLaying);
+        StripLaying result = stripLayingService.save(stripLaying, true);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, stripLaying.getId().toString()))
@@ -124,7 +124,7 @@ public class StripLayingResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<StripLaying> result = stripLayingService.partialUpdate(stripLaying, true);
+        Optional<StripLaying> result = stripLayingService.partialUpdate(stripLaying);
 
         return ResponseUtil.wrapOrNotFound(
             result,

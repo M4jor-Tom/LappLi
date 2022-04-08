@@ -29,14 +29,17 @@ public class TapeLayingServiceImpl extends AbstractNonCentralOperationServiceImp
     }
 
     @Override
-    public TapeLaying save(TapeLaying tapeLaying) {
+    public TapeLaying save(TapeLaying tapeLaying, Boolean actualizeOwnerStrandSupply) {
         log.debug("Request to save TapeLaying : {}", tapeLaying);
-        actualizeOwnerStrandSupply(tapeLaying);
+
+        if (actualizeOwnerStrandSupply) {
+            actualizeOwnerStrandSupply(tapeLaying);
+        }
         return tapeLayingRepository.save(tapeLaying);
     }
 
     @Override
-    public Optional<TapeLaying> partialUpdate(TapeLaying tapeLaying, Boolean actualizeOwnerStrandSupply) {
+    public Optional<TapeLaying> partialUpdate(TapeLaying tapeLaying) {
         log.debug("Request to partially update TapeLaying : {}", tapeLaying);
 
         return tapeLayingRepository
@@ -49,9 +52,6 @@ public class TapeLayingServiceImpl extends AbstractNonCentralOperationServiceImp
                     existingTapeLaying.setAssemblyMean(tapeLaying.getAssemblyMean());
                 }
 
-                if (actualizeOwnerStrandSupply) {
-                    actualizeOwnerStrandSupply(existingTapeLaying);
-                }
                 return existingTapeLaying;
             })
             .map(tapeLayingRepository::save);

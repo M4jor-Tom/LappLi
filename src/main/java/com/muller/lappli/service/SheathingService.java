@@ -7,22 +7,14 @@ import java.util.Optional;
 /**
  * Service Interface for managing {@link Sheathing}.
  */
-public interface SheathingService {
-    /**
-     * Save a sheathing.
-     *
-     * @param sheathing the entity to save.
-     * @return the persisted entity.
-     */
-    Sheathing save(Sheathing sheathing);
-
+public interface SheathingService extends INonCentralOperationService<Sheathing> {
     /**
      * Partially updates a sheathing.
      *
      * @param sheathing the entity to update partially.
      * @return the persisted entity.
      */
-    Optional<Sheathing> partialUpdate(Sheathing sheathing, Boolean actualizeOwnerStrandSupply);
+    Optional<Sheathing> partialUpdate(Sheathing sheathing);
 
     /**
      * Get all the sheathings.
