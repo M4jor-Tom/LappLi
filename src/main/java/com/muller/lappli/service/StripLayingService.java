@@ -7,22 +7,14 @@ import java.util.Optional;
 /**
  * Service Interface for managing {@link StripLaying}.
  */
-public interface StripLayingService {
-    /**
-     * Save a stripLaying.
-     *
-     * @param stripLaying the entity to save.
-     * @return the persisted entity.
-     */
-    StripLaying save(StripLaying stripLaying);
-
+public interface StripLayingService extends INonCentralOperationService<StripLaying> {
     /**
      * Partially updates a stripLaying.
      *
      * @param stripLaying the entity to update partially.
      * @return the persisted entity.
      */
-    Optional<StripLaying> partialUpdate(StripLaying stripLaying, Boolean actualizeOwnerStrandSupply);
+    Optional<StripLaying> partialUpdate(StripLaying stripLaying);
 
     /**
      * Get all the stripLayings.

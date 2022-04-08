@@ -29,14 +29,17 @@ public class SheathingServiceImpl extends AbstractNonCentralOperationServiceImpl
     }
 
     @Override
-    public Sheathing save(Sheathing sheathing) {
+    public Sheathing save(Sheathing sheathing, Boolean actualizeOwnerStrandSupply) {
         log.debug("Request to save Sheathing : {}", sheathing);
-        actualizeOwnerStrandSupply(sheathing);
+
+        if (actualizeOwnerStrandSupply) {
+            actualizeOwnerStrandSupply(sheathing);
+        }
         return sheathingRepository.save(sheathing);
     }
 
     @Override
-    public Optional<Sheathing> partialUpdate(Sheathing sheathing, Boolean actualizeOwnerStrandSupply) {
+    public Optional<Sheathing> partialUpdate(Sheathing sheathing) {
         log.debug("Request to partially update Sheathing : {}", sheathing);
 
         return sheathingRepository
@@ -50,10 +53,6 @@ public class SheathingServiceImpl extends AbstractNonCentralOperationServiceImpl
                 }
                 if (sheathing.getSheathingKind() != null) {
                     existingSheathing.setSheathingKind(sheathing.getSheathingKind());
-                }
-
-                if (actualizeOwnerStrandSupply) {
-                    actualizeOwnerStrandSupply(existingSheathing);
                 }
                 return existingSheathing;
             })

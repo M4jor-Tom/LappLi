@@ -80,48 +80,48 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
 
     @Override
     public void actualizeNonCentralOperationsFor(StrandSupply toActualize, INonCentralOperation<?> toInsert) {
-        partialUpdate(toActualize.prepareInsertNonCentralOperation(toInsert));
+        save(toActualize.prepareInsertNonCentralOperation(toInsert));
 
         //Update non central operations
         //[NON_CENTRAL_OPERATION]
         for (CoreAssembly coreAssembly : toActualize.getCoreAssemblies()) {
-            coreAssemblyService.partialUpdate(coreAssembly);
+            coreAssemblyService.save(coreAssembly);
         }
 
         for (IntersticeAssembly intersticeAssembly : toActualize.getIntersticeAssemblies()) {
-            intersticeAssemblyService.partialUpdate(intersticeAssembly);
+            intersticeAssemblyService.save(intersticeAssembly);
         }
 
         for (TapeLaying tapeLaying : toActualize.getTapeLayings()) {
             Boolean actualizeOwnerStrandSupply = false;
-            if (toInsert instanceof TapeLaying) {
+            /*if (toInsert instanceof TapeLaying) {
                 actualizeOwnerStrandSupply = tapeLaying.equals((TapeLaying) toInsert);
-            }
-            tapeLayingService.partialUpdate(tapeLaying, actualizeOwnerStrandSupply);
+            }*/
+            tapeLayingService.save(tapeLaying, actualizeOwnerStrandSupply);
         }
 
         for (Screen screen : toActualize.getScreens()) {
             Boolean actualizeOwnerStrandSupply = false;
-            if (toInsert instanceof Screen) {
+            /*if (toInsert instanceof Screen) {
                 actualizeOwnerStrandSupply = screen.equals((Screen) toInsert);
-            }
-            screenService.partialUpdate(screen, actualizeOwnerStrandSupply);
+            }*/
+            screenService.save(screen, actualizeOwnerStrandSupply);
         }
 
         for (StripLaying stripLaying : toActualize.getStripLayings()) {
             Boolean actualizeOwnerStrandSupply = false;
-            if (toInsert instanceof StripLaying) {
+            /*if (toInsert instanceof StripLaying) {
                 actualizeOwnerStrandSupply = stripLaying.equals((StripLaying) toInsert);
-            }
-            stripLayingService.partialUpdate(stripLaying, actualizeOwnerStrandSupply);
+            }*/
+            stripLayingService.save(stripLaying, actualizeOwnerStrandSupply);
         }
 
         for (Sheathing sheathing : toActualize.getSheathings()) {
             Boolean actualizeOwnerStrandSupply = false;
-            if (toInsert instanceof Sheathing) {
+            /*if (toInsert instanceof Sheathing) {
                 actualizeOwnerStrandSupply = sheathing.equals((Sheathing) toInsert);
-            }
-            sheathingService.partialUpdate(sheathing, actualizeOwnerStrandSupply);
+            }*/
+            sheathingService.save(sheathing, actualizeOwnerStrandSupply);
         }
     }
 

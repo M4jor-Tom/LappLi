@@ -29,14 +29,18 @@ public class StripLayingServiceImpl extends AbstractNonCentralOperationServiceIm
     }
 
     @Override
-    public StripLaying save(StripLaying stripLaying) {
+    public StripLaying save(StripLaying stripLaying, Boolean actualizeOwnerStrandSupply) {
         log.debug("Request to save StripLaying : {}", stripLaying);
-        actualizeOwnerStrandSupply(stripLaying);
+
+        if (actualizeOwnerStrandSupply) {
+            actualizeOwnerStrandSupply(stripLaying);
+        }
+
         return stripLayingRepository.save(stripLaying);
     }
 
     @Override
-    public Optional<StripLaying> partialUpdate(StripLaying stripLaying, Boolean actualizeOwnerStrandSupply) {
+    public Optional<StripLaying> partialUpdate(StripLaying stripLaying) {
         log.debug("Request to partially update StripLaying : {}", stripLaying);
 
         return stripLayingRepository
@@ -44,10 +48,6 @@ public class StripLayingServiceImpl extends AbstractNonCentralOperationServiceIm
             .map(existingStripLaying -> {
                 if (stripLaying.getOperationLayer() != null) {
                     existingStripLaying.setOperationLayer(stripLaying.getOperationLayer());
-                }
-
-                if (actualizeOwnerStrandSupply) {
-                    actualizeOwnerStrandSupply(existingStripLaying);
                 }
 
                 return existingStripLaying;
