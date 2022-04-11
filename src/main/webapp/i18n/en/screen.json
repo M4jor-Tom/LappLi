@@ -21,6 +21,10 @@
       "operationLayer": "Operation Layer",
       "assemblyMeanIsSameThanAssemblys": "Assembly Mean Is Same Than Assemblys",
       "forcedDiameterAssemblyStep": "Forced Diameter Assembly Step",
+      "anonymousCopperFiberNumber": "Anonymous Copper Fiber Number",
+      "anonymousCopperFiberDesignation": "Anonymous Copper Fiber Designation",
+      "anonymousCopperFiberKind": "Anonymous Copper Fiber Kind",
+      "anonymousCopperFiberMilimeterDiameter": "Anonymous Copper Fiber Milimeter Diameter",
       "copperFiber": "Copper Fiber",
       "ownerStrandSupply": "Owner Strand Supply"
     }

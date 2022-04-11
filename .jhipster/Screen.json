@@ -14,6 +14,23 @@
     {
       "fieldName": "forcedDiameterAssemblyStep",
       "fieldType": "Long"
+    },
+    {
+      "fieldName": "anonymousCopperFiberNumber",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "anonymousCopperFiberDesignation",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "anonymousCopperFiberKind",
+      "fieldType": "MetalFiberKind",
+      "fieldValues": "RED_COPPER,TINNED_COPPER,STEEL"
+    },
+    {
+      "fieldName": "anonymousCopperFiberMilimeterDiameter",
+      "fieldType": "Double"
     }
   ],
   "relationships": [
@@ -21,7 +38,6 @@
       "relationshipType": "many-to-one",
       "otherEntityName": "copperFiber",
       "otherEntityRelationshipName": "screen",
-      "relationshipValidateRules": "required",
       "relationshipName": "copperFiber",
       "otherEntityField": "designation"
     },

@@ -14,6 +14,7 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getOutFromStudySupplyStrandScreen } from '../index-management/index-management-lib';
+import { MetalFiberKind } from 'app/shared/model/enumerations/metal-fiber-kind.model';
 
 export const ScreenUpdate = (props: RouteComponentProps<{ strand_supply_id: string; id: string }>) => {
   const dispatch = useAppDispatch();
@@ -26,6 +27,7 @@ export const ScreenUpdate = (props: RouteComponentProps<{ strand_supply_id: stri
   const loading = useAppSelector(state => state.screen.loading);
   const updating = useAppSelector(state => state.screen.updating);
   const updateSuccess = useAppSelector(state => state.screen.updateSuccess);
+  const metalFiberKindValues = Object.keys(MetalFiberKind);
 
   //  Design for operation -- START
 
@@ -88,6 +90,7 @@ export const ScreenUpdate = (props: RouteComponentProps<{ strand_supply_id: stri
     isNew
       ? {}
       : {
+          anonymousCopperFiberKind: 'RED_COPPER',
           ...screenEntity,
           copperFiber: screenEntity?.copperFiber?.id,
           ownerStrandSupply: screenEntity?.ownerStrandSupply?.id,
@@ -146,12 +149,45 @@ export const ScreenUpdate = (props: RouteComponentProps<{ strand_supply_id: stri
                 type="text"
               />
               <ValidatedField
+                label={translate('lappLiApp.screen.anonymousCopperFiberNumber')}
+                id="screen-anonymousCopperFiberNumber"
+                name="anonymousCopperFiberNumber"
+                data-cy="anonymousCopperFiberNumber"
+                type="text"
+              />
+              <ValidatedField
+                label={translate('lappLiApp.screen.anonymousCopperFiberDesignation')}
+                id="screen-anonymousCopperFiberDesignation"
+                name="anonymousCopperFiberDesignation"
+                data-cy="anonymousCopperFiberDesignation"
+                type="text"
+              />
+              <ValidatedField
+                label={translate('lappLiApp.screen.anonymousCopperFiberKind')}
+                id="screen-anonymousCopperFiberKind"
+                name="anonymousCopperFiberKind"
+                data-cy="anonymousCopperFiberKind"
+                type="select"
+              >
+                {metalFiberKindValues.map(metalFiberKind => (
+                  <option value={metalFiberKind} key={metalFiberKind}>
+                    {translate('lappLiApp.MetalFiberKind' + metalFiberKind)}
+                  </option>
+                ))}
+              </ValidatedField>
+              <ValidatedField
+                label={translate('lappLiApp.screen.anonymousCopperFiberMilimeterDiameter')}
+                id="screen-anonymousCopperFiberMilimeterDiameter"
+                name="anonymousCopperFiberMilimeterDiameter"
+                data-cy="anonymousCopperFiberMilimeterDiameter"
+                type="text"
+              />
+              <ValidatedField
                 id="screen-copperFiber"
                 name="copperFiber"
                 data-cy="copperFiber"
                 label={translate('lappLiApp.screen.copperFiber')}
                 type="select"
-                required
               >
                 <option value="" key="0" />
                 {copperFibers

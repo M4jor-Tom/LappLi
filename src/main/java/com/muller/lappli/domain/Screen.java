@@ -3,6 +3,7 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
+import com.muller.lappli.domain.enumeration.MetalFiberKind;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
 import com.muller.lappli.domain.interfaces.IOperation;
@@ -41,14 +42,36 @@ public class Screen
     @Column(name = "forced_diameter_assembly_step")
     private Long forcedDiameterAssemblyStep;
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @Column(name = "anonymous_copper_fiber_number")
+    private Long anonymousCopperFiberNumber;
+
+    @Column(name = "anonymous_copper_fiber_designation")
+    private String anonymousCopperFiberDesignation;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "anonymous_copper_fiber_kind")
+    private MetalFiberKind anonymousCopperFiberKind;
+
+    @Column(name = "anonymous_copper_fiber_milimeter_diameter")
+    private Double anonymousCopperFiberMilimeterDiameter;
+
+    @ManyToOne
     private CopperFiber copperFiber;
 
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = { "coreAssemblies", "intersticeAssemblies", "tapeLayings", "screens", "sheathings", "strand", "centralAssembly", "study" },
+        value = {
+            "coreAssemblies",
+            "intersticeAssemblies",
+            "tapeLayings",
+            "screens",
+            "stripLayings",
+            "sheathings",
+            "strand",
+            "centralAssembly",
+            "study",
+        },
         allowSetters = true
     )
     private StrandSupply ownerStrandSupply;
@@ -198,6 +221,58 @@ public class Screen
         return this;
     }
 
+    public Long getAnonymousCopperFiberNumber() {
+        return this.anonymousCopperFiberNumber;
+    }
+
+    public Screen anonymousCopperFiberNumber(Long anonymousCopperFiberNumber) {
+        this.setAnonymousCopperFiberNumber(anonymousCopperFiberNumber);
+        return this;
+    }
+
+    public void setAnonymousCopperFiberNumber(Long anonymousCopperFiberNumber) {
+        this.anonymousCopperFiberNumber = anonymousCopperFiberNumber;
+    }
+
+    public String getAnonymousCopperFiberDesignation() {
+        return this.anonymousCopperFiberDesignation;
+    }
+
+    public Screen anonymousCopperFiberDesignation(String anonymousCopperFiberDesignation) {
+        this.setAnonymousCopperFiberDesignation(anonymousCopperFiberDesignation);
+        return this;
+    }
+
+    public void setAnonymousCopperFiberDesignation(String anonymousCopperFiberDesignation) {
+        this.anonymousCopperFiberDesignation = anonymousCopperFiberDesignation;
+    }
+
+    public MetalFiberKind getAnonymousCopperFiberKind() {
+        return this.anonymousCopperFiberKind;
+    }
+
+    public Screen anonymousCopperFiberKind(MetalFiberKind anonymousCopperFiberKind) {
+        this.setAnonymousCopperFiberKind(anonymousCopperFiberKind);
+        return this;
+    }
+
+    public void setAnonymousCopperFiberKind(MetalFiberKind anonymousCopperFiberKind) {
+        this.anonymousCopperFiberKind = anonymousCopperFiberKind;
+    }
+
+    public Double getAnonymousCopperFiberMilimeterDiameter() {
+        return this.anonymousCopperFiberMilimeterDiameter;
+    }
+
+    public Screen anonymousCopperFiberMilimeterDiameter(Double anonymousCopperFiberMilimeterDiameter) {
+        this.setAnonymousCopperFiberMilimeterDiameter(anonymousCopperFiberMilimeterDiameter);
+        return this;
+    }
+
+    public void setAnonymousCopperFiberMilimeterDiameter(Double anonymousCopperFiberMilimeterDiameter) {
+        this.anonymousCopperFiberMilimeterDiameter = anonymousCopperFiberMilimeterDiameter;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -225,6 +300,10 @@ public class Screen
             ", operationLayer=" + getOperationLayer() +
             ", assemblyMeanIsSameThanAssemblys='" + getAssemblyMeanIsSameThanAssemblys() + "'" +
             ", forcedDiameterAssemblyStep=" + getForcedDiameterAssemblyStep() +
+            ", anonymousCopperFiberNumber=" + getAnonymousCopperFiberNumber() +
+            ", anonymousCopperFiberDesignation='" + getAnonymousCopperFiberDesignation() + "'" +
+            ", anonymousCopperFiberKind='" + getAnonymousCopperFiberKind() + "'" +
+            ", anonymousCopperFiberMilimeterDiameter=" + getAnonymousCopperFiberMilimeterDiameter() +
             "}";
     }
 }

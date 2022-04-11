@@ -59,6 +59,20 @@ export const Screen = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.screen.forcedDiameterAssemblyStep">Forced Diameter Assembly Step</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.screen.anonymousCopperFiberNumber">Anonymous Copper Fiber Number</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.screen.anonymousCopperFiberDesignation">Anonymous Copper Fiber Designation</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.screen.anonymousCopperFiberKind">Anonymous Copper Fiber Kind</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.screen.anonymousCopperFiberMilimeterDiameter">
+                    Anonymous Copper Fiber Milimeter Diameter
+                  </Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.screen.copperFiber">Copper Fiber</Translate>
                 </th>
                 <th>
@@ -78,6 +92,12 @@ export const Screen = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{screen.operationLayer}</td>
                   <td>{screen.assemblyMeanIsSameThanAssemblys ? 'true' : 'false'}</td>
                   <td>{screen.forcedDiameterAssemblyStep}</td>
+                  <td>{screen.anonymousCopperFiberNumber}</td>
+                  <td>{screen.anonymousCopperFiberDesignation}</td>
+                  <td>
+                    <Translate contentKey={`lappLiApp.MetalFiberKind.${screen.anonymousCopperFiberKind}`} />
+                  </td>
+                  <td>{screen.anonymousCopperFiberMilimeterDiameter}</td>
                   <td>
                     {screen.copperFiber ? <Link to={`copper-fiber/${screen.copperFiber.id}`}>{screen.copperFiber.designation}</Link> : ''}
                   </td>
