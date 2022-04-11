@@ -1,9 +1,13 @@
 package com.muller.lappli.domain.enumeration;
 
+import com.muller.lappli.domain.CopperFiber;
+import com.muller.lappli.domain.MetalFiber;
+
 /**
  * The MetalFiberKind enumeration.
  */
 public enum MetalFiberKind {
+    //[METAL_FIBER]
     RED_COPPER(true, true, true),
     TINNED_COPPER(true, true, true),
     STEEL(true, false, true);
@@ -18,6 +22,17 @@ public enum MetalFiberKind {
         setSupportedForContinuityWire(supportedForContinuityWire);
         setSupportedForScreen(supportedForScreen);
         setSupportedForPlait(supportedForPlait);
+    }
+
+    public Boolean isForMetalFiber(Class<?> metalFiberClass) {
+        //[METAL_FIBER]
+        if (CopperFiber.class.equals(metalFiberClass)) {
+            return this.equals(RED_COPPER) || this.equals(TINNED_COPPER);
+        } else if (MetalFiber.class.equals(metalFiberClass)) {
+            return this.equals(STEEL);
+        }
+
+        return false;
     }
 
     public Boolean getSupportedForContinuityWire() {
