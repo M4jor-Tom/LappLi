@@ -143,6 +143,15 @@ public class Screen
         return AssemblyMean.LEFT.equals(getOwnerStrandSupply().getAssemblyMean()) ? AssemblyMean.RIGHT : AssemblyMean.LEFT;
     }
 
+    public CopperFiber getAnonymousCopperFiber() {
+        return new CopperFiber()
+            .id(null)
+            .number(getAnonymousCopperFiberNumber())
+            .designation(getAnonymousCopperFiberDesignation())
+            .metalFiberKind(getAnonymousCopperFiberKind())
+            .milimeterDiameter(getAnonymousCopperFiberMilimeterDiameter());
+    }
+
     public Long getId() {
         return this.id;
     }
