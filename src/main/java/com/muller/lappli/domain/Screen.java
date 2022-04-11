@@ -95,11 +95,13 @@ public class Screen
 
     @Override
     public Double getMilimeterDiameterIncidency() {
-        if (getCopperFiber() == null) {
+        if (getFinalCopperFiber() == null) {
+            return Double.NaN;
+        } else if (getFinalCopperFiber().getMilimeterDiameter() == null) {
             return Double.NaN;
         }
 
-        return getCopperFiber().getMilimeterDiameter() * 2;
+        return getFinalCopperFiber().getMilimeterDiameter() * 2;
     }
 
     @Override
@@ -110,11 +112,13 @@ public class Screen
 
     @Override
     public String getProductDesignation() {
-        if (getCopperFiber() == null) {
+        if (getFinalCopperFiber() == null) {
+            return "";
+        } else if (getFinalCopperFiber().getDesignation() == null) {
             return "";
         }
 
-        return getCopperFiber().getDesignation();
+        return getFinalCopperFiber().getDesignation();
     }
 
     @Override
@@ -150,6 +154,14 @@ public class Screen
             .designation(getAnonymousCopperFiberDesignation())
             .metalFiberKind(getAnonymousCopperFiberKind())
             .milimeterDiameter(getAnonymousCopperFiberMilimeterDiameter());
+    }
+
+    public CopperFiber getFinalCopperFiber() {
+        if (getCopperFiber() == null) {
+            return getAnonymousCopperFiber();
+        }
+
+        return getFinalCopperFiber();
     }
 
     public Long getId() {
