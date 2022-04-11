@@ -29,6 +29,14 @@ public abstract class AbstractMetalFiber<T extends AbstractMetalFiber<T>> extend
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    public T returnNullIfNotConform() {
+        if (getMetalFiberKind() == null || getMilimeterDiameter() == null) {
+            return null;
+        }
+
+        return getThis();
+    }
+
     public Long getId() {
         return this.id;
     }
