@@ -20,7 +20,7 @@
       "id": "ID",
       "number": "Number",
       "designation": "Designation",
-      "copperIsRedNotTinned": "Copper Is Red Not Tinned",
+      "metalFiberKind": "Metal Fiber Kind",
       "milimeterDiameter": "Milimeter Diameter"
     }
   }

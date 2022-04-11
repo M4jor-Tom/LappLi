@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.CopperFiber;
+import com.muller.lappli.domain.enumeration.MetalFiberKind;
 import com.muller.lappli.repository.CopperFiberRepository;
 import java.util.List;
 import java.util.Random;
@@ -35,8 +36,8 @@ class CopperFiberResourceIT {
     private static final String DEFAULT_DESIGNATION = "AAAAAAAAAA";
     private static final String UPDATED_DESIGNATION = "BBBBBBBBBB";
 
-    private static final Boolean DEFAULT_COPPER_IS_RED_NOT_TINNED = false;
-    private static final Boolean UPDATED_COPPER_IS_RED_NOT_TINNED = true;
+    private static final MetalFiberKind DEFAULT_METAL_FIBER_KIND = MetalFiberKind.RED_COPPER;
+    private static final MetalFiberKind UPDATED_METAL_FIBER_KIND = MetalFiberKind.TINNED_COPPER;
 
     private static final Double DEFAULT_MILIMETER_DIAMETER = 1D;
     private static final Double UPDATED_MILIMETER_DIAMETER = 2D;
@@ -68,7 +69,7 @@ class CopperFiberResourceIT {
         CopperFiber copperFiber = new CopperFiber()
             .number(DEFAULT_NUMBER)
             .designation(DEFAULT_DESIGNATION)
-            .copperIsRedNotTinned(DEFAULT_COPPER_IS_RED_NOT_TINNED)
+            .metalFiberKind(DEFAULT_METAL_FIBER_KIND)
             .milimeterDiameter(DEFAULT_MILIMETER_DIAMETER);
         return copperFiber;
     }
@@ -83,7 +84,7 @@ class CopperFiberResourceIT {
         CopperFiber copperFiber = new CopperFiber()
             .number(UPDATED_NUMBER)
             .designation(UPDATED_DESIGNATION)
-            .copperIsRedNotTinned(UPDATED_COPPER_IS_RED_NOT_TINNED)
+            .metalFiberKind(UPDATED_METAL_FIBER_KIND)
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER);
         return copperFiber;
     }
@@ -108,7 +109,7 @@ class CopperFiberResourceIT {
         CopperFiber testCopperFiber = copperFiberList.get(copperFiberList.size() - 1);
         assertThat(testCopperFiber.getNumber()).isEqualTo(DEFAULT_NUMBER);
         assertThat(testCopperFiber.getDesignation()).isEqualTo(DEFAULT_DESIGNATION);
-        assertThat(testCopperFiber.getCopperIsRedNotTinned()).isEqualTo(DEFAULT_COPPER_IS_RED_NOT_TINNED);
+        assertThat(testCopperFiber.getMetalFiberKind()).isEqualTo(DEFAULT_METAL_FIBER_KIND);
         assertThat(testCopperFiber.getMilimeterDiameter()).isEqualTo(DEFAULT_MILIMETER_DIAMETER);
     }
 
@@ -132,10 +133,10 @@ class CopperFiberResourceIT {
 
     @Test
     @Transactional
-    void checkCopperIsRedNotTinnedIsRequired() throws Exception {
+    void checkMetalFiberKindIsRequired() throws Exception {
         int databaseSizeBeforeTest = copperFiberRepository.findAll().size();
         // set the field null
-        copperFiber.setCopperIsRedNotTinned(null);
+        copperFiber.setMetalFiberKind(null);
 
         // Create the CopperFiber, which fails.
 
@@ -178,7 +179,7 @@ class CopperFiberResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(copperFiber.getId().intValue())))
             .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER.intValue())))
             .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)))
-            .andExpect(jsonPath("$.[*].copperIsRedNotTinned").value(hasItem(DEFAULT_COPPER_IS_RED_NOT_TINNED.booleanValue())))
+            .andExpect(jsonPath("$.[*].metalFiberKind").value(hasItem(DEFAULT_METAL_FIBER_KIND.toString())))
             .andExpect(jsonPath("$.[*].milimeterDiameter").value(hasItem(DEFAULT_MILIMETER_DIAMETER.doubleValue())));
     }
 
@@ -196,7 +197,7 @@ class CopperFiberResourceIT {
             .andExpect(jsonPath("$.id").value(copperFiber.getId().intValue()))
             .andExpect(jsonPath("$.number").value(DEFAULT_NUMBER.intValue()))
             .andExpect(jsonPath("$.designation").value(DEFAULT_DESIGNATION))
-            .andExpect(jsonPath("$.copperIsRedNotTinned").value(DEFAULT_COPPER_IS_RED_NOT_TINNED.booleanValue()))
+            .andExpect(jsonPath("$.metalFiberKind").value(DEFAULT_METAL_FIBER_KIND.toString()))
             .andExpect(jsonPath("$.milimeterDiameter").value(DEFAULT_MILIMETER_DIAMETER.doubleValue()));
     }
 
@@ -222,7 +223,7 @@ class CopperFiberResourceIT {
         updatedCopperFiber
             .number(UPDATED_NUMBER)
             .designation(UPDATED_DESIGNATION)
-            .copperIsRedNotTinned(UPDATED_COPPER_IS_RED_NOT_TINNED)
+            .metalFiberKind(UPDATED_METAL_FIBER_KIND)
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER);
 
         restCopperFiberMockMvc
@@ -239,7 +240,7 @@ class CopperFiberResourceIT {
         CopperFiber testCopperFiber = copperFiberList.get(copperFiberList.size() - 1);
         assertThat(testCopperFiber.getNumber()).isEqualTo(UPDATED_NUMBER);
         assertThat(testCopperFiber.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
-        assertThat(testCopperFiber.getCopperIsRedNotTinned()).isEqualTo(UPDATED_COPPER_IS_RED_NOT_TINNED);
+        assertThat(testCopperFiber.getMetalFiberKind()).isEqualTo(UPDATED_METAL_FIBER_KIND);
         assertThat(testCopperFiber.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
     }
 
@@ -327,7 +328,7 @@ class CopperFiberResourceIT {
         CopperFiber testCopperFiber = copperFiberList.get(copperFiberList.size() - 1);
         assertThat(testCopperFiber.getNumber()).isEqualTo(UPDATED_NUMBER);
         assertThat(testCopperFiber.getDesignation()).isEqualTo(DEFAULT_DESIGNATION);
-        assertThat(testCopperFiber.getCopperIsRedNotTinned()).isEqualTo(DEFAULT_COPPER_IS_RED_NOT_TINNED);
+        assertThat(testCopperFiber.getMetalFiberKind()).isEqualTo(DEFAULT_METAL_FIBER_KIND);
         assertThat(testCopperFiber.getMilimeterDiameter()).isEqualTo(DEFAULT_MILIMETER_DIAMETER);
     }
 
@@ -346,7 +347,7 @@ class CopperFiberResourceIT {
         partialUpdatedCopperFiber
             .number(UPDATED_NUMBER)
             .designation(UPDATED_DESIGNATION)
-            .copperIsRedNotTinned(UPDATED_COPPER_IS_RED_NOT_TINNED)
+            .metalFiberKind(UPDATED_METAL_FIBER_KIND)
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER);
 
         restCopperFiberMockMvc
@@ -363,7 +364,7 @@ class CopperFiberResourceIT {
         CopperFiber testCopperFiber = copperFiberList.get(copperFiberList.size() - 1);
         assertThat(testCopperFiber.getNumber()).isEqualTo(UPDATED_NUMBER);
         assertThat(testCopperFiber.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
-        assertThat(testCopperFiber.getCopperIsRedNotTinned()).isEqualTo(UPDATED_COPPER_IS_RED_NOT_TINNED);
+        assertThat(testCopperFiber.getMetalFiberKind()).isEqualTo(UPDATED_METAL_FIBER_KIND);
         assertThat(testCopperFiber.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
     }
 

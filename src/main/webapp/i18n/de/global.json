@@ -38,6 +38,7 @@
         "copperFiber": "Copper Fiber",
         "strip": "Strip",
         "stripLaying": "Strip Laying",
+        "metalFiber": "Metal Fiber",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

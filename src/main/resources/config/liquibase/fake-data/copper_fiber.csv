@@ -1,11 +1,11 @@
-id;number;designation;copper_is_red_not_tinned;milimeter_diameter
-1;15373;Lao invoice Illinois;false;65914
-2;60498;Account cyan;true;9881
-3;54627;input;false;64730
-4;86214;fuchsia syndicate;false;75046
-5;93714;concept;true;58989
-6;71972;Factors Cambridgeshire Legacy;true;27648
-7;88286;Borders;false;37047
-8;24239;Assistant Research;false;21947
-9;1227;Principal;false;60151
-10;84590;Sleek schemas well-modulated;false;53681
+id;number;designation;metal_fiber_kind;milimeter_diameter
+1;15373;Lao invoice Illinois;TINNED_COPPER;65914
+2;60498;Account cyan;TINNED_COPPER;9881
+3;54627;input;RED_COPPER;64730
+4;86214;fuchsia syndicate;RED_COPPER;75046
+5;93714;concept;TINNED_COPPER;58989
+6;71972;Factors Cambridgeshire Legacy;STEEL;27648
+7;88286;Borders;RED_COPPER;37047
+8;24239;Assistant Research;RED_COPPER;21947
+9;1227;Principal;RED_COPPER;60151
+10;84590;Sleek schemas well-modulated;RED_COPPER;53681

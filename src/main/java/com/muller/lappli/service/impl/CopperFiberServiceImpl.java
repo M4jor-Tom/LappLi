@@ -44,8 +44,8 @@ public class CopperFiberServiceImpl implements CopperFiberService {
                 if (copperFiber.getDesignation() != null) {
                     existingCopperFiber.setDesignation(copperFiber.getDesignation());
                 }
-                if (copperFiber.getCopperIsRedNotTinned() != null) {
-                    existingCopperFiber.setCopperIsRedNotTinned(copperFiber.getCopperIsRedNotTinned());
+                if (copperFiber.getMetalFiberKind() != null) {
+                    existingCopperFiber.setMetalFiberKind(copperFiber.getMetalFiberKind());
                 }
                 if (copperFiber.getMilimeterDiameter() != null) {
                     existingCopperFiber.setMilimeterDiameter(copperFiber.getMilimeterDiameter());

@@ -1,6 +1,5 @@
 package com.muller.lappli.domain;
 
-import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.enumeration.MetalFiberKind;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -9,12 +8,12 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A CopperFiber.
+ * A MetalFiber.
  */
 @Entity
-@Table(name = "copper_fiber")
+@Table(name = "metal_fiber")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CopperFiber extends AbstractDomainObject<CopperFiber> implements Serializable {
+public class MetalFiber implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -40,16 +39,11 @@ public class CopperFiber extends AbstractDomainObject<CopperFiber> implements Se
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    @Override
-    public CopperFiber getThis() {
-        return this;
-    }
-
     public Long getId() {
         return this.id;
     }
 
-    public CopperFiber id(Long id) {
+    public MetalFiber id(Long id) {
         this.setId(id);
         return this;
     }
@@ -62,7 +56,7 @@ public class CopperFiber extends AbstractDomainObject<CopperFiber> implements Se
         return this.number;
     }
 
-    public CopperFiber number(Long number) {
+    public MetalFiber number(Long number) {
         this.setNumber(number);
         return this;
     }
@@ -75,7 +69,7 @@ public class CopperFiber extends AbstractDomainObject<CopperFiber> implements Se
         return this.designation;
     }
 
-    public CopperFiber designation(String designation) {
+    public MetalFiber designation(String designation) {
         this.setDesignation(designation);
         return this;
     }
@@ -88,7 +82,7 @@ public class CopperFiber extends AbstractDomainObject<CopperFiber> implements Se
         return this.metalFiberKind;
     }
 
-    public CopperFiber metalFiberKind(MetalFiberKind metalFiberKind) {
+    public MetalFiber metalFiberKind(MetalFiberKind metalFiberKind) {
         this.setMetalFiberKind(metalFiberKind);
         return this;
     }
@@ -101,7 +95,7 @@ public class CopperFiber extends AbstractDomainObject<CopperFiber> implements Se
         return this.milimeterDiameter;
     }
 
-    public CopperFiber milimeterDiameter(Double milimeterDiameter) {
+    public MetalFiber milimeterDiameter(Double milimeterDiameter) {
         this.setMilimeterDiameter(milimeterDiameter);
         return this;
     }
@@ -117,10 +111,10 @@ public class CopperFiber extends AbstractDomainObject<CopperFiber> implements Se
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CopperFiber)) {
+        if (!(o instanceof MetalFiber)) {
             return false;
         }
-        return id != null && id.equals(((CopperFiber) o).id);
+        return id != null && id.equals(((MetalFiber) o).id);
     }
 
     @Override
@@ -132,7 +126,7 @@ public class CopperFiber extends AbstractDomainObject<CopperFiber> implements Se
     // prettier-ignore
     @Override
     public String toString() {
-        return "CopperFiber{" +
+        return "MetalFiber{" +
             "id=" + getId() +
             ", number=" + getNumber() +
             ", designation='" + getDesignation() + "'" +

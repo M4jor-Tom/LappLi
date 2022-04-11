@@ -4,25 +4,25 @@ import { Button, Row, Col, FormText } from 'reactstrap';
 import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { getEntity, updateEntity, createEntity, reset } from './copper-fiber.reducer';
-import { ICopperFiber } from 'app/shared/model/copper-fiber.model';
+import { getEntity, updateEntity, createEntity, reset } from './metal-fiber.reducer';
+import { IMetalFiber } from 'app/shared/model/metal-fiber.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MetalFiberKind } from 'app/shared/model/enumerations/metal-fiber-kind.model';
 
-export const CopperFiberUpdate = (props: RouteComponentProps<{ id: string }>) => {
+export const MetalFiberUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const copperFiberEntity = useAppSelector(state => state.copperFiber.entity);
-  const loading = useAppSelector(state => state.copperFiber.loading);
-  const updating = useAppSelector(state => state.copperFiber.updating);
-  const updateSuccess = useAppSelector(state => state.copperFiber.updateSuccess);
+  const metalFiberEntity = useAppSelector(state => state.metalFiber.entity);
+  const loading = useAppSelector(state => state.metalFiber.loading);
+  const updating = useAppSelector(state => state.metalFiber.updating);
+  const updateSuccess = useAppSelector(state => state.metalFiber.updateSuccess);
   const metalFiberKindValues = Object.keys(MetalFiberKind);
   const handleClose = () => {
-    props.history.push('/copper-fiber');
+    props.history.push('/metal-fiber');
   };
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export const CopperFiberUpdate = (props: RouteComponentProps<{ id: string }>) =>
 
   const saveEntity = values => {
     const entity = {
-      ...copperFiberEntity,
+      ...metalFiberEntity,
       ...values,
     };
 
@@ -57,15 +57,15 @@ export const CopperFiberUpdate = (props: RouteComponentProps<{ id: string }>) =>
       ? {}
       : {
           metalFiberKind: 'RED_COPPER',
-          ...copperFiberEntity,
+          ...metalFiberEntity,
         };
 
   return (
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2 id="lappLiApp.copperFiber.home.createOrEditLabel" data-cy="CopperFiberCreateUpdateHeading">
-            <Translate contentKey="lappLiApp.copperFiber.home.createOrEditLabel">Create or edit a CopperFiber</Translate>
+          <h2 id="lappLiApp.metalFiber.home.createOrEditLabel" data-cy="MetalFiberCreateUpdateHeading">
+            <Translate contentKey="lappLiApp.metalFiber.home.createOrEditLabel">Create or edit a MetalFiber</Translate>
           </h2>
         </Col>
       </Row>
@@ -80,14 +80,14 @@ export const CopperFiberUpdate = (props: RouteComponentProps<{ id: string }>) =>
                   name="id"
                   required
                   readOnly
-                  id="copper-fiber-id"
+                  id="metal-fiber-id"
                   label={translate('global.field.id')}
                   validate={{ required: true }}
                 />
               ) : null}
               <ValidatedField
-                label={translate('lappLiApp.copperFiber.number')}
-                id="copper-fiber-number"
+                label={translate('lappLiApp.metalFiber.number')}
+                id="metal-fiber-number"
                 name="number"
                 data-cy="number"
                 type="text"
@@ -96,16 +96,16 @@ export const CopperFiberUpdate = (props: RouteComponentProps<{ id: string }>) =>
                 }}
               />
               <ValidatedField
-                label={translate('lappLiApp.copperFiber.designation')}
-                id="copper-fiber-designation"
+                label={translate('lappLiApp.metalFiber.designation')}
+                id="metal-fiber-designation"
                 name="designation"
                 data-cy="designation"
                 type="text"
                 validate={{}}
               />
               <ValidatedField
-                label={translate('lappLiApp.copperFiber.metalFiberKind')}
-                id="copper-fiber-metalFiberKind"
+                label={translate('lappLiApp.metalFiber.metalFiberKind')}
+                id="metal-fiber-metalFiberKind"
                 name="metalFiberKind"
                 data-cy="metalFiberKind"
                 type="select"
@@ -117,8 +117,8 @@ export const CopperFiberUpdate = (props: RouteComponentProps<{ id: string }>) =>
                 ))}
               </ValidatedField>
               <ValidatedField
-                label={translate('lappLiApp.copperFiber.milimeterDiameter')}
-                id="copper-fiber-milimeterDiameter"
+                label={translate('lappLiApp.metalFiber.milimeterDiameter')}
+                id="metal-fiber-milimeterDiameter"
                 name="milimeterDiameter"
                 data-cy="milimeterDiameter"
                 type="text"
@@ -127,7 +127,7 @@ export const CopperFiberUpdate = (props: RouteComponentProps<{ id: string }>) =>
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
               />
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/copper-fiber" replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/metal-fiber" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
@@ -148,4 +148,4 @@ export const CopperFiberUpdate = (props: RouteComponentProps<{ id: string }>) =>
   );
 };
 
-export default CopperFiberUpdate;
+export default MetalFiberUpdate;

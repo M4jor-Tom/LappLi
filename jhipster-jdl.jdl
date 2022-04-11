@@ -187,7 +187,10 @@ entity MetalFiber {
 }
 
 entity CopperFiber {
-    
+    number Long unique
+    designation String unique
+    MetalFiberKind MetalFiberKind required
+    milimeterDiameter Double required
 }
 
 entity UserData {
