@@ -148,6 +148,10 @@ public class Screen
     }
 
     public CopperFiber getAnonymousCopperFiber() {
+        if (getAnonymousCopperFiberKind() == null || getAnonymousCopperFiberMilimeterDiameter() == null) {
+            return null;
+        }
+
         return new CopperFiber()
             .id(null)
             .number(getAnonymousCopperFiberNumber())
