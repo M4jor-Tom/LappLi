@@ -1,5 +1,5 @@
 {
-  "name": "CopperFiber",
+  "name": "MetalFiber",
   "fields": [
     {
       "fieldName": "number",
@@ -24,7 +24,7 @@
     }
   ],
   "relationships": [],
-  "entityTableName": "copper_fiber",
+  "entityTableName": "metal_fiber",
   "dto": "no",
   "pagination": "no",
   "service": "serviceImpl",
@@ -33,5 +33,5 @@
   "readOnly": false,
   "embedded": false,
   "applications": "*",
-  "changelogDate": "20220405132506"
+  "changelogDate": "20220411090946"
 }

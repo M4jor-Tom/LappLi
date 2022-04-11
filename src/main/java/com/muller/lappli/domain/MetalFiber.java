@@ -7,17 +7,17 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A CopperFiber.
+ * A MetalFiber.
  */
 @Entity
-@Table(name = "copper_fiber")
+@Table(name = "metal_fiber")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CopperFiber extends AbstractMetalFiber<CopperFiber> implements Serializable {
+public class MetalFiber extends AbstractMetalFiber<MetalFiber> implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override
-    public CopperFiber getThis() {
+    public MetalFiber getThis() {
         return this;
     }
 
@@ -28,10 +28,10 @@ public class CopperFiber extends AbstractMetalFiber<CopperFiber> implements Seri
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CopperFiber)) {
+        if (!(o instanceof MetalFiber)) {
             return false;
         }
-        return getId() != null && getId().equals(((CopperFiber) o).getId());
+        return getId() != null && getId().equals(((MetalFiber) o).getId());
     }
 
     @Override
@@ -43,7 +43,7 @@ public class CopperFiber extends AbstractMetalFiber<CopperFiber> implements Seri
     // prettier-ignore
     @Override
     public String toString() {
-        return "CopperFiber{" +
+        return "MetalFiber{" +
             "id=" + getId() +
             ", number=" + getNumber() +
             ", designation='" + getDesignation() + "'" +

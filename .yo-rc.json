@@ -73,8 +73,9 @@
       "Screen",
       "CopperFiber",
       "Strip",
-      "StripLaying"
+      "StripLaying",
+      "MetalFiber"
     ],
-    "lastLiquibaseTimestamp": 1649247462000
+    "lastLiquibaseTimestamp": 1649668186000
   }
 }

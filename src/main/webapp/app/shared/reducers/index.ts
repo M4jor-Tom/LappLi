@@ -71,6 +71,8 @@ import copperFiber from 'app/entities/copper-fiber/copper-fiber.reducer';
 import strip from 'app/entities/strip/strip.reducer';
 // prettier-ignore
 import stripLaying from 'app/entities/strip-laying/strip-laying.reducer';
+// prettier-ignore
+import metalFiber from 'app/entities/metal-fiber/metal-fiber.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -114,6 +116,7 @@ const rootReducer = {
   copperFiber,
   strip,
   stripLaying,
+  metalFiber,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };

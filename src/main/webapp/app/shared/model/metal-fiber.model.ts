@@ -1,6 +1,6 @@
 import { MetalFiberKind } from 'app/shared/model/enumerations/metal-fiber-kind.model';
 
-export interface ICopperFiber {
+export interface IMetalFiber {
   id?: number;
   number?: number | null;
   designation?: string | null;
@@ -8,4 +8,4 @@ export interface ICopperFiber {
   milimeterDiameter?: number;
 }
 
-export const defaultValue: Readonly<ICopperFiber> = {};
+export const defaultValue: Readonly<IMetalFiber> = {};
