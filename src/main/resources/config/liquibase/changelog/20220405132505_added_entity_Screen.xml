@@ -23,8 +23,20 @@
             <column name="forced_diameter_assembly_step" type="bigint">
                 <constraints nullable="true" />
             </column>
+            <column name="anonymous_copper_fiber_number" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="anonymous_copper_fiber_designation" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="anonymous_copper_fiber_kind" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="anonymous_copper_fiber_milimeter_diameter" type="double">
+                <constraints nullable="true" />
+            </column>
             <column name="copper_fiber_id" type="bigint">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="owner_strand_supply_id" type="bigint">
                 <constraints nullable="false" />
@@ -53,7 +65,10 @@
             <column name="operation_layer" type="numeric"/>
             <column name="assembly_mean_is_same_than_assemblys" type="boolean"/>
             <column name="forced_diameter_assembly_step" type="numeric"/>
-            <column name="copper_fiber_id" type="numeric"/>
+            <column name="anonymous_copper_fiber_number" type="numeric"/>
+            <column name="anonymous_copper_fiber_designation" type="string"/>
+            <column name="anonymous_copper_fiber_kind" type="string"/>
+            <column name="anonymous_copper_fiber_milimeter_diameter" type="numeric"/>
             <column name="owner_strand_supply_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

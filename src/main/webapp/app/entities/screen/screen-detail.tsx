@@ -48,6 +48,32 @@ export const ScreenDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{screenEntity.forcedDiameterAssemblyStep}</dd>
           <dt>
+            <span id="anonymousCopperFiberNumber">
+              <Translate contentKey="lappLiApp.screen.anonymousCopperFiberNumber">Anonymous Copper Fiber Number</Translate>
+            </span>
+          </dt>
+          <dd>{screenEntity.anonymousCopperFiberNumber}</dd>
+          <dt>
+            <span id="anonymousCopperFiberDesignation">
+              <Translate contentKey="lappLiApp.screen.anonymousCopperFiberDesignation">Anonymous Copper Fiber Designation</Translate>
+            </span>
+          </dt>
+          <dd>{screenEntity.anonymousCopperFiberDesignation}</dd>
+          <dt>
+            <span id="anonymousCopperFiberKind">
+              <Translate contentKey="lappLiApp.screen.anonymousCopperFiberKind">Anonymous Copper Fiber Kind</Translate>
+            </span>
+          </dt>
+          <dd>{screenEntity.anonymousCopperFiberKind}</dd>
+          <dt>
+            <span id="anonymousCopperFiberMilimeterDiameter">
+              <Translate contentKey="lappLiApp.screen.anonymousCopperFiberMilimeterDiameter">
+                Anonymous Copper Fiber Milimeter Diameter
+              </Translate>
+            </span>
+          </dt>
+          <dd>{screenEntity.anonymousCopperFiberMilimeterDiameter}</dd>
+          <dt>
             <Translate contentKey="lappLiApp.screen.copperFiber">Copper Fiber</Translate>
           </dt>
           <dd>{screenEntity.copperFiber ? screenEntity.copperFiber.designation : ''}</dd>

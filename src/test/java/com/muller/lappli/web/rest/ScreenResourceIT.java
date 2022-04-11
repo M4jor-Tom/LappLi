@@ -6,9 +6,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.muller.lappli.IntegrationTest;
-import com.muller.lappli.domain.CopperFiber;
 import com.muller.lappli.domain.Screen;
 import com.muller.lappli.domain.StrandSupply;
+import com.muller.lappli.domain.enumeration.MetalFiberKind;
 import com.muller.lappli.repository.ScreenRepository;
 import java.util.List;
 import java.util.Random;
@@ -40,6 +40,18 @@ class ScreenResourceIT {
     private static final Long DEFAULT_FORCED_DIAMETER_ASSEMBLY_STEP = 1L;
     private static final Long UPDATED_FORCED_DIAMETER_ASSEMBLY_STEP = 2L;
 
+    private static final Long DEFAULT_ANONYMOUS_COPPER_FIBER_NUMBER = 1L;
+    private static final Long UPDATED_ANONYMOUS_COPPER_FIBER_NUMBER = 2L;
+
+    private static final String DEFAULT_ANONYMOUS_COPPER_FIBER_DESIGNATION = "AAAAAAAAAA";
+    private static final String UPDATED_ANONYMOUS_COPPER_FIBER_DESIGNATION = "BBBBBBBBBB";
+
+    private static final MetalFiberKind DEFAULT_ANONYMOUS_COPPER_FIBER_KIND = MetalFiberKind.RED_COPPER;
+    private static final MetalFiberKind UPDATED_ANONYMOUS_COPPER_FIBER_KIND = MetalFiberKind.TINNED_COPPER;
+
+    private static final Double DEFAULT_ANONYMOUS_COPPER_FIBER_MILIMETER_DIAMETER = 1D;
+    private static final Double UPDATED_ANONYMOUS_COPPER_FIBER_MILIMETER_DIAMETER = 2D;
+
     private static final String ENTITY_API_URL = "/api/screens";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -67,17 +79,11 @@ class ScreenResourceIT {
         Screen screen = new Screen()
             .operationLayer(DEFAULT_OPERATION_LAYER)
             .assemblyMeanIsSameThanAssemblys(DEFAULT_ASSEMBLY_MEAN_IS_SAME_THAN_ASSEMBLYS)
-            .forcedDiameterAssemblyStep(DEFAULT_FORCED_DIAMETER_ASSEMBLY_STEP);
-        // Add required entity
-        CopperFiber copperFiber;
-        if (TestUtil.findAll(em, CopperFiber.class).isEmpty()) {
-            copperFiber = CopperFiberResourceIT.createEntity(em);
-            em.persist(copperFiber);
-            em.flush();
-        } else {
-            copperFiber = TestUtil.findAll(em, CopperFiber.class).get(0);
-        }
-        screen.setCopperFiber(copperFiber);
+            .forcedDiameterAssemblyStep(DEFAULT_FORCED_DIAMETER_ASSEMBLY_STEP)
+            .anonymousCopperFiberNumber(DEFAULT_ANONYMOUS_COPPER_FIBER_NUMBER)
+            .anonymousCopperFiberDesignation(DEFAULT_ANONYMOUS_COPPER_FIBER_DESIGNATION)
+            .anonymousCopperFiberKind(DEFAULT_ANONYMOUS_COPPER_FIBER_KIND)
+            .anonymousCopperFiberMilimeterDiameter(DEFAULT_ANONYMOUS_COPPER_FIBER_MILIMETER_DIAMETER);
         // Add required entity
         StrandSupply strandSupply;
         if (TestUtil.findAll(em, StrandSupply.class).isEmpty()) {
@@ -101,17 +107,11 @@ class ScreenResourceIT {
         Screen screen = new Screen()
             .operationLayer(UPDATED_OPERATION_LAYER)
             .assemblyMeanIsSameThanAssemblys(UPDATED_ASSEMBLY_MEAN_IS_SAME_THAN_ASSEMBLYS)
-            .forcedDiameterAssemblyStep(UPDATED_FORCED_DIAMETER_ASSEMBLY_STEP);
-        // Add required entity
-        CopperFiber copperFiber;
-        if (TestUtil.findAll(em, CopperFiber.class).isEmpty()) {
-            copperFiber = CopperFiberResourceIT.createUpdatedEntity(em);
-            em.persist(copperFiber);
-            em.flush();
-        } else {
-            copperFiber = TestUtil.findAll(em, CopperFiber.class).get(0);
-        }
-        screen.setCopperFiber(copperFiber);
+            .forcedDiameterAssemblyStep(UPDATED_FORCED_DIAMETER_ASSEMBLY_STEP)
+            .anonymousCopperFiberNumber(UPDATED_ANONYMOUS_COPPER_FIBER_NUMBER)
+            .anonymousCopperFiberDesignation(UPDATED_ANONYMOUS_COPPER_FIBER_DESIGNATION)
+            .anonymousCopperFiberKind(UPDATED_ANONYMOUS_COPPER_FIBER_KIND)
+            .anonymousCopperFiberMilimeterDiameter(UPDATED_ANONYMOUS_COPPER_FIBER_MILIMETER_DIAMETER);
         // Add required entity
         StrandSupply strandSupply;
         if (TestUtil.findAll(em, StrandSupply.class).isEmpty()) {
@@ -146,6 +146,10 @@ class ScreenResourceIT {
         assertThat(testScreen.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testScreen.getAssemblyMeanIsSameThanAssemblys()).isEqualTo(DEFAULT_ASSEMBLY_MEAN_IS_SAME_THAN_ASSEMBLYS);
         assertThat(testScreen.getForcedDiameterAssemblyStep()).isEqualTo(DEFAULT_FORCED_DIAMETER_ASSEMBLY_STEP);
+        assertThat(testScreen.getAnonymousCopperFiberNumber()).isEqualTo(DEFAULT_ANONYMOUS_COPPER_FIBER_NUMBER);
+        assertThat(testScreen.getAnonymousCopperFiberDesignation()).isEqualTo(DEFAULT_ANONYMOUS_COPPER_FIBER_DESIGNATION);
+        assertThat(testScreen.getAnonymousCopperFiberKind()).isEqualTo(DEFAULT_ANONYMOUS_COPPER_FIBER_KIND);
+        assertThat(testScreen.getAnonymousCopperFiberMilimeterDiameter()).isEqualTo(DEFAULT_ANONYMOUS_COPPER_FIBER_MILIMETER_DIAMETER);
     }
 
     @Test
@@ -217,7 +221,14 @@ class ScreenResourceIT {
                 jsonPath("$.[*].assemblyMeanIsSameThanAssemblys")
                     .value(hasItem(DEFAULT_ASSEMBLY_MEAN_IS_SAME_THAN_ASSEMBLYS.booleanValue()))
             )
-            .andExpect(jsonPath("$.[*].forcedDiameterAssemblyStep").value(hasItem(DEFAULT_FORCED_DIAMETER_ASSEMBLY_STEP.intValue())));
+            .andExpect(jsonPath("$.[*].forcedDiameterAssemblyStep").value(hasItem(DEFAULT_FORCED_DIAMETER_ASSEMBLY_STEP.intValue())))
+            .andExpect(jsonPath("$.[*].anonymousCopperFiberNumber").value(hasItem(DEFAULT_ANONYMOUS_COPPER_FIBER_NUMBER.intValue())))
+            .andExpect(jsonPath("$.[*].anonymousCopperFiberDesignation").value(hasItem(DEFAULT_ANONYMOUS_COPPER_FIBER_DESIGNATION)))
+            .andExpect(jsonPath("$.[*].anonymousCopperFiberKind").value(hasItem(DEFAULT_ANONYMOUS_COPPER_FIBER_KIND.toString())))
+            .andExpect(
+                jsonPath("$.[*].anonymousCopperFiberMilimeterDiameter")
+                    .value(hasItem(DEFAULT_ANONYMOUS_COPPER_FIBER_MILIMETER_DIAMETER.doubleValue()))
+            );
     }
 
     @Test
@@ -234,7 +245,13 @@ class ScreenResourceIT {
             .andExpect(jsonPath("$.id").value(screen.getId().intValue()))
             .andExpect(jsonPath("$.operationLayer").value(DEFAULT_OPERATION_LAYER.intValue()))
             .andExpect(jsonPath("$.assemblyMeanIsSameThanAssemblys").value(DEFAULT_ASSEMBLY_MEAN_IS_SAME_THAN_ASSEMBLYS.booleanValue()))
-            .andExpect(jsonPath("$.forcedDiameterAssemblyStep").value(DEFAULT_FORCED_DIAMETER_ASSEMBLY_STEP.intValue()));
+            .andExpect(jsonPath("$.forcedDiameterAssemblyStep").value(DEFAULT_FORCED_DIAMETER_ASSEMBLY_STEP.intValue()))
+            .andExpect(jsonPath("$.anonymousCopperFiberNumber").value(DEFAULT_ANONYMOUS_COPPER_FIBER_NUMBER.intValue()))
+            .andExpect(jsonPath("$.anonymousCopperFiberDesignation").value(DEFAULT_ANONYMOUS_COPPER_FIBER_DESIGNATION))
+            .andExpect(jsonPath("$.anonymousCopperFiberKind").value(DEFAULT_ANONYMOUS_COPPER_FIBER_KIND.toString()))
+            .andExpect(
+                jsonPath("$.anonymousCopperFiberMilimeterDiameter").value(DEFAULT_ANONYMOUS_COPPER_FIBER_MILIMETER_DIAMETER.doubleValue())
+            );
     }
 
     @Test
@@ -259,7 +276,11 @@ class ScreenResourceIT {
         updatedScreen
             .operationLayer(UPDATED_OPERATION_LAYER)
             .assemblyMeanIsSameThanAssemblys(UPDATED_ASSEMBLY_MEAN_IS_SAME_THAN_ASSEMBLYS)
-            .forcedDiameterAssemblyStep(UPDATED_FORCED_DIAMETER_ASSEMBLY_STEP);
+            .forcedDiameterAssemblyStep(UPDATED_FORCED_DIAMETER_ASSEMBLY_STEP)
+            .anonymousCopperFiberNumber(UPDATED_ANONYMOUS_COPPER_FIBER_NUMBER)
+            .anonymousCopperFiberDesignation(UPDATED_ANONYMOUS_COPPER_FIBER_DESIGNATION)
+            .anonymousCopperFiberKind(UPDATED_ANONYMOUS_COPPER_FIBER_KIND)
+            .anonymousCopperFiberMilimeterDiameter(UPDATED_ANONYMOUS_COPPER_FIBER_MILIMETER_DIAMETER);
 
         restScreenMockMvc
             .perform(
@@ -276,6 +297,10 @@ class ScreenResourceIT {
         assertThat(testScreen.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
         assertThat(testScreen.getAssemblyMeanIsSameThanAssemblys()).isEqualTo(UPDATED_ASSEMBLY_MEAN_IS_SAME_THAN_ASSEMBLYS);
         assertThat(testScreen.getForcedDiameterAssemblyStep()).isEqualTo(UPDATED_FORCED_DIAMETER_ASSEMBLY_STEP);
+        assertThat(testScreen.getAnonymousCopperFiberNumber()).isEqualTo(UPDATED_ANONYMOUS_COPPER_FIBER_NUMBER);
+        assertThat(testScreen.getAnonymousCopperFiberDesignation()).isEqualTo(UPDATED_ANONYMOUS_COPPER_FIBER_DESIGNATION);
+        assertThat(testScreen.getAnonymousCopperFiberKind()).isEqualTo(UPDATED_ANONYMOUS_COPPER_FIBER_KIND);
+        assertThat(testScreen.getAnonymousCopperFiberMilimeterDiameter()).isEqualTo(UPDATED_ANONYMOUS_COPPER_FIBER_MILIMETER_DIAMETER);
     }
 
     @Test
@@ -365,6 +390,10 @@ class ScreenResourceIT {
         assertThat(testScreen.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testScreen.getAssemblyMeanIsSameThanAssemblys()).isEqualTo(UPDATED_ASSEMBLY_MEAN_IS_SAME_THAN_ASSEMBLYS);
         assertThat(testScreen.getForcedDiameterAssemblyStep()).isEqualTo(UPDATED_FORCED_DIAMETER_ASSEMBLY_STEP);
+        assertThat(testScreen.getAnonymousCopperFiberNumber()).isEqualTo(DEFAULT_ANONYMOUS_COPPER_FIBER_NUMBER);
+        assertThat(testScreen.getAnonymousCopperFiberDesignation()).isEqualTo(DEFAULT_ANONYMOUS_COPPER_FIBER_DESIGNATION);
+        assertThat(testScreen.getAnonymousCopperFiberKind()).isEqualTo(DEFAULT_ANONYMOUS_COPPER_FIBER_KIND);
+        assertThat(testScreen.getAnonymousCopperFiberMilimeterDiameter()).isEqualTo(DEFAULT_ANONYMOUS_COPPER_FIBER_MILIMETER_DIAMETER);
     }
 
     @Test
@@ -382,7 +411,11 @@ class ScreenResourceIT {
         partialUpdatedScreen
             .operationLayer(UPDATED_OPERATION_LAYER)
             .assemblyMeanIsSameThanAssemblys(UPDATED_ASSEMBLY_MEAN_IS_SAME_THAN_ASSEMBLYS)
-            .forcedDiameterAssemblyStep(UPDATED_FORCED_DIAMETER_ASSEMBLY_STEP);
+            .forcedDiameterAssemblyStep(UPDATED_FORCED_DIAMETER_ASSEMBLY_STEP)
+            .anonymousCopperFiberNumber(UPDATED_ANONYMOUS_COPPER_FIBER_NUMBER)
+            .anonymousCopperFiberDesignation(UPDATED_ANONYMOUS_COPPER_FIBER_DESIGNATION)
+            .anonymousCopperFiberKind(UPDATED_ANONYMOUS_COPPER_FIBER_KIND)
+            .anonymousCopperFiberMilimeterDiameter(UPDATED_ANONYMOUS_COPPER_FIBER_MILIMETER_DIAMETER);
 
         restScreenMockMvc
             .perform(
@@ -399,6 +432,10 @@ class ScreenResourceIT {
         assertThat(testScreen.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
         assertThat(testScreen.getAssemblyMeanIsSameThanAssemblys()).isEqualTo(UPDATED_ASSEMBLY_MEAN_IS_SAME_THAN_ASSEMBLYS);
         assertThat(testScreen.getForcedDiameterAssemblyStep()).isEqualTo(UPDATED_FORCED_DIAMETER_ASSEMBLY_STEP);
+        assertThat(testScreen.getAnonymousCopperFiberNumber()).isEqualTo(UPDATED_ANONYMOUS_COPPER_FIBER_NUMBER);
+        assertThat(testScreen.getAnonymousCopperFiberDesignation()).isEqualTo(UPDATED_ANONYMOUS_COPPER_FIBER_DESIGNATION);
+        assertThat(testScreen.getAnonymousCopperFiberKind()).isEqualTo(UPDATED_ANONYMOUS_COPPER_FIBER_KIND);
+        assertThat(testScreen.getAnonymousCopperFiberMilimeterDiameter()).isEqualTo(UPDATED_ANONYMOUS_COPPER_FIBER_MILIMETER_DIAMETER);
     }
 
     @Test

@@ -4,6 +4,10 @@ entity Screen {
     operationLayer Long required
     assemblyMeanIsSameThanAssemblys Boolean required
     forcedDiameterAssemblyStep Long
+    anonymousCopperFiberNumber Long
+    anonymousCopperFiberDesignation String
+    anonymousCopperFiberKind MetalFiberKind
+    anonymousCopperFiberMilimeterDiameter Double
 }
 
 entity Tape {
@@ -261,7 +265,7 @@ relationship OneToMany {
 }
 
 relationship ManyToOne {
-    Screen{copperFiber(designation) required} to CopperFiber
+    Screen{copperFiber(designation)} to CopperFiber
 }
 
 relationship ManyToOne {

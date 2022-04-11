@@ -54,6 +54,18 @@ public class ScreenServiceImpl extends AbstractNonCentralOperationServiceImpl<Sc
                 if (screen.getForcedDiameterAssemblyStep() != null) {
                     existingScreen.setForcedDiameterAssemblyStep(screen.getForcedDiameterAssemblyStep());
                 }
+                if (screen.getAnonymousCopperFiberNumber() != null) {
+                    existingScreen.setAnonymousCopperFiberNumber(screen.getAnonymousCopperFiberNumber());
+                }
+                if (screen.getAnonymousCopperFiberDesignation() != null) {
+                    existingScreen.setAnonymousCopperFiberDesignation(screen.getAnonymousCopperFiberDesignation());
+                }
+                if (screen.getAnonymousCopperFiberKind() != null) {
+                    existingScreen.setAnonymousCopperFiberKind(screen.getAnonymousCopperFiberKind());
+                }
+                if (screen.getAnonymousCopperFiberMilimeterDiameter() != null) {
+                    existingScreen.setAnonymousCopperFiberMilimeterDiameter(screen.getAnonymousCopperFiberMilimeterDiameter());
+                }
 
                 return existingScreen;
             })

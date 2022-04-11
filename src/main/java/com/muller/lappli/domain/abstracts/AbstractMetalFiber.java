@@ -33,6 +33,14 @@ public abstract class AbstractMetalFiber<T extends AbstractMetalFiber<T>> extend
         super();
     }
 
+    public T returnNullIfNotConform() {
+        if (getMetalFiberKind() == null || getMilimeterDiameter() == null) {
+            return null;
+        }
+
+        return getThis();
+    }
+
     public Long getId() {
         return this.id;
     }
