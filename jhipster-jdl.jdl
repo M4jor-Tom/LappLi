@@ -179,10 +179,10 @@ entity Material {
     kilogramPerCubeMeterVolumicDensity Double required
 }
 
-entity CopperFiber {
+entity MetalFiber {
     number Long unique
     designation String unique
-    copperIsRedNotTinned Boolean required
+    MetalFiberKind MetalFiberKind required
     milimeterDiameter Double required
 }
 
@@ -319,6 +319,12 @@ relationship ManyToOne {
 
 relationship ManyToOne {
 	ElementKind{insulationMaterial(designation) required} to Material
+}
+
+enum MetalFiberKind {
+    RED_COPPER,
+    TINNED_COPPER,
+    STEEL
 }
 
 enum SheathingKind {
