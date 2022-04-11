@@ -186,6 +186,10 @@ entity MetalFiber {
     milimeterDiameter Double required
 }
 
+entity CopperFiber {
+    
+}
+
 entity UserData {
 
 }
