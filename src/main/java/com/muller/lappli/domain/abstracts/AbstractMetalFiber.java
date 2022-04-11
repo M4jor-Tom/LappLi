@@ -41,8 +41,12 @@ public abstract class AbstractMetalFiber<T extends AbstractMetalFiber<T>> extend
         return getMetalFiberKind().isForMetalFiber(getThis().getClass());
     }
 
+    public Boolean isConform() {
+        return getMetalFiberKind() != null && getMilimeterDiameter() != null && isMetalFiberKindConform();
+    }
+
     public T returnNullIfNotConform() {
-        if (getMetalFiberKind() == null || getMilimeterDiameter() == null || !isMetalFiberKindConform()) {
+        if (!isConform()) {
             return null;
         }
 
