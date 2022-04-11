@@ -16,6 +16,10 @@ public class CopperFiber extends AbstractMetalFiber<CopperFiber> implements Seri
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    public CopperFiber() {
+        super();
+    }
+
     @Override
     public CopperFiber getThis() {
         return this;

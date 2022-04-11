@@ -16,6 +16,10 @@ public class MetalFiber extends AbstractMetalFiber<MetalFiber> implements Serial
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    public MetalFiber() {
+        super();
+    }
+
     @Override
     public MetalFiber getThis() {
         return this;
