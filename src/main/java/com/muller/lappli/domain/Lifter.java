@@ -62,20 +62,6 @@ public class Lifter extends AbstractDomainObject<Lifter> implements Serializable
         return this;
     }
 
-    @Override
-    public Boolean isConform() {
-        return (
-            getIndex() != null &&
-            getMinimumMilimeterDiameter() != null &&
-            getMaximumMilimeterDiameter() != null &&
-            getSupportsSpirallyColoredMarkingType() != null &&
-            getSupportsLongitudinallyColoredMarkingType() != null &&
-            getSupportsNumberedMarkingType() != null &&
-            getSupportsInkJetMarkingTechnique() != null &&
-            getSupportsRsdMarkingTechnique() != null
-        );
-    }
-
     public String getName() {
         if (getIndex() == null) {
             return null;

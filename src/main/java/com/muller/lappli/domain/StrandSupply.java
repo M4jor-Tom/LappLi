@@ -125,28 +125,6 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     }
 
     @Override
-    public Boolean isConform() {
-        Boolean operationsAreConform = true;
-
-        for (IOperation<?> operation : getOperations()) {
-            operationsAreConform = operationsAreConform && operation.isConform();
-        }
-
-        return (
-            operationsAreConform &&
-            getApparitions() != null &&
-            getMarkingType() != null &&
-            getDiameterAssemblyStep() != null &&
-            getAssemblyMean() != null &&
-            getForceCentralUtilityComponent() != null &&
-            getStrand() != null &&
-            getStrand().isConform() &&
-            getStudy() != null &&
-            getStudy().isConform()
-        );
-    }
-
-    @Override
     public String getDesignation() {
         if (getApparitions() == null) {
             return "";

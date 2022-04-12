@@ -97,19 +97,6 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         return getOwnerStrandSupply().getAssemblyMean();
     }
 
-    @Override
-    public Boolean isConform() {
-        if (getSupplyPositions() == null || getSupplyPositions().isEmpty()) {
-            return true;
-        } else for (SupplyPosition supplyPosition : getSupplyPositions()) {
-            if (!supplyPosition.isConform()) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     public Long getIntersticeLayer() {
         return this.intersticeLayer;
     }

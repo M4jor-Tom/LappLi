@@ -48,17 +48,6 @@ public class UserData extends AbstractDomainObject<UserData> implements Serializ
     }
 
     @Override
-    public Boolean isConform() {
-        Boolean studiesAreConform = true;
-
-        for (Study study : getStudies()) {
-            studiesAreConform = studiesAreConform && study.isConform();
-        }
-
-        return studiesAreConform && getUser() != null;
-    }
-
-    @Override
     public Long getId() {
         return this.id;
     }

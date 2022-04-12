@@ -92,20 +92,6 @@ public class ElementKind extends AbstractDomainObject<ElementKind> implements Co
     }
 
     @Override
-    public Boolean isConform() {
-        return (
-            getDesignation() != null &&
-            getGramPerMeterLinearMass() != null &&
-            getMilimeterDiameter() != null &&
-            getMilimeterInsulationThickness() != null &&
-            getCopper() != null &&
-            getCopper().isConform() &&
-            getInsulationMaterial() != null &&
-            getInsulationMaterial().isConform()
-        );
-    }
-
-    @Override
     public String getDesignation() {
         return this.designation;
     }

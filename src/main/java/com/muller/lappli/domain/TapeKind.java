@@ -36,11 +36,6 @@ public class TapeKind extends AbstractDomainObject<TapeKind> implements Serializ
         return this;
     }
 
-    @Override
-    public Boolean isConform() {
-        return getTargetCoveringRate() != null && getDesignation() != null;
-    }
-
     public Double getTargetCoveringRate() {
         return this.targetCoveringRate;
     }

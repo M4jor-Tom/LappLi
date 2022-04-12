@@ -47,15 +47,6 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     }
 
     @Override
-    public Boolean isConform() {
-        if (getSupplyPosition() == null) {
-            return false;
-        }
-
-        return super.isConform() && getSupplyPosition().isConform();
-    }
-
-    @Override
     public CentralAssembly getThis() {
         return this;
     }

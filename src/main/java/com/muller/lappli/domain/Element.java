@@ -46,11 +46,6 @@ public class Element extends AbstractDomainObject<Element> implements CylindricC
     }
 
     @Override
-    public Boolean isConform() {
-        return getNumber() != null && getColor() != null && getElementKind() != null && getElementKind().isConform();
-    }
-
-    @Override
     public Double getMilimeterDiameter() {
         if (getElementKind() == null) {
             return Double.NaN;

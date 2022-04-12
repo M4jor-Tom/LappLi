@@ -61,21 +61,6 @@ public class Study extends AbstractDomainObject<Study> implements Serializable {
         setStrandSupplies(new HashSet<>());
     }
 
-    public Boolean isConform() {
-        Boolean strandsAreConform = true;
-        Boolean strandSuppliesAreConform = true;
-
-        for (Strand strand : getStrands()) {
-            strandsAreConform = strandsAreConform && strand.isConform();
-        }
-
-        for (StrandSupply strandSupply : getStrandSupplies()) {
-            strandSuppliesAreConform = strandSuppliesAreConform && strandSupply.isConform();
-        }
-
-        return strandsAreConform && strandSuppliesAreConform && getLastEditionInstant() != null && getAuthor() != null;
-    }
-
     public Boolean isAuthored() {
         return getAuthor().getId() != null;
     }

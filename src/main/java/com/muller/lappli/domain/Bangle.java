@@ -43,11 +43,6 @@ public class Bangle extends AbstractUniformAtom<Bangle> implements Article, Seri
     }
 
     @Override
-    public Boolean isConform() {
-        return super.isConform() && getNumber() != null && getDesignation() != null;
-    }
-
-    @Override
     public Long getArticleNumber() {
         return getNumber();
     }

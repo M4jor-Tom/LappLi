@@ -48,18 +48,6 @@ public class Tape extends AbstractDomainObject<Tape> implements Serializable {
         return this;
     }
 
-    @Override
-    public Boolean isConform() {
-        return (
-            getNumber() != null &&
-            getDesignation() != null &&
-            getMilimeterWidth() != null &&
-            getMilimeterDiameterIncidency() != null &&
-            getTapeKind() != null &&
-            getTapeKind().isConform()
-        );
-    }
-
     public Long getNumber() {
         return this.number;
     }

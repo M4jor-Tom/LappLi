@@ -71,24 +71,6 @@ public class Material extends AbstractDomainObject<Material> implements Article,
         return this;
     }
 
-    @Override
-    public Boolean isConform() {
-        Boolean materialsMarkingStatisticsAreConform = true;
-
-        if (getMaterialMarkingStatistics() == null || getMaterialMarkingStatistics().isEmpty()) {
-            materialsMarkingStatisticsAreConform = true;
-        } else for (MaterialMarkingStatistic materialMarkingStatistic : getMaterialMarkingStatistics()) {
-            materialsMarkingStatisticsAreConform = materialsMarkingStatisticsAreConform && materialMarkingStatistic.isConform();
-        }
-
-        return (
-            getNumber() != null &&
-            getDesignation() != null &&
-            getKilogramPerCubeMeterVolumicDensity() != null &&
-            materialsMarkingStatisticsAreConform
-        );
-    }
-
     public Object copy() {
         return new Material(this).id(getId());
     }

@@ -53,11 +53,6 @@ public class LifterRunMeasure extends AbstractDomainObject<LifterRunMeasure> imp
         return this;
     }
 
-    @Override
-    public Boolean isConform() {
-        return getMarkingType() != null && getMarkingTechnique() != null && getLifter() != null && getLifter().isConform();
-    }
-
     public Double getMilimeterDiameter() {
         return this.milimeterDiameter;
     }

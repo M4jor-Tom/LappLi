@@ -78,17 +78,6 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
     }
 
     @Override
-    public Boolean isConform() {
-        return (
-            super.isConform() &&
-            getMilimeterThickness() != null &&
-            getSheathingKind() != null &&
-            getMaterial() != null &&
-            getMaterial().isConform()
-        );
-    }
-
-    @Override
     public OperationKind getOperationKind() {
         return OperationKind.SHEATHING;
     }

@@ -21,6 +21,11 @@ public abstract class AbstractDomainObject<T extends AbstractDomainObject<T>> im
         super();
     }
 
+    @Override
+    public Boolean isConform() {
+        return true;
+    }
+
     public Optional<T> getThisIfConform() {
         if (!isConform()) {
             return Optional.empty();

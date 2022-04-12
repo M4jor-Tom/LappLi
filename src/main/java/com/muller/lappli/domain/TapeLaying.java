@@ -63,11 +63,6 @@ public class TapeLaying
     }
 
     @Override
-    public Boolean isConform() {
-        return super.isConform() && getAssemblyMean() != null && getTape() != null && getTape().isConform();
-    }
-
-    @Override
     public OperationKind getOperationKind() {
         return OperationKind.TAPE_LAYING;
     }

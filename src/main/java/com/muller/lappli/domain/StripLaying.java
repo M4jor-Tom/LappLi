@@ -59,11 +59,6 @@ public class StripLaying
     }
 
     @Override
-    public Boolean isConform() {
-        return super.isConform() && getStrip() != null && getStrip().isConform();
-    }
-
-    @Override
     public OperationKind getOperationKind() {
         return OperationKind.STRIP_LAYING;
     }

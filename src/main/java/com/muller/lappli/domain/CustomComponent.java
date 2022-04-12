@@ -47,11 +47,6 @@ public class CustomComponent extends AbstractUniformAtom<CustomComponent> implem
     }
 
     @Override
-    public Boolean isConform() {
-        return super.isConform() && getSurfaceColor() != null;
-    }
-
-    @Override
     public Boolean isUtility() {
         return true;
     }

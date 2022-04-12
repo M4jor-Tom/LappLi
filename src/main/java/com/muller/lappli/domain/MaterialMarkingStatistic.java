@@ -50,17 +50,6 @@ public class MaterialMarkingStatistic extends AbstractDomainObject<MaterialMarki
         return this;
     }
 
-    @Override
-    public Boolean isConform() {
-        return (
-            getMarkingType() != null &&
-            getMarkingTechnique() != null &&
-            getMeterPerHourSpeed() != null &&
-            getMaterial() != null &&
-            getMaterial().isConform()
-        );
-    }
-
     public MarkingType getMarkingType() {
         return this.markingType;
     }

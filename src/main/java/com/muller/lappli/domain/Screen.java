@@ -79,11 +79,6 @@ public class Screen
     }
 
     @Override
-    public Boolean isConform() {
-        return super.isConform() && getAssemblyMeanIsSameThanAssemblys() != null;
-    }
-
-    @Override
     public IOperation<Screen> toOperation() {
         return this;
     }

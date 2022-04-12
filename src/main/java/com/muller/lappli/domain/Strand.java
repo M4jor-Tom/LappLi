@@ -48,19 +48,6 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         setSupplyPositions(new HashSet<>());
     }
 
-    @Override
-    public Boolean isConform() {
-        Boolean supplyPositionsAreConform = true;
-
-        if (getSupplyPositions() == null && getSupplyPositions().isEmpty()) {
-            supplyPositionsAreConform = true;
-        } else for (SupplyPosition supplyPosition : getSupplyPositions()) {
-            supplyPositionsAreConform = supplyPositionsAreConform && supplyPosition.isConform();
-        }
-
-        return supplyPositionsAreConform && getFutureStudy() != null && getFutureStudy().isConform();
-    }
-
     /**
      * Finds the futureStudy's StrandSupply which owns this Strand
      *
