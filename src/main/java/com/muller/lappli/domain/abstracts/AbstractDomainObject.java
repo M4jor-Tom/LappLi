@@ -1,5 +1,6 @@
 package com.muller.lappli.domain.abstracts;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.muller.lappli.domain.interfaces.IDomainObject;
 import java.util.Optional;
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public abstract class AbstractDomainObject<T extends AbstractDomainObject<T>> im
         return true;
     }
 
+    @JsonIgnore
     public Optional<T> getThisIfConform() {
         if (!isConform()) {
             return Optional.empty();
