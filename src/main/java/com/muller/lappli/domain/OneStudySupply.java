@@ -27,17 +27,11 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     @Transient
     private OneStudyComponent oneStudyComponent;
 
-    @Column(name = "apparitions")
-    private Long apparitions;
-
     @Column(name = "number")
     private Long number;
 
     @Column(name = "component_designation")
     private String componentDesignation;
-
-    @Column(name = "description")
-    private String description;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -109,16 +103,6 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    @Override
-    public Long getApparitions() {
-        return this.apparitions;
-    }
-
-    @Override
-    public void setApparitions(Long apparitions) {
-        this.apparitions = apparitions;
-    }
-
     public Long getNumber() {
         return this.number;
     }
@@ -143,19 +127,6 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
 
     public void setComponentDesignation(String componentDesignation) {
         this.componentDesignation = componentDesignation;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public OneStudySupply description(String description) {
-        this.setDescription(description);
-        return this;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     @Override
