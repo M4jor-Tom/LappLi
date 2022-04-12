@@ -85,29 +85,6 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override
-    public Long getApparitions() {
-        return this.apparitions;
-    }
-
-    @Override
-    public void setApparitions(Long apparitions) {
-        this.apparitions = apparitions;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public BangleSupply description(String description) {
-        this.setDescription(description);
-        return this;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Override
     public Set<SupplyPosition> getOwnerSupplyPositions() {
         return this.ownerSupplyPositions;
     }

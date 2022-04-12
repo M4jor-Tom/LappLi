@@ -17,8 +17,10 @@ import com.muller.lappli.domain.exception.IllegalStrandSupplyException;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.text.DecimalFormat;
 import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 /**
  * An abstract mother class for each Supply class
@@ -43,6 +45,13 @@ public abstract class AbstractSupply<T extends AbstractSupply<T>> extends Abstra
     @Transient
     private StrandSupply observerStrandSupply;
 
+    @NotNull
+    @Column(name = "apparitions", nullable = false)
+    private Long apparitions;
+
+    @Column(name = "description")
+    private String description;
+
     /**
      * The unity length which Muller uses to measure cables statistics
      *
@@ -65,18 +74,6 @@ public abstract class AbstractSupply<T extends AbstractSupply<T>> extends Abstra
      */
     @JsonIgnoreProperties("supply")
     public abstract Set<SupplyPosition> getOwnerSupplyPositions();
-
-    /**
-     * @return the apparitions of the CylindricComponent inside the final Cable
-     */
-    public abstract Long getApparitions();
-
-    public T apparitions(Long apparitions) {
-        this.setApparitions(apparitions);
-        return getThis();
-    }
-
-    public abstract void setApparitions(Long apparitions);
 
     /**
      * @return the diameter in milimeters of the CylindricComponent
@@ -293,5 +290,31 @@ public abstract class AbstractSupply<T extends AbstractSupply<T>> extends Abstra
         }
 
         return AbstractSupply.UNITY_METRIC_QUANTITY * getApparitions();
+    }
+
+    public Long getApparitions() {
+        return this.apparitions;
+    }
+
+    public T apparitions(Long apparitions) {
+        this.setApparitions(apparitions);
+        return getThis();
+    }
+
+    public void setApparitions(Long apparitions) {
+        this.apparitions = apparitions;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public T description(String description) {
+        this.setDescription(description);
+        return getThis();
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

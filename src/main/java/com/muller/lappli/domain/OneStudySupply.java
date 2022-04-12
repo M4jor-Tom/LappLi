@@ -36,9 +36,6 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     @Column(name = "component_designation")
     private String componentDesignation;
 
-    @Column(name = "description")
-    private String description;
-
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "marking_type", nullable = false)
@@ -143,19 +140,6 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
 
     public void setComponentDesignation(String componentDesignation) {
         this.componentDesignation = componentDesignation;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public OneStudySupply description(String description) {
-        this.setDescription(description);
-        return this;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     @Override
