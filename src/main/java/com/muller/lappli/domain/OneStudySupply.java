@@ -27,11 +27,6 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     @Transient
     private OneStudyComponent oneStudyComponent;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @Column(name = "apparitions")
     private Long apparitions;
 
@@ -113,19 +108,6 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public OneStudySupply id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @Override
     public Long getApparitions() {
@@ -287,7 +269,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         if (!(o instanceof OneStudySupply)) {
             return false;
         }
-        return id != null && id.equals(((OneStudySupply) o).id);
+        return getId() != null && getId().equals(((OneStudySupply) o).getId());
     }
 
     @Override

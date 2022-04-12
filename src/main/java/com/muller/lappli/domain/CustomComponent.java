@@ -20,11 +20,6 @@ public class CustomComponent extends AbstractDomainObject<CustomComponent> imple
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @Column(name = "number")
     private Long number;
 
@@ -64,20 +59,6 @@ public class CustomComponent extends AbstractDomainObject<CustomComponent> imple
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    @Override
-    public Long getId() {
-        return this.id;
-    }
-
-    public CustomComponent id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getNumber() {
         return this.number;
@@ -170,7 +151,7 @@ public class CustomComponent extends AbstractDomainObject<CustomComponent> imple
         if (!(o instanceof CustomComponent)) {
             return false;
         }
-        return id != null && id.equals(((CustomComponent) o).id);
+        return getId() != null && getId().equals(((CustomComponent) o).getId());
     }
 
     @Override

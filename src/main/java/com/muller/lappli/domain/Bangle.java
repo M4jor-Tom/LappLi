@@ -18,11 +18,6 @@ public class Bangle extends AbstractAssemblableAtom<Bangle> implements Article, 
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "number", nullable = false, unique = true)
     private Long number;
@@ -64,19 +59,6 @@ public class Bangle extends AbstractAssemblableAtom<Bangle> implements Article, 
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public Bangle id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getNumber() {
         return this.number;
@@ -153,7 +135,7 @@ public class Bangle extends AbstractAssemblableAtom<Bangle> implements Article, 
         if (!(o instanceof Bangle)) {
             return false;
         }
-        return id != null && id.equals(((Bangle) o).id);
+        return getId() != null && getId().equals(((Bangle) o).getId());
     }
 
     @Override

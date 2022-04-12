@@ -25,11 +25,6 @@ public class StripLaying
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "operation_layer", nullable = false)
     private Long operationLayer;
@@ -109,19 +104,6 @@ public class StripLaying
         return null;
     }
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public StripLaying id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getOperationLayer() {
         return this.operationLayer;
     }
@@ -171,7 +153,7 @@ public class StripLaying
         if (!(o instanceof StripLaying)) {
             return false;
         }
-        return id != null && id.equals(((StripLaying) o).id);
+        return getId() != null && getId().equals(((StripLaying) o).getId());
     }
 
     @Override

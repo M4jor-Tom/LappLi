@@ -26,11 +26,6 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "owner", "ownerCentralAssembly", "ownerStrand", "ownerIntersticeAssembly" }, allowSetters = true)
@@ -220,20 +215,6 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    @Override
-    public Long getId() {
-        return this.id;
-    }
-
-    public Strand id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Set<SupplyPosition> getSupplyPositions() {
         return this.supplyPositions;
     }
@@ -288,7 +269,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         if (!(o instanceof Strand)) {
             return false;
         }
-        return id != null && id.equals(((Strand) o).id);
+        return getId() != null && getId().equals(((Strand) o).getId());
     }
 
     @Override

@@ -115,11 +115,13 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         return this.id;
     }
 
+    @Override
     public CentralAssembly id(Long id) {
         this.setId(id);
         return this;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }

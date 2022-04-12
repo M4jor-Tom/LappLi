@@ -52,11 +52,13 @@ public class UserData extends AbstractDomainObject<UserData> implements Serializ
         return this.id;
     }
 
+    @Override
     public UserData id(Long id) {
         this.setId(id);
         return this;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }

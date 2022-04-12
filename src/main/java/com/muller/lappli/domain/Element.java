@@ -19,11 +19,6 @@ public class Element extends AbstractAssemblableAtom<Element> implements Article
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "number", nullable = false, unique = true)
     private Long number;
@@ -102,19 +97,6 @@ public class Element extends AbstractAssemblableAtom<Element> implements Article
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public Element id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getNumber() {
         return this.number;
     }
@@ -164,7 +146,7 @@ public class Element extends AbstractAssemblableAtom<Element> implements Article
         if (!(o instanceof Element)) {
             return false;
         }
-        return id != null && id.equals(((Element) o).id);
+        return getId() != null && getId().equals(((Element) o).getId());
     }
 
     @Override
