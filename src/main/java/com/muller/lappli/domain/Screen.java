@@ -79,6 +79,11 @@ public class Screen
     }
 
     @Override
+    public Boolean isConform() {
+        return super.isConform() && getAssemblyMeanIsSameThanAssemblys() != null;
+    }
+
+    @Override
     public IOperation<Screen> toOperation() {
         return this;
     }
@@ -149,7 +154,8 @@ public class Screen
             .designation(getAnonymousCopperFiberDesignation())
             .metalFiberKind(getAnonymousCopperFiberKind())
             .milimeterDiameter(getAnonymousCopperFiberMilimeterDiameter())
-            .returnNullIfNotConform();
+            .getThisIfConform()
+            .orElse(null);
     }
 
     public CopperFiber getFinalCopperFiber() {

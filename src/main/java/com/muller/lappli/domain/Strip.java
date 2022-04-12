@@ -36,6 +36,11 @@ public class Strip extends AbstractDomainObject<Strip> implements Serializable {
         return this;
     }
 
+    @Override
+    public Boolean isConform() {
+        return getNumber() != null && getDesignation() != null && getMilimeterThickness() != null;
+    }
+
     public Long getNumber() {
         return this.number;
     }

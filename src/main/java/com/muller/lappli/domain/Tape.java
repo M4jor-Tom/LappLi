@@ -37,15 +37,27 @@ public class Tape extends AbstractDomainObject<Tape> implements Serializable {
     @NotNull
     private TapeKind tapeKind;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Tape() {
         super();
     }
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
-
     @Override
     public Tape getThis() {
         return this;
+    }
+
+    @Override
+    public Boolean isConform() {
+        return (
+            getNumber() != null &&
+            getDesignation() != null &&
+            getMilimeterWidth() != null &&
+            getMilimeterDiameterIncidency() != null &&
+            getTapeKind() != null &&
+            getTapeKind().isConform()
+        );
     }
 
     public Long getNumber() {

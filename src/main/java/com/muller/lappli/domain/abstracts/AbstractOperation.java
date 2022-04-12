@@ -14,6 +14,11 @@ public abstract class AbstractOperation<T extends AbstractOperation<T>> extends 
         super();
     }
 
+    @Override
+    public Boolean isConform() {
+        return getOwnerStrandSupply() != null && getOwnerStrandSupply().isConform() && getOperationLayer() != null;
+    }
+
     /**
      * @return the standardized {@link String} value of
      * {@link AbstractOperation#getMilimeterDiameterIncidency}

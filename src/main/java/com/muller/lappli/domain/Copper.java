@@ -30,6 +30,11 @@ public class Copper extends AbstractDomainObject<Copper> implements Article, Ser
         super();
     }
 
+    @Override
+    public Boolean isConform() {
+        return getNumber() != null && getDesignation() != null;
+    }
+
     public Copper(Long number, String designation) {
         setNumber(number);
         setDesignation(designation);

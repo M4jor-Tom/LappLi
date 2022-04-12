@@ -35,6 +35,8 @@ public class CustomComponent extends AbstractUniformAtom<CustomComponent> implem
     @JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material surfaceMaterial;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public CustomComponent() {
         super();
     }
@@ -45,11 +47,14 @@ public class CustomComponent extends AbstractUniformAtom<CustomComponent> implem
     }
 
     @Override
+    public Boolean isConform() {
+        return super.isConform() && getSurfaceColor() != null;
+    }
+
+    @Override
     public Boolean isUtility() {
         return true;
     }
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getNumber() {
         return this.number;

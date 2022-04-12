@@ -40,14 +40,6 @@ public abstract class AbstractMetalFiber<T extends AbstractMetalFiber<T>> extend
         return getMetalFiberKind() != null && getMilimeterDiameter() != null && isMetalFiberKindConform();
     }
 
-    public T returnNullIfNotConform() {
-        if (!isConform()) {
-            return null;
-        }
-
-        return getThis();
-    }
-
     public Long getNumber() {
         return this.number;
     }

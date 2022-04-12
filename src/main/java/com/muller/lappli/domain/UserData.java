@@ -35,6 +35,8 @@ public class UserData extends AbstractDomainObject<UserData> implements Serializ
     @JsonIgnoreProperties(value = { "strandSupplies" }, allowSetters = true)
     private Set<Study> studies = new HashSet<>();
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public UserData() {
         super();
         setStudies(new HashSet<>());
@@ -45,7 +47,16 @@ public class UserData extends AbstractDomainObject<UserData> implements Serializ
         return this;
     }
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+    @Override
+    public Boolean isConform() {
+        Boolean studiesAreConform = true;
+
+        for (Study study : getStudies()) {
+            studiesAreConform = studiesAreConform && study.isConform();
+        }
+
+        return studiesAreConform && getUser() != null;
+    }
 
     @Override
     public Long getId() {

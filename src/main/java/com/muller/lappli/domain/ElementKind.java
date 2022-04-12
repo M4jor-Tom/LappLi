@@ -47,6 +47,8 @@ public class ElementKind extends AbstractDomainObject<ElementKind> implements Co
     @Transient
     private EditionListManager<ElementKind> editionListManager;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public ElementKind() {
         super();
     }
@@ -89,7 +91,19 @@ public class ElementKind extends AbstractDomainObject<ElementKind> implements Co
         return this;
     }
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+    @Override
+    public Boolean isConform() {
+        return (
+            getDesignation() != null &&
+            getGramPerMeterLinearMass() != null &&
+            getMilimeterDiameter() != null &&
+            getMilimeterInsulationThickness() != null &&
+            getCopper() != null &&
+            getCopper().isConform() &&
+            getInsulationMaterial() != null &&
+            getInsulationMaterial().isConform()
+        );
+    }
 
     @Override
     public String getDesignation() {

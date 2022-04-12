@@ -38,6 +38,15 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     }
 
     @Override
+    public Boolean isConform() {
+        if (getOwnerStrandSupply() == null) {
+            return false;
+        }
+
+        return super.isConform() && getOwnerStrandSupply().isConform();
+    }
+
+    @Override
     public OperationKind getOperationKind() {
         return OperationKind.CORE_ASSEMBLY;
     }

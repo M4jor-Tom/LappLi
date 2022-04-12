@@ -67,6 +67,8 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     @JsonIgnoreProperties(value = { "supplyPositions", "ownerStrandSupply" }, allowSetters = true)
     private IntersticeAssembly ownerIntersticeAssembly;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public SupplyPosition() {
         super();
     }
@@ -74,6 +76,11 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     @Override
     public SupplyPosition getThis() {
         return this;
+    }
+
+    @Override
+    public Boolean isConform() {
+        return getSupplyApparitionsUsage() != null && isOwnerLegit() && isSupplyLegit();
     }
 
     /**
@@ -184,8 +191,6 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
                 break;
         }
     }
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getSupplyApparitionsUsage() {
         return this.supplyApparitionsUsage;

@@ -31,6 +31,8 @@ public class Bangle extends AbstractUniformAtom<Bangle> implements Article, Seri
     //@JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material material;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Bangle() {
         super();
     }
@@ -38,6 +40,11 @@ public class Bangle extends AbstractUniformAtom<Bangle> implements Article, Seri
     @Override
     public Bangle getThis() {
         return this;
+    }
+
+    @Override
+    public Boolean isConform() {
+        return super.isConform() && getNumber() != null && getDesignation() != null;
     }
 
     @Override
@@ -50,7 +57,10 @@ public class Bangle extends AbstractUniformAtom<Bangle> implements Article, Seri
         return false;
     }
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+    @Override
+    public Material getSurfaceMaterial() {
+        return getMaterial();
+    }
 
     public Long getNumber() {
         return this.number;

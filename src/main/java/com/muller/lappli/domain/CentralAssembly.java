@@ -40,8 +40,19 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @JoinColumn(unique = true)
     private SupplyPosition supplyPosition;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public CentralAssembly() {
         super();
+    }
+
+    @Override
+    public Boolean isConform() {
+        if (getSupplyPosition() == null) {
+            return false;
+        }
+
+        return super.isConform() && getSupplyPosition().isConform();
     }
 
     @Override
@@ -107,8 +118,6 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     public String getProductDesignation() {
         return "";
     }
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override
     public Long getId() {

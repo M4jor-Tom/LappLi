@@ -46,11 +46,11 @@ public class TapeLaying
     )
     private StrandSupply ownerStrandSupply;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public TapeLaying() {
         super();
     }
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override
     public AbstractOperation<TapeLaying> toOperation() {
@@ -60,6 +60,11 @@ public class TapeLaying
     @Override
     public TapeLaying getThis() {
         return this;
+    }
+
+    @Override
+    public Boolean isConform() {
+        return super.isConform() && getAssemblyMean() != null && getTape() != null && getTape().isConform();
     }
 
     @Override

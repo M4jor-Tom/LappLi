@@ -29,6 +29,8 @@ public class Element extends AbstractDomainObject<Element> implements CylindricC
     @Column(name = "color", nullable = false)
     private Color color;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     @ManyToOne(optional = false)
     @NotNull
     //@JsonIgnoreProperties(value = { "copper"/*, "insulationMaterial"*/ }, allowSetters = true)
@@ -41,6 +43,11 @@ public class Element extends AbstractDomainObject<Element> implements CylindricC
     @Override
     public Element getThis() {
         return this;
+    }
+
+    @Override
+    public Boolean isConform() {
+        return getNumber() != null && getColor() != null && getElementKind() != null && getElementKind().isConform();
     }
 
     @Override
@@ -96,7 +103,14 @@ public class Element extends AbstractDomainObject<Element> implements CylindricC
         return true;
     }
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+    @Override
+    public Material getSurfaceMaterial() {
+        if (getElementKind() == null) {
+            return null;
+        }
+
+        return getElementKind().getInsulationMaterial();
+    }
 
     public Long getNumber() {
         return this.number;

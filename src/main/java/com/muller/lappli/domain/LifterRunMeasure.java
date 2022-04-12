@@ -42,6 +42,8 @@ public class LifterRunMeasure extends AbstractDomainObject<LifterRunMeasure> imp
     @NotNull
     private Lifter lifter;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public LifterRunMeasure() {
         super();
     }
@@ -51,7 +53,10 @@ public class LifterRunMeasure extends AbstractDomainObject<LifterRunMeasure> imp
         return this;
     }
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+    @Override
+    public Boolean isConform() {
+        return getMarkingType() != null && getMarkingTechnique() != null && getLifter() != null && getLifter().isConform();
+    }
 
     public Double getMilimeterDiameter() {
         return this.milimeterDiameter;

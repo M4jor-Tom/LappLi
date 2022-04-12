@@ -95,7 +95,8 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
                 new OneStudyComponent()
                     .designation(getComponentDesignation())
                     .milimeterDiameter(getMilimeterDiameter())
-                    .gramPerMeterLinearMass(getGramPerMeterLinearMass());
+                    .gramPerMeterLinearMass(getGramPerMeterLinearMass())
+                    .surfaceMaterial(getSurfaceMaterial());
         }
 
         return oneStudyComponent;
@@ -273,6 +274,8 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
 
         private Double gramPerMeterLinearMass;
 
+        private Material surfaceMaterial;
+
         @Override
         public Boolean isUtility() {
             return true;
@@ -317,6 +320,20 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
 
         public OneStudyComponent gramPerMeterLinearMass(Double gramPerMeterLinearMass) {
             setGramPerMeterLinearMass(gramPerMeterLinearMass);
+            return this;
+        }
+
+        @Override
+        public Material getSurfaceMaterial() {
+            return surfaceMaterial;
+        }
+
+        public void setSurfaceMaterial(Material surfaceMaterial) {
+            this.surfaceMaterial = surfaceMaterial;
+        }
+
+        public OneStudyComponent surfaceMaterial(Material surfaceMaterial) {
+            setSurfaceMaterial(surfaceMaterial);
             return this;
         }
     }

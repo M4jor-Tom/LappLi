@@ -69,6 +69,11 @@ public abstract class AbstractSupply<T extends AbstractSupply<T>> extends Abstra
         this.observerStrandSupply = null;
     }
 
+    @Override
+    public Boolean isConform() {
+        return getCylindricComponent() != null && getObserverStrandSupply() != null && getApparitions() != null;
+    }
+
     /**
      * @return the SupplyPositions which owns this
      */

@@ -46,6 +46,8 @@ public class Study extends AbstractDomainObject<Study> implements Serializable {
     @JsonIgnoreProperties(value = { "studies" }, allowSetters = true)
     private UserData author;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     @Override
     public Study getThis() {
         return this;
@@ -59,6 +61,21 @@ public class Study extends AbstractDomainObject<Study> implements Serializable {
         setStrandSupplies(new HashSet<>());
     }
 
+    public Boolean isConform() {
+        Boolean strandsAreConform = true;
+        Boolean strandSuppliesAreConform = true;
+
+        for (Strand strand : getStrands()) {
+            strandsAreConform = strandsAreConform && strand.isConform();
+        }
+
+        for (StrandSupply strandSupply : getStrandSupplies()) {
+            strandSuppliesAreConform = strandSuppliesAreConform && strandSupply.isConform();
+        }
+
+        return strandsAreConform && strandSuppliesAreConform && getLastEditionInstant() != null && getAuthor() != null;
+    }
+
     public Boolean isAuthored() {
         return getAuthor().getId() != null;
     }
@@ -66,8 +83,6 @@ public class Study extends AbstractDomainObject<Study> implements Serializable {
     public Study actualize() {
         return lastEditionInstant(Instant.now());
     }
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getNumber() {
         return this.number;
