@@ -51,6 +51,8 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     )
     private StrandSupply ownerStrandSupply;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public IntersticeAssembly() {
         super();
         setSupplyPositions(new HashSet<>());
@@ -94,8 +96,6 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
 
         return getOwnerStrandSupply().getAssemblyMean();
     }
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getIntersticeLayer() {
         return this.intersticeLayer;

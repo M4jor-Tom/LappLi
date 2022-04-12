@@ -46,6 +46,8 @@ public class Study extends AbstractDomainObject<Study> implements Serializable {
     @JsonIgnoreProperties(value = { "studies" }, allowSetters = true)
     private UserData author;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     @Override
     public Study getThis() {
         return this;
@@ -66,8 +68,6 @@ public class Study extends AbstractDomainObject<Study> implements Serializable {
     public Study actualize() {
         return lastEditionInstant(Instant.now());
     }
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getNumber() {
         return this.number;

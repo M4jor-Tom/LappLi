@@ -38,6 +38,8 @@ public class Material extends AbstractDomainObject<Material> implements Article,
     @JsonIgnoreProperties(value = { "material" }, allowSetters = true)
     private Set<MaterialMarkingStatistic> materialMarkingStatistics = new HashSet<>();
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Material() {
         super();
         setMaterialMarkingStatistics(new HashSet<>());
@@ -77,8 +79,6 @@ public class Material extends AbstractDomainObject<Material> implements Article,
     public Long getArticleNumber() {
         return getNumber();
     }
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getNumber() {
         return this.number;

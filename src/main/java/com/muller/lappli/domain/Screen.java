@@ -149,7 +149,8 @@ public class Screen
             .designation(getAnonymousCopperFiberDesignation())
             .metalFiberKind(getAnonymousCopperFiberKind())
             .milimeterDiameter(getAnonymousCopperFiberMilimeterDiameter())
-            .returnNullIfNotConform();
+            .getThisIfConform()
+            .orElse(null);
     }
 
     public CopperFiber getFinalCopperFiber() {

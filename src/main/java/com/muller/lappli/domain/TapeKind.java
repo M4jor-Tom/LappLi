@@ -25,11 +25,11 @@ public class TapeKind extends AbstractDomainObject<TapeKind> implements Serializ
     @Column(name = "designation", nullable = false, unique = true)
     private String designation;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public TapeKind() {
         super();
     }
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override
     public TapeKind getThis() {

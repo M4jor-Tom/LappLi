@@ -36,6 +36,8 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     @JsonIgnoreProperties(value = { "strands", "strandSupplies", "author" }, allowSetters = true)
     private Study futureStudy;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     @Override
     public Strand getThis() {
         return this;
@@ -212,8 +214,6 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
 
         return sortedSupplies;
     }
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Set<SupplyPosition> getSupplyPositions() {
         return this.supplyPositions;

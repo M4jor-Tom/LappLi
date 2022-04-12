@@ -1,7 +1,10 @@
 package com.muller.lappli.domain.abstracts;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.muller.lappli.domain.interfaces.IDomainObject;
+import java.util.Optional;
 import javax.persistence.*;
+import javax.persistence.MappedSuperclass;
 
 /**
  * This class represents Objects in the project's domain
@@ -17,6 +20,20 @@ public abstract class AbstractDomainObject<T extends AbstractDomainObject<T>> im
 
     public AbstractDomainObject() {
         super();
+    }
+
+    @Override
+    public Boolean isConform() {
+        return true;
+    }
+
+    @JsonIgnore
+    public Optional<T> getThisIfConform() {
+        if (!isConform()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(getThis());
     }
 
     /**

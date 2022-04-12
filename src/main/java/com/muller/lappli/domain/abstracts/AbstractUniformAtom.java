@@ -16,6 +16,10 @@ public abstract class AbstractUniformAtom<T extends AbstractUniformAtom<T>> exte
     @Column(name = "milimeter_diameter", nullable = false)
     private Double milimeterDiameter;
 
+    public AbstractUniformAtom() {
+        super();
+    }
+
     public Double getGramPerMeterLinearMass() {
         return this.gramPerMeterLinearMass;
     }

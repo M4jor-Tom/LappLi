@@ -22,6 +22,11 @@ public abstract class AbstractEdition<C extends Commitable<C>> extends AbstractD
         setEditionInstant(Instant.now());
     }
 
+    @Override
+    public Boolean isConform() {
+        return true;
+    }
+
     /**
      * @return the edited Commitable instance
      */

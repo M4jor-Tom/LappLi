@@ -111,6 +111,8 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     @JsonIgnoreProperties(value = { "strands", "strandSupplies", "author" }, allowSetters = true)
     private Study study;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public StrandSupply() {
         super();
         setCoreAssemblies(new HashSet<>());
@@ -525,8 +527,6 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
         return false;
     }
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getApparitions() {
         return this.apparitions;

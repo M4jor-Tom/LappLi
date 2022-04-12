@@ -47,6 +47,8 @@ public class ElementKind extends AbstractDomainObject<ElementKind> implements Co
     @Transient
     private EditionListManager<ElementKind> editionListManager;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public ElementKind() {
         super();
     }
@@ -88,8 +90,6 @@ public class ElementKind extends AbstractDomainObject<ElementKind> implements Co
     public ElementKind getThis() {
         return this;
     }
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override
     public String getDesignation() {
