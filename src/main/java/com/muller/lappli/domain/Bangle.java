@@ -1,6 +1,6 @@
 package com.muller.lappli.domain;
 
-import com.muller.lappli.domain.abstracts.AbstractAssemblableAtom;
+import com.muller.lappli.domain.abstracts.AbstractUniformAtom;
 import com.muller.lappli.domain.interfaces.Article;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -14,7 +14,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "bangle")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Bangle extends AbstractAssemblableAtom<Bangle> implements Article, Serializable {
+public class Bangle extends AbstractUniformAtom<Bangle> implements Article, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,14 +25,6 @@ public class Bangle extends AbstractAssemblableAtom<Bangle> implements Article, 
     @NotNull
     @Column(name = "designation", nullable = false, unique = true)
     private String designation;
-
-    @NotNull
-    @Column(name = "gram_per_meter_linear_mass", nullable = false)
-    private Double gramPerMeterLinearMass;
-
-    @NotNull
-    @Column(name = "milimeter_diameter", nullable = false)
-    private Double milimeterDiameter;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -84,32 +76,6 @@ public class Bangle extends AbstractAssemblableAtom<Bangle> implements Article, 
 
     public void setDesignation(String designation) {
         this.designation = designation;
-    }
-
-    public Double getGramPerMeterLinearMass() {
-        return this.gramPerMeterLinearMass;
-    }
-
-    public Bangle gramPerMeterLinearMass(Double gramPerMeterLinearMass) {
-        this.setGramPerMeterLinearMass(gramPerMeterLinearMass);
-        return this;
-    }
-
-    public void setGramPerMeterLinearMass(Double gramPerMeterLinearMass) {
-        this.gramPerMeterLinearMass = gramPerMeterLinearMass;
-    }
-
-    public Double getMilimeterDiameter() {
-        return this.milimeterDiameter;
-    }
-
-    public Bangle milimeterDiameter(Double milimeterDiameter) {
-        this.setMilimeterDiameter(milimeterDiameter);
-        return this;
-    }
-
-    public void setMilimeterDiameter(Double milimeterDiameter) {
-        this.milimeterDiameter = milimeterDiameter;
     }
 
     public Material getMaterial() {

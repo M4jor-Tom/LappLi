@@ -1,8 +1,9 @@
 package com.muller.lappli.domain;
 
-import com.muller.lappli.domain.abstracts.AbstractAssemblableAtom;
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.interfaces.Article;
+import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -15,7 +16,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Element extends AbstractAssemblableAtom<Element> implements Article, Serializable {
+public class Element extends AbstractDomainObject<Element> implements CylindricComponent, Article, Serializable {
 
     private static final long serialVersionUID = 1L;
 
