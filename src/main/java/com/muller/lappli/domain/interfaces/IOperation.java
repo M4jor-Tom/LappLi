@@ -27,7 +27,7 @@ import com.muller.lappli.domain.enumeration.OperationKind;
         @JsonSubTypes.Type(value = Sheathing.class, name = "Sheathing"),
     }
 )
-public interface IOperation<T extends IOperation<T>> {
+public interface IOperation<T extends IOperation<T>> extends IDomainObject<T> {
     public static final Long UNDEFINED_OPERATION_LAYER = -2L;
 
     public T getThis();
