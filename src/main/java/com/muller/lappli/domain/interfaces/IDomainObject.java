@@ -7,5 +7,7 @@ public interface IDomainObject<T extends IDomainObject<T>> {
      * @return the object at its concretest state
      */
     @JsonIgnore
-    public abstract T getThis();
+    public T getThis();
+
+    public Boolean isConform();
 }
