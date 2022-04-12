@@ -1,7 +1,9 @@
 package com.muller.lappli.domain.abstracts;
 
 import com.muller.lappli.domain.interfaces.IDomainObject;
+import java.util.Optional;
 import javax.persistence.*;
+import javax.persistence.MappedSuperclass;
 
 /**
  * This class represents Objects in the project's domain
@@ -17,6 +19,14 @@ public abstract class AbstractDomainObject<T extends AbstractDomainObject<T>> im
 
     public AbstractDomainObject() {
         super();
+    }
+
+    public Optional<T> getThisIfConform() {
+        if (!isConform()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(getThis());
     }
 
     /**
