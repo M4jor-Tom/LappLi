@@ -38,7 +38,7 @@ import javax.persistence.Transient;
     }
 )
 @MappedSuperclass
-public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
+public abstract class AbstractSupply<T extends AbstractSupply<T>> extends AbstractDomainObject<T> {
 
     @Transient
     private StrandSupply observerStrandSupply;

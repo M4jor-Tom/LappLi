@@ -6,7 +6,7 @@ import javax.persistence.MappedSuperclass;
  * This class represents AbstractCableries which are Atoms, unlike Composites
  */
 @MappedSuperclass
-public abstract class AbstractCableAtom<T> extends AbstractCablery<T> {
+public abstract class AbstractCableAtom<T extends AbstractCableAtom<T>> extends AbstractCablery<T> {
 
     public AbstractCableAtom() {
         super();

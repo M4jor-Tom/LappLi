@@ -8,7 +8,7 @@ import javax.persistence.MappedSuperclass;
  * @param T the type of the daughter class
  */
 @MappedSuperclass
-public abstract class AbstractDomainObject<T> {
+public abstract class AbstractDomainObject<T extends AbstractDomainObject<T>> implements IDomainObject<T> {
 
     public AbstractDomainObject() {
         super();

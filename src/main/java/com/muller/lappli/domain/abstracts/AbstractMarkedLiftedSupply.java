@@ -11,7 +11,7 @@ import javax.persistence.MappedSuperclass;
  * This class represents AbstractLiftedSupplies which are marked
  */
 @MappedSuperclass
-public abstract class AbstractMarkedLiftedSupply<T> extends AbstractLiftedSupply<T> {
+public abstract class AbstractMarkedLiftedSupply<T extends AbstractMarkedLiftedSupply<T>> extends AbstractLiftedSupply<T> {
 
     public AbstractMarkedLiftedSupply() {
         super();
