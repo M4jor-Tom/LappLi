@@ -39,11 +39,6 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     private static Comparator<IOperation<?>> operationComparator = null;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "apparitions", nullable = false)
     private Long apparitions;
@@ -533,20 +528,6 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    @Override
-    public Long getId() {
-        return this.id;
-    }
-
-    public StrandSupply id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getApparitions() {
         return this.apparitions;
     }
@@ -866,7 +847,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         if (!(o instanceof StrandSupply)) {
             return false;
         }
-        return id != null && id.equals(((StrandSupply) o).id);
+        return getId() != null && getId().equals(((StrandSupply) o).getId());
     }
 
     @Override

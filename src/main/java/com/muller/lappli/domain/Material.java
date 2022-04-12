@@ -21,11 +21,6 @@ public class Material extends AbstractDomainObject<Material> implements Article,
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "number", nullable = false, unique = true)
     private Long number;
@@ -84,19 +79,6 @@ public class Material extends AbstractDomainObject<Material> implements Article,
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public Material id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getNumber() {
         return this.number;
@@ -179,7 +161,7 @@ public class Material extends AbstractDomainObject<Material> implements Article,
         if (!(o instanceof Material)) {
             return false;
         }
-        return id != null && id.equals(((Material) o).id);
+        return getId() != null && getId().equals(((Material) o).getId());
     }
 
     @Override

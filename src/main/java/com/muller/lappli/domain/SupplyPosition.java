@@ -21,11 +21,6 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "supply_apparitions_usage", nullable = false)
     private Long supplyApparitionsUsage;
@@ -192,20 +187,6 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    @Override
-    public Long getId() {
-        return this.id;
-    }
-
-    public SupplyPosition id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getSupplyApparitionsUsage() {
         return this.supplyApparitionsUsage;
     }
@@ -326,7 +307,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
         if (!(o instanceof SupplyPosition)) {
             return false;
         }
-        return id != null && id.equals(((SupplyPosition) o).id);
+        return getId() != null && getId().equals(((SupplyPosition) o).getId());
     }
 
     @Override

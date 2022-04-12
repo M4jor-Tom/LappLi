@@ -23,11 +23,6 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "operation_layer", nullable = false)
     private Long operationLayer;
@@ -108,19 +103,6 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public IntersticeAssembly id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getOperationLayer() {
         return this.operationLayer;
@@ -230,7 +212,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         if (!(o instanceof IntersticeAssembly)) {
             return false;
         }
-        return id != null && id.equals(((IntersticeAssembly) o).id);
+        return getId() != null && getId().equals(((IntersticeAssembly) o).getId());
     }
 
     @Override

@@ -20,11 +20,6 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "operation_layer", nullable = false)
     private Long operationLayer;
@@ -156,20 +151,6 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     @Override
-    public Long getId() {
-        return this.id;
-    }
-
-    public CoreAssembly id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
     public Long getOperationLayer() {
         return this.operationLayer;
     }
@@ -219,7 +200,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         if (!(o instanceof CoreAssembly)) {
             return false;
         }
-        return id != null && id.equals(((CoreAssembly) o).id);
+        return getId() != null && getId().equals(((CoreAssembly) o).getId());
     }
 
     @Override

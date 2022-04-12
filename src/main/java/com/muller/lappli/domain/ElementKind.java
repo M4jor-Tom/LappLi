@@ -18,11 +18,6 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "designation", nullable = false, unique = true)
     private String designation;
@@ -99,20 +94,6 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    @Override
-    public Long getId() {
-        return this.id;
-    }
-
-    public ElementKind id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @Override
     public String getDesignation() {
@@ -215,7 +196,7 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
         if (!(o instanceof ElementKind)) {
             return false;
         }
-        return id != null && id.equals(((ElementKind) o).id);
+        return getId() != null && getId().equals(((ElementKind) o).getId());
     }
 
     @Override

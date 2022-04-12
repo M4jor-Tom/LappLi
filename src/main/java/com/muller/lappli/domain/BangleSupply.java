@@ -22,11 +22,6 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "apparitions", nullable = false)
     private Long apparitions;
@@ -88,19 +83,6 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public BangleSupply id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @Override
     public Long getApparitions() {
@@ -180,7 +162,7 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
         if (!(o instanceof BangleSupply)) {
             return false;
         }
-        return id != null && id.equals(((BangleSupply) o).id);
+        return getId() != null && getId().equals(((BangleSupply) o).getId());
     }
 
     @Override

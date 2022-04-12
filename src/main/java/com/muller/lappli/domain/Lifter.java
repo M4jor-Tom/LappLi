@@ -21,11 +21,6 @@ public class Lifter extends AbstractDomainObject<Lifter> implements Serializable
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "jhi_index", nullable = false, unique = true)
     private Long index;
@@ -157,19 +152,6 @@ public class Lifter extends AbstractDomainObject<Lifter> implements Serializable
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public Lifter id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getIndex() {
         return this.index;
     }
@@ -284,7 +266,7 @@ public class Lifter extends AbstractDomainObject<Lifter> implements Serializable
         if (!(o instanceof Lifter)) {
             return false;
         }
-        return id != null && id.equals(((Lifter) o).id);
+        return getId() != null && getId().equals(((Lifter) o).getId());
     }
 
     @Override

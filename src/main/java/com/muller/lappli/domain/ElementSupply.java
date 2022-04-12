@@ -24,11 +24,6 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "apparitions", nullable = false)
     private Long apparitions;
@@ -110,19 +105,6 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public ElementSupply id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @Override
     public Long getApparitions() {
@@ -216,7 +198,7 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
         if (!(o instanceof ElementSupply)) {
             return false;
         }
-        return id != null && id.equals(((ElementSupply) o).id);
+        return getId() != null && getId().equals(((ElementSupply) o).getId());
     }
 
     @Override

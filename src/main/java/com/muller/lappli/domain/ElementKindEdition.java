@@ -22,11 +22,6 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "edition_date_time", nullable = false)
     private Instant editionDateTime;
@@ -85,19 +80,6 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public ElementKindEdition id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Instant getEditionDateTime() {
         return this.editionDateTime;
@@ -169,7 +151,7 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
         if (!(o instanceof ElementKindEdition)) {
             return false;
         }
-        return id != null && id.equals(((ElementKindEdition) o).id);
+        return getId() != null && getId().equals(((ElementKindEdition) o).getId());
     }
 
     @Override
