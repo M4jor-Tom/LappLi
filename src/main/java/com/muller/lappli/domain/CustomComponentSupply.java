@@ -25,13 +25,6 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
     private static final long serialVersionUID = 1L;
 
     @NotNull
-    @Column(name = "apparitions", nullable = false)
-    private Long apparitions;
-
-    @Column(name = "description")
-    private String description;
-
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "marking_type", nullable = false)
     private MarkingType markingType;
@@ -95,29 +88,6 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    @Override
-    public Long getApparitions() {
-        return this.apparitions;
-    }
-
-    @Override
-    public void setApparitions(Long apparitions) {
-        this.apparitions = apparitions;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public CustomComponentSupply description(String description) {
-        this.setDescription(description);
-        return this;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public MarkingType getMarkingType() {
         return this.markingType;
