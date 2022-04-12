@@ -17,11 +17,6 @@ public class Strip extends AbstractDomainObject<Strip> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "number", nullable = false, unique = true)
     private Long number;
@@ -39,19 +34,6 @@ public class Strip extends AbstractDomainObject<Strip> implements Serializable {
     @Override
     public Strip getThis() {
         return this;
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public Strip id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getNumber() {
@@ -103,7 +85,7 @@ public class Strip extends AbstractDomainObject<Strip> implements Serializable {
         if (!(o instanceof Strip)) {
             return false;
         }
-        return id != null && id.equals(((Strip) o).id);
+        return getId() != null && getId().equals(((Strip) o).getId());
     }
 
     @Override

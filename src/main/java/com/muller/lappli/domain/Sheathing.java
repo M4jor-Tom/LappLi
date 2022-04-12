@@ -22,11 +22,6 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "operation_layer", nullable = false)
     private Long operationLayer;
@@ -97,19 +92,6 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public Sheathing id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @Override
     public Long getOperationLayer() {
@@ -190,7 +172,7 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
         if (!(o instanceof Sheathing)) {
             return false;
         }
-        return id != null && id.equals(((Sheathing) o).id);
+        return getId() != null && getId().equals(((Sheathing) o).getId());
     }
 
     @Override

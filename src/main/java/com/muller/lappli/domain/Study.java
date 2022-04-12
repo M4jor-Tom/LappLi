@@ -21,11 +21,6 @@ public class Study extends AbstractDomainObject<Study> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @Column(name = "number")
     private Long number;
 
@@ -73,20 +68,6 @@ public class Study extends AbstractDomainObject<Study> implements Serializable {
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    @Override
-    public Long getId() {
-        return this.id;
-    }
-
-    public Study id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getNumber() {
         return this.number;
@@ -199,7 +180,7 @@ public class Study extends AbstractDomainObject<Study> implements Serializable {
         if (!(o instanceof Study)) {
             return false;
         }
-        return id != null && id.equals(((Study) o).id);
+        return getId() != null && getId().equals(((Study) o).getId());
     }
 
     @Override

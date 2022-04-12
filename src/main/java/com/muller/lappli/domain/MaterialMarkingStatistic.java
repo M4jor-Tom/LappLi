@@ -20,11 +20,6 @@ public class MaterialMarkingStatistic extends AbstractDomainObject<MaterialMarki
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "marking_type", nullable = false)
@@ -54,19 +49,6 @@ public class MaterialMarkingStatistic extends AbstractDomainObject<MaterialMarki
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public MaterialMarkingStatistic id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public MarkingType getMarkingType() {
         return this.markingType;
@@ -150,7 +132,7 @@ public class MaterialMarkingStatistic extends AbstractDomainObject<MaterialMarki
         if (!(o instanceof MaterialMarkingStatistic)) {
             return false;
         }
-        return id != null && id.equals(((MaterialMarkingStatistic) o).id);
+        return getId() != null && getId().equals(((MaterialMarkingStatistic) o).getId());
     }
 
     @Override

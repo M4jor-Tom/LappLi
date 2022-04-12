@@ -7,11 +7,6 @@ import javax.validation.constraints.*;
 @MappedSuperclass
 public abstract class AbstractMetalFiber<T extends AbstractMetalFiber<T>> extends AbstractDomainObject<T> {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @Column(name = "number", unique = true)
     private Long number;
 
@@ -51,19 +46,6 @@ public abstract class AbstractMetalFiber<T extends AbstractMetalFiber<T>> extend
         }
 
         return getThis();
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public T id(Long id) {
-        this.setId(id);
-        return getThis();
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getNumber() {
@@ -128,7 +110,7 @@ public abstract class AbstractMetalFiber<T extends AbstractMetalFiber<T>> extend
         if (!(o instanceof AbstractMetalFiber<?>)) {
             return false;
         }
-        return id != null && id.equals(((AbstractMetalFiber<?>) o).id);
+        return getId() != null && getId().equals(((AbstractMetalFiber<?>) o).getId());
     }
 
     @Override

@@ -17,11 +17,6 @@ public class TapeKind extends AbstractDomainObject<TapeKind> implements Serializ
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "target_covering_rate", nullable = false)
     private Double targetCoveringRate;
@@ -39,19 +34,6 @@ public class TapeKind extends AbstractDomainObject<TapeKind> implements Serializ
     @Override
     public TapeKind getThis() {
         return this;
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public TapeKind id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Double getTargetCoveringRate() {
@@ -90,7 +72,7 @@ public class TapeKind extends AbstractDomainObject<TapeKind> implements Serializ
         if (!(o instanceof TapeKind)) {
             return false;
         }
-        return id != null && id.equals(((TapeKind) o).id);
+        return getId() != null && getId().equals(((TapeKind) o).getId());
     }
 
     @Override

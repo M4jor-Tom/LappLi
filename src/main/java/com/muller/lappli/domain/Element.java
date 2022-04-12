@@ -1,8 +1,9 @@
 package com.muller.lappli.domain;
 
-import com.muller.lappli.domain.abstracts.AbstractAssemblableAtom;
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.interfaces.Article;
+import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -15,14 +16,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Element extends AbstractAssemblableAtom<Element> implements Article, Serializable {
+public class Element extends AbstractDomainObject<Element> implements CylindricComponent, Article, Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
 
     @NotNull
     @Column(name = "number", nullable = false, unique = true)
@@ -102,19 +98,6 @@ public class Element extends AbstractAssemblableAtom<Element> implements Article
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public Element id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getNumber() {
         return this.number;
     }
@@ -164,7 +147,7 @@ public class Element extends AbstractAssemblableAtom<Element> implements Article
         if (!(o instanceof Element)) {
             return false;
         }
-        return id != null && id.equals(((Element) o).id);
+        return getId() != null && getId().equals(((Element) o).getId());
     }
 
     @Override

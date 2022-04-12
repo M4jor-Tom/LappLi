@@ -17,11 +17,6 @@ public class Tape extends AbstractDomainObject<Tape> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "number", nullable = false, unique = true)
     private Long number;
@@ -51,19 +46,6 @@ public class Tape extends AbstractDomainObject<Tape> implements Serializable {
     @Override
     public Tape getThis() {
         return this;
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public Tape id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getNumber() {
@@ -141,7 +123,7 @@ public class Tape extends AbstractDomainObject<Tape> implements Serializable {
         if (!(o instanceof Tape)) {
             return false;
         }
-        return id != null && id.equals(((Tape) o).id);
+        return getId() != null && getId().equals(((Tape) o).getId());
     }
 
     @Override

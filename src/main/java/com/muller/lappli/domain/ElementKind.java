@@ -1,7 +1,8 @@
 package com.muller.lappli.domain;
 
-import com.muller.lappli.domain.abstracts.AbstractCableAtom;
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.interfaces.Commitable;
+import com.muller.lappli.domain.interfaces.Designable;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -14,14 +15,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element_kind")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ElementKind extends AbstractCableAtom<ElementKind> implements Commitable<ElementKind>, Serializable {
+public class ElementKind extends AbstractDomainObject<ElementKind> implements Commitable<ElementKind>, Designable, Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
 
     @NotNull
     @Column(name = "designation", nullable = false, unique = true)
@@ -93,26 +89,7 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
         return this;
     }
 
-    @Override
-    public Boolean isUtility() {
-        return true;
-    }
-
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    @Override
-    public Long getId() {
-        return this.id;
-    }
-
-    public ElementKind id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @Override
     public String getDesignation() {
@@ -128,7 +105,6 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
         this.designation = designation;
     }
 
-    @Override
     public Double getGramPerMeterLinearMass() {
         return this.gramPerMeterLinearMass;
     }
@@ -142,7 +118,6 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
         this.gramPerMeterLinearMass = gramPerMeterLinearMass;
     }
 
-    @Override
     public Double getMilimeterDiameter() {
         return this.milimeterDiameter;
     }
@@ -215,7 +190,7 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
         if (!(o instanceof ElementKind)) {
             return false;
         }
-        return id != null && id.equals(((ElementKind) o).id);
+        return getId() != null && getId().equals(((ElementKind) o).getId());
     }
 
     @Override

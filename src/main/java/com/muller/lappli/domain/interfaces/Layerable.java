@@ -1,3 +1,3 @@
 package com.muller.lappli.domain.interfaces;
 
-public interface Layerable extends AssemblableComponent {}
+public interface Layerable extends CylindricComponent {}

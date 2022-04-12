@@ -24,22 +24,10 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @NotNull
-    @Column(name = "apparitions", nullable = false)
-    private Long apparitions;
-
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "marking_type", nullable = false)
     private MarkingType markingType;
-
-    @Column(name = "description")
-    private String description;
 
     @OneToMany(mappedBy = "elementSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -111,29 +99,6 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public ElementSupply id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public Long getApparitions() {
-        return this.apparitions;
-    }
-
-    @Override
-    public void setApparitions(Long apparitions) {
-        this.apparitions = apparitions;
-    }
-
     @Override
     public MarkingType getMarkingType() {
         return this.markingType;
@@ -146,19 +111,6 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
 
     public void setMarkingType(MarkingType markingType) {
         this.markingType = markingType;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public ElementSupply description(String description) {
-        this.setDescription(description);
-        return this;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     @Override
@@ -216,7 +168,7 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
         if (!(o instanceof ElementSupply)) {
             return false;
         }
-        return id != null && id.equals(((ElementSupply) o).id);
+        return getId() != null && getId().equals(((ElementSupply) o).getId());
     }
 
     @Override

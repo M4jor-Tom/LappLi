@@ -1,9 +1,8 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.muller.lappli.domain.abstracts.AbstractDomainObject;
+import com.muller.lappli.domain.abstracts.AbstractUniformAtom;
 import com.muller.lappli.domain.enumeration.Color;
-import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -16,28 +15,15 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "custom_component")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CustomComponent extends AbstractDomainObject<CustomComponent> implements CylindricComponent, Serializable {
+public class CustomComponent extends AbstractUniformAtom<CustomComponent> implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
 
     @Column(name = "number")
     private Long number;
 
     @Column(name = "designation")
     private String designation;
-
-    @NotNull
-    @Column(name = "gram_per_meter_linear_mass", nullable = false)
-    private Double gramPerMeterLinearMass;
-
-    @NotNull
-    @Column(name = "milimeter_diameter", nullable = false)
-    private Double milimeterDiameter;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -65,20 +51,6 @@ public class CustomComponent extends AbstractDomainObject<CustomComponent> imple
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    @Override
-    public Long getId() {
-        return this.id;
-    }
-
-    public CustomComponent id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getNumber() {
         return this.number;
     }
@@ -104,34 +76,6 @@ public class CustomComponent extends AbstractDomainObject<CustomComponent> imple
 
     public void setDesignation(String designation) {
         this.designation = designation;
-    }
-
-    @Override
-    public Double getGramPerMeterLinearMass() {
-        return this.gramPerMeterLinearMass;
-    }
-
-    public CustomComponent gramPerMeterLinearMass(Double gramPerMeterLinearMass) {
-        this.setGramPerMeterLinearMass(gramPerMeterLinearMass);
-        return this;
-    }
-
-    public void setGramPerMeterLinearMass(Double gramPerMeterLinearMass) {
-        this.gramPerMeterLinearMass = gramPerMeterLinearMass;
-    }
-
-    @Override
-    public Double getMilimeterDiameter() {
-        return this.milimeterDiameter;
-    }
-
-    public CustomComponent milimeterDiameter(Double milimeterDiameter) {
-        this.setMilimeterDiameter(milimeterDiameter);
-        return this;
-    }
-
-    public void setMilimeterDiameter(Double milimeterDiameter) {
-        this.milimeterDiameter = milimeterDiameter;
     }
 
     public Color getSurfaceColor() {
@@ -170,7 +114,7 @@ public class CustomComponent extends AbstractDomainObject<CustomComponent> imple
         if (!(o instanceof CustomComponent)) {
             return false;
         }
-        return id != null && id.equals(((CustomComponent) o).id);
+        return getId() != null && getId().equals(((CustomComponent) o).getId());
     }
 
     @Override

@@ -24,11 +24,6 @@ public class TapeLaying
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "operation_layer", nullable = false)
     private Long operationLayer;
@@ -102,19 +97,6 @@ public class TapeLaying
         return Double.NaN;
     }
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public TapeLaying id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     @Override
     public Long getOperationLayer() {
         return this.operationLayer;
@@ -181,7 +163,7 @@ public class TapeLaying
         if (!(o instanceof TapeLaying)) {
             return false;
         }
-        return id != null && id.equals(((TapeLaying) o).id);
+        return getId() != null && getId().equals(((TapeLaying) o).getId());
     }
 
     @Override

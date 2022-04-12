@@ -20,18 +20,6 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @NotNull
-    @Column(name = "operation_layer", nullable = false)
-    private Long operationLayer;
-
-    @Column(name = "forced_mean_milimeter_component_diameter")
-    private Double forcedMeanMilimeterComponentDiameter;
-
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
@@ -155,47 +143,6 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    @Override
-    public Long getId() {
-        return this.id;
-    }
-
-    public CoreAssembly id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public Long getOperationLayer() {
-        return this.operationLayer;
-    }
-
-    public CoreAssembly operationLayer(Long operationLayer) {
-        this.setOperationLayer(operationLayer);
-        return this;
-    }
-
-    public void setOperationLayer(Long operationLayer) {
-        this.operationLayer = operationLayer;
-    }
-
-    public Double getForcedMeanMilimeterComponentDiameter() {
-        return this.forcedMeanMilimeterComponentDiameter;
-    }
-
-    public CoreAssembly forcedMeanMilimeterComponentDiameter(Double forcedMeanMilimeterComponentDiameter) {
-        this.setForcedMeanMilimeterComponentDiameter(forcedMeanMilimeterComponentDiameter);
-        return this;
-    }
-
-    public void setForcedMeanMilimeterComponentDiameter(Double forcedMeanMilimeterComponentDiameter) {
-        this.forcedMeanMilimeterComponentDiameter = forcedMeanMilimeterComponentDiameter;
-    }
-
     public StrandSupply getOwnerStrandSupply() {
         return this.ownerStrandSupply;
     }
@@ -219,7 +166,7 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
         if (!(o instanceof CoreAssembly)) {
             return false;
         }
-        return id != null && id.equals(((CoreAssembly) o).id);
+        return getId() != null && getId().equals(((CoreAssembly) o).getId());
     }
 
     @Override

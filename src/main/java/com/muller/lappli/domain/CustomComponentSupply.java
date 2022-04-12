@@ -24,18 +24,6 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @NotNull
-    @Column(name = "apparitions", nullable = false)
-    private Long apparitions;
-
-    @Column(name = "description")
-    private String description;
-
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "marking_type", nullable = false)
@@ -100,42 +88,6 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public CustomComponentSupply id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public Long getApparitions() {
-        return this.apparitions;
-    }
-
-    @Override
-    public void setApparitions(Long apparitions) {
-        this.apparitions = apparitions;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public CustomComponentSupply description(String description) {
-        this.setDescription(description);
-        return this;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public MarkingType getMarkingType() {
         return this.markingType;
@@ -205,7 +157,7 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
         if (!(o instanceof CustomComponentSupply)) {
             return false;
         }
-        return id != null && id.equals(((CustomComponentSupply) o).id);
+        return getId() != null && getId().equals(((CustomComponentSupply) o).getId());
     }
 
     @Override

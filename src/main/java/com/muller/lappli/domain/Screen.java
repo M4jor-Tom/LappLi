@@ -26,11 +26,6 @@ public class Screen
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "operation_layer", nullable = false)
     private Long operationLayer;
@@ -165,19 +160,6 @@ public class Screen
         return getCopperFiber();
     }
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public Screen id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getOperationLayer() {
         return this.operationLayer;
     }
@@ -305,7 +287,7 @@ public class Screen
         if (!(o instanceof Screen)) {
             return false;
         }
-        return id != null && id.equals(((Screen) o).id);
+        return getId() != null && getId().equals(((Screen) o).getId());
     }
 
     @Override

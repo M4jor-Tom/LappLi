@@ -22,18 +22,6 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @NotNull
-    @Column(name = "apparitions", nullable = false)
-    private Long apparitions;
-
-    @Column(name = "description")
-    private String description;
-
     @OneToMany(mappedBy = "bangleSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
@@ -88,42 +76,6 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public BangleSupply id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public Long getApparitions() {
-        return this.apparitions;
-    }
-
-    @Override
-    public void setApparitions(Long apparitions) {
-        this.apparitions = apparitions;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public BangleSupply description(String description) {
-        this.setDescription(description);
-        return this;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     @Override
     public Set<SupplyPosition> getOwnerSupplyPositions() {
@@ -180,7 +132,7 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
         if (!(o instanceof BangleSupply)) {
             return false;
         }
-        return id != null && id.equals(((BangleSupply) o).id);
+        return getId() != null && getId().equals(((BangleSupply) o).getId());
     }
 
     @Override
