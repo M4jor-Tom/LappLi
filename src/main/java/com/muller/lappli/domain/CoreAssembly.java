@@ -20,13 +20,6 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
 
     private static final long serialVersionUID = 1L;
 
-    @NotNull
-    @Column(name = "operation_layer", nullable = false)
-    private Long operationLayer;
-
-    @Column(name = "forced_mean_milimeter_component_diameter")
-    private Double forcedMeanMilimeterComponentDiameter;
-
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
@@ -149,33 +142,6 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    @Override
-    public Long getOperationLayer() {
-        return this.operationLayer;
-    }
-
-    public CoreAssembly operationLayer(Long operationLayer) {
-        this.setOperationLayer(operationLayer);
-        return this;
-    }
-
-    public void setOperationLayer(Long operationLayer) {
-        this.operationLayer = operationLayer;
-    }
-
-    public Double getForcedMeanMilimeterComponentDiameter() {
-        return this.forcedMeanMilimeterComponentDiameter;
-    }
-
-    public CoreAssembly forcedMeanMilimeterComponentDiameter(Double forcedMeanMilimeterComponentDiameter) {
-        this.setForcedMeanMilimeterComponentDiameter(forcedMeanMilimeterComponentDiameter);
-        return this;
-    }
-
-    public void setForcedMeanMilimeterComponentDiameter(Double forcedMeanMilimeterComponentDiameter) {
-        this.forcedMeanMilimeterComponentDiameter = forcedMeanMilimeterComponentDiameter;
-    }
 
     public StrandSupply getOwnerStrandSupply() {
         return this.ownerStrandSupply;

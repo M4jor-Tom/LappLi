@@ -24,15 +24,8 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     private static final long serialVersionUID = 1L;
 
     @NotNull
-    @Column(name = "operation_layer", nullable = false)
-    private Long operationLayer;
-
-    @NotNull
     @Column(name = "interstice_layer", nullable = false)
     private Long intersticeLayer;
-
-    @Column(name = "forced_mean_milimeter_component_diameter")
-    private Double forcedMeanMilimeterComponentDiameter;
 
     @OneToMany(mappedBy = "ownerIntersticeAssembly", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -104,19 +97,6 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getOperationLayer() {
-        return this.operationLayer;
-    }
-
-    public IntersticeAssembly operationLayer(Long operationLayer) {
-        this.setOperationLayer(operationLayer);
-        return this;
-    }
-
-    public void setOperationLayer(Long operationLayer) {
-        this.operationLayer = operationLayer;
-    }
-
     public Long getIntersticeLayer() {
         return this.intersticeLayer;
     }
@@ -128,19 +108,6 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
 
     public void setIntersticeLayer(Long intersticeLayer) {
         this.intersticeLayer = intersticeLayer;
-    }
-
-    public Double getForcedMeanMilimeterComponentDiameter() {
-        return this.forcedMeanMilimeterComponentDiameter;
-    }
-
-    public IntersticeAssembly forcedMeanMilimeterComponentDiameter(Double forcedMeanMilimeterComponentDiameter) {
-        this.setForcedMeanMilimeterComponentDiameter(forcedMeanMilimeterComponentDiameter);
-        return this;
-    }
-
-    public void setForcedMeanMilimeterComponentDiameter(Double forcedMeanMilimeterComponentDiameter) {
-        this.forcedMeanMilimeterComponentDiameter = forcedMeanMilimeterComponentDiameter;
     }
 
     public Set<SupplyPosition> getSupplyPositions() {
