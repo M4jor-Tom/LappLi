@@ -65,6 +65,10 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
 
     @Override
     public Optional<PlasticAspectCylindricComponent> getCylindricComponentIfPlasticAspect() {
+        if (getBangle() == null) {
+            return null;
+        }
+
         return Optional.of(getBangle());
     }
 
