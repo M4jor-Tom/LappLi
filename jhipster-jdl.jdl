@@ -10,6 +10,19 @@ entity Screen {
     anonymousCopperFiberMilimeterDiameter Double
 }
 
+entity ContinuityWireStraightLaying {
+    operationLayer Long required
+    anonymousContinuityWireMetalFiberKind MetalFiberKind
+    anonymousContinuityWireMilimeterDiameter Double
+    anonymousContinuityWireFlexibility Flexibility
+}
+
+entity ContinuityWire {
+    metalFiberKind MetalFiberKind required
+    milimeterDiameter Double required
+    flexibility Flexibility required
+}
+
 entity Tape {
 	number Long required unique
     designation String required unique
@@ -246,6 +259,9 @@ relationship OneToMany {
 
     //Sheathings
     StrandSupply{sheathings(productionStep)} to Sheathing{ownerStrandSupply(designation) required}
+
+    //ContinuityWireStraightLayings
+    StrandSupply{continuityWireStraightLayings(productionStep)} to ContinuityWireStraightLaying{ownerStrandSupply(designation) required}
 }
 
 relationship OneToMany {
