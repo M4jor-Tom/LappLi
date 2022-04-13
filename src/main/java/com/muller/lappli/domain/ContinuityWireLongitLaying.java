@@ -1,8 +1,12 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.Flexibility;
 import com.muller.lappli.domain.enumeration.MetalFiberKind;
+import com.muller.lappli.domain.enumeration.OperationKind;
+import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
+import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -15,7 +19,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "continuity_wire_longit_laying")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ContinuityWireLongitLaying implements Serializable {
+public class ContinuityWireLongitLaying
+    extends AbstractOperation<ContinuityWireLongitLaying>
+    implements Serializable, INonAssemblyOperation<ContinuityWireLongitLaying> {
 
     private static final long serialVersionUID = 1L;
 
@@ -63,6 +69,42 @@ public class ContinuityWireLongitLaying implements Serializable {
     private StrandSupply ownerStrandSupply;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    @Override
+    public ContinuityWireLongitLaying getThis() {
+        return this;
+    }
+
+    @Override
+    public IOperation<ContinuityWireLongitLaying> toOperation() {
+        return this;
+    }
+
+    @Override
+    public OperationKind getOperationKind() {
+        return OperationKind.CONTINUITY_WIRE_LONGIT_LAYING;
+    }
+
+    @Override
+    public Double getMilimeterDiameterIncidency() {
+        if (getContinuityWire() == null) {
+            return null;
+        }
+
+        return getContinuityWire().getMilimeterDiameter();
+    }
+
+    @Override
+    public Long getProductionStep() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getProductDesignation() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
     public Long getId() {
         return this.id;

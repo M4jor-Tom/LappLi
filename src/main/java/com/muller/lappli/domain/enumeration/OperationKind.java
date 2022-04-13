@@ -9,4 +9,5 @@ public enum OperationKind {
     SCREEN,
     STRIP_LAYING,
     SHEATHING,
+    CONTINUITY_WIRE_LONGIT_LAYING,
 }
