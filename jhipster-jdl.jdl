@@ -283,6 +283,10 @@ relationship OneToMany {
 }
 
 relationship ManyToOne {
+    ContinuityWireLongitLaying{continuityWire(designation) required} to ContinuityWire
+}
+
+relationship ManyToOne {
     Screen{copperFiber(designation)} to CopperFiber
 }
 
