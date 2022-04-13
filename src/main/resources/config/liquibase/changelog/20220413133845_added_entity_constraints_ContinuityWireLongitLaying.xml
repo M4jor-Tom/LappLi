@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+    <!--
+        Added the constraints for entity ContinuityWireLongitLaying.
+    -->
+    <changeSet id="20220413133845-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="owner_strand_supply_id"
+                                 baseTableName="continuity_wire_longit_laying"
+                                 constraintName="fk_continuity_wire_longit_laying__owner_strand_supply_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="strand_supply"/>
+    </changeSet>
+</databaseChangeLog>

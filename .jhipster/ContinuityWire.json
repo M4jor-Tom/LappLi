@@ -1,0 +1,33 @@
+{
+  "name": "ContinuityWire",
+  "fields": [
+    {
+      "fieldName": "metalFiberKind",
+      "fieldType": "MetalFiberKind",
+      "fieldValues": "RED_COPPER,TINNED_COPPER,STEEL",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "milimeterDiameter",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "flexibility",
+      "fieldType": "Flexibility",
+      "fieldValues": "S,ES,SES,MB,UES,USES,DS,R,SS,L5,L6",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "continuity_wire",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220413133846"
+}

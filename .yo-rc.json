@@ -74,8 +74,10 @@
       "CopperFiber",
       "Strip",
       "StripLaying",
-      "MetalFiber"
+      "MetalFiber",
+      "ContinuityWireLongitLaying",
+      "ContinuityWire"
     ],
-    "lastLiquibaseTimestamp": 1649668186000
+    "lastLiquibaseTimestamp": 1649857126000
   }
 }

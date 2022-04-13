@@ -77,6 +77,13 @@
       "otherEntityField": "productionStep"
     },
     {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "continuityWireLongitLaying",
+      "otherEntityRelationshipName": "ownerStrandSupply",
+      "relationshipName": "continuityWireLongitLayings",
+      "otherEntityField": "productionStep"
+    },
+    {
       "relationshipType": "many-to-one",
       "otherEntityName": "strand",
       "otherEntityRelationshipName": "strandSupply",

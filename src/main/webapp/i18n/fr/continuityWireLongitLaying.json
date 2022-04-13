@@ -1,0 +1,28 @@
+{
+  "lappLiApp": {
+    "continuityWireLongitLaying": {
+      "home": {
+        "title": "ContinuityWireLongitLayings",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Continuity Wire Longit Laying",
+        "createOrEditLabel": "Créer ou éditer un Continuity Wire Longit Laying",
+        "notFound": "Aucun Continuity Wire Longit Laying trouvé"
+      },
+      "created": "Un nouveau Continuity Wire Longit Laying a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Continuity Wire Longit Laying avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Continuity Wire Longit Laying avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Continuity Wire Longit Laying {{ id }} ?"
+      },
+      "detail": {
+        "title": "Continuity Wire Longit Laying"
+      },
+      "id": "ID",
+      "operationLayer": "Operation Layer",
+      "anonymousContinuityWireMetalFiberKind": "Anonymous Continuity Wire Metal Fiber Kind",
+      "anonymousContinuityWireMilimeterDiameter": "Anonymous Continuity Wire Milimeter Diameter",
+      "anonymousContinuityWireFlexibility": "Anonymous Continuity Wire Flexibility",
+      "ownerStrandSupply": "Owner Strand Supply"
+    }
+  }
+}

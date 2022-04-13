@@ -10,7 +10,7 @@ entity Screen {
     anonymousCopperFiberMilimeterDiameter Double
 }
 
-entity ContinuityWireStraightLaying {
+entity ContinuityWireLongitLaying {
     operationLayer Long required
     anonymousContinuityWireMetalFiberKind MetalFiberKind
     anonymousContinuityWireMilimeterDiameter Double
@@ -260,8 +260,8 @@ relationship OneToMany {
     //Sheathings
     StrandSupply{sheathings(productionStep)} to Sheathing{ownerStrandSupply(designation) required}
 
-    //ContinuityWireStraightLayings
-    StrandSupply{continuityWireStraightLayings(productionStep)} to ContinuityWireStraightLaying{ownerStrandSupply(designation) required}
+    //ContinuityWireLongitLayings
+    StrandSupply{continuityWireLongitLayings(productionStep)} to ContinuityWireLongitLaying{ownerStrandSupply(designation) required}
 }
 
 relationship OneToMany {
