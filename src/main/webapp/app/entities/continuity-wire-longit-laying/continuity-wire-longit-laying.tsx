@@ -70,6 +70,9 @@ export const ContinuityWireLongitLaying = (props: RouteComponentProps<{ url: str
                   </Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.continuityWireLongitLaying.continuityWire">Continuity Wire</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.continuityWireLongitLaying.ownerStrandSupply">Owner Strand Supply</Translate>
                 </th>
                 <th />
@@ -92,6 +95,15 @@ export const ContinuityWireLongitLaying = (props: RouteComponentProps<{ url: str
                   <td>{continuityWireLongitLaying.anonymousContinuityWireMilimeterDiameter}</td>
                   <td>
                     <Translate contentKey={`lappLiApp.Flexibility.${continuityWireLongitLaying.anonymousContinuityWireFlexibility}`} />
+                  </td>
+                  <td>
+                    {continuityWireLongitLaying.continuityWire ? (
+                      <Link to={`continuity-wire/${continuityWireLongitLaying.continuityWire.id}`}>
+                        {continuityWireLongitLaying.continuityWire.designation}
+                      </Link>
+                    ) : (
+                      ''
+                    )}
                   </td>
                   <td>
                     {continuityWireLongitLaying.ownerStrandSupply ? (

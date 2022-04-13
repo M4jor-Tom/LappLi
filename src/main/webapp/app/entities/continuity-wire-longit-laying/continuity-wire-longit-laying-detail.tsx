@@ -60,6 +60,10 @@ export const ContinuityWireLongitLayingDetail = (props: RouteComponentProps<{ id
           </dt>
           <dd>{continuityWireLongitLayingEntity.anonymousContinuityWireFlexibility}</dd>
           <dt>
+            <Translate contentKey="lappLiApp.continuityWireLongitLaying.continuityWire">Continuity Wire</Translate>
+          </dt>
+          <dd>{continuityWireLongitLayingEntity.continuityWire ? continuityWireLongitLayingEntity.continuityWire.designation : ''}</dd>
+          <dt>
             <Translate contentKey="lappLiApp.continuityWireLongitLaying.ownerStrandSupply">Owner Strand Supply</Translate>
           </dt>
           <dd>

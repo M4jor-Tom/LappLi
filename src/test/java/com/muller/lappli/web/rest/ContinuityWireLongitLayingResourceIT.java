@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.muller.lappli.IntegrationTest;
+import com.muller.lappli.domain.ContinuityWire;
 import com.muller.lappli.domain.ContinuityWireLongitLaying;
 import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.enumeration.Flexibility;
@@ -74,6 +75,16 @@ class ContinuityWireLongitLayingResourceIT {
             .anonymousContinuityWireMilimeterDiameter(DEFAULT_ANONYMOUS_CONTINUITY_WIRE_MILIMETER_DIAMETER)
             .anonymousContinuityWireFlexibility(DEFAULT_ANONYMOUS_CONTINUITY_WIRE_FLEXIBILITY);
         // Add required entity
+        ContinuityWire continuityWire;
+        if (TestUtil.findAll(em, ContinuityWire.class).isEmpty()) {
+            continuityWire = ContinuityWireResourceIT.createEntity(em);
+            em.persist(continuityWire);
+            em.flush();
+        } else {
+            continuityWire = TestUtil.findAll(em, ContinuityWire.class).get(0);
+        }
+        continuityWireLongitLaying.setContinuityWire(continuityWire);
+        // Add required entity
         StrandSupply strandSupply;
         if (TestUtil.findAll(em, StrandSupply.class).isEmpty()) {
             strandSupply = StrandSupplyResourceIT.createEntity(em);
@@ -98,6 +109,16 @@ class ContinuityWireLongitLayingResourceIT {
             .anonymousContinuityWireMetalFiberKind(UPDATED_ANONYMOUS_CONTINUITY_WIRE_METAL_FIBER_KIND)
             .anonymousContinuityWireMilimeterDiameter(UPDATED_ANONYMOUS_CONTINUITY_WIRE_MILIMETER_DIAMETER)
             .anonymousContinuityWireFlexibility(UPDATED_ANONYMOUS_CONTINUITY_WIRE_FLEXIBILITY);
+        // Add required entity
+        ContinuityWire continuityWire;
+        if (TestUtil.findAll(em, ContinuityWire.class).isEmpty()) {
+            continuityWire = ContinuityWireResourceIT.createUpdatedEntity(em);
+            em.persist(continuityWire);
+            em.flush();
+        } else {
+            continuityWire = TestUtil.findAll(em, ContinuityWire.class).get(0);
+        }
+        continuityWireLongitLaying.setContinuityWire(continuityWire);
         // Add required entity
         StrandSupply strandSupply;
         if (TestUtil.findAll(em, StrandSupply.class).isEmpty()) {

@@ -24,6 +24,14 @@
   "relationships": [
     {
       "relationshipType": "many-to-one",
+      "otherEntityName": "continuityWire",
+      "otherEntityRelationshipName": "continuityWireLongitLaying",
+      "relationshipValidateRules": "required",
+      "relationshipName": "continuityWire",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
       "otherEntityName": "strandSupply",
       "otherEntityRelationshipName": "continuityWireLongitLayings",
       "relationshipValidateRules": "required",

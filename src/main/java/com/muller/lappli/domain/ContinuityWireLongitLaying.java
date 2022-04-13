@@ -41,6 +41,10 @@ public class ContinuityWireLongitLaying implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
+    private ContinuityWire continuityWire;
+
+    @ManyToOne(optional = false)
+    @NotNull
     @JsonIgnoreProperties(
         value = {
             "coreAssemblies",
@@ -123,6 +127,19 @@ public class ContinuityWireLongitLaying implements Serializable {
 
     public void setAnonymousContinuityWireFlexibility(Flexibility anonymousContinuityWireFlexibility) {
         this.anonymousContinuityWireFlexibility = anonymousContinuityWireFlexibility;
+    }
+
+    public ContinuityWire getContinuityWire() {
+        return this.continuityWire;
+    }
+
+    public void setContinuityWire(ContinuityWire continuityWire) {
+        this.continuityWire = continuityWire;
+    }
+
+    public ContinuityWireLongitLaying continuityWire(ContinuityWire continuityWire) {
+        this.setContinuityWire(continuityWire);
+        return this;
     }
 
     public StrandSupply getOwnerStrandSupply() {

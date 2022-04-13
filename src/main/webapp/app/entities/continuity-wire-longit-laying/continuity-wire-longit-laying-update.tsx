@@ -4,6 +4,8 @@ import { Button, Row, Col, FormText } from 'reactstrap';
 import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { IContinuityWire } from 'app/shared/model/continuity-wire.model';
+import { getEntities as getContinuityWires } from 'app/entities/continuity-wire/continuity-wire.reducer';
 import { IStrandSupply } from 'app/shared/model/strand-supply.model';
 import { getEntities as getStrandSupplies } from 'app/entities/strand-supply/strand-supply.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './continuity-wire-longit-laying.reducer';
@@ -19,6 +21,7 @@ export const ContinuityWireLongitLayingUpdate = (props: RouteComponentProps<{ id
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
+  const continuityWires = useAppSelector(state => state.continuityWire.entities);
   const strandSupplies = useAppSelector(state => state.strandSupply.entities);
   const continuityWireLongitLayingEntity = useAppSelector(state => state.continuityWireLongitLaying.entity);
   const loading = useAppSelector(state => state.continuityWireLongitLaying.loading);
@@ -37,6 +40,7 @@ export const ContinuityWireLongitLayingUpdate = (props: RouteComponentProps<{ id
       dispatch(getEntity(props.match.params.id));
     }
 
+    dispatch(getContinuityWires({}));
     dispatch(getStrandSupplies({}));
   }, []);
 
@@ -50,6 +54,7 @@ export const ContinuityWireLongitLayingUpdate = (props: RouteComponentProps<{ id
     const entity = {
       ...continuityWireLongitLayingEntity,
       ...values,
+      continuityWire: continuityWires.find(it => it.id.toString() === values.continuityWire.toString()),
       ownerStrandSupply: strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString()),
     };
 
@@ -67,6 +72,7 @@ export const ContinuityWireLongitLayingUpdate = (props: RouteComponentProps<{ id
           anonymousContinuityWireMetalFiberKind: 'RED_COPPER',
           anonymousContinuityWireFlexibility: 'S',
           ...continuityWireLongitLayingEntity,
+          continuityWire: continuityWireLongitLayingEntity?.continuityWire?.id,
           ownerStrandSupply: continuityWireLongitLayingEntity?.ownerStrandSupply?.id,
         };
 
@@ -141,6 +147,26 @@ export const ContinuityWireLongitLayingUpdate = (props: RouteComponentProps<{ id
                   </option>
                 ))}
               </ValidatedField>
+              <ValidatedField
+                id="continuity-wire-longit-laying-continuityWire"
+                name="continuityWire"
+                data-cy="continuityWire"
+                label={translate('lappLiApp.continuityWireLongitLaying.continuityWire')}
+                type="select"
+                required
+              >
+                <option value="" key="0" />
+                {continuityWires
+                  ? continuityWires.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.designation}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
               <ValidatedField
                 id="continuity-wire-longit-laying-ownerStrandSupply"
                 name="ownerStrandSupply"
