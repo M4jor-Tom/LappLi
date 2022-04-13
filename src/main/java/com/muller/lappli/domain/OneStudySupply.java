@@ -6,8 +6,10 @@ import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
+import com.muller.lappli.domain.interfaces.PlasticAspectCylindricComponent;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -88,8 +90,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         return SupplyKind.ONE_STUDY;
     }
 
-    @Override
-    public CylindricComponent getCylindricComponent() {
+    private OneStudyComponent getOneStudyComponent() {
         if (oneStudyComponent == null) {
             oneStudyComponent =
                 new OneStudyComponent()
@@ -100,6 +101,16 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         }
 
         return oneStudyComponent;
+    }
+
+    @Override
+    public CylindricComponent getCylindricComponent() {
+        return getOneStudyComponent();
+    }
+
+    @Override
+    public Optional<PlasticAspectCylindricComponent> getCylindricComponentIfPlasticAspect() {
+        return Optional.of(getOneStudyComponent());
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

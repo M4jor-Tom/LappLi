@@ -15,7 +15,9 @@ import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.exception.AppartionDivisionNonNullRemainderException;
 import com.muller.lappli.domain.exception.IllegalStrandSupplyException;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
+import com.muller.lappli.domain.interfaces.PlasticAspectCylindricComponent;
 import java.text.DecimalFormat;
+import java.util.Optional;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -103,9 +105,20 @@ public abstract class AbstractSupply<T extends AbstractSupply<T>> extends Abstra
     public abstract CylindricComponent getCylindricComponent();
 
     /**
+     * @return the representated component if plastic aspect
+     */
+    public abstract Optional<PlasticAspectCylindricComponent> getCylindricComponentIfPlasticAspect();
+
+    /**
      * @return the Material at the surface of this
      */
-    public abstract Material getSurfaceMaterial();
+    public Material getSurfaceMaterial() {
+        if (getCylindricComponentIfPlasticAspect() == null || getCylindricComponentIfPlasticAspect().isEmpty()) {
+            return null;
+        }
+
+        return getCylindricComponentIfPlasticAspect().get().getSurfaceMaterial();
+    }
 
     /**
      * @return the kind of supply this is
