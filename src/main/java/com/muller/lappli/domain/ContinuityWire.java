@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.muller.lappli.domain.abstracts.AbstractUniformAtom;
 import com.muller.lappli.domain.enumeration.Flexibility;
 import com.muller.lappli.domain.enumeration.MetalFiberKind;
 import java.io.Serializable;
@@ -14,14 +15,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "continuity_wire")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ContinuityWire implements Serializable {
+public class ContinuityWire extends AbstractUniformAtom<ContinuityWire> implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
 
     @NotNull
     @Column(name = "designation", nullable = false, unique = true)
@@ -47,19 +43,17 @@ public class ContinuityWire implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public ContinuityWire id(Long id) {
-        this.setId(id);
+    @Override
+    public ContinuityWire getThis() {
         return this;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public Boolean isUtility() {
+        return true;
     }
 
+    @Override
     public String getDesignation() {
         return this.designation;
     }
@@ -135,7 +129,7 @@ public class ContinuityWire implements Serializable {
         if (!(o instanceof ContinuityWire)) {
             return false;
         }
-        return id != null && id.equals(((ContinuityWire) o).id);
+        return getId() != null && getId().equals(((ContinuityWire) o).getId());
     }
 
     @Override
