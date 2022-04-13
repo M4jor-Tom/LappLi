@@ -87,6 +87,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
           <Translate contentKey="lappLiApp.assembly.detail.title">Assembly</Translate>
         </Link>
       )}
+      {/* [NON_CENTRAL_OPERATION] */}
       &nbsp;
       <Link
         to={`${props.match.url}/tape-laying/new`}
