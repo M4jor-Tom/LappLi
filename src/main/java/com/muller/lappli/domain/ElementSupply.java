@@ -73,6 +73,10 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
 
     @Override
     public Optional<PlasticAspectCylindricComponent> getCylindricComponentIfPlasticAspect() {
+        if (getElement() == null) {
+            return null;
+        }
+
         return Optional.of(getElement());
     }
 
