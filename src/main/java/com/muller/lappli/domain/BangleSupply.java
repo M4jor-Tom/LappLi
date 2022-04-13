@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
+import com.muller.lappli.domain.interfaces.PlasticAspectCylindricComponent;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -62,12 +64,8 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     }
 
     @Override
-    public Material getSurfaceMaterial() {
-        if (getBangle() == null) {
-            return null;
-        }
-
-        return getBangle().getMaterial();
+    public Optional<PlasticAspectCylindricComponent> getCylindricComponentIfPlasticAspect() {
+        return Optional.of(getBangle());
     }
 
     @Override

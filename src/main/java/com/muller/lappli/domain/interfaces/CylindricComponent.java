@@ -1,14 +1,11 @@
 package com.muller.lappli.domain.interfaces;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.muller.lappli.domain.Material;
 
 public interface CylindricComponent extends Designable {
     public Double getMilimeterDiameter();
 
     public Double getGramPerMeterLinearMass();
-
-    public Material getSurfaceMaterial();
 
     public Boolean isUtility();
 
