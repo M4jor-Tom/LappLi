@@ -1,5 +1,6 @@
 package com.muller.lappli.service.impl;
 
+import com.muller.lappli.domain.ContinuityWireLongitLaying;
 import com.muller.lappli.domain.CoreAssembly;
 import com.muller.lappli.domain.IntersticeAssembly;
 import com.muller.lappli.domain.Screen;
@@ -10,6 +11,7 @@ import com.muller.lappli.domain.TapeLaying;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.interfaces.INonCentralOperation;
 import com.muller.lappli.repository.StrandSupplyRepository;
+import com.muller.lappli.service.ContinuityWireLongitLayingService;
 import com.muller.lappli.service.CoreAssemblyService;
 import com.muller.lappli.service.IntersticeAssemblyService;
 import com.muller.lappli.service.ScreenService;
@@ -50,6 +52,8 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
 
     private final SheathingService sheathingService;
 
+    private final ContinuityWireLongitLayingService continuityWireLongitLayingService;
+
     public StrandSupplyServiceImpl(
         StrandSupplyRepository strandSupplyRepository,
         @Lazy CoreAssemblyService coreAssemblyService,
@@ -57,7 +61,8 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         @Lazy TapeLayingService tapeLayingService,
         @Lazy ScreenService screenService,
         @Lazy StripLayingService stripLayingService,
-        @Lazy SheathingService sheathingService
+        @Lazy SheathingService sheathingService,
+        @Lazy ContinuityWireLongitLayingService continuityWireLongitLayingService
     ) {
         this.strandSupplyRepository = strandSupplyRepository;
         this.coreAssemblyService = coreAssemblyService;
@@ -66,6 +71,7 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         this.screenService = screenService;
         this.stripLayingService = stripLayingService;
         this.sheathingService = sheathingService;
+        this.continuityWireLongitLayingService = continuityWireLongitLayingService;
     }
 
     public StrandSupply onRead(StrandSupply domainObject) {
@@ -110,6 +116,11 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         for (Sheathing sheathing : toActualize.getSheathings()) {
             Boolean actualizeOwnerStrandSupply = false;
             sheathingService.save(sheathing, actualizeOwnerStrandSupply);
+        }
+
+        for (ContinuityWireLongitLaying continuityWireLongitLaying : toActualize.getContinuityWireLongitLayings()) {
+            Boolean actualizeOwnerStrandSupply = false;
+            continuityWireLongitLayingService.save(continuityWireLongitLaying, actualizeOwnerStrandSupply);
         }
     }
 

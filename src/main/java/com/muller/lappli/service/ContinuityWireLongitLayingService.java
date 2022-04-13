@@ -7,15 +7,7 @@ import java.util.Optional;
 /**
  * Service Interface for managing {@link ContinuityWireLongitLaying}.
  */
-public interface ContinuityWireLongitLayingService {
-    /**
-     * Save a continuityWireLongitLaying.
-     *
-     * @param continuityWireLongitLaying the entity to save.
-     * @return the persisted entity.
-     */
-    ContinuityWireLongitLaying save(ContinuityWireLongitLaying continuityWireLongitLaying);
-
+public interface ContinuityWireLongitLayingService extends INonCentralOperationService<ContinuityWireLongitLaying> {
     /**
      * Partially updates a continuityWireLongitLaying.
      *

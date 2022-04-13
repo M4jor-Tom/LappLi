@@ -60,7 +60,7 @@ public class ContinuityWireLongitLayingResource {
         if (continuityWireLongitLaying.getId() != null) {
             throw new BadRequestAlertException("A new continuityWireLongitLaying cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ContinuityWireLongitLaying result = continuityWireLongitLayingService.save(continuityWireLongitLaying);
+        ContinuityWireLongitLaying result = continuityWireLongitLayingService.save(continuityWireLongitLaying, true);
         return ResponseEntity
             .created(new URI("/api/continuity-wire-longit-layings/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -94,7 +94,7 @@ public class ContinuityWireLongitLayingResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        ContinuityWireLongitLaying result = continuityWireLongitLayingService.save(continuityWireLongitLaying);
+        ContinuityWireLongitLaying result = continuityWireLongitLayingService.save(continuityWireLongitLaying, true);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, continuityWireLongitLaying.getId().toString()))
