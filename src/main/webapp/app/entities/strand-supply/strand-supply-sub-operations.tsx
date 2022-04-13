@@ -132,6 +132,17 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
         &nbsp;
         <Translate contentKey="lappLiApp.sheathing.detail.title">Sheathing</Translate>
       </Link>
+      &nbsp;
+      <Link
+        to={`${props.match.url}/continuityWireLongitLaying/new`}
+        className="btn btn-primary jh-create-entity"
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+      >
+        <FontAwesomeIcon icon="plus" />
+        &nbsp;
+        <Translate contentKey="lappLiApp.continuityWireLongitLaying.detail.title">Continuity Wire Longitudinal Laying</Translate>
+      </Link>
       <div className="table-responsive">
         {strandSupplyEntity.centralAssembly ||
         (strandSupplyEntity.nonCentralOperations && strandSupplyEntity.nonCentralOperations.length > 0) ? (
