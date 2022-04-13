@@ -186,14 +186,14 @@ entity Material {
 entity MetalFiber {
     number Long unique
     designation String unique
-    MetalFiberKind MetalFiberKind required
+    metalFiberKind MetalFiberKind required
     milimeterDiameter Double required
 }
 
 entity CopperFiber {
     number Long unique
     designation String unique
-    MetalFiberKind MetalFiberKind required
+    metalFiberKind MetalFiberKind required
     milimeterDiameter Double required
 }
 
