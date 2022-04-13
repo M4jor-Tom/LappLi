@@ -6,8 +6,10 @@ import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
+import com.muller.lappli.domain.interfaces.PlasticAspectCylindricComponent;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -70,12 +72,8 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
     }
 
     @Override
-    public Material getSurfaceMaterial() {
-        if (getCustomComponent() == null) {
-            return null;
-        }
-
-        return getCustomComponent().getSurfaceMaterial();
+    public Optional<PlasticAspectCylindricComponent> getCylindricComponentIfPlasticAspect() {
+        return Optional.of(getCustomComponent());
     }
 
     @Override
