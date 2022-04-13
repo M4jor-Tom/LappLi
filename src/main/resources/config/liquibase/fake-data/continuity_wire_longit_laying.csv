@@ -1,0 +1,11 @@
+id;operation_layer;anonymous_continuity_wire_metal_fiber_kind;anonymous_continuity_wire_milimeter_diameter;anonymous_continuity_wire_flexibility;owner_strand_supply_id
+1;21145;TINNED_COPPER;92810;ES;1
+2;80456;TINNED_COPPER;6087;UES;2
+3;73479;TINNED_COPPER;66767;R;3
+4;61358;TINNED_COPPER;88011;S;4
+5;94762;STEEL;10224;DS;5
+6;14189;STEEL;13324;R;6
+7;56565;TINNED_COPPER;90932;UES;7
+8;43105;TINNED_COPPER;89995;ES;8
+9;16198;STEEL;64580;L5;9
+10;12073;STEEL;10494;USES;10

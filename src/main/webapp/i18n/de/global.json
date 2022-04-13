@@ -39,6 +39,8 @@
         "strip": "Strip",
         "stripLaying": "Strip Laying",
         "metalFiber": "Metal Fiber",
+        "continuityWireLongitLaying": "Continuity Wire Longit Laying",
+        "continuityWire": "Continuity Wire",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

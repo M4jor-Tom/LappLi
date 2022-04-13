@@ -1,0 +1,28 @@
+{
+  "lappLiApp": {
+    "continuityWire": {
+      "home": {
+        "title": "Continuity Wires",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Continuity Wire erstellen",
+        "createOrEditLabel": "Continuity Wire erstellen oder bearbeiten",
+        "notFound": "Keine Continuity Wires gefunden"
+      },
+      "created": "Continuity Wire erstellt mit ID {{ param }}",
+      "updated": "Continuity Wire aktualisiert mit ID {{ param }}",
+      "deleted": "Continuity Wire gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Continuity Wire {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Continuity Wire"
+      },
+      "id": "ID",
+      "designation": "Designation",
+      "gramPerMeterLinearMass": "Gram Per Meter Linear Mass",
+      "metalFiberKind": "Metal Fiber Kind",
+      "milimeterDiameter": "Milimeter Diameter",
+      "flexibility": "Flexibility"
+    }
+  }
+}

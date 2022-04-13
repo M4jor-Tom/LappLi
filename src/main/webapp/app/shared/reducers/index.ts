@@ -73,6 +73,10 @@ import strip from 'app/entities/strip/strip.reducer';
 import stripLaying from 'app/entities/strip-laying/strip-laying.reducer';
 // prettier-ignore
 import metalFiber from 'app/entities/metal-fiber/metal-fiber.reducer';
+// prettier-ignore
+import continuityWireLongitLaying from 'app/entities/continuity-wire-longit-laying/continuity-wire-longit-laying.reducer';
+// prettier-ignore
+import continuityWire from 'app/entities/continuity-wire/continuity-wire.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -117,6 +121,8 @@ const rootReducer = {
   strip,
   stripLaying,
   metalFiber,
+  continuityWireLongitLaying,
+  continuityWire,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };

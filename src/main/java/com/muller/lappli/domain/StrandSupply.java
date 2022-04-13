@@ -98,6 +98,11 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
     private Set<Sheathing> sheathings = new HashSet<>();
 
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
+    private Set<ContinuityWireLongitLaying> continuityWireLongitLayings = new HashSet<>();
+
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @NotNull
     @JsonIgnoreProperties(
@@ -789,6 +794,37 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     public StrandSupply removeSheathings(Sheathing sheathing) {
         this.sheathings.remove(sheathing);
         sheathing.setOwnerStrandSupply(null);
+        return this;
+    }
+
+    public Set<ContinuityWireLongitLaying> getContinuityWireLongitLayings() {
+        return this.continuityWireLongitLayings;
+    }
+
+    public void setContinuityWireLongitLayings(Set<ContinuityWireLongitLaying> continuityWireLongitLayings) {
+        if (this.continuityWireLongitLayings != null) {
+            this.continuityWireLongitLayings.forEach(i -> i.setOwnerStrandSupply(null));
+        }
+        if (continuityWireLongitLayings != null) {
+            continuityWireLongitLayings.forEach(i -> i.setOwnerStrandSupply(this));
+        }
+        this.continuityWireLongitLayings = continuityWireLongitLayings;
+    }
+
+    public StrandSupply continuityWireLongitLayings(Set<ContinuityWireLongitLaying> continuityWireLongitLayings) {
+        this.setContinuityWireLongitLayings(continuityWireLongitLayings);
+        return this;
+    }
+
+    public StrandSupply addContinuityWireLongitLayings(ContinuityWireLongitLaying continuityWireLongitLaying) {
+        this.continuityWireLongitLayings.add(continuityWireLongitLaying);
+        continuityWireLongitLaying.setOwnerStrandSupply(this);
+        return this;
+    }
+
+    public StrandSupply removeContinuityWireLongitLayings(ContinuityWireLongitLaying continuityWireLongitLaying) {
+        this.continuityWireLongitLayings.remove(continuityWireLongitLaying);
+        continuityWireLongitLaying.setOwnerStrandSupply(null);
         return this;
     }
 
