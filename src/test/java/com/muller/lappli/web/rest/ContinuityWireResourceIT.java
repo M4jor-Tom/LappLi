@@ -31,6 +31,12 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class ContinuityWireResourceIT {
 
+    private static final String DEFAULT_DESIGNATION = "AAAAAAAAAA";
+    private static final String UPDATED_DESIGNATION = "BBBBBBBBBB";
+
+    private static final Double DEFAULT_GRAM_PER_METER_LINEAR_MASS = 1D;
+    private static final Double UPDATED_GRAM_PER_METER_LINEAR_MASS = 2D;
+
     private static final MetalFiberKind DEFAULT_METAL_FIBER_KIND = MetalFiberKind.RED_COPPER;
     private static final MetalFiberKind UPDATED_METAL_FIBER_KIND = MetalFiberKind.TINNED_COPPER;
 
@@ -65,6 +71,8 @@ class ContinuityWireResourceIT {
      */
     public static ContinuityWire createEntity(EntityManager em) {
         ContinuityWire continuityWire = new ContinuityWire()
+            .designation(DEFAULT_DESIGNATION)
+            .gramPerMeterLinearMass(DEFAULT_GRAM_PER_METER_LINEAR_MASS)
             .metalFiberKind(DEFAULT_METAL_FIBER_KIND)
             .milimeterDiameter(DEFAULT_MILIMETER_DIAMETER)
             .flexibility(DEFAULT_FLEXIBILITY);
@@ -79,6 +87,8 @@ class ContinuityWireResourceIT {
      */
     public static ContinuityWire createUpdatedEntity(EntityManager em) {
         ContinuityWire continuityWire = new ContinuityWire()
+            .designation(UPDATED_DESIGNATION)
+            .gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS)
             .metalFiberKind(UPDATED_METAL_FIBER_KIND)
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
             .flexibility(UPDATED_FLEXIBILITY);
@@ -105,6 +115,8 @@ class ContinuityWireResourceIT {
         List<ContinuityWire> continuityWireList = continuityWireRepository.findAll();
         assertThat(continuityWireList).hasSize(databaseSizeBeforeCreate + 1);
         ContinuityWire testContinuityWire = continuityWireList.get(continuityWireList.size() - 1);
+        assertThat(testContinuityWire.getDesignation()).isEqualTo(DEFAULT_DESIGNATION);
+        assertThat(testContinuityWire.getGramPerMeterLinearMass()).isEqualTo(DEFAULT_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testContinuityWire.getMetalFiberKind()).isEqualTo(DEFAULT_METAL_FIBER_KIND);
         assertThat(testContinuityWire.getMilimeterDiameter()).isEqualTo(DEFAULT_MILIMETER_DIAMETER);
         assertThat(testContinuityWire.getFlexibility()).isEqualTo(DEFAULT_FLEXIBILITY);
@@ -128,6 +140,44 @@ class ContinuityWireResourceIT {
         // Validate the ContinuityWire in the database
         List<ContinuityWire> continuityWireList = continuityWireRepository.findAll();
         assertThat(continuityWireList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    void checkDesignationIsRequired() throws Exception {
+        int databaseSizeBeforeTest = continuityWireRepository.findAll().size();
+        // set the field null
+        continuityWire.setDesignation(null);
+
+        // Create the ContinuityWire, which fails.
+
+        restContinuityWireMockMvc
+            .perform(
+                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(continuityWire))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<ContinuityWire> continuityWireList = continuityWireRepository.findAll();
+        assertThat(continuityWireList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkGramPerMeterLinearMassIsRequired() throws Exception {
+        int databaseSizeBeforeTest = continuityWireRepository.findAll().size();
+        // set the field null
+        continuityWire.setGramPerMeterLinearMass(null);
+
+        // Create the ContinuityWire, which fails.
+
+        restContinuityWireMockMvc
+            .perform(
+                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(continuityWire))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<ContinuityWire> continuityWireList = continuityWireRepository.findAll();
+        assertThat(continuityWireList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -199,6 +249,8 @@ class ContinuityWireResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(continuityWire.getId().intValue())))
+            .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)))
+            .andExpect(jsonPath("$.[*].gramPerMeterLinearMass").value(hasItem(DEFAULT_GRAM_PER_METER_LINEAR_MASS.doubleValue())))
             .andExpect(jsonPath("$.[*].metalFiberKind").value(hasItem(DEFAULT_METAL_FIBER_KIND.toString())))
             .andExpect(jsonPath("$.[*].milimeterDiameter").value(hasItem(DEFAULT_MILIMETER_DIAMETER.doubleValue())))
             .andExpect(jsonPath("$.[*].flexibility").value(hasItem(DEFAULT_FLEXIBILITY.toString())));
@@ -216,6 +268,8 @@ class ContinuityWireResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(continuityWire.getId().intValue()))
+            .andExpect(jsonPath("$.designation").value(DEFAULT_DESIGNATION))
+            .andExpect(jsonPath("$.gramPerMeterLinearMass").value(DEFAULT_GRAM_PER_METER_LINEAR_MASS.doubleValue()))
             .andExpect(jsonPath("$.metalFiberKind").value(DEFAULT_METAL_FIBER_KIND.toString()))
             .andExpect(jsonPath("$.milimeterDiameter").value(DEFAULT_MILIMETER_DIAMETER.doubleValue()))
             .andExpect(jsonPath("$.flexibility").value(DEFAULT_FLEXIBILITY.toString()));
@@ -241,6 +295,8 @@ class ContinuityWireResourceIT {
         // Disconnect from session so that the updates on updatedContinuityWire are not directly saved in db
         em.detach(updatedContinuityWire);
         updatedContinuityWire
+            .designation(UPDATED_DESIGNATION)
+            .gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS)
             .metalFiberKind(UPDATED_METAL_FIBER_KIND)
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
             .flexibility(UPDATED_FLEXIBILITY);
@@ -257,6 +313,8 @@ class ContinuityWireResourceIT {
         List<ContinuityWire> continuityWireList = continuityWireRepository.findAll();
         assertThat(continuityWireList).hasSize(databaseSizeBeforeUpdate);
         ContinuityWire testContinuityWire = continuityWireList.get(continuityWireList.size() - 1);
+        assertThat(testContinuityWire.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
+        assertThat(testContinuityWire.getGramPerMeterLinearMass()).isEqualTo(UPDATED_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testContinuityWire.getMetalFiberKind()).isEqualTo(UPDATED_METAL_FIBER_KIND);
         assertThat(testContinuityWire.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
         assertThat(testContinuityWire.getFlexibility()).isEqualTo(UPDATED_FLEXIBILITY);
@@ -330,7 +388,7 @@ class ContinuityWireResourceIT {
         ContinuityWire partialUpdatedContinuityWire = new ContinuityWire();
         partialUpdatedContinuityWire.setId(continuityWire.getId());
 
-        partialUpdatedContinuityWire.milimeterDiameter(UPDATED_MILIMETER_DIAMETER).flexibility(UPDATED_FLEXIBILITY);
+        partialUpdatedContinuityWire.gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS).metalFiberKind(UPDATED_METAL_FIBER_KIND);
 
         restContinuityWireMockMvc
             .perform(
@@ -344,9 +402,11 @@ class ContinuityWireResourceIT {
         List<ContinuityWire> continuityWireList = continuityWireRepository.findAll();
         assertThat(continuityWireList).hasSize(databaseSizeBeforeUpdate);
         ContinuityWire testContinuityWire = continuityWireList.get(continuityWireList.size() - 1);
-        assertThat(testContinuityWire.getMetalFiberKind()).isEqualTo(DEFAULT_METAL_FIBER_KIND);
-        assertThat(testContinuityWire.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
-        assertThat(testContinuityWire.getFlexibility()).isEqualTo(UPDATED_FLEXIBILITY);
+        assertThat(testContinuityWire.getDesignation()).isEqualTo(DEFAULT_DESIGNATION);
+        assertThat(testContinuityWire.getGramPerMeterLinearMass()).isEqualTo(UPDATED_GRAM_PER_METER_LINEAR_MASS);
+        assertThat(testContinuityWire.getMetalFiberKind()).isEqualTo(UPDATED_METAL_FIBER_KIND);
+        assertThat(testContinuityWire.getMilimeterDiameter()).isEqualTo(DEFAULT_MILIMETER_DIAMETER);
+        assertThat(testContinuityWire.getFlexibility()).isEqualTo(DEFAULT_FLEXIBILITY);
     }
 
     @Test
@@ -362,6 +422,8 @@ class ContinuityWireResourceIT {
         partialUpdatedContinuityWire.setId(continuityWire.getId());
 
         partialUpdatedContinuityWire
+            .designation(UPDATED_DESIGNATION)
+            .gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS)
             .metalFiberKind(UPDATED_METAL_FIBER_KIND)
             .milimeterDiameter(UPDATED_MILIMETER_DIAMETER)
             .flexibility(UPDATED_FLEXIBILITY);
@@ -378,6 +440,8 @@ class ContinuityWireResourceIT {
         List<ContinuityWire> continuityWireList = continuityWireRepository.findAll();
         assertThat(continuityWireList).hasSize(databaseSizeBeforeUpdate);
         ContinuityWire testContinuityWire = continuityWireList.get(continuityWireList.size() - 1);
+        assertThat(testContinuityWire.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
+        assertThat(testContinuityWire.getGramPerMeterLinearMass()).isEqualTo(UPDATED_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testContinuityWire.getMetalFiberKind()).isEqualTo(UPDATED_METAL_FIBER_KIND);
         assertThat(testContinuityWire.getMilimeterDiameter()).isEqualTo(UPDATED_MILIMETER_DIAMETER);
         assertThat(testContinuityWire.getFlexibility()).isEqualTo(UPDATED_FLEXIBILITY);

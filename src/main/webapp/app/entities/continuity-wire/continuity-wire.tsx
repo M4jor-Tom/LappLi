@@ -50,6 +50,12 @@ export const ContinuityWire = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.continuityWire.id">ID</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.continuityWire.designation">Designation</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.continuityWire.gramPerMeterLinearMass">Gram Per Meter Linear Mass</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.continuityWire.metalFiberKind">Metal Fiber Kind</Translate>
                 </th>
                 <th>
@@ -69,6 +75,8 @@ export const ContinuityWire = (props: RouteComponentProps<{ url: string }>) => {
                       {continuityWire.id}
                     </Button>
                   </td>
+                  <td>{continuityWire.designation}</td>
+                  <td>{continuityWire.gramPerMeterLinearMass}</td>
                   <td>
                     <Translate contentKey={`lappLiApp.MetalFiberKind.${continuityWire.metalFiberKind}`} />
                   </td>

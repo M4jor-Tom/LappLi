@@ -30,6 +30,18 @@ export const ContinuityWireDetail = (props: RouteComponentProps<{ id: string }>)
           </dt>
           <dd>{continuityWireEntity.id}</dd>
           <dt>
+            <span id="designation">
+              <Translate contentKey="lappLiApp.continuityWire.designation">Designation</Translate>
+            </span>
+          </dt>
+          <dd>{continuityWireEntity.designation}</dd>
+          <dt>
+            <span id="gramPerMeterLinearMass">
+              <Translate contentKey="lappLiApp.continuityWire.gramPerMeterLinearMass">Gram Per Meter Linear Mass</Translate>
+            </span>
+          </dt>
+          <dd>{continuityWireEntity.gramPerMeterLinearMass}</dd>
+          <dt>
             <span id="metalFiberKind">
               <Translate contentKey="lappLiApp.continuityWire.metalFiberKind">Metal Fiber Kind</Translate>
             </span>

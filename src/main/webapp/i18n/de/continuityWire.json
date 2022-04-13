@@ -18,6 +18,8 @@
         "title": "Continuity Wire"
       },
       "id": "ID",
+      "designation": "Designation",
+      "gramPerMeterLinearMass": "Gram Per Meter Linear Mass",
       "metalFiberKind": "Metal Fiber Kind",
       "milimeterDiameter": "Milimeter Diameter",
       "flexibility": "Flexibility"

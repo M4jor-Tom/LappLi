@@ -24,6 +24,14 @@ public class ContinuityWire implements Serializable {
     private Long id;
 
     @NotNull
+    @Column(name = "designation", nullable = false, unique = true)
+    private String designation;
+
+    @NotNull
+    @Column(name = "gram_per_meter_linear_mass", nullable = false)
+    private Double gramPerMeterLinearMass;
+
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "metal_fiber_kind", nullable = false)
     private MetalFiberKind metalFiberKind;
@@ -50,6 +58,32 @@ public class ContinuityWire implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDesignation() {
+        return this.designation;
+    }
+
+    public ContinuityWire designation(String designation) {
+        this.setDesignation(designation);
+        return this;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    public Double getGramPerMeterLinearMass() {
+        return this.gramPerMeterLinearMass;
+    }
+
+    public ContinuityWire gramPerMeterLinearMass(Double gramPerMeterLinearMass) {
+        this.setGramPerMeterLinearMass(gramPerMeterLinearMass);
+        return this;
+    }
+
+    public void setGramPerMeterLinearMass(Double gramPerMeterLinearMass) {
+        this.gramPerMeterLinearMass = gramPerMeterLinearMass;
     }
 
     public MetalFiberKind getMetalFiberKind() {
@@ -115,6 +149,8 @@ public class ContinuityWire implements Serializable {
     public String toString() {
         return "ContinuityWire{" +
             "id=" + getId() +
+            ", designation='" + getDesignation() + "'" +
+            ", gramPerMeterLinearMass=" + getGramPerMeterLinearMass() +
             ", metalFiberKind='" + getMetalFiberKind() + "'" +
             ", milimeterDiameter=" + getMilimeterDiameter() +
             ", flexibility='" + getFlexibility() + "'" +

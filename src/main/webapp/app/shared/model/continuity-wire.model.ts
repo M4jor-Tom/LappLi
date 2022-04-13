@@ -3,6 +3,8 @@ import { Flexibility } from 'app/shared/model/enumerations/flexibility.model';
 
 export interface IContinuityWire {
   id?: number;
+  designation?: string;
+  gramPerMeterLinearMass?: number;
   metalFiberKind?: MetalFiberKind;
   milimeterDiameter?: number;
   flexibility?: Flexibility;

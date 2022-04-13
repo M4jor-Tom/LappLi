@@ -2,6 +2,16 @@
   "name": "ContinuityWire",
   "fields": [
     {
+      "fieldName": "designation",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "gramPerMeterLinearMass",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "metalFiberKind",
       "fieldType": "MetalFiberKind",
       "fieldValues": "RED_COPPER,TINNED_COPPER,STEEL",

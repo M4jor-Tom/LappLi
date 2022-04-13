@@ -89,6 +89,27 @@ export const ContinuityWireUpdate = (props: RouteComponentProps<{ id: string }>)
                 />
               ) : null}
               <ValidatedField
+                label={translate('lappLiApp.continuityWire.designation')}
+                id="continuity-wire-designation"
+                name="designation"
+                data-cy="designation"
+                type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                }}
+              />
+              <ValidatedField
+                label={translate('lappLiApp.continuityWire.gramPerMeterLinearMass')}
+                id="continuity-wire-gramPerMeterLinearMass"
+                name="gramPerMeterLinearMass"
+                data-cy="gramPerMeterLinearMass"
+                type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
+              />
+              <ValidatedField
                 label={translate('lappLiApp.continuityWire.metalFiberKind')}
                 id="continuity-wire-metalFiberKind"
                 name="metalFiberKind"

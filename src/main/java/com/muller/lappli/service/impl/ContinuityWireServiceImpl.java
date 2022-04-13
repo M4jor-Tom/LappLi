@@ -38,6 +38,12 @@ public class ContinuityWireServiceImpl implements ContinuityWireService {
         return continuityWireRepository
             .findById(continuityWire.getId())
             .map(existingContinuityWire -> {
+                if (continuityWire.getDesignation() != null) {
+                    existingContinuityWire.setDesignation(continuityWire.getDesignation());
+                }
+                if (continuityWire.getGramPerMeterLinearMass() != null) {
+                    existingContinuityWire.setGramPerMeterLinearMass(continuityWire.getGramPerMeterLinearMass());
+                }
                 if (continuityWire.getMetalFiberKind() != null) {
                     existingContinuityWire.setMetalFiberKind(continuityWire.getMetalFiberKind());
                 }

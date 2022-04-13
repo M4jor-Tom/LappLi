@@ -18,6 +18,8 @@ entity ContinuityWireLongitLaying {
 }
 
 entity ContinuityWire {
+    designation String required unique
+    gramPerMeterLinearMass Double required
     metalFiberKind MetalFiberKind required
     milimeterDiameter Double required
     flexibility Flexibility required
