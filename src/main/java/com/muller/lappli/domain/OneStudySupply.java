@@ -266,7 +266,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
             "}";
     }
 
-    private class OneStudyComponent implements CylindricComponent {
+    private class OneStudyComponent implements PlasticAspectCylindricComponent {
 
         private String designation;
 

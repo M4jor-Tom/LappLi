@@ -8,8 +8,6 @@ public interface CylindricComponent extends Designable {
 
     public Double getGramPerMeterLinearMass();
 
-    public Material getSurfaceMaterial();
-
     public Boolean isUtility();
 
     public default Boolean isCompletion() {
