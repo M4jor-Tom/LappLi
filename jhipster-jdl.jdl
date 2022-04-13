@@ -332,6 +332,20 @@ relationship ManyToOne {
 	ElementKind{insulationMaterial(designation) required} to Material
 }
 
+enum Flexibility {
+    S,
+    ES,
+    SES,
+    MB,
+    UES,
+    USES,
+    DS,
+    R,
+    SS,
+    L5,
+    L6
+}
+
 enum MetalFiberKind {
     RED_COPPER,
     TINNED_COPPER,
