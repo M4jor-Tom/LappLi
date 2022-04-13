@@ -88,7 +88,7 @@ public class ContinuityWireLongitLaying
     @Override
     public Double getMilimeterDiameterIncidency() {
         if (getContinuityWire() == null) {
-            return null;
+            return Double.NaN;
         }
 
         return getContinuityWire().getMilimeterDiameter();
