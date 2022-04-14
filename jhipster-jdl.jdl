@@ -58,6 +58,10 @@ entity Plait {
     targetCoveringRate Double
     targetDegreeAngle Double
     targetingCoveringRateNotAngle Boolean required
+    anonymousMetalFiberNumber Long
+    anonymousMetalFiberDesignation String
+    anonymousMetalFiberMetalFiberKind MetalFiberKind
+    anonymousMetalFiberMilimeterDiameter Double
 }
 
 entity Sheathing {
@@ -302,8 +306,8 @@ relationship ManyToOne {
 }
 
 relationship ManyToOne {
-    Plait{copperFiber(designation) required} to CopperFiber
-    Plait{metalFiber(designation) required} to MetalFiber
+    Plait{copperFiber(designation)} to CopperFiber
+    Plait{metalFiber(designation)} to MetalFiber
 }
 
 relationship ManyToOne {
