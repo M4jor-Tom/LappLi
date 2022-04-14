@@ -7,6 +7,14 @@
       "fieldValidateRules": ["required"]
     },
     {
+      "fieldName": "anonymousContinuityWireDesignation",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "anonymousContinuityWireGramPerMeterLinearMass",
+      "fieldType": "Double"
+    },
+    {
       "fieldName": "anonymousContinuityWireMetalFiberKind",
       "fieldType": "MetalFiberKind",
       "fieldValues": "RED_COPPER,TINNED_COPPER,STEEL"

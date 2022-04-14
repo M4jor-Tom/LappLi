@@ -34,6 +34,12 @@ public class ContinuityWireLongitLaying
     @Column(name = "operation_layer", nullable = false)
     private Long operationLayer;
 
+    @Column(name = "anonymous_continuity_wire_designation")
+    private String anonymousContinuityWireDesignation;
+
+    @Column(name = "anonymous_continuity_wire_gram_per_meter_linear_mass")
+    private Double anonymousContinuityWireGramPerMeterLinearMass;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "anonymous_continuity_wire_metal_fiber_kind")
     private MetalFiberKind anonymousContinuityWireMetalFiberKind;
@@ -131,6 +137,32 @@ public class ContinuityWireLongitLaying
         this.operationLayer = operationLayer;
     }
 
+    public String getAnonymousContinuityWireDesignation() {
+        return this.anonymousContinuityWireDesignation;
+    }
+
+    public ContinuityWireLongitLaying anonymousContinuityWireDesignation(String anonymousContinuityWireDesignation) {
+        this.setAnonymousContinuityWireDesignation(anonymousContinuityWireDesignation);
+        return this;
+    }
+
+    public void setAnonymousContinuityWireDesignation(String anonymousContinuityWireDesignation) {
+        this.anonymousContinuityWireDesignation = anonymousContinuityWireDesignation;
+    }
+
+    public Double getAnonymousContinuityWireGramPerMeterLinearMass() {
+        return this.anonymousContinuityWireGramPerMeterLinearMass;
+    }
+
+    public ContinuityWireLongitLaying anonymousContinuityWireGramPerMeterLinearMass(Double anonymousContinuityWireGramPerMeterLinearMass) {
+        this.setAnonymousContinuityWireGramPerMeterLinearMass(anonymousContinuityWireGramPerMeterLinearMass);
+        return this;
+    }
+
+    public void setAnonymousContinuityWireGramPerMeterLinearMass(Double anonymousContinuityWireGramPerMeterLinearMass) {
+        this.anonymousContinuityWireGramPerMeterLinearMass = anonymousContinuityWireGramPerMeterLinearMass;
+    }
+
     public MetalFiberKind getAnonymousContinuityWireMetalFiberKind() {
         return this.anonymousContinuityWireMetalFiberKind;
     }
@@ -221,6 +253,8 @@ public class ContinuityWireLongitLaying
         return "ContinuityWireLongitLaying{" +
             "id=" + getId() +
             ", operationLayer=" + getOperationLayer() +
+            ", anonymousContinuityWireDesignation='" + getAnonymousContinuityWireDesignation() + "'" +
+            ", anonymousContinuityWireGramPerMeterLinearMass=" + getAnonymousContinuityWireGramPerMeterLinearMass() +
             ", anonymousContinuityWireMetalFiberKind='" + getAnonymousContinuityWireMetalFiberKind() + "'" +
             ", anonymousContinuityWireMilimeterDiameter=" + getAnonymousContinuityWireMilimeterDiameter() +
             ", anonymousContinuityWireFlexibility='" + getAnonymousContinuityWireFlexibility() + "'" +

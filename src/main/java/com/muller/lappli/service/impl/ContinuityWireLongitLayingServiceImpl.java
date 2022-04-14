@@ -54,6 +54,16 @@ public class ContinuityWireLongitLayingServiceImpl
                 if (continuityWireLongitLaying.getOperationLayer() != null) {
                     existingContinuityWireLongitLaying.setOperationLayer(continuityWireLongitLaying.getOperationLayer());
                 }
+                if (continuityWireLongitLaying.getAnonymousContinuityWireDesignation() != null) {
+                    existingContinuityWireLongitLaying.setAnonymousContinuityWireDesignation(
+                        continuityWireLongitLaying.getAnonymousContinuityWireDesignation()
+                    );
+                }
+                if (continuityWireLongitLaying.getAnonymousContinuityWireGramPerMeterLinearMass() != null) {
+                    existingContinuityWireLongitLaying.setAnonymousContinuityWireGramPerMeterLinearMass(
+                        continuityWireLongitLaying.getAnonymousContinuityWireGramPerMeterLinearMass()
+                    );
+                }
                 if (continuityWireLongitLaying.getAnonymousContinuityWireMetalFiberKind() != null) {
                     existingContinuityWireLongitLaying.setAnonymousContinuityWireMetalFiberKind(
                         continuityWireLongitLaying.getAnonymousContinuityWireMetalFiberKind()

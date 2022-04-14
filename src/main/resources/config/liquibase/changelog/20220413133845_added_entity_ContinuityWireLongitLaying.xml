@@ -17,6 +17,12 @@
             <column name="operation_layer" type="bigint">
                 <constraints nullable="false" />
             </column>
+            <column name="anonymous_continuity_wire_designation" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="anonymous_continuity_wire_gram_per_meter_linear_mass" type="double">
+                <constraints nullable="true" />
+            </column>
             <column name="anonymous_continuity_wire_metal_fiber_kind" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
@@ -54,6 +60,8 @@
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="operation_layer" type="numeric"/>
+            <column name="anonymous_continuity_wire_designation" type="string"/>
+            <column name="anonymous_continuity_wire_gram_per_meter_linear_mass" type="numeric"/>
             <column name="anonymous_continuity_wire_metal_fiber_kind" type="string"/>
             <column name="anonymous_continuity_wire_milimeter_diameter" type="numeric"/>
             <column name="anonymous_continuity_wire_flexibility" type="string"/>

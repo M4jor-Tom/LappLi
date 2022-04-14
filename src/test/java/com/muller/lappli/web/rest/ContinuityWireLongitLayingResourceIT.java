@@ -35,6 +35,12 @@ class ContinuityWireLongitLayingResourceIT {
     private static final Long DEFAULT_OPERATION_LAYER = 1L;
     private static final Long UPDATED_OPERATION_LAYER = 2L;
 
+    private static final String DEFAULT_ANONYMOUS_CONTINUITY_WIRE_DESIGNATION = "AAAAAAAAAA";
+    private static final String UPDATED_ANONYMOUS_CONTINUITY_WIRE_DESIGNATION = "BBBBBBBBBB";
+
+    private static final Double DEFAULT_ANONYMOUS_CONTINUITY_WIRE_GRAM_PER_METER_LINEAR_MASS = 1D;
+    private static final Double UPDATED_ANONYMOUS_CONTINUITY_WIRE_GRAM_PER_METER_LINEAR_MASS = 2D;
+
     private static final MetalFiberKind DEFAULT_ANONYMOUS_CONTINUITY_WIRE_METAL_FIBER_KIND = MetalFiberKind.RED_COPPER;
     private static final MetalFiberKind UPDATED_ANONYMOUS_CONTINUITY_WIRE_METAL_FIBER_KIND = MetalFiberKind.TINNED_COPPER;
 
@@ -70,6 +76,8 @@ class ContinuityWireLongitLayingResourceIT {
     public static ContinuityWireLongitLaying createEntity(EntityManager em) {
         ContinuityWireLongitLaying continuityWireLongitLaying = new ContinuityWireLongitLaying()
             .operationLayer(DEFAULT_OPERATION_LAYER)
+            .anonymousContinuityWireDesignation(DEFAULT_ANONYMOUS_CONTINUITY_WIRE_DESIGNATION)
+            .anonymousContinuityWireGramPerMeterLinearMass(DEFAULT_ANONYMOUS_CONTINUITY_WIRE_GRAM_PER_METER_LINEAR_MASS)
             .anonymousContinuityWireMetalFiberKind(DEFAULT_ANONYMOUS_CONTINUITY_WIRE_METAL_FIBER_KIND)
             .anonymousContinuityWireMilimeterDiameter(DEFAULT_ANONYMOUS_CONTINUITY_WIRE_MILIMETER_DIAMETER)
             .anonymousContinuityWireFlexibility(DEFAULT_ANONYMOUS_CONTINUITY_WIRE_FLEXIBILITY);
@@ -95,6 +103,8 @@ class ContinuityWireLongitLayingResourceIT {
     public static ContinuityWireLongitLaying createUpdatedEntity(EntityManager em) {
         ContinuityWireLongitLaying continuityWireLongitLaying = new ContinuityWireLongitLaying()
             .operationLayer(UPDATED_OPERATION_LAYER)
+            .anonymousContinuityWireDesignation(UPDATED_ANONYMOUS_CONTINUITY_WIRE_DESIGNATION)
+            .anonymousContinuityWireGramPerMeterLinearMass(UPDATED_ANONYMOUS_CONTINUITY_WIRE_GRAM_PER_METER_LINEAR_MASS)
             .anonymousContinuityWireMetalFiberKind(UPDATED_ANONYMOUS_CONTINUITY_WIRE_METAL_FIBER_KIND)
             .anonymousContinuityWireMilimeterDiameter(UPDATED_ANONYMOUS_CONTINUITY_WIRE_MILIMETER_DIAMETER)
             .anonymousContinuityWireFlexibility(UPDATED_ANONYMOUS_CONTINUITY_WIRE_FLEXIBILITY);
@@ -136,6 +146,10 @@ class ContinuityWireLongitLayingResourceIT {
             continuityWireLongitLayingList.size() - 1
         );
         assertThat(testContinuityWireLongitLaying.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
+        assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireDesignation())
+            .isEqualTo(DEFAULT_ANONYMOUS_CONTINUITY_WIRE_DESIGNATION);
+        assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireGramPerMeterLinearMass())
+            .isEqualTo(DEFAULT_ANONYMOUS_CONTINUITY_WIRE_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireMetalFiberKind())
             .isEqualTo(DEFAULT_ANONYMOUS_CONTINUITY_WIRE_METAL_FIBER_KIND);
         assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireMilimeterDiameter())
@@ -200,6 +214,11 @@ class ContinuityWireLongitLayingResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(continuityWireLongitLaying.getId().intValue())))
             .andExpect(jsonPath("$.[*].operationLayer").value(hasItem(DEFAULT_OPERATION_LAYER.intValue())))
+            .andExpect(jsonPath("$.[*].anonymousContinuityWireDesignation").value(hasItem(DEFAULT_ANONYMOUS_CONTINUITY_WIRE_DESIGNATION)))
+            .andExpect(
+                jsonPath("$.[*].anonymousContinuityWireGramPerMeterLinearMass")
+                    .value(hasItem(DEFAULT_ANONYMOUS_CONTINUITY_WIRE_GRAM_PER_METER_LINEAR_MASS.doubleValue()))
+            )
             .andExpect(
                 jsonPath("$.[*].anonymousContinuityWireMetalFiberKind")
                     .value(hasItem(DEFAULT_ANONYMOUS_CONTINUITY_WIRE_METAL_FIBER_KIND.toString()))
@@ -227,6 +246,11 @@ class ContinuityWireLongitLayingResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(continuityWireLongitLaying.getId().intValue()))
             .andExpect(jsonPath("$.operationLayer").value(DEFAULT_OPERATION_LAYER.intValue()))
+            .andExpect(jsonPath("$.anonymousContinuityWireDesignation").value(DEFAULT_ANONYMOUS_CONTINUITY_WIRE_DESIGNATION))
+            .andExpect(
+                jsonPath("$.anonymousContinuityWireGramPerMeterLinearMass")
+                    .value(DEFAULT_ANONYMOUS_CONTINUITY_WIRE_GRAM_PER_METER_LINEAR_MASS.doubleValue())
+            )
             .andExpect(
                 jsonPath("$.anonymousContinuityWireMetalFiberKind").value(DEFAULT_ANONYMOUS_CONTINUITY_WIRE_METAL_FIBER_KIND.toString())
             )
@@ -260,6 +284,8 @@ class ContinuityWireLongitLayingResourceIT {
         em.detach(updatedContinuityWireLongitLaying);
         updatedContinuityWireLongitLaying
             .operationLayer(UPDATED_OPERATION_LAYER)
+            .anonymousContinuityWireDesignation(UPDATED_ANONYMOUS_CONTINUITY_WIRE_DESIGNATION)
+            .anonymousContinuityWireGramPerMeterLinearMass(UPDATED_ANONYMOUS_CONTINUITY_WIRE_GRAM_PER_METER_LINEAR_MASS)
             .anonymousContinuityWireMetalFiberKind(UPDATED_ANONYMOUS_CONTINUITY_WIRE_METAL_FIBER_KIND)
             .anonymousContinuityWireMilimeterDiameter(UPDATED_ANONYMOUS_CONTINUITY_WIRE_MILIMETER_DIAMETER)
             .anonymousContinuityWireFlexibility(UPDATED_ANONYMOUS_CONTINUITY_WIRE_FLEXIBILITY);
@@ -279,6 +305,10 @@ class ContinuityWireLongitLayingResourceIT {
             continuityWireLongitLayingList.size() - 1
         );
         assertThat(testContinuityWireLongitLaying.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
+        assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireDesignation())
+            .isEqualTo(UPDATED_ANONYMOUS_CONTINUITY_WIRE_DESIGNATION);
+        assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireGramPerMeterLinearMass())
+            .isEqualTo(UPDATED_ANONYMOUS_CONTINUITY_WIRE_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireMetalFiberKind())
             .isEqualTo(UPDATED_ANONYMOUS_CONTINUITY_WIRE_METAL_FIBER_KIND);
         assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireMilimeterDiameter())
@@ -359,6 +389,10 @@ class ContinuityWireLongitLayingResourceIT {
         ContinuityWireLongitLaying partialUpdatedContinuityWireLongitLaying = new ContinuityWireLongitLaying();
         partialUpdatedContinuityWireLongitLaying.setId(continuityWireLongitLaying.getId());
 
+        partialUpdatedContinuityWireLongitLaying.anonymousContinuityWireMilimeterDiameter(
+            UPDATED_ANONYMOUS_CONTINUITY_WIRE_MILIMETER_DIAMETER
+        );
+
         restContinuityWireLongitLayingMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedContinuityWireLongitLaying.getId())
@@ -374,10 +408,14 @@ class ContinuityWireLongitLayingResourceIT {
             continuityWireLongitLayingList.size() - 1
         );
         assertThat(testContinuityWireLongitLaying.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
+        assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireDesignation())
+            .isEqualTo(DEFAULT_ANONYMOUS_CONTINUITY_WIRE_DESIGNATION);
+        assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireGramPerMeterLinearMass())
+            .isEqualTo(DEFAULT_ANONYMOUS_CONTINUITY_WIRE_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireMetalFiberKind())
             .isEqualTo(DEFAULT_ANONYMOUS_CONTINUITY_WIRE_METAL_FIBER_KIND);
         assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireMilimeterDiameter())
-            .isEqualTo(DEFAULT_ANONYMOUS_CONTINUITY_WIRE_MILIMETER_DIAMETER);
+            .isEqualTo(UPDATED_ANONYMOUS_CONTINUITY_WIRE_MILIMETER_DIAMETER);
         assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireFlexibility())
             .isEqualTo(DEFAULT_ANONYMOUS_CONTINUITY_WIRE_FLEXIBILITY);
     }
@@ -396,6 +434,8 @@ class ContinuityWireLongitLayingResourceIT {
 
         partialUpdatedContinuityWireLongitLaying
             .operationLayer(UPDATED_OPERATION_LAYER)
+            .anonymousContinuityWireDesignation(UPDATED_ANONYMOUS_CONTINUITY_WIRE_DESIGNATION)
+            .anonymousContinuityWireGramPerMeterLinearMass(UPDATED_ANONYMOUS_CONTINUITY_WIRE_GRAM_PER_METER_LINEAR_MASS)
             .anonymousContinuityWireMetalFiberKind(UPDATED_ANONYMOUS_CONTINUITY_WIRE_METAL_FIBER_KIND)
             .anonymousContinuityWireMilimeterDiameter(UPDATED_ANONYMOUS_CONTINUITY_WIRE_MILIMETER_DIAMETER)
             .anonymousContinuityWireFlexibility(UPDATED_ANONYMOUS_CONTINUITY_WIRE_FLEXIBILITY);
@@ -415,6 +455,10 @@ class ContinuityWireLongitLayingResourceIT {
             continuityWireLongitLayingList.size() - 1
         );
         assertThat(testContinuityWireLongitLaying.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
+        assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireDesignation())
+            .isEqualTo(UPDATED_ANONYMOUS_CONTINUITY_WIRE_DESIGNATION);
+        assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireGramPerMeterLinearMass())
+            .isEqualTo(UPDATED_ANONYMOUS_CONTINUITY_WIRE_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireMetalFiberKind())
             .isEqualTo(UPDATED_ANONYMOUS_CONTINUITY_WIRE_METAL_FIBER_KIND);
         assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireMilimeterDiameter())

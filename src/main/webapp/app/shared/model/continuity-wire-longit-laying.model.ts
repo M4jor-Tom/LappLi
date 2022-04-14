@@ -6,6 +6,8 @@ import { Flexibility } from 'app/shared/model/enumerations/flexibility.model';
 export interface IContinuityWireLongitLaying {
   id?: number;
   operationLayer?: number;
+  anonymousContinuityWireDesignation?: string | null;
+  anonymousContinuityWireGramPerMeterLinearMass?: number | null;
   anonymousContinuityWireMetalFiberKind?: MetalFiberKind | null;
   anonymousContinuityWireMilimeterDiameter?: number | null;
   anonymousContinuityWireFlexibility?: Flexibility | null;

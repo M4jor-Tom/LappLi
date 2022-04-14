@@ -55,6 +55,16 @@ export const ContinuityWireLongitLaying = (props: RouteComponentProps<{ url: str
                   <Translate contentKey="lappLiApp.continuityWireLongitLaying.operationLayer">Operation Layer</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.continuityWireLongitLaying.anonymousContinuityWireDesignation">
+                    Anonymous Continuity Wire Designation
+                  </Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.continuityWireLongitLaying.anonymousContinuityWireGramPerMeterLinearMass">
+                    Anonymous Continuity Wire Gram Per Meter Linear Mass
+                  </Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.continuityWireLongitLaying.anonymousContinuityWireMetalFiberKind">
                     Anonymous Continuity Wire Metal Fiber Kind
                   </Translate>
@@ -87,6 +97,8 @@ export const ContinuityWireLongitLaying = (props: RouteComponentProps<{ url: str
                     </Button>
                   </td>
                   <td>{continuityWireLongitLaying.operationLayer}</td>
+                  <td>{continuityWireLongitLaying.anonymousContinuityWireDesignation}</td>
+                  <td>{continuityWireLongitLaying.anonymousContinuityWireGramPerMeterLinearMass}</td>
                   <td>
                     <Translate
                       contentKey={`lappLiApp.MetalFiberKind.${continuityWireLongitLaying.anonymousContinuityWireMetalFiberKind}`}

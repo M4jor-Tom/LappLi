@@ -138,6 +138,20 @@ export const ContinuityWireLongitLayingUpdate = (props: RouteComponentProps<{ id
                 }}
               />
               <ValidatedField
+                label={translate('lappLiApp.continuityWireLongitLaying.anonymousContinuityWireDesignation')}
+                id="continuity-wire-longit-laying-anonymousContinuityWireDesignation"
+                name="anonymousContinuityWireDesignation"
+                data-cy="anonymousContinuityWireDesignation"
+                type="text"
+              />
+              <ValidatedField
+                label={translate('lappLiApp.continuityWireLongitLaying.anonymousContinuityWireGramPerMeterLinearMass')}
+                id="continuity-wire-longit-laying-anonymousContinuityWireGramPerMeterLinearMass"
+                name="anonymousContinuityWireGramPerMeterLinearMass"
+                data-cy="anonymousContinuityWireGramPerMeterLinearMass"
+                type="text"
+              />
+              <ValidatedField
                 label={translate('lappLiApp.continuityWireLongitLaying.anonymousContinuityWireMetalFiberKind')}
                 id="continuity-wire-longit-laying-anonymousContinuityWireMetalFiberKind"
                 name="anonymousContinuityWireMetalFiberKind"

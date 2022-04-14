@@ -12,6 +12,8 @@ entity Screen {
 
 entity ContinuityWireLongitLaying {
     operationLayer Long required
+    anonymousContinuityWireDesignation String
+    anonymousContinuityWireGramPerMeterLinearMass Double
     anonymousContinuityWireMetalFiberKind MetalFiberKind
     anonymousContinuityWireMilimeterDiameter Double
     anonymousContinuityWireFlexibility Flexibility
