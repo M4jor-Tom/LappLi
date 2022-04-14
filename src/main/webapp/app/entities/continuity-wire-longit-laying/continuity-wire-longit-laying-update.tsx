@@ -77,8 +77,9 @@ export const ContinuityWireLongitLayingUpdate = (props: RouteComponentProps<{ id
     const entity = {
       ...continuityWireLongitLayingEntity,
       ...values,
+      __typeName: 'ContinuityWireLongitLaying',
       continuityWire: continuityWires.find(it => it.id.toString() === values.continuityWire.toString()),
-      ownerStrandSupply: strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString()),
+      ownerStrandSupply: futureOwnerStrandSupply,
     };
 
     if (isNew) {
@@ -92,8 +93,6 @@ export const ContinuityWireLongitLayingUpdate = (props: RouteComponentProps<{ id
     isNew
       ? {}
       : {
-          anonymousContinuityWireMetalFiberKind: 'RED_COPPER',
-          anonymousContinuityWireFlexibility: 'S',
           ...continuityWireLongitLayingEntity,
           continuityWire: continuityWireLongitLayingEntity?.continuityWire?.id,
           ownerStrandSupply: continuityWireLongitLayingEntity?.ownerStrandSupply?.id,
@@ -132,6 +131,7 @@ export const ContinuityWireLongitLayingUpdate = (props: RouteComponentProps<{ id
                 name="operationLayer"
                 data-cy="operationLayer"
                 type="text"
+                defaultValue={-2}
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
                   validate: v => isNumber(v) || translate('entity.validation.number'),
@@ -146,7 +146,7 @@ export const ContinuityWireLongitLayingUpdate = (props: RouteComponentProps<{ id
               >
                 {metalFiberKindValues.map(metalFiberKind => (
                   <option value={metalFiberKind} key={metalFiberKind}>
-                    {translate('lappLiApp.MetalFiberKind' + metalFiberKind)}
+                    {translate('lappLiApp.MetalFiberKind.' + metalFiberKind)}
                   </option>
                 ))}
               </ValidatedField>
@@ -166,7 +166,7 @@ export const ContinuityWireLongitLayingUpdate = (props: RouteComponentProps<{ id
               >
                 {flexibilityValues.map(flexibility => (
                   <option value={flexibility} key={flexibility}>
-                    {translate('lappLiApp.Flexibility' + flexibility)}
+                    {translate('lappLiApp.Flexibility.' + flexibility)}
                   </option>
                 ))}
               </ValidatedField>
@@ -190,26 +190,34 @@ export const ContinuityWireLongitLayingUpdate = (props: RouteComponentProps<{ id
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              <ValidatedField
-                id="continuity-wire-longit-laying-ownerStrandSupply"
-                name="ownerStrandSupply"
-                data-cy="ownerStrandSupply"
-                label={translate('lappLiApp.continuityWireLongitLaying.ownerStrandSupply')}
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {strandSupplies
-                  ? strandSupplies.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.designation}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
+              {props.match.params ? (
+                ''
+              ) : (
+                <ValidatedField
+                  id="continuity-wire-longit-laying-ownerStrandSupply"
+                  name="ownerStrandSupply"
+                  data-cy="ownerStrandSupply"
+                  label={translate('lappLiApp.continuityWireLongitLaying.ownerStrandSupply')}
+                  type="select"
+                  required
+                >
+                  <option value="" key="0" />
+                  {strandSupplies
+                    ? strandSupplies.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.designation}
+                        </option>
+                      ))
+                    : null}
+                </ValidatedField>
+              )}
+              {props.match.params ? (
+                ''
+              ) : (
+                <FormText>
+                  <Translate contentKey="entity.validation.required">This field is required.</Translate>
+                </FormText>
+              )}
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

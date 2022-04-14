@@ -134,7 +134,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
       </Link>
       &nbsp;
       <Link
-        to={`${props.match.url}/continuityWireLongitLaying/new`}
+        to={`${props.match.url}/continuity-wire-longit-laying/new`}
         className="btn btn-primary jh-create-entity"
         id="jh-create-entity"
         data-cy="entityCreateButton"
