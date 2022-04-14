@@ -45,6 +45,11 @@ public class ContinuityWire extends AbstractUniformAtom<ContinuityWire> implemen
     }
 
     @Override
+    public Boolean isConform() {
+        return getDesignation() != null && getMetalFiberKind() != null && getFlexibility() != null;
+    }
+
+    @Override
     public Boolean isUtility() {
         return true;
     }
