@@ -1,8 +1,12 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.Flexibility;
 import com.muller.lappli.domain.enumeration.MetalFiberKind;
+import com.muller.lappli.domain.enumeration.OperationKind;
+import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
+import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -15,7 +19,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "continuity_wire_longit_laying")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ContinuityWireLongitLaying implements Serializable {
+public class ContinuityWireLongitLaying
+    extends AbstractOperation<ContinuityWireLongitLaying>
+    implements Serializable, INonAssemblyOperation<ContinuityWireLongitLaying> {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,6 +34,12 @@ public class ContinuityWireLongitLaying implements Serializable {
     @Column(name = "operation_layer", nullable = false)
     private Long operationLayer;
 
+    @Column(name = "anonymous_continuity_wire_designation")
+    private String anonymousContinuityWireDesignation;
+
+    @Column(name = "anonymous_continuity_wire_gram_per_meter_linear_mass")
+    private Double anonymousContinuityWireGramPerMeterLinearMass;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "anonymous_continuity_wire_metal_fiber_kind")
     private MetalFiberKind anonymousContinuityWireMetalFiberKind;
@@ -38,6 +50,9 @@ public class ContinuityWireLongitLaying implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "anonymous_continuity_wire_flexibility")
     private Flexibility anonymousContinuityWireFlexibility;
+
+    @ManyToOne
+    private ContinuityWire continuityWire;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -59,6 +74,62 @@ public class ContinuityWireLongitLaying implements Serializable {
     private StrandSupply ownerStrandSupply;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    @Override
+    public ContinuityWireLongitLaying getThis() {
+        return this;
+    }
+
+    @Override
+    public IOperation<ContinuityWireLongitLaying> toOperation() {
+        return this;
+    }
+
+    @Override
+    public OperationKind getOperationKind() {
+        return OperationKind.CONTINUITY_WIRE_LONGIT_LAYING;
+    }
+
+    private ContinuityWire getAnonymousContinuityWire() {
+        return new ContinuityWire()
+            .id(null)
+            .designation(getAnonymousContinuityWireDesignation())
+            .flexibility(getAnonymousContinuityWireFlexibility())
+            .gramPerMeterLinearMass(getAnonymousContinuityWireGramPerMeterLinearMass())
+            .milimeterDiameter(getAnonymousContinuityWireMilimeterDiameter())
+            .metalFiberKind(getAnonymousContinuityWireMetalFiberKind())
+            .getThisIfConform()
+            .orElse(null);
+    }
+
+    public ContinuityWire getFinalContinuityWire() {
+        if (getContinuityWire() == null) {
+            return getAnonymousContinuityWire();
+        }
+
+        return getContinuityWire();
+    }
+
+    @Override
+    public Double getMilimeterDiameterIncidency() {
+        if (getFinalContinuityWire() == null) {
+            return Double.NaN;
+        }
+
+        return getFinalContinuityWire().getMilimeterDiameter();
+    }
+
+    @Override
+    public Long getProductionStep() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getProductDesignation() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
     public Long getId() {
         return this.id;
@@ -84,6 +155,32 @@ public class ContinuityWireLongitLaying implements Serializable {
 
     public void setOperationLayer(Long operationLayer) {
         this.operationLayer = operationLayer;
+    }
+
+    public String getAnonymousContinuityWireDesignation() {
+        return this.anonymousContinuityWireDesignation;
+    }
+
+    public ContinuityWireLongitLaying anonymousContinuityWireDesignation(String anonymousContinuityWireDesignation) {
+        this.setAnonymousContinuityWireDesignation(anonymousContinuityWireDesignation);
+        return this;
+    }
+
+    public void setAnonymousContinuityWireDesignation(String anonymousContinuityWireDesignation) {
+        this.anonymousContinuityWireDesignation = anonymousContinuityWireDesignation;
+    }
+
+    public Double getAnonymousContinuityWireGramPerMeterLinearMass() {
+        return this.anonymousContinuityWireGramPerMeterLinearMass;
+    }
+
+    public ContinuityWireLongitLaying anonymousContinuityWireGramPerMeterLinearMass(Double anonymousContinuityWireGramPerMeterLinearMass) {
+        this.setAnonymousContinuityWireGramPerMeterLinearMass(anonymousContinuityWireGramPerMeterLinearMass);
+        return this;
+    }
+
+    public void setAnonymousContinuityWireGramPerMeterLinearMass(Double anonymousContinuityWireGramPerMeterLinearMass) {
+        this.anonymousContinuityWireGramPerMeterLinearMass = anonymousContinuityWireGramPerMeterLinearMass;
     }
 
     public MetalFiberKind getAnonymousContinuityWireMetalFiberKind() {
@@ -125,6 +222,19 @@ public class ContinuityWireLongitLaying implements Serializable {
         this.anonymousContinuityWireFlexibility = anonymousContinuityWireFlexibility;
     }
 
+    public ContinuityWire getContinuityWire() {
+        return this.continuityWire;
+    }
+
+    public void setContinuityWire(ContinuityWire continuityWire) {
+        this.continuityWire = continuityWire;
+    }
+
+    public ContinuityWireLongitLaying continuityWire(ContinuityWire continuityWire) {
+        this.setContinuityWire(continuityWire);
+        return this;
+    }
+
     public StrandSupply getOwnerStrandSupply() {
         return this.ownerStrandSupply;
     }
@@ -163,6 +273,8 @@ public class ContinuityWireLongitLaying implements Serializable {
         return "ContinuityWireLongitLaying{" +
             "id=" + getId() +
             ", operationLayer=" + getOperationLayer() +
+            ", anonymousContinuityWireDesignation='" + getAnonymousContinuityWireDesignation() + "'" +
+            ", anonymousContinuityWireGramPerMeterLinearMass=" + getAnonymousContinuityWireGramPerMeterLinearMass() +
             ", anonymousContinuityWireMetalFiberKind='" + getAnonymousContinuityWireMetalFiberKind() + "'" +
             ", anonymousContinuityWireMilimeterDiameter=" + getAnonymousContinuityWireMilimeterDiameter() +
             ", anonymousContinuityWireFlexibility='" + getAnonymousContinuityWireFlexibility() + "'" +

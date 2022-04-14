@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.muller.lappli.domain.CentralAssembly;
+import com.muller.lappli.domain.ContinuityWireLongitLaying;
 import com.muller.lappli.domain.CoreAssembly;
 import com.muller.lappli.domain.IntersticeAssembly;
 import com.muller.lappli.domain.Screen;
@@ -25,6 +26,7 @@ import com.muller.lappli.domain.enumeration.OperationKind;
         @JsonSubTypes.Type(value = Screen.class, name = "Screen"),
         @JsonSubTypes.Type(value = StripLaying.class, name = "StripLaying"),
         @JsonSubTypes.Type(value = Sheathing.class, name = "Sheathing"),
+        @JsonSubTypes.Type(value = ContinuityWireLongitLaying.class, name = "ContinuityWireLongitLaying"),
     }
 )
 public interface IOperation<T extends IOperation<T>> extends IDomainObject<T> {

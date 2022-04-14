@@ -87,6 +87,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
           <Translate contentKey="lappLiApp.assembly.detail.title">Assembly</Translate>
         </Link>
       )}
+      {/* [NON_CENTRAL_OPERATION] */}
       &nbsp;
       <Link
         to={`${props.match.url}/tape-laying/new`}
@@ -130,6 +131,17 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
         <FontAwesomeIcon icon="plus" />
         &nbsp;
         <Translate contentKey="lappLiApp.sheathing.detail.title">Sheathing</Translate>
+      </Link>
+      &nbsp;
+      <Link
+        to={`${props.match.url}/continuity-wire-longit-laying/new`}
+        className="btn btn-primary jh-create-entity"
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+      >
+        <FontAwesomeIcon icon="plus" />
+        &nbsp;
+        <Translate contentKey="lappLiApp.continuityWireLongitLaying.detail.title">Continuity Wire Longitudinal Laying</Translate>
       </Link>
       <div className="table-responsive">
         {strandSupplyEntity.centralAssembly ||

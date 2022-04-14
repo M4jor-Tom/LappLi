@@ -8,6 +8,12 @@
     -->
     <changeSet id="20220413133845-2" author="jhipster">
 
+        <addForeignKeyConstraint baseColumnNames="continuity_wire_id"
+                                 baseTableName="continuity_wire_longit_laying"
+                                 constraintName="fk_continuity_wire_longit_laying__continuity_wire_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="continuity_wire"/>
+
         <addForeignKeyConstraint baseColumnNames="owner_strand_supply_id"
                                  baseTableName="continuity_wire_longit_laying"
                                  constraintName="fk_continuity_wire_longit_laying__owner_strand_supply_id"

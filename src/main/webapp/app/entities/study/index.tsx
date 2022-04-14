@@ -39,6 +39,8 @@ import ScreenUpdate from '../screen/screen-update';
 import ScreenDeleteDialog from '../screen/screen-delete-dialog';
 import StripLayingUpdate from '../strip-laying/strip-laying-update';
 import StripLayingDeleteDialog from '../strip-laying/strip-laying-delete-dialog';
+import ContinuityWireLongitLayingUpdate from '../continuity-wire-longit-laying/continuity-wire-longit-laying-update';
+import ContinuityWireLongitLayingDeleteDialog from '../continuity-wire-longit-laying/continuity-wire-longit-laying-delete-dialog';
 
 const studySuppliesUrlPrefix = '/:study_id/study-supplies';
 
@@ -125,6 +127,22 @@ const Routes = ({ match }) => (
         exact
         path={`${match.url + strandSupplyOperationZoneUrlPrefix}/sheathing/:id/delete`}
         component={SheathingDeleteDialog}
+      />
+
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/continuity-wire-longit-laying/new`}
+        component={ContinuityWireLongitLayingUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/continuity-wire-longit-laying/:id/edit`}
+        component={ContinuityWireLongitLayingUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/continuity-wire-longit-laying/:id/delete`}
+        component={ContinuityWireLongitLayingDeleteDialog}
       />
 
       <ErrorBoundaryRoute

@@ -35,9 +35,18 @@ public class ContinuityWire extends AbstractUniformAtom<ContinuityWire> implemen
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    public ContinuityWire() {
+        super();
+    }
+
     @Override
     public ContinuityWire getThis() {
         return this;
+    }
+
+    @Override
+    public Boolean isConform() {
+        return getDesignation() != null && getMetalFiberKind() != null && getFlexibility() != null;
     }
 
     @Override

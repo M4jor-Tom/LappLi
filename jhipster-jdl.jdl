@@ -12,6 +12,8 @@ entity Screen {
 
 entity ContinuityWireLongitLaying {
     operationLayer Long required
+    anonymousContinuityWireDesignation String
+    anonymousContinuityWireGramPerMeterLinearMass Double
     anonymousContinuityWireMetalFiberKind MetalFiberKind
     anonymousContinuityWireMilimeterDiameter Double
     anonymousContinuityWireFlexibility Flexibility
@@ -280,6 +282,10 @@ relationship OneToMany {
 
 relationship OneToMany {
 	Material{materialMarkingStatistics(markingType)} to MaterialMarkingStatistic{material(designation) required}
+}
+
+relationship ManyToOne {
+    ContinuityWireLongitLaying{continuityWire(designation)} to ContinuityWire
 }
 
 relationship ManyToOne {

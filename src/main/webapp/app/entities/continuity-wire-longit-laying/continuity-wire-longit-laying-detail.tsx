@@ -36,6 +36,22 @@ export const ContinuityWireLongitLayingDetail = (props: RouteComponentProps<{ id
           </dt>
           <dd>{continuityWireLongitLayingEntity.operationLayer}</dd>
           <dt>
+            <span id="anonymousContinuityWireDesignation">
+              <Translate contentKey="lappLiApp.continuityWireLongitLaying.anonymousContinuityWireDesignation">
+                Anonymous Continuity Wire Designation
+              </Translate>
+            </span>
+          </dt>
+          <dd>{continuityWireLongitLayingEntity.anonymousContinuityWireDesignation}</dd>
+          <dt>
+            <span id="anonymousContinuityWireGramPerMeterLinearMass">
+              <Translate contentKey="lappLiApp.continuityWireLongitLaying.anonymousContinuityWireGramPerMeterLinearMass">
+                Anonymous Continuity Wire Gram Per Meter Linear Mass
+              </Translate>
+            </span>
+          </dt>
+          <dd>{continuityWireLongitLayingEntity.anonymousContinuityWireGramPerMeterLinearMass}</dd>
+          <dt>
             <span id="anonymousContinuityWireMetalFiberKind">
               <Translate contentKey="lappLiApp.continuityWireLongitLaying.anonymousContinuityWireMetalFiberKind">
                 Anonymous Continuity Wire Metal Fiber Kind
@@ -59,6 +75,10 @@ export const ContinuityWireLongitLayingDetail = (props: RouteComponentProps<{ id
             </span>
           </dt>
           <dd>{continuityWireLongitLayingEntity.anonymousContinuityWireFlexibility}</dd>
+          <dt>
+            <Translate contentKey="lappLiApp.continuityWireLongitLaying.continuityWire">Continuity Wire</Translate>
+          </dt>
+          <dd>{continuityWireLongitLayingEntity.continuityWire ? continuityWireLongitLayingEntity.continuityWire.designation : ''}</dd>
           <dt>
             <Translate contentKey="lappLiApp.continuityWireLongitLaying.ownerStrandSupply">Owner Strand Supply</Translate>
           </dt>

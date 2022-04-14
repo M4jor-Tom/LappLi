@@ -19,9 +19,12 @@
       },
       "id": "ID",
       "operationLayer": "Operation Layer",
+      "anonymousContinuityWireDesignation": "Anonymous Continuity Wire Designation",
+      "anonymousContinuityWireGramPerMeterLinearMass": "Anonymous Continuity Wire Gram Per Meter Linear Mass",
       "anonymousContinuityWireMetalFiberKind": "Anonymous Continuity Wire Metal Fiber Kind",
       "anonymousContinuityWireMilimeterDiameter": "Anonymous Continuity Wire Milimeter Diameter",
       "anonymousContinuityWireFlexibility": "Anonymous Continuity Wire Flexibility",
+      "continuityWire": "Continuity Wire",
       "ownerStrandSupply": "Owner Strand Supply"
     }
   }
