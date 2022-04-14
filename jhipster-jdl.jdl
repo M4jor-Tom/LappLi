@@ -283,7 +283,7 @@ relationship OneToMany {
 }
 
 relationship ManyToOne {
-    ContinuityWireLongitLaying{continuityWire(designation) required} to ContinuityWire
+    ContinuityWireLongitLaying{continuityWire(designation)} to ContinuityWire
 }
 
 relationship ManyToOne {

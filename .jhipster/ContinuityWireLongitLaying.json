@@ -26,7 +26,6 @@
       "relationshipType": "many-to-one",
       "otherEntityName": "continuityWire",
       "otherEntityRelationshipName": "continuityWireLongitLaying",
-      "relationshipValidateRules": "required",
       "relationshipName": "continuityWire",
       "otherEntityField": "designation"
     },

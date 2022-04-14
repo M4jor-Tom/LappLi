@@ -45,8 +45,7 @@ public class ContinuityWireLongitLaying
     @Column(name = "anonymous_continuity_wire_flexibility")
     private Flexibility anonymousContinuityWireFlexibility;
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @ManyToOne
     private ContinuityWire continuityWire;
 
     @ManyToOne(optional = false)

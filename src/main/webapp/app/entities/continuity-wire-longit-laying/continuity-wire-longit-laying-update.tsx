@@ -176,7 +176,6 @@ export const ContinuityWireLongitLayingUpdate = (props: RouteComponentProps<{ id
                 data-cy="continuityWire"
                 label={translate('lappLiApp.continuityWireLongitLaying.continuityWire')}
                 type="select"
-                required
               >
                 <option value="" key="0" />
                 {continuityWires

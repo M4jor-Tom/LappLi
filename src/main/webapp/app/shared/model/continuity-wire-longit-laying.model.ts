@@ -9,7 +9,7 @@ export interface IContinuityWireLongitLaying {
   anonymousContinuityWireMetalFiberKind?: MetalFiberKind | null;
   anonymousContinuityWireMilimeterDiameter?: number | null;
   anonymousContinuityWireFlexibility?: Flexibility | null;
-  continuityWire?: IContinuityWire;
+  continuityWire?: IContinuityWire | null;
   ownerStrandSupply?: IStrandSupply;
 }
 
