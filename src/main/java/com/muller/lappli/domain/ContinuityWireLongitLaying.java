@@ -90,13 +90,33 @@ public class ContinuityWireLongitLaying
         return OperationKind.CONTINUITY_WIRE_LONGIT_LAYING;
     }
 
+    private ContinuityWire getAnonymousContinuityWire() {
+        return new ContinuityWire()
+            .id(null)
+            .designation(getAnonymousContinuityWireDesignation())
+            .flexibility(getAnonymousContinuityWireFlexibility())
+            .gramPerMeterLinearMass(getAnonymousContinuityWireGramPerMeterLinearMass())
+            .milimeterDiameter(getAnonymousContinuityWireMilimeterDiameter())
+            .metalFiberKind(getAnonymousContinuityWireMetalFiberKind())
+            .getThisIfConform()
+            .orElse(null);
+    }
+
+    public ContinuityWire getFinalContinuityWire() {
+        if (getContinuityWire() == null) {
+            return getAnonymousContinuityWire();
+        }
+
+        return getContinuityWire();
+    }
+
     @Override
     public Double getMilimeterDiameterIncidency() {
-        if (getContinuityWire() == null) {
+        if (getFinalContinuityWire() == null) {
             return Double.NaN;
         }
 
-        return getContinuityWire().getMilimeterDiameter();
+        return getFinalContinuityWire().getMilimeterDiameter();
     }
 
     @Override
