@@ -8,7 +8,8 @@
       "TAPE_LAYING": "Pose de Ruban",
       "SCREEN": "Guipage",
       "STRIP_LAYING": "Pose de Feuillard",
-      "SHEATHING": "Gainage"
+      "SHEATHING": "Gainage",
+      "CONTINUITY_WIRE_LONGIT_LAYING": "Pose de fil de continuité en long"
     }
   }
 }
