@@ -20,6 +20,10 @@ public abstract class AbstractUniformAtom<T extends AbstractUniformAtom<T>> exte
         super();
     }
 
+    public Boolean isConform() {
+        return getGramPerMeterLinearMass() != null && getMilimeterDiameter() != null;
+    }
+
     public Double getGramPerMeterLinearMass() {
         return this.gramPerMeterLinearMass;
     }
