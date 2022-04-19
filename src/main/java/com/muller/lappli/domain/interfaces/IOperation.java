@@ -7,6 +7,7 @@ import com.muller.lappli.domain.CentralAssembly;
 import com.muller.lappli.domain.ContinuityWireLongitLaying;
 import com.muller.lappli.domain.CoreAssembly;
 import com.muller.lappli.domain.IntersticeAssembly;
+import com.muller.lappli.domain.Plait;
 import com.muller.lappli.domain.Screen;
 import com.muller.lappli.domain.Sheathing;
 import com.muller.lappli.domain.StrandSupply;
@@ -25,6 +26,7 @@ import com.muller.lappli.domain.enumeration.OperationKind;
         @JsonSubTypes.Type(value = TapeLaying.class, name = "TapeLaying"),
         @JsonSubTypes.Type(value = Screen.class, name = "Screen"),
         @JsonSubTypes.Type(value = StripLaying.class, name = "StripLaying"),
+        @JsonSubTypes.Type(value = Plait.class, name = "Plait"),
         @JsonSubTypes.Type(value = Sheathing.class, name = "Sheathing"),
         @JsonSubTypes.Type(value = ContinuityWireLongitLaying.class, name = "ContinuityWireLongitLaying"),
     }

@@ -3,6 +3,7 @@ package com.muller.lappli.service.impl;
 import com.muller.lappli.domain.ContinuityWireLongitLaying;
 import com.muller.lappli.domain.CoreAssembly;
 import com.muller.lappli.domain.IntersticeAssembly;
+import com.muller.lappli.domain.Plait;
 import com.muller.lappli.domain.Screen;
 import com.muller.lappli.domain.Sheathing;
 import com.muller.lappli.domain.StrandSupply;
@@ -14,6 +15,7 @@ import com.muller.lappli.repository.StrandSupplyRepository;
 import com.muller.lappli.service.ContinuityWireLongitLayingService;
 import com.muller.lappli.service.CoreAssemblyService;
 import com.muller.lappli.service.IntersticeAssemblyService;
+import com.muller.lappli.service.PlaitService;
 import com.muller.lappli.service.ScreenService;
 import com.muller.lappli.service.SheathingService;
 import com.muller.lappli.service.StrandSupplyService;
@@ -50,6 +52,8 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
 
     private final StripLayingService stripLayingService;
 
+    private final PlaitService plaitService;
+
     private final SheathingService sheathingService;
 
     private final ContinuityWireLongitLayingService continuityWireLongitLayingService;
@@ -61,6 +65,7 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         @Lazy TapeLayingService tapeLayingService,
         @Lazy ScreenService screenService,
         @Lazy StripLayingService stripLayingService,
+        @Lazy PlaitService plaitService,
         @Lazy SheathingService sheathingService,
         @Lazy ContinuityWireLongitLayingService continuityWireLongitLayingService
     ) {
@@ -70,6 +75,7 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         this.tapeLayingService = tapeLayingService;
         this.screenService = screenService;
         this.stripLayingService = stripLayingService;
+        this.plaitService = plaitService;
         this.sheathingService = sheathingService;
         this.continuityWireLongitLayingService = continuityWireLongitLayingService;
     }
@@ -111,6 +117,11 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         for (StripLaying stripLaying : toActualize.getStripLayings()) {
             Boolean actualizeOwnerStrandSupply = false;
             stripLayingService.save(stripLaying, actualizeOwnerStrandSupply);
+        }
+
+        for (Plait plait : toActualize.getPlaits()) {
+            Boolean actualizeOwnerStrandSupply = false;
+            plaitService.save(plait, actualizeOwnerStrandSupply);
         }
 
         for (Sheathing sheathing : toActualize.getSheathings()) {

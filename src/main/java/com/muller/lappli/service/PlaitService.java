@@ -7,15 +7,7 @@ import java.util.Optional;
 /**
  * Service Interface for managing {@link Plait}.
  */
-public interface PlaitService {
-    /**
-     * Save a plait.
-     *
-     * @param plait the entity to save.
-     * @return the persisted entity.
-     */
-    Plait save(Plait plait);
-
+public interface PlaitService extends INonCentralOperationService<Plait> {
     /**
      * Partially updates a plait.
      *

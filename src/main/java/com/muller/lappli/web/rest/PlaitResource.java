@@ -55,7 +55,7 @@ public class PlaitResource {
         if (plait.getId() != null) {
             throw new BadRequestAlertException("A new plait cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Plait result = plaitService.save(plait);
+        Plait result = plaitService.save(plait, true);
         return ResponseEntity
             .created(new URI("/api/plaits/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -87,7 +87,7 @@ public class PlaitResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Plait result = plaitService.save(plait);
+        Plait result = plaitService.save(plait, true);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, plait.getId().toString()))

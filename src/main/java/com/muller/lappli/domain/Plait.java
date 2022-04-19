@@ -1,7 +1,11 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.MetalFiberKind;
+import com.muller.lappli.domain.enumeration.OperationKind;
+import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
+import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -14,14 +18,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "plait")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Plait implements Serializable {
+public class Plait extends AbstractOperation<Plait> implements Serializable, INonAssemblyOperation<Plait> {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
 
     @NotNull
     @Column(name = "operation_layer", nullable = false)
@@ -78,28 +77,51 @@ public class Plait implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public Plait id(Long id) {
-        this.setId(id);
+    @Override
+    public Plait getThis() {
         return this;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public IOperation<Plait> toOperation() {
+        return this;
     }
 
+    @Override
+    public OperationKind getOperationKind() {
+        return OperationKind.PLAIT;
+    }
+
+    @Override
+    public Double getMilimeterDiameterIncidency() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Long getProductionStep() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getProductDesignation() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
     public Long getOperationLayer() {
         return this.operationLayer;
     }
 
+    @Override
     public Plait operationLayer(Long operationLayer) {
         this.setOperationLayer(operationLayer);
         return this;
     }
 
+    @Override
     public void setOperationLayer(Long operationLayer) {
         this.operationLayer = operationLayer;
     }
@@ -244,7 +266,7 @@ public class Plait implements Serializable {
         if (!(o instanceof Plait)) {
             return false;
         }
-        return id != null && id.equals(((Plait) o).id);
+        return getId() != null && getId().equals(((Plait) o).getId());
     }
 
     @Override

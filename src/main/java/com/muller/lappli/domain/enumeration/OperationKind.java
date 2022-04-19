@@ -8,6 +8,7 @@ public enum OperationKind {
     TAPE_LAYING,
     SCREEN,
     STRIP_LAYING,
+    PLAIT,
     SHEATHING,
     CONTINUITY_WIRE_LONGIT_LAYING,
 }

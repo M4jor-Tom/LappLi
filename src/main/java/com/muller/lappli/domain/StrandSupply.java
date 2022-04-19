@@ -403,6 +403,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         operations.addAll(getTapeLayings());
         operations.addAll(getScreens());
         operations.addAll(getStripLayings());
+        operations.addAll(getPlaits());
         operations.addAll(getSheathings());
         operations.addAll(getContinuityWireLongitLayings());
 

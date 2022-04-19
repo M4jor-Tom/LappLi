@@ -3,6 +3,8 @@ package com.muller.lappli.service.impl;
 import com.muller.lappli.domain.Plait;
 import com.muller.lappli.repository.PlaitRepository;
 import com.muller.lappli.service.PlaitService;
+import com.muller.lappli.service.StrandSupplyService;
+import com.muller.lappli.service.abstracts.AbstractNonCentralOperationServiceImpl;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -15,19 +17,24 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class PlaitServiceImpl implements PlaitService {
+public class PlaitServiceImpl extends AbstractNonCentralOperationServiceImpl<Plait> implements PlaitService {
 
     private final Logger log = LoggerFactory.getLogger(PlaitServiceImpl.class);
 
     private final PlaitRepository plaitRepository;
 
-    public PlaitServiceImpl(PlaitRepository plaitRepository) {
+    public PlaitServiceImpl(PlaitRepository plaitRepository, StrandSupplyService strandSupplyService) {
+        super(strandSupplyService);
         this.plaitRepository = plaitRepository;
     }
 
     @Override
-    public Plait save(Plait plait) {
+    public Plait save(Plait plait, Boolean actualizeOwnerStrandSupply) {
         log.debug("Request to save Plait : {}", plait);
+
+        if (actualizeOwnerStrandSupply) {
+            actualizeOwnerStrandSupply(plait);
+        }
         return plaitRepository.save(plait);
     }
 
