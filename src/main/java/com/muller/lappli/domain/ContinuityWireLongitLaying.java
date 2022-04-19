@@ -127,8 +127,13 @@ public class ContinuityWireLongitLaying
 
     @Override
     public String getProductDesignation() {
-        // TODO Auto-generated method stub
-        return null;
+        ContinuityWire continuityWire = getFinalContinuityWire();
+
+        if (continuityWire == null) {
+            return "";
+        }
+
+        return continuityWire.getDesignation();
     }
 
     public Long getId() {
