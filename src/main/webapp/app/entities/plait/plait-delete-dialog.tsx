@@ -6,10 +6,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity, deleteEntity } from './plait.reducer';
+import { getOutFromStudySupplyStrandPlait } from '../index-management/index-management-lib';
 
 export const PlaitDeleteDialog = (props: RouteComponentProps<{ id: string }>) => {
   const [loadModal, setLoadModal] = useState(false);
   const dispatch = useAppDispatch();
+
+  const redirectionUrl = getOutFromStudySupplyStrandPlait(props.match.url, false);
 
   useEffect(() => {
     dispatch(getEntity(props.match.params.id));
@@ -20,7 +23,7 @@ export const PlaitDeleteDialog = (props: RouteComponentProps<{ id: string }>) =>
   const updateSuccess = useAppSelector(state => state.plait.updateSuccess);
 
   const handleClose = () => {
-    props.history.push('/plait');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {
