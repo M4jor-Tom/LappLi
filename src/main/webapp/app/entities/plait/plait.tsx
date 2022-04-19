@@ -50,6 +50,9 @@ export const Plait = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.plait.id">ID</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.plait.operationLayer">Operation Layer</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.plait.targetCoveringRate">Target Covering Rate</Translate>
                 </th>
                 <th>
@@ -94,6 +97,7 @@ export const Plait = (props: RouteComponentProps<{ url: string }>) => {
                       {plait.id}
                     </Button>
                   </td>
+                  <td>{plait.operationLayer}</td>
                   <td>{plait.targetCoveringRate}</td>
                   <td>{plait.targetDegreeAngle}</td>
                   <td>{plait.targetingCoveringRateNotAngle ? 'true' : 'false'}</td>

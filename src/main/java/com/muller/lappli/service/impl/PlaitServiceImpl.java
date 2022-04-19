@@ -38,6 +38,9 @@ public class PlaitServiceImpl implements PlaitService {
         return plaitRepository
             .findById(plait.getId())
             .map(existingPlait -> {
+                if (plait.getOperationLayer() != null) {
+                    existingPlait.setOperationLayer(plait.getOperationLayer());
+                }
                 if (plait.getTargetCoveringRate() != null) {
                     existingPlait.setTargetCoveringRate(plait.getTargetCoveringRate());
                 }

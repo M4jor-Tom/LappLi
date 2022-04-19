@@ -5,6 +5,7 @@ import { MetalFiberKind } from 'app/shared/model/enumerations/metal-fiber-kind.m
 
 export interface IPlait {
   id?: number;
+  operationLayer?: number;
   targetCoveringRate?: number | null;
   targetDegreeAngle?: number | null;
   targetingCoveringRateNotAngle?: boolean;

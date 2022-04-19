@@ -31,6 +31,9 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class PlaitResourceIT {
 
+    private static final Long DEFAULT_OPERATION_LAYER = 1L;
+    private static final Long UPDATED_OPERATION_LAYER = 2L;
+
     private static final Double DEFAULT_TARGET_COVERING_RATE = 1D;
     private static final Double UPDATED_TARGET_COVERING_RATE = 2D;
 
@@ -77,6 +80,7 @@ class PlaitResourceIT {
      */
     public static Plait createEntity(EntityManager em) {
         Plait plait = new Plait()
+            .operationLayer(DEFAULT_OPERATION_LAYER)
             .targetCoveringRate(DEFAULT_TARGET_COVERING_RATE)
             .targetDegreeAngle(DEFAULT_TARGET_DEGREE_ANGLE)
             .targetingCoveringRateNotAngle(DEFAULT_TARGETING_COVERING_RATE_NOT_ANGLE)
@@ -105,6 +109,7 @@ class PlaitResourceIT {
      */
     public static Plait createUpdatedEntity(EntityManager em) {
         Plait plait = new Plait()
+            .operationLayer(UPDATED_OPERATION_LAYER)
             .targetCoveringRate(UPDATED_TARGET_COVERING_RATE)
             .targetDegreeAngle(UPDATED_TARGET_DEGREE_ANGLE)
             .targetingCoveringRateNotAngle(UPDATED_TARGETING_COVERING_RATE_NOT_ANGLE)
@@ -143,6 +148,7 @@ class PlaitResourceIT {
         List<Plait> plaitList = plaitRepository.findAll();
         assertThat(plaitList).hasSize(databaseSizeBeforeCreate + 1);
         Plait testPlait = plaitList.get(plaitList.size() - 1);
+        assertThat(testPlait.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testPlait.getTargetCoveringRate()).isEqualTo(DEFAULT_TARGET_COVERING_RATE);
         assertThat(testPlait.getTargetDegreeAngle()).isEqualTo(DEFAULT_TARGET_DEGREE_ANGLE);
         assertThat(testPlait.getTargetingCoveringRateNotAngle()).isEqualTo(DEFAULT_TARGETING_COVERING_RATE_NOT_ANGLE);
@@ -168,6 +174,23 @@ class PlaitResourceIT {
         // Validate the Plait in the database
         List<Plait> plaitList = plaitRepository.findAll();
         assertThat(plaitList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    void checkOperationLayerIsRequired() throws Exception {
+        int databaseSizeBeforeTest = plaitRepository.findAll().size();
+        // set the field null
+        plait.setOperationLayer(null);
+
+        // Create the Plait, which fails.
+
+        restPlaitMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(plait)))
+            .andExpect(status().isBadRequest());
+
+        List<Plait> plaitList = plaitRepository.findAll();
+        assertThat(plaitList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -199,6 +222,7 @@ class PlaitResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(plait.getId().intValue())))
+            .andExpect(jsonPath("$.[*].operationLayer").value(hasItem(DEFAULT_OPERATION_LAYER.intValue())))
             .andExpect(jsonPath("$.[*].targetCoveringRate").value(hasItem(DEFAULT_TARGET_COVERING_RATE.doubleValue())))
             .andExpect(jsonPath("$.[*].targetDegreeAngle").value(hasItem(DEFAULT_TARGET_DEGREE_ANGLE.doubleValue())))
             .andExpect(
@@ -228,6 +252,7 @@ class PlaitResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(plait.getId().intValue()))
+            .andExpect(jsonPath("$.operationLayer").value(DEFAULT_OPERATION_LAYER.intValue()))
             .andExpect(jsonPath("$.targetCoveringRate").value(DEFAULT_TARGET_COVERING_RATE.doubleValue()))
             .andExpect(jsonPath("$.targetDegreeAngle").value(DEFAULT_TARGET_DEGREE_ANGLE.doubleValue()))
             .andExpect(jsonPath("$.targetingCoveringRateNotAngle").value(DEFAULT_TARGETING_COVERING_RATE_NOT_ANGLE.booleanValue()))
@@ -259,6 +284,7 @@ class PlaitResourceIT {
         // Disconnect from session so that the updates on updatedPlait are not directly saved in db
         em.detach(updatedPlait);
         updatedPlait
+            .operationLayer(UPDATED_OPERATION_LAYER)
             .targetCoveringRate(UPDATED_TARGET_COVERING_RATE)
             .targetDegreeAngle(UPDATED_TARGET_DEGREE_ANGLE)
             .targetingCoveringRateNotAngle(UPDATED_TARGETING_COVERING_RATE_NOT_ANGLE)
@@ -279,6 +305,7 @@ class PlaitResourceIT {
         List<Plait> plaitList = plaitRepository.findAll();
         assertThat(plaitList).hasSize(databaseSizeBeforeUpdate);
         Plait testPlait = plaitList.get(plaitList.size() - 1);
+        assertThat(testPlait.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
         assertThat(testPlait.getTargetCoveringRate()).isEqualTo(UPDATED_TARGET_COVERING_RATE);
         assertThat(testPlait.getTargetDegreeAngle()).isEqualTo(UPDATED_TARGET_DEGREE_ANGLE);
         assertThat(testPlait.getTargetingCoveringRateNotAngle()).isEqualTo(UPDATED_TARGETING_COVERING_RATE_NOT_ANGLE);
@@ -357,8 +384,9 @@ class PlaitResourceIT {
         partialUpdatedPlait.setId(plait.getId());
 
         partialUpdatedPlait
-            .targetCoveringRate(UPDATED_TARGET_COVERING_RATE)
-            .anonymousMetalFiberNumber(UPDATED_ANONYMOUS_METAL_FIBER_NUMBER)
+            .operationLayer(UPDATED_OPERATION_LAYER)
+            .targetingCoveringRateNotAngle(UPDATED_TARGETING_COVERING_RATE_NOT_ANGLE)
+            .anonymousMetalFiberDesignation(UPDATED_ANONYMOUS_METAL_FIBER_DESIGNATION)
             .anonymousMetalFiberMetalFiberKind(UPDATED_ANONYMOUS_METAL_FIBER_METAL_FIBER_KIND)
             .anonymousMetalFiberMilimeterDiameter(UPDATED_ANONYMOUS_METAL_FIBER_MILIMETER_DIAMETER);
 
@@ -374,11 +402,12 @@ class PlaitResourceIT {
         List<Plait> plaitList = plaitRepository.findAll();
         assertThat(plaitList).hasSize(databaseSizeBeforeUpdate);
         Plait testPlait = plaitList.get(plaitList.size() - 1);
-        assertThat(testPlait.getTargetCoveringRate()).isEqualTo(UPDATED_TARGET_COVERING_RATE);
+        assertThat(testPlait.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
+        assertThat(testPlait.getTargetCoveringRate()).isEqualTo(DEFAULT_TARGET_COVERING_RATE);
         assertThat(testPlait.getTargetDegreeAngle()).isEqualTo(DEFAULT_TARGET_DEGREE_ANGLE);
-        assertThat(testPlait.getTargetingCoveringRateNotAngle()).isEqualTo(DEFAULT_TARGETING_COVERING_RATE_NOT_ANGLE);
-        assertThat(testPlait.getAnonymousMetalFiberNumber()).isEqualTo(UPDATED_ANONYMOUS_METAL_FIBER_NUMBER);
-        assertThat(testPlait.getAnonymousMetalFiberDesignation()).isEqualTo(DEFAULT_ANONYMOUS_METAL_FIBER_DESIGNATION);
+        assertThat(testPlait.getTargetingCoveringRateNotAngle()).isEqualTo(UPDATED_TARGETING_COVERING_RATE_NOT_ANGLE);
+        assertThat(testPlait.getAnonymousMetalFiberNumber()).isEqualTo(DEFAULT_ANONYMOUS_METAL_FIBER_NUMBER);
+        assertThat(testPlait.getAnonymousMetalFiberDesignation()).isEqualTo(UPDATED_ANONYMOUS_METAL_FIBER_DESIGNATION);
         assertThat(testPlait.getAnonymousMetalFiberMetalFiberKind()).isEqualTo(UPDATED_ANONYMOUS_METAL_FIBER_METAL_FIBER_KIND);
         assertThat(testPlait.getAnonymousMetalFiberMilimeterDiameter()).isEqualTo(UPDATED_ANONYMOUS_METAL_FIBER_MILIMETER_DIAMETER);
     }
@@ -396,6 +425,7 @@ class PlaitResourceIT {
         partialUpdatedPlait.setId(plait.getId());
 
         partialUpdatedPlait
+            .operationLayer(UPDATED_OPERATION_LAYER)
             .targetCoveringRate(UPDATED_TARGET_COVERING_RATE)
             .targetDegreeAngle(UPDATED_TARGET_DEGREE_ANGLE)
             .targetingCoveringRateNotAngle(UPDATED_TARGETING_COVERING_RATE_NOT_ANGLE)
@@ -416,6 +446,7 @@ class PlaitResourceIT {
         List<Plait> plaitList = plaitRepository.findAll();
         assertThat(plaitList).hasSize(databaseSizeBeforeUpdate);
         Plait testPlait = plaitList.get(plaitList.size() - 1);
+        assertThat(testPlait.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
         assertThat(testPlait.getTargetCoveringRate()).isEqualTo(UPDATED_TARGET_COVERING_RATE);
         assertThat(testPlait.getTargetDegreeAngle()).isEqualTo(UPDATED_TARGET_DEGREE_ANGLE);
         assertThat(testPlait.getTargetingCoveringRateNotAngle()).isEqualTo(UPDATED_TARGETING_COVERING_RATE_NOT_ANGLE);

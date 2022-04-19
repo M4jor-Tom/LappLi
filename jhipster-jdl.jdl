@@ -55,6 +55,7 @@ entity TapeLaying {
 }
 
 entity Plait {
+    operationLayer Long required
     targetCoveringRate Double
     targetDegreeAngle Double
     targetingCoveringRateNotAngle Boolean required

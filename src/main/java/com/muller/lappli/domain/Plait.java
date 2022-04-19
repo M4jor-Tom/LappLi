@@ -23,6 +23,10 @@ public class Plait implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @NotNull
+    @Column(name = "operation_layer", nullable = false)
+    private Long operationLayer;
+
     @Column(name = "target_covering_rate")
     private Double targetCoveringRate;
 
@@ -85,6 +89,19 @@ public class Plait implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getOperationLayer() {
+        return this.operationLayer;
+    }
+
+    public Plait operationLayer(Long operationLayer) {
+        this.setOperationLayer(operationLayer);
+        return this;
+    }
+
+    public void setOperationLayer(Long operationLayer) {
+        this.operationLayer = operationLayer;
     }
 
     public Double getTargetCoveringRate() {
@@ -241,6 +258,7 @@ public class Plait implements Serializable {
     public String toString() {
         return "Plait{" +
             "id=" + getId() +
+            ", operationLayer=" + getOperationLayer() +
             ", targetCoveringRate=" + getTargetCoveringRate() +
             ", targetDegreeAngle=" + getTargetDegreeAngle() +
             ", targetingCoveringRateNotAngle='" + getTargetingCoveringRateNotAngle() + "'" +

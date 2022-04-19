@@ -14,6 +14,9 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="operation_layer" type="bigint">
+                <constraints nullable="false" />
+            </column>
             <column name="target_covering_rate" type="double">
                 <constraints nullable="true" />
             </column>
@@ -65,6 +68,7 @@
                   tableName="plait"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
+            <column name="operation_layer" type="numeric"/>
             <column name="target_covering_rate" type="numeric"/>
             <column name="target_degree_angle" type="numeric"/>
             <column name="targeting_covering_rate_not_angle" type="boolean"/>

@@ -18,6 +18,7 @@
         "title": "Plait"
       },
       "id": "ID",
+      "operationLayer": "Operation Layer",
       "targetCoveringRate": "Target Covering Rate",
       "targetDegreeAngle": "Target Degree Angle",
       "targetingCoveringRateNotAngle": "Targeting Covering Rate Not Angle",

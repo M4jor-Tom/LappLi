@@ -30,6 +30,12 @@ export const PlaitDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{plaitEntity.id}</dd>
           <dt>
+            <span id="operationLayer">
+              <Translate contentKey="lappLiApp.plait.operationLayer">Operation Layer</Translate>
+            </span>
+          </dt>
+          <dd>{plaitEntity.operationLayer}</dd>
+          <dt>
             <span id="targetCoveringRate">
               <Translate contentKey="lappLiApp.plait.targetCoveringRate">Target Covering Rate</Translate>
             </span>

@@ -2,6 +2,11 @@
   "name": "Plait",
   "fields": [
     {
+      "fieldName": "operationLayer",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "targetCoveringRate",
       "fieldType": "Double"
     },
