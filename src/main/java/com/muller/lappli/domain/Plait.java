@@ -105,8 +105,20 @@ public class Plait extends AbstractOperation<Plait> implements Serializable, INo
 
     @Override
     public Double getMilimeterDiameterIncidency() {
-        // TODO Auto-generated method stub
-        return Double.NaN;
+        AbstractMetalFiber<?> metalFiber = null;
+
+        try {
+            metalFiber = getFinalMetalFiber();
+        } catch (UnknownMetalFiberException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        if (metalFiber == null) {
+            return Double.NaN;
+        }
+
+        return metalFiber.getMilimeterDiameter();
     }
 
     @Override
