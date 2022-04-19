@@ -6,6 +6,7 @@ import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.MetalFiberKind;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import com.muller.lappli.domain.exception.UnknownMetalFiberException;
+import com.muller.lappli.domain.interfaces.AssemblableOperation;
 import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
 import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
@@ -20,7 +21,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "plait")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Plait extends AbstractOperation<Plait> implements Serializable, INonAssemblyOperation<Plait> {
+public class Plait extends AbstractOperation<Plait> implements Serializable, INonAssemblyOperation<Plait>, AssemblableOperation<Plait> {
 
     private static final long serialVersionUID = 1L;
 
@@ -128,9 +129,25 @@ public class Plait extends AbstractOperation<Plait> implements Serializable, INo
     }
 
     @Override
-    public String getProductDesignation() {
+    public Double getDiameterAssemblyStep() {
         // TODO Auto-generated method stub
-        return null;
+        return Double.NaN;
+    }
+
+    @Override
+    public String getProductDesignation() {
+        try {
+            AbstractMetalFiber<?> metalFiber = getFinalMetalFiber();
+
+            if (metalFiber == null) {
+                return "";
+            }
+
+            return metalFiber.getDesignation();
+        } catch (UnknownMetalFiberException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     private AbstractMetalFiber<?> getAnonymousMetalFiber() throws UnknownMetalFiberException {
