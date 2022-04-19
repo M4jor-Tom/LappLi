@@ -121,6 +121,30 @@ public class Plait extends AbstractOperation<Plait> implements Serializable, INo
         return null;
     }
 
+    private AbstractMetalFiber<?> getAnonymousMetalFiber() throws UnknownMetalFiberException {
+        AbstractMetalFiber<?> metalFiber = null;
+
+        //[PLAIT_METAL_FIBER]
+        if (getAnonymousMetalFiberMetalFiberKind() == null) {
+            metalFiber = null;
+        } else if (getAnonymousMetalFiberMetalFiberKind().isForMetalFiber(CopperFiber.class)) {
+            metalFiber = new CopperFiber();
+        } else if (getAnonymousMetalFiberMetalFiberKind().isForMetalFiber(SteelFiber.class)) {
+            metalFiber = new SteelFiber();
+        } else {
+            throw new UnknownMetalFiberException();
+        }
+
+        return metalFiber
+            .id(null)
+            .number(getAnonymousMetalFiberNumber())
+            .designation(getAnonymousMetalFiberDesignation())
+            .metalFiberKind(getAnonymousMetalFiberMetalFiberKind())
+            .milimeterDiameter(getAnonymousMetalFiberMilimeterDiameter())
+            .getThisIfConform()
+            .orElse(null);
+    }
+
     public AbstractMetalFiber<?> getMetalFiber() throws UnknownMetalFiberException {
         //[PLAIT_METAL_FIBER]
         if (getCopperFiber() != null) {
