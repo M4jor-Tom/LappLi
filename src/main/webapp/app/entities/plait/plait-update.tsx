@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { ICopperFiber } from 'app/shared/model/copper-fiber.model';
 import { getEntities as getCopperFibers } from 'app/entities/copper-fiber/copper-fiber.reducer';
-import { IMetalFiber } from 'app/shared/model/metal-fiber.model';
-import { getEntities as getMetalFibers } from 'app/entities/metal-fiber/metal-fiber.reducer';
+import { ISteelFiber } from 'app/shared/model/steel-fiber.model';
+import { getEntities as getSteelFibers } from 'app/entities/steel-fiber/steel-fiber.reducer';
 import { IStrandSupply } from 'app/shared/model/strand-supply.model';
 import { getEntities as getStrandSupplies } from 'app/entities/strand-supply/strand-supply.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './plait.reducer';
@@ -23,7 +23,7 @@ export const PlaitUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
   const copperFibers = useAppSelector(state => state.copperFiber.entities);
-  const metalFibers = useAppSelector(state => state.metalFiber.entities);
+  const steelFibers = useAppSelector(state => state.steelFiber.entities);
   const strandSupplies = useAppSelector(state => state.strandSupply.entities);
   const plaitEntity = useAppSelector(state => state.plait.entity);
   const loading = useAppSelector(state => state.plait.loading);
@@ -42,7 +42,7 @@ export const PlaitUpdate = (props: RouteComponentProps<{ id: string }>) => {
     }
 
     dispatch(getCopperFibers({}));
-    dispatch(getMetalFibers({}));
+    dispatch(getSteelFibers({}));
     dispatch(getStrandSupplies({}));
   }, []);
 
@@ -57,7 +57,7 @@ export const PlaitUpdate = (props: RouteComponentProps<{ id: string }>) => {
       ...plaitEntity,
       ...values,
       copperFiber: copperFibers.find(it => it.id.toString() === values.copperFiber.toString()),
-      metalFiber: metalFibers.find(it => it.id.toString() === values.metalFiber.toString()),
+      steelFiber: steelFibers.find(it => it.id.toString() === values.steelFiber.toString()),
       ownerStrandSupply: strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString()),
     };
 
@@ -75,7 +75,7 @@ export const PlaitUpdate = (props: RouteComponentProps<{ id: string }>) => {
           anonymousMetalFiberMetalFiberKind: 'RED_COPPER',
           ...plaitEntity,
           copperFiber: plaitEntity?.copperFiber?.id,
-          metalFiber: plaitEntity?.metalFiber?.id,
+          steelFiber: plaitEntity?.steelFiber?.id,
           ownerStrandSupply: plaitEntity?.ownerStrandSupply?.id,
         };
 
@@ -188,15 +188,15 @@ export const PlaitUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   : null}
               </ValidatedField>
               <ValidatedField
-                id="plait-metalFiber"
-                name="metalFiber"
-                data-cy="metalFiber"
-                label={translate('lappLiApp.plait.metalFiber')}
+                id="plait-steelFiber"
+                name="steelFiber"
+                data-cy="steelFiber"
+                label={translate('lappLiApp.plait.steelFiber')}
                 type="select"
               >
                 <option value="" key="0" />
-                {metalFibers
-                  ? metalFibers.map(otherEntity => (
+                {steelFibers
+                  ? steelFibers.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.designation}
                       </option>

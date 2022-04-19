@@ -41,7 +41,7 @@
             <column name="copper_fiber_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="metal_fiber_id" type="bigint">
+            <column name="steel_fiber_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <column name="owner_strand_supply_id" type="bigint">

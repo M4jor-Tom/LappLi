@@ -81,7 +81,7 @@ export const Plait = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.plait.copperFiber">Copper Fiber</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.plait.metalFiber">Metal Fiber</Translate>
+                  <Translate contentKey="lappLiApp.plait.steelFiber">Steel Fiber</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.plait.ownerStrandSupply">Owner Strand Supply</Translate>
@@ -110,7 +110,7 @@ export const Plait = (props: RouteComponentProps<{ url: string }>) => {
                   <td>
                     {plait.copperFiber ? <Link to={`copper-fiber/${plait.copperFiber.id}`}>{plait.copperFiber.designation}</Link> : ''}
                   </td>
-                  <td>{plait.metalFiber ? <Link to={`metal-fiber/${plait.metalFiber.id}`}>{plait.metalFiber.designation}</Link> : ''}</td>
+                  <td>{plait.steelFiber ? <Link to={`steel-fiber/${plait.steelFiber.id}`}>{plait.steelFiber.designation}</Link> : ''}</td>
                   <td>
                     {plait.ownerStrandSupply ? (
                       <Link to={`strand-supply/${plait.ownerStrandSupply.id}`}>{plait.ownerStrandSupply.designation}</Link>

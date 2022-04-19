@@ -14,11 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="copper_fiber"/>
 
-        <addForeignKeyConstraint baseColumnNames="metal_fiber_id"
+        <addForeignKeyConstraint baseColumnNames="steel_fiber_id"
                                  baseTableName="plait"
-                                 constraintName="fk_plait__metal_fiber_id"
+                                 constraintName="fk_plait__steel_fiber_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="metal_fiber"/>
+                                 referencedTableName="steel_fiber"/>
 
         <addForeignKeyConstraint baseColumnNames="owner_strand_supply_id"
                                  baseTableName="plait"

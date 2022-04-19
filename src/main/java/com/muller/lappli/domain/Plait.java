@@ -53,7 +53,7 @@ public class Plait extends AbstractOperation<Plait> implements Serializable, INo
     private CopperFiber copperFiber;
 
     @ManyToOne
-    private MetalFiber metalFiber;
+    private SteelFiber steelFiber;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -230,16 +230,16 @@ public class Plait extends AbstractOperation<Plait> implements Serializable, INo
         return this;
     }
 
-    public MetalFiber getMetalFiber() {
-        return this.metalFiber;
+    public SteelFiber getSteelFiber() {
+        return this.steelFiber;
     }
 
-    public void setMetalFiber(MetalFiber metalFiber) {
-        this.metalFiber = metalFiber;
+    public void setSteelFiber(SteelFiber steelFiber) {
+        this.steelFiber = steelFiber;
     }
 
-    public Plait metalFiber(MetalFiber metalFiber) {
-        this.setMetalFiber(metalFiber);
+    public Plait steelFiber(SteelFiber steelFiber) {
+        this.setSteelFiber(steelFiber);
         return this;
     }
 

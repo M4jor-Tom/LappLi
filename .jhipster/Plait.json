@@ -47,9 +47,9 @@
     },
     {
       "relationshipType": "many-to-one",
-      "otherEntityName": "metalFiber",
+      "otherEntityName": "steelFiber",
       "otherEntityRelationshipName": "plait",
-      "relationshipName": "metalFiber",
+      "relationshipName": "steelFiber",
       "otherEntityField": "designation"
     },
     {

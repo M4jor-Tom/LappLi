@@ -1,5 +1,5 @@
 import { ICopperFiber } from 'app/shared/model/copper-fiber.model';
-import { IMetalFiber } from 'app/shared/model/metal-fiber.model';
+import { ISteelFiber } from 'app/shared/model/steel-fiber.model';
 import { IStrandSupply } from 'app/shared/model/strand-supply.model';
 import { MetalFiberKind } from 'app/shared/model/enumerations/metal-fiber-kind.model';
 
@@ -14,7 +14,7 @@ export interface IPlait {
   anonymousMetalFiberMetalFiberKind?: MetalFiberKind | null;
   anonymousMetalFiberMilimeterDiameter?: number | null;
   copperFiber?: ICopperFiber | null;
-  metalFiber?: IMetalFiber | null;
+  steelFiber?: ISteelFiber | null;
   ownerStrandSupply?: IStrandSupply;
 }
 

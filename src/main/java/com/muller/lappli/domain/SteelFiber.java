@@ -8,12 +8,12 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A MetalFiber.
+ * A SteelFiber.
  */
 @Entity
-@Table(name = "metal_fiber")
+@Table(name = "steel_fiber")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class MetalFiber implements Serializable {
+public class SteelFiber implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,7 +43,7 @@ public class MetalFiber implements Serializable {
         return this.id;
     }
 
-    public MetalFiber id(Long id) {
+    public SteelFiber id(Long id) {
         this.setId(id);
         return this;
     }
@@ -56,7 +56,7 @@ public class MetalFiber implements Serializable {
         return this.number;
     }
 
-    public MetalFiber number(Long number) {
+    public SteelFiber number(Long number) {
         this.setNumber(number);
         return this;
     }
@@ -69,7 +69,7 @@ public class MetalFiber implements Serializable {
         return this.designation;
     }
 
-    public MetalFiber designation(String designation) {
+    public SteelFiber designation(String designation) {
         this.setDesignation(designation);
         return this;
     }
@@ -82,7 +82,7 @@ public class MetalFiber implements Serializable {
         return this.metalFiberKind;
     }
 
-    public MetalFiber metalFiberKind(MetalFiberKind metalFiberKind) {
+    public SteelFiber metalFiberKind(MetalFiberKind metalFiberKind) {
         this.setMetalFiberKind(metalFiberKind);
         return this;
     }
@@ -95,7 +95,7 @@ public class MetalFiber implements Serializable {
         return this.milimeterDiameter;
     }
 
-    public MetalFiber milimeterDiameter(Double milimeterDiameter) {
+    public SteelFiber milimeterDiameter(Double milimeterDiameter) {
         this.setMilimeterDiameter(milimeterDiameter);
         return this;
     }
@@ -111,10 +111,10 @@ public class MetalFiber implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof MetalFiber)) {
+        if (!(o instanceof SteelFiber)) {
             return false;
         }
-        return id != null && id.equals(((MetalFiber) o).id);
+        return id != null && id.equals(((SteelFiber) o).id);
     }
 
     @Override
@@ -126,7 +126,7 @@ public class MetalFiber implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
-        return "MetalFiber{" +
+        return "SteelFiber{" +
             "id=" + getId() +
             ", number=" + getNumber() +
             ", designation='" + getDesignation() + "'" +

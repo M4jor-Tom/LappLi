@@ -84,9 +84,9 @@ export const PlaitDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{plaitEntity.copperFiber ? plaitEntity.copperFiber.designation : ''}</dd>
           <dt>
-            <Translate contentKey="lappLiApp.plait.metalFiber">Metal Fiber</Translate>
+            <Translate contentKey="lappLiApp.plait.steelFiber">Steel Fiber</Translate>
           </dt>
-          <dd>{plaitEntity.metalFiber ? plaitEntity.metalFiber.designation : ''}</dd>
+          <dd>{plaitEntity.steelFiber ? plaitEntity.steelFiber.designation : ''}</dd>
           <dt>
             <Translate contentKey="lappLiApp.plait.ownerStrandSupply">Owner Strand Supply</Translate>
           </dt>

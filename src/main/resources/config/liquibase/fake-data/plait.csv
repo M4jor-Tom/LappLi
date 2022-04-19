@@ -1,11 +1,11 @@
-id;target_covering_rate;target_degree_angle;targeting_covering_rate_not_angle;anonymous_metal_fiber_number;anonymous_metal_fiber_designation;anonymous_metal_fiber_metal_fiber_kind;anonymous_metal_fiber_milimeter_diameter;owner_strand_supply_id
-1;32772;36054;false;37169;firmware dot-com;RED_COPPER;59804;1
-2;76834;25906;false;8500;driver lavender;TINNED_COPPER;98884;2
-3;63577;62890;false;81184;Radial Trinidad Dinar;TINNED_COPPER;28647;3
-4;80496;52216;false;46798;Accounts;RED_COPPER;47130;4
-5;80115;21248;false;23665;Movies Keyboard;RED_COPPER;42107;5
-6;45733;71360;true;11330;digital;TINNED_COPPER;82924;6
-7;44530;91924;false;4829;Brand;STEEL;94777;7
-8;67017;52323;true;62507;Orchestrator Squares;TINNED_COPPER;51038;8
-9;55145;34349;false;26315;Fantastic;TINNED_COPPER;70389;9
-10;83908;30905;false;33349;COM;TINNED_COPPER;16780;10
+id;operation_layer;target_covering_rate;target_degree_angle;targeting_covering_rate_not_angle;anonymous_metal_fiber_number;anonymous_metal_fiber_designation;anonymous_metal_fiber_metal_fiber_kind;anonymous_metal_fiber_milimeter_diameter;owner_strand_supply_id
+1;32772;36054;5818;false;46863;circuit;TINNED_COPPER;65701;1
+2;22695;59804;76834;false;16583;payment;RED_COPPER;21097;2
+3;95040;74089;50342;true;63577;Station Radial;STEEL;80636;3
+4;13139;67451;67160;true;41403;haptic;TINNED_COPPER;29779;4
+5;93335;78154;55723;false;47130;orange Avon Small;STEEL;959;5
+6;42107;45733;71360;true;11330;digital;TINNED_COPPER;82924;6
+7;44530;91924;42893;false;32475;Tasty Branding payment;STEEL;61650;7
+8;45265;45199;80214;false;41090;Grenada dedicated;TINNED_COPPER;37267;8
+9;54254;70389;83908;false;21385;Synergistic Sleek;RED_COPPER;99457;9
+10;61097;54233;33530;false;57030;Solutions Row Front-line;RED_COPPER;77423;10

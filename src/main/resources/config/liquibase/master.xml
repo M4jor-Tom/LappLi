@@ -49,6 +49,7 @@
     <include file="config/liquibase/changelog/20220413133845_added_entity_ContinuityWireLongitLaying.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220413133846_added_entity_ContinuityWire.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220419070735_added_entity_Plait.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220419093417_added_entity_SteelFiber.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20211124113148_added_entity_constraints_Element.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211124113149_added_entity_constraints_ElementKind.xml" relativeToChangelogFile="false"/>

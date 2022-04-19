@@ -211,7 +211,7 @@ entity Material {
     kilogramPerCubeMeterVolumicDensity Double required
 }
 
-entity MetalFiber {
+entity SteelFiber {
     number Long unique
     designation String unique
     metalFiberKind MetalFiberKind required
@@ -308,7 +308,7 @@ relationship ManyToOne {
 
 relationship ManyToOne {
     Plait{copperFiber(designation)} to CopperFiber
-    Plait{metalFiber(designation)} to MetalFiber
+    Plait{steelFiber(designation)} to SteelFiber
 }
 
 relationship ManyToOne {
