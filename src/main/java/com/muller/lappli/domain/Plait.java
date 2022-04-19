@@ -1,9 +1,11 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractMetalFiber;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.MetalFiberKind;
 import com.muller.lappli.domain.enumeration.OperationKind;
+import com.muller.lappli.domain.exception.UnknownMetalFiberException;
 import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
 import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
@@ -117,6 +119,17 @@ public class Plait extends AbstractOperation<Plait> implements Serializable, INo
     public String getProductDesignation() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    public AbstractMetalFiber<?> getMetalFiber() throws UnknownMetalFiberException {
+        //[PLAIT_METAL_FIBER]
+        if (getCopperFiber() != null) {
+            return getCopperFiber();
+        } else if (getSteelFiber() != null) {
+            return getSteelFiber();
+        }
+
+        throw new UnknownMetalFiberException();
     }
 
     @Override
