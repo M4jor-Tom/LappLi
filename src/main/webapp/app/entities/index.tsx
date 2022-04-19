@@ -34,7 +34,6 @@ import Screen from './screen';
 import CopperFiber from './copper-fiber';
 import Strip from './strip';
 import StripLaying from './strip-laying';
-import MetalFiber from './metal-fiber';
 import ContinuityWireLongitLaying from './continuity-wire-longit-laying';
 import ContinuityWire from './continuity-wire';
 import Plait from './plait';
@@ -75,7 +74,6 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}copper-fiber`} component={CopperFiber} />
       <ErrorBoundaryRoute path={`${match.url}strip`} component={Strip} />
       <ErrorBoundaryRoute path={`${match.url}strip-laying`} component={StripLaying} />
-      <ErrorBoundaryRoute path={`${match.url}metal-fiber`} component={MetalFiber} />
       <ErrorBoundaryRoute path={`${match.url}continuity-wire-longit-laying`} component={ContinuityWireLongitLaying} />
       <ErrorBoundaryRoute path={`${match.url}continuity-wire`} component={ContinuityWire} />
       <ErrorBoundaryRoute path={`${match.url}plait`} component={Plait} />
