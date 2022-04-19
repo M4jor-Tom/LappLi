@@ -186,11 +186,11 @@ public class Plait extends AbstractOperation<Plait> implements Serializable, INo
     }
 
     public AbstractMetalFiber<?> getFinalMetalFiber() throws UnknownMetalFiberException {
-        if (getMetalFiber() != null) {
-            return getMetalFiber();
+        if (getMetalFiber() == null) {
+            return getAnonymousMetalFiber();
         }
 
-        return getAnonymousMetalFiber();
+        return getMetalFiber();
     }
 
     @Override
