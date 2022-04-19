@@ -157,7 +157,7 @@ public class Plait extends AbstractOperation<Plait> implements Serializable, INo
             .orElse(null);
     }
 
-    public AbstractMetalFiber<?> getMetalFiber() throws UnknownMetalFiberException {
+    public AbstractMetalFiber<?> getMetalFiber() {
         //[PLAIT_METAL_FIBER]
         if (getCopperFiber() != null) {
             return getCopperFiber();
@@ -165,7 +165,7 @@ public class Plait extends AbstractOperation<Plait> implements Serializable, INo
             return getSteelFiber();
         }
 
-        throw new UnknownMetalFiberException();
+        return null;
     }
 
     public AbstractMetalFiber<?> getFinalMetalFiber() throws UnknownMetalFiberException {
