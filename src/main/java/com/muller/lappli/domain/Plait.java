@@ -83,6 +83,15 @@ public class Plait extends AbstractOperation<Plait> implements Serializable, INo
     }
 
     @Override
+    public Boolean isConform() {
+        return (
+            getOperationLayer() != null &&
+            getTargetingCoveringRateNotAngle() != null &&
+            (getCopperFiber() == null) != (getSteelFiber() == null)
+        );
+    }
+
+    @Override
     public IOperation<Plait> toOperation() {
         return this;
     }
