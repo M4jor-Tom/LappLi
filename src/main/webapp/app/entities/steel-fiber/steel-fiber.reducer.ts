@@ -3,9 +3,9 @@ import { createAsyncThunk, isFulfilled, isPending, isRejected } from '@reduxjs/t
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
 import { IQueryParams, createEntitySlice, EntityState, serializeAxiosError } from 'app/shared/reducers/reducer.utils';
-import { IMetalFiber, defaultValue } from 'app/shared/model/metal-fiber.model';
+import { ISteelFiber, defaultValue } from 'app/shared/model/steel-fiber.model';
 
-const initialState: EntityState<IMetalFiber> = {
+const initialState: EntityState<ISteelFiber> = {
   loading: false,
   errorMessage: null,
   entities: [],
@@ -14,28 +14,28 @@ const initialState: EntityState<IMetalFiber> = {
   updateSuccess: false,
 };
 
-const apiUrl = 'api/metal-fibers';
+const apiUrl = 'api/steel-fibers';
 
 // Actions
 
-export const getEntities = createAsyncThunk('metalFiber/fetch_entity_list', async ({ page, size, sort }: IQueryParams) => {
+export const getEntities = createAsyncThunk('steelFiber/fetch_entity_list', async ({ page, size, sort }: IQueryParams) => {
   const requestUrl = `${apiUrl}?cacheBuster=${new Date().getTime()}`;
-  return axios.get<IMetalFiber[]>(requestUrl);
+  return axios.get<ISteelFiber[]>(requestUrl);
 });
 
 export const getEntity = createAsyncThunk(
-  'metalFiber/fetch_entity',
+  'steelFiber/fetch_entity',
   async (id: string | number) => {
     const requestUrl = `${apiUrl}/${id}`;
-    return axios.get<IMetalFiber>(requestUrl);
+    return axios.get<ISteelFiber>(requestUrl);
   },
   { serializeError: serializeAxiosError }
 );
 
 export const createEntity = createAsyncThunk(
-  'metalFiber/create_entity',
-  async (entity: IMetalFiber, thunkAPI) => {
-    const result = await axios.post<IMetalFiber>(apiUrl, cleanEntity(entity));
+  'steelFiber/create_entity',
+  async (entity: ISteelFiber, thunkAPI) => {
+    const result = await axios.post<ISteelFiber>(apiUrl, cleanEntity(entity));
     thunkAPI.dispatch(getEntities({}));
     return result;
   },
@@ -43,9 +43,9 @@ export const createEntity = createAsyncThunk(
 );
 
 export const updateEntity = createAsyncThunk(
-  'metalFiber/update_entity',
-  async (entity: IMetalFiber, thunkAPI) => {
-    const result = await axios.put<IMetalFiber>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
+  'steelFiber/update_entity',
+  async (entity: ISteelFiber, thunkAPI) => {
+    const result = await axios.put<ISteelFiber>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
     thunkAPI.dispatch(getEntities({}));
     return result;
   },
@@ -53,9 +53,9 @@ export const updateEntity = createAsyncThunk(
 );
 
 export const partialUpdateEntity = createAsyncThunk(
-  'metalFiber/partial_update_entity',
-  async (entity: IMetalFiber, thunkAPI) => {
-    const result = await axios.patch<IMetalFiber>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
+  'steelFiber/partial_update_entity',
+  async (entity: ISteelFiber, thunkAPI) => {
+    const result = await axios.patch<ISteelFiber>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
     thunkAPI.dispatch(getEntities({}));
     return result;
   },
@@ -63,10 +63,10 @@ export const partialUpdateEntity = createAsyncThunk(
 );
 
 export const deleteEntity = createAsyncThunk(
-  'metalFiber/delete_entity',
+  'steelFiber/delete_entity',
   async (id: string | number, thunkAPI) => {
     const requestUrl = `${apiUrl}/${id}`;
-    const result = await axios.delete<IMetalFiber>(requestUrl);
+    const result = await axios.delete<ISteelFiber>(requestUrl);
     thunkAPI.dispatch(getEntities({}));
     return result;
   },
@@ -75,8 +75,8 @@ export const deleteEntity = createAsyncThunk(
 
 // slice
 
-export const MetalFiberSlice = createEntitySlice({
-  name: 'metalFiber',
+export const SteelFiberSlice = createEntitySlice({
+  name: 'steelFiber',
   initialState,
   extraReducers(builder) {
     builder
@@ -115,7 +115,7 @@ export const MetalFiberSlice = createEntitySlice({
   },
 });
 
-export const { reset } = MetalFiberSlice.actions;
+export const { reset } = SteelFiberSlice.actions;
 
 // Reducer
-export default MetalFiberSlice.reducer;
+export default SteelFiberSlice.reducer;

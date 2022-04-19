@@ -98,10 +98,12 @@ public class CacheConfiguration {
             createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".stripLayings");
             createCache(cm, com.muller.lappli.domain.Strip.class.getName());
             createCache(cm, com.muller.lappli.domain.StripLaying.class.getName());
-            createCache(cm, com.muller.lappli.domain.MetalFiber.class.getName());
             createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".continuityWireLongitLayings");
             createCache(cm, com.muller.lappli.domain.ContinuityWireLongitLaying.class.getName());
             createCache(cm, com.muller.lappli.domain.ContinuityWire.class.getName());
+            createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".plaits");
+            createCache(cm, com.muller.lappli.domain.Plait.class.getName());
+            createCache(cm, com.muller.lappli.domain.SteelFiber.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

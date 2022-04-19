@@ -45,9 +45,10 @@
     <include file="config/liquibase/changelog/20220405132506_added_entity_CopperFiber.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220406121741_added_entity_Strip.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220406121742_added_entity_StripLaying.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20220411090946_added_entity_MetalFiber.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220413133845_added_entity_ContinuityWireLongitLaying.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220413133846_added_entity_ContinuityWire.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220419070735_added_entity_Plait.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220419093417_added_entity_SteelFiber.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20211124113148_added_entity_constraints_Element.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211124113149_added_entity_constraints_ElementKind.xml" relativeToChangelogFile="false"/>
@@ -74,6 +75,7 @@
     <include file="config/liquibase/changelog/20220405132505_added_entity_constraints_Screen.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220406121742_added_entity_constraints_StripLaying.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220413133845_added_entity_constraints_ContinuityWireLongitLaying.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220419070735_added_entity_constraints_Plait.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

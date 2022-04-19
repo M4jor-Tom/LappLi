@@ -54,6 +54,17 @@ entity TapeLaying {
 	assemblyMean AssemblyMean required
 }
 
+entity Plait {
+    operationLayer Long required
+    targetCoveringRate Double
+    targetDegreeAngle Double
+    targetingCoveringRateNotAngle Boolean required
+    anonymousMetalFiberNumber Long
+    anonymousMetalFiberDesignation String
+    anonymousMetalFiberMetalFiberKind MetalFiberKind
+    anonymousMetalFiberMilimeterDiameter Double
+}
+
 entity Sheathing {
 	operationLayer Long required
 	milimeterThickness Double required
@@ -200,7 +211,7 @@ entity Material {
     kilogramPerCubeMeterVolumicDensity Double required
 }
 
-entity MetalFiber {
+entity SteelFiber {
     number Long unique
     designation String unique
     metalFiberKind MetalFiberKind required
@@ -261,6 +272,9 @@ relationship OneToMany {
     //StripLayings
     StrandSupply{stripLayings(productionStep)} to StripLaying{ownerStrandSupply(designation) required}
 
+    //Plaits
+    StrandSupply{plaits(productionStep)} to Plait{ownerStrandSupply(designation) required}
+
     //Sheathings
     StrandSupply{sheathings(productionStep)} to Sheathing{ownerStrandSupply(designation) required}
 
@@ -290,6 +304,11 @@ relationship ManyToOne {
 
 relationship ManyToOne {
     Screen{copperFiber(designation)} to CopperFiber
+}
+
+relationship ManyToOne {
+    Plait{copperFiber(designation)} to CopperFiber
+    Plait{steelFiber(designation)} to SteelFiber
 }
 
 relationship ManyToOne {

@@ -41,6 +41,8 @@ import StripLayingUpdate from '../strip-laying/strip-laying-update';
 import StripLayingDeleteDialog from '../strip-laying/strip-laying-delete-dialog';
 import ContinuityWireLongitLayingUpdate from '../continuity-wire-longit-laying/continuity-wire-longit-laying-update';
 import ContinuityWireLongitLayingDeleteDialog from '../continuity-wire-longit-laying/continuity-wire-longit-laying-delete-dialog';
+import PlaitUpdate from '../plait/plait-update';
+import PlaitDeleteDialog from '../plait/plait-delete-dialog';
 
 const studySuppliesUrlPrefix = '/:study_id/study-supplies';
 
@@ -120,6 +122,10 @@ const Routes = ({ match }) => (
         path={`${match.url + strandSupplyOperationZoneUrlPrefix}/strip-laying/:id/delete`}
         component={StripLayingDeleteDialog}
       />
+
+      <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/plait/new`} component={PlaitUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/plait/:id/edit`} component={PlaitUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/plait/:id/delete`} component={PlaitDeleteDialog} />
 
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/sheathing/new`} component={SheathingUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/sheathing/:id/edit`} component={SheathingUpdate} />

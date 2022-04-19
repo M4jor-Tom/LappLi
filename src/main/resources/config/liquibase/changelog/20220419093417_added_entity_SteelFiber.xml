@@ -7,18 +7,18 @@
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <!--
-        Added the entity MetalFiber.
+        Added the entity SteelFiber.
     -->
-    <changeSet id="20220411090946-1" author="jhipster">
-        <createTable tableName="metal_fiber">
+    <changeSet id="20220419093417-1" author="jhipster">
+        <createTable tableName="steel_fiber">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="number" type="bigint">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_metal_fiber__number" />
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_steel_fiber__number" />
             </column>
             <column name="designation" type="varchar(255)">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_metal_fiber__designation" />
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_steel_fiber__designation" />
             </column>
             <column name="metal_fiber_kind" type="varchar(255)">
                 <constraints nullable="false" />
@@ -40,11 +40,11 @@
           This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
           Spring Boot configuration key.
     -->
-    <changeSet id="20220411090946-1-data" author="jhipster" context="faker">
+    <changeSet id="20220419093417-1-data" author="jhipster" context="faker">
         <loadData
-                  file="config/liquibase/fake-data/metal_fiber.csv"
+                  file="config/liquibase/fake-data/steel_fiber.csv"
                   separator=";"
-                  tableName="metal_fiber"
+                  tableName="steel_fiber"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="number" type="numeric"/>

@@ -1,12 +1,12 @@
 package com.muller.lappli.repository;
 
-import com.muller.lappli.domain.MetalFiber;
+import com.muller.lappli.domain.SteelFiber;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data SQL repository for the MetalFiber entity.
+ * Spring Data SQL repository for the SteelFiber entity.
  */
 @SuppressWarnings("unused")
 @Repository
-public interface MetalFiberRepository extends JpaRepository<MetalFiber, Long> {}
+public interface SteelFiberRepository extends JpaRepository<SteelFiber, Long> {}

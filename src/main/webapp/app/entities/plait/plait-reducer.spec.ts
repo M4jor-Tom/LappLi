@@ -4,17 +4,9 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import sinon from 'sinon';
 
-import reducer, {
-  createEntity,
-  deleteEntity,
-  getEntities,
-  getEntity,
-  updateEntity,
-  partialUpdateEntity,
-  reset,
-} from './metal-fiber.reducer';
+import reducer, { createEntity, deleteEntity, getEntities, getEntity, updateEntity, partialUpdateEntity, reset } from './plait.reducer';
 import { EntityState } from 'app/shared/reducers/reducer.utils';
-import { IMetalFiber, defaultValue } from 'app/shared/model/metal-fiber.model';
+import { IPlait, defaultValue } from 'app/shared/model/plait.model';
 
 describe('Entities reducer tests', () => {
   function isEmpty(element): boolean {
@@ -25,7 +17,7 @@ describe('Entities reducer tests', () => {
     }
   }
 
-  const initialState: EntityState<IMetalFiber> = {
+  const initialState: EntityState<IPlait> = {
     loading: false,
     errorMessage: null,
     entities: [],
@@ -186,7 +178,7 @@ describe('Entities reducer tests', () => {
       axios.delete = sinon.stub().returns(Promise.resolve(resolvedObject));
     });
 
-    it('dispatches FETCH_METALFIBER_LIST actions', async () => {
+    it('dispatches FETCH_PLAIT_LIST actions', async () => {
       const expectedActions = [
         {
           type: getEntities.pending.type,
@@ -201,7 +193,7 @@ describe('Entities reducer tests', () => {
       expect(store.getActions()[1]).toMatchObject(expectedActions[1]);
     });
 
-    it('dispatches FETCH_METALFIBER actions', async () => {
+    it('dispatches FETCH_PLAIT actions', async () => {
       const expectedActions = [
         {
           type: getEntity.pending.type,
@@ -216,7 +208,7 @@ describe('Entities reducer tests', () => {
       expect(store.getActions()[1]).toMatchObject(expectedActions[1]);
     });
 
-    it('dispatches CREATE_METALFIBER actions', async () => {
+    it('dispatches CREATE_PLAIT actions', async () => {
       const expectedActions = [
         {
           type: createEntity.pending.type,
@@ -235,7 +227,7 @@ describe('Entities reducer tests', () => {
       expect(store.getActions()[2]).toMatchObject(expectedActions[2]);
     });
 
-    it('dispatches UPDATE_METALFIBER actions', async () => {
+    it('dispatches UPDATE_PLAIT actions', async () => {
       const expectedActions = [
         {
           type: updateEntity.pending.type,
@@ -254,7 +246,7 @@ describe('Entities reducer tests', () => {
       expect(store.getActions()[2]).toMatchObject(expectedActions[2]);
     });
 
-    it('dispatches PARTIAL_UPDATE_METALFIBER actions', async () => {
+    it('dispatches PARTIAL_UPDATE_PLAIT actions', async () => {
       const expectedActions = [
         {
           type: partialUpdateEntity.pending.type,
@@ -273,7 +265,7 @@ describe('Entities reducer tests', () => {
       expect(store.getActions()[2]).toMatchObject(expectedActions[2]);
     });
 
-    it('dispatches DELETE_METALFIBER actions', async () => {
+    it('dispatches DELETE_PLAIT actions', async () => {
       const expectedActions = [
         {
           type: deleteEntity.pending.type,

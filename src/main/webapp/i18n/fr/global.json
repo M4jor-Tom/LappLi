@@ -41,6 +41,8 @@
         "metalFiber": "Metal Fiber",
         "continuityWireLongitLaying": "Continuity Wire Longit Laying",
         "continuityWire": "Continuity Wire",
+        "plait": "Plait",
+        "steelFiber": "Steel Fiber",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

@@ -1,7 +1,7 @@
 package com.muller.lappli.domain.enumeration;
 
 import com.muller.lappli.domain.CopperFiber;
-import com.muller.lappli.domain.MetalFiber;
+import com.muller.lappli.domain.SteelFiber;
 
 /**
  * The MetalFiberKind enumeration.
@@ -28,7 +28,7 @@ public enum MetalFiberKind {
         //[METAL_FIBER]
         if (CopperFiber.class.equals(metalFiberClass)) {
             return this.equals(RED_COPPER) || this.equals(TINNED_COPPER);
-        } else if (MetalFiber.class.equals(metalFiberClass)) {
+        } else if (SteelFiber.class.equals(metalFiberClass)) {
             return this.equals(STEEL);
         }
 

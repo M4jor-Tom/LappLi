@@ -72,11 +72,13 @@ import strip from 'app/entities/strip/strip.reducer';
 // prettier-ignore
 import stripLaying from 'app/entities/strip-laying/strip-laying.reducer';
 // prettier-ignore
-import metalFiber from 'app/entities/metal-fiber/metal-fiber.reducer';
-// prettier-ignore
 import continuityWireLongitLaying from 'app/entities/continuity-wire-longit-laying/continuity-wire-longit-laying.reducer';
 // prettier-ignore
 import continuityWire from 'app/entities/continuity-wire/continuity-wire.reducer';
+// prettier-ignore
+import plait from 'app/entities/plait/plait.reducer';
+// prettier-ignore
+import steelFiber from 'app/entities/steel-fiber/steel-fiber.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -120,9 +122,10 @@ const rootReducer = {
   copperFiber,
   strip,
   stripLaying,
-  metalFiber,
   continuityWireLongitLaying,
   continuityWire,
+  plait,
+  steelFiber,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };

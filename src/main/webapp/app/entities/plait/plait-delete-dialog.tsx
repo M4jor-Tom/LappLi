@@ -5,22 +5,25 @@ import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-import { getEntity, deleteEntity } from './metal-fiber.reducer';
+import { getEntity, deleteEntity } from './plait.reducer';
+import { getOutFromStudySupplyStrandPlait } from '../index-management/index-management-lib';
 
-export const MetalFiberDeleteDialog = (props: RouteComponentProps<{ id: string }>) => {
+export const PlaitDeleteDialog = (props: RouteComponentProps<{ id: string }>) => {
   const [loadModal, setLoadModal] = useState(false);
   const dispatch = useAppDispatch();
+
+  const redirectionUrl = getOutFromStudySupplyStrandPlait(props.match.url, false);
 
   useEffect(() => {
     dispatch(getEntity(props.match.params.id));
     setLoadModal(true);
   }, []);
 
-  const metalFiberEntity = useAppSelector(state => state.metalFiber.entity);
-  const updateSuccess = useAppSelector(state => state.metalFiber.updateSuccess);
+  const plaitEntity = useAppSelector(state => state.plait.entity);
+  const updateSuccess = useAppSelector(state => state.plait.updateSuccess);
 
   const handleClose = () => {
-    props.history.push('/metal-fiber');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {
@@ -31,17 +34,17 @@ export const MetalFiberDeleteDialog = (props: RouteComponentProps<{ id: string }
   }, [updateSuccess]);
 
   const confirmDelete = () => {
-    dispatch(deleteEntity(metalFiberEntity.id));
+    dispatch(deleteEntity(plaitEntity.id));
   };
 
   return (
     <Modal isOpen toggle={handleClose}>
-      <ModalHeader toggle={handleClose} data-cy="metalFiberDeleteDialogHeading">
+      <ModalHeader toggle={handleClose} data-cy="plaitDeleteDialogHeading">
         <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
       </ModalHeader>
-      <ModalBody id="lappLiApp.metalFiber.delete.question">
-        <Translate contentKey="lappLiApp.metalFiber.delete.question" interpolate={{ id: metalFiberEntity.id }}>
-          Are you sure you want to delete this MetalFiber?
+      <ModalBody id="lappLiApp.plait.delete.question">
+        <Translate contentKey="lappLiApp.plait.delete.question" interpolate={{ id: plaitEntity.id }}>
+          Are you sure you want to delete this Plait?
         </Translate>
       </ModalBody>
       <ModalFooter>
@@ -50,7 +53,7 @@ export const MetalFiberDeleteDialog = (props: RouteComponentProps<{ id: string }
           &nbsp;
           <Translate contentKey="entity.action.cancel">Cancel</Translate>
         </Button>
-        <Button id="jhi-confirm-delete-metalFiber" data-cy="entityConfirmDeleteButton" color="danger" onClick={confirmDelete}>
+        <Button id="jhi-confirm-delete-plait" data-cy="entityConfirmDeleteButton" color="danger" onClick={confirmDelete}>
           <FontAwesomeIcon icon="trash" />
           &nbsp;
           <Translate contentKey="entity.action.delete">Delete</Translate>
@@ -60,4 +63,4 @@ export const MetalFiberDeleteDialog = (props: RouteComponentProps<{ id: string }
   );
 };
 
-export default MetalFiberDeleteDialog;
+export default PlaitDeleteDialog;

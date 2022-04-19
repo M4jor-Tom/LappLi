@@ -1,11 +1,7 @@
-import { MetalFiberKind } from 'app/shared/model/enumerations/metal-fiber-kind.model';
+import { IAbstractMetalFiber } from './abstarct-metal-fiber.model';
 
-export interface ICopperFiber {
+export interface ICopperFiber extends IAbstractMetalFiber {
   id?: number;
-  number?: number | null;
-  designation?: string | null;
-  metalFiberKind?: MetalFiberKind;
-  milimeterDiameter?: number;
 }
 
 export const defaultValue: Readonly<ICopperFiber> = {};
