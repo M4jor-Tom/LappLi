@@ -20,6 +20,11 @@ import { IAbstractOperation } from 'app/shared/model/abstract-operation.model';
 import { isAssembly } from 'app/shared/model/abstract-assembly.model';
 import { isAssemblableOperation } from 'app/shared/model/assemblable-operation.model';
 import { isMeanedAssemblableOperation } from 'app/shared/model/meaned-assemblable-operation.model';
+import { escapeRegExp } from 'lodash';
+
+function replaceAll(str: string, find: string, replace: string): string {
+  return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+}
 
 export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_supply_id: string; study_id: string }>) => {
   const dispatch = useAppDispatch();
@@ -291,7 +296,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                       <div className="btn-group flex-btn-group-container">
                         <Button
                           tag={Link}
-                          to={`${props.match.url}/${operation.operationKind.toLowerCase().replace('_', '-')}/${operation.id}/edit`}
+                          to={`${props.match.url}/${replaceAll(operation.operationKind.toLowerCase(), '_', '-')}/${operation.id}/edit`}
                           color="primary"
                           size="sm"
                           data-cy="entityEditButton"
@@ -304,7 +309,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                         &nbsp;
                         <Button
                           tag={Link}
-                          to={`${props.match.url}/${operation.operationKind.toLowerCase().replace('_', '-')}/${operation.id}/delete`}
+                          to={`${props.match.url}/${replaceAll(operation.operationKind.toLowerCase(), '_', '-')}/${operation.id}/delete`}
                           color="danger"
                           size="sm"
                           data-cy="entityDeleteButton"
