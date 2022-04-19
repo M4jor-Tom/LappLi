@@ -37,6 +37,7 @@ import StripLaying from './strip-laying';
 import MetalFiber from './metal-fiber';
 import ContinuityWireLongitLaying from './continuity-wire-longit-laying';
 import ContinuityWire from './continuity-wire';
+import Plait from './plait';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -76,6 +77,7 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}metal-fiber`} component={MetalFiber} />
       <ErrorBoundaryRoute path={`${match.url}continuity-wire-longit-laying`} component={ContinuityWireLongitLaying} />
       <ErrorBoundaryRoute path={`${match.url}continuity-wire`} component={ContinuityWire} />
+      <ErrorBoundaryRoute path={`${match.url}plait`} component={Plait} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>

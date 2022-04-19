@@ -102,6 +102,8 @@ public class CacheConfiguration {
             createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".continuityWireLongitLayings");
             createCache(cm, com.muller.lappli.domain.ContinuityWireLongitLaying.class.getName());
             createCache(cm, com.muller.lappli.domain.ContinuityWire.class.getName());
+            createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".plaits");
+            createCache(cm, com.muller.lappli.domain.Plait.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

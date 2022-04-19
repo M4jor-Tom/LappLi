@@ -77,6 +77,8 @@ import metalFiber from 'app/entities/metal-fiber/metal-fiber.reducer';
 import continuityWireLongitLaying from 'app/entities/continuity-wire-longit-laying/continuity-wire-longit-laying.reducer';
 // prettier-ignore
 import continuityWire from 'app/entities/continuity-wire/continuity-wire.reducer';
+// prettier-ignore
+import plait from 'app/entities/plait/plait.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -123,6 +125,7 @@ const rootReducer = {
   metalFiber,
   continuityWireLongitLaying,
   continuityWire,
+  plait,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };

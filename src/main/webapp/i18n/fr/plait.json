@@ -1,0 +1,33 @@
+{
+  "lappLiApp": {
+    "plait": {
+      "home": {
+        "title": "Plaits",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Plait",
+        "createOrEditLabel": "Créer ou éditer un Plait",
+        "notFound": "Aucun Plait trouvé"
+      },
+      "created": "Un nouveau Plait a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Plait avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Plait avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Plait {{ id }} ?"
+      },
+      "detail": {
+        "title": "Plait"
+      },
+      "id": "ID",
+      "targetCoveringRate": "Target Covering Rate",
+      "targetDegreeAngle": "Target Degree Angle",
+      "targetingCoveringRateNotAngle": "Targeting Covering Rate Not Angle",
+      "anonymousMetalFiberNumber": "Anonymous Metal Fiber Number",
+      "anonymousMetalFiberDesignation": "Anonymous Metal Fiber Designation",
+      "anonymousMetalFiberMetalFiberKind": "Anonymous Metal Fiber Metal Fiber Kind",
+      "anonymousMetalFiberMilimeterDiameter": "Anonymous Metal Fiber Milimeter Diameter",
+      "copperFiber": "Copper Fiber",
+      "metalFiber": "Metal Fiber",
+      "ownerStrandSupply": "Owner Strand Supply"
+    }
+  }
+}

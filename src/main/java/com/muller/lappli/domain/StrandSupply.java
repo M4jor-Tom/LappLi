@@ -95,6 +95,11 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "copperFiber", "metalFiber", "ownerStrandSupply" }, allowSetters = true)
+    private Set<Plait> plaits = new HashSet<>();
+
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
     private Set<Sheathing> sheathings = new HashSet<>();
 
@@ -764,6 +769,37 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     public StrandSupply removeStripLayings(StripLaying stripLaying) {
         this.stripLayings.remove(stripLaying);
         stripLaying.setOwnerStrandSupply(null);
+        return this;
+    }
+
+    public Set<Plait> getPlaits() {
+        return this.plaits;
+    }
+
+    public void setPlaits(Set<Plait> plaits) {
+        if (this.plaits != null) {
+            this.plaits.forEach(i -> i.setOwnerStrandSupply(null));
+        }
+        if (plaits != null) {
+            plaits.forEach(i -> i.setOwnerStrandSupply(this));
+        }
+        this.plaits = plaits;
+    }
+
+    public StrandSupply plaits(Set<Plait> plaits) {
+        this.setPlaits(plaits);
+        return this;
+    }
+
+    public StrandSupply addPlaits(Plait plait) {
+        this.plaits.add(plait);
+        plait.setOwnerStrandSupply(this);
+        return this;
+    }
+
+    public StrandSupply removePlaits(Plait plait) {
+        this.plaits.remove(plait);
+        plait.setOwnerStrandSupply(null);
         return this;
     }
 

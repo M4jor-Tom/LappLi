@@ -71,6 +71,13 @@
     },
     {
       "relationshipType": "one-to-many",
+      "otherEntityName": "plait",
+      "otherEntityRelationshipName": "ownerStrandSupply",
+      "relationshipName": "plaits",
+      "otherEntityField": "productionStep"
+    },
+    {
+      "relationshipType": "one-to-many",
       "otherEntityName": "sheathing",
       "otherEntityRelationshipName": "ownerStrandSupply",
       "relationshipName": "sheathings",
