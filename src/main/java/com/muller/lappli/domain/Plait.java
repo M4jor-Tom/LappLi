@@ -95,7 +95,7 @@ public class Plait extends AbstractOperation<Plait> implements Serializable, INo
     @Override
     public Double getMilimeterDiameterIncidency() {
         // TODO Auto-generated method stub
-        return null;
+        return Double.NaN;
     }
 
     @Override
