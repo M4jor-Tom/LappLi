@@ -2,20 +2,20 @@
   "lappLiApp": {
     "continuityWireLongitLaying": {
       "home": {
-        "title": "ContinuityWireLongitLayings",
+        "title": "Poses de fils de continuités",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Continuity Wire Longit Laying",
-        "createOrEditLabel": "Créer ou éditer un Continuity Wire Longit Laying",
-        "notFound": "Aucun Continuity Wire Longit Laying trouvé"
+        "createLabel": "Créer une nouvelle Pose de fil de continuité",
+        "createOrEditLabel": "Créer ou éditer une Pose de fil de continuité",
+        "notFound": "Aucune Pose de fil de continuité trouvé"
       },
-      "created": "Un nouveau Continuity Wire Longit Laying a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Continuity Wire Longit Laying avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Continuity Wire Longit Laying avec l'identifiant {{ param }} a été supprimé",
+      "created": "Une nouvelle Pose de fil de continuité a été créé avec l'identifiant {{ param }}",
+      "updated": "La Pose de fil de continuité avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "La Pose de fil de continuité avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Continuity Wire Longit Laying {{ id }} ?"
+        "question": "Etes-vous certain de vouloir supprimer le Pose de fil de continuité {{ id }} ?"
       },
       "detail": {
-        "title": "Continuity Wire Longit Laying"
+        "title": "Pose de fil de continuité"
       },
       "id": "ID",
       "operationLayer": "Couche d'Opération",

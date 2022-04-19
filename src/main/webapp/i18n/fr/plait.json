@@ -9,8 +9,8 @@
         "notFound": "Aucune Tresse trouvé"
       },
       "created": "Une nouvelle Tresse a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Tresse avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Tresse avec l'identifiant {{ param }} a été supprimé",
+      "updated": "La Tresse avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "La Tresse avec l'identifiant {{ param }} a été supprimé",
       "delete": {
         "question": "Etes-vous certain de vouloir supprimer le Tresse {{ id }} ?"
       },
