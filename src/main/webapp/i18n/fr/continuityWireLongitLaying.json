@@ -18,14 +18,14 @@
         "title": "Continuity Wire Longit Laying"
       },
       "id": "ID",
-      "operationLayer": "Operation Layer",
-      "anonymousContinuityWireDesignation": "Anonymous Continuity Wire Designation",
-      "anonymousContinuityWireGramPerMeterLinearMass": "Anonymous Continuity Wire Gram Per Meter Linear Mass",
-      "anonymousContinuityWireMetalFiberKind": "Anonymous Continuity Wire Metal Fiber Kind",
-      "anonymousContinuityWireMilimeterDiameter": "Anonymous Continuity Wire Milimeter Diameter",
-      "anonymousContinuityWireFlexibility": "Anonymous Continuity Wire Flexibility",
-      "continuityWire": "Continuity Wire",
-      "ownerStrandSupply": "Owner Strand Supply"
+      "operationLayer": "Couche d'Opération",
+      "anonymousContinuityWireDesignation": "Designation de Fibre métallique anonyme",
+      "anonymousContinuityWireGramPerMeterLinearMass": "Masse linéique de Fibre métallique anonyme (g/m)",
+      "anonymousContinuityWireMetalFiberKind": "Genre de Fibre métallique anonyme",
+      "anonymousContinuityWireMilimeterDiameter": "Diamètre de Fibre métallique anonyme (mm)",
+      "anonymousContinuityWireFlexibility": "Flexibilité de Fibre métallique anonyme",
+      "continuityWire": "Fil de continuité",
+      "ownerStrandSupply": "Approvisionnement de Toron Propriétaire"
     }
   }
 }

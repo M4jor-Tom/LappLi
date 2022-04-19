@@ -2,27 +2,27 @@
   "lappLiApp": {
     "continuityWire": {
       "home": {
-        "title": "ContinuityWires",
+        "title": "Fils de continuités",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Continuity Wire",
-        "createOrEditLabel": "Créer ou éditer un Continuity Wire",
-        "notFound": "Aucun Continuity Wire trouvé"
+        "createLabel": "Créer un nouveau Fil de Continuité",
+        "createOrEditLabel": "Créer ou éditer un Fil de Continuité",
+        "notFound": "Aucun Fil de Continuité trouvé"
       },
-      "created": "Un nouveau Continuity Wire a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Continuity Wire avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Continuity Wire avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouveau Fil de Continuité a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Fil de Continuité avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Fil de Continuité avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Continuity Wire {{ id }} ?"
+        "question": "Etes-vous certain de vouloir supprimer le Fil de Continuité {{ id }} ?"
       },
       "detail": {
-        "title": "Continuity Wire"
+        "title": "Fil de Continuité"
       },
       "id": "ID",
       "designation": "Designation",
-      "gramPerMeterLinearMass": "Gram Per Meter Linear Mass",
-      "metalFiberKind": "Metal Fiber Kind",
-      "milimeterDiameter": "Milimeter Diameter",
-      "flexibility": "Flexibility"
+      "gramPerMeterLinearMass": "Masse linéique (g/m)",
+      "metalFiberKind": "Genre de Fibre Métallique",
+      "milimeterDiameter": "Diamètre (mm)",
+      "flexibility": "Flexibilité"
     }
   }
 }
