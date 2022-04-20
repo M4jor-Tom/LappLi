@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IMaterial } from 'app/shared/model/material.model';
 import { getEntities as getMaterials } from 'app/entities/material/material.reducer';
 import { IStrandSupply } from 'app/shared/model/strand-supply.model';
-import { getEntities as getStrandSupplies } from 'app/entities/strand-supply/strand-supply.reducer';
+import { getEntities as getStrandSupplies, getEntity as getStrandSupplyEntity } from 'app/entities/strand-supply/strand-supply.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './sheathing.reducer';
 import { ISheathing } from 'app/shared/model/sheathing.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -25,6 +25,7 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
 
   const materials = useAppSelector(state => state.material.entities);
   const strandSupplies = useAppSelector(state => state.strandSupply.entities);
+  const futureOwnerStrandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
   const sheathingEntity = useAppSelector(state => state.sheathing.entity);
   const loading = useAppSelector(state => state.sheathing.loading);
   const updating = useAppSelector(state => state.sheathing.updating);
@@ -52,12 +53,21 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
   }, [updateSuccess]);
 
   const saveEntity = values => {
+    let futureOwnerStrandSupply: IStrandSupply = {};
+
+    if (values.ownerStrandSupply) {
+      futureOwnerStrandSupply = strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString());
+    } else {
+      dispatch(getStrandSupplyEntity(props.match.params.strand_supply_id));
+      futureOwnerStrandSupply = futureOwnerStrandSupplyEntity;
+    }
+
     const entity = {
       ...sheathingEntity,
       ...values,
       __typeName: 'Sheathing',
       material: materials.find(it => it.id.toString() === values.material.toString()),
-      ownerStrandSupply: strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString()),
+      ownerStrandSupply: futureOwnerStrandSupply,
     };
 
     if (isNew) {
@@ -71,7 +81,6 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
     isNew
       ? {}
       : {
-          __typeName: 'Sheathing',
           sheathingKind: 'TUBE',
           ...sheathingEntity,
           material: sheathingEntity?.material?.id,
@@ -111,8 +120,8 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
                 name="operationLayer"
                 data-cy="operationLayer"
                 type="text"
+                defaultValue={-2}
                 validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
               />

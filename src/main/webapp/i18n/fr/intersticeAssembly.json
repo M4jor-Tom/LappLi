@@ -2,26 +2,26 @@
   "lappLiApp": {
     "intersticeAssembly": {
       "home": {
-        "title": "IntersticeAssemblies",
+        "title": "Assemblages Intesticiels",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Interstice Assembly",
-        "createOrEditLabel": "Créer ou éditer un Interstice Assembly",
-        "notFound": "Aucun Interstice Assembly trouvé"
+        "createLabel": "Créer un nouveau Assemblage Intersticiel",
+        "createOrEditLabel": "Créer ou éditer un Assemblage Intersticiel",
+        "notFound": "Aucun Assemblage Intersticiel trouvé"
       },
-      "created": "Un nouveau Interstice Assembly a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Interstice Assembly avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Interstice Assembly avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouveau Assemblage Intersticiel a été créé avec l'identifiant {{ param }}",
+      "updated": "L'Assemblage Intersticiel avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "L'Assemblage Intersticiel avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Interstice Assembly {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer l'Assemblage Intersticiel {{ id }} ?"
       },
       "detail": {
-        "title": "Interstice Assembly"
+        "title": "Assemblage Intersticiel"
       },
       "id": "ID",
-      "intersticeLayer": "Interstice Layer",
-      "forcedMeanMilimeterComponentDiameter": "Forced Mean Milimeter Component Diameter",
-      "supplyPositions": "Supply Positions",
-      "ownerStrandSupply": "Owner Strand Supply"
+      "intersticeLayer": "Couche d'Interstice",
+      "forcedMeanMilimeterComponentDiameter": "Diamètre de Composant Moyen Forcé (mm)",
+      "supplyPositions": "Positions d'Approvisionnements",
+      "ownerStrandSupply": "Approvisionnement de Toron Propriétaire"
     }
   }
 }

@@ -26,7 +26,7 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     private Long id;
 
     @JsonIgnoreProperties(
-        value = { "coreAssemblies", "intersticeAssemblies", "sheathings", "strand", "centralAssembly", "study" },
+        value = { "coreAssemblies", "intersticeAssemblies", "tapeLayings", "sheathings", "strand", "centralAssembly", "study" },
         allowSetters = true
     )
     @OneToOne(optional = false)
@@ -39,6 +39,12 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
     private SupplyPosition supplyPosition;
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    public CentralAssembly() {
+        super();
+    }
 
     @Override
     public CentralAssembly getThis() {
@@ -104,18 +110,18 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
         return "";
     }
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
-
     @Override
     public Long getId() {
         return this.id;
     }
 
+    @Override
     public CentralAssembly id(Long id) {
         this.setId(id);
         return this;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -168,9 +174,14 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     // prettier-ignore
     @Override
     public String toString() {
+        String supplyPositionToString = getSupplyPosition() == null
+            ? "null"
+            : getSupplyPosition().toString();
+        
         return "CentralAssembly{" +
             "id=" + getId() +
             ", productionStep=" + getProductionStep() +
+            ", supplyPosition=" + supplyPositionToString +
             "}";
     }
 }

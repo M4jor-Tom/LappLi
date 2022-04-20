@@ -2,26 +2,26 @@
   "lappLiApp": {
     "materialMarkingStatistic": {
       "home": {
-        "title": "MaterialMarkingStatistics",
+        "title": "Statistiques de Marquages de Matériaux",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Material Marking Statistic",
-        "createOrEditLabel": "Créer ou éditer un Material Marking Statistic",
-        "notFound": "Aucun Material Marking Statistic trouvé"
+        "createLabel": "Créer une nouvelle Statistique de Marquage de Matériau",
+        "createOrEditLabel": "Créer ou éditer une Statistique de Marquage de Matériau",
+        "notFound": "Aucune Statistique de Marquage de Matériau trouvé"
       },
-      "created": "Un nouveau Material Marking Statistic a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Material Marking Statistic avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Material Marking Statistic avec l'identifiant {{ param }} a été supprimé",
+      "created": "Une nouvelle Statistique de Marquage de Matériau a été créé avec l'identifiant {{ param }}",
+      "updated": "La Statistique de Marquage de Matériau avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "La Statistique de Marquage de Matériau avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Material Marking Statistic {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer la Statistique de Marquage de Matériau {{ id }} ?"
       },
       "detail": {
-        "title": "Material Marking Statistic"
+        "title": "Statistique de Marquage de Matériau"
       },
       "id": "ID",
-      "markingType": "Marking Type",
-      "markingTechnique": "Marking Technique",
-      "meterPerHourSpeed": "Meter Per Hour Speed",
-      "material": "Material"
+      "markingType": "Type de Marquage",
+      "markingTechnique": "Technique de Marquage",
+      "meterPerHourSpeed": "Vitesse (m/h)",
+      "material": "Matériau"
     }
   }
 }

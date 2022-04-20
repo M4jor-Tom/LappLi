@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
 import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
+import com.muller.lappli.domain.interfaces.PlasticAspectCylindricComponent;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -21,18 +23,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @NotNull
-    @Column(name = "apparitions", nullable = false)
-    private Long apparitions;
-
-    @Column(name = "description")
-    private String description;
 
     @OneToMany(mappedBy = "bangleSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -54,6 +44,10 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     @NotNull
     private Bangle bangle;
 
+    public BangleSupply() {
+        super();
+    }
+
     @Override
     public BangleSupply getThis() {
         return this;
@@ -70,12 +64,12 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     }
 
     @Override
-    public Material getSurfaceMaterial() {
-        try {
-            return getBangle().getMaterial();
-        } catch (NullPointerException e) {
+    public Optional<PlasticAspectCylindricComponent> getCylindricComponentIfPlasticAspect() {
+        if (getBangle() == null) {
             return null;
         }
+
+        return Optional.of(getBangle());
     }
 
     @Override
@@ -84,46 +78,6 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public BangleSupply id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public Long getApparitions() {
-        return this.apparitions;
-    }
-
-    public BangleSupply apparitions(Long apparitions) {
-        this.setApparitions(apparitions);
-        return this;
-    }
-
-    public void setApparitions(Long apparitions) {
-        this.apparitions = apparitions;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public BangleSupply description(String description) {
-        this.setDescription(description);
-        return this;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     @Override
     public Set<SupplyPosition> getOwnerSupplyPositions() {
@@ -180,7 +134,7 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
         if (!(o instanceof BangleSupply)) {
             return false;
         }
-        return id != null && id.equals(((BangleSupply) o).id);
+        return getId() != null && getId().equals(((BangleSupply) o).getId());
     }
 
     @Override

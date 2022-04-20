@@ -1,0 +1,28 @@
+{
+  "lappLiApp": {
+    "tape": {
+      "home": {
+        "title": "Rubans",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Ruban",
+        "createOrEditLabel": "Créer ou éditer un Ruban",
+        "notFound": "Aucun Ruban trouvé"
+      },
+      "created": "Un nouveau Ruban a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Ruban avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Ruban avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Ruban {{ id }} ?"
+      },
+      "detail": {
+        "title": "Ruban"
+      },
+      "id": "ID",
+      "number": "Numéro",
+      "designation": "Désignation",
+      "milimeterWidth": "Largeur (mm)",
+      "milimeterDiameterIncidency": "Incidence au Diamètre (mm)",
+      "tapeKind": "Genre de Ruban"
+    }
+  }
+}

@@ -86,10 +86,6 @@ public enum AssemblyPresetDistribution {
         return CalculatorManager.getCalculatorInstance().getCorrespondingAssemblyPresetDistributionCalculator(this);
     }
 
-    public Long getAssembliesCount() {
-        return null;
-    }
-
     public AssemblyPreset getAssemblyPresetAtAssembly(Long assemblyIndex, Boolean forceCentralUtilityComponent) {
         return getAssemblyPresetDistributionPossibility(forceCentralUtilityComponent).getAssemblyPresets().get(assemblyIndex.intValue());
     }
@@ -112,14 +108,6 @@ public enum AssemblyPresetDistribution {
         }
 
         return AssemblyPresetDistribution.values()[suppliedComponentsCount.intValue() - 1];
-    }
-
-    public Double getFinalMilimeterDiameter() {
-        return getMilimeterDiameterAtAssembly(getAssembliesCount());
-    }
-
-    public Double getMilimeterDiameterAtAssembly(Long assemblyIndex) {
-        return Double.NaN;
     }
 
     public Long getComponentsCount() {

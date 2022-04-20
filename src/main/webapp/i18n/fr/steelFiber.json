@@ -1,0 +1,27 @@
+{
+  "lappLiApp": {
+    "steelFiber": {
+      "home": {
+        "title": "SteelFibers",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Steel Fiber",
+        "createOrEditLabel": "Créer ou éditer un Steel Fiber",
+        "notFound": "Aucun Steel Fiber trouvé"
+      },
+      "created": "Un nouveau Steel Fiber a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Steel Fiber avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Steel Fiber avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Steel Fiber {{ id }} ?"
+      },
+      "detail": {
+        "title": "Steel Fiber"
+      },
+      "id": "ID",
+      "number": "Number",
+      "designation": "Designation",
+      "metalFiberKind": "Metal Fiber Kind",
+      "milimeterDiameter": "Milimeter Diameter"
+    }
+  }
+}

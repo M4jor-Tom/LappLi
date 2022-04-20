@@ -1,0 +1,25 @@
+{
+  "lappLiApp": {
+    "tapeKind": {
+      "home": {
+        "title": "Genres de Rubans",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Genre de Ruban",
+        "createOrEditLabel": "Créer ou éditer un Genre de Ruban",
+        "notFound": "Aucun Genre de Ruban trouvé"
+      },
+      "created": "Un nouveau Genre de Ruban a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Genre de Ruban avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Genre de Ruban avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Genre de Ruban {{ id }} ?"
+      },
+      "detail": {
+        "title": "Genre de Ruban"
+      },
+      "id": "ID",
+      "targetCoveringRate": "Taux de Recouvement Ciblé",
+      "designation": "Désignation"
+    }
+  }
+}

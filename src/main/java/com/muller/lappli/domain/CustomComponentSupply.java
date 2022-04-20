@@ -6,8 +6,10 @@ import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
+import com.muller.lappli.domain.interfaces.PlasticAspectCylindricComponent;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -23,18 +25,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComponentSupply> implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @NotNull
-    @Column(name = "apparitions", nullable = false)
-    private Long apparitions;
-
-    @Column(name = "description")
-    private String description;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -61,6 +51,11 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
     @NotNull
     private CustomComponent customComponent;
 
+    public CustomComponentSupply() {
+        super();
+        setOwnerSupplyPositions(new HashSet<>());
+    }
+
     @Override
     public CustomComponentSupply getThis() {
         return this;
@@ -77,63 +72,24 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
     }
 
     @Override
-    public Material getSurfaceMaterial() {
-        try {
-            return getCustomComponent().getSurfaceMaterial();
-        } catch (NullPointerException e) {
+    public Optional<PlasticAspectCylindricComponent> getCylindricComponentIfPlasticAspect() {
+        if (getCustomComponent() == null) {
             return null;
         }
+
+        return Optional.of(getCustomComponent());
     }
 
     @Override
     public Color getSurfaceColor() {
-        try {
-            return getCustomComponent().getSurfaceColor();
-        } catch (NullPointerException e) {
+        if (getCustomComponent() == null) {
             return null;
         }
+
+        return getCustomComponent().getSurfaceColor();
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public CustomComponentSupply id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getApparitions() {
-        return this.apparitions;
-    }
-
-    public CustomComponentSupply apparitions(Long apparitions) {
-        this.setApparitions(apparitions);
-        return this;
-    }
-
-    public void setApparitions(Long apparitions) {
-        this.apparitions = apparitions;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public CustomComponentSupply description(String description) {
-        this.setDescription(description);
-        return this;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public MarkingType getMarkingType() {
         return this.markingType;
@@ -203,7 +159,7 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
         if (!(o instanceof CustomComponentSupply)) {
             return false;
         }
-        return id != null && id.equals(((CustomComponentSupply) o).id);
+        return getId() != null && getId().equals(((CustomComponentSupply) o).getId());
     }
 
     @Override

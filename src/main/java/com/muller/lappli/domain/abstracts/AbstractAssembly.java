@@ -3,6 +3,7 @@ package com.muller.lappli.domain.abstracts;
 import com.muller.lappli.domain.AssemblyPreset;
 import com.muller.lappli.domain.AssemblyPresetDistributionPossibility;
 import com.muller.lappli.domain.DomainManager;
+import com.muller.lappli.domain.interfaces.IOperation;
 import javax.persistence.MappedSuperclass;
 
 /**
@@ -10,6 +11,10 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends AbstractOperation<T> {
+
+    public AbstractAssembly() {
+        super();
+    }
 
     @Override
     public abstract Double getMilimeterDiameterIncidency();
@@ -21,7 +26,7 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends Ab
 
         Long count = Long.valueOf(0);
 
-        for (AbstractOperation<?> operation : getOwnerStrandSupply().getOperations()) {
+        for (IOperation<?> operation : getOwnerStrandSupply().getOperations()) {
             if (operation instanceof AbstractNonCentralAssembly<?>) {
                 count++;
             }
@@ -68,10 +73,5 @@ public abstract class AbstractAssembly<T extends AbstractAssembly<T>> extends Ab
 
     public Long getUtilityComponentsCount() {
         return suggestAssemblyPreset().getUtilityComponentsCount();
-    }
-
-    @Override
-    public Long getOperationLayer() {
-        return Long.valueOf(0);
     }
 }

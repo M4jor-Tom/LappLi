@@ -1,7 +1,8 @@
 package com.muller.lappli.domain;
 
-import com.muller.lappli.domain.abstracts.AbstractCableAtom;
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.interfaces.Commitable;
+import com.muller.lappli.domain.interfaces.Designable;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -14,14 +15,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element_kind")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ElementKind extends AbstractCableAtom<ElementKind> implements Commitable<ElementKind>, Serializable {
+public class ElementKind extends AbstractDomainObject<ElementKind> implements Commitable<ElementKind>, Designable, Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
 
     @NotNull
     @Column(name = "designation", nullable = false, unique = true)
@@ -36,8 +32,8 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
     private Double milimeterDiameter;
 
     @NotNull
-    @Column(name = "insulation_thickness", nullable = false)
-    private Double insulationThickness;
+    @Column(name = "milimeter_insulation_thickness", nullable = false)
+    private Double milimeterInsulationThickness;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -51,8 +47,10 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
     @Transient
     private EditionListManager<ElementKind> editionListManager;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public ElementKind() {
-        //this("", Double.NaN, Double.NaN, Double.NaN, new Copper(), new Material());
+        super();
     }
 
     public ElementKind(
@@ -63,10 +61,11 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
         Copper copper,
         Material insulationMaterial
     ) {
+        super();
         setDesignation(designation);
         setGramPerMeterLinearMass(gramPerMeterLinearMass);
         setMilimeterDiameter(milimeterDiameter);
-        setInsulationThickness(insulationThickness);
+        setMilimeterInsulationThickness(insulationThickness);
         setCopper(copper);
         setInsulationMaterial(insulationMaterial);
     }
@@ -76,7 +75,7 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
             String.valueOf(elementKind.getDesignation()),
             Double.valueOf(elementKind.getGramPerMeterLinearMass()),
             Double.valueOf(elementKind.getMilimeterDiameter()),
-            Double.valueOf(elementKind.getInsulationThickness()),
+            Double.valueOf(elementKind.getMilimeterInsulationThickness()),
             (Copper) elementKind.getCopper().copy(),
             (Material) elementKind.getInsulationMaterial().copy()
         );
@@ -93,27 +92,6 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
     }
 
     @Override
-    public Boolean isUtility() {
-        return true;
-    }
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    @Override
-    public Long getId() {
-        return this.id;
-    }
-
-    public ElementKind id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
     public String getDesignation() {
         return this.designation;
     }
@@ -127,7 +105,6 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
         this.designation = designation;
     }
 
-    @Override
     public Double getGramPerMeterLinearMass() {
         return this.gramPerMeterLinearMass;
     }
@@ -141,7 +118,6 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
         this.gramPerMeterLinearMass = gramPerMeterLinearMass;
     }
 
-    @Override
     public Double getMilimeterDiameter() {
         return this.milimeterDiameter;
     }
@@ -155,17 +131,17 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
         this.milimeterDiameter = milimeterDiameter;
     }
 
-    public Double getInsulationThickness() {
-        return this.insulationThickness;
+    public Double getMilimeterInsulationThickness() {
+        return this.milimeterInsulationThickness;
     }
 
-    public ElementKind insulationThickness(Double insulationThickness) {
-        this.setInsulationThickness(insulationThickness);
+    public ElementKind milimeterInsulationThickness(Double milimeterInsulationThickness) {
+        this.setMilimeterInsulationThickness(milimeterInsulationThickness);
         return this;
     }
 
-    public void setInsulationThickness(Double insulationThickness) {
-        this.insulationThickness = insulationThickness;
+    public void setMilimeterInsulationThickness(Double milimeterInsulationThickness) {
+        this.milimeterInsulationThickness = milimeterInsulationThickness;
     }
 
     public Copper getCopper() {
@@ -214,7 +190,7 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
         if (!(o instanceof ElementKind)) {
             return false;
         }
-        return id != null && id.equals(((ElementKind) o).id);
+        return getId() != null && getId().equals(((ElementKind) o).getId());
     }
 
     @Override
@@ -231,7 +207,7 @@ public class ElementKind extends AbstractCableAtom<ElementKind> implements Commi
             ", designation='" + getDesignation() + "'" +
             ", gramPerMeterLinearMass=" + getGramPerMeterLinearMass() +
             ", milimeterDiameter=" + getMilimeterDiameter() +
-            ", insulationThickness=" + getInsulationThickness() +
+            ", milimeterInsulationThickness=" + getMilimeterInsulationThickness() +
             "}";
     }
 }

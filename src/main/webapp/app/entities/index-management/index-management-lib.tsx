@@ -19,7 +19,29 @@ enum SupplyOwner {
   STUDY = 'study',
 }
 
+//  [OPERATION]
+
+function getOutFromStudySupplyStrandTapeLaying(url: string, isNew: boolean): string {
+  return getOutFromStudySupplyStrandComponent(url, isNew);
+}
+
+function getOutFromStudySupplyStrandScreen(url: string, isNew: boolean): string {
+  return getOutFromStudySupplyStrandComponent(url, isNew);
+}
+
+function getOutFromStudySupplyStrandStripLaying(url: string, isNew: boolean): string {
+  return getOutFromStudySupplyStrandComponent(url, isNew);
+}
+
+function getOutFromStudySupplyStrandPlait(url: string, isNew: boolean): string {
+  return getOutFromStudySupplyStrandComponent(url, isNew);
+}
+
 function getOutFromStudySupplyStrandSheathing(url: string, isNew: boolean): string {
+  return getOutFromStudySupplyStrandComponent(url, isNew);
+}
+
+function getOutFromStudySupplyStrandContinuityWireLongitLaying(url: string, isNew: boolean): string {
   return getOutFromStudySupplyStrandComponent(url, isNew);
 }
 
@@ -172,7 +194,12 @@ function getAssemblyStrandSupplyValidatedField(
 
 export {
   AssemblyKind,
+  getOutFromStudySupplyStrandTapeLaying,
+  getOutFromStudySupplyStrandScreen,
+  getOutFromStudySupplyStrandStripLaying,
+  getOutFromStudySupplyStrandPlait,
   getOutFromStudySupplyStrandSheathing,
+  getOutFromStudySupplyStrandContinuityWireLongitLaying,
   getOutFromStudySupplyStrandAssemblyComponent,
   getOutFromStudySupplyStrandSupplyComponent,
   getStrandSupplyValidatedField,

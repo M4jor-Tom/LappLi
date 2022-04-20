@@ -23,21 +23,9 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @NotNull
-    @Column(name = "operation_layer", nullable = false)
-    private Long operationLayer;
-
     @NotNull
     @Column(name = "interstice_layer", nullable = false)
     private Long intersticeLayer;
-
-    @Column(name = "forced_mean_milimeter_component_diameter")
-    private Double forcedMeanMilimeterComponentDiameter;
 
     @OneToMany(mappedBy = "ownerIntersticeAssembly", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -58,10 +46,17 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = { "coreAssemblies", "intersticeAssemblies", "sheathings", "strand", "centralAssembly", "study" },
+        value = { "coreAssemblies", "intersticeAssemblies", "tapeLayings", "sheathings", "strand", "centralAssembly", "study" },
         allowSetters = true
     )
     private StrandSupply ownerStrandSupply;
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    public IntersticeAssembly() {
+        super();
+        setSupplyPositions(new HashSet<>());
+    }
 
     @Override
     public IntersticeAssembly getThis() {
@@ -75,11 +70,11 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
 
     @Override
     public Double getDiameterAssemblyStep() {
-        try {
-            return getOwnerStrandSupply().getDiameterAssemblyStep();
-        } catch (NullPointerException e) {
+        if (getOwnerStrandSupply() == null) {
             return Double.NaN;
         }
+
+        return getOwnerStrandSupply().getDiameterAssemblyStep();
     }
 
     @Override
@@ -95,39 +90,11 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
 
     @Override
     public AssemblyMean getAssemblyMean() {
-        try {
-            return getOwnerStrandSupply().getAssemblyMean();
-        } catch (NullPointerException e) {
+        if (getOwnerStrandSupply() == null) {
             return null;
         }
-    }
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public IntersticeAssembly id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getOperationLayer() {
-        return this.operationLayer;
-    }
-
-    public IntersticeAssembly operationLayer(Long operationLayer) {
-        this.setOperationLayer(operationLayer);
-        return this;
-    }
-
-    public void setOperationLayer(Long operationLayer) {
-        this.operationLayer = operationLayer;
+        return getOwnerStrandSupply().getAssemblyMean();
     }
 
     public Long getIntersticeLayer() {
@@ -141,19 +108,6 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
 
     public void setIntersticeLayer(Long intersticeLayer) {
         this.intersticeLayer = intersticeLayer;
-    }
-
-    public Double getForcedMeanMilimeterComponentDiameter() {
-        return this.forcedMeanMilimeterComponentDiameter;
-    }
-
-    public IntersticeAssembly forcedMeanMilimeterComponentDiameter(Double forcedMeanMilimeterComponentDiameter) {
-        this.setForcedMeanMilimeterComponentDiameter(forcedMeanMilimeterComponentDiameter);
-        return this;
-    }
-
-    public void setForcedMeanMilimeterComponentDiameter(Double forcedMeanMilimeterComponentDiameter) {
-        this.forcedMeanMilimeterComponentDiameter = forcedMeanMilimeterComponentDiameter;
     }
 
     public Set<SupplyPosition> getSupplyPositions() {
@@ -225,7 +179,7 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
         if (!(o instanceof IntersticeAssembly)) {
             return false;
         }
-        return id != null && id.equals(((IntersticeAssembly) o).id);
+        return getId() != null && getId().equals(((IntersticeAssembly) o).getId());
     }
 
     @Override

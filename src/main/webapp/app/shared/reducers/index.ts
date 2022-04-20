@@ -57,6 +57,28 @@ import intersticeAssembly from 'app/entities/interstice-assembly/interstice-asse
 import sheathing from 'app/entities/sheathing/sheathing.reducer';
 // prettier-ignore
 import supplyPosition from 'app/entities/supply-position/supply-position.reducer';
+// prettier-ignore
+import tape from 'app/entities/tape/tape.reducer';
+// prettier-ignore
+import tapeKind from 'app/entities/tape-kind/tape-kind.reducer';
+// prettier-ignore
+import tapeLaying from 'app/entities/tape-laying/tape-laying.reducer';
+// prettier-ignore
+import screen from 'app/entities/screen/screen.reducer';
+// prettier-ignore
+import copperFiber from 'app/entities/copper-fiber/copper-fiber.reducer';
+// prettier-ignore
+import strip from 'app/entities/strip/strip.reducer';
+// prettier-ignore
+import stripLaying from 'app/entities/strip-laying/strip-laying.reducer';
+// prettier-ignore
+import continuityWireLongitLaying from 'app/entities/continuity-wire-longit-laying/continuity-wire-longit-laying.reducer';
+// prettier-ignore
+import continuityWire from 'app/entities/continuity-wire/continuity-wire.reducer';
+// prettier-ignore
+import plait from 'app/entities/plait/plait.reducer';
+// prettier-ignore
+import steelFiber from 'app/entities/steel-fiber/steel-fiber.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -93,6 +115,17 @@ const rootReducer = {
   intersticeAssembly,
   sheathing,
   supplyPosition,
+  tape,
+  tapeKind,
+  tapeLaying,
+  screen,
+  copperFiber,
+  strip,
+  stripLaying,
+  continuityWireLongitLaying,
+  continuityWire,
+  plait,
+  steelFiber,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };

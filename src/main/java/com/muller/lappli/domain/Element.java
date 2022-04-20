@@ -1,10 +1,9 @@
 package com.muller.lappli.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.muller.lappli.domain.abstracts.AbstractAssemblableAtom;
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.interfaces.Article;
+import com.muller.lappli.domain.interfaces.PlasticAspectCylindricComponent;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -17,14 +16,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Element extends AbstractAssemblableAtom<Element> implements Article, Serializable {
+public class Element extends AbstractDomainObject<Element> implements PlasticAspectCylindricComponent, Article, Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
 
     @NotNull
     @Column(name = "number", nullable = false, unique = true)
@@ -35,10 +29,16 @@ public class Element extends AbstractAssemblableAtom<Element> implements Article
     @Column(name = "color", nullable = false)
     private Color color;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     @ManyToOne(optional = false)
     @NotNull
     //@JsonIgnoreProperties(value = { "copper"/*, "insulationMaterial"*/ }, allowSetters = true)
     private ElementKind elementKind;
+
+    public Element() {
+        super();
+    }
 
     @Override
     public Element getThis() {
@@ -46,48 +46,49 @@ public class Element extends AbstractAssemblableAtom<Element> implements Article
     }
 
     @Override
-    @JsonIgnore
     public Double getMilimeterDiameter() {
+        if (getElementKind() == null) {
+            return Double.NaN;
+        }
+
         return getElementKind().getMilimeterDiameter();
     }
 
     @Override
-    @JsonIgnore
     public Double getGramPerMeterLinearMass() {
+        if (getElementKind() == null) {
+            return Double.NaN;
+        }
+
         return getElementKind().getGramPerMeterLinearMass();
     }
 
     @Override
-    @JsonIgnore
     public Long getArticleNumber() {
         return getNumber();
     }
 
     @Override
-    @JsonIgnore
     public String getDesignation() {
-        try {
-            return getElementKind().getDesignation();
-        } catch (NullPointerException e) {
+        if (getElementKind() == null) {
             return "";
         }
+
+        return getElementKind().getDesignation();
     }
 
-    @JsonIgnore
     public String getColorDesignation() {
-        try {
-            return getColor().getDesignation();
-        } catch (NullPointerException e) {
+        if (getColor() == null) {
             return "";
         }
+
+        return getColor().getDesignation();
     }
 
-    @JsonIgnoreProperties(allowGetters = true)
     public String getNumberWithDesignationWithColor() {
         return getNumber() + " - " + getDesignationWithColor();
     }
 
-    @JsonIgnoreProperties(allowGetters = true)
     public String getDesignationWithColor() {
         return getDesignation() + " " + getColorDesignation();
     }
@@ -97,19 +98,13 @@ public class Element extends AbstractAssemblableAtom<Element> implements Article
         return true;
     }
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+    @Override
+    public Material getSurfaceMaterial() {
+        if (getElementKind() == null) {
+            return null;
+        }
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public Element id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        return getElementKind().getInsulationMaterial();
     }
 
     public Long getNumber() {
@@ -161,7 +156,7 @@ public class Element extends AbstractAssemblableAtom<Element> implements Article
         if (!(o instanceof Element)) {
             return false;
         }
-        return id != null && id.equals(((Element) o).id);
+        return getId() != null && getId().equals(((Element) o).getId());
     }
 
     @Override

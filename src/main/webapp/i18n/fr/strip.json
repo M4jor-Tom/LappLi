@@ -1,0 +1,26 @@
+{
+  "lappLiApp": {
+    "strip": {
+      "home": {
+        "title": "Strips",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Strip",
+        "createOrEditLabel": "Créer ou éditer un Strip",
+        "notFound": "Aucun Strip trouvé"
+      },
+      "created": "Un nouveau Strip a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Strip avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Strip avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Strip {{ id }} ?"
+      },
+      "detail": {
+        "title": "Strip"
+      },
+      "id": "ID",
+      "number": "Number",
+      "designation": "Designation",
+      "milimeterThickness": "Milimeter Thickness"
+    }
+  }
+}

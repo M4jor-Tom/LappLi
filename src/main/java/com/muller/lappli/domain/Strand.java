@@ -26,11 +26,6 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @OneToMany(mappedBy = "ownerStrand", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "owner", "ownerCentralAssembly", "ownerStrand", "ownerIntersticeAssembly" }, allowSetters = true)
@@ -41,9 +36,16 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     @JsonIgnoreProperties(value = { "strands", "strandSupplies", "author" }, allowSetters = true)
     private Study futureStudy;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     @Override
     public Strand getThis() {
         return this;
+    }
+
+    public Strand() {
+        super();
+        setSupplyPositions(new HashSet<>());
     }
 
     /**
@@ -177,6 +179,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return suppliedComponentsMilimeterDiametersSum;
     }
 
+    //[SUPPLY]
     public Set<BangleSupply> getBangleSupplies() {
         return getSuppliesByKind(SupplyKind.BANGLE);
     }
@@ -210,22 +213,6 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         }
 
         return sortedSupplies;
-    }
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    @Override
-    public Long getId() {
-        return this.id;
-    }
-
-    public Strand id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Set<SupplyPosition> getSupplyPositions() {
@@ -282,7 +269,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         if (!(o instanceof Strand)) {
             return false;
         }
-        return id != null && id.equals(((Strand) o).id);
+        return getId() != null && getId().equals(((Strand) o).getId());
     }
 
     @Override

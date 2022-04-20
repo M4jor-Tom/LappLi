@@ -1,3 +1,3 @@
 package com.muller.lappli.domain.interfaces;
 
-public interface Intersticiable extends Assemblable {}
+public interface Intersticiable extends CylindricComponent {}

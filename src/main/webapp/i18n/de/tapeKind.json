@@ -1,0 +1,25 @@
+{
+  "lappLiApp": {
+    "tapeKind": {
+      "home": {
+        "title": "Tape Kinds",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Tape Kind erstellen",
+        "createOrEditLabel": "Tape Kind erstellen oder bearbeiten",
+        "notFound": "Keine Tape Kinds gefunden"
+      },
+      "created": "Tape Kind erstellt mit ID {{ param }}",
+      "updated": "Tape Kind aktualisiert mit ID {{ param }}",
+      "deleted": "Tape Kind gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Tape Kind {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Tape Kind"
+      },
+      "id": "ID",
+      "targetCoveringRate": "Target Covering Rate",
+      "designation": "Designation"
+    }
+  }
+}

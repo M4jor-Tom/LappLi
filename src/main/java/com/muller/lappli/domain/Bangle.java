@@ -1,7 +1,8 @@
 package com.muller.lappli.domain;
 
-import com.muller.lappli.domain.abstracts.AbstractAssemblableAtom;
+import com.muller.lappli.domain.abstracts.AbstractUniformAtom;
 import com.muller.lappli.domain.interfaces.Article;
+import com.muller.lappli.domain.interfaces.PlasticAspectCylindricComponent;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -14,14 +15,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "bangle")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Bangle extends AbstractAssemblableAtom<Bangle> implements Article, Serializable {
+public class Bangle extends AbstractUniformAtom<Bangle> implements Article, Serializable, PlasticAspectCylindricComponent {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
 
     @NotNull
     @Column(name = "number", nullable = false, unique = true)
@@ -31,18 +27,16 @@ public class Bangle extends AbstractAssemblableAtom<Bangle> implements Article, 
     @Column(name = "designation", nullable = false, unique = true)
     private String designation;
 
-    @NotNull
-    @Column(name = "gram_per_meter_linear_mass", nullable = false)
-    private Double gramPerMeterLinearMass;
-
-    @NotNull
-    @Column(name = "milimeter_diameter", nullable = false)
-    private Double milimeterDiameter;
-
     @ManyToOne(optional = false)
     @NotNull
     //@JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material material;
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    public Bangle() {
+        super();
+    }
 
     @Override
     public Bangle getThis() {
@@ -59,19 +53,9 @@ public class Bangle extends AbstractAssemblableAtom<Bangle> implements Article, 
         return false;
     }
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public Bangle id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public Material getSurfaceMaterial() {
+        return getMaterial();
     }
 
     public Long getNumber() {
@@ -100,32 +84,6 @@ public class Bangle extends AbstractAssemblableAtom<Bangle> implements Article, 
         this.designation = designation;
     }
 
-    public Double getGramPerMeterLinearMass() {
-        return this.gramPerMeterLinearMass;
-    }
-
-    public Bangle gramPerMeterLinearMass(Double gramPerMeterLinearMass) {
-        this.setGramPerMeterLinearMass(gramPerMeterLinearMass);
-        return this;
-    }
-
-    public void setGramPerMeterLinearMass(Double gramPerMeterLinearMass) {
-        this.gramPerMeterLinearMass = gramPerMeterLinearMass;
-    }
-
-    public Double getMilimeterDiameter() {
-        return this.milimeterDiameter;
-    }
-
-    public Bangle milimeterDiameter(Double milimeterDiameter) {
-        this.setMilimeterDiameter(milimeterDiameter);
-        return this;
-    }
-
-    public void setMilimeterDiameter(Double milimeterDiameter) {
-        this.milimeterDiameter = milimeterDiameter;
-    }
-
     public Material getMaterial() {
         return this.material;
     }
@@ -149,7 +107,7 @@ public class Bangle extends AbstractAssemblableAtom<Bangle> implements Article, 
         if (!(o instanceof Bangle)) {
             return false;
         }
-        return id != null && id.equals(((Bangle) o).id);
+        return getId() != null && getId().equals(((Bangle) o).getId());
     }
 
     @Override

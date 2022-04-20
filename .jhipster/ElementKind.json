@@ -17,7 +17,7 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "insulationThickness",
+      "fieldName": "milimeterInsulationThickness",
       "fieldType": "Double",
       "fieldValidateRules": ["required"]
     }

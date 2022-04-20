@@ -2,25 +2,25 @@
   "lappLiApp": {
     "element": {
       "home": {
-        "title": "Elements",
+        "title": "Éléments",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Element",
-        "createOrEditLabel": "Créer ou éditer un Element",
-        "notFound": "Aucun Element trouvé"
+        "createLabel": "Créer un nouveau Élément",
+        "createOrEditLabel": "Créer ou éditer un Élément",
+        "notFound": "Aucun Élément trouvé"
       },
-      "created": "Un nouveau Element a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Element avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Element avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouveau Élément a été créé avec l'identifiant {{ param }}",
+      "updated": "L'Élément avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "L'Élément avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Element {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer l'Élément {{ id }} ?"
       },
       "detail": {
-        "title": "Element"
+        "title": "Élément"
       },
       "id": "ID",
-      "number": "Number",
-      "color": "Color",
-      "elementKind": "Element Kind",
+      "number": "Numéro",
+      "color": "Couleur",
+      "elementKind": "Genre d'Élément",
       "designation": "Désignation",
       "designationWithColor": "Désignation + Couleur"
     }

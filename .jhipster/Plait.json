@@ -1,0 +1,74 @@
+{
+  "name": "Plait",
+  "fields": [
+    {
+      "fieldName": "operationLayer",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "targetCoveringRate",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "targetDegreeAngle",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "targetingCoveringRateNotAngle",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "anonymousMetalFiberNumber",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "anonymousMetalFiberDesignation",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "anonymousMetalFiberMetalFiberKind",
+      "fieldType": "MetalFiberKind",
+      "fieldValues": "RED_COPPER,TINNED_COPPER,STEEL"
+    },
+    {
+      "fieldName": "anonymousMetalFiberMilimeterDiameter",
+      "fieldType": "Double"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "copperFiber",
+      "otherEntityRelationshipName": "plait",
+      "relationshipName": "copperFiber",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "steelFiber",
+      "otherEntityRelationshipName": "plait",
+      "relationshipName": "steelFiber",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "strandSupply",
+      "otherEntityRelationshipName": "plaits",
+      "relationshipValidateRules": "required",
+      "relationshipName": "ownerStrandSupply",
+      "otherEntityField": "designation"
+    }
+  ],
+  "entityTableName": "plait",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220419070735"
+}

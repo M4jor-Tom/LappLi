@@ -22,6 +22,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
+@Deprecated
 public class ElementKindEditionResource {
 
     private final Logger log = LoggerFactory.getLogger(ElementKindEditionResource.class);

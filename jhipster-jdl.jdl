@@ -1,5 +1,70 @@
 service * with serviceImpl
 
+entity Screen {
+    operationLayer Long required
+    assemblyMeanIsSameThanAssemblys Boolean required
+    forcedDiameterAssemblyStep Long
+    anonymousCopperFiberNumber Long
+    anonymousCopperFiberDesignation String
+    anonymousCopperFiberKind MetalFiberKind
+    anonymousCopperFiberMilimeterDiameter Double
+}
+
+entity ContinuityWireLongitLaying {
+    operationLayer Long required
+    anonymousContinuityWireDesignation String
+    anonymousContinuityWireGramPerMeterLinearMass Double
+    anonymousContinuityWireMetalFiberKind MetalFiberKind
+    anonymousContinuityWireMilimeterDiameter Double
+    anonymousContinuityWireFlexibility Flexibility
+}
+
+entity ContinuityWire {
+    designation String required unique
+    gramPerMeterLinearMass Double required
+    metalFiberKind MetalFiberKind required
+    milimeterDiameter Double required
+    flexibility Flexibility required
+}
+
+entity Tape {
+	number Long required unique
+    designation String required unique
+    milimeterWidth Double required
+    milimeterDiameterIncidency Double required
+}
+
+entity TapeKind {
+	targetCoveringRate Double required
+    designation String unique required
+}
+
+entity Strip {
+    number Long required unique
+    designation String unique required
+    milimeterThickness Double required
+}
+
+entity StripLaying {
+    operationLayer Long required
+}
+
+entity TapeLaying {
+	operationLayer Long required
+	assemblyMean AssemblyMean required
+}
+
+entity Plait {
+    operationLayer Long required
+    targetCoveringRate Double
+    targetDegreeAngle Double
+    targetingCoveringRateNotAngle Boolean required
+    anonymousMetalFiberNumber Long
+    anonymousMetalFiberDesignation String
+    anonymousMetalFiberMetalFiberKind MetalFiberKind
+    anonymousMetalFiberMilimeterDiameter Double
+}
+
 entity Sheathing {
 	operationLayer Long required
 	milimeterThickness Double required
@@ -120,7 +185,7 @@ entity ElementKindEdition {
 	editionDateTime Instant required
     newGramPerMeterLinearMass Double
     newMilimeterDiameter Double
-    newInsulationThickness Double
+    newMilimeterInsulationThickness Double
 }
 
 entity Element {
@@ -132,7 +197,7 @@ entity ElementKind {
 	designation String unique required
     gramPerMeterLinearMass Double required
     milimeterDiameter Double required
-    insulationThickness Double required
+    milimeterInsulationThickness Double required
 }
 
 entity Copper {
@@ -144,6 +209,20 @@ entity Material {
 	number Long unique required
 	designation String unique required
     kilogramPerCubeMeterVolumicDensity Double required
+}
+
+entity SteelFiber {
+    number Long unique
+    designation String unique
+    metalFiberKind MetalFiberKind required
+    milimeterDiameter Double required
+}
+
+entity CopperFiber {
+    number Long unique
+    designation String unique
+    metalFiberKind MetalFiberKind required
+    milimeterDiameter Double required
 }
 
 entity UserData {
@@ -184,8 +263,23 @@ relationship OneToMany {
 	StrandSupply{coreAssemblies(productionStep)} to CoreAssembly{ownerStrandSupply(designation) required}
 	StrandSupply{intersticeAssemblies(productionStep)} to IntersticeAssembly{ownerStrandSupply(designation) required}
     
+    //TapeLayings
+    StrandSupply{tapeLayings(productionStep)} to TapeLaying{ownerStrandSupply(designation) required}
+
+    //Screens
+    StrandSupply{screens(productionStep)} to Screen{ownerStrandSupply(designation) required}
+
+    //StripLayings
+    StrandSupply{stripLayings(productionStep)} to StripLaying{ownerStrandSupply(designation) required}
+
+    //Plaits
+    StrandSupply{plaits(productionStep)} to Plait{ownerStrandSupply(designation) required}
+
     //Sheathings
     StrandSupply{sheathings(productionStep)} to Sheathing{ownerStrandSupply(designation) required}
+
+    //ContinuityWireLongitLayings
+    StrandSupply{continuityWireLongitLayings(productionStep)} to ContinuityWireLongitLaying{ownerStrandSupply(designation) required}
 }
 
 relationship OneToMany {
@@ -202,6 +296,31 @@ relationship OneToMany {
 
 relationship OneToMany {
 	Material{materialMarkingStatistics(markingType)} to MaterialMarkingStatistic{material(designation) required}
+}
+
+relationship ManyToOne {
+    ContinuityWireLongitLaying{continuityWire(designation)} to ContinuityWire
+}
+
+relationship ManyToOne {
+    Screen{copperFiber(designation)} to CopperFiber
+}
+
+relationship ManyToOne {
+    Plait{copperFiber(designation)} to CopperFiber
+    Plait{steelFiber(designation)} to SteelFiber
+}
+
+relationship ManyToOne {
+    StripLaying{strip(designation) required} to Strip
+}
+
+relationship ManyToOne {
+    TapeLaying{tape(designation) required} to Tape
+}
+
+relationship ManyToOne {
+    Tape{tapeKind(designation) required} to TapeKind
 }
 
 relationship ManyToOne {
@@ -254,6 +373,26 @@ relationship ManyToOne {
 
 relationship ManyToOne {
 	ElementKind{insulationMaterial(designation) required} to Material
+}
+
+enum Flexibility {
+    S,
+    ES,
+    SES,
+    MB,
+    UES,
+    USES,
+    DS,
+    R,
+    SS,
+    L5,
+    L6
+}
+
+enum MetalFiberKind {
+    RED_COPPER,
+    TINNED_COPPER,
+    STEEL
 }
 
 enum SheathingKind {

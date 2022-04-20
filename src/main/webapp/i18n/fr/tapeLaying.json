@@ -1,0 +1,27 @@
+{
+  "lappLiApp": {
+    "tapeLaying": {
+      "home": {
+        "title": "Poses de Rubans",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer une nouvelle Pose de Ruban",
+        "createOrEditLabel": "Créer ou éditer une Pose de Ruban",
+        "notFound": "Aucune Pose de Ruban trouvé"
+      },
+      "created": "Une nouvelle Pose de Ruban a été créé avec l'identifiant {{ param }}",
+      "updated": "La Pose de Ruban avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "La Pose de Ruban avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer la Pose de Ruban {{ id }} ?"
+      },
+      "detail": {
+        "title": "Pose de Ruban"
+      },
+      "id": "ID",
+      "operationLayer": "Operation Layer",
+      "assemblyMean": "Assembly Mean",
+      "tape": "Ruban",
+      "ownerStrandSupply": "Owner Strand Supply"
+    }
+  }
+}

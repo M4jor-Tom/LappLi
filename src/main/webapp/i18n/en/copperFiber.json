@@ -1,0 +1,27 @@
+{
+  "lappLiApp": {
+    "copperFiber": {
+      "home": {
+        "title": "Copper Fibers",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Copper Fiber",
+        "createOrEditLabel": "Create or edit a Copper Fiber",
+        "notFound": "No Copper Fibers found"
+      },
+      "created": "A new Copper Fiber is created with identifier {{ param }}",
+      "updated": "A Copper Fiber is updated with identifier {{ param }}",
+      "deleted": "A Copper Fiber is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Copper Fiber {{ id }}?"
+      },
+      "detail": {
+        "title": "Copper Fiber"
+      },
+      "id": "ID",
+      "number": "Number",
+      "designation": "Designation",
+      "metalFiberKind": "Metal Fiber Kind",
+      "milimeterDiameter": "Milimeter Diameter"
+    }
+  }
+}

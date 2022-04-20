@@ -88,6 +88,22 @@ public class CacheConfiguration {
             createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".coreAssemblies");
             createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".intersticeAssemblies");
             createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".sheathings");
+            createCache(cm, com.muller.lappli.domain.Tape.class.getName());
+            createCache(cm, com.muller.lappli.domain.TapeKind.class.getName());
+            createCache(cm, com.muller.lappli.domain.TapeLaying.class.getName());
+            createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".tapeLayings");
+            createCache(cm, com.muller.lappli.domain.Screen.class.getName());
+            createCache(cm, com.muller.lappli.domain.CopperFiber.class.getName());
+            createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".screens");
+            createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".stripLayings");
+            createCache(cm, com.muller.lappli.domain.Strip.class.getName());
+            createCache(cm, com.muller.lappli.domain.StripLaying.class.getName());
+            createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".continuityWireLongitLayings");
+            createCache(cm, com.muller.lappli.domain.ContinuityWireLongitLaying.class.getName());
+            createCache(cm, com.muller.lappli.domain.ContinuityWire.class.getName());
+            createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".plaits");
+            createCache(cm, com.muller.lappli.domain.Plait.class.getName());
+            createCache(cm, com.muller.lappli.domain.SteelFiber.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
+@Deprecated
 public interface ElementKindEditionRepository extends JpaRepository<ElementKindEdition, Long> {
     public List<ElementKindEdition> findByEditedElementKindIdAndEditionDateTimeBefore(Long editedElementKindId, Instant editionDateTime);
 

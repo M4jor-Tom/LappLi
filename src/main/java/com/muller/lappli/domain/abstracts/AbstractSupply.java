@@ -15,10 +15,14 @@ import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.exception.AppartionDivisionNonNullRemainderException;
 import com.muller.lappli.domain.exception.IllegalStrandSupplyException;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
+import com.muller.lappli.domain.interfaces.PlasticAspectCylindricComponent;
 import java.text.DecimalFormat;
+import java.util.Optional;
 import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 /**
  * An abstract mother class for each Supply class
@@ -26,6 +30,7 @@ import javax.persistence.Transient;
  * A supply object refers to the instanciation of a CylindricComponent
  * inside a Strand or Cable
  */
+//[SUPPLY]
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "__typeName")
 @JsonSubTypes(
@@ -37,10 +42,17 @@ import javax.persistence.Transient;
     }
 )
 @MappedSuperclass
-public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
+public abstract class AbstractSupply<T extends AbstractSupply<T>> extends AbstractDomainObject<T> {
 
     @Transient
     private StrandSupply observerStrandSupply;
+
+    @NotNull
+    @Column(name = "apparitions", nullable = false)
+    private Long apparitions;
+
+    @Column(name = "description")
+    private String description;
 
     /**
      * The unity length which Muller uses to measure cables statistics
@@ -54,16 +66,16 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      */
     protected static final Long LIFTING_METER_PER_HOUR_SPEED = Long.valueOf(5000);
 
+    public AbstractSupply() {
+        super();
+        this.observerStrandSupply = null;
+    }
+
     /**
      * @return the SupplyPositions which owns this
      */
     @JsonIgnoreProperties("supply")
     public abstract Set<SupplyPosition> getOwnerSupplyPositions();
-
-    /**
-     * @return the apparitions of the CylindricComponent inside the final Cable
-     */
-    public abstract Long getApparitions();
 
     /**
      * @return the diameter in milimeters of the CylindricComponent
@@ -93,9 +105,24 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
     public abstract CylindricComponent getCylindricComponent();
 
     /**
+     * @return the representated component if plastic aspect
+     */
+    public abstract Optional<PlasticAspectCylindricComponent> getCylindricComponentIfPlasticAspect();
+
+    /**
      * @return the Material at the surface of this
      */
-    public abstract Material getSurfaceMaterial();
+    public Material getSurfaceMaterial() {
+        if (getCylindricComponentIfPlasticAspect() == null) {
+            return null;
+        } else if (getCylindricComponentIfPlasticAspect().isEmpty()) {
+            throw new UnsupportedOperationException(
+                getCylindricComponent().getClass().getCanonicalName() + " does not have a surfaceMaterial"
+            );
+        }
+
+        return getCylindricComponentIfPlasticAspect().get().getSurfaceMaterial();
+    }
 
     /**
      * @return the kind of supply this is
@@ -140,11 +167,9 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      * @throws IllegalStrandSupplyException if the given strandSupply is not this' observer
      */
     public T checkStrandSupplyObserverIs(StrandSupply strandSupply) throws IllegalStrandSupplyException {
-        try {
-            if (getObserverStrandSupply().equals(strandSupply)) {
-                throw new IllegalStrandSupplyException();
-            }
-        } catch (NullPointerException e) {}
+        if (!getObserverStrandSupply().equals(strandSupply)) {
+            throw new IllegalStrandSupplyException();
+        }
 
         return getThis();
     }
@@ -161,11 +186,13 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      * {@link com.muller.lappli.domain.StrandSupply#getApparitions()}
      */
     public Long getApparitionDivisionRemain() {
-        try {
-            return getApparitions() % getObserverStrandSupply().getApparitions();
-        } catch (NullPointerException e) {
+        if (getApparitions() == null || getObserverStrandSupply() == null) {
+            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+        } else if (getObserverStrandSupply().getApparitions() == null) {
             return DomainManager.ERROR_LONG_POSITIVE_VALUE;
         }
+
+        return getApparitions() % getObserverStrandSupply().getApparitions();
     }
 
     public StrandSupply getObserverStrandSupply() {
@@ -187,25 +214,27 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      * leaves a remain after the observerStrandSupply's apparitions count divides it
      */
     public Long getDividedApparitions() {
-        try {
-            return getApparitions() / getObserverStrandSupply().getApparitions();
-        } catch (NullPointerException e) {
+        if (getApparitions() == null || getObserverStrandSupply() == null) {
+            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+        } else if (getObserverStrandSupply().getApparitions() == null) {
             return DomainManager.ERROR_LONG_POSITIVE_VALUE;
         }
+
+        return getApparitions() / getObserverStrandSupply().getApparitions();
     }
 
     /**
      * @return the designation of the representated component
      */
     public String getDesignation() {
-        try {
-            if (getApparitions().equals(Long.valueOf(1))) {
-                return getCylindricComponent().getDesignation();
-            }
-            return getApparitions().toString() + " x " + getCylindricComponent().getDesignation();
-        } catch (NullPointerException e) {
+        if (getApparitions() == null) {
             return "";
+        } else if (getCylindricComponent() == null) {
+            return "";
+        } else if (getApparitions().equals(Long.valueOf(1))) {
+            return getCylindricComponent().getDesignation();
         }
+        return getApparitions().toString() + " x " + getCylindricComponent().getDesignation();
     }
 
     /**
@@ -232,11 +261,11 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      * @return the formated preparation time in hours of the supply operation
      */
     public Double getHourPreparationTime() {
-        try {
-            return (5.0 * getApparitions() + 5) / 60.0;
-        } catch (NullPointerException e) {
+        if (getApparitions() == null) {
             return Double.NaN;
         }
+
+        return (5.0 * getApparitions() + 5) / 60.0;
     }
 
     /**
@@ -250,6 +279,10 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      * @return the execution time in hours of the supply operation
      */
     public Double getHourExecutionTime() {
+        if (getMeterPerHourSpeed() == null) {
+            return Double.NaN;
+        }
+
         return getMeterQuantity() / getMeterPerHourSpeed();
     }
 
@@ -269,10 +302,36 @@ public abstract class AbstractSupply<T> extends AbstractDomainObject<T> {
      * @return the necessary quantity of that CylindricComponent to make the final Cable
      */
     public Long getMeterQuantity() {
-        try {
-            return AbstractSupply.UNITY_METRIC_QUANTITY * getApparitions();
-        } catch (NullPointerException e) {
+        if (getApparitions() == null) {
             return DomainManager.ERROR_LONG_POSITIVE_VALUE;
         }
+
+        return AbstractSupply.UNITY_METRIC_QUANTITY * getApparitions();
+    }
+
+    public Long getApparitions() {
+        return this.apparitions;
+    }
+
+    public T apparitions(Long apparitions) {
+        this.setApparitions(apparitions);
+        return getThis();
+    }
+
+    public void setApparitions(Long apparitions) {
+        this.apparitions = apparitions;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public T description(String description) {
+        this.setDescription(description);
+        return getThis();
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

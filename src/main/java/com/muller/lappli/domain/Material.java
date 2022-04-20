@@ -21,11 +21,6 @@ public class Material extends AbstractDomainObject<Material> implements Article,
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "number", nullable = false, unique = true)
     private Long number;
@@ -43,7 +38,12 @@ public class Material extends AbstractDomainObject<Material> implements Article,
     @JsonIgnoreProperties(value = { "material" }, allowSetters = true)
     private Set<MaterialMarkingStatistic> materialMarkingStatistics = new HashSet<>();
 
-    public Material() {}
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    public Material() {
+        super();
+        setMaterialMarkingStatistics(new HashSet<>());
+    }
 
     public Material(
         Long number,
@@ -78,21 +78,6 @@ public class Material extends AbstractDomainObject<Material> implements Article,
     @Override
     public Long getArticleNumber() {
         return getNumber();
-    }
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public Material id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getNumber() {
@@ -176,7 +161,7 @@ public class Material extends AbstractDomainObject<Material> implements Article,
         if (!(o instanceof Material)) {
             return false;
         }
-        return id != null && id.equals(((Material) o).id);
+        return getId() != null && getId().equals(((Material) o).getId());
     }
 
     @Override

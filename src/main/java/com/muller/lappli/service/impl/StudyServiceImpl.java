@@ -7,6 +7,7 @@ import com.muller.lappli.security.SecurityUtils;
 import com.muller.lappli.service.SaveException;
 import com.muller.lappli.service.StudyService;
 import com.muller.lappli.service.UserDataService;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -85,7 +86,23 @@ public class StudyServiceImpl implements StudyService {
     @Transactional(readOnly = true)
     public List<Study> findAll() {
         log.debug("Request to get all Studies");
-        return studyRepository.findAll();
+        List<Study> studyList = studyRepository.findAll();
+
+        studyList.sort(
+            new Comparator<Study>() {
+                @Override
+                public int compare(Study o1, Study o2) {
+                    if (o1.getNumber().equals(o2.getNumber())) {
+                        //return o1.getIndex() < o2.getIndex();
+                        return 0;
+                    }
+
+                    return o1.getNumber() < o2.getNumber() ? 1 : -1;
+                }
+            }
+        );
+
+        return studyList;
     }
 
     @Override

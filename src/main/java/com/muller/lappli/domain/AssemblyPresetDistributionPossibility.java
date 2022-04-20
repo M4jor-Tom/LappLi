@@ -28,6 +28,10 @@ public class AssemblyPresetDistributionPossibility implements Cloneable {
         setAssemblyPresets(assemblyPresets);
     }
 
+    public static AssemblyPresetDistributionPossibility forError() {
+        return new AssemblyPresetDistributionPossibility(Double.NaN, AssemblyPreset.forError());
+    }
+
     public static AssemblyPresetDistributionPossibility forStrandSupply(StrandSupply strandSupply) {
         AssemblyPresetDistribution assemblyPresetDistribution = AssemblyPresetDistribution.forStrandSupply(strandSupply);
 

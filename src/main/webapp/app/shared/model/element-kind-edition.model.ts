@@ -6,7 +6,7 @@ export interface IElementKindEdition {
   editionDateTime?: string;
   newGramPerMeterLinearMass?: number | null;
   newMilimeterDiameter?: number | null;
-  newInsulationThickness?: number | null;
+  newMilimeterInsulationThickness?: number | null;
   editedElementKind?: IElementKind;
 }
 

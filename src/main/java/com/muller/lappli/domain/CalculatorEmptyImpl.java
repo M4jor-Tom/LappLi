@@ -29,7 +29,7 @@ public class CalculatorEmptyImpl implements ICalculator {
 
     @Override
     public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility(StrandSupply strandSupply) {
-        return new AssemblyPresetDistributionPossibility();
+        return AssemblyPresetDistributionPossibility.forError();
     }
 
     @Override
@@ -44,12 +44,12 @@ public class CalculatorEmptyImpl implements ICalculator {
 
             @Override
             public AssemblyPresetDistributionPossibility getFaclutativeCentralCompletionComponentAssemblyPresetDistributionPossibilities() {
-                return new AssemblyPresetDistributionPossibility();
+                return AssemblyPresetDistributionPossibility.forError();
             }
 
             @Override
             public AssemblyPresetDistributionPossibility getForcedCentralUtilityComponentAssemblyPresetDistributionPossibilities() {
-                return new AssemblyPresetDistributionPossibility();
+                return AssemblyPresetDistributionPossibility.forError();
             }
         };
     }

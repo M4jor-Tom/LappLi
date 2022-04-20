@@ -1,0 +1,32 @@
+{
+  "lappLiApp": {
+    "screen": {
+      "home": {
+        "title": "Screens",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Screen erstellen",
+        "createOrEditLabel": "Screen erstellen oder bearbeiten",
+        "notFound": "Keine Screens gefunden"
+      },
+      "created": "Screen erstellt mit ID {{ param }}",
+      "updated": "Screen aktualisiert mit ID {{ param }}",
+      "deleted": "Screen gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Screen {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Screen"
+      },
+      "id": "ID",
+      "operationLayer": "Operation Layer",
+      "assemblyMeanIsSameThanAssemblys": "Assembly Mean Is Same Than Assemblys",
+      "forcedDiameterAssemblyStep": "Forced Diameter Assembly Step",
+      "anonymousCopperFiberNumber": "Anonymous Copper Fiber Number",
+      "anonymousCopperFiberDesignation": "Anonymous Copper Fiber Designation",
+      "anonymousCopperFiberKind": "Anonymous Copper Fiber Kind",
+      "anonymousCopperFiberMilimeterDiameter": "Anonymous Copper Fiber Milimeter Diameter",
+      "copperFiber": "Copper Fiber",
+      "ownerStrandSupply": "Owner Strand Supply"
+    }
+  }
+}

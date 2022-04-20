@@ -5,7 +5,10 @@ public class AssemblyPreset implements Cloneable {
     private Long utilityComponentsCount;
     private Long completionComponentsCount;
 
-    public AssemblyPreset() {}
+    public AssemblyPreset() {
+        setUtilityComponentsCount(null);
+        setCompletionComponentsCount(null);
+    }
 
     public AssemblyPreset(int utilityComponentsCount, int completionComponentsCount) {
         this(Long.valueOf(utilityComponentsCount), Long.valueOf(completionComponentsCount));

@@ -2,24 +2,24 @@
   "lappLiApp": {
     "userData": {
       "home": {
-        "title": "UserData",
+        "title": "Données d'Utilisateurs",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau User Data",
-        "createOrEditLabel": "Créer ou éditer un User Data",
-        "notFound": "Aucun User Data trouvé"
+        "createLabel": "Créer une nouvelle Donnée d'utilisateur",
+        "createOrEditLabel": "Créer ou éditer une Donnée d'utilisateur",
+        "notFound": "Aucune Donnée d'utilisateur trouvé"
       },
-      "created": "Un nouveau User Data a été créé avec l'identifiant {{ param }}",
-      "updated": "Le User Data avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le User Data avec l'identifiant {{ param }} a été supprimé",
+      "created": "Une nouvelle Donnée d'utilisateur a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Donnée d'utilisateur avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Donnée d'utilisateur avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le User Data {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer le Donnée d'utilisateur {{ id }} ?"
       },
       "detail": {
-        "title": "User Data"
+        "title": "Donnée d'utilisateur"
       },
       "id": "ID",
-      "user": "User",
-      "studies": "Studies"
+      "user": "Utilisateur",
+      "studies": "Études"
     }
   }
 }

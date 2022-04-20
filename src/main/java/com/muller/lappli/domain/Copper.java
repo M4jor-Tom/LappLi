@@ -18,11 +18,6 @@ public class Copper extends AbstractDomainObject<Copper> implements Article, Ser
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "number", nullable = false, unique = true)
     private Long number;
@@ -31,7 +26,9 @@ public class Copper extends AbstractDomainObject<Copper> implements Article, Ser
     @Column(name = "designation", nullable = false, unique = true)
     private String designation;
 
-    public Copper() {}
+    public Copper() {
+        super();
+    }
 
     public Copper(Long number, String designation) {
         setNumber(number);
@@ -57,19 +54,6 @@ public class Copper extends AbstractDomainObject<Copper> implements Article, Ser
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public Copper id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getNumber() {
         return this.number;
@@ -108,7 +92,7 @@ public class Copper extends AbstractDomainObject<Copper> implements Article, Ser
         if (!(o instanceof Copper)) {
             return false;
         }
-        return id != null && id.equals(((Copper) o).id);
+        return getId() != null && getId().equals(((Copper) o).getId());
     }
 
     @Override

@@ -50,9 +50,44 @@
     },
     {
       "relationshipType": "one-to-many",
+      "otherEntityName": "tapeLaying",
+      "otherEntityRelationshipName": "ownerStrandSupply",
+      "relationshipName": "tapeLayings",
+      "otherEntityField": "productionStep"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "screen",
+      "otherEntityRelationshipName": "ownerStrandSupply",
+      "relationshipName": "screens",
+      "otherEntityField": "productionStep"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "stripLaying",
+      "otherEntityRelationshipName": "ownerStrandSupply",
+      "relationshipName": "stripLayings",
+      "otherEntityField": "productionStep"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "plait",
+      "otherEntityRelationshipName": "ownerStrandSupply",
+      "relationshipName": "plaits",
+      "otherEntityField": "productionStep"
+    },
+    {
+      "relationshipType": "one-to-many",
       "otherEntityName": "sheathing",
       "otherEntityRelationshipName": "ownerStrandSupply",
       "relationshipName": "sheathings",
+      "otherEntityField": "productionStep"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "continuityWireLongitLaying",
+      "otherEntityRelationshipName": "ownerStrandSupply",
+      "relationshipName": "continuityWireLongitLayings",
       "otherEntityField": "productionStep"
     },
     {

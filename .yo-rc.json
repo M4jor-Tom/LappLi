@@ -66,8 +66,19 @@
       "CoreAssembly",
       "IntersticeAssembly",
       "Sheathing",
-      "SupplyPosition"
+      "SupplyPosition",
+      "Tape",
+      "TapeKind",
+      "TapeLaying",
+      "Screen",
+      "CopperFiber",
+      "Strip",
+      "StripLaying",
+      "ContinuityWireLongitLaying",
+      "ContinuityWire",
+      "Plait",
+      "SteelFiber"
     ],
-    "lastLiquibaseTimestamp": 1643102431000
+    "lastLiquibaseTimestamp": 1650360857000
   }
 }

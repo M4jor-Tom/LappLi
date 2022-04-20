@@ -1,0 +1,31 @@
+{
+  "lappLiApp": {
+    "continuityWireLongitLaying": {
+      "home": {
+        "title": "Poses de fils de continuités",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer une nouvelle Pose de fil de continuité",
+        "createOrEditLabel": "Créer ou éditer une Pose de fil de continuité",
+        "notFound": "Aucune Pose de fil de continuité trouvé"
+      },
+      "created": "Une nouvelle Pose de fil de continuité a été créé avec l'identifiant {{ param }}",
+      "updated": "La Pose de fil de continuité avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "La Pose de fil de continuité avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Pose de fil de continuité {{ id }} ?"
+      },
+      "detail": {
+        "title": "Pose de fil de continuité"
+      },
+      "id": "ID",
+      "operationLayer": "Couche d'Opération",
+      "anonymousContinuityWireDesignation": "Designation de Fibre métallique anonyme",
+      "anonymousContinuityWireGramPerMeterLinearMass": "Masse linéique de Fibre métallique anonyme (g/m)",
+      "anonymousContinuityWireMetalFiberKind": "Genre de Fibre métallique anonyme",
+      "anonymousContinuityWireMilimeterDiameter": "Diamètre de Fibre métallique anonyme (mm)",
+      "anonymousContinuityWireFlexibility": "Flexibilité de Fibre métallique anonyme",
+      "continuityWire": "Fil de continuité",
+      "ownerStrandSupply": "Approvisionnement de Toron Propriétaire"
+    }
+  }
+}

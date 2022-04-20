@@ -1,15 +1,33 @@
 package com.muller.lappli.service.impl;
 
+import com.muller.lappli.domain.ContinuityWireLongitLaying;
+import com.muller.lappli.domain.CoreAssembly;
+import com.muller.lappli.domain.IntersticeAssembly;
+import com.muller.lappli.domain.Plait;
+import com.muller.lappli.domain.Screen;
+import com.muller.lappli.domain.Sheathing;
 import com.muller.lappli.domain.StrandSupply;
+import com.muller.lappli.domain.StripLaying;
+import com.muller.lappli.domain.TapeLaying;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
+import com.muller.lappli.domain.interfaces.INonCentralOperation;
 import com.muller.lappli.repository.StrandSupplyRepository;
+import com.muller.lappli.service.ContinuityWireLongitLayingService;
+import com.muller.lappli.service.CoreAssemblyService;
+import com.muller.lappli.service.IntersticeAssemblyService;
+import com.muller.lappli.service.PlaitService;
+import com.muller.lappli.service.ScreenService;
+import com.muller.lappli.service.SheathingService;
 import com.muller.lappli.service.StrandSupplyService;
+import com.muller.lappli.service.StripLayingService;
+import com.muller.lappli.service.TapeLayingService;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +42,42 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
 
     private final StrandSupplyRepository strandSupplyRepository;
 
-    public StrandSupplyServiceImpl(StrandSupplyRepository strandSupplyRepository) {
+    private final CoreAssemblyService coreAssemblyService;
+
+    private final IntersticeAssemblyService intersticeAssemblyService;
+
+    private final TapeLayingService tapeLayingService;
+
+    private final ScreenService screenService;
+
+    private final StripLayingService stripLayingService;
+
+    private final PlaitService plaitService;
+
+    private final SheathingService sheathingService;
+
+    private final ContinuityWireLongitLayingService continuityWireLongitLayingService;
+
+    public StrandSupplyServiceImpl(
+        StrandSupplyRepository strandSupplyRepository,
+        @Lazy CoreAssemblyService coreAssemblyService,
+        @Lazy IntersticeAssemblyService intersticeAssemblyService,
+        @Lazy TapeLayingService tapeLayingService,
+        @Lazy ScreenService screenService,
+        @Lazy StripLayingService stripLayingService,
+        @Lazy PlaitService plaitService,
+        @Lazy SheathingService sheathingService,
+        @Lazy ContinuityWireLongitLayingService continuityWireLongitLayingService
+    ) {
         this.strandSupplyRepository = strandSupplyRepository;
+        this.coreAssemblyService = coreAssemblyService;
+        this.intersticeAssemblyService = intersticeAssemblyService;
+        this.tapeLayingService = tapeLayingService;
+        this.screenService = screenService;
+        this.stripLayingService = stripLayingService;
+        this.plaitService = plaitService;
+        this.sheathingService = sheathingService;
+        this.continuityWireLongitLayingService = continuityWireLongitLayingService;
     }
 
     public StrandSupply onRead(StrandSupply domainObject) {
@@ -36,6 +88,51 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         }
 
         return domainObject;
+    }
+
+    @Override
+    public void actualizeNonCentralOperationsFor(StrandSupply toActualize, INonCentralOperation<?> toInsert) {
+        save(toActualize.prepareInsertNonCentralOperation(toInsert));
+
+        //Update non central operations
+        //[NON_CENTRAL_OPERATION]
+        for (CoreAssembly coreAssembly : toActualize.getCoreAssemblies()) {
+            coreAssemblyService.save(coreAssembly);
+        }
+
+        for (IntersticeAssembly intersticeAssembly : toActualize.getIntersticeAssemblies()) {
+            intersticeAssemblyService.save(intersticeAssembly);
+        }
+
+        for (TapeLaying tapeLaying : toActualize.getTapeLayings()) {
+            Boolean actualizeOwnerStrandSupply = false;
+            tapeLayingService.save(tapeLaying, actualizeOwnerStrandSupply);
+        }
+
+        for (Screen screen : toActualize.getScreens()) {
+            Boolean actualizeOwnerStrandSupply = false;
+            screenService.save(screen, actualizeOwnerStrandSupply);
+        }
+
+        for (StripLaying stripLaying : toActualize.getStripLayings()) {
+            Boolean actualizeOwnerStrandSupply = false;
+            stripLayingService.save(stripLaying, actualizeOwnerStrandSupply);
+        }
+
+        for (Plait plait : toActualize.getPlaits()) {
+            Boolean actualizeOwnerStrandSupply = false;
+            plaitService.save(plait, actualizeOwnerStrandSupply);
+        }
+
+        for (Sheathing sheathing : toActualize.getSheathings()) {
+            Boolean actualizeOwnerStrandSupply = false;
+            sheathingService.save(sheathing, actualizeOwnerStrandSupply);
+        }
+
+        for (ContinuityWireLongitLaying continuityWireLongitLaying : toActualize.getContinuityWireLongitLayings()) {
+            Boolean actualizeOwnerStrandSupply = false;
+            continuityWireLongitLayingService.save(continuityWireLongitLaying, actualizeOwnerStrandSupply);
+        }
     }
 
     @Override

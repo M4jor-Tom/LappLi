@@ -1,0 +1,34 @@
+{
+  "lappLiApp": {
+    "plait": {
+      "home": {
+        "title": "Tresses",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer une nouvelle Tresse",
+        "createOrEditLabel": "Créer ou éditer une Tresse",
+        "notFound": "Aucune Tresse trouvé"
+      },
+      "created": "Une nouvelle Tresse a été créé avec l'identifiant {{ param }}",
+      "updated": "La Tresse avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "La Tresse avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Tresse {{ id }} ?"
+      },
+      "detail": {
+        "title": "Tresse"
+      },
+      "id": "ID",
+      "operationLayer": "Couche d'Opération",
+      "targetCoveringRate": "Coefficient de Recouvrement Ciblé",
+      "targetDegreeAngle": "Angle Ciblé (°)",
+      "targetingCoveringRateNotAngle": "Cibler le Taux de Recouvrement, l'Angle sinon",
+      "anonymousMetalFiberNumber": "Numéro d'article de Fibre métallique anonyme",
+      "anonymousMetalFiberDesignation": "Désignation de Fibre Métallique anonyme",
+      "anonymousMetalFiberMetalFiberKind": "Genre de Fibre Métallique anonyme",
+      "anonymousMetalFiberMilimeterDiameter": "Diamètre de Fibre métallique anonyme (mm)",
+      "copperFiber": "Fibre en cuivre",
+      "steelFiber": "Fibre en acier",
+      "ownerStrandSupply": "Approvisionnement de toron propriétaire"
+    }
+  }
+}

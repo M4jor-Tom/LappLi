@@ -1,14 +1,15 @@
 package com.muller.lappli.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
+import com.muller.lappli.domain.interfaces.PlasticAspectCylindricComponent;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -25,22 +26,10 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @NotNull
-    @Column(name = "apparitions", nullable = false)
-    private Long apparitions;
-
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "marking_type", nullable = false)
     private MarkingType markingType;
-
-    @Column(name = "description")
-    private String description;
 
     @OneToMany(mappedBy = "elementSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -62,6 +51,11 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
     @NotNull
     private Element element;
 
+    public ElementSupply() {
+        super();
+        setOwnerSupplyPositions(new HashSet<>());
+    }
+
     @Override
     public ElementSupply getThis() {
         return this;
@@ -78,57 +72,32 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
     }
 
     @Override
-    @JsonIgnore
-    public Material getSurfaceMaterial() {
-        try {
-            return getElement().getElementKind().getInsulationMaterial();
-        } catch (NullPointerException e) {
+    public Optional<PlasticAspectCylindricComponent> getCylindricComponentIfPlasticAspect() {
+        if (getElement() == null) {
             return null;
         }
+
+        return Optional.of(getElement());
     }
 
     @Override
     public Color getSurfaceColor() {
-        try {
-            return getElement().getColor();
-        } catch (NullPointerException e) {
+        if (getElement() == null) {
             return null;
         }
+
+        return getElement().getColor();
     }
 
-    @JsonIgnore
     public String getInsulationMaterialDesignation() {
+        if (getSurfaceMaterial() == null) {
+            return "";
+        }
+
         return getSurfaceMaterial().getDesignation();
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public ElementSupply id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public Long getApparitions() {
-        return this.apparitions;
-    }
-
-    public ElementSupply apparitions(Long apparitions) {
-        this.setApparitions(apparitions);
-        return this;
-    }
-
-    public void setApparitions(Long apparitions) {
-        this.apparitions = apparitions;
-    }
 
     @Override
     public MarkingType getMarkingType() {
@@ -142,19 +111,6 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
 
     public void setMarkingType(MarkingType markingType) {
         this.markingType = markingType;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public ElementSupply description(String description) {
-        this.setDescription(description);
-        return this;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     @Override
@@ -212,7 +168,7 @@ public class ElementSupply extends AbstractMarkedLiftedSupply<ElementSupply> imp
         if (!(o instanceof ElementSupply)) {
             return false;
         }
-        return id != null && id.equals(((ElementSupply) o).id);
+        return getId() != null && getId().equals(((ElementSupply) o).getId());
     }
 
     @Override

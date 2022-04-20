@@ -12,7 +12,7 @@
       "updated": "L'Approvisionnement de Composant Custom avec l'identifiant {{ param }} a été mis à jour",
       "deleted": "L'Approvisionnement de Composant Custom avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer l'Approvisionnement de Composant Custom {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer l'Approvisionnement de Composant Custom {{ id }} ?"
       },
       "detail": {
         "title": "Approvisionnement de Composant Custom"
@@ -20,9 +20,9 @@
       "id": "ID",
       "apparitions": "Apparitions",
       "description": "Description",
-      "markingType": "Marking Type",
-      "ownerSupplyPosition": "Owner Supply Position",
-      "customComponent": "Custom Component"
+      "markingType": "Type de Marquage",
+      "ownerSupplyPosition": "Position d'Approvisionnement Propriétaire",
+      "customComponent": "Composant Custom"
     }
   }
 }

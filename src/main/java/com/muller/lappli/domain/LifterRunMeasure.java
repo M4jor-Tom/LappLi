@@ -19,11 +19,6 @@ public class LifterRunMeasure extends AbstractDomainObject<LifterRunMeasure> imp
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @Column(name = "milimeter_diameter")
     private Double milimeterDiameter;
 
@@ -47,24 +42,15 @@ public class LifterRunMeasure extends AbstractDomainObject<LifterRunMeasure> imp
     @NotNull
     private Lifter lifter;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    public LifterRunMeasure() {
+        super();
+    }
+
     @Override
     public LifterRunMeasure getThis() {
         return this;
-    }
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public LifterRunMeasure id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Double getMilimeterDiameter() {
@@ -155,7 +141,7 @@ public class LifterRunMeasure extends AbstractDomainObject<LifterRunMeasure> imp
         if (!(o instanceof LifterRunMeasure)) {
             return false;
         }
-        return id != null && id.equals(((LifterRunMeasure) o).id);
+        return getId() != null && getId().equals(((LifterRunMeasure) o).getId());
     }
 
     @Override

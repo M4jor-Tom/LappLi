@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.muller.lappli.web.rest.TestUtil;
 import org.junit.jupiter.api.Test;
 
+@Deprecated
 class ElementKindEditionTest {
 
     @Test

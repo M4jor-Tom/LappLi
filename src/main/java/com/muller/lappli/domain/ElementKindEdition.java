@@ -17,14 +17,10 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "element_kind_edition")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Deprecated
 public class ElementKindEdition extends AbstractEdition<ElementKind> implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
 
     @NotNull
     @Column(name = "edition_date_time", nullable = false)
@@ -36,8 +32,8 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
     @Column(name = "new_milimeter_diameter")
     private Double newMilimeterDiameter;
 
-    @Column(name = "new_insulation_thickness")
-    private Double newInsulationThickness;
+    @Column(name = "new_milimeter_insulation_thickness")
+    private Double newMilimeterInsulationThickness;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -66,8 +62,8 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
         if (getNewMilimeterDiameter() != null) {
             elementKind.setMilimeterDiameter(getNewMilimeterDiameter());
         }
-        if (getNewInsulationThickness() != null) {
-            elementKind.setInsulationThickness(getNewInsulationThickness());
+        if (getNewMilimeterInsulationThickness() != null) {
+            elementKind.setMilimeterInsulationThickness(getNewMilimeterInsulationThickness());
         }
 
         return elementKind;
@@ -84,19 +80,6 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public ElementKindEdition id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Instant getEditionDateTime() {
         return this.editionDateTime;
@@ -132,17 +115,17 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
         this.newMilimeterDiameter = newMilimeterDiameter;
     }
 
-    public Double getNewInsulationThickness() {
-        return this.newInsulationThickness;
+    public Double getNewMilimeterInsulationThickness() {
+        return this.newMilimeterInsulationThickness;
     }
 
-    public ElementKindEdition newInsulationThickness(Double newInsulationThickness) {
-        this.setNewInsulationThickness(newInsulationThickness);
+    public ElementKindEdition newMilimeterInsulationThickness(Double newMilimeterInsulationThickness) {
+        this.setNewMilimeterInsulationThickness(newMilimeterInsulationThickness);
         return this;
     }
 
-    public void setNewInsulationThickness(Double newInsulationThickness) {
-        this.newInsulationThickness = newInsulationThickness;
+    public void setNewMilimeterInsulationThickness(Double newMilimeterInsulationThickness) {
+        this.newMilimeterInsulationThickness = newMilimeterInsulationThickness;
     }
 
     public ElementKind getEditedElementKind() {
@@ -168,7 +151,7 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
         if (!(o instanceof ElementKindEdition)) {
             return false;
         }
-        return id != null && id.equals(((ElementKindEdition) o).id);
+        return getId() != null && getId().equals(((ElementKindEdition) o).getId());
     }
 
     @Override
@@ -185,7 +168,7 @@ public class ElementKindEdition extends AbstractEdition<ElementKind> implements 
             ", editionDateTime='" + getEditionDateTime() + "'" +
             ", newGramPerMeterLinearMass=" + getNewGramPerMeterLinearMass() +
             ", newMilimeterDiameter=" + getNewMilimeterDiameter() +
-            ", newInsulationThickness=" + getNewInsulationThickness() +
+            ", newMilimeterInsulationThickness=" + getNewMilimeterInsulationThickness() +
             "}";
     }
 }

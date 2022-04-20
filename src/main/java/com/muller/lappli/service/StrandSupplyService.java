@@ -1,6 +1,7 @@
 package com.muller.lappli.service;
 
 import com.muller.lappli.domain.StrandSupply;
+import com.muller.lappli.domain.interfaces.INonCentralOperation;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,8 @@ import java.util.Optional;
  * Service Interface for managing {@link StrandSupply}.
  */
 public interface StrandSupplyService extends ReadTriggerableService<StrandSupply> {
+    public void actualizeNonCentralOperationsFor(StrandSupply toActualize, INonCentralOperation<?> toInsert);
+
     /**
      * Save a strandSupply.
      *

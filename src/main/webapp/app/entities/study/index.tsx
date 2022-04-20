@@ -33,6 +33,16 @@ import SheathingUpdate from '../sheathing/sheathing-update';
 import SheathingDeleteDialog from '../sheathing/sheathing-delete-dialog';
 import { StrandSupplyAssemble } from '../strand-supply/strand-supply-assemble';
 import { StrandSupplyAssemblyDeleteDialog } from '../strand-supply/strand-supply-assembly-delete';
+import { TapeLayingUpdate } from '../tape-laying/tape-laying-update';
+import { TapeLayingDeleteDialog } from '../tape-laying/tape-laying-delete-dialog';
+import ScreenUpdate from '../screen/screen-update';
+import ScreenDeleteDialog from '../screen/screen-delete-dialog';
+import StripLayingUpdate from '../strip-laying/strip-laying-update';
+import StripLayingDeleteDialog from '../strip-laying/strip-laying-delete-dialog';
+import ContinuityWireLongitLayingUpdate from '../continuity-wire-longit-laying/continuity-wire-longit-laying-update';
+import ContinuityWireLongitLayingDeleteDialog from '../continuity-wire-longit-laying/continuity-wire-longit-laying-delete-dialog';
+import PlaitUpdate from '../plait/plait-update';
+import PlaitDeleteDialog from '../plait/plait-delete-dialog';
 
 const studySuppliesUrlPrefix = '/:study_id/study-supplies';
 
@@ -81,12 +91,64 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}`} component={StrandSupplySubOperation} />
 
       {/* (CUD ACCESS): OPERATIONS */}
+      <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/tape-laying/new`} component={TapeLayingUpdate} />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/tape-laying/:id/edit`}
+        component={TapeLayingUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/tape-laying/:id/delete`}
+        component={TapeLayingDeleteDialog}
+      />
+
+      <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/screen/new`} component={ScreenUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/screen/:id/edit`} component={ScreenUpdate} />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/screen/:id/delete`}
+        component={ScreenDeleteDialog}
+      />
+
+      <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/strip-laying/new`} component={StripLayingUpdate} />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/strip-laying/:id/edit`}
+        component={StripLayingUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/strip-laying/:id/delete`}
+        component={StripLayingDeleteDialog}
+      />
+
+      <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/plait/new`} component={PlaitUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/plait/:id/edit`} component={PlaitUpdate} />
+      <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/plait/:id/delete`} component={PlaitDeleteDialog} />
+
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/sheathing/new`} component={SheathingUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/sheathing/:id/edit`} component={SheathingUpdate} />
       <ErrorBoundaryRoute
         exact
         path={`${match.url + strandSupplyOperationZoneUrlPrefix}/sheathing/:id/delete`}
         component={SheathingDeleteDialog}
+      />
+
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/continuity-wire-longit-laying/new`}
+        component={ContinuityWireLongitLayingUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/continuity-wire-longit-laying/:id/edit`}
+        component={ContinuityWireLongitLayingUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/continuity-wire-longit-laying/:id/delete`}
+        component={ContinuityWireLongitLayingDeleteDialog}
       />
 
       <ErrorBoundaryRoute

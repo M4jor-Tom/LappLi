@@ -6,13 +6,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
 import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
-import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.AssemblyPresetDistribution;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.domain.exception.ImpossibleAssemblyPresetDistributionException;
 import com.muller.lappli.domain.interfaces.Designable;
+import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
+import com.muller.lappli.domain.interfaces.INonCentralOperation;
+import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -35,13 +37,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     private static final long serialVersionUID = 1L;
 
-    @Transient
-    private Comparator<AbstractOperation<?>> operationComparator;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    private static Comparator<IOperation<?>> operationComparator = null;
 
     @NotNull
     @Column(name = "apparitions", nullable = false)
@@ -84,8 +80,33 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "material", "ownerStrandSupply" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
+    private Set<TapeLaying> tapeLayings = new HashSet<>();
+
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
+    private Set<Screen> screens = new HashSet<>();
+
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
+    private Set<StripLaying> stripLayings = new HashSet<>();
+
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "copperFiber", "metalFiber", "ownerStrandSupply" }, allowSetters = true)
+    private Set<Plait> plaits = new HashSet<>();
+
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
     private Set<Sheathing> sheathings = new HashSet<>();
+
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
+    private Set<ContinuityWireLongitLaying> continuityWireLongitLayings = new HashSet<>();
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @NotNull
@@ -100,8 +121,12 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     @JsonIgnoreProperties(value = { "strands", "strandSupplies", "author" }, allowSetters = true)
     private Study study;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public StrandSupply() {
-        this.operationComparator = null;
+        super();
+        setCoreAssemblies(new HashSet<>());
+        setIntersticeAssemblies(new HashSet<>());
     }
 
     @Override
@@ -126,12 +151,12 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
      *
      * @return a Comparator for the class AbstractOperation
      */
-    private Comparator<AbstractOperation<?>> getOperationComparator() {
+    private static Comparator<IOperation<?>> getOperationComparator() {
         if (operationComparator == null) {
             operationComparator =
-                new Comparator<AbstractOperation<?>>() {
+                new Comparator<IOperation<?>>() {
                     @Override
-                    public int compare(AbstractOperation<?> o1, AbstractOperation<?> o2) {
+                    public int compare(IOperation<?> o1, IOperation<?> o2) {
                         //One is instanceof CentralAssembly, stop thinking. It's it.
                         if (o1 instanceof CentralAssembly) {
                             return -1;
@@ -223,10 +248,10 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
      */
     @JsonIgnore
     @JsonIgnoreProperties("ownerStrandSupply")
-    public AbstractOperation<?> getLastOperationBefore(AbstractOperation<?> operation) {
-        AbstractOperation<?> beforeOperation = null;
+    public IOperation<?> getLastOperationBefore(IOperation<?> operation) {
+        IOperation<?> beforeOperation = null;
 
-        for (AbstractOperation<?> operationChecked : getOperations()) {
+        for (IOperation<?> operationChecked : getOperations()) {
             if (operationChecked.equals(operation)) {
                 //Current operation is the searched one, we seek the prefious one
                 return beforeOperation;
@@ -246,12 +271,14 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
      * @return the diameter in milimeter
      * @throws ImpossibleAssemblyPresetDistributionException
      */
-    public Double getMilimeterDiameterBefore(AbstractOperation<?> operation) {
-        try {
-            return getLastOperationBefore(operation).getAfterThisMilimeterDiameter();
-        } catch (NullPointerException e) {
+    public Double getMilimeterDiameterBefore(IOperation<?> operation) {
+        IOperation<?> lastOperationBeforeThis = getLastOperationBefore(operation);
+
+        if (lastOperationBeforeThis == null) {
             return Double.NaN;
         }
+
+        return lastOperationBeforeThis.getAfterThisMilimeterDiameter();
     }
 
     @JsonIgnoreProperties("ownerStrandSupply")
@@ -302,12 +329,13 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
         Long coreAssemblyOperationLayer = Long.valueOf(1);
         for (AssemblyPreset assemblyPreset : assemblyPresetDistributionPossibility.getAssemblyPresetsAfterCentral()) {
-            addCoreAssemblies(
-                new CoreAssembly()
-                    .ownerStrandSupply(this)
-                    .operationLayer(coreAssemblyOperationLayer++)
-                    .forcedMeanMilimeterComponentDiameter(Double.NaN)
-            );
+            CoreAssembly coreAssembly = new CoreAssembly()
+                .ownerStrandSupply(this)
+                .operationLayer(coreAssemblyOperationLayer++)
+                .forcedMeanMilimeterComponentDiameter(Double.NaN);
+
+            moveOthersOperationLayersForThisOne(coreAssembly);
+            addCoreAssemblies(coreAssembly);
         }
 
         return this;
@@ -316,6 +344,33 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     @JsonIgnore
     public AssemblyPresetDistributionPossibility getAssemblyPresetDistributionPossibility() {
         return CalculatorManager.getCalculatorInstance().getAssemblyPresetDistributionPossibility(this);
+    }
+
+    @JsonIgnoreProperties("ownerStrandSupply")
+    public Set<INonCentralOperation<?>> getNonCentralOperations() {
+        Set<INonCentralOperation<?>> nonCentralOperations = new LinkedHashSet<INonCentralOperation<?>>();
+
+        nonCentralOperations.addAll(getNonCentralAssemblies());
+        nonCentralOperations.addAll(getNonAssemblyOperations());
+
+        List<INonCentralOperation<?>> sortedNonCentralOperations = new ArrayList<INonCentralOperation<?>>(nonCentralOperations);
+        sortedNonCentralOperations.sort(getOperationComparator());
+
+        return new LinkedHashSet<INonCentralOperation<?>>(sortedNonCentralOperations);
+    }
+
+    /**
+     * @return all the assemblies
+     */
+    @JsonIgnoreProperties("ownerStrandSupply")
+    public Set<AbstractNonCentralAssembly<?>> getNonCentralAssemblies() {
+        Set<AbstractNonCentralAssembly<?>> assemblies = new HashSet<>();
+
+        //[NON_CENTRAL_ASSEMBLIES]
+        assemblies.addAll(getCoreAssemblies());
+        assemblies.addAll(getIntersticeAssemblies());
+
+        return assemblies;
     }
 
     /**
@@ -329,8 +384,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
             assemblies.add(getCentralAssembly());
         }
 
-        assemblies.addAll(getCoreAssemblies());
-        assemblies.addAll(getIntersticeAssemblies());
+        assemblies.addAll(getNonCentralAssemblies());
 
         List<AbstractAssembly<?>> sortedAssembliesList = new ArrayList<AbstractAssembly<?>>(assemblies);
         sortedAssembliesList.sort(getOperationComparator());
@@ -341,11 +395,17 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     /**
      * @return all operations which are not assemblies
      */
-    @JsonIgnoreProperties("ownerStrandSupply")
-    public Set<AbstractOperation<?>> getNonAssemblyOperations() {
-        HashSet<AbstractOperation<?>> operations = new HashSet<>();
+    @JsonIgnore
+    public Set<INonAssemblyOperation<?>> getNonAssemblyOperations() {
+        HashSet<INonAssemblyOperation<?>> operations = new HashSet<>();
 
+        //[NON_ASSEMBLY_OPERATIONS]
+        operations.addAll(getTapeLayings());
+        operations.addAll(getScreens());
+        operations.addAll(getStripLayings());
+        operations.addAll(getPlaits());
         operations.addAll(getSheathings());
+        operations.addAll(getContinuityWireLongitLayings());
 
         return operations;
     }
@@ -354,16 +414,91 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
      * @return all the operations
      */
     @JsonIgnoreProperties("ownerStrandSupply")
-    public Set<AbstractOperation<?>> getOperations() {
-        LinkedHashSet<AbstractOperation<?>> operations = new LinkedHashSet<>();
+    public Set<IOperation<?>> getOperations() {
+        LinkedHashSet<IOperation<?>> operations = new LinkedHashSet<>();
 
-        operations.addAll(getNonAssemblyOperations());
+        for (INonAssemblyOperation<?> nonAssemblyOperation : getNonAssemblyOperations()) {
+            operations.add(nonAssemblyOperation.toOperation());
+        }
         operations.addAll(getAssemblies());
 
-        List<AbstractOperation<?>> sortedOperationList = new ArrayList<AbstractOperation<?>>(operations);
+        List<IOperation<?>> sortedOperationList = new ArrayList<IOperation<?>>(operations);
         sortedOperationList.sort(getOperationComparator());
 
-        return new LinkedHashSet<AbstractOperation<?>>(sortedOperationList);
+        return new LinkedHashSet<IOperation<?>>(sortedOperationList);
+    }
+
+    public Boolean isUsedOperationLayer(Long operationLayer) {
+        if (operationLayer == null) {
+            return false;
+        }
+
+        for (IOperation<?> operation : getOperations()) {
+            if (operationLayer.equals(operation.getOperationLayer())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private List<Long> getOperationLayerList() {
+        List<Long> operationlayerList = new ArrayList<Long>();
+
+        for (IOperation<?> operationToGetLayer : getOperations()) {
+            operationlayerList.add(operationToGetLayer.getOperationLayer());
+        }
+
+        return operationlayerList;
+    }
+
+    private Long getMaxOperationLayer() {
+        Long maxOperationLayer = DomainManager.ERROR_LONG_POSITIVE_VALUE;
+
+        for (Long operationLayer : getOperationLayerList()) {
+            maxOperationLayer = Math.max(maxOperationLayer, operationLayer);
+        }
+
+        return maxOperationLayer;
+    }
+
+    public StrandSupply prepareInsertNonCentralOperation(INonCentralOperation<?> nonCentralOperation) {
+        if (nonCentralOperation == null) {
+            return this;
+        } else if (!nonCentralOperation.isOperationLayerDefined()) {
+            provideOperationLayerIfNeededTo(nonCentralOperation);
+        } else if (isUsedOperationLayer(nonCentralOperation.getOperationLayer())) {
+            moveOthersOperationLayersForThisOne(nonCentralOperation);
+        }
+
+        return this;
+    }
+
+    public void provideOperationLayerIfNeededTo(INonCentralOperation<?> nonCentralOperation) {
+        if (nonCentralOperation == null) {
+            throw new NullPointerException("nonCentralOperation is null");
+        }
+
+        if (nonCentralOperation.isOperationLayerDefined()) {
+            return;
+        }
+
+        nonCentralOperation.setOperationLayer(getMaxOperationLayer() + 1);
+    }
+
+    public void moveOthersOperationLayersForThisOne(INonCentralOperation<?> nonCentralOperation) {
+        if (nonCentralOperation == null) {
+            throw new NullPointerException("nonCentralOperation is null");
+        }
+
+        for (INonCentralOperation<?> nonCentralOperationToMoveLayer : getNonCentralOperations()) {
+            if (
+                nonCentralOperationToMoveLayer.getOperationLayer() >= nonCentralOperation.getOperationLayer() &&
+                !nonCentralOperationToMoveLayer.equals(nonCentralOperation)
+            ) {
+                nonCentralOperationToMoveLayer.setOperationLayer(nonCentralOperationToMoveLayer.getOperationLayer() + 1);
+            }
+        }
     }
 
     public Long getSuppliedComponentsDividedCount() {
@@ -403,22 +538,6 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         }
 
         return false;
-    }
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    @Override
-    public Long getId() {
-        return this.id;
-    }
-
-    public StrandSupply id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getApparitions() {
@@ -561,6 +680,130 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         return this;
     }
 
+    public Set<TapeLaying> getTapeLayings() {
+        return this.tapeLayings;
+    }
+
+    public void setTapeLayings(Set<TapeLaying> tapeLayings) {
+        if (this.tapeLayings != null) {
+            this.tapeLayings.forEach(i -> i.setOwnerStrandSupply(null));
+        }
+        if (tapeLayings != null) {
+            tapeLayings.forEach(i -> i.setOwnerStrandSupply(this));
+        }
+        this.tapeLayings = tapeLayings;
+    }
+
+    public StrandSupply tapeLayings(Set<TapeLaying> tapeLayings) {
+        this.setTapeLayings(tapeLayings);
+        return this;
+    }
+
+    public StrandSupply addTapeLayings(TapeLaying tapeLaying) {
+        this.tapeLayings.add(tapeLaying);
+        tapeLaying.setOwnerStrandSupply(this);
+        return this;
+    }
+
+    public StrandSupply removeTapeLayings(TapeLaying tapeLaying) {
+        this.tapeLayings.remove(tapeLaying);
+        tapeLaying.setOwnerStrandSupply(null);
+        return this;
+    }
+
+    public Set<Screen> getScreens() {
+        return this.screens;
+    }
+
+    public void setScreens(Set<Screen> screens) {
+        if (this.screens != null) {
+            this.screens.forEach(i -> i.setOwnerStrandSupply(null));
+        }
+        if (screens != null) {
+            screens.forEach(i -> i.setOwnerStrandSupply(this));
+        }
+        this.screens = screens;
+    }
+
+    public StrandSupply screens(Set<Screen> screens) {
+        this.setScreens(screens);
+        return this;
+    }
+
+    public StrandSupply addScreens(Screen screen) {
+        this.screens.add(screen);
+        screen.setOwnerStrandSupply(this);
+        return this;
+    }
+
+    public StrandSupply removeScreens(Screen screen) {
+        this.screens.remove(screen);
+        screen.setOwnerStrandSupply(null);
+        return this;
+    }
+
+    public Set<StripLaying> getStripLayings() {
+        return this.stripLayings;
+    }
+
+    public void setStripLayings(Set<StripLaying> stripLayings) {
+        if (this.stripLayings != null) {
+            this.stripLayings.forEach(i -> i.setOwnerStrandSupply(null));
+        }
+        if (stripLayings != null) {
+            stripLayings.forEach(i -> i.setOwnerStrandSupply(this));
+        }
+        this.stripLayings = stripLayings;
+    }
+
+    public StrandSupply stripLayings(Set<StripLaying> stripLayings) {
+        this.setStripLayings(stripLayings);
+        return this;
+    }
+
+    public StrandSupply addStripLayings(StripLaying stripLaying) {
+        this.stripLayings.add(stripLaying);
+        stripLaying.setOwnerStrandSupply(this);
+        return this;
+    }
+
+    public StrandSupply removeStripLayings(StripLaying stripLaying) {
+        this.stripLayings.remove(stripLaying);
+        stripLaying.setOwnerStrandSupply(null);
+        return this;
+    }
+
+    public Set<Plait> getPlaits() {
+        return this.plaits;
+    }
+
+    public void setPlaits(Set<Plait> plaits) {
+        if (this.plaits != null) {
+            this.plaits.forEach(i -> i.setOwnerStrandSupply(null));
+        }
+        if (plaits != null) {
+            plaits.forEach(i -> i.setOwnerStrandSupply(this));
+        }
+        this.plaits = plaits;
+    }
+
+    public StrandSupply plaits(Set<Plait> plaits) {
+        this.setPlaits(plaits);
+        return this;
+    }
+
+    public StrandSupply addPlaits(Plait plait) {
+        this.plaits.add(plait);
+        plait.setOwnerStrandSupply(this);
+        return this;
+    }
+
+    public StrandSupply removePlaits(Plait plait) {
+        this.plaits.remove(plait);
+        plait.setOwnerStrandSupply(null);
+        return this;
+    }
+
     public Set<Sheathing> getSheathings() {
         return this.sheathings;
     }
@@ -589,6 +832,37 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     public StrandSupply removeSheathings(Sheathing sheathing) {
         this.sheathings.remove(sheathing);
         sheathing.setOwnerStrandSupply(null);
+        return this;
+    }
+
+    public Set<ContinuityWireLongitLaying> getContinuityWireLongitLayings() {
+        return this.continuityWireLongitLayings;
+    }
+
+    public void setContinuityWireLongitLayings(Set<ContinuityWireLongitLaying> continuityWireLongitLayings) {
+        if (this.continuityWireLongitLayings != null) {
+            this.continuityWireLongitLayings.forEach(i -> i.setOwnerStrandSupply(null));
+        }
+        if (continuityWireLongitLayings != null) {
+            continuityWireLongitLayings.forEach(i -> i.setOwnerStrandSupply(this));
+        }
+        this.continuityWireLongitLayings = continuityWireLongitLayings;
+    }
+
+    public StrandSupply continuityWireLongitLayings(Set<ContinuityWireLongitLaying> continuityWireLongitLayings) {
+        this.setContinuityWireLongitLayings(continuityWireLongitLayings);
+        return this;
+    }
+
+    public StrandSupply addContinuityWireLongitLayings(ContinuityWireLongitLaying continuityWireLongitLaying) {
+        this.continuityWireLongitLayings.add(continuityWireLongitLaying);
+        continuityWireLongitLaying.setOwnerStrandSupply(this);
+        return this;
+    }
+
+    public StrandSupply removeContinuityWireLongitLayings(ContinuityWireLongitLaying continuityWireLongitLaying) {
+        this.continuityWireLongitLayings.remove(continuityWireLongitLaying);
+        continuityWireLongitLaying.setOwnerStrandSupply(null);
         return this;
     }
 
@@ -647,7 +921,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         if (!(o instanceof StrandSupply)) {
             return false;
         }
-        return id != null && id.equals(((StrandSupply) o).id);
+        return getId() != null && getId().equals(((StrandSupply) o).getId());
     }
 
     @Override

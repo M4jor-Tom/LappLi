@@ -1,6 +1,9 @@
 package com.muller.lappli.domain.abstracts;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.muller.lappli.domain.interfaces.IDomainObject;
+import java.util.Optional;
+import javax.persistence.*;
 import javax.persistence.MappedSuperclass;
 
 /**
@@ -8,16 +11,44 @@ import javax.persistence.MappedSuperclass;
  * @param T the type of the daughter class
  */
 @MappedSuperclass
-public abstract class AbstractDomainObject<T> {
+public abstract class AbstractDomainObject<T extends AbstractDomainObject<T>> implements IDomainObject<T> {
 
-    /**
-     * @return the object at its concretest state
-     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    public AbstractDomainObject() {
+        super();
+    }
+
+    @Override
+    public Boolean isConform() {
+        return true;
+    }
+
     @JsonIgnore
-    public abstract T getThis();
+    public Optional<T> getThisIfConform() {
+        if (!isConform()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(getThis());
+    }
 
     /**
      * @return the Id of the object in the database
      */
-    public abstract Long getId();
+    public Long getId() {
+        return this.id;
+    }
+
+    public T id(Long id) {
+        this.setId(id);
+        return getThis();
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

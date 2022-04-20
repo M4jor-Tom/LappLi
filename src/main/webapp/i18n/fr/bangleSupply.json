@@ -12,7 +12,7 @@
       "updated": "L'Approvisionnement de Jonc avec l'identifiant {{ param }} a été mis à jour",
       "deleted": "L'Approvisionnement de Jonc avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer l'Approvisionnement de Jonc {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer l'Approvisionnement de Jonc {{ id }} ?"
       },
       "detail": {
         "title": "Approvisionnement de Jonc"

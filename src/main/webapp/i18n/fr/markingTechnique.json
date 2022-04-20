@@ -2,9 +2,9 @@
   "lappLiApp": {
     "MarkingTechnique": {
       "null": "",
-      "NONE": "NONE",
-      "NONE_SUITABLE": "NONE_SUITABLE",
-      "INK_JET": "INK_JET",
+      "NONE": "Aucune",
+      "NONE_SUITABLE": "Aucune possible",
+      "INK_JET": "Jet d'Encre",
       "RSD": "RSD"
     }
   }

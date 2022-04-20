@@ -21,11 +21,6 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @NotNull
     @Column(name = "supply_apparitions_usage", nullable = false)
     private Long supplyApparitionsUsage;
@@ -72,9 +67,20 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     @JsonIgnoreProperties(value = { "supplyPositions", "ownerStrandSupply" }, allowSetters = true)
     private IntersticeAssembly ownerIntersticeAssembly;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    public SupplyPosition() {
+        super();
+    }
+
     @Override
     public SupplyPosition getThis() {
         return this;
+    }
+
+    @Override
+    public Boolean isConform() {
+        return getSupplyApparitionsUsage() != null && isOwnerLegit() && isSupplyLegit();
     }
 
     /**
@@ -139,6 +145,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
      * @return the owned Supply
      */
     public AbstractSupply<?> getSupply() {
+        //[SUPPLY]
         if (getBangleSupply() != null) {
             return getBangleSupply();
         } else if (getCustomComponentSupply() != null) {
@@ -159,6 +166,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
 
     @JsonIgnore
     public void setSupply(AbstractSupply<?> supply) {
+        //[SUPPLY]
         setBangleSupply(null);
         setCustomComponentSupply(null);
         setElementSupply(null);
@@ -182,22 +190,6 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
             default:
                 break;
         }
-    }
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    @Override
-    public Long getId() {
-        return this.id;
-    }
-
-    public SupplyPosition id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getSupplyApparitionsUsage() {
@@ -320,7 +312,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
         if (!(o instanceof SupplyPosition)) {
             return false;
         }
-        return id != null && id.equals(((SupplyPosition) o).id);
+        return getId() != null && getId().equals(((SupplyPosition) o).getId());
     }
 
     @Override

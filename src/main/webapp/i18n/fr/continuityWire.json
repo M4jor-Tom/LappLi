@@ -1,0 +1,28 @@
+{
+  "lappLiApp": {
+    "continuityWire": {
+      "home": {
+        "title": "Fils de continuités",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Fil de Continuité",
+        "createOrEditLabel": "Créer ou éditer un Fil de Continuité",
+        "notFound": "Aucun Fil de Continuité trouvé"
+      },
+      "created": "Un nouveau Fil de Continuité a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Fil de Continuité avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Fil de Continuité avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Fil de Continuité {{ id }} ?"
+      },
+      "detail": {
+        "title": "Fil de Continuité"
+      },
+      "id": "ID",
+      "designation": "Designation",
+      "gramPerMeterLinearMass": "Masse linéique (g/m)",
+      "metalFiberKind": "Genre de Fibre Métallique",
+      "milimeterDiameter": "Diamètre (mm)",
+      "flexibility": "Flexibilité"
+    }
+  }
+}

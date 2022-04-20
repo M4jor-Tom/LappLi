@@ -1,0 +1,59 @@
+{
+  "name": "ContinuityWireLongitLaying",
+  "fields": [
+    {
+      "fieldName": "operationLayer",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "anonymousContinuityWireDesignation",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "anonymousContinuityWireGramPerMeterLinearMass",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "anonymousContinuityWireMetalFiberKind",
+      "fieldType": "MetalFiberKind",
+      "fieldValues": "RED_COPPER,TINNED_COPPER,STEEL"
+    },
+    {
+      "fieldName": "anonymousContinuityWireMilimeterDiameter",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "anonymousContinuityWireFlexibility",
+      "fieldType": "Flexibility",
+      "fieldValues": "S,ES,SES,MB,UES,USES,DS,R,SS,L5,L6"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "continuityWire",
+      "otherEntityRelationshipName": "continuityWireLongitLaying",
+      "relationshipName": "continuityWire",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "strandSupply",
+      "otherEntityRelationshipName": "continuityWireLongitLayings",
+      "relationshipValidateRules": "required",
+      "relationshipName": "ownerStrandSupply",
+      "otherEntityField": "designation"
+    }
+  ],
+  "entityTableName": "continuity_wire_longit_laying",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220413133845"
+}

@@ -7,7 +7,7 @@
       "detail": {
         "title": "Opération"
       },
-      "ownerStrand": "Toron propriétaire",
+      "ownerStrandSupply": "Approvisionnement de Toron propriétaire",
       "layer": "Couche",
       "operationLayer": "Couche d'opération",
       "productionStep": "Etape de production",

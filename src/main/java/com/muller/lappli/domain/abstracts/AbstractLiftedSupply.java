@@ -11,7 +11,7 @@ import javax.persistence.Transient;
  * a Lifting operation as a supply operation
  */
 @MappedSuperclass
-public abstract class AbstractLiftedSupply<T> extends AbstractSupply<T> {
+public abstract class AbstractLiftedSupply<T extends AbstractLiftedSupply<T>> extends AbstractSupply<T> {
 
     @Transient
     private List<Lifter> bestLifterList;
@@ -31,6 +31,7 @@ public abstract class AbstractLiftedSupply<T> extends AbstractSupply<T> {
      * @param bestLifterList the bestLifterList to set
      */
     public AbstractLiftedSupply(List<Lifter> bestLifterList) {
+        super();
         setBestLifterList(bestLifterList);
     }
 

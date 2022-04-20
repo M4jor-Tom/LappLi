@@ -12,7 +12,7 @@
       "updated": "L'Approvisionnement de Toron avec l'identifiant {{ param }} a été mis à jour",
       "deleted": "L'Approvisionnement de Toron avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Approvisionnement de Toron {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer le Approvisionnement de Toron {{ id }} ?"
       },
       "detail": {
         "title": "Approvisionnement de Toron"
@@ -27,16 +27,19 @@
       "apparitions": "Apparitions",
       "markingType": "Type de Marquage",
       "description": "Description",
-      "diameterAssemblyStep": "Diameter Assembly Step",
-      "assemblyMean": "Assembly Mean",
-      "forceCentralUtilityComponent": "Force Central Utility Component",
-      "coreAssemblies": "Core Assemblies",
-      "intersticeAssemblies": "Interstice Assemblies",
-      "sheathings": "Sheathings",
-      "strand": "Strand",
-      "centralAssembly": "Central Assembly",
-      "study": "Study",
-      "operations": "opérations",
+      "diameterAssemblyStep": "Pas d'Assemblage (D)",
+      "assemblyMean": "Sens d'Assemblage",
+      "forceCentralUtilityComponent": "Forcer un Composant Utile au Centre",
+      "coreAssemblies": "Assemblages Principaux",
+      "intersticeAssemblies": "Assemblages Intersticiels",
+      "tapeLayings": "Poses de Rubans",
+      "sheathings": "Gainages",
+      "plaits": "Plaits",
+      "continuityWireLongitLayings": "Continuity Wire Longit Layings",
+      "strand": "Toron",
+      "centralAssembly": "Assemblage Central",
+      "study": "Étude",
+      "operations": "Opérations",
       "operationKind": "Genre d'opération"
     }
   }

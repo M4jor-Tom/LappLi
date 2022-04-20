@@ -31,6 +31,18 @@
         "intersticeAssembly": "Interstice Assembly",
         "sheathing": "Sheathing",
         "supplyPosition": "Supply Position",
+        "tape": "Tape",
+        "tapeKind": "Tape Kind",
+        "tapeLaying": "Tape Laying",
+        "screen": "Screen",
+        "copperFiber": "Copper Fiber",
+        "strip": "Strip",
+        "stripLaying": "Strip Laying",
+        "metalFiber": "Metal Fiber",
+        "continuityWireLongitLaying": "Continuity Wire Longit Laying",
+        "continuityWire": "Continuity Wire",
+        "plait": "Plait",
+        "steelFiber": "Steel Fiber",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

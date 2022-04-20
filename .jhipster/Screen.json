@@ -1,0 +1,63 @@
+{
+  "name": "Screen",
+  "fields": [
+    {
+      "fieldName": "operationLayer",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "assemblyMeanIsSameThanAssemblys",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "forcedDiameterAssemblyStep",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "anonymousCopperFiberNumber",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "anonymousCopperFiberDesignation",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "anonymousCopperFiberKind",
+      "fieldType": "MetalFiberKind",
+      "fieldValues": "RED_COPPER,TINNED_COPPER,STEEL"
+    },
+    {
+      "fieldName": "anonymousCopperFiberMilimeterDiameter",
+      "fieldType": "Double"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "copperFiber",
+      "otherEntityRelationshipName": "screen",
+      "relationshipName": "copperFiber",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "strandSupply",
+      "otherEntityRelationshipName": "screens",
+      "relationshipValidateRules": "required",
+      "relationshipName": "ownerStrandSupply",
+      "otherEntityField": "designation"
+    }
+  ],
+  "entityTableName": "screen",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220405132505"
+}

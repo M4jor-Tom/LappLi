@@ -84,6 +84,42 @@ export const EntitiesMenu = props => (
     <MenuItem icon="asterisk" to="/supply-position">
       <Translate contentKey="global.menu.entities.supplyPosition" />
     </MenuItem>
+    <MenuItem icon="asterisk" to="/tape">
+      <Translate contentKey="global.menu.entities.tape" />
+    </MenuItem>
+    <MenuItem icon="asterisk" to="/tape-kind">
+      <Translate contentKey="global.menu.entities.tapeKind" />
+    </MenuItem>
+    <MenuItem icon="asterisk" to="/tape-laying">
+      <Translate contentKey="global.menu.entities.tapeLaying" />
+    </MenuItem>
+    <MenuItem icon="asterisk" to="/screen">
+      <Translate contentKey="global.menu.entities.screen" />
+    </MenuItem>
+    <MenuItem icon="asterisk" to="/copper-fiber">
+      <Translate contentKey="global.menu.entities.copperFiber" />
+    </MenuItem>
+    <MenuItem icon="asterisk" to="/strip">
+      <Translate contentKey="global.menu.entities.strip" />
+    </MenuItem>
+    <MenuItem icon="asterisk" to="/strip-laying">
+      <Translate contentKey="global.menu.entities.stripLaying" />
+    </MenuItem>
+    <MenuItem icon="asterisk" to="/metal-fiber">
+      <Translate contentKey="global.menu.entities.metalFiber" />
+    </MenuItem>
+    <MenuItem icon="asterisk" to="/continuity-wire-longit-laying">
+      <Translate contentKey="global.menu.entities.continuityWireLongitLaying" />
+    </MenuItem>
+    <MenuItem icon="asterisk" to="/continuity-wire">
+      <Translate contentKey="global.menu.entities.continuityWire" />
+    </MenuItem>
+    <MenuItem icon="asterisk" to="/plait">
+      <Translate contentKey="global.menu.entities.plait" />
+    </MenuItem>
+    <MenuItem icon="asterisk" to="/steel-fiber">
+      <Translate contentKey="global.menu.entities.steelFiber" />
+    </MenuItem>
     {/* jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here */}
   </NavDropdown>
 );

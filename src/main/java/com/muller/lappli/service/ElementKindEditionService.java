@@ -8,6 +8,7 @@ import java.util.Optional;
 /**
  * Service Interface for managing {@link ElementKindEdition}.
  */
+@Deprecated
 public interface ElementKindEditionService {
     /**
      * Finds elementKindEditions for an given elementKind's id

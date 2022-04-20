@@ -6,8 +6,10 @@ import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
+import com.muller.lappli.domain.interfaces.PlasticAspectCylindricComponent;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -27,22 +29,11 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     @Transient
     private OneStudyComponent oneStudyComponent;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @Column(name = "apparitions")
-    private Long apparitions;
-
     @Column(name = "number")
     private Long number;
 
     @Column(name = "component_designation")
     private String componentDesignation;
-
-    @Column(name = "description")
-    private String description;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -84,7 +75,9 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     private Material surfaceMaterial;
 
     public OneStudySupply() {
+        super();
         this.oneStudyComponent = null;
+        setOwnerSupplyPositions(new HashSet<>());
     }
 
     @Override
@@ -97,47 +90,30 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         return SupplyKind.ONE_STUDY;
     }
 
-    @Override
-    public CylindricComponent getCylindricComponent() {
+    private OneStudyComponent getOneStudyComponent() {
         if (oneStudyComponent == null) {
             oneStudyComponent =
                 new OneStudyComponent()
                     .designation(getComponentDesignation())
                     .milimeterDiameter(getMilimeterDiameter())
-                    .gramPerMeterLinearMass(getGramPerMeterLinearMass());
+                    .gramPerMeterLinearMass(getGramPerMeterLinearMass())
+                    .surfaceMaterial(getSurfaceMaterial());
         }
 
         return oneStudyComponent;
     }
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public OneStudySupply id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public CylindricComponent getCylindricComponent() {
+        return getOneStudyComponent();
     }
 
     @Override
-    public Long getApparitions() {
-        return this.apparitions;
+    public Optional<PlasticAspectCylindricComponent> getCylindricComponentIfPlasticAspect() {
+        return Optional.of(getOneStudyComponent());
     }
 
-    public OneStudySupply apparitions(Long apparitions) {
-        this.setApparitions(apparitions);
-        return this;
-    }
-
-    public void setApparitions(Long apparitions) {
-        this.apparitions = apparitions;
-    }
+    // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getNumber() {
         return this.number;
@@ -163,19 +139,6 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
 
     public void setComponentDesignation(String componentDesignation) {
         this.componentDesignation = componentDesignation;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public OneStudySupply description(String description) {
-        this.setDescription(description);
-        return this;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     @Override
@@ -289,7 +252,7 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         if (!(o instanceof OneStudySupply)) {
             return false;
         }
-        return id != null && id.equals(((OneStudySupply) o).id);
+        return getId() != null && getId().equals(((OneStudySupply) o).getId());
     }
 
     @Override
@@ -314,13 +277,15 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
             "}";
     }
 
-    private class OneStudyComponent implements CylindricComponent {
+    private class OneStudyComponent implements PlasticAspectCylindricComponent {
 
         private String designation;
 
         private Double milimeterDiameter;
 
         private Double gramPerMeterLinearMass;
+
+        private Material surfaceMaterial;
 
         @Override
         public Boolean isUtility() {
@@ -366,6 +331,20 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
 
         public OneStudyComponent gramPerMeterLinearMass(Double gramPerMeterLinearMass) {
             setGramPerMeterLinearMass(gramPerMeterLinearMass);
+            return this;
+        }
+
+        @Override
+        public Material getSurfaceMaterial() {
+            return surfaceMaterial;
+        }
+
+        public void setSurfaceMaterial(Material surfaceMaterial) {
+            this.surfaceMaterial = surfaceMaterial;
+        }
+
+        public OneStudyComponent surfaceMaterial(Material surfaceMaterial) {
+            setSurfaceMaterial(surfaceMaterial);
             return this;
         }
     }

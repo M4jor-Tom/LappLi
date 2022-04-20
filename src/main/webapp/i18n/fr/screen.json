@@ -1,0 +1,28 @@
+{
+  "lappLiApp": {
+    "screen": {
+      "home": {
+        "title": "Guipages",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Guipage",
+        "createOrEditLabel": "Créer ou éditer un Guipage",
+        "notFound": "Aucun Guipage trouvé"
+      },
+      "created": "Un nouveau Guipage a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Guipage avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Guipage avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Guipage {{ id }} ?"
+      },
+      "detail": {
+        "title": "Guipage"
+      },
+      "id": "ID",
+      "operationLayer": "Operation Layer",
+      "assemblyMeanIsSameThanAssemblys": "Pas d'assemblage à 3D (sinon 8D)",
+      "forcedDiameterAssemblyStep": "Pas d'assemblage forcé (D)",
+      "copperFiber": "Fibre de cuivre",
+      "ownerStrandSupply": "Approvisionnement de Toron Propriétaire"
+    }
+  }
+}

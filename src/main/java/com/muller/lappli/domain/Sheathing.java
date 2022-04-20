@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import com.muller.lappli.domain.enumeration.SheathingKind;
+import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
+import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -16,14 +18,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "sheathing")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Sheathing extends AbstractOperation<Sheathing> implements Serializable {
+public class Sheathing extends AbstractOperation<Sheathing> implements Serializable, INonAssemblyOperation<Sheathing> {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
 
     @NotNull
     @Column(name = "operation_layer", nullable = false)
@@ -50,6 +47,15 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
         allowSetters = true
     )
     private StrandSupply ownerStrandSupply;
+
+    public Sheathing() {
+        super();
+    }
+
+    @Override
+    public IOperation<Sheathing> toOperation() {
+        return this;
+    }
 
     @Override
     public Double getMilimeterDiameterIncidency() {
@@ -78,38 +84,27 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
 
     @Override
     public String getProductDesignation() {
-        try {
-            return getMaterial().getDesignation();
-        } catch (NullPointerException e) {
+        if (getMaterial() == null) {
             return "";
         }
+
+        return getMaterial().getDesignation();
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public Sheathing id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @Override
     public Long getOperationLayer() {
         return this.operationLayer;
     }
 
+    @Override
     public Sheathing operationLayer(Long operationLayer) {
         this.setOperationLayer(operationLayer);
         return this;
     }
 
+    @Override
     public void setOperationLayer(Long operationLayer) {
         this.operationLayer = operationLayer;
     }
@@ -153,6 +148,7 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
         return this;
     }
 
+    @Override
     public StrandSupply getOwnerStrandSupply() {
         return this.ownerStrandSupply;
     }
@@ -176,7 +172,7 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
         if (!(o instanceof Sheathing)) {
             return false;
         }
-        return id != null && id.equals(((Sheathing) o).id);
+        return getId() != null && getId().equals(((Sheathing) o).getId());
     }
 
     @Override
