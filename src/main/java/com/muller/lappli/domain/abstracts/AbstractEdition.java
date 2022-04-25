@@ -11,6 +11,7 @@ import javax.persistence.MappedSuperclass;
  * @param C the type of edited objects
  */
 @MappedSuperclass
+@Deprecated
 public abstract class AbstractEdition<C extends Commitable<C>> extends AbstractDomainObject<AbstractEdition<C>> {
 
     /**
