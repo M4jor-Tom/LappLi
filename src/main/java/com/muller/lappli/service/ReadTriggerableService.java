@@ -1,5 +1,6 @@
 package com.muller.lappli.service;
 
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -27,7 +28,7 @@ import java.util.Set;
  * All their behaviors depend on the override of
  * <pre>T onRead(T domainObject)</pre>
  */
-public interface ReadTriggerableService<T> {
+public interface ReadTriggerableService<T extends AbstractDomainObject<T>> {
     /**
      * Changes an Optional upon reading
      *
