@@ -15,6 +15,7 @@ import java.util.List;
  * The type parameter C MUST be the the implementation class
  *
  */
+@Deprecated
 public interface Commitable<C extends Commitable<C>> {
     public Long getId();
 
