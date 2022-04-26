@@ -75,6 +75,8 @@ public class ContinuityWireLongitLayingServiceImpl
                     );
                 }
 
+                rollbackOperationLayerIfUpdate(existingContinuityWireLongitLaying);
+
                 return existingContinuityWireLongitLaying;
             })
             .map(getJpaRepository()::save);

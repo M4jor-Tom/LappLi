@@ -50,6 +50,9 @@ public class SheathingServiceImpl extends AbstractNonCentralOperationServiceImpl
                 if (sheathing.getSheathingKind() != null) {
                     existingSheathing.setSheathingKind(sheathing.getSheathingKind());
                 }
+
+                rollbackOperationLayerIfUpdate(existingSheathing);
+
                 return existingSheathing;
             })
             .map(getJpaRepository()::save);

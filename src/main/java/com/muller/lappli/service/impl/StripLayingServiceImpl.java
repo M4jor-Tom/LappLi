@@ -45,6 +45,8 @@ public class StripLayingServiceImpl extends AbstractNonCentralOperationServiceIm
                     existingStripLaying.setOperationLayer(stripLaying.getOperationLayer());
                 }
 
+                rollbackOperationLayerIfUpdate(existingStripLaying);
+
                 return existingStripLaying;
             })
             .map(getJpaRepository()::save);
