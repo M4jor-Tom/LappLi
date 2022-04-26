@@ -8,12 +8,30 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Consumer;
 
 public abstract class AbstractNonCentralOperationServiceImpl<T extends INonCentralOperation<T>> implements FindOneService<T> {
 
     private final StrandSupplyService strandSupplyService;
 
     private final JpaRepository<T, Long> jpaRepository;
+
+    protected Boolean operationLayerIsUnchanged(INonCentralOperation<?> nonCentralOperation) {
+        AtomicLong nonCentralOperationOriginalOperationLayer = new AtomicLong();
+
+        findOne(nonCentralOperation.getId())
+            .ifPresent(
+                new Consumer<T>() {
+                    @Override
+                    public void accept(T t) {
+                        nonCentralOperationOriginalOperationLayer.set(t.getOperationLayer());
+                    }
+                }
+            );
+
+        return nonCentralOperationOriginalOperationLayer.get() == nonCentralOperation.getOperationLayer();
+    }
 
     public AbstractNonCentralOperationServiceImpl(StrandSupplyService strandSupplyService, JpaRepository<T, Long> jpaRepository) {
         this.strandSupplyService = strandSupplyService;
