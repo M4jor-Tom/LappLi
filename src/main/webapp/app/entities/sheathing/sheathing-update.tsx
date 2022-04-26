@@ -21,16 +21,21 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const redirectionUrl = getOutFromStudySupplyStrandSheathing(props.match.url, isNew);
-
   const materials = useAppSelector(state => state.material.entities);
   const strandSupplies = useAppSelector(state => state.strandSupply.entities);
-  const futureOwnerStrandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
   const sheathingEntity = useAppSelector(state => state.sheathing.entity);
   const loading = useAppSelector(state => state.sheathing.loading);
   const updating = useAppSelector(state => state.sheathing.updating);
   const updateSuccess = useAppSelector(state => state.sheathing.updateSuccess);
   const sheathingKindValues = Object.keys(SheathingKind);
+
+  //  Design for operation -- START
+
+  const redirectionUrl = getOutFromStudySupplyStrandSheathing(props.match.url, isNew);
+  const futureOwnerStrandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
+
+  //  Design for operation -- END
+
   const handleClose = () => {
     props.history.push(redirectionUrl);
   };
@@ -53,6 +58,8 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
   }, [updateSuccess]);
 
   const saveEntity = values => {
+    //  Design for operation -- START
+
     let futureOwnerStrandSupply: IStrandSupply = {};
 
     if (values.ownerStrandSupply) {
@@ -61,6 +68,8 @@ export const SheathingUpdate = (props: RouteComponentProps<{ strand_supply_id: s
       dispatch(getStrandSupplyEntity(props.match.params.strand_supply_id));
       futureOwnerStrandSupply = futureOwnerStrandSupplyEntity;
     }
+
+    //  Design for operation -- END
 
     const entity = {
       ...sheathingEntity,
