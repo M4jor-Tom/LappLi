@@ -4,7 +4,7 @@ import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import java.util.List;
 import java.util.Optional;
 
-public interface IService<T extends AbstractDomainObject<T>> {
+public interface IService<T extends AbstractDomainObject<T>> extends FindOneService<T> {
     /**
      * Save a domain object.
      *
@@ -27,14 +27,6 @@ public interface IService<T extends AbstractDomainObject<T>> {
      * @return the list of entities.
      */
     public List<T> findAll();
-
-    /**
-     * Get the "id" domain object.
-     *
-     * @param id the id of the entity.
-     * @return the entity.
-     */
-    public Optional<T> findOne(Long id);
 
     /**
      * Delete the "id" domain object.
