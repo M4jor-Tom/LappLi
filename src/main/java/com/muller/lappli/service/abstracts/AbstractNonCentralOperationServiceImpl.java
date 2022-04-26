@@ -26,24 +26,34 @@ public abstract class AbstractNonCentralOperationServiceImpl<T extends INonCentr
 
     protected abstract String getDomainClassName();
 
-    protected Long getOriginalOperationLayerIfNotNew(INonCentralOperation<?> nonCentralOperation) {
+    protected Optional<Long> getOriginalOperationLayerIfNotNew(INonCentralOperation<?> nonCentralOperation) {
         AtomicLong nonCentralOperationOriginalOperationLayer = new AtomicLong();
+
+        if (nonCentralOperation.getId() == null) {
+            return Optional.empty();
+        }
 
         findOne(nonCentralOperation.getId())
             .ifPresent(
-                new Consumer<T>() {
+                new Consumer<INonCentralOperation<?>>() {
                     @Override
-                    public void accept(T t) {
+                    public void accept(INonCentralOperation<?> t) {
                         nonCentralOperationOriginalOperationLayer.set(t.getOperationLayer());
                     }
                 }
             );
 
-        return nonCentralOperationOriginalOperationLayer.get();
+        return Optional.of(nonCentralOperationOriginalOperationLayer.get());
     }
 
     protected Boolean operationLayerIsUnchanged(INonCentralOperation<?> nonCentralOperation) {
-        return getOriginalOperationLayerIfNotNew(nonCentralOperation) == nonCentralOperation.getOperationLayer();
+        Optional<Long> originalOperationLayerIfNotNew = getOriginalOperationLayerIfNotNew(nonCentralOperation);
+
+        if (originalOperationLayerIfNotNew.isEmpty()) {
+            return true;
+        }
+
+        return originalOperationLayerIfNotNew.get() == nonCentralOperation.getOperationLayer();
     }
 
     protected void actualizeOwnerStrandSupply(T toInsert) {
