@@ -55,7 +55,7 @@ public class SheathingResource {
         if (sheathing.getId() != null) {
             throw new BadRequestAlertException("A new sheathing cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Sheathing result = sheathingService.save(sheathing, true);
+        Sheathing result = sheathingService.save(sheathing, true, true);
         return ResponseEntity
             .created(new URI("/api/sheathings/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -89,7 +89,7 @@ public class SheathingResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Sheathing result = sheathingService.save(sheathing, true);
+        Sheathing result = sheathingService.save(sheathing, true, true);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, sheathing.getId().toString()))

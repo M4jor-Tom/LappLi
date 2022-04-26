@@ -106,32 +106,32 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
 
         for (TapeLaying tapeLaying : toActualize.getTapeLayings()) {
             Boolean actualizeOwnerStrandSupply = false;
-            tapeLayingService.save(tapeLaying, actualizeOwnerStrandSupply);
+            tapeLayingService.save(tapeLaying, actualizeOwnerStrandSupply, false);
         }
 
         for (Screen screen : toActualize.getScreens()) {
             Boolean actualizeOwnerStrandSupply = false;
-            screenService.save(screen, actualizeOwnerStrandSupply);
+            screenService.save(screen, actualizeOwnerStrandSupply, false);
         }
 
         for (StripLaying stripLaying : toActualize.getStripLayings()) {
             Boolean actualizeOwnerStrandSupply = false;
-            stripLayingService.save(stripLaying, actualizeOwnerStrandSupply);
+            stripLayingService.save(stripLaying, actualizeOwnerStrandSupply, false);
         }
 
         for (Plait plait : toActualize.getPlaits()) {
             Boolean actualizeOwnerStrandSupply = false;
-            plaitService.save(plait, actualizeOwnerStrandSupply);
+            plaitService.save(plait, actualizeOwnerStrandSupply, false);
         }
 
         for (Sheathing sheathing : toActualize.getSheathings()) {
             Boolean actualizeOwnerStrandSupply = false;
-            sheathingService.save(sheathing, actualizeOwnerStrandSupply);
+            sheathingService.save(sheathing, actualizeOwnerStrandSupply, false);
         }
 
         for (ContinuityWireLongitLaying continuityWireLongitLaying : toActualize.getContinuityWireLongitLayings()) {
             Boolean actualizeOwnerStrandSupply = false;
-            continuityWireLongitLayingService.save(continuityWireLongitLaying, actualizeOwnerStrandSupply);
+            continuityWireLongitLayingService.save(continuityWireLongitLaying, actualizeOwnerStrandSupply, false);
         }
     }
 

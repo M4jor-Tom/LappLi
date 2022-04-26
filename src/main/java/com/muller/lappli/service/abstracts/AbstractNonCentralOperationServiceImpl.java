@@ -73,8 +73,10 @@ public abstract class AbstractNonCentralOperationServiceImpl<T extends INonCentr
         );
     }
 
-    public T save(T domainObject, Boolean actualizeOwnerStrandSupply) {
-        rollbackOperationLayerIfUpdate(domainObject);
+    public T save(T domainObject, Boolean actualizeOwnerStrandSupply, Boolean rollbackOperationLayerIfUpdate) {
+        if (rollbackOperationLayerIfUpdate) {
+            rollbackOperationLayerIfUpdate(domainObject);
+        }
 
         getLogger().debug("Request to save " + getDomainClassName() + " : {}", domainObject);
 
