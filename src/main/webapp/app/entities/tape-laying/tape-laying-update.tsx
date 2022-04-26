@@ -121,18 +121,20 @@ export const TapeLayingUpdate = (props: RouteComponentProps<{ strand_supply_id: 
                   validate={{ required: true }}
                 />
               ) : null}
-              <ValidatedField
-                label={translate('lappLiApp.operation.operationLayer')}
-                id="tape-laying-operationLayer"
-                name="operationLayer"
-                data-cy="operationLayer"
-                type="text"
-                defaultValue={-2}
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
-              />
+              {isNew ? (
+                <ValidatedField
+                  label={translate('lappLiApp.operation.operationLayer')}
+                  id="tape-laying-operationLayer"
+                  name="operationLayer"
+                  data-cy="operationLayer"
+                  type="text"
+                  defaultValue={-2}
+                  validate={{
+                    required: { value: true, message: translate('entity.validation.required') },
+                    validate: v => isNumber(v) || translate('entity.validation.number'),
+                  }}
+                />
+              ) : null}
               <ValidatedField
                 label={translate('lappLiApp.assembly.assemblyMean')}
                 id="tape-laying-assemblyMean"

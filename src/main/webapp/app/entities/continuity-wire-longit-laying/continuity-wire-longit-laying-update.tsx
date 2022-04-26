@@ -125,18 +125,20 @@ export const ContinuityWireLongitLayingUpdate = (props: RouteComponentProps<{ id
                   validate={{ required: true }}
                 />
               ) : null}
-              <ValidatedField
-                label={translate('lappLiApp.continuityWireLongitLaying.operationLayer')}
-                id="continuity-wire-longit-laying-operationLayer"
-                name="operationLayer"
-                data-cy="operationLayer"
-                type="text"
-                defaultValue={-2}
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
-              />
+              {isNew ? (
+                <ValidatedField
+                  label={translate('lappLiApp.continuityWireLongitLaying.operationLayer')}
+                  id="continuity-wire-longit-laying-operationLayer"
+                  name="operationLayer"
+                  data-cy="operationLayer"
+                  type="text"
+                  defaultValue={-2}
+                  validate={{
+                    required: { value: true, message: translate('entity.validation.required') },
+                    validate: v => isNumber(v) || translate('entity.validation.number'),
+                  }}
+                />
+              ) : null}
               <ValidatedField
                 label={translate('lappLiApp.continuityWireLongitLaying.anonymousContinuityWireDesignation')}
                 id="continuity-wire-longit-laying-anonymousContinuityWireDesignation"
