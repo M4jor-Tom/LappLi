@@ -61,6 +61,17 @@ public abstract class AbstractNonCentralOperationServiceImpl<T extends INonCentr
     }
 
     public T save(T domainObject, Boolean actualizeOwnerStrandSupply) {
+        Optional<Long> originalOperationLayerIfNotNew = getOriginalOperationLayerIfNotNew(domainObject);
+
+        originalOperationLayerIfNotNew.ifPresent(
+            new Consumer<Long>() {
+                @Override
+                public void accept(Long t) {
+                    domainObject.setOperationLayer(t);
+                }
+            }
+        );
+
         getLogger().debug("Request to save " + getDomainClassName() + " : {}", domainObject);
 
         if (actualizeOwnerStrandSupply) {
