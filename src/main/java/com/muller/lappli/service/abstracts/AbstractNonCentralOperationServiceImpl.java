@@ -5,17 +5,26 @@ import com.muller.lappli.service.FindOneService;
 import com.muller.lappli.service.StrandSupplyService;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Consumer;
 import org.slf4j.Logger;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.function.Consumer;
 
 public abstract class AbstractNonCentralOperationServiceImpl<T extends INonCentralOperation<T>> implements FindOneService<T> {
 
     private final StrandSupplyService strandSupplyService;
 
     private final JpaRepository<T, Long> jpaRepository;
+
+    public AbstractNonCentralOperationServiceImpl(StrandSupplyService strandSupplyService, JpaRepository<T, Long> jpaRepository) {
+        this.strandSupplyService = strandSupplyService;
+        this.jpaRepository = jpaRepository;
+    }
+
+    protected abstract Logger getLogger();
+
+    protected abstract String getDomainClassName();
 
     protected Boolean operationLayerIsUnchanged(INonCentralOperation<?> nonCentralOperation) {
         AtomicLong nonCentralOperationOriginalOperationLayer = new AtomicLong();
@@ -32,15 +41,6 @@ public abstract class AbstractNonCentralOperationServiceImpl<T extends INonCentr
 
         return nonCentralOperationOriginalOperationLayer.get() == nonCentralOperation.getOperationLayer();
     }
-
-    public AbstractNonCentralOperationServiceImpl(StrandSupplyService strandSupplyService, JpaRepository<T, Long> jpaRepository) {
-        this.strandSupplyService = strandSupplyService;
-        this.jpaRepository = jpaRepository;
-    }
-
-    protected abstract Logger getLogger();
-
-    protected abstract String getDomainClassName();
 
     protected void actualizeOwnerStrandSupply(T toInsert) {
         strandSupplyService.actualizeNonCentralOperationsFor(toInsert.getOwnerStrandSupply(), toInsert);
