@@ -5,7 +5,6 @@ import com.muller.lappli.repository.SheathingRepository;
 import com.muller.lappli.service.SheathingService;
 import com.muller.lappli.service.StrandSupplyService;
 import com.muller.lappli.service.abstracts.AbstractNonCentralOperationServiceImpl;
-import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,28 +20,25 @@ public class SheathingServiceImpl extends AbstractNonCentralOperationServiceImpl
 
     private final Logger log = LoggerFactory.getLogger(SheathingServiceImpl.class);
 
-    private final SheathingRepository sheathingRepository;
-
     public SheathingServiceImpl(SheathingRepository sheathingRepository, StrandSupplyService strandSupplyService) {
-        super(strandSupplyService);
-        this.sheathingRepository = sheathingRepository;
+        super(strandSupplyService, sheathingRepository);
     }
 
     @Override
-    public Sheathing save(Sheathing sheathing, Boolean actualizeOwnerStrandSupply) {
-        log.debug("Request to save Sheathing : {}", sheathing);
+    protected Logger getLogger() {
+        return log;
+    }
 
-        if (actualizeOwnerStrandSupply) {
-            actualizeOwnerStrandSupply(sheathing);
-        }
-        return sheathingRepository.save(sheathing);
+    @Override
+    protected String getDomainClassName() {
+        return "Sheathing";
     }
 
     @Override
     public Optional<Sheathing> partialUpdate(Sheathing sheathing) {
         log.debug("Request to partially update Sheathing : {}", sheathing);
 
-        return sheathingRepository
+        return getJpaRepository()
             .findById(sheathing.getId())
             .map(existingSheathing -> {
                 if (sheathing.getOperationLayer() != null) {
@@ -56,26 +52,6 @@ public class SheathingServiceImpl extends AbstractNonCentralOperationServiceImpl
                 }
                 return existingSheathing;
             })
-            .map(sheathingRepository::save);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Sheathing> findAll() {
-        log.debug("Request to get all Sheathings");
-        return sheathingRepository.findAll();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<Sheathing> findOne(Long id) {
-        log.debug("Request to get Sheathing : {}", id);
-        return sheathingRepository.findById(id);
-    }
-
-    @Override
-    public void delete(Long id) {
-        log.debug("Request to delete Sheathing : {}", id);
-        sheathingRepository.deleteById(id);
+            .map(getJpaRepository()::save);
     }
 }

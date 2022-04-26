@@ -5,7 +5,6 @@ import com.muller.lappli.repository.ContinuityWireLongitLayingRepository;
 import com.muller.lappli.service.ContinuityWireLongitLayingService;
 import com.muller.lappli.service.StrandSupplyService;
 import com.muller.lappli.service.abstracts.AbstractNonCentralOperationServiceImpl;
-import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,32 +22,28 @@ public class ContinuityWireLongitLayingServiceImpl
 
     private final Logger log = LoggerFactory.getLogger(ContinuityWireLongitLayingServiceImpl.class);
 
-    private final ContinuityWireLongitLayingRepository continuityWireLongitLayingRepository;
-
     public ContinuityWireLongitLayingServiceImpl(
         ContinuityWireLongitLayingRepository continuityWireLongitLayingRepository,
         StrandSupplyService strandSupplyService
     ) {
-        super(strandSupplyService);
-        this.continuityWireLongitLayingRepository = continuityWireLongitLayingRepository;
+        super(strandSupplyService, continuityWireLongitLayingRepository);
     }
 
     @Override
-    public ContinuityWireLongitLaying save(ContinuityWireLongitLaying continuityWireLongitLaying, Boolean actualizeOwnerStrandSupply) {
-        log.debug("Request to save ContinuityWireLongitLaying : {}", continuityWireLongitLaying);
+    protected Logger getLogger() {
+        return log;
+    }
 
-        if (actualizeOwnerStrandSupply) {
-            actualizeOwnerStrandSupply(continuityWireLongitLaying);
-        }
-
-        return continuityWireLongitLayingRepository.save(continuityWireLongitLaying);
+    @Override
+    protected String getDomainClassName() {
+        return "ContinuityWireLongitLaying";
     }
 
     @Override
     public Optional<ContinuityWireLongitLaying> partialUpdate(ContinuityWireLongitLaying continuityWireLongitLaying) {
         log.debug("Request to partially update ContinuityWireLongitLaying : {}", continuityWireLongitLaying);
 
-        return continuityWireLongitLayingRepository
+        return getJpaRepository()
             .findById(continuityWireLongitLaying.getId())
             .map(existingContinuityWireLongitLaying -> {
                 if (continuityWireLongitLaying.getOperationLayer() != null) {
@@ -82,26 +77,6 @@ public class ContinuityWireLongitLayingServiceImpl
 
                 return existingContinuityWireLongitLaying;
             })
-            .map(continuityWireLongitLayingRepository::save);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<ContinuityWireLongitLaying> findAll() {
-        log.debug("Request to get all ContinuityWireLongitLayings");
-        return continuityWireLongitLayingRepository.findAll();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<ContinuityWireLongitLaying> findOne(Long id) {
-        log.debug("Request to get ContinuityWireLongitLaying : {}", id);
-        return continuityWireLongitLayingRepository.findById(id);
-    }
-
-    @Override
-    public void delete(Long id) {
-        log.debug("Request to delete ContinuityWireLongitLaying : {}", id);
-        continuityWireLongitLayingRepository.deleteById(id);
+            .map(getJpaRepository()::save);
     }
 }

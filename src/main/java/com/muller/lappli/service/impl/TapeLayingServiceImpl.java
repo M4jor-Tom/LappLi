@@ -5,7 +5,6 @@ import com.muller.lappli.repository.TapeLayingRepository;
 import com.muller.lappli.service.StrandSupplyService;
 import com.muller.lappli.service.TapeLayingService;
 import com.muller.lappli.service.abstracts.AbstractNonCentralOperationServiceImpl;
-import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,28 +20,25 @@ public class TapeLayingServiceImpl extends AbstractNonCentralOperationServiceImp
 
     private final Logger log = LoggerFactory.getLogger(TapeLayingServiceImpl.class);
 
-    private final TapeLayingRepository tapeLayingRepository;
-
     public TapeLayingServiceImpl(TapeLayingRepository tapeLayingRepository, StrandSupplyService strandSupplyService) {
-        super(strandSupplyService);
-        this.tapeLayingRepository = tapeLayingRepository;
+        super(strandSupplyService, tapeLayingRepository);
     }
 
     @Override
-    public TapeLaying save(TapeLaying tapeLaying, Boolean actualizeOwnerStrandSupply) {
-        log.debug("Request to save TapeLaying : {}", tapeLaying);
+    protected Logger getLogger() {
+        return log;
+    }
 
-        if (actualizeOwnerStrandSupply) {
-            actualizeOwnerStrandSupply(tapeLaying);
-        }
-        return tapeLayingRepository.save(tapeLaying);
+    @Override
+    protected String getDomainClassName() {
+        return "TapeLaying";
     }
 
     @Override
     public Optional<TapeLaying> partialUpdate(TapeLaying tapeLaying) {
         log.debug("Request to partially update TapeLaying : {}", tapeLaying);
 
-        return tapeLayingRepository
+        return getJpaRepository()
             .findById(tapeLaying.getId())
             .map(existingTapeLaying -> {
                 if (tapeLaying.getOperationLayer() != null) {
@@ -54,26 +50,6 @@ public class TapeLayingServiceImpl extends AbstractNonCentralOperationServiceImp
 
                 return existingTapeLaying;
             })
-            .map(tapeLayingRepository::save);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<TapeLaying> findAll() {
-        log.debug("Request to get all TapeLayings");
-        return tapeLayingRepository.findAll();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<TapeLaying> findOne(Long id) {
-        log.debug("Request to get TapeLaying : {}", id);
-        return tapeLayingRepository.findById(id);
-    }
-
-    @Override
-    public void delete(Long id) {
-        log.debug("Request to delete TapeLaying : {}", id);
-        tapeLayingRepository.deleteById(id);
+            .map(getJpaRepository()::save);
     }
 }
