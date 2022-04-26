@@ -60,7 +60,7 @@ public abstract class AbstractNonCentralOperationServiceImpl<T extends INonCentr
         strandSupplyService.actualizeNonCentralOperationsFor(toInsert.getOwnerStrandSupply(), toInsert);
     }
 
-    public T save(T domainObject, Boolean actualizeOwnerStrandSupply) {
+    protected void rollbackOperationLayerIfUpdate(T domainObject) {
         Optional<Long> originalOperationLayerIfNotNew = getOriginalOperationLayerIfNotNew(domainObject);
 
         originalOperationLayerIfNotNew.ifPresent(
@@ -71,6 +71,10 @@ public abstract class AbstractNonCentralOperationServiceImpl<T extends INonCentr
                 }
             }
         );
+    }
+
+    public T save(T domainObject, Boolean actualizeOwnerStrandSupply) {
+        rollbackOperationLayerIfUpdate(domainObject);
 
         getLogger().debug("Request to save " + getDomainClassName() + " : {}", domainObject);
 
