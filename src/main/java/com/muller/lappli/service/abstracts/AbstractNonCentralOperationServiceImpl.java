@@ -26,7 +26,7 @@ public abstract class AbstractNonCentralOperationServiceImpl<T extends INonCentr
 
     protected abstract String getDomainClassName();
 
-    protected Boolean operationLayerIsUnchanged(INonCentralOperation<?> nonCentralOperation) {
+    protected Long getOriginalOperationLayerIfNotNew(INonCentralOperation<?> nonCentralOperation) {
         AtomicLong nonCentralOperationOriginalOperationLayer = new AtomicLong();
 
         findOne(nonCentralOperation.getId())
@@ -39,7 +39,11 @@ public abstract class AbstractNonCentralOperationServiceImpl<T extends INonCentr
                 }
             );
 
-        return nonCentralOperationOriginalOperationLayer.get() == nonCentralOperation.getOperationLayer();
+        return nonCentralOperationOriginalOperationLayer.get();
+    }
+
+    protected Boolean operationLayerIsUnchanged(INonCentralOperation<?> nonCentralOperation) {
+        return getOriginalOperationLayerIfNotNew(nonCentralOperation) == nonCentralOperation.getOperationLayer();
     }
 
     protected void actualizeOwnerStrandSupply(T toInsert) {
