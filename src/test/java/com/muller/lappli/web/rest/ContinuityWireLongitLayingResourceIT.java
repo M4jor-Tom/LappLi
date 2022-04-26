@@ -304,7 +304,7 @@ class ContinuityWireLongitLayingResourceIT {
         ContinuityWireLongitLaying testContinuityWireLongitLaying = continuityWireLongitLayingList.get(
             continuityWireLongitLayingList.size() - 1
         );
-        assertThat(testContinuityWireLongitLaying.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
+        assertThat(testContinuityWireLongitLaying.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireDesignation())
             .isEqualTo(UPDATED_ANONYMOUS_CONTINUITY_WIRE_DESIGNATION);
         assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireGramPerMeterLinearMass())

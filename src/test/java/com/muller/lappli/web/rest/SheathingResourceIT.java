@@ -288,7 +288,7 @@ class SheathingResourceIT {
         List<Sheathing> sheathingList = sheathingRepository.findAll();
         assertThat(sheathingList).hasSize(databaseSizeBeforeUpdate);
         Sheathing testSheathing = sheathingList.get(sheathingList.size() - 1);
-        assertThat(testSheathing.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
+        assertThat(testSheathing.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testSheathing.getMilimeterThickness()).isEqualTo(UPDATED_MILIMETER_THICKNESS);
         assertThat(testSheathing.getSheathingKind()).isEqualTo(UPDATED_SHEATHING_KIND);
     }

@@ -305,7 +305,7 @@ class PlaitResourceIT {
         List<Plait> plaitList = plaitRepository.findAll();
         assertThat(plaitList).hasSize(databaseSizeBeforeUpdate);
         Plait testPlait = plaitList.get(plaitList.size() - 1);
-        assertThat(testPlait.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
+        assertThat(testPlait.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testPlait.getTargetCoveringRate()).isEqualTo(UPDATED_TARGET_COVERING_RATE);
         assertThat(testPlait.getTargetDegreeAngle()).isEqualTo(UPDATED_TARGET_DEGREE_ANGLE);
         assertThat(testPlait.getTargetingCoveringRateNotAngle()).isEqualTo(UPDATED_TARGETING_COVERING_RATE_NOT_ANGLE);
