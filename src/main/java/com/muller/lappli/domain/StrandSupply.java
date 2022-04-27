@@ -95,7 +95,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "copperFiber", "metalFiber", "ownerStrandSupply" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
     private Set<Plait> plaits = new HashSet<>();
 
     @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
