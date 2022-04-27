@@ -1,5 +1,6 @@
 package com.muller.lappli.service;
 
+import com.muller.lappli.domain.exception.RatioBoundExceedingException;
 import com.muller.lappli.domain.interfaces.INonCentralOperation;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +23,7 @@ public interface INonCentralOperationService<T extends INonCentralOperation<T>> 
      * @param nonCentralOperation the entity to update partially.
      * @return the persisted entity.
      */
-    Optional<T> partialUpdate(T nonCentralOperation);
+    Optional<T> partialUpdate(T nonCentralOperation) throws RatioBoundExceedingException;
 
     /**
      * Get all the nonCentralOperations.

@@ -5,6 +5,7 @@ import com.muller.lappli.domain.abstracts.AbstractMetalFiber;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.MetalFiberKind;
 import com.muller.lappli.domain.enumeration.OperationKind;
+import com.muller.lappli.domain.exception.RatioBoundExceedingException;
 import com.muller.lappli.domain.exception.UnknownMetalFiberException;
 import com.muller.lappli.domain.interfaces.AssemblableOperation;
 import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
@@ -219,13 +220,13 @@ public class Plait extends AbstractOperation<Plait> implements Serializable, INo
         return this.targetCoveringRate;
     }
 
-    public Plait targetCoveringRate(Double targetCoveringRate) {
+    public Plait targetCoveringRate(Double targetCoveringRate) throws RatioBoundExceedingException {
         this.setTargetCoveringRate(targetCoveringRate);
         return this;
     }
 
-    public void setTargetCoveringRate(Double targetCoveringRate) {
-        this.targetCoveringRate = targetCoveringRate;
+    public void setTargetCoveringRate(Double targetCoveringRate) throws RatioBoundExceedingException {
+        this.targetCoveringRate = DomainManager.checkIsRatio("Plait.targetCoveringRate", targetCoveringRate);
     }
 
     public Double getTargetDegreeAngle() {

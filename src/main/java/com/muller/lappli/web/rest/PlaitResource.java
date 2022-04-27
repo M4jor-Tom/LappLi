@@ -1,6 +1,7 @@
 package com.muller.lappli.web.rest;
 
 import com.muller.lappli.domain.Plait;
+import com.muller.lappli.domain.exception.RatioBoundExceedingException;
 import com.muller.lappli.repository.PlaitRepository;
 import com.muller.lappli.service.PlaitService;
 import com.muller.lappli.web.rest.errors.BadRequestAlertException;
@@ -122,7 +123,12 @@ public class PlaitResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Plait> result = plaitService.partialUpdate(plait);
+        Optional<Plait> result;
+        try {
+            result = plaitService.partialUpdate(plait);
+        } catch (RatioBoundExceedingException e) {
+            throw new URISyntaxException(plait.toString(), e.getMessage());
+        }
 
         return ResponseUtil.wrapOrNotFound(
             result,

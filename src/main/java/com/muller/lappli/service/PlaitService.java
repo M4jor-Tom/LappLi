@@ -1,6 +1,7 @@
 package com.muller.lappli.service;
 
 import com.muller.lappli.domain.Plait;
+import com.muller.lappli.domain.exception.RatioBoundExceedingException;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +15,7 @@ public interface PlaitService extends INonCentralOperationService<Plait> {
      * @param plait the entity to update partially.
      * @return the persisted entity.
      */
-    Optional<Plait> partialUpdate(Plait plait);
+    Optional<Plait> partialUpdate(Plait plait) throws RatioBoundExceedingException;
 
     /**
      * Get all the plaits.

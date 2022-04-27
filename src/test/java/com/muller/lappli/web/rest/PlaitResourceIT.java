@@ -9,6 +9,7 @@ import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.Plait;
 import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.enumeration.MetalFiberKind;
+import com.muller.lappli.domain.exception.RatioBoundExceedingException;
 import com.muller.lappli.repository.PlaitRepository;
 import java.util.List;
 import java.util.Random;
@@ -34,8 +35,8 @@ class PlaitResourceIT {
     private static final Long DEFAULT_OPERATION_LAYER = 1L;
     private static final Long UPDATED_OPERATION_LAYER = 2L;
 
-    private static final Double DEFAULT_TARGET_COVERING_RATE = 1D;
-    private static final Double UPDATED_TARGET_COVERING_RATE = 2D;
+    private static final Double DEFAULT_TARGET_COVERING_RATE = 0D;
+    private static final Double UPDATED_TARGET_COVERING_RATE = 1D;
 
     private static final Double DEFAULT_TARGET_DEGREE_ANGLE = 1D;
     private static final Double UPDATED_TARGET_DEGREE_ANGLE = 2D;
@@ -77,8 +78,9 @@ class PlaitResourceIT {
      *
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
+     * @throws RatioBoundExceedingException
      */
-    public static Plait createEntity(EntityManager em) {
+    public static Plait createEntity(EntityManager em) throws RatioBoundExceedingException {
         Plait plait = new Plait()
             .operationLayer(DEFAULT_OPERATION_LAYER)
             .targetCoveringRate(DEFAULT_TARGET_COVERING_RATE)
@@ -106,8 +108,9 @@ class PlaitResourceIT {
      *
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
+     * @throws RatioBoundExceedingException
      */
-    public static Plait createUpdatedEntity(EntityManager em) {
+    public static Plait createUpdatedEntity(EntityManager em) throws RatioBoundExceedingException {
         Plait plait = new Plait()
             .operationLayer(UPDATED_OPERATION_LAYER)
             .targetCoveringRate(UPDATED_TARGET_COVERING_RATE)
@@ -131,7 +134,7 @@ class PlaitResourceIT {
     }
 
     @BeforeEach
-    public void initTest() {
+    public void initTest() throws RatioBoundExceedingException {
         plait = createEntity(em);
     }
 
