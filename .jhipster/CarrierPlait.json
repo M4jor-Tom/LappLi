@@ -33,7 +33,7 @@
       "otherEntityRelationshipName": "carrierPlait",
       "relationshipValidateRules": "required",
       "relationshipName": "carrierPlaitFiber",
-      "otherEntityField": "designaiton"
+      "otherEntityField": "designation"
     },
     {
       "relationshipType": "many-to-one",

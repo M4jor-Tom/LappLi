@@ -56,7 +56,7 @@ export const CarrierPlaitDetail = (props: RouteComponentProps<{ id: string }>) =
           <dt>
             <Translate contentKey="lappLiApp.carrierPlait.carrierPlaitFiber">Carrier Plait Fiber</Translate>
           </dt>
-          <dd>{carrierPlaitEntity.carrierPlaitFiber ? carrierPlaitEntity.carrierPlaitFiber.designaiton : ''}</dd>
+          <dd>{carrierPlaitEntity.carrierPlaitFiber ? carrierPlaitEntity.carrierPlaitFiber.designation : ''}</dd>
           <dt>
             <Translate contentKey="lappLiApp.carrierPlait.ownerStrandSupply">Owner Strand Supply</Translate>
           </dt>

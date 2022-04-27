@@ -85,7 +85,7 @@ export const CarrierPlait = (props: RouteComponentProps<{ url: string }>) => {
                   <td>
                     {carrierPlait.carrierPlaitFiber ? (
                       <Link to={`carrier-plait-fiber/${carrierPlait.carrierPlaitFiber.id}`}>
-                        {carrierPlait.carrierPlaitFiber.designaiton}
+                        {carrierPlait.carrierPlaitFiber.designation}
                       </Link>
                     ) : (
                       ''

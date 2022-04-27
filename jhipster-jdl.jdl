@@ -329,7 +329,7 @@ relationship ManyToOne {
 }
 
 relationship ManyToOne {
-    CarrierPlait{carrierPlaitFiber(designaiton) required} to CarrierPlaitFiber
+    CarrierPlait{carrierPlaitFiber(designation) required} to CarrierPlaitFiber
 }
 
 relationship ManyToOne {

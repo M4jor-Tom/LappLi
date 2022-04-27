@@ -154,7 +154,7 @@ export const CarrierPlaitUpdate = (props: RouteComponentProps<{ id: string }>) =
                 {carrierPlaitFibers
                   ? carrierPlaitFibers.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.designaiton}
+                        {otherEntity.designation}
                       </option>
                     ))
                   : null}
