@@ -89,6 +89,10 @@ public class Plait extends AbstractOperation<Plait> implements Serializable, INo
     //[TODO] when being moved in operation list by another operation
     @Override
     public Boolean isConform() {
+        if (getTargetCoveringRate() != null) {
+            return DomainManager.isRatio(getTargetCoveringRate());
+        }
+
         return (
             getOperationLayer() != null &&
             getTargetingCoveringRateNotAngle() != null &&
