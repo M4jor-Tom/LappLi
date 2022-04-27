@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.muller.lappli.domain.exception.RatioBoundExceedingException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -108,5 +109,21 @@ public class DomainManager {
      */
     public static final String mullerStandardizedFormat(Double value) {
         return JACQUES_DOUBLE_DECIMAL_FORMAT.format(value);
+    }
+
+    public static final Boolean isRatio(Double ratio) {
+        return ratio >= 0.0 && ratio <= 1.0;
+    }
+
+    public static final Double checkIsRatio(Double ratio) throws RatioBoundExceedingException {
+        return checkIsRatio(null, ratio);
+    }
+
+    public static final Double checkIsRatio(String variableName, Double ratio) throws RatioBoundExceedingException {
+        if (!isRatio(ratio)) {
+            throw new RatioBoundExceedingException(variableName, ratio);
+        }
+
+        return ratio;
     }
 }
