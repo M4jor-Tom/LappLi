@@ -29,8 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class TapeKindResourceIT {
 
-    private static final Double DEFAULT_TARGET_COVERING_RATE = 1D;
-    private static final Double UPDATED_TARGET_COVERING_RATE = 2D;
+    private static final Double DEFAULT_TARGET_COVERING_RATE = 0D;
+    private static final Double UPDATED_TARGET_COVERING_RATE = 1D;
 
     private static final String DEFAULT_DESIGNATION = "AAAAAAAAAA";
     private static final String UPDATED_DESIGNATION = "BBBBBBBBBB";

@@ -147,6 +147,11 @@ export const PlaitUpdate = (props: RouteComponentProps<{ id: string; strand_supp
                 name="targetCoveringRate"
                 data-cy="targetCoveringRate"
                 type="text"
+                validate={{
+                  min: { value: 0, message: translate('entity.validation.min', { min: 0 }) },
+                  max: { value: 1, message: translate('entity.validation.max', { max: 1 }) },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
               />
               <ValidatedField
                 label={translate('lappLiApp.plait.targetDegreeAngle')}
