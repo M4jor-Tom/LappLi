@@ -30,8 +30,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class CoreAssemblyResourceIT {
 
-    private static final Long DEFAULT_OPERATION_LAYER = 1L;
-    private static final Long UPDATED_OPERATION_LAYER = 2L;
+    private static final Long DEFAULT_OPERATION_LAYER = 0L;
+    private static final Long UPDATED_OPERATION_LAYER = 1L;
 
     private static final Double DEFAULT_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER = 1D;
     private static final Double UPDATED_FORCED_MEAN_MILIMETER_COMPONENT_DIAMETER = 2D;

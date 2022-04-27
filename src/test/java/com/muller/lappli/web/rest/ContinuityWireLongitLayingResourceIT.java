@@ -32,8 +32,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class ContinuityWireLongitLayingResourceIT {
 
-    private static final Long DEFAULT_OPERATION_LAYER = 1L;
-    private static final Long UPDATED_OPERATION_LAYER = 2L;
+    private static final Long DEFAULT_OPERATION_LAYER = 0L;
+    private static final Long UPDATED_OPERATION_LAYER = 1L;
 
     private static final String DEFAULT_ANONYMOUS_CONTINUITY_WIRE_DESIGNATION = "AAAAAAAAAA";
     private static final String UPDATED_ANONYMOUS_CONTINUITY_WIRE_DESIGNATION = "BBBBBBBBBB";

@@ -5,6 +5,7 @@ import com.muller.lappli.domain.interfaces.IOperation;
 import com.muller.lappli.domain.interfaces.MeanedAssemblableOperation;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -16,6 +17,7 @@ public abstract class AbstractNonCentralAssembly<T extends AbstractNonCentralAss
     implements INonCentralOperation<T>, MeanedAssemblableOperation<T> {
 
     @NotNull
+    @Min(value = 0L)
     @Column(name = "operation_layer", nullable = false)
     private Long operationLayer;
 

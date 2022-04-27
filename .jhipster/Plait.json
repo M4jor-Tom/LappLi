@@ -4,7 +4,8 @@
     {
       "fieldName": "operationLayer",
       "fieldType": "Long",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
     },
     {
       "fieldName": "targetCoveringRate",

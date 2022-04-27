@@ -1,7 +1,7 @@
 service * with serviceImpl
 
 entity Screen {
-    operationLayer Long required
+    operationLayer Long required min(0)
     assemblyMeanIsSameThanAssemblys Boolean required
     forcedDiameterAssemblyStep Long
     anonymousCopperFiberNumber Long
@@ -11,7 +11,7 @@ entity Screen {
 }
 
 entity ContinuityWireLongitLaying {
-    operationLayer Long required
+    operationLayer Long required min(0)
     anonymousContinuityWireDesignation String
     anonymousContinuityWireGramPerMeterLinearMass Double
     anonymousContinuityWireMetalFiberKind MetalFiberKind
@@ -46,16 +46,16 @@ entity Strip {
 }
 
 entity StripLaying {
-    operationLayer Long required
+    operationLayer Long required min(0)
 }
 
 entity TapeLaying {
-	operationLayer Long required
+	operationLayer Long required min(0)
 	assemblyMean AssemblyMean required
 }
 
 entity Plait {
-    operationLayer Long required
+    operationLayer Long required min(0)
     targetCoveringRate Double min(0) max(1)
     targetDegreeAngle Double
     targetingCoveringRateNotAngle Boolean required
@@ -66,7 +66,7 @@ entity Plait {
 }
 
 entity Sheathing {
-	operationLayer Long required
+	operationLayer Long required min(0)
 	milimeterThickness Double required
     sheathingKind SheathingKind required
 }
@@ -81,16 +81,14 @@ entity CentralAssembly {
 }
 
 entity CoreAssembly {
-	//@Readonly operationLayer Long required
 	//@Readonly productionStep Long required
-	operationLayer Long required
+	operationLayer Long required min(0)
     forcedMeanMilimeterComponentDiameter Double
 }
 
 entity IntersticeAssembly {
-	operationLayer Long required
+	operationLayer Long required min(0)
     intersticeLayer Long required
-	//@Readonly operationLayer Long required
 	//@Readonly productionStep Long required
     forcedMeanMilimeterComponentDiameter Double
 }

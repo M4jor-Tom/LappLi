@@ -31,8 +31,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class StripLayingResourceIT {
 
-    private static final Long DEFAULT_OPERATION_LAYER = 1L;
-    private static final Long UPDATED_OPERATION_LAYER = 2L;
+    private static final Long DEFAULT_OPERATION_LAYER = 0L;
+    private static final Long UPDATED_OPERATION_LAYER = 1L;
 
     private static final String ENTITY_API_URL = "/api/strip-layings";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";

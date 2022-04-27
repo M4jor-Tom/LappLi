@@ -32,8 +32,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class TapeLayingResourceIT {
 
-    private static final Long DEFAULT_OPERATION_LAYER = 1L;
-    private static final Long UPDATED_OPERATION_LAYER = 2L;
+    private static final Long DEFAULT_OPERATION_LAYER = 0L;
+    private static final Long UPDATED_OPERATION_LAYER = 1L;
 
     private static final AssemblyMean DEFAULT_ASSEMBLY_MEAN = AssemblyMean.RIGHT;
     private static final AssemblyMean UPDATED_ASSEMBLY_MEAN = AssemblyMean.LEFT;

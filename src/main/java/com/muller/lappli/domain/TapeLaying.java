@@ -25,6 +25,7 @@ public class TapeLaying
     private static final long serialVersionUID = 1L;
 
     @NotNull
+    @Min(value = 0L)
     @Column(name = "operation_layer", nullable = false)
     private Long operationLayer;
 

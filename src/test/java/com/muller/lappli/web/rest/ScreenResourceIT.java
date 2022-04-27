@@ -31,8 +31,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class ScreenResourceIT {
 
-    private static final Long DEFAULT_OPERATION_LAYER = 1L;
-    private static final Long UPDATED_OPERATION_LAYER = 2L;
+    private static final Long DEFAULT_OPERATION_LAYER = 0L;
+    private static final Long UPDATED_OPERATION_LAYER = 1L;
 
     private static final Boolean DEFAULT_ASSEMBLY_MEAN_IS_SAME_THAN_ASSEMBLYS = false;
     private static final Boolean UPDATED_ASSEMBLY_MEAN_IS_SAME_THAN_ASSEMBLYS = true;

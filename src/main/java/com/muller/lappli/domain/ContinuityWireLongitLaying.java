@@ -31,6 +31,7 @@ public class ContinuityWireLongitLaying
     private Long id;
 
     @NotNull
+    @Min(value = 0L)
     @Column(name = "operation_layer", nullable = false)
     private Long operationLayer;
 
@@ -63,6 +64,7 @@ public class ContinuityWireLongitLaying
             "tapeLayings",
             "screens",
             "stripLayings",
+            "plaits",
             "sheathings",
             "continuityWireLongitLayings",
             "strand",

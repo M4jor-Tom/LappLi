@@ -23,6 +23,7 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
     private static final long serialVersionUID = 1L;
 
     @NotNull
+    @Min(value = 0L)
     @Column(name = "operation_layer", nullable = false)
     private Long operationLayer;
 
@@ -43,7 +44,19 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = { "coreAssemblies", "intersticeAssemblies", "sheathings", "strand", "centralAssembly", "study" },
+        value = {
+            "coreAssemblies",
+            "intersticeAssemblies",
+            "tapeLayings",
+            "screens",
+            "stripLayings",
+            "plaits",
+            "sheathings",
+            "continuityWireLongitLayings",
+            "strand",
+            "centralAssembly",
+            "study",
+        },
         allowSetters = true
     )
     private StrandSupply ownerStrandSupply;

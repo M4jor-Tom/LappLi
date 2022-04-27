@@ -30,8 +30,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class IntersticeAssemblyResourceIT {
 
-    private static final Long DEFAULT_OPERATION_LAYER = 1L;
-    private static final Long UPDATED_OPERATION_LAYER = 2L;
+    private static final Long DEFAULT_OPERATION_LAYER = 0L;
+    private static final Long UPDATED_OPERATION_LAYER = 1L;
 
     private static final Long DEFAULT_INTERSTICE_LAYER = 1L;
     private static final Long UPDATED_INTERSTICE_LAYER = 2L;
