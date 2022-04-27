@@ -65,6 +65,13 @@ entity Plait {
     anonymousMetalFiberMilimeterDiameter Double
 }
 
+entity CarrierPlait {
+    operationLayer Long required
+    minimumDecaNewtonLoad Double required min(0)
+    degreeAssemblyAngle Long required min(0) max(89)
+    forcedEndPerBobinsCount Long min(0) //max(4)
+}
+
 entity Sheathing {
 	operationLayer Long required
 	milimeterThickness Double required
@@ -225,6 +232,13 @@ entity CopperFiber {
     milimeterDiameter Double required
 }
 
+entity CarrierPlaitFiber {
+    number Long unique min(0)
+    designation String unique
+    squareMilimeterSection Double required min(0)
+    decaNewtonLoad Double required min(0)
+}
+
 entity UserData {
 
 }
@@ -275,6 +289,9 @@ relationship OneToMany {
     //Plaits
     StrandSupply{plaits(productionStep)} to Plait{ownerStrandSupply(designation) required}
 
+    //CarrierPlaits
+    StrandSupply{carrierPlaits(productionStep)} to CarrierPlait{ownerStrandSupply(designation) required}
+
     //Sheathings
     StrandSupply{sheathings(productionStep)} to Sheathing{ownerStrandSupply(designation) required}
 
@@ -309,6 +326,10 @@ relationship ManyToOne {
 relationship ManyToOne {
     Plait{copperFiber(designation)} to CopperFiber
     Plait{steelFiber(designation)} to SteelFiber
+}
+
+relationship ManyToOne {
+    CarrierPlait{carrierPlaitFiber(designaiton) required} to CarrierPlaitFiber
 }
 
 relationship ManyToOne {
