@@ -85,6 +85,8 @@ public class Plait extends AbstractOperation<Plait> implements Serializable, INo
         return this;
     }
 
+    //[TODO] Solve bug: Any Plait equiped of CopperFibers will have it null
+    //[TODO] when being moved in operation list by another operation
     @Override
     public Boolean isConform() {
         return (
