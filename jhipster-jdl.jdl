@@ -35,7 +35,7 @@ entity Tape {
 }
 
 entity TapeKind {
-	targetCoveringRate Double required
+	targetCoveringRate Double required min(0) max(1)
     designation String unique required
 }
 
@@ -56,7 +56,7 @@ entity TapeLaying {
 
 entity Plait {
     operationLayer Long required
-    targetCoveringRate Double
+    targetCoveringRate Double min(0) max(1)
     targetDegreeAngle Double
     targetingCoveringRateNotAngle Boolean required
     anonymousMetalFiberNumber Long

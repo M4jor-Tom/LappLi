@@ -29,6 +29,8 @@ public class Plait extends AbstractOperation<Plait> implements Serializable, INo
     @Column(name = "operation_layer", nullable = false)
     private Long operationLayer;
 
+    @DecimalMin(value = "0")
+    @DecimalMax(value = "1")
     @Column(name = "target_covering_rate")
     private Double targetCoveringRate;
 
