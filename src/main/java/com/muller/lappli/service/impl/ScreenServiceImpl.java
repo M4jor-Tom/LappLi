@@ -63,6 +63,8 @@ public class ScreenServiceImpl extends AbstractNonCentralOperationServiceImpl<Sc
                     existingScreen.setAnonymousCopperFiberMilimeterDiameter(screen.getAnonymousCopperFiberMilimeterDiameter());
                 }
 
+                rollbackOperationLayerIfUpdate(existingScreen);
+
                 return existingScreen;
             })
             .map(getJpaRepository()::save);

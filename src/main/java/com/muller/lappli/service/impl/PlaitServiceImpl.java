@@ -66,6 +66,8 @@ public class PlaitServiceImpl extends AbstractNonCentralOperationServiceImpl<Pla
                     existingPlait.setAnonymousMetalFiberMilimeterDiameter(plait.getAnonymousMetalFiberMilimeterDiameter());
                 }
 
+                rollbackOperationLayerIfUpdate(existingPlait);
+
                 return existingPlait;
             })
             .map(getJpaRepository()::save);

@@ -55,7 +55,7 @@ public class ScreenResource {
         if (screen.getId() != null) {
             throw new BadRequestAlertException("A new screen cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Screen result = screenService.save(screen, true);
+        Screen result = screenService.save(screen, true, true);
         return ResponseEntity
             .created(new URI("/api/screens/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -89,7 +89,7 @@ public class ScreenResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Screen result = screenService.save(screen, true);
+        Screen result = screenService.save(screen, true, true);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, screen.getId().toString()))

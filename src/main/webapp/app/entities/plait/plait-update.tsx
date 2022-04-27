@@ -127,18 +127,20 @@ export const PlaitUpdate = (props: RouteComponentProps<{ id: string; strand_supp
                   validate={{ required: true }}
                 />
               ) : null}
-              <ValidatedField
-                label={translate('lappLiApp.plait.operationLayer')}
-                id="plait-operationLayer"
-                name="operationLayer"
-                data-cy="operationLayer"
-                type="text"
-                defaultValue={-2}
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
-              />
+              {isNew ? (
+                <ValidatedField
+                  label={translate('lappLiApp.plait.operationLayer')}
+                  id="plait-operationLayer"
+                  name="operationLayer"
+                  data-cy="operationLayer"
+                  type="text"
+                  defaultValue={-2}
+                  validate={{
+                    required: { value: true, message: translate('entity.validation.required') },
+                    validate: v => isNumber(v) || translate('entity.validation.number'),
+                  }}
+                />
+              ) : null}
               <ValidatedField
                 label={translate('lappLiApp.plait.targetCoveringRate')}
                 id="plait-targetCoveringRate"

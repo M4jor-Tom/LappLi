@@ -14,7 +14,7 @@ public interface INonCentralOperationService<T extends INonCentralOperation<T>> 
      * @param nonCentralOperation the entity to save.
      * @return the persisted entity.
      */
-    T save(T nonCentralOperation, Boolean actualizeOwnerStrandSupply);
+    T save(T nonCentralOperation, Boolean actualizeOwnerStrandSupply, Boolean rollbackOperationLayerIfUpdate);
 
     /**
      * Partially updates a nonCentralOperation.

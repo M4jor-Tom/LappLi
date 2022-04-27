@@ -48,6 +48,8 @@ public class TapeLayingServiceImpl extends AbstractNonCentralOperationServiceImp
                     existingTapeLaying.setAssemblyMean(tapeLaying.getAssemblyMean());
                 }
 
+                rollbackOperationLayerIfUpdate(existingTapeLaying);
+
                 return existingTapeLaying;
             })
             .map(getJpaRepository()::save);

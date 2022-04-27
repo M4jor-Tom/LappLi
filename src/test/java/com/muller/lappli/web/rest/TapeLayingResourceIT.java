@@ -256,7 +256,7 @@ class TapeLayingResourceIT {
         List<TapeLaying> tapeLayingList = tapeLayingRepository.findAll();
         assertThat(tapeLayingList).hasSize(databaseSizeBeforeUpdate);
         TapeLaying testTapeLaying = tapeLayingList.get(tapeLayingList.size() - 1);
-        assertThat(testTapeLaying.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
+        assertThat(testTapeLaying.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testTapeLaying.getAssemblyMean()).isEqualTo(UPDATED_ASSEMBLY_MEAN);
     }
 
