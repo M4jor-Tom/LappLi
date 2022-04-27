@@ -1,0 +1,27 @@
+{
+  "lappLiApp": {
+    "carrierPlaitFiber": {
+      "home": {
+        "title": "CarrierPlaitFibers",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Carrier Plait Fiber",
+        "createOrEditLabel": "Créer ou éditer un Carrier Plait Fiber",
+        "notFound": "Aucun Carrier Plait Fiber trouvé"
+      },
+      "created": "Un nouveau Carrier Plait Fiber a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Carrier Plait Fiber avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Carrier Plait Fiber avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Carrier Plait Fiber {{ id }} ?"
+      },
+      "detail": {
+        "title": "Carrier Plait Fiber"
+      },
+      "id": "ID",
+      "number": "Number",
+      "designation": "Designation",
+      "squareMilimeterSection": "Square Milimeter Section",
+      "decaNewtonLoad": "Deca Newton Load"
+    }
+  }
+}

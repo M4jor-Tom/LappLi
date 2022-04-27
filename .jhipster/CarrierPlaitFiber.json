@@ -1,0 +1,39 @@
+{
+  "name": "CarrierPlaitFiber",
+  "fields": [
+    {
+      "fieldName": "number",
+      "fieldType": "Long",
+      "fieldValidateRules": ["unique", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "designation",
+      "fieldType": "String",
+      "fieldValidateRules": ["unique"]
+    },
+    {
+      "fieldName": "squareMilimeterSection",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "decaNewtonLoad",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "carrier_plait_fiber",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220427141034"
+}

@@ -1,0 +1,29 @@
+{
+  "lappLiApp": {
+    "carrierPlait": {
+      "home": {
+        "title": "CarrierPlaits",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Carrier Plait",
+        "createOrEditLabel": "Créer ou éditer un Carrier Plait",
+        "notFound": "Aucun Carrier Plait trouvé"
+      },
+      "created": "Un nouveau Carrier Plait a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Carrier Plait avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Carrier Plait avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Carrier Plait {{ id }} ?"
+      },
+      "detail": {
+        "title": "Carrier Plait"
+      },
+      "id": "ID",
+      "operationLayer": "Operation Layer",
+      "minimumDecaNewtonLoad": "Minimum Deca Newton Load",
+      "degreeAssemblyAngle": "Degree Assembly Angle",
+      "forcedEndPerBobinsCount": "Forced End Per Bobins Count",
+      "carrierPlaitFiber": "Carrier Plait Fiber",
+      "ownerStrandSupply": "Owner Strand Supply"
+    }
+  }
+}

@@ -79,6 +79,10 @@ import continuityWire from 'app/entities/continuity-wire/continuity-wire.reducer
 import plait from 'app/entities/plait/plait.reducer';
 // prettier-ignore
 import steelFiber from 'app/entities/steel-fiber/steel-fiber.reducer';
+// prettier-ignore
+import carrierPlait from 'app/entities/carrier-plait/carrier-plait.reducer';
+// prettier-ignore
+import carrierPlaitFiber from 'app/entities/carrier-plait-fiber/carrier-plait-fiber.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -126,6 +130,8 @@ const rootReducer = {
   continuityWire,
   plait,
   steelFiber,
+  carrierPlait,
+  carrierPlaitFiber,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };

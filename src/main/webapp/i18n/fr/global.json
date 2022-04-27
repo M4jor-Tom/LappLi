@@ -43,6 +43,8 @@
         "continuityWire": "Continuity Wire",
         "plait": "Plait",
         "steelFiber": "Steel Fiber",
+        "carrierPlait": "Carrier Plait",
+        "carrierPlaitFiber": "Carrier Plait Fiber",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
