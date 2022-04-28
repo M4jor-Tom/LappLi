@@ -429,7 +429,7 @@ class ScreenResourceIT {
         List<Screen> screenList = screenRepository.findAll();
         assertThat(screenList).hasSize(databaseSizeBeforeUpdate);
         Screen testScreen = screenList.get(screenList.size() - 1);
-        assertThat(testScreen.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
+        assertThat(testScreen.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testScreen.getAssemblyMeanIsSameThanAssemblys()).isEqualTo(UPDATED_ASSEMBLY_MEAN_IS_SAME_THAN_ASSEMBLYS);
         assertThat(testScreen.getForcedDiameterAssemblyStep()).isEqualTo(UPDATED_FORCED_DIAMETER_ASSEMBLY_STEP);
         assertThat(testScreen.getAnonymousCopperFiberNumber()).isEqualTo(UPDATED_ANONYMOUS_COPPER_FIBER_NUMBER);
