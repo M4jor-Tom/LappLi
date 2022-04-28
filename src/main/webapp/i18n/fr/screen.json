@@ -19,8 +19,12 @@
       },
       "id": "ID",
       "operationLayer": "Operation Layer",
-      "assemblyMeanIsSameThanAssemblys": "Pas d'assemblage à 3D (sinon 8D)",
-      "forcedDiameterAssemblyStep": "Pas d'assemblage forcé (D)",
+      "assemblyMeanIsSameThanAssemblys": "Pas d'Assemblage à 3D (sinon 8D)",
+      "forcedDiameterAssemblyStep": "Pas d'Assemblage forcé (D)",
+      "anonymousCopperFiberNumber": "Numéro de Fibre de Cuivre Anonyme",
+      "anonymousCopperFiberDesignation": "Désignation de Fibre de Cuivre Anonyme",
+      "anonymousCopperFiberKind": "Genre de Fibre de Cuivre Anonyme",
+      "anonymousCopperFiberMilimeterDiameter": "Diamètre de Fibre de Cuivre Anonyme (mm)",
       "copperFiber": "Fibre de cuivre",
       "ownerStrandSupply": "Approvisionnement de Toron Propriétaire"
     }

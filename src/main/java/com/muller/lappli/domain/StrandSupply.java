@@ -404,7 +404,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     public Set<INonAssemblyOperation<?>> getNonAssemblyOperations() {
         HashSet<INonAssemblyOperation<?>> operations = new HashSet<>();
 
-        //[NON_ASSEMBLY_OPERATIONS]
+        //[NON_ASSEMBLY_OPERATION]
         operations.addAll(getTapeLayings());
         operations.addAll(getScreens());
         operations.addAll(getStripLayings());

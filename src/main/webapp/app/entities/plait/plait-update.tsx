@@ -238,7 +238,7 @@ export const PlaitUpdate = (props: RouteComponentProps<{ id: string; strand_supp
                 type="text"
               />
               <ValidatedField
-                label={translate('lappLiApp.plait.anonymousMetalFiberMetalFiberKind')}
+                label={translate('lappLiApp.plait.anonymousMetalFiberMetalFiberKind') + ' *'}
                 id="plait-anonymousMetalFiberMetalFiberKind"
                 name="anonymousMetalFiberMetalFiberKind"
                 data-cy="anonymousMetalFiberMetalFiberKind"
@@ -251,7 +251,7 @@ export const PlaitUpdate = (props: RouteComponentProps<{ id: string; strand_supp
                 ))}
               </ValidatedField>
               <ValidatedField
-                label={translate('lappLiApp.plait.anonymousMetalFiberMilimeterDiameter')}
+                label={translate('lappLiApp.plait.anonymousMetalFiberMilimeterDiameter') + ' *'}
                 id="plait-anonymousMetalFiberMilimeterDiameter"
                 name="anonymousMetalFiberMilimeterDiameter"
                 data-cy="anonymousMetalFiberMilimeterDiameter"

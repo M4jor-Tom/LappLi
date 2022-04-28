@@ -196,6 +196,7 @@ function getAssemblyStrandSupplyValidatedField(
   return getStrandSupplyValidatedField(props, strandSupplies, assemblyKind + '-assembly-strand');
 }
 
+//  [OPERATION]
 export {
   AssemblyKind,
   getOutFromStudySupplyStrandTapeLaying,
