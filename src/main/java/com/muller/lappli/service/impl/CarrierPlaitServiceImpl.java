@@ -5,7 +5,6 @@ import com.muller.lappli.repository.CarrierPlaitRepository;
 import com.muller.lappli.service.CarrierPlaitService;
 import com.muller.lappli.service.StrandSupplyService;
 import com.muller.lappli.service.abstracts.AbstractNonCentralOperationServiceImpl;
-import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
