@@ -7,7 +7,7 @@ import java.util.Optional;
 /**
  * Service Interface for managing {@link INonCentralOperation}.
  */
-public interface INonCentralOperationService<T extends INonCentralOperation<T>> {
+public interface INonCentralOperationService<T extends INonCentralOperation<T>> extends FindOneService<T> {
     /**
      * Save a nonCentralOperation.
      *
