@@ -2,28 +2,28 @@
   "lappLiApp": {
     "carrierPlait": {
       "home": {
-        "title": "CarrierPlaits",
+        "title": "Tresses Porteuses",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Carrier Plait",
-        "createOrEditLabel": "Créer ou éditer un Carrier Plait",
-        "notFound": "Aucun Carrier Plait trouvé"
+        "createLabel": "Créer une nouvelle Tresse Porteuse",
+        "createOrEditLabel": "Créer ou éditer une Tresse Porteuse",
+        "notFound": "Aucune Tresse Porteuse trouvé"
       },
-      "created": "Un nouveau Carrier Plait a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Carrier Plait avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Carrier Plait avec l'identifiant {{ param }} a été supprimé",
+      "created": "Une nouvelle Tresse Porteuse a été créé avec l'identifiant {{ param }}",
+      "updated": "La Tresse Porteuse avec l'identifiant {{ param }} a été mise à jour",
+      "deleted": "La Tresse Porteuse avec l'identifiant {{ param }} a été supprimée",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Carrier Plait {{ id }} ?"
+        "question": "Etes-vous certain de vouloir supprimer la Tresse Porteuse {{ id }} ?"
       },
       "detail": {
-        "title": "Carrier Plait"
+        "title": "Tresse Porteuse"
       },
       "id": "ID",
-      "operationLayer": "Operation Layer",
-      "minimumDecaNewtonLoad": "Minimum Deca Newton Load",
-      "degreeAssemblyAngle": "Degree Assembly Angle",
-      "forcedEndPerBobinsCount": "Forced End Per Bobins Count",
-      "carrierPlaitFiber": "Carrier Plait Fiber",
-      "ownerStrandSupply": "Owner Strand Supply"
+      "operationLayer": "Couche d'opération",
+      "minimumDecaNewtonLoad": "Charge Minimum (DaN)",
+      "degreeAssemblyAngle": "Angle d'Assemblage (°)",
+      "forcedEndPerBobinsCount": "Nombre de Bouts par Fuseaux Forcé",
+      "carrierPlaitFiber": "Mèche de Tresse Porteuse",
+      "ownerStrandSupply": "Approvisionnement de Toron Propriétaire"
     }
   }
 }
