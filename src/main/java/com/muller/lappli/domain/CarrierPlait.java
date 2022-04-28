@@ -132,6 +132,14 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
         return null;
     }
 
+    public Long getFinalEndPerBobinsCount() {
+        if (getForcedEndPerBobinsCount() == null) {
+            return getSuggestedEndPerBobinsCount();
+        }
+
+        return getForcedEndPerBobinsCount();
+    }
+
     public CarrierPlaitFiber getFinalCarrierPlaitFiber() {
         if (getCarrierPlaitFiber() == null) {
             return getAnonymousCarrierPlaitFiber();
