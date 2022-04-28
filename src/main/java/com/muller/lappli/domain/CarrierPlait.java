@@ -119,7 +119,7 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
             return null;
         }
 
-        return getCarrierPlaitFiber().getDesignation();
+        return getFinalCarrierPlaitFiber().getDesignation();
     }
 
     public Double getRealDecaNewtonLoad() {
