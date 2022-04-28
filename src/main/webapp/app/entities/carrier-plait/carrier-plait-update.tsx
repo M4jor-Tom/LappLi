@@ -187,7 +187,7 @@ export const CarrierPlaitUpdate = (props: RouteComponentProps<{ id: string; stra
                 type="text"
               />
               <ValidatedField
-                label={translate('lappLiApp.carrierPlait.anonymousCarrierPlaitFiberSquareMilimeterSection')}
+                label={translate('lappLiApp.carrierPlait.anonymousCarrierPlaitFiberSquareMilimeterSection') + ' *'}
                 id="carrier-plait-anonymousCarrierPlaitFiberSquareMilimeterSection"
                 name="anonymousCarrierPlaitFiberSquareMilimeterSection"
                 data-cy="anonymousCarrierPlaitFiberSquareMilimeterSection"
@@ -198,7 +198,7 @@ export const CarrierPlaitUpdate = (props: RouteComponentProps<{ id: string; stra
                 }}
               />
               <ValidatedField
-                label={translate('lappLiApp.carrierPlait.anonymousCarrierPlaitFiberDecaNewtonLoad')}
+                label={translate('lappLiApp.carrierPlait.anonymousCarrierPlaitFiberDecaNewtonLoad') + ' *'}
                 id="carrier-plait-anonymousCarrierPlaitFiberDecaNewtonLoad"
                 name="anonymousCarrierPlaitFiberDecaNewtonLoad"
                 data-cy="anonymousCarrierPlaitFiberDecaNewtonLoad"
