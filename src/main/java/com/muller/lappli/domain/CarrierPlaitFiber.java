@@ -1,5 +1,6 @@
 package com.muller.lappli.domain;
 
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -12,14 +13,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "carrier_plait_fiber")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CarrierPlaitFiber implements Serializable {
+public class CarrierPlaitFiber extends /*TODO AbstractUniformAtom*/AbstractDomainObject<CarrierPlaitFiber> implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
 
     @Min(value = 0L)
     @Column(name = "number", unique = true)
@@ -40,17 +36,9 @@ public class CarrierPlaitFiber implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public CarrierPlaitFiber id(Long id) {
-        this.setId(id);
+    @Override
+    public CarrierPlaitFiber getThis() {
         return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getNumber() {
@@ -115,7 +103,7 @@ public class CarrierPlaitFiber implements Serializable {
         if (!(o instanceof CarrierPlaitFiber)) {
             return false;
         }
-        return id != null && id.equals(((CarrierPlaitFiber) o).id);
+        return getId() != null && getId().equals(((CarrierPlaitFiber) o).getId());
     }
 
     @Override
