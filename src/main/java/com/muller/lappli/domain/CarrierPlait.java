@@ -40,6 +40,21 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
     @Column(name = "forced_end_per_bobins_count")
     private Long forcedEndPerBobinsCount;
 
+    @Min(value = 0L)
+    @Column(name = "anonymous_carrier_plait_fiber_number")
+    private Long anonymousCarrierPlaitFiberNumber;
+
+    @Column(name = "anonymous_carrier_plait_fiber_designation")
+    private String anonymousCarrierPlaitFiberDesignation;
+
+    @DecimalMin(value = "0")
+    @Column(name = "anonymous_carrier_plait_fiber_square_milimeter_section")
+    private Double anonymousCarrierPlaitFiberSquareMilimeterSection;
+
+    @DecimalMin(value = "0")
+    @Column(name = "anonymous_carrier_plait_fiber_deca_newton_load")
+    private Double anonymousCarrierPlaitFiberDecaNewtonLoad;
+
     @ManyToOne(optional = false)
     @NotNull
     private CarrierPlaitFiber carrierPlaitFiber;
@@ -159,6 +174,58 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
         this.forcedEndPerBobinsCount = forcedEndPerBobinsCount;
     }
 
+    public Long getAnonymousCarrierPlaitFiberNumber() {
+        return this.anonymousCarrierPlaitFiberNumber;
+    }
+
+    public CarrierPlait anonymousCarrierPlaitFiberNumber(Long anonymousCarrierPlaitFiberNumber) {
+        this.setAnonymousCarrierPlaitFiberNumber(anonymousCarrierPlaitFiberNumber);
+        return this;
+    }
+
+    public void setAnonymousCarrierPlaitFiberNumber(Long anonymousCarrierPlaitFiberNumber) {
+        this.anonymousCarrierPlaitFiberNumber = anonymousCarrierPlaitFiberNumber;
+    }
+
+    public String getAnonymousCarrierPlaitFiberDesignation() {
+        return this.anonymousCarrierPlaitFiberDesignation;
+    }
+
+    public CarrierPlait anonymousCarrierPlaitFiberDesignation(String anonymousCarrierPlaitFiberDesignation) {
+        this.setAnonymousCarrierPlaitFiberDesignation(anonymousCarrierPlaitFiberDesignation);
+        return this;
+    }
+
+    public void setAnonymousCarrierPlaitFiberDesignation(String anonymousCarrierPlaitFiberDesignation) {
+        this.anonymousCarrierPlaitFiberDesignation = anonymousCarrierPlaitFiberDesignation;
+    }
+
+    public Double getAnonymousCarrierPlaitFiberSquareMilimeterSection() {
+        return this.anonymousCarrierPlaitFiberSquareMilimeterSection;
+    }
+
+    public CarrierPlait anonymousCarrierPlaitFiberSquareMilimeterSection(Double anonymousCarrierPlaitFiberSquareMilimeterSection) {
+        this.setAnonymousCarrierPlaitFiberSquareMilimeterSection(anonymousCarrierPlaitFiberSquareMilimeterSection);
+        return this;
+    }
+
+    public void setAnonymousCarrierPlaitFiberSquareMilimeterSection(Double anonymousCarrierPlaitFiberSquareMilimeterSection) {
+        this.anonymousCarrierPlaitFiberSquareMilimeterSection = anonymousCarrierPlaitFiberSquareMilimeterSection;
+    }
+
+    public Double getAnonymousCarrierPlaitFiberDecaNewtonLoad() {
+        return this.anonymousCarrierPlaitFiberDecaNewtonLoad;
+    }
+
+    public CarrierPlait anonymousCarrierPlaitFiberDecaNewtonLoad(Double anonymousCarrierPlaitFiberDecaNewtonLoad) {
+        this.setAnonymousCarrierPlaitFiberDecaNewtonLoad(anonymousCarrierPlaitFiberDecaNewtonLoad);
+        return this;
+    }
+
+    public void setAnonymousCarrierPlaitFiberDecaNewtonLoad(Double anonymousCarrierPlaitFiberDecaNewtonLoad) {
+        this.anonymousCarrierPlaitFiberDecaNewtonLoad = anonymousCarrierPlaitFiberDecaNewtonLoad;
+    }
+
     public CarrierPlaitFiber getCarrierPlaitFiber() {
         return this.carrierPlaitFiber;
     }
@@ -213,6 +280,10 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
             ", minimumDecaNewtonLoad=" + getMinimumDecaNewtonLoad() +
             ", degreeAssemblyAngle=" + getDegreeAssemblyAngle() +
             ", forcedEndPerBobinsCount=" + getForcedEndPerBobinsCount() +
+            ", anonymousCarrierPlaitFiberNumber=" + getAnonymousCarrierPlaitFiberNumber() +
+            ", anonymousCarrierPlaitFiberDesignation='" + getAnonymousCarrierPlaitFiberDesignation() + "'" +
+            ", anonymousCarrierPlaitFiberSquareMilimeterSection=" + getAnonymousCarrierPlaitFiberSquareMilimeterSection() +
+            ", anonymousCarrierPlaitFiberDecaNewtonLoad=" + getAnonymousCarrierPlaitFiberDecaNewtonLoad() +
             "}";
     }
 }

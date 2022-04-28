@@ -62,6 +62,26 @@ export const CarrierPlait = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.carrierPlait.forcedEndPerBobinsCount">Forced End Per Bobins Count</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.carrierPlait.anonymousCarrierPlaitFiberNumber">
+                    Anonymous Carrier Plait Fiber Number
+                  </Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.carrierPlait.anonymousCarrierPlaitFiberDesignation">
+                    Anonymous Carrier Plait Fiber Designation
+                  </Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.carrierPlait.anonymousCarrierPlaitFiberSquareMilimeterSection">
+                    Anonymous Carrier Plait Fiber Square Milimeter Section
+                  </Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.carrierPlait.anonymousCarrierPlaitFiberDecaNewtonLoad">
+                    Anonymous Carrier Plait Fiber Deca Newton Load
+                  </Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.carrierPlait.carrierPlaitFiber">Carrier Plait Fiber</Translate>
                 </th>
                 <th>
@@ -82,6 +102,10 @@ export const CarrierPlait = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{carrierPlait.minimumDecaNewtonLoad}</td>
                   <td>{carrierPlait.degreeAssemblyAngle}</td>
                   <td>{carrierPlait.forcedEndPerBobinsCount}</td>
+                  <td>{carrierPlait.anonymousCarrierPlaitFiberNumber}</td>
+                  <td>{carrierPlait.anonymousCarrierPlaitFiberDesignation}</td>
+                  <td>{carrierPlait.anonymousCarrierPlaitFiberSquareMilimeterSection}</td>
+                  <td>{carrierPlait.anonymousCarrierPlaitFiberDecaNewtonLoad}</td>
                   <td>
                     {carrierPlait.carrierPlaitFiber ? (
                       <Link to={`carrier-plait-fiber/${carrierPlait.carrierPlaitFiber.id}`}>

@@ -169,6 +169,46 @@ export const CarrierPlaitUpdate = (props: RouteComponentProps<{ id: string; stra
                 }}
               />
               <ValidatedField
+                label={translate('lappLiApp.carrierPlait.anonymousCarrierPlaitFiberNumber')}
+                id="carrier-plait-anonymousCarrierPlaitFiberNumber"
+                name="anonymousCarrierPlaitFiberNumber"
+                data-cy="anonymousCarrierPlaitFiberNumber"
+                type="text"
+                validate={{
+                  min: { value: 0, message: translate('entity.validation.min', { min: 0 }) },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
+              />
+              <ValidatedField
+                label={translate('lappLiApp.carrierPlait.anonymousCarrierPlaitFiberDesignation')}
+                id="carrier-plait-anonymousCarrierPlaitFiberDesignation"
+                name="anonymousCarrierPlaitFiberDesignation"
+                data-cy="anonymousCarrierPlaitFiberDesignation"
+                type="text"
+              />
+              <ValidatedField
+                label={translate('lappLiApp.carrierPlait.anonymousCarrierPlaitFiberSquareMilimeterSection')}
+                id="carrier-plait-anonymousCarrierPlaitFiberSquareMilimeterSection"
+                name="anonymousCarrierPlaitFiberSquareMilimeterSection"
+                data-cy="anonymousCarrierPlaitFiberSquareMilimeterSection"
+                type="text"
+                validate={{
+                  min: { value: 0, message: translate('entity.validation.min', { min: 0 }) },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
+              />
+              <ValidatedField
+                label={translate('lappLiApp.carrierPlait.anonymousCarrierPlaitFiberDecaNewtonLoad')}
+                id="carrier-plait-anonymousCarrierPlaitFiberDecaNewtonLoad"
+                name="anonymousCarrierPlaitFiberDecaNewtonLoad"
+                data-cy="anonymousCarrierPlaitFiberDecaNewtonLoad"
+                type="text"
+                validate={{
+                  min: { value: 0, message: translate('entity.validation.min', { min: 0 }) },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
+              />
+              <ValidatedField
                 id="carrier-plait-carrierPlaitFiber"
                 name="carrierPlaitFiber"
                 data-cy="carrierPlaitFiber"

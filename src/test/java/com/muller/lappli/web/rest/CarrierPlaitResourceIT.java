@@ -43,6 +43,18 @@ class CarrierPlaitResourceIT {
     private static final Long DEFAULT_FORCED_END_PER_BOBINS_COUNT = 0L;
     private static final Long UPDATED_FORCED_END_PER_BOBINS_COUNT = 1L;
 
+    private static final Long DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_NUMBER = 0L;
+    private static final Long UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_NUMBER = 1L;
+
+    private static final String DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION = "AAAAAAAAAA";
+    private static final String UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION = "BBBBBBBBBB";
+
+    private static final Double DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION = 0D;
+    private static final Double UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION = 1D;
+
+    private static final Double DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD = 0D;
+    private static final Double UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD = 1D;
+
     private static final String ENTITY_API_URL = "/api/carrier-plaits";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -71,7 +83,11 @@ class CarrierPlaitResourceIT {
             .operationLayer(DEFAULT_OPERATION_LAYER)
             .minimumDecaNewtonLoad(DEFAULT_MINIMUM_DECA_NEWTON_LOAD)
             .degreeAssemblyAngle(DEFAULT_DEGREE_ASSEMBLY_ANGLE)
-            .forcedEndPerBobinsCount(DEFAULT_FORCED_END_PER_BOBINS_COUNT);
+            .forcedEndPerBobinsCount(DEFAULT_FORCED_END_PER_BOBINS_COUNT)
+            .anonymousCarrierPlaitFiberNumber(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_NUMBER)
+            .anonymousCarrierPlaitFiberDesignation(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION)
+            .anonymousCarrierPlaitFiberSquareMilimeterSection(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION)
+            .anonymousCarrierPlaitFiberDecaNewtonLoad(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD);
         // Add required entity
         CarrierPlaitFiber carrierPlaitFiber;
         if (TestUtil.findAll(em, CarrierPlaitFiber.class).isEmpty()) {
@@ -106,7 +122,11 @@ class CarrierPlaitResourceIT {
             .operationLayer(UPDATED_OPERATION_LAYER)
             .minimumDecaNewtonLoad(UPDATED_MINIMUM_DECA_NEWTON_LOAD)
             .degreeAssemblyAngle(UPDATED_DEGREE_ASSEMBLY_ANGLE)
-            .forcedEndPerBobinsCount(UPDATED_FORCED_END_PER_BOBINS_COUNT);
+            .forcedEndPerBobinsCount(UPDATED_FORCED_END_PER_BOBINS_COUNT)
+            .anonymousCarrierPlaitFiberNumber(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_NUMBER)
+            .anonymousCarrierPlaitFiberDesignation(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION)
+            .anonymousCarrierPlaitFiberSquareMilimeterSection(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION)
+            .anonymousCarrierPlaitFiberDecaNewtonLoad(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD);
         // Add required entity
         CarrierPlaitFiber carrierPlaitFiber;
         if (TestUtil.findAll(em, CarrierPlaitFiber.class).isEmpty()) {
@@ -152,6 +172,13 @@ class CarrierPlaitResourceIT {
         assertThat(testCarrierPlait.getMinimumDecaNewtonLoad()).isEqualTo(DEFAULT_MINIMUM_DECA_NEWTON_LOAD);
         assertThat(testCarrierPlait.getDegreeAssemblyAngle()).isEqualTo(DEFAULT_DEGREE_ASSEMBLY_ANGLE);
         assertThat(testCarrierPlait.getForcedEndPerBobinsCount()).isEqualTo(DEFAULT_FORCED_END_PER_BOBINS_COUNT);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberNumber()).isEqualTo(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_NUMBER);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberDesignation())
+            .isEqualTo(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberSquareMilimeterSection())
+            .isEqualTo(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberDecaNewtonLoad())
+            .isEqualTo(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD);
     }
 
     @Test
@@ -238,7 +265,21 @@ class CarrierPlaitResourceIT {
             .andExpect(jsonPath("$.[*].operationLayer").value(hasItem(DEFAULT_OPERATION_LAYER.intValue())))
             .andExpect(jsonPath("$.[*].minimumDecaNewtonLoad").value(hasItem(DEFAULT_MINIMUM_DECA_NEWTON_LOAD.doubleValue())))
             .andExpect(jsonPath("$.[*].degreeAssemblyAngle").value(hasItem(DEFAULT_DEGREE_ASSEMBLY_ANGLE.intValue())))
-            .andExpect(jsonPath("$.[*].forcedEndPerBobinsCount").value(hasItem(DEFAULT_FORCED_END_PER_BOBINS_COUNT.intValue())));
+            .andExpect(jsonPath("$.[*].forcedEndPerBobinsCount").value(hasItem(DEFAULT_FORCED_END_PER_BOBINS_COUNT.intValue())))
+            .andExpect(
+                jsonPath("$.[*].anonymousCarrierPlaitFiberNumber").value(hasItem(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_NUMBER.intValue()))
+            )
+            .andExpect(
+                jsonPath("$.[*].anonymousCarrierPlaitFiberDesignation").value(hasItem(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION))
+            )
+            .andExpect(
+                jsonPath("$.[*].anonymousCarrierPlaitFiberSquareMilimeterSection")
+                    .value(hasItem(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION.doubleValue()))
+            )
+            .andExpect(
+                jsonPath("$.[*].anonymousCarrierPlaitFiberDecaNewtonLoad")
+                    .value(hasItem(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD.doubleValue()))
+            );
     }
 
     @Test
@@ -256,7 +297,17 @@ class CarrierPlaitResourceIT {
             .andExpect(jsonPath("$.operationLayer").value(DEFAULT_OPERATION_LAYER.intValue()))
             .andExpect(jsonPath("$.minimumDecaNewtonLoad").value(DEFAULT_MINIMUM_DECA_NEWTON_LOAD.doubleValue()))
             .andExpect(jsonPath("$.degreeAssemblyAngle").value(DEFAULT_DEGREE_ASSEMBLY_ANGLE.intValue()))
-            .andExpect(jsonPath("$.forcedEndPerBobinsCount").value(DEFAULT_FORCED_END_PER_BOBINS_COUNT.intValue()));
+            .andExpect(jsonPath("$.forcedEndPerBobinsCount").value(DEFAULT_FORCED_END_PER_BOBINS_COUNT.intValue()))
+            .andExpect(jsonPath("$.anonymousCarrierPlaitFiberNumber").value(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_NUMBER.intValue()))
+            .andExpect(jsonPath("$.anonymousCarrierPlaitFiberDesignation").value(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION))
+            .andExpect(
+                jsonPath("$.anonymousCarrierPlaitFiberSquareMilimeterSection")
+                    .value(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION.doubleValue())
+            )
+            .andExpect(
+                jsonPath("$.anonymousCarrierPlaitFiberDecaNewtonLoad")
+                    .value(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD.doubleValue())
+            );
     }
 
     @Test
@@ -282,7 +333,11 @@ class CarrierPlaitResourceIT {
             .operationLayer(UPDATED_OPERATION_LAYER)
             .minimumDecaNewtonLoad(UPDATED_MINIMUM_DECA_NEWTON_LOAD)
             .degreeAssemblyAngle(UPDATED_DEGREE_ASSEMBLY_ANGLE)
-            .forcedEndPerBobinsCount(UPDATED_FORCED_END_PER_BOBINS_COUNT);
+            .forcedEndPerBobinsCount(UPDATED_FORCED_END_PER_BOBINS_COUNT)
+            .anonymousCarrierPlaitFiberNumber(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_NUMBER)
+            .anonymousCarrierPlaitFiberDesignation(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION)
+            .anonymousCarrierPlaitFiberSquareMilimeterSection(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION)
+            .anonymousCarrierPlaitFiberDecaNewtonLoad(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD);
 
         restCarrierPlaitMockMvc
             .perform(
@@ -296,10 +351,17 @@ class CarrierPlaitResourceIT {
         List<CarrierPlait> carrierPlaitList = carrierPlaitRepository.findAll();
         assertThat(carrierPlaitList).hasSize(databaseSizeBeforeUpdate);
         CarrierPlait testCarrierPlait = carrierPlaitList.get(carrierPlaitList.size() - 1);
-        assertThat(testCarrierPlait.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
+        assertThat(testCarrierPlait.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
         assertThat(testCarrierPlait.getMinimumDecaNewtonLoad()).isEqualTo(UPDATED_MINIMUM_DECA_NEWTON_LOAD);
         assertThat(testCarrierPlait.getDegreeAssemblyAngle()).isEqualTo(UPDATED_DEGREE_ASSEMBLY_ANGLE);
         assertThat(testCarrierPlait.getForcedEndPerBobinsCount()).isEqualTo(UPDATED_FORCED_END_PER_BOBINS_COUNT);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberNumber()).isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_NUMBER);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberDesignation())
+            .isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberSquareMilimeterSection())
+            .isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberDecaNewtonLoad())
+            .isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD);
     }
 
     @Test
@@ -370,7 +432,10 @@ class CarrierPlaitResourceIT {
         CarrierPlait partialUpdatedCarrierPlait = new CarrierPlait();
         partialUpdatedCarrierPlait.setId(carrierPlait.getId());
 
-        partialUpdatedCarrierPlait.operationLayer(UPDATED_OPERATION_LAYER).minimumDecaNewtonLoad(UPDATED_MINIMUM_DECA_NEWTON_LOAD);
+        partialUpdatedCarrierPlait
+            .operationLayer(UPDATED_OPERATION_LAYER)
+            .minimumDecaNewtonLoad(UPDATED_MINIMUM_DECA_NEWTON_LOAD)
+            .anonymousCarrierPlaitFiberDecaNewtonLoad(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD);
 
         restCarrierPlaitMockMvc
             .perform(
@@ -384,10 +449,17 @@ class CarrierPlaitResourceIT {
         List<CarrierPlait> carrierPlaitList = carrierPlaitRepository.findAll();
         assertThat(carrierPlaitList).hasSize(databaseSizeBeforeUpdate);
         CarrierPlait testCarrierPlait = carrierPlaitList.get(carrierPlaitList.size() - 1);
-        assertThat(testCarrierPlait.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
+        assertThat(testCarrierPlait.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
         assertThat(testCarrierPlait.getMinimumDecaNewtonLoad()).isEqualTo(UPDATED_MINIMUM_DECA_NEWTON_LOAD);
         assertThat(testCarrierPlait.getDegreeAssemblyAngle()).isEqualTo(DEFAULT_DEGREE_ASSEMBLY_ANGLE);
         assertThat(testCarrierPlait.getForcedEndPerBobinsCount()).isEqualTo(DEFAULT_FORCED_END_PER_BOBINS_COUNT);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberNumber()).isEqualTo(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_NUMBER);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberDesignation())
+            .isEqualTo(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberSquareMilimeterSection())
+            .isEqualTo(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberDecaNewtonLoad())
+            .isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD);
     }
 
     @Test
@@ -406,7 +478,11 @@ class CarrierPlaitResourceIT {
             .operationLayer(UPDATED_OPERATION_LAYER)
             .minimumDecaNewtonLoad(UPDATED_MINIMUM_DECA_NEWTON_LOAD)
             .degreeAssemblyAngle(UPDATED_DEGREE_ASSEMBLY_ANGLE)
-            .forcedEndPerBobinsCount(UPDATED_FORCED_END_PER_BOBINS_COUNT);
+            .forcedEndPerBobinsCount(UPDATED_FORCED_END_PER_BOBINS_COUNT)
+            .anonymousCarrierPlaitFiberNumber(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_NUMBER)
+            .anonymousCarrierPlaitFiberDesignation(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION)
+            .anonymousCarrierPlaitFiberSquareMilimeterSection(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION)
+            .anonymousCarrierPlaitFiberDecaNewtonLoad(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD);
 
         restCarrierPlaitMockMvc
             .perform(
@@ -420,10 +496,17 @@ class CarrierPlaitResourceIT {
         List<CarrierPlait> carrierPlaitList = carrierPlaitRepository.findAll();
         assertThat(carrierPlaitList).hasSize(databaseSizeBeforeUpdate);
         CarrierPlait testCarrierPlait = carrierPlaitList.get(carrierPlaitList.size() - 1);
-        assertThat(testCarrierPlait.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
+        assertThat(testCarrierPlait.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
         assertThat(testCarrierPlait.getMinimumDecaNewtonLoad()).isEqualTo(UPDATED_MINIMUM_DECA_NEWTON_LOAD);
         assertThat(testCarrierPlait.getDegreeAssemblyAngle()).isEqualTo(UPDATED_DEGREE_ASSEMBLY_ANGLE);
         assertThat(testCarrierPlait.getForcedEndPerBobinsCount()).isEqualTo(UPDATED_FORCED_END_PER_BOBINS_COUNT);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberNumber()).isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_NUMBER);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberDesignation())
+            .isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberSquareMilimeterSection())
+            .isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberDecaNewtonLoad())
+            .isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD);
     }
 
     @Test

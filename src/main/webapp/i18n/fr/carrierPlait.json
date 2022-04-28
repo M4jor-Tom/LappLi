@@ -22,6 +22,10 @@
       "minimumDecaNewtonLoad": "Charge Minimum (DaN)",
       "degreeAssemblyAngle": "Angle d'Assemblage (°)",
       "forcedEndPerBobinsCount": "Nombre de Bouts par Fuseaux Forcé",
+      "anonymousCarrierPlaitFiberNumber": "Numéro de Fibre de Tresse Porteuse Anonyme",
+      "anonymousCarrierPlaitFiberDesignation": "Désignation de Tresse Porteuse Anonyme",
+      "anonymousCarrierPlaitFiberSquareMilimeterSection": "Section de Tresse Porteuse Anonyme (mm²)",
+      "anonymousCarrierPlaitFiberDecaNewtonLoad": "Charge Maximale (DaN) de Tresse Porteuse Anonyme",
       "carrierPlaitFiber": "Mèche de Tresse Porteuse",
       "ownerStrandSupply": "Approvisionnement de Toron Propriétaire"
     }

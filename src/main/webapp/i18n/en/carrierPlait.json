@@ -22,6 +22,10 @@
       "minimumDecaNewtonLoad": "Minimum Deca Newton Load",
       "degreeAssemblyAngle": "Degree Assembly Angle",
       "forcedEndPerBobinsCount": "Forced End Per Bobins Count",
+      "anonymousCarrierPlaitFiberNumber": "Anonymous Carrier Plait Fiber Number",
+      "anonymousCarrierPlaitFiberDesignation": "Anonymous Carrier Plait Fiber Designation",
+      "anonymousCarrierPlaitFiberSquareMilimeterSection": "Anonymous Carrier Plait Fiber Square Milimeter Section",
+      "anonymousCarrierPlaitFiberDecaNewtonLoad": "Anonymous Carrier Plait Fiber Deca Newton Load",
       "carrierPlaitFiber": "Carrier Plait Fiber",
       "ownerStrandSupply": "Owner Strand Supply"
     }

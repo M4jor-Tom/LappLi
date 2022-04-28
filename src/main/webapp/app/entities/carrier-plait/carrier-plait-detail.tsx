@@ -54,6 +54,38 @@ export const CarrierPlaitDetail = (props: RouteComponentProps<{ id: string }>) =
           </dt>
           <dd>{carrierPlaitEntity.forcedEndPerBobinsCount}</dd>
           <dt>
+            <span id="anonymousCarrierPlaitFiberNumber">
+              <Translate contentKey="lappLiApp.carrierPlait.anonymousCarrierPlaitFiberNumber">
+                Anonymous Carrier Plait Fiber Number
+              </Translate>
+            </span>
+          </dt>
+          <dd>{carrierPlaitEntity.anonymousCarrierPlaitFiberNumber}</dd>
+          <dt>
+            <span id="anonymousCarrierPlaitFiberDesignation">
+              <Translate contentKey="lappLiApp.carrierPlait.anonymousCarrierPlaitFiberDesignation">
+                Anonymous Carrier Plait Fiber Designation
+              </Translate>
+            </span>
+          </dt>
+          <dd>{carrierPlaitEntity.anonymousCarrierPlaitFiberDesignation}</dd>
+          <dt>
+            <span id="anonymousCarrierPlaitFiberSquareMilimeterSection">
+              <Translate contentKey="lappLiApp.carrierPlait.anonymousCarrierPlaitFiberSquareMilimeterSection">
+                Anonymous Carrier Plait Fiber Square Milimeter Section
+              </Translate>
+            </span>
+          </dt>
+          <dd>{carrierPlaitEntity.anonymousCarrierPlaitFiberSquareMilimeterSection}</dd>
+          <dt>
+            <span id="anonymousCarrierPlaitFiberDecaNewtonLoad">
+              <Translate contentKey="lappLiApp.carrierPlait.anonymousCarrierPlaitFiberDecaNewtonLoad">
+                Anonymous Carrier Plait Fiber Deca Newton Load
+              </Translate>
+            </span>
+          </dt>
+          <dd>{carrierPlaitEntity.anonymousCarrierPlaitFiberDecaNewtonLoad}</dd>
+          <dt>
             <Translate contentKey="lappLiApp.carrierPlait.carrierPlaitFiber">Carrier Plait Fiber</Translate>
           </dt>
           <dd>{carrierPlaitEntity.carrierPlaitFiber ? carrierPlaitEntity.carrierPlaitFiber.designation : ''}</dd>

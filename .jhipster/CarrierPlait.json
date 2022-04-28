@@ -24,6 +24,28 @@
       "fieldType": "Long",
       "fieldValidateRules": ["min"],
       "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "anonymousCarrierPlaitFiberNumber",
+      "fieldType": "Long",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "anonymousCarrierPlaitFiberDesignation",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "anonymousCarrierPlaitFiberSquareMilimeterSection",
+      "fieldType": "Double",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "anonymousCarrierPlaitFiberDecaNewtonLoad",
+      "fieldType": "Double",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "0"
     }
   ],
   "relationships": [

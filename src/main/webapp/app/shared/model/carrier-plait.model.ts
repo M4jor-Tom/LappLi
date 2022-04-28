@@ -6,6 +6,10 @@ export interface ICarrierPlait extends IAbstractOperation {
   minimumDecaNewtonLoad?: number;
   degreeAssemblyAngle?: number;
   forcedEndPerBobinsCount?: number | null;
+  anonymousCarrierPlaitFiberNumber?: number | null;
+  anonymousCarrierPlaitFiberDesignation?: string | null;
+  anonymousCarrierPlaitFiberSquareMilimeterSection?: number | null;
+  anonymousCarrierPlaitFiberDecaNewtonLoad?: number | null;
   carrierPlaitFiber?: ICarrierPlaitFiber;
 }
 

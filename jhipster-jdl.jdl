@@ -70,6 +70,10 @@ entity CarrierPlait {
     minimumDecaNewtonLoad Double required min(0)
     degreeAssemblyAngle Long required min(0) max(89)
     forcedEndPerBobinsCount Long min(0) //max(4)
+    anonymousCarrierPlaitFiberNumber Long min(0)
+    anonymousCarrierPlaitFiberDesignation String
+    anonymousCarrierPlaitFiberSquareMilimeterSection Double min(0)
+    anonymousCarrierPlaitFiberDecaNewtonLoad Double min(0)
 }
 
 entity Sheathing {
