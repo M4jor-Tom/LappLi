@@ -73,8 +73,8 @@ export const CarrierPlaitUpdate = (props: RouteComponentProps<{ id: string; stra
       ...carrierPlaitEntity,
       ...values,
       __typeName: 'CarrierPlait',
-      carrierPlaitFiber: futureOwnerStrandSupply,
-      ownerStrandSupply: strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString()),
+      carrierPlaitFiber: carrierPlaitFibers.find(it => it.id.toString() === values.carrierPlaitFiber.toString()),
+      ownerStrandSupply: futureOwnerStrandSupply,
     };
 
     if (isNew) {
