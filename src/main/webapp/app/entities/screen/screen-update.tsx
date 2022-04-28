@@ -173,12 +173,12 @@ export const ScreenUpdate = (props: RouteComponentProps<{ strand_supply_id: stri
               >
                 {metalFiberKindValues.map(metalFiberKind => (
                   <option value={metalFiberKind} key={metalFiberKind}>
-                    {translate('lappLiApp.MetalFiberKind' + metalFiberKind)}
+                    {translate('lappLiApp.MetalFiberKind.' + metalFiberKind)}
                   </option>
                 ))}
               </ValidatedField>
               <ValidatedField
-                label={translate('lappLiApp.screen.anonymousCopperFiberMilimeterDiameter')}
+                label={translate('lappLiApp.screen.anonymousCopperFiberMilimeterDiameter') + ' *'}
                 id="screen-anonymousCopperFiberMilimeterDiameter"
                 name="anonymousCopperFiberMilimeterDiameter"
                 data-cy="anonymousCopperFiberMilimeterDiameter"
