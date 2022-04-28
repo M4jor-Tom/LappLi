@@ -41,9 +41,6 @@ public class PlaitServiceImpl extends AbstractNonCentralOperationServiceImpl<Pla
         return getJpaRepository()
             .findById(plait.getId())
             .map(existingPlait -> {
-                if (plait.getOperationLayer() != null) {
-                    existingPlait.setOperationLayer(plait.getOperationLayer());
-                }
                 if (plait.getTargetCoveringRate() != null) {
                     existingPlait.setTargetCoveringRate(plait.getTargetCoveringRate());
                 }
@@ -65,8 +62,6 @@ public class PlaitServiceImpl extends AbstractNonCentralOperationServiceImpl<Pla
                 if (plait.getAnonymousMetalFiberMilimeterDiameter() != null) {
                     existingPlait.setAnonymousMetalFiberMilimeterDiameter(plait.getAnonymousMetalFiberMilimeterDiameter());
                 }
-
-                rollbackOperationLayerIfUpdate(existingPlait);
 
                 return existingPlait;
             })

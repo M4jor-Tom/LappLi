@@ -41,14 +41,9 @@ public class TapeLayingServiceImpl extends AbstractNonCentralOperationServiceImp
         return getJpaRepository()
             .findById(tapeLaying.getId())
             .map(existingTapeLaying -> {
-                if (tapeLaying.getOperationLayer() != null) {
-                    existingTapeLaying.setOperationLayer(tapeLaying.getOperationLayer());
-                }
                 if (tapeLaying.getAssemblyMean() != null) {
                     existingTapeLaying.setAssemblyMean(tapeLaying.getAssemblyMean());
                 }
-
-                rollbackOperationLayerIfUpdate(existingTapeLaying);
 
                 return existingTapeLaying;
             })

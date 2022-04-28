@@ -46,9 +46,6 @@ public class ContinuityWireLongitLayingServiceImpl
         return getJpaRepository()
             .findById(continuityWireLongitLaying.getId())
             .map(existingContinuityWireLongitLaying -> {
-                if (continuityWireLongitLaying.getOperationLayer() != null) {
-                    existingContinuityWireLongitLaying.setOperationLayer(continuityWireLongitLaying.getOperationLayer());
-                }
                 if (continuityWireLongitLaying.getAnonymousContinuityWireDesignation() != null) {
                     existingContinuityWireLongitLaying.setAnonymousContinuityWireDesignation(
                         continuityWireLongitLaying.getAnonymousContinuityWireDesignation()
@@ -74,8 +71,6 @@ public class ContinuityWireLongitLayingServiceImpl
                         continuityWireLongitLaying.getAnonymousContinuityWireFlexibility()
                     );
                 }
-
-                rollbackOperationLayerIfUpdate(existingContinuityWireLongitLaying);
 
                 return existingContinuityWireLongitLaying;
             })

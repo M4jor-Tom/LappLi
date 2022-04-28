@@ -41,12 +41,6 @@ public class StripLayingServiceImpl extends AbstractNonCentralOperationServiceIm
         return getJpaRepository()
             .findById(stripLaying.getId())
             .map(existingStripLaying -> {
-                if (stripLaying.getOperationLayer() != null) {
-                    existingStripLaying.setOperationLayer(stripLaying.getOperationLayer());
-                }
-
-                rollbackOperationLayerIfUpdate(existingStripLaying);
-
                 return existingStripLaying;
             })
             .map(getJpaRepository()::save);
