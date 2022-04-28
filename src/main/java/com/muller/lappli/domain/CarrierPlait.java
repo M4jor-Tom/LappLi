@@ -127,6 +127,11 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
         return Double.NaN;
     }
 
+    public Long getSuggestedEndPerBobinsCount() {
+        // TODO Empty method stub
+        return null;
+    }
+
     public CarrierPlaitFiber getFinalCarrierPlaitFiber() {
         if (getCarrierPlaitFiber() == null) {
             return getAnonymousCarrierPlaitFiber();
