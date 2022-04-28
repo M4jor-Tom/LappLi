@@ -122,6 +122,11 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
         return getCarrierPlaitFiber().getDesignation();
     }
 
+    public Double getRealDecaNewtonLoad() {
+        // TODO Empty method stub
+        return Double.NaN;
+    }
+
     public CarrierPlaitFiber getFinalCarrierPlaitFiber() {
         if (getCarrierPlaitFiber() == null) {
             return getAnonymousCarrierPlaitFiber();
