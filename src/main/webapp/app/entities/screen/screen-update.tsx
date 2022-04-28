@@ -165,7 +165,7 @@ export const ScreenUpdate = (props: RouteComponentProps<{ strand_supply_id: stri
                 type="text"
               />
               <ValidatedField
-                label={translate('lappLiApp.screen.anonymousCopperFiberKind')}
+                label={translate('lappLiApp.screen.anonymousCopperFiberKind') + ' *'}
                 id="screen-anonymousCopperFiberKind"
                 name="anonymousCopperFiberKind"
                 data-cy="anonymousCopperFiberKind"
