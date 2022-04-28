@@ -41,9 +41,6 @@ public class CarrierPlaitServiceImpl extends AbstractNonCentralOperationServiceI
         return getJpaRepository()
             .findById(carrierPlait.getId())
             .map(existingCarrierPlait -> {
-                if (carrierPlait.getOperationLayer() != null) {
-                    existingCarrierPlait.setOperationLayer(carrierPlait.getOperationLayer());
-                }
                 if (carrierPlait.getMinimumDecaNewtonLoad() != null) {
                     existingCarrierPlait.setMinimumDecaNewtonLoad(carrierPlait.getMinimumDecaNewtonLoad());
                 }
@@ -53,8 +50,6 @@ public class CarrierPlaitServiceImpl extends AbstractNonCentralOperationServiceI
                 if (carrierPlait.getForcedEndPerBobinsCount() != null) {
                     existingCarrierPlait.setForcedEndPerBobinsCount(carrierPlait.getForcedEndPerBobinsCount());
                 }
-
-                rollbackOperationLayerIfUpdate(existingCarrierPlait);
 
                 return existingCarrierPlait;
             })
