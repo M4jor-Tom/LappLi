@@ -1,6 +1,10 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractOperation;
+import com.muller.lappli.domain.enumeration.OperationKind;
+import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
+import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -13,14 +17,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "carrier_plait")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CarrierPlait implements Serializable {
+public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Serializable, INonAssemblyOperation<CarrierPlait> {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
 
     @NotNull
     @Column(name = "operation_layer", nullable = false)
@@ -68,17 +67,44 @@ public class CarrierPlait implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public CarrierPlait id(Long id) {
-        this.setId(id);
+    @Override
+    public IOperation<CarrierPlait> toOperation() {
         return this;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public CarrierPlait getThis() {
+        return this;
+    }
+
+    @Override
+    public OperationKind getOperationKind() {
+        return OperationKind.CARRIER_PLAIT;
+    }
+
+    @Override
+    public Double getMilimeterDiameterIncidency() {
+        // TODO Auto-generated method stub
+        if (getCarrierPlaitFiber() == null) {
+            return Double.NaN;
+        }
+
+        return Double.NaN;
+    }
+
+    @Override
+    public Long getProductionStep() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getProductDesignation() {
+        if (getCarrierPlaitFiber() == null) {
+            return null;
+        }
+
+        return getCarrierPlaitFiber().getDesignation();
     }
 
     public Long getOperationLayer() {
@@ -169,7 +195,7 @@ public class CarrierPlait implements Serializable {
         if (!(o instanceof CarrierPlait)) {
             return false;
         }
-        return id != null && id.equals(((CarrierPlait) o).id);
+        return getId() != null && getId().equals(((CarrierPlait) o).getId());
     }
 
     @Override

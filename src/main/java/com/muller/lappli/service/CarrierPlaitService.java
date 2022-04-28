@@ -7,15 +7,7 @@ import java.util.Optional;
 /**
  * Service Interface for managing {@link CarrierPlait}.
  */
-public interface CarrierPlaitService {
-    /**
-     * Save a carrierPlait.
-     *
-     * @param carrierPlait the entity to save.
-     * @return the persisted entity.
-     */
-    CarrierPlait save(CarrierPlait carrierPlait);
-
+public interface CarrierPlaitService extends INonCentralOperationService<CarrierPlait> {
     /**
      * Partially updates a carrierPlait.
      *

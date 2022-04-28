@@ -55,7 +55,7 @@ public class CarrierPlaitResource {
         if (carrierPlait.getId() != null) {
             throw new BadRequestAlertException("A new carrierPlait cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        CarrierPlait result = carrierPlaitService.save(carrierPlait);
+        CarrierPlait result = carrierPlaitService.save(carrierPlait, true, true);
         return ResponseEntity
             .created(new URI("/api/carrier-plaits/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -89,7 +89,7 @@ public class CarrierPlaitResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        CarrierPlait result = carrierPlaitService.save(carrierPlait);
+        CarrierPlait result = carrierPlaitService.save(carrierPlait, true, true);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, carrierPlait.getId().toString()))

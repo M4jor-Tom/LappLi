@@ -3,6 +3,8 @@ package com.muller.lappli.service.impl;
 import com.muller.lappli.domain.CarrierPlait;
 import com.muller.lappli.repository.CarrierPlaitRepository;
 import com.muller.lappli.service.CarrierPlaitService;
+import com.muller.lappli.service.StrandSupplyService;
+import com.muller.lappli.service.abstracts.AbstractNonCentralOperationServiceImpl;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -15,27 +17,29 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class CarrierPlaitServiceImpl implements CarrierPlaitService {
+public class CarrierPlaitServiceImpl extends AbstractNonCentralOperationServiceImpl<CarrierPlait> implements CarrierPlaitService {
 
     private final Logger log = LoggerFactory.getLogger(CarrierPlaitServiceImpl.class);
 
-    private final CarrierPlaitRepository carrierPlaitRepository;
-
-    public CarrierPlaitServiceImpl(CarrierPlaitRepository carrierPlaitRepository) {
-        this.carrierPlaitRepository = carrierPlaitRepository;
+    public CarrierPlaitServiceImpl(CarrierPlaitRepository carrierPlaitRepository, StrandSupplyService strandSupplyService) {
+        super(strandSupplyService, carrierPlaitRepository);
     }
 
     @Override
-    public CarrierPlait save(CarrierPlait carrierPlait) {
-        log.debug("Request to save CarrierPlait : {}", carrierPlait);
-        return carrierPlaitRepository.save(carrierPlait);
+    protected Logger getLogger() {
+        return log;
+    }
+
+    @Override
+    protected String getDomainClassName() {
+        return "CarrierPlait";
     }
 
     @Override
     public Optional<CarrierPlait> partialUpdate(CarrierPlait carrierPlait) {
         log.debug("Request to partially update CarrierPlait : {}", carrierPlait);
 
-        return carrierPlaitRepository
+        return getJpaRepository()
             .findById(carrierPlait.getId())
             .map(existingCarrierPlait -> {
                 if (carrierPlait.getOperationLayer() != null) {
@@ -51,28 +55,10 @@ public class CarrierPlaitServiceImpl implements CarrierPlaitService {
                     existingCarrierPlait.setForcedEndPerBobinsCount(carrierPlait.getForcedEndPerBobinsCount());
                 }
 
+                rollbackOperationLayerIfUpdate(existingCarrierPlait);
+
                 return existingCarrierPlait;
             })
-            .map(carrierPlaitRepository::save);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<CarrierPlait> findAll() {
-        log.debug("Request to get all CarrierPlaits");
-        return carrierPlaitRepository.findAll();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<CarrierPlait> findOne(Long id) {
-        log.debug("Request to get CarrierPlait : {}", id);
-        return carrierPlaitRepository.findById(id);
-    }
-
-    @Override
-    public void delete(Long id) {
-        log.debug("Request to delete CarrierPlait : {}", id);
-        carrierPlaitRepository.deleteById(id);
+            .map(getJpaRepository()::save);
     }
 }
