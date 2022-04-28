@@ -147,14 +147,14 @@ export const ContinuityWireLongitLayingUpdate = (props: RouteComponentProps<{ id
                 type="text"
               />
               <ValidatedField
-                label={translate('lappLiApp.continuityWireLongitLaying.anonymousContinuityWireGramPerMeterLinearMass')}
+                label={translate('lappLiApp.continuityWireLongitLaying.anonymousContinuityWireGramPerMeterLinearMass') + ' *'}
                 id="continuity-wire-longit-laying-anonymousContinuityWireGramPerMeterLinearMass"
                 name="anonymousContinuityWireGramPerMeterLinearMass"
                 data-cy="anonymousContinuityWireGramPerMeterLinearMass"
                 type="text"
               />
               <ValidatedField
-                label={translate('lappLiApp.continuityWireLongitLaying.anonymousContinuityWireMetalFiberKind')}
+                label={translate('lappLiApp.continuityWireLongitLaying.anonymousContinuityWireMetalFiberKind') + ' *'}
                 id="continuity-wire-longit-laying-anonymousContinuityWireMetalFiberKind"
                 name="anonymousContinuityWireMetalFiberKind"
                 data-cy="anonymousContinuityWireMetalFiberKind"
@@ -167,14 +167,14 @@ export const ContinuityWireLongitLayingUpdate = (props: RouteComponentProps<{ id
                 ))}
               </ValidatedField>
               <ValidatedField
-                label={translate('lappLiApp.continuityWireLongitLaying.anonymousContinuityWireMilimeterDiameter')}
+                label={translate('lappLiApp.continuityWireLongitLaying.anonymousContinuityWireMilimeterDiameter') + ' *'}
                 id="continuity-wire-longit-laying-anonymousContinuityWireMilimeterDiameter"
                 name="anonymousContinuityWireMilimeterDiameter"
                 data-cy="anonymousContinuityWireMilimeterDiameter"
                 type="text"
               />
               <ValidatedField
-                label={translate('lappLiApp.continuityWireLongitLaying.anonymousContinuityWireFlexibility')}
+                label={translate('lappLiApp.continuityWireLongitLaying.anonymousContinuityWireFlexibility') + ' *'}
                 id="continuity-wire-longit-laying-anonymousContinuityWireFlexibility"
                 name="anonymousContinuityWireFlexibility"
                 data-cy="anonymousContinuityWireFlexibility"
