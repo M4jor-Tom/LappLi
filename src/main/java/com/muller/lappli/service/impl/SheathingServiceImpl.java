@@ -41,17 +41,12 @@ public class SheathingServiceImpl extends AbstractNonCentralOperationServiceImpl
         return getJpaRepository()
             .findById(sheathing.getId())
             .map(existingSheathing -> {
-                if (sheathing.getOperationLayer() != null) {
-                    existingSheathing.setOperationLayer(sheathing.getOperationLayer());
-                }
                 if (sheathing.getMilimeterThickness() != null) {
                     existingSheathing.setMilimeterThickness(sheathing.getMilimeterThickness());
                 }
                 if (sheathing.getSheathingKind() != null) {
                     existingSheathing.setSheathingKind(sheathing.getSheathingKind());
                 }
-
-                rollbackOperationLayerIfUpdate(existingSheathing);
 
                 return existingSheathing;
             })

@@ -41,9 +41,6 @@ public class ScreenServiceImpl extends AbstractNonCentralOperationServiceImpl<Sc
         return getJpaRepository()
             .findById(screen.getId())
             .map(existingScreen -> {
-                if (screen.getOperationLayer() != null) {
-                    existingScreen.setOperationLayer(screen.getOperationLayer());
-                }
                 if (screen.getAssemblyMeanIsSameThanAssemblys() != null) {
                     existingScreen.setAssemblyMeanIsSameThanAssemblys(screen.getAssemblyMeanIsSameThanAssemblys());
                 }
@@ -62,8 +59,6 @@ public class ScreenServiceImpl extends AbstractNonCentralOperationServiceImpl<Sc
                 if (screen.getAnonymousCopperFiberMilimeterDiameter() != null) {
                     existingScreen.setAnonymousCopperFiberMilimeterDiameter(screen.getAnonymousCopperFiberMilimeterDiameter());
                 }
-
-                rollbackOperationLayerIfUpdate(existingScreen);
 
                 return existingScreen;
             })
