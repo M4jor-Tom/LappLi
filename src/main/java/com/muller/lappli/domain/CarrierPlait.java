@@ -100,7 +100,7 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
     @Override
     public Double getMilimeterDiameterIncidency() {
         // TODO Auto-generated method stub
-        if (getCarrierPlaitFiber() == null) {
+        if (getFinalCarrierPlaitFiber() == null) {
             return Double.NaN;
         }
 
@@ -115,11 +115,29 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
 
     @Override
     public String getProductDesignation() {
-        if (getCarrierPlaitFiber() == null) {
+        if (getFinalCarrierPlaitFiber() == null) {
             return null;
         }
 
         return getCarrierPlaitFiber().getDesignation();
+    }
+
+    public CarrierPlaitFiber getFinalCarrierPlaitFiber() {
+        if (getCarrierPlaitFiber() == null) {
+            return getAnonymousCarrierPlaitFiber();
+        }
+
+        return getCarrierPlaitFiber();
+    }
+
+    private CarrierPlaitFiber getAnonymousCarrierPlaitFiber() {
+        return new CarrierPlaitFiber()
+            .number(getAnonymousCarrierPlaitFiberNumber())
+            .designation(getAnonymousCarrierPlaitFiberDesignation())
+            .squareMilimeterSection(getAnonymousCarrierPlaitFiberSquareMilimeterSection())
+            .decaNewtonLoad(getAnonymousCarrierPlaitFiberDecaNewtonLoad())
+            .getThisIfConform()
+            .orElse(null);
     }
 
     public Long getOperationLayer() {
