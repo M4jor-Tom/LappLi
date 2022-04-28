@@ -90,7 +90,7 @@ const Routes = ({ match }) => (
 
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}`} component={StrandSupplySubOperation} />
 
-      {/* (CUD ACCESS): OPERATIONS */}
+      {/* [NON_ASSEMBLY_OPERATION] (CUD ACCESS) */}
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/tape-laying/new`} component={TapeLayingUpdate} />
       <ErrorBoundaryRoute
         exact
