@@ -296,7 +296,7 @@ class CarrierPlaitResourceIT {
         List<CarrierPlait> carrierPlaitList = carrierPlaitRepository.findAll();
         assertThat(carrierPlaitList).hasSize(databaseSizeBeforeUpdate);
         CarrierPlait testCarrierPlait = carrierPlaitList.get(carrierPlaitList.size() - 1);
-        assertThat(testCarrierPlait.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
+        assertThat(testCarrierPlait.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testCarrierPlait.getMinimumDecaNewtonLoad()).isEqualTo(UPDATED_MINIMUM_DECA_NEWTON_LOAD);
         assertThat(testCarrierPlait.getDegreeAssemblyAngle()).isEqualTo(UPDATED_DEGREE_ASSEMBLY_ANGLE);
         assertThat(testCarrierPlait.getForcedEndPerBobinsCount()).isEqualTo(UPDATED_FORCED_END_PER_BOBINS_COUNT);
@@ -384,7 +384,7 @@ class CarrierPlaitResourceIT {
         List<CarrierPlait> carrierPlaitList = carrierPlaitRepository.findAll();
         assertThat(carrierPlaitList).hasSize(databaseSizeBeforeUpdate);
         CarrierPlait testCarrierPlait = carrierPlaitList.get(carrierPlaitList.size() - 1);
-        assertThat(testCarrierPlait.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
+        assertThat(testCarrierPlait.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testCarrierPlait.getMinimumDecaNewtonLoad()).isEqualTo(UPDATED_MINIMUM_DECA_NEWTON_LOAD);
         assertThat(testCarrierPlait.getDegreeAssemblyAngle()).isEqualTo(DEFAULT_DEGREE_ASSEMBLY_ANGLE);
         assertThat(testCarrierPlait.getForcedEndPerBobinsCount()).isEqualTo(DEFAULT_FORCED_END_PER_BOBINS_COUNT);
@@ -420,7 +420,7 @@ class CarrierPlaitResourceIT {
         List<CarrierPlait> carrierPlaitList = carrierPlaitRepository.findAll();
         assertThat(carrierPlaitList).hasSize(databaseSizeBeforeUpdate);
         CarrierPlait testCarrierPlait = carrierPlaitList.get(carrierPlaitList.size() - 1);
-        assertThat(testCarrierPlait.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
+        assertThat(testCarrierPlait.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testCarrierPlait.getMinimumDecaNewtonLoad()).isEqualTo(UPDATED_MINIMUM_DECA_NEWTON_LOAD);
         assertThat(testCarrierPlait.getDegreeAssemblyAngle()).isEqualTo(UPDATED_DEGREE_ASSEMBLY_ANGLE);
         assertThat(testCarrierPlait.getForcedEndPerBobinsCount()).isEqualTo(UPDATED_FORCED_END_PER_BOBINS_COUNT);
