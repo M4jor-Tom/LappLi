@@ -55,8 +55,7 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
     @Column(name = "anonymous_carrier_plait_fiber_deca_newton_load")
     private Double anonymousCarrierPlaitFiberDecaNewtonLoad;
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @ManyToOne
     private CarrierPlaitFiber carrierPlaitFiber;
 
     @ManyToOne(optional = false)

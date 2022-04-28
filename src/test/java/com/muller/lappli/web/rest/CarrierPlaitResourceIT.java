@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.CarrierPlait;
-import com.muller.lappli.domain.CarrierPlaitFiber;
 import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.repository.CarrierPlaitRepository;
 import java.util.List;
@@ -89,16 +88,6 @@ class CarrierPlaitResourceIT {
             .anonymousCarrierPlaitFiberSquareMilimeterSection(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION)
             .anonymousCarrierPlaitFiberDecaNewtonLoad(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD);
         // Add required entity
-        CarrierPlaitFiber carrierPlaitFiber;
-        if (TestUtil.findAll(em, CarrierPlaitFiber.class).isEmpty()) {
-            carrierPlaitFiber = CarrierPlaitFiberResourceIT.createEntity(em);
-            em.persist(carrierPlaitFiber);
-            em.flush();
-        } else {
-            carrierPlaitFiber = TestUtil.findAll(em, CarrierPlaitFiber.class).get(0);
-        }
-        carrierPlait.setCarrierPlaitFiber(carrierPlaitFiber);
-        // Add required entity
         StrandSupply strandSupply;
         if (TestUtil.findAll(em, StrandSupply.class).isEmpty()) {
             strandSupply = StrandSupplyResourceIT.createEntity(em);
@@ -127,16 +116,6 @@ class CarrierPlaitResourceIT {
             .anonymousCarrierPlaitFiberDesignation(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION)
             .anonymousCarrierPlaitFiberSquareMilimeterSection(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION)
             .anonymousCarrierPlaitFiberDecaNewtonLoad(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD);
-        // Add required entity
-        CarrierPlaitFiber carrierPlaitFiber;
-        if (TestUtil.findAll(em, CarrierPlaitFiber.class).isEmpty()) {
-            carrierPlaitFiber = CarrierPlaitFiberResourceIT.createUpdatedEntity(em);
-            em.persist(carrierPlaitFiber);
-            em.flush();
-        } else {
-            carrierPlaitFiber = TestUtil.findAll(em, CarrierPlaitFiber.class).get(0);
-        }
-        carrierPlait.setCarrierPlaitFiber(carrierPlaitFiber);
         // Add required entity
         StrandSupply strandSupply;
         if (TestUtil.findAll(em, StrandSupply.class).isEmpty()) {

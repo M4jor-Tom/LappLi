@@ -214,7 +214,6 @@ export const CarrierPlaitUpdate = (props: RouteComponentProps<{ id: string; stra
                 data-cy="carrierPlaitFiber"
                 label={translate('lappLiApp.carrierPlait.carrierPlaitFiber')}
                 type="select"
-                required
               >
                 <option value="" key="0" />
                 {carrierPlaitFibers
@@ -225,9 +224,6 @@ export const CarrierPlaitUpdate = (props: RouteComponentProps<{ id: string; stra
                     ))
                   : null}
               </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
               {props.match.params ? (
                 ''
               ) : (

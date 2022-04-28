@@ -1,11 +1,11 @@
-id;operation_layer;minimum_deca_newton_load;degree_assembly_angle;forced_end_per_bobins_count;anonymous_carrier_plait_fiber_number;anonymous_carrier_plait_fiber_designation;anonymous_carrier_plait_fiber_square_milimeter_section;anonymous_carrier_plait_fiber_deca_newton_load;carrier_plait_fiber_id;owner_strand_supply_id
-1;91980;73093;44;75926;42115;HTTP Horizontal payment;75905;42493;1;1
-2;37196;12821;75;11921;87313;Rial turquoise Afghanistan;21926;899;2;2
-3;58560;89202;10;92071;2140;Nebraska;57556;39430;3;3
-4;2084;34583;88;91971;1458;archive;51269;26019;4;4
-5;55299;42372;79;17729;13970;panel Response;87259;34149;5;5
-6;20215;23239;33;17499;26958;Rustic Planner;74217;29267;6;6
-7;42072;25987;64;62043;42878;Automotive Cambridgeshire;8300;74316;7;7
-8;23782;88456;75;55332;78347;Assimilated;86919;79938;8;8
-9;98478;62987;49;74647;7704;Frozen Bacon;7261;58584;9;9
-10;62003;17874;52;97242;15267;Chair and Toys;60452;60720;10;10
+id;operation_layer;minimum_deca_newton_load;degree_assembly_angle;forced_end_per_bobins_count;anonymous_carrier_plait_fiber_number;anonymous_carrier_plait_fiber_designation;anonymous_carrier_plait_fiber_square_milimeter_section;anonymous_carrier_plait_fiber_deca_newton_load;owner_strand_supply_id
+1;91980;73093;44;75926;42115;HTTP Horizontal payment;75905;42493;1
+2;37196;12821;75;11921;87313;Rial turquoise Afghanistan;21926;899;2
+3;58560;89202;10;92071;2140;Nebraska;57556;39430;3
+4;2084;34583;88;91971;1458;archive;51269;26019;4
+5;55299;42372;79;17729;13970;panel Response;87259;34149;5
+6;20215;23239;33;17499;26958;Rustic Planner;74217;29267;6
+7;42072;25987;64;62043;42878;Automotive Cambridgeshire;8300;74316;7
+8;23782;88456;75;55332;78347;Assimilated;86919;79938;8
+9;98478;62987;49;74647;7704;Frozen Bacon;7261;58584;9
+10;62003;17874;52;97242;15267;Chair and Toys;60452;60720;10
