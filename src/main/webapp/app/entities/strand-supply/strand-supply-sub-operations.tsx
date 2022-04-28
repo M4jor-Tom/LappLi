@@ -139,6 +139,17 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
       </Link>
       &nbsp;
       <Link
+        to={`${props.match.url}/carrier-plait/new`}
+        className="btn btn-primary jh-create-entity"
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+      >
+        <FontAwesomeIcon icon="plus" />
+        &nbsp;
+        <Translate contentKey="lappLiApp.carrierPlait.detail.title">Carrier Plait</Translate>
+      </Link>
+      &nbsp;
+      <Link
         to={`${props.match.url}/sheathing/new`}
         className="btn btn-primary jh-create-entity"
         id="jh-create-entity"
