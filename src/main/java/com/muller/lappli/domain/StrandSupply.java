@@ -101,6 +101,11 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
+    private Set<CarrierPlait> carrierPlaits = new HashSet<>();
+
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
     private Set<Sheathing> sheathings = new HashSet<>();
 
     @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
@@ -404,6 +409,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         operations.addAll(getScreens());
         operations.addAll(getStripLayings());
         operations.addAll(getPlaits());
+        operations.addAll(getCarrierPlaits());
         operations.addAll(getSheathings());
         operations.addAll(getContinuityWireLongitLayings());
 
@@ -801,6 +807,37 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     public StrandSupply removePlaits(Plait plait) {
         this.plaits.remove(plait);
         plait.setOwnerStrandSupply(null);
+        return this;
+    }
+
+    public Set<CarrierPlait> getCarrierPlaits() {
+        return this.carrierPlaits;
+    }
+
+    public void setCarrierPlaits(Set<CarrierPlait> carrierPlaits) {
+        if (this.carrierPlaits != null) {
+            this.carrierPlaits.forEach(i -> i.setOwnerStrandSupply(null));
+        }
+        if (carrierPlaits != null) {
+            carrierPlaits.forEach(i -> i.setOwnerStrandSupply(this));
+        }
+        this.carrierPlaits = carrierPlaits;
+    }
+
+    public StrandSupply carrierPlaits(Set<CarrierPlait> carrierPlaits) {
+        this.setCarrierPlaits(carrierPlaits);
+        return this;
+    }
+
+    public StrandSupply addCarrierPlaits(CarrierPlait carrierPlait) {
+        this.carrierPlaits.add(carrierPlait);
+        carrierPlait.setOwnerStrandSupply(this);
+        return this;
+    }
+
+    public StrandSupply removeCarrierPlaits(CarrierPlait carrierPlait) {
+        this.carrierPlaits.remove(carrierPlait);
+        carrierPlait.setOwnerStrandSupply(null);
         return this;
     }
 

@@ -38,6 +38,8 @@ import ContinuityWireLongitLaying from './continuity-wire-longit-laying';
 import ContinuityWire from './continuity-wire';
 import Plait from './plait';
 import SteelFiber from './steel-fiber';
+import CarrierPlait from './carrier-plait';
+import CarrierPlaitFiber from './carrier-plait-fiber';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -78,6 +80,8 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}continuity-wire`} component={ContinuityWire} />
       <ErrorBoundaryRoute path={`${match.url}plait`} component={Plait} />
       <ErrorBoundaryRoute path={`${match.url}steel-fiber`} component={SteelFiber} />
+      <ErrorBoundaryRoute path={`${match.url}carrier-plait`} component={CarrierPlait} />
+      <ErrorBoundaryRoute path={`${match.url}carrier-plait-fiber`} component={CarrierPlaitFiber} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>

@@ -1,0 +1,78 @@
+{
+  "name": "CarrierPlait",
+  "fields": [
+    {
+      "fieldName": "operationLayer",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "minimumDecaNewtonLoad",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "degreeAssemblyAngle",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "min", "max"],
+      "fieldValidateRulesMin": "0",
+      "fieldValidateRulesMax": "89"
+    },
+    {
+      "fieldName": "forcedEndPerBobinsCount",
+      "fieldType": "Long",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "anonymousCarrierPlaitFiberNumber",
+      "fieldType": "Long",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "anonymousCarrierPlaitFiberDesignation",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "anonymousCarrierPlaitFiberSquareMilimeterSection",
+      "fieldType": "Double",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "anonymousCarrierPlaitFiberDecaNewtonLoad",
+      "fieldType": "Double",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "0"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "carrierPlaitFiber",
+      "otherEntityRelationshipName": "carrierPlait",
+      "relationshipName": "carrierPlaitFiber",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "strandSupply",
+      "otherEntityRelationshipName": "carrierPlaits",
+      "relationshipValidateRules": "required",
+      "relationshipName": "ownerStrandSupply",
+      "otherEntityField": "designation"
+    }
+  ],
+  "entityTableName": "carrier_plait",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220427141033"
+}

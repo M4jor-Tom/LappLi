@@ -1,5 +1,6 @@
 package com.muller.lappli.service.impl;
 
+import com.muller.lappli.domain.CarrierPlait;
 import com.muller.lappli.domain.ContinuityWireLongitLaying;
 import com.muller.lappli.domain.CoreAssembly;
 import com.muller.lappli.domain.IntersticeAssembly;
@@ -12,6 +13,7 @@ import com.muller.lappli.domain.TapeLaying;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.interfaces.INonCentralOperation;
 import com.muller.lappli.repository.StrandSupplyRepository;
+import com.muller.lappli.service.CarrierPlaitService;
 import com.muller.lappli.service.ContinuityWireLongitLayingService;
 import com.muller.lappli.service.CoreAssemblyService;
 import com.muller.lappli.service.IntersticeAssemblyService;
@@ -54,6 +56,8 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
 
     private final PlaitService plaitService;
 
+    private final CarrierPlaitService carrierPlaitService;
+
     private final SheathingService sheathingService;
 
     private final ContinuityWireLongitLayingService continuityWireLongitLayingService;
@@ -66,6 +70,7 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         @Lazy ScreenService screenService,
         @Lazy StripLayingService stripLayingService,
         @Lazy PlaitService plaitService,
+        @Lazy CarrierPlaitService carrierPlaitService,
         @Lazy SheathingService sheathingService,
         @Lazy ContinuityWireLongitLayingService continuityWireLongitLayingService
     ) {
@@ -76,6 +81,7 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         this.screenService = screenService;
         this.stripLayingService = stripLayingService;
         this.plaitService = plaitService;
+        this.carrierPlaitService = carrierPlaitService;
         this.sheathingService = sheathingService;
         this.continuityWireLongitLayingService = continuityWireLongitLayingService;
     }
@@ -122,6 +128,11 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         for (Plait plait : toActualize.getPlaits()) {
             Boolean actualizeOwnerStrandSupply = false;
             plaitService.save(plait, actualizeOwnerStrandSupply, false);
+        }
+
+        for (CarrierPlait carrierPlait : toActualize.getCarrierPlaits()) {
+            Boolean actualizeOwnerStrandSupply = false;
+            carrierPlaitService.save(carrierPlait, actualizeOwnerStrandSupply, false);
         }
 
         for (Sheathing sheathing : toActualize.getSheathings()) {

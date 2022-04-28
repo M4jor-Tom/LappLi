@@ -1,0 +1,27 @@
+{
+  "lappLiApp": {
+    "carrierPlaitFiber": {
+      "home": {
+        "title": "Carrier Plait Fibers",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Carrier Plait Fiber erstellen",
+        "createOrEditLabel": "Carrier Plait Fiber erstellen oder bearbeiten",
+        "notFound": "Keine Carrier Plait Fibers gefunden"
+      },
+      "created": "Carrier Plait Fiber erstellt mit ID {{ param }}",
+      "updated": "Carrier Plait Fiber aktualisiert mit ID {{ param }}",
+      "deleted": "Carrier Plait Fiber gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Carrier Plait Fiber {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Carrier Plait Fiber"
+      },
+      "id": "ID",
+      "number": "Number",
+      "designation": "Designation",
+      "squareMilimeterSection": "Square Milimeter Section",
+      "decaNewtonLoad": "Deca Newton Load"
+    }
+  }
+}
