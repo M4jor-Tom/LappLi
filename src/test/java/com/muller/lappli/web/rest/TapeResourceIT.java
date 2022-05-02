@@ -30,14 +30,14 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class TapeResourceIT {
 
-    private static final Long DEFAULT_NUMBER = 1L;
-    private static final Long UPDATED_NUMBER = 2L;
+    private static final Long DEFAULT_NUMBER = 0L;
+    private static final Long UPDATED_NUMBER = 1L;
 
     private static final String DEFAULT_DESIGNATION = "AAAAAAAAAA";
     private static final String UPDATED_DESIGNATION = "BBBBBBBBBB";
 
-    private static final Double DEFAULT_MILIMETER_WIDTH = 1D;
-    private static final Double UPDATED_MILIMETER_WIDTH = 2D;
+    private static final Double DEFAULT_MILIMETER_WIDTH = 0D;
+    private static final Double UPDATED_MILIMETER_WIDTH = 1D;
 
     private static final Double DEFAULT_MILIMETER_DIAMETER_INCIDENCY = 1D;
     private static final Double UPDATED_MILIMETER_DIAMETER_INCIDENCY = 2D;

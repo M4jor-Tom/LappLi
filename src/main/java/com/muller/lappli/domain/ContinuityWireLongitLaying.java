@@ -37,6 +37,7 @@ public class ContinuityWireLongitLaying
     @Column(name = "anonymous_continuity_wire_designation")
     private String anonymousContinuityWireDesignation;
 
+    @DecimalMin(value = "0")
     @Column(name = "anonymous_continuity_wire_gram_per_meter_linear_mass")
     private Double anonymousContinuityWireGramPerMeterLinearMass;
 
@@ -44,6 +45,7 @@ public class ContinuityWireLongitLaying
     @Column(name = "anonymous_continuity_wire_metal_fiber_kind")
     private MetalFiberKind anonymousContinuityWireMetalFiberKind;
 
+    @DecimalMin(value = "0")
     @Column(name = "anonymous_continuity_wire_milimeter_diameter")
     private Double anonymousContinuityWireMilimeterDiameter;
 
@@ -63,6 +65,8 @@ public class ContinuityWireLongitLaying
             "tapeLayings",
             "screens",
             "stripLayings",
+            "plaits",
+            "carrierPlaits",
             "sheathings",
             "continuityWireLongitLayings",
             "strand",
