@@ -149,6 +149,10 @@ export const ScreenUpdate = (props: RouteComponentProps<{ strand_supply_id: stri
                 name="forcedDiameterAssemblyStep"
                 data-cy="forcedDiameterAssemblyStep"
                 type="text"
+                validate={{
+                  min: { value: 0, message: translate('entity.validation.min', { min: 0 }) },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
               />
               <ValidatedField
                 label={translate('lappLiApp.screen.anonymousCopperFiberNumber')}
@@ -156,6 +160,10 @@ export const ScreenUpdate = (props: RouteComponentProps<{ strand_supply_id: stri
                 name="anonymousCopperFiberNumber"
                 data-cy="anonymousCopperFiberNumber"
                 type="text"
+                validate={{
+                  min: { value: 0, message: translate('entity.validation.min', { min: 0 }) },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
               />
               <ValidatedField
                 label={translate('lappLiApp.screen.anonymousCopperFiberDesignation')}
@@ -183,6 +191,10 @@ export const ScreenUpdate = (props: RouteComponentProps<{ strand_supply_id: stri
                 name="anonymousCopperFiberMilimeterDiameter"
                 data-cy="anonymousCopperFiberMilimeterDiameter"
                 type="text"
+                validate={{
+                  min: { value: 0, message: translate('entity.validation.min', { min: 0 }) },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
               />
               <ValidatedField
                 id="screen-copperFiber"

@@ -8,7 +8,10 @@
     },
     {
       "fieldName": "targetCoveringRate",
-      "fieldType": "Double"
+      "fieldType": "Double",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMin": "0",
+      "fieldValidateRulesMax": "1"
     },
     {
       "fieldName": "targetDegreeAngle",

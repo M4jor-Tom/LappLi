@@ -37,11 +37,11 @@ class ScreenResourceIT {
     private static final Boolean DEFAULT_ASSEMBLY_MEAN_IS_SAME_THAN_ASSEMBLYS = false;
     private static final Boolean UPDATED_ASSEMBLY_MEAN_IS_SAME_THAN_ASSEMBLYS = true;
 
-    private static final Long DEFAULT_FORCED_DIAMETER_ASSEMBLY_STEP = 1L;
-    private static final Long UPDATED_FORCED_DIAMETER_ASSEMBLY_STEP = 2L;
+    private static final Long DEFAULT_FORCED_DIAMETER_ASSEMBLY_STEP = 0L;
+    private static final Long UPDATED_FORCED_DIAMETER_ASSEMBLY_STEP = 1L;
 
-    private static final Long DEFAULT_ANONYMOUS_COPPER_FIBER_NUMBER = 1L;
-    private static final Long UPDATED_ANONYMOUS_COPPER_FIBER_NUMBER = 2L;
+    private static final Long DEFAULT_ANONYMOUS_COPPER_FIBER_NUMBER = 0L;
+    private static final Long UPDATED_ANONYMOUS_COPPER_FIBER_NUMBER = 1L;
 
     private static final String DEFAULT_ANONYMOUS_COPPER_FIBER_DESIGNATION = "AAAAAAAAAA";
     private static final String UPDATED_ANONYMOUS_COPPER_FIBER_DESIGNATION = "BBBBBBBBBB";
@@ -49,8 +49,8 @@ class ScreenResourceIT {
     private static final MetalFiberKind DEFAULT_ANONYMOUS_COPPER_FIBER_KIND = MetalFiberKind.RED_COPPER;
     private static final MetalFiberKind UPDATED_ANONYMOUS_COPPER_FIBER_KIND = MetalFiberKind.TINNED_COPPER;
 
-    private static final Double DEFAULT_ANONYMOUS_COPPER_FIBER_MILIMETER_DIAMETER = 1D;
-    private static final Double UPDATED_ANONYMOUS_COPPER_FIBER_MILIMETER_DIAMETER = 2D;
+    private static final Double DEFAULT_ANONYMOUS_COPPER_FIBER_MILIMETER_DIAMETER = 0D;
+    private static final Double UPDATED_ANONYMOUS_COPPER_FIBER_MILIMETER_DIAMETER = 1D;
 
     private static final String ENTITY_API_URL = "/api/screens";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";

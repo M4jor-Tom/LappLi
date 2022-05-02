@@ -3,39 +3,39 @@ service * with serviceImpl
 entity Screen {
     operationLayer Long required
     assemblyMeanIsSameThanAssemblys Boolean required
-    forcedDiameterAssemblyStep Long
-    anonymousCopperFiberNumber Long
+    forcedDiameterAssemblyStep Long min(0)
+    anonymousCopperFiberNumber Long min(0)
     anonymousCopperFiberDesignation String
     anonymousCopperFiberKind MetalFiberKind
-    anonymousCopperFiberMilimeterDiameter Double
+    anonymousCopperFiberMilimeterDiameter Double min(0)
 }
 
 entity ContinuityWireLongitLaying {
     operationLayer Long required
     anonymousContinuityWireDesignation String
-    anonymousContinuityWireGramPerMeterLinearMass Double
+    anonymousContinuityWireGramPerMeterLinearMass Double min(0)
     anonymousContinuityWireMetalFiberKind MetalFiberKind
-    anonymousContinuityWireMilimeterDiameter Double
+    anonymousContinuityWireMilimeterDiameter Double min(0)
     anonymousContinuityWireFlexibility Flexibility
 }
 
 entity ContinuityWire {
     designation String required unique
-    gramPerMeterLinearMass Double required
+    gramPerMeterLinearMass Double required min(0)
     metalFiberKind MetalFiberKind required
-    milimeterDiameter Double required
+    milimeterDiameter Double required min(0)
     flexibility Flexibility required
 }
 
 entity Tape {
-	number Long required unique
+	number Long required unique min(0)
     designation String required unique
-    milimeterWidth Double required
+    milimeterWidth Double required min(0)
     milimeterDiameterIncidency Double required
 }
 
 entity TapeKind {
-	targetCoveringRate Double required
+	targetCoveringRate Double required min(0) max(1)
     designation String unique required
 }
 
@@ -56,7 +56,7 @@ entity TapeLaying {
 
 entity Plait {
     operationLayer Long required
-    targetCoveringRate Double
+    targetCoveringRate Double min(0) max(1)
     targetDegreeAngle Double
     targetingCoveringRateNotAngle Boolean required
     anonymousMetalFiberNumber Long

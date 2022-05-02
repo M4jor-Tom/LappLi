@@ -12,7 +12,9 @@
     },
     {
       "fieldName": "anonymousContinuityWireGramPerMeterLinearMass",
-      "fieldType": "Double"
+      "fieldType": "Double",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "0"
     },
     {
       "fieldName": "anonymousContinuityWireMetalFiberKind",
@@ -21,7 +23,9 @@
     },
     {
       "fieldName": "anonymousContinuityWireMilimeterDiameter",
-      "fieldType": "Double"
+      "fieldType": "Double",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "0"
     },
     {
       "fieldName": "anonymousContinuityWireFlexibility",
