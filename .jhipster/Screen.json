@@ -13,11 +13,15 @@
     },
     {
       "fieldName": "forcedDiameterAssemblyStep",
-      "fieldType": "Long"
+      "fieldType": "Long",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "0"
     },
     {
       "fieldName": "anonymousCopperFiberNumber",
-      "fieldType": "Long"
+      "fieldType": "Long",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "0"
     },
     {
       "fieldName": "anonymousCopperFiberDesignation",
@@ -30,7 +34,9 @@
     },
     {
       "fieldName": "anonymousCopperFiberMilimeterDiameter",
-      "fieldType": "Double"
+      "fieldType": "Double",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "0"
     }
   ],
   "relationships": [

@@ -34,9 +34,11 @@ public class Screen
     @Column(name = "assembly_mean_is_same_than_assemblys", nullable = false)
     private Boolean assemblyMeanIsSameThanAssemblys;
 
+    @Min(value = 0L)
     @Column(name = "forced_diameter_assembly_step")
     private Long forcedDiameterAssemblyStep;
 
+    @Min(value = 0L)
     @Column(name = "anonymous_copper_fiber_number")
     private Long anonymousCopperFiberNumber;
 
@@ -47,6 +49,7 @@ public class Screen
     @Column(name = "anonymous_copper_fiber_kind")
     private MetalFiberKind anonymousCopperFiberKind;
 
+    @DecimalMin(value = "0")
     @Column(name = "anonymous_copper_fiber_milimeter_diameter")
     private Double anonymousCopperFiberMilimeterDiameter;
 
@@ -62,7 +65,10 @@ public class Screen
             "tapeLayings",
             "screens",
             "stripLayings",
+            "plaits",
+            "carrierPlaits",
             "sheathings",
+            "continuityWireLongitLayings",
             "strand",
             "centralAssembly",
             "study",

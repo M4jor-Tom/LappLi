@@ -9,7 +9,8 @@
     {
       "fieldName": "gramPerMeterLinearMass",
       "fieldType": "Double",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
     },
     {
       "fieldName": "metalFiberKind",
@@ -20,7 +21,8 @@
     {
       "fieldName": "milimeterDiameter",
       "fieldType": "Double",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
     },
     {
       "fieldName": "flexibility",

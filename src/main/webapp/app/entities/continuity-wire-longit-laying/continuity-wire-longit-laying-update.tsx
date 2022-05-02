@@ -152,6 +152,10 @@ export const ContinuityWireLongitLayingUpdate = (props: RouteComponentProps<{ id
                 name="anonymousContinuityWireGramPerMeterLinearMass"
                 data-cy="anonymousContinuityWireGramPerMeterLinearMass"
                 type="text"
+                validate={{
+                  min: { value: 0, message: translate('entity.validation.min', { min: 0 }) },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
               />
               <ValidatedField
                 label={translate('lappLiApp.continuityWireLongitLaying.anonymousContinuityWireMetalFiberKind') + ' *'}
@@ -172,6 +176,10 @@ export const ContinuityWireLongitLayingUpdate = (props: RouteComponentProps<{ id
                 name="anonymousContinuityWireMilimeterDiameter"
                 data-cy="anonymousContinuityWireMilimeterDiameter"
                 type="text"
+                validate={{
+                  min: { value: 0, message: translate('entity.validation.min', { min: 0 }) },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
               />
               <ValidatedField
                 label={translate('lappLiApp.continuityWireLongitLaying.anonymousContinuityWireFlexibility') + ' *'}
