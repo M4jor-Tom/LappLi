@@ -12,4 +12,5 @@ public enum OperationKind {
     SHEATHING,
     CONTINUITY_WIRE_LONGIT_LAYING,
     CARRIER_PLAIT,
+    FLAT_SHEATHING,
 }
