@@ -111,6 +111,11 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
+    private Set<FlatSheathing> flatSheathings = new HashSet<>();
+
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
     private Set<ContinuityWireLongitLaying> continuityWireLongitLayings = new HashSet<>();
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
@@ -869,6 +874,37 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     public StrandSupply removeSheathings(Sheathing sheathing) {
         this.sheathings.remove(sheathing);
         sheathing.setOwnerStrandSupply(null);
+        return this;
+    }
+
+    public Set<FlatSheathing> getFlatSheathings() {
+        return this.flatSheathings;
+    }
+
+    public void setFlatSheathings(Set<FlatSheathing> flatSheathings) {
+        if (this.flatSheathings != null) {
+            this.flatSheathings.forEach(i -> i.setOwnerStrandSupply(null));
+        }
+        if (flatSheathings != null) {
+            flatSheathings.forEach(i -> i.setOwnerStrandSupply(this));
+        }
+        this.flatSheathings = flatSheathings;
+    }
+
+    public StrandSupply flatSheathings(Set<FlatSheathing> flatSheathings) {
+        this.setFlatSheathings(flatSheathings);
+        return this;
+    }
+
+    public StrandSupply addFlatSheathings(FlatSheathing flatSheathing) {
+        this.flatSheathings.add(flatSheathing);
+        flatSheathing.setOwnerStrandSupply(this);
+        return this;
+    }
+
+    public StrandSupply removeFlatSheathings(FlatSheathing flatSheathing) {
+        this.flatSheathings.remove(flatSheathing);
+        flatSheathing.setOwnerStrandSupply(null);
         return this;
     }
 

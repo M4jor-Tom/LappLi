@@ -79,8 +79,9 @@
       "Plait",
       "SteelFiber",
       "CarrierPlait",
-      "CarrierPlaitFiber"
+      "CarrierPlaitFiber",
+      "FlatSheathing"
     ],
-    "lastLiquibaseTimestamp": 1651068634000
+    "lastLiquibaseTimestamp": 1651496501000
   }
 }
