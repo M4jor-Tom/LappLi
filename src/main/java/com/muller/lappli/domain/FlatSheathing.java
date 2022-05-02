@@ -1,7 +1,13 @@
 package com.muller.lappli.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractOperation;
+import com.muller.lappli.domain.enumeration.OperationKind;
+import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
+import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -13,14 +19,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "flat_sheathing")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class FlatSheathing implements Serializable {
+public class FlatSheathing extends AbstractOperation<FlatSheathing> implements Serializable, INonAssemblyOperation<FlatSheathing> {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
 
     @NotNull
     @Column(name = "operation_layer", nullable = false)
@@ -63,17 +64,59 @@ public class FlatSheathing implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public FlatSheathing id(Long id) {
-        this.setId(id);
+    @Override
+    public IOperation<FlatSheathing> toOperation() {
         return this;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public FlatSheathing getThis() {
+        return this;
+    }
+
+    @Override
+    public Boolean isConform() {
+        if (getOwnerStrandSupply() == null) {
+            return super.isConform();
+        }
+
+        return super.isConform() && getOwnerStrandSupply().getAssemblies().equals(Set.of());
+    }
+
+    @Override
+    public OperationKind getOperationKind() {
+        return OperationKind.FLAT_SHEATHING;
+    }
+
+    @JsonIgnore
+    @Override
+    public Double getMilimeterDiameterIncidency() {
+        throw new UnsupportedOperationException("FlatSheathing.getMilimeterDiameterIncidency() shall not be used");
+    }
+
+    @Override
+    public String getMullerStandardizedFormatMilimeterDiameterIncidency() {
+        return "";
+    }
+
+    @Override
+    public Double getAfterThisMilimeterDiameter() {
+        return Double.NaN;
+    }
+
+    @Override
+    public Long getProductionStep() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getProductDesignation() {
+        if (getMaterial() == null) {
+            return null;
+        }
+
+        return getMaterial().getDesignation();
     }
 
     public Long getOperationLayer() {
@@ -151,7 +194,7 @@ public class FlatSheathing implements Serializable {
         if (!(o instanceof FlatSheathing)) {
             return false;
         }
-        return id != null && id.equals(((FlatSheathing) o).id);
+        return getId() != null && getId().equals(((FlatSheathing) o).getId());
     }
 
     @Override

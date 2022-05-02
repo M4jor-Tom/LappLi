@@ -287,7 +287,7 @@ class FlatSheathingResourceIT {
         List<FlatSheathing> flatSheathingList = flatSheathingRepository.findAll();
         assertThat(flatSheathingList).hasSize(databaseSizeBeforeUpdate);
         FlatSheathing testFlatSheathing = flatSheathingList.get(flatSheathingList.size() - 1);
-        assertThat(testFlatSheathing.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
+        assertThat(testFlatSheathing.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testFlatSheathing.getMilimeterWidth()).isEqualTo(UPDATED_MILIMETER_WIDTH);
         assertThat(testFlatSheathing.getMilimeterHeight()).isEqualTo(UPDATED_MILIMETER_HEIGHT);
     }
@@ -408,7 +408,7 @@ class FlatSheathingResourceIT {
         List<FlatSheathing> flatSheathingList = flatSheathingRepository.findAll();
         assertThat(flatSheathingList).hasSize(databaseSizeBeforeUpdate);
         FlatSheathing testFlatSheathing = flatSheathingList.get(flatSheathingList.size() - 1);
-        assertThat(testFlatSheathing.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
+        assertThat(testFlatSheathing.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testFlatSheathing.getMilimeterWidth()).isEqualTo(UPDATED_MILIMETER_WIDTH);
         assertThat(testFlatSheathing.getMilimeterHeight()).isEqualTo(UPDATED_MILIMETER_HEIGHT);
     }
