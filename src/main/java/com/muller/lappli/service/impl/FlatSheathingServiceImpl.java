@@ -3,7 +3,8 @@ package com.muller.lappli.service.impl;
 import com.muller.lappli.domain.FlatSheathing;
 import com.muller.lappli.repository.FlatSheathingRepository;
 import com.muller.lappli.service.FlatSheathingService;
-import java.util.List;
+import com.muller.lappli.service.StrandSupplyService;
+import com.muller.lappli.service.abstracts.AbstractNonCentralOperationServiceImpl;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,27 +16,29 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class FlatSheathingServiceImpl implements FlatSheathingService {
+public class FlatSheathingServiceImpl extends AbstractNonCentralOperationServiceImpl<FlatSheathing> implements FlatSheathingService {
 
     private final Logger log = LoggerFactory.getLogger(FlatSheathingServiceImpl.class);
 
-    private final FlatSheathingRepository flatSheathingRepository;
-
-    public FlatSheathingServiceImpl(FlatSheathingRepository flatSheathingRepository) {
-        this.flatSheathingRepository = flatSheathingRepository;
+    public FlatSheathingServiceImpl(FlatSheathingRepository flatSheathingRepository, StrandSupplyService strandSupplyService) {
+        super(strandSupplyService, flatSheathingRepository);
     }
 
     @Override
-    public FlatSheathing save(FlatSheathing flatSheathing) {
-        log.debug("Request to save FlatSheathing : {}", flatSheathing);
-        return flatSheathingRepository.save(flatSheathing);
+    protected Logger getLogger() {
+        return log;
+    }
+
+    @Override
+    protected String getDomainClassName() {
+        return "FlatSheathing";
     }
 
     @Override
     public Optional<FlatSheathing> partialUpdate(FlatSheathing flatSheathing) {
         log.debug("Request to partially update FlatSheathing : {}", flatSheathing);
 
-        return flatSheathingRepository
+        return getJpaRepository()
             .findById(flatSheathing.getId())
             .map(existingFlatSheathing -> {
                 if (flatSheathing.getOperationLayer() != null) {
@@ -50,26 +53,6 @@ public class FlatSheathingServiceImpl implements FlatSheathingService {
 
                 return existingFlatSheathing;
             })
-            .map(flatSheathingRepository::save);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<FlatSheathing> findAll() {
-        log.debug("Request to get all FlatSheathings");
-        return flatSheathingRepository.findAll();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<FlatSheathing> findOne(Long id) {
-        log.debug("Request to get FlatSheathing : {}", id);
-        return flatSheathingRepository.findById(id);
-    }
-
-    @Override
-    public void delete(Long id) {
-        log.debug("Request to delete FlatSheathing : {}", id);
-        flatSheathingRepository.deleteById(id);
+            .map(getJpaRepository()::save);
     }
 }

@@ -55,7 +55,7 @@ public class FlatSheathingResource {
         if (flatSheathing.getId() != null) {
             throw new BadRequestAlertException("A new flatSheathing cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        FlatSheathing result = flatSheathingService.save(flatSheathing);
+        FlatSheathing result = flatSheathingService.save(flatSheathing, true, true);
         return ResponseEntity
             .created(new URI("/api/flat-sheathings/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -89,7 +89,7 @@ public class FlatSheathingResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        FlatSheathing result = flatSheathingService.save(flatSheathing);
+        FlatSheathing result = flatSheathingService.save(flatSheathing, true, true);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, flatSheathing.getId().toString()))
