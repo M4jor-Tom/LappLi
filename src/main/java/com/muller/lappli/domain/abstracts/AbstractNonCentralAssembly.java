@@ -8,7 +8,7 @@ import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 /**
- * This class represents an assembly, which is a layer of the {@link com.muller.lappli.domain.Strand} in {@link AbstractAssembly#getOwnerStrand()}
+ * This class represents an assembly, which is a layer of the {@link com.muller.lappli.domain.Strand} in {@link AbstractAssembly#getOwnerStrandSupply()}
  */
 @MappedSuperclass
 public abstract class AbstractNonCentralAssembly<T extends AbstractNonCentralAssembly<T>>

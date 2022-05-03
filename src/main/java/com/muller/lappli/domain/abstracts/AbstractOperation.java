@@ -24,7 +24,6 @@ public abstract class AbstractOperation<T extends AbstractOperation<T>> extends 
 
     /**
      * @return the diameter just under this operation
-     * @throws ImpossibleAssemblyPresetDistributionException
      */
     public Double getBeforeThisMilimeterDiameter() {
         if (getOwnerStrandSupply() == null) {

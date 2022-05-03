@@ -166,6 +166,7 @@ public class StrandSupplyResource {
      * {@code GET  /strand-supplies/:id} : get the "id" strandSupply.
      *
      * @param id the id of the strandSupply to retrieve.
+     * @param autoGenerateAssemblies will generate assemblies for the found strand if existing
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the strandSupply, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/strand-supplies/{id}/{autoGenerateAssemblies}")

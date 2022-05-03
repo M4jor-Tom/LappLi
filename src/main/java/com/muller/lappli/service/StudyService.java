@@ -12,6 +12,8 @@ public interface StudyService {
      * Save a study.
      *
      * @param study the entity to save.
+     * @param shouldBeAuthored sepcifies if study should be authored on save or not
+     * @throws SaveException if shoudlBeAuthored is not satisfied by the study
      * @return the persisted entity.
      */
     Study save(Study study, Boolean shouldBeAuthored) throws SaveException;
