@@ -1,3 +1,5 @@
+![lappli-pipeline workflow](https://github.com/M4jor-Tom/LappLi/actions/workflows/github-actions.yml/badge.svg)
+
 # LappLi
 
 This application was generated using JHipster 7.3.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v7.3.1](https://www.jhipster.tech/documentation-archive/v7.3.1).
