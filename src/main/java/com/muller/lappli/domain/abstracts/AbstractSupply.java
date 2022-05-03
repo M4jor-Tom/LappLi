@@ -146,7 +146,7 @@ public abstract class AbstractSupply<T extends AbstractSupply<T>> extends Abstra
     }
 
     /**
-     * To be used on {@link #getOwnerStrand()}'s computation
+     * To be used on {@link #getObserverStrandSupply()}'s computation
      *
      * @return this
      * @throws AppartionDivisionNonNullRemainderException if {@link #getApparitionDivisionRemain()} is not null

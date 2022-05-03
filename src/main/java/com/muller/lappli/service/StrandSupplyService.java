@@ -44,6 +44,7 @@ public interface StrandSupplyService extends ReadTriggerableService<StrandSupply
      * Get the "id" strandSupply.
      *
      * @param id the id of the entity.
+     * @param autoGenerateAssemblies true if assemblies must be generated on finding StrandSupply
      * @return the entity.
      */
     Optional<StrandSupply> findOne(Long id, Boolean autoGenerateAssemblies);

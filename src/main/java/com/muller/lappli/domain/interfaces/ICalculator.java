@@ -65,7 +65,7 @@ public interface ICalculator {
      * mesured in milimeters which will be resulted from Strand's
      * supplied components counts and the forcing of a central utility component
      *
-     * @param strand the protagonist strand
+     * @param strandSupply the protagonist strandSupply
      * @return the central diameter
      */
     public default Double getMilimeterCentralVoidDiameter(StrandSupply strandSupply) {
@@ -93,17 +93,10 @@ public interface ICalculator {
     /**
      * Calculates the amount of supplied components at a given assembly
      *
-     * @param strand the strand in which we have to calculate
+     * @param strandSupply the strandSupply in which we have to calculate
      * the amount of supplied components in a given assembly
      *
      * @param assemblyIndex the index of the given assembly
-     *
-     * @param useAssemblyPresetDistributionPossibilities true states that we shall refer
-     * to the AssemblyPresetDistributions, when false states that each Assembly will be
-     * calculated independently
-     *
-     * @param forceCentralUtilityComponent to set to true if we force a utility supplied
-     * component to be at the center of assemblies
      *
      * @return the amount of supplied components at a given assembly index
      */
@@ -113,7 +106,7 @@ public interface ICalculator {
      * Generates a new AssemblyPresetDistributionPossibility which represents
      * the best fit for the cable
      *
-     * @param strand the Strand to describe
+     * @param strandSupply the StrandSupply to describe
      * @return an AssemblyPresetDistributionPossibility which describes its Assemblies
      * at best
      */
@@ -122,7 +115,7 @@ public interface ICalculator {
     /**
      * Calculates the assembly void at the given Assembly for the Strand
      *
-     * @param strand the Strand to analyse
+     * @param strandSupply the StrandSupply to analyse
      * @param assemblyIndex the index of the Assembly to analyse
      * @return the assembly void in the analysed Assembly
      */
@@ -132,6 +125,8 @@ public interface ICalculator {
      * Same as {@link ICalculator#getSuppliedComponentsAverageDiameterAssemblyVoid},
      * but the result is in milimeters
      *
+     * @param strandSupply the protagonist StrandSupply
+     * @param assemblyIndex the assembly index at which we check the assembly void
      * @return the assembly void in the analysed Assembly in milimeters
      */
     public default Double getMilimeterAssemblyVoid(StrandSupply strandSupply, Long assemblyIndex) {

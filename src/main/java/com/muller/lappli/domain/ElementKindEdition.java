@@ -9,7 +9,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * This domain class serves EditionKind as an implementation of IEdition<ElementKind>
+ * This domain class serves {@link ElementKind} as an implementation of {@Link AbstractEdition}
  *
  * That means that its fields will be used to edit any ElementKind instance
  * at a given Instant

@@ -36,9 +36,11 @@ public class DomainManager {
     }
 
     /**
-     * Like {@link System.out.println()}, but prints with
+     * Like println(), but prints with
      *
-     * {@link DomainManager#noticeString()}
+     * {@link #noticeString()}
+     *
+     * @param toNotice The String which will be prompted in a noticeable way
      */
     public static void noticeInPrompt(String toNotice) {
         System.out.println(noticeString(toNotice));
@@ -72,9 +74,9 @@ public class DomainManager {
     /**
      * Like {@link DomainManager#trueCountIs(Long, Boolean...)} with several match values possible
      *
-     * @param mustMatchOne
-     * @param booleans
-     * @return
+     * @param mustMatchOne the true booleans count which makes the method return true;
+     * @param booleans the booleans to get counted if true
+     * @return true if the booleans count is one of the possibilities listed in mustMatchOne
      */
     public static final Boolean trueCountIsIn(Iterable<Long> mustMatchOne, Boolean... booleans) {
         for (Long mustMatch : mustMatchOne) {

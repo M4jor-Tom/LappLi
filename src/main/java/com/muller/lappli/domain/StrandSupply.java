@@ -274,7 +274,6 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
      *
      * @param operation under which we want a diameter
      * @return the diameter in milimeter
-     * @throws ImpossibleAssemblyPresetDistributionException
      */
     public Double getMilimeterDiameterBefore(IOperation<?> operation) {
         IOperation<?> lastOperationBeforeThis = getLastOperationBefore(operation);

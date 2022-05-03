@@ -71,7 +71,7 @@ public interface IOperation<T extends IOperation<T>> extends IDomainObject<T> {
     public String getProductDesignation();
 
     /**
-     * @return the diameter of {@link #getOwnerStrand()}
+     * @return the diameter of {@link #getOwnerStrandSupply()}
      * in milimeters after {@link #getMilimeterDiameterIncidency()}
      * is added
      */
