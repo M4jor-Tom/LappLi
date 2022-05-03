@@ -38,7 +38,7 @@ public class DomainManager {
     /**
      * Like println(), but prints with
      *
-     * {@link #noticeString()}
+     * {@link #noticeString}
      *
      * @param toNotice The String which will be prompted in a noticeable way
      */

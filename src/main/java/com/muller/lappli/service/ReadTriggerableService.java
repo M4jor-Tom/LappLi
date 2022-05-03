@@ -9,14 +9,14 @@ import java.util.Set;
 
 /**
  * Must be implemented on Spring Service classes which
- * <br />
+ *
  * want to execute some procedures upon reading.
- * <br />
- * <br />
+ *
+ *
  * Default implementations are provided for specific data reading
- * <br />
+ *
  * such as List and Optional, meant to be used in findAll and findOne methods
- * <br />
+ *
  * These methods are
  * <pre>Optional onOptionalRead(Optional domainObjectOptional)</pre>
  * To be used in
