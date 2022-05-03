@@ -197,7 +197,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     }
 
     /**
-     * @param <T> The AbstractSupply<T> daughter class represented by supplyKind
+     * @param <T> The AbstractSupply daughter class represented by supplyKind
      * @param supplyKind the kind of supply expected
      * @return All supplies of supplyKind kind
      */

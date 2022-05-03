@@ -54,7 +54,7 @@ public abstract class AbstractEdition<C extends Commitable<C>> extends AbstractD
     /**
      * Sets the edition time to now
      *
-     * @return the edition entity as AbstractEdition<C>
+     * @return the edition entity as AbstractEdition
      */
     public AbstractEdition<C> nowEditionTime() {
         setEditionInstant(Instant.now());
@@ -64,7 +64,7 @@ public abstract class AbstractEdition<C extends Commitable<C>> extends AbstractD
     /**
      * Sets the edition time to Instant.EPOCH (1970-01-01 00:00:00)
      *
-     * @return the edition entity as AbstractEdition<C>
+     * @return the edition entity as AbstractEdition
      */
     public AbstractEdition<C> epochEditionTime() {
         setEditionInstant(Instant.EPOCH);

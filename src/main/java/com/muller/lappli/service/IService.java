@@ -8,7 +8,7 @@ public interface IService<T extends AbstractDomainObject<T>> extends FindOneServ
     /**
      * Save a domain object.
      *
-     * @param domain object the entity to save.
+     * @param domainObject the entity to save.
      * @return the persisted entity.
      */
     public T save(T domainObject);
@@ -16,7 +16,7 @@ public interface IService<T extends AbstractDomainObject<T>> extends FindOneServ
     /**
      * Partially updates a domain object.
      *
-     * @param domain object the entity to update partially.
+     * @param domainObject the entity to update partially.
      * @return the persisted entity.
      */
     public Optional<T> partialUpdate(T domainObject);

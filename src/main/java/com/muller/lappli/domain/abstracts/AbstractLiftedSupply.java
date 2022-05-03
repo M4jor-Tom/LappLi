@@ -68,7 +68,7 @@ public abstract class AbstractLiftedSupply<T extends AbstractLiftedSupply<T>> ex
      * This method shall only be called for setting bestLifterList by
      * a service that is capable of determining it
      *
-     * @param bestLifterList
+     * @param bestLifterList the List of Lifters to set
      */
     public void setBestLifterList(List<Lifter> bestLifterList) {
         this.bestLifterList = bestLifterList;

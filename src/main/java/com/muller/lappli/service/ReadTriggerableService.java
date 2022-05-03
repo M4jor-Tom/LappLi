@@ -9,14 +9,14 @@ import java.util.Set;
 
 /**
  * Must be implemented on Spring Service classes which
- * <p>
+ *
  * want to execute some procedures upon reading.
- * <p>
- * <p>
+ *
+ *
  * Default implementations are provided for specific data reading
- * <p>
+ *
  * such as List and Optional, meant to be used in findAll and findOne methods
- * <p>
+ *
  * These methods are
  * <pre>Optional onOptionalRead(Optional domainObjectOptional)</pre>
  * To be used in
@@ -62,7 +62,7 @@ public interface ReadTriggerableService<T extends AbstractDomainObject<T>> {
     /**
      * Changes an Set upon reading
      *
-     * @param domainObjectHashSet the Set to read
+     * @param domainObjectSet the Set to read
      * @return the read Set
      */
     public default Set<T> onSetRead(Set<T> domainObjectSet) {
