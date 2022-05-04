@@ -40,6 +40,14 @@ public class CarrierPlaitFiber extends AbstractUniformAtom<CarrierPlaitFiber> im
         super();
     }
 
+    public Double getSquareMilimeterRealSection() {
+        if (getSquareMilimeterSection() == null) {
+            return Double.NaN;
+        }
+
+        return getSquareMilimeterSection() * 1.3;
+    }
+
     @Override
     public Boolean isUtility() {
         return false;
