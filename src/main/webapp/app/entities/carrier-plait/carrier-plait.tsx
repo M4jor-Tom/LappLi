@@ -72,8 +72,13 @@ export const CarrierPlait = (props: RouteComponentProps<{ url: string }>) => {
                   </Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.carrierPlait.anonymousCarrierPlaitFiberSquareMilimeterSection">
-                    Anonymous Carrier Plait Fiber Square Milimeter Section
+                  <Translate contentKey="lappLiApp.carrierPlait.anonymousCarrierPlaitFiberDecitexTitration">
+                    Anonymous Carrier Plait Fiber Decitex Titration
+                  </Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.carrierPlait.anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity">
+                    Anonymous Carrier Plait Fiber Gram Per Square Milimeter Per Meter Density
                   </Translate>
                 </th>
                 <th>
@@ -104,7 +109,8 @@ export const CarrierPlait = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{carrierPlait.forcedEndPerBobinsCount}</td>
                   <td>{carrierPlait.anonymousCarrierPlaitFiberNumber}</td>
                   <td>{carrierPlait.anonymousCarrierPlaitFiberDesignation}</td>
-                  <td>{carrierPlait.anonymousCarrierPlaitFiberSquareMilimeterSection}</td>
+                  <td>{carrierPlait.anonymousCarrierPlaitFiberDecitexTitration}</td>
+                  <td>{carrierPlait.anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity}</td>
                   <td>{carrierPlait.anonymousCarrierPlaitFiberDecaNewtonLoad}</td>
                   <td>
                     {carrierPlait.carrierPlaitFiber ? (

@@ -24,7 +24,8 @@
       "forcedEndPerBobinsCount": "Nombre de Bouts par Fuseaux Forcé",
       "anonymousCarrierPlaitFiberNumber": "Numéro de Fibre de Tresse Porteuse Anonyme",
       "anonymousCarrierPlaitFiberDesignation": "Désignation de Fibre de Tresse Porteuse Anonyme",
-      "anonymousCarrierPlaitFiberSquareMilimeterSection": "Section de Fibre de Tresse Porteuse Anonyme (mm²)",
+      "anonymousCarrierPlaitFiberDecitexTitration": "Titrage de Fibre de Tresse Porteuse Anonyme (dtx)",
+      "anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity": "Densité de Fibre de Tresse Porteuse Anonyme (g/mm²/m)",
       "anonymousCarrierPlaitFiberDecaNewtonLoad": "Charge Maximale de Fibre de Tresse Porteuse Anonyme (DaN)",
       "carrierPlaitFiber": "Mèche de Tresse Porteuse",
       "ownerStrandSupply": "Approvisionnement de Toron Propriétaire"

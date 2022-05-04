@@ -118,20 +118,17 @@ export const CarrierPlaitUpdate = (props: RouteComponentProps<{ id: string; stra
                   validate={{ required: true }}
                 />
               ) : null}
-              {isNew ? (
-                <ValidatedField
-                  label={translate('lappLiApp.carrierPlait.operationLayer')}
-                  id="carrier-plait-operationLayer"
-                  name="operationLayer"
-                  data-cy="operationLayer"
-                  type="text"
-                  defaultValue={-2}
-                  validate={{
-                    required: { value: true, message: translate('entity.validation.required') },
-                    validate: v => isNumber(v) || translate('entity.validation.number'),
-                  }}
-                />
-              ) : null}
+              <ValidatedField
+                label={translate('lappLiApp.carrierPlait.operationLayer')}
+                id="carrier-plait-operationLayer"
+                name="operationLayer"
+                data-cy="operationLayer"
+                type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
+              />
               <ValidatedField
                 label={translate('lappLiApp.carrierPlait.minimumDecaNewtonLoad')}
                 id="carrier-plait-minimumDecaNewtonLoad"
@@ -187,10 +184,21 @@ export const CarrierPlaitUpdate = (props: RouteComponentProps<{ id: string; stra
                 type="text"
               />
               <ValidatedField
-                label={translate('lappLiApp.carrierPlait.anonymousCarrierPlaitFiberSquareMilimeterSection') + ' *'}
-                id="carrier-plait-anonymousCarrierPlaitFiberSquareMilimeterSection"
-                name="anonymousCarrierPlaitFiberSquareMilimeterSection"
-                data-cy="anonymousCarrierPlaitFiberSquareMilimeterSection"
+                label={translate('lappLiApp.carrierPlait.anonymousCarrierPlaitFiberDecitexTitration')}
+                id="carrier-plait-anonymousCarrierPlaitFiberDecitexTitration"
+                name="anonymousCarrierPlaitFiberDecitexTitration"
+                data-cy="anonymousCarrierPlaitFiberDecitexTitration"
+                type="text"
+                validate={{
+                  min: { value: 0, message: translate('entity.validation.min', { min: 0 }) },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
+              />
+              <ValidatedField
+                label={translate('lappLiApp.carrierPlait.anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity')}
+                id="carrier-plait-anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity"
+                name="anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity"
+                data-cy="anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity"
                 type="text"
                 validate={{
                   min: { value: 0, message: translate('entity.validation.min', { min: 0 }) },
@@ -224,35 +232,27 @@ export const CarrierPlaitUpdate = (props: RouteComponentProps<{ id: string; stra
                     ))
                   : null}
               </ValidatedField>
-              {props.match.params ? (
-                ''
-              ) : (
-                <ValidatedField
-                  id="carrier-plait-ownerStrandSupply"
-                  name="ownerStrandSupply"
-                  data-cy="ownerStrandSupply"
-                  label={translate('lappLiApp.carrierPlait.ownerStrandSupply')}
-                  type="select"
-                  required
-                >
-                  <option value="" key="0" />
-                  {strandSupplies
-                    ? strandSupplies.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.designation}
-                        </option>
-                      ))
-                    : null}
-                </ValidatedField>
-              )}
-              {props.match.params ? (
-                ''
-              ) : (
-                <FormText>
-                  <Translate contentKey="entity.validation.required">This field is required.</Translate>
-                </FormText>
-              )}
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
+              <ValidatedField
+                id="carrier-plait-ownerStrandSupply"
+                name="ownerStrandSupply"
+                data-cy="ownerStrandSupply"
+                label={translate('lappLiApp.carrierPlait.ownerStrandSupply')}
+                type="select"
+                required
+              >
+                <option value="" key="0" />
+                {strandSupplies
+                  ? strandSupplies.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.designation}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/carrier-plait" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
