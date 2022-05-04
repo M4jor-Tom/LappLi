@@ -1,6 +1,6 @@
 package com.muller.lappli.domain;
 
-import com.muller.lappli.domain.abstracts.AbstractDomainObject;
+import com.muller.lappli.domain.abstracts.AbstractUniformAtom;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -13,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "carrier_plait_fiber")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CarrierPlaitFiber extends /*TODO AbstractUniformAtom*/AbstractDomainObject<CarrierPlaitFiber> implements Serializable {
+public class CarrierPlaitFiber extends AbstractUniformAtom<CarrierPlaitFiber> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -41,6 +41,11 @@ public class CarrierPlaitFiber extends /*TODO AbstractUniformAtom*/AbstractDomai
     }
 
     @Override
+    public Boolean isUtility() {
+        return false;
+    }
+
+    @Override
     public Boolean isConform() {
         return getSquareMilimeterSection() != null && getDecaNewtonLoad() != null;
     }
@@ -48,6 +53,12 @@ public class CarrierPlaitFiber extends /*TODO AbstractUniformAtom*/AbstractDomai
     @Override
     public CarrierPlaitFiber getThis() {
         return this;
+    }
+
+    @Override
+    public Double getMilimeterDiameter() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
     }
 
     public Long getNumber() {
