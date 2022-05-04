@@ -130,6 +130,14 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
         return Double.NaN;
     }
 
+    public Double getRadianAssemblyAngle() {
+        if (getDegreeAssemblyAngle() == null) {
+            return Double.NaN;
+        }
+
+        return Math.toRadians(getDegreeAssemblyAngle());
+    }
+
     public Long getSuggestedEndPerBobinsCount() {
         // TODO Empty method stub
         return null;
