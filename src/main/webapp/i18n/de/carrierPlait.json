@@ -24,7 +24,8 @@
       "forcedEndPerBobinsCount": "Forced End Per Bobins Count",
       "anonymousCarrierPlaitFiberNumber": "Anonymous Carrier Plait Fiber Number",
       "anonymousCarrierPlaitFiberDesignation": "Anonymous Carrier Plait Fiber Designation",
-      "anonymousCarrierPlaitFiberSquareMilimeterSection": "Anonymous Carrier Plait Fiber Square Milimeter Section",
+      "anonymousCarrierPlaitFiberDecitexTitration": "Anonymous Carrier Plait Fiber Decitex Titration",
+      "anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity": "Anonymous Carrier Plait Fiber Gram Per Square Milimeter Per Meter Density",
       "anonymousCarrierPlaitFiberDecaNewtonLoad": "Anonymous Carrier Plait Fiber Deca Newton Load",
       "carrierPlaitFiber": "Carrier Plait Fiber",
       "ownerStrandSupply": "Owner Strand Supply"

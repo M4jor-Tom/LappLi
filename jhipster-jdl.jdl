@@ -72,7 +72,8 @@ entity CarrierPlait {
     forcedEndPerBobinsCount Long min(0) //max(4)
     anonymousCarrierPlaitFiberNumber Long min(0)
     anonymousCarrierPlaitFiberDesignation String
-    anonymousCarrierPlaitFiberSquareMilimeterSection Double min(0)
+    anonymousCarrierPlaitFiberDecitexTitration Long min(0)
+    anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity Double min(0)
     anonymousCarrierPlaitFiberDecaNewtonLoad Double min(0)
 }
 
@@ -239,7 +240,8 @@ entity CopperFiber {
 entity CarrierPlaitFiber {
     number Long unique min(0)
     designation String unique
-    squareMilimeterSection Double required min(0)
+    decitexTitration Long required min(0)
+    gramPerSquareMilimeterPerMeterDensity Double required min(0)
     decaNewtonLoad Double required min(0)
 }
 

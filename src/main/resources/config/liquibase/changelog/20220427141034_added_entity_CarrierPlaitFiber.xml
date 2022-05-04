@@ -20,7 +20,10 @@
             <column name="designation" type="varchar(255)">
                 <constraints nullable="true" unique="true" uniqueConstraintName="ux_carrier_plait_fiber__designation" />
             </column>
-            <column name="square_milimeter_section" type="double">
+            <column name="decitex_titration" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="gram_per_square_milimeter_per_meter_density" type="double">
                 <constraints nullable="false" />
             </column>
             <column name="deca_newton_load" type="double">
@@ -49,7 +52,8 @@
             <column name="id" type="numeric"/>
             <column name="number" type="numeric"/>
             <column name="designation" type="string"/>
-            <column name="square_milimeter_section" type="numeric"/>
+            <column name="decitex_titration" type="numeric"/>
+            <column name="gram_per_square_milimeter_per_meter_density" type="numeric"/>
             <column name="deca_newton_load" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

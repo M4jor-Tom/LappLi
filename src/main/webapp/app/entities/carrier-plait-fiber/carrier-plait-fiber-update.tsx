@@ -102,10 +102,22 @@ export const CarrierPlaitFiberUpdate = (props: RouteComponentProps<{ id: string 
                 validate={{}}
               />
               <ValidatedField
-                label={translate('lappLiApp.carrierPlaitFiber.squareMilimeterSection')}
-                id="carrier-plait-fiber-squareMilimeterSection"
-                name="squareMilimeterSection"
-                data-cy="squareMilimeterSection"
+                label={translate('lappLiApp.carrierPlaitFiber.decitexTitration')}
+                id="carrier-plait-fiber-decitexTitration"
+                name="decitexTitration"
+                data-cy="decitexTitration"
+                type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                  min: { value: 0, message: translate('entity.validation.min', { min: 0 }) },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
+              />
+              <ValidatedField
+                label={translate('lappLiApp.carrierPlaitFiber.gramPerSquareMilimeterPerMeterDensity')}
+                id="carrier-plait-fiber-gramPerSquareMilimeterPerMeterDensity"
+                name="gramPerSquareMilimeterPerMeterDensity"
+                data-cy="gramPerSquareMilimeterPerMeterDensity"
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },

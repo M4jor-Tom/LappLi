@@ -47,9 +47,13 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
     @Column(name = "anonymous_carrier_plait_fiber_designation")
     private String anonymousCarrierPlaitFiberDesignation;
 
+    @Min(value = 0L)
+    @Column(name = "anonymous_carrier_plait_fiber_decitex_titration")
+    private Long anonymousCarrierPlaitFiberDecitexTitration;
+
     @DecimalMin(value = "0")
-    @Column(name = "anonymous_carrier_plait_fiber_square_milimeter_section")
-    private Double anonymousCarrierPlaitFiberSquareMilimeterSection;
+    @Column(name = "anonymous_carrier_plait_fiber_gram_per_square_milimeter_per_meter_density")
+    private Double anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity;
 
     @DecimalMin(value = "0")
     @Column(name = "anonymous_carrier_plait_fiber_deca_newton_load")
@@ -151,7 +155,8 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
         return new CarrierPlaitFiber()
             .number(getAnonymousCarrierPlaitFiberNumber())
             .designation(getAnonymousCarrierPlaitFiberDesignation())
-            .squareMilimeterSection(getAnonymousCarrierPlaitFiberSquareMilimeterSection())
+            .decitexTitration(getAnonymousCarrierPlaitFiberDecitexTitration())
+            .gramPerSquareMilimeterPerMeterDensity(getAnonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity())
             .decaNewtonLoad(getAnonymousCarrierPlaitFiberDecaNewtonLoad())
             .getThisIfConform()
             .orElse(null);
@@ -235,17 +240,37 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
         this.anonymousCarrierPlaitFiberDesignation = anonymousCarrierPlaitFiberDesignation;
     }
 
-    public Double getAnonymousCarrierPlaitFiberSquareMilimeterSection() {
-        return this.anonymousCarrierPlaitFiberSquareMilimeterSection;
+    public Long getAnonymousCarrierPlaitFiberDecitexTitration() {
+        return this.anonymousCarrierPlaitFiberDecitexTitration;
     }
 
-    public CarrierPlait anonymousCarrierPlaitFiberSquareMilimeterSection(Double anonymousCarrierPlaitFiberSquareMilimeterSection) {
-        this.setAnonymousCarrierPlaitFiberSquareMilimeterSection(anonymousCarrierPlaitFiberSquareMilimeterSection);
+    public CarrierPlait anonymousCarrierPlaitFiberDecitexTitration(Long anonymousCarrierPlaitFiberDecitexTitration) {
+        this.setAnonymousCarrierPlaitFiberDecitexTitration(anonymousCarrierPlaitFiberDecitexTitration);
         return this;
     }
 
-    public void setAnonymousCarrierPlaitFiberSquareMilimeterSection(Double anonymousCarrierPlaitFiberSquareMilimeterSection) {
-        this.anonymousCarrierPlaitFiberSquareMilimeterSection = anonymousCarrierPlaitFiberSquareMilimeterSection;
+    public void setAnonymousCarrierPlaitFiberDecitexTitration(Long anonymousCarrierPlaitFiberDecitexTitration) {
+        this.anonymousCarrierPlaitFiberDecitexTitration = anonymousCarrierPlaitFiberDecitexTitration;
+    }
+
+    public Double getAnonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity() {
+        return this.anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity;
+    }
+
+    public CarrierPlait anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity(
+        Double anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity
+    ) {
+        this.setAnonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity(
+                anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity
+            );
+        return this;
+    }
+
+    public void setAnonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity(
+        Double anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity
+    ) {
+        this.anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity =
+            anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity;
     }
 
     public Double getAnonymousCarrierPlaitFiberDecaNewtonLoad() {
@@ -317,7 +342,8 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
             ", forcedEndPerBobinsCount=" + getForcedEndPerBobinsCount() +
             ", anonymousCarrierPlaitFiberNumber=" + getAnonymousCarrierPlaitFiberNumber() +
             ", anonymousCarrierPlaitFiberDesignation='" + getAnonymousCarrierPlaitFiberDesignation() + "'" +
-            ", anonymousCarrierPlaitFiberSquareMilimeterSection=" + getAnonymousCarrierPlaitFiberSquareMilimeterSection() +
+            ", anonymousCarrierPlaitFiberDecitexTitration=" + getAnonymousCarrierPlaitFiberDecitexTitration() +
+            ", anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity=" + getAnonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity() +
             ", anonymousCarrierPlaitFiberDecaNewtonLoad=" + getAnonymousCarrierPlaitFiberDecaNewtonLoad() +
             "}";
     }

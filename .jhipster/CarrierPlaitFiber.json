@@ -13,7 +13,13 @@
       "fieldValidateRules": ["unique"]
     },
     {
-      "fieldName": "squareMilimeterSection",
+      "fieldName": "decitexTitration",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "gramPerSquareMilimeterPerMeterDensity",
       "fieldType": "Double",
       "fieldValidateRules": ["required", "min"],
       "fieldValidateRulesMin": "0"

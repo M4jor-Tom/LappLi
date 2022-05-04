@@ -36,7 +36,13 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "anonymousCarrierPlaitFiberSquareMilimeterSection",
+      "fieldName": "anonymousCarrierPlaitFiberDecitexTitration",
+      "fieldType": "Long",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity",
       "fieldType": "Double",
       "fieldValidateRules": ["min"],
       "fieldValidateRulesMin": "0"

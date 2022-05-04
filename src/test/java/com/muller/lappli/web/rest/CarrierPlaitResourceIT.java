@@ -48,8 +48,11 @@ class CarrierPlaitResourceIT {
     private static final String DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION = "AAAAAAAAAA";
     private static final String UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION = "BBBBBBBBBB";
 
-    private static final Double DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION = 0D;
-    private static final Double UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION = 1D;
+    private static final Long DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DECITEX_TITRATION = 0L;
+    private static final Long UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECITEX_TITRATION = 1L;
+
+    private static final Double DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_GRAM_PER_SQUARE_MILIMETER_PER_METER_DENSITY = 0D;
+    private static final Double UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_GRAM_PER_SQUARE_MILIMETER_PER_METER_DENSITY = 1D;
 
     private static final Double DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD = 0D;
     private static final Double UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD = 1D;
@@ -85,7 +88,10 @@ class CarrierPlaitResourceIT {
             .forcedEndPerBobinsCount(DEFAULT_FORCED_END_PER_BOBINS_COUNT)
             .anonymousCarrierPlaitFiberNumber(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_NUMBER)
             .anonymousCarrierPlaitFiberDesignation(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION)
-            .anonymousCarrierPlaitFiberSquareMilimeterSection(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION)
+            .anonymousCarrierPlaitFiberDecitexTitration(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DECITEX_TITRATION)
+            .anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity(
+                DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_GRAM_PER_SQUARE_MILIMETER_PER_METER_DENSITY
+            )
             .anonymousCarrierPlaitFiberDecaNewtonLoad(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD);
         // Add required entity
         StrandSupply strandSupply;
@@ -114,7 +120,10 @@ class CarrierPlaitResourceIT {
             .forcedEndPerBobinsCount(UPDATED_FORCED_END_PER_BOBINS_COUNT)
             .anonymousCarrierPlaitFiberNumber(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_NUMBER)
             .anonymousCarrierPlaitFiberDesignation(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION)
-            .anonymousCarrierPlaitFiberSquareMilimeterSection(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION)
+            .anonymousCarrierPlaitFiberDecitexTitration(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECITEX_TITRATION)
+            .anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity(
+                UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_GRAM_PER_SQUARE_MILIMETER_PER_METER_DENSITY
+            )
             .anonymousCarrierPlaitFiberDecaNewtonLoad(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD);
         // Add required entity
         StrandSupply strandSupply;
@@ -154,8 +163,10 @@ class CarrierPlaitResourceIT {
         assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberNumber()).isEqualTo(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_NUMBER);
         assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberDesignation())
             .isEqualTo(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION);
-        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberSquareMilimeterSection())
-            .isEqualTo(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberDecitexTitration())
+            .isEqualTo(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DECITEX_TITRATION);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity())
+            .isEqualTo(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_GRAM_PER_SQUARE_MILIMETER_PER_METER_DENSITY);
         assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberDecaNewtonLoad())
             .isEqualTo(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD);
     }
@@ -252,8 +263,12 @@ class CarrierPlaitResourceIT {
                 jsonPath("$.[*].anonymousCarrierPlaitFiberDesignation").value(hasItem(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION))
             )
             .andExpect(
-                jsonPath("$.[*].anonymousCarrierPlaitFiberSquareMilimeterSection")
-                    .value(hasItem(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION.doubleValue()))
+                jsonPath("$.[*].anonymousCarrierPlaitFiberDecitexTitration")
+                    .value(hasItem(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DECITEX_TITRATION.intValue()))
+            )
+            .andExpect(
+                jsonPath("$.[*].anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity")
+                    .value(hasItem(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_GRAM_PER_SQUARE_MILIMETER_PER_METER_DENSITY.doubleValue()))
             )
             .andExpect(
                 jsonPath("$.[*].anonymousCarrierPlaitFiberDecaNewtonLoad")
@@ -280,8 +295,12 @@ class CarrierPlaitResourceIT {
             .andExpect(jsonPath("$.anonymousCarrierPlaitFiberNumber").value(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_NUMBER.intValue()))
             .andExpect(jsonPath("$.anonymousCarrierPlaitFiberDesignation").value(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION))
             .andExpect(
-                jsonPath("$.anonymousCarrierPlaitFiberSquareMilimeterSection")
-                    .value(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION.doubleValue())
+                jsonPath("$.anonymousCarrierPlaitFiberDecitexTitration")
+                    .value(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DECITEX_TITRATION.intValue())
+            )
+            .andExpect(
+                jsonPath("$.anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity")
+                    .value(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_GRAM_PER_SQUARE_MILIMETER_PER_METER_DENSITY.doubleValue())
             )
             .andExpect(
                 jsonPath("$.anonymousCarrierPlaitFiberDecaNewtonLoad")
@@ -315,7 +334,10 @@ class CarrierPlaitResourceIT {
             .forcedEndPerBobinsCount(UPDATED_FORCED_END_PER_BOBINS_COUNT)
             .anonymousCarrierPlaitFiberNumber(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_NUMBER)
             .anonymousCarrierPlaitFiberDesignation(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION)
-            .anonymousCarrierPlaitFiberSquareMilimeterSection(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION)
+            .anonymousCarrierPlaitFiberDecitexTitration(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECITEX_TITRATION)
+            .anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity(
+                UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_GRAM_PER_SQUARE_MILIMETER_PER_METER_DENSITY
+            )
             .anonymousCarrierPlaitFiberDecaNewtonLoad(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD);
 
         restCarrierPlaitMockMvc
@@ -337,8 +359,10 @@ class CarrierPlaitResourceIT {
         assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberNumber()).isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_NUMBER);
         assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberDesignation())
             .isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION);
-        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberSquareMilimeterSection())
-            .isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberDecitexTitration())
+            .isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECITEX_TITRATION);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity())
+            .isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_GRAM_PER_SQUARE_MILIMETER_PER_METER_DENSITY);
         assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberDecaNewtonLoad())
             .isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD);
     }
@@ -414,6 +438,9 @@ class CarrierPlaitResourceIT {
         partialUpdatedCarrierPlait
             .operationLayer(UPDATED_OPERATION_LAYER)
             .minimumDecaNewtonLoad(UPDATED_MINIMUM_DECA_NEWTON_LOAD)
+            .anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity(
+                UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_GRAM_PER_SQUARE_MILIMETER_PER_METER_DENSITY
+            )
             .anonymousCarrierPlaitFiberDecaNewtonLoad(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD);
 
         restCarrierPlaitMockMvc
@@ -435,8 +462,10 @@ class CarrierPlaitResourceIT {
         assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberNumber()).isEqualTo(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_NUMBER);
         assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberDesignation())
             .isEqualTo(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION);
-        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberSquareMilimeterSection())
-            .isEqualTo(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberDecitexTitration())
+            .isEqualTo(DEFAULT_ANONYMOUS_CARRIER_PLAIT_FIBER_DECITEX_TITRATION);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity())
+            .isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_GRAM_PER_SQUARE_MILIMETER_PER_METER_DENSITY);
         assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberDecaNewtonLoad())
             .isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD);
     }
@@ -460,7 +489,10 @@ class CarrierPlaitResourceIT {
             .forcedEndPerBobinsCount(UPDATED_FORCED_END_PER_BOBINS_COUNT)
             .anonymousCarrierPlaitFiberNumber(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_NUMBER)
             .anonymousCarrierPlaitFiberDesignation(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION)
-            .anonymousCarrierPlaitFiberSquareMilimeterSection(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION)
+            .anonymousCarrierPlaitFiberDecitexTitration(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECITEX_TITRATION)
+            .anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity(
+                UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_GRAM_PER_SQUARE_MILIMETER_PER_METER_DENSITY
+            )
             .anonymousCarrierPlaitFiberDecaNewtonLoad(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD);
 
         restCarrierPlaitMockMvc
@@ -482,8 +514,10 @@ class CarrierPlaitResourceIT {
         assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberNumber()).isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_NUMBER);
         assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberDesignation())
             .isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DESIGNATION);
-        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberSquareMilimeterSection())
-            .isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_SQUARE_MILIMETER_SECTION);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberDecitexTitration())
+            .isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECITEX_TITRATION);
+        assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity())
+            .isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_GRAM_PER_SQUARE_MILIMETER_PER_METER_DENSITY);
         assertThat(testCarrierPlait.getAnonymousCarrierPlaitFiberDecaNewtonLoad())
             .isEqualTo(UPDATED_ANONYMOUS_CARRIER_PLAIT_FIBER_DECA_NEWTON_LOAD);
     }

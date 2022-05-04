@@ -13,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "carrier_plait_fiber")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CarrierPlaitFiber extends /*TODO AbstractUniformAtom*/AbstractDomainObject<CarrierPlaitFiber> implements Serializable {
+public class CarrierPlaitFiber extends AbstractDomainObject<CarrierPlaitFiber> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,9 +25,14 @@ public class CarrierPlaitFiber extends /*TODO AbstractUniformAtom*/AbstractDomai
     private String designation;
 
     @NotNull
+    @Min(value = 0L)
+    @Column(name = "decitex_titration", nullable = false)
+    private Long decitexTitration;
+
+    @NotNull
     @DecimalMin(value = "0")
-    @Column(name = "square_milimeter_section", nullable = false)
-    private Double squareMilimeterSection;
+    @Column(name = "gram_per_square_milimeter_per_meter_density", nullable = false)
+    private Double gramPerSquareMilimeterPerMeterDensity;
 
     @NotNull
     @DecimalMin(value = "0")
@@ -36,14 +41,42 @@ public class CarrierPlaitFiber extends /*TODO AbstractUniformAtom*/AbstractDomai
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    public CarrierPlaitFiber() {
+        super();
+    }
+
     @Override
     public Boolean isConform() {
-        return getSquareMilimeterSection() != null && getDecaNewtonLoad() != null;
+        return getDecitexTitration() != null && getGramPerSquareMilimeterPerMeterDensity() != null && getDecaNewtonLoad() != null;
     }
 
     @Override
     public CarrierPlaitFiber getThis() {
         return this;
+    }
+
+    public Double getMilimeterTheoricalDiameter() {
+        if (getDecitexTitration() == null || getGramPerSquareMilimeterPerMeterDensity() == null) {
+            return Double.NaN;
+        }
+
+        return Math.sqrt(getDecitexTitration() * 4.0 / (10000000 * getGramPerSquareMilimeterPerMeterDensity() * Math.PI));
+    }
+
+    public Double getSquareMilimeterTheoricalSurface() {
+        if (getMilimeterTheoricalDiameter() == null) {
+            return Double.NaN;
+        }
+
+        return Math.pow(getMilimeterTheoricalDiameter(), 2.0) * Math.PI / 4.0;
+    }
+
+    public Double getSquareMilimeterRealSurface() {
+        if (getSquareMilimeterTheoricalSurface() == null) {
+            return Double.NaN;
+        }
+
+        return getSquareMilimeterTheoricalSurface() / 0.7;
     }
 
     public Long getNumber() {
@@ -72,17 +105,30 @@ public class CarrierPlaitFiber extends /*TODO AbstractUniformAtom*/AbstractDomai
         this.designation = designation;
     }
 
-    public Double getSquareMilimeterSection() {
-        return this.squareMilimeterSection;
+    public Long getDecitexTitration() {
+        return this.decitexTitration;
     }
 
-    public CarrierPlaitFiber squareMilimeterSection(Double squareMilimeterSection) {
-        this.setSquareMilimeterSection(squareMilimeterSection);
+    public CarrierPlaitFiber decitexTitration(Long decitexTitration) {
+        this.setDecitexTitration(decitexTitration);
         return this;
     }
 
-    public void setSquareMilimeterSection(Double squareMilimeterSection) {
-        this.squareMilimeterSection = squareMilimeterSection;
+    public void setDecitexTitration(Long decitexTitration) {
+        this.decitexTitration = decitexTitration;
+    }
+
+    public Double getGramPerSquareMilimeterPerMeterDensity() {
+        return this.gramPerSquareMilimeterPerMeterDensity;
+    }
+
+    public CarrierPlaitFiber gramPerSquareMilimeterPerMeterDensity(Double gramPerSquareMilimeterPerMeterDensity) {
+        this.setGramPerSquareMilimeterPerMeterDensity(gramPerSquareMilimeterPerMeterDensity);
+        return this;
+    }
+
+    public void setGramPerSquareMilimeterPerMeterDensity(Double gramPerSquareMilimeterPerMeterDensity) {
+        this.gramPerSquareMilimeterPerMeterDensity = gramPerSquareMilimeterPerMeterDensity;
     }
 
     public Double getDecaNewtonLoad() {
@@ -124,7 +170,8 @@ public class CarrierPlaitFiber extends /*TODO AbstractUniformAtom*/AbstractDomai
             "id=" + getId() +
             ", number=" + getNumber() +
             ", designation='" + getDesignation() + "'" +
-            ", squareMilimeterSection=" + getSquareMilimeterSection() +
+            ", decitexTitration=" + getDecitexTitration() +
+            ", gramPerSquareMilimeterPerMeterDensity=" + getGramPerSquareMilimeterPerMeterDensity() +
             ", decaNewtonLoad=" + getDecaNewtonLoad() +
             "}";
     }

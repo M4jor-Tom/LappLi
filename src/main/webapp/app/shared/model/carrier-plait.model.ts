@@ -9,9 +9,10 @@ export interface ICarrierPlait extends IAbstractOperation {
   finalEndPerBobinsCount?: number | null;
   anonymousCarrierPlaitFiberNumber?: number | null;
   anonymousCarrierPlaitFiberDesignation?: string | null;
-  anonymousCarrierPlaitFiberSquareMilimeterSection?: number | null;
+  anonymousCarrierPlaitFiberDecitexTitration?: number | null;
+  anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity?: number | null;
   anonymousCarrierPlaitFiberDecaNewtonLoad?: number | null;
-  carrierPlaitFiber?: ICarrierPlaitFiber;
+  carrierPlaitFiber?: ICarrierPlaitFiber | null;
 }
 
 export const defaultValue: Readonly<ICarrierPlait> = {};
