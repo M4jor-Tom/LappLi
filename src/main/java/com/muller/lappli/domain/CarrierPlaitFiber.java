@@ -1,6 +1,6 @@
 package com.muller.lappli.domain;
 
-import com.muller.lappli.domain.abstracts.AbstractUniformAtom;
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -13,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "carrier_plait_fiber")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CarrierPlaitFiber extends AbstractUniformAtom<CarrierPlaitFiber> implements Serializable {
+public class CarrierPlaitFiber extends AbstractDomainObject<CarrierPlaitFiber> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,11 +46,6 @@ public class CarrierPlaitFiber extends AbstractUniformAtom<CarrierPlaitFiber> im
     }
 
     @Override
-    public Boolean isUtility() {
-        return false;
-    }
-
-    @Override
     public Boolean isConform() {
         return getSquareMilimeterSection() != null && getDecaNewtonLoad() != null;
     }
@@ -60,21 +55,32 @@ public class CarrierPlaitFiber extends AbstractUniformAtom<CarrierPlaitFiber> im
         return this;
     }
 
-    @Override
-    public Double getMilimeterDiameter() {
-        if (getSquareMilimeterSection() == null) {
+    public Double getMilimeterTheoricalDiameter() {
+        if (getDecitexTitration() == null || getGramPerSquareMilimeterPerMeterDensity() == null) {
             return Double.NaN;
         }
 
-        return Math.sqrt(4.0 * getSquareMilimeterSection() / Math.PI);
+        return Math.sqrt(getDecitexTitration() * 4.0 / (10000000 * getGramPerSquareMilimeterPerMeterDensity() * Math.PI));
     }
 
-    public Double getSquareMilimeterRealSection() {
-        if (getSquareMilimeterSection() == null) {
+    public Double getSquareMilimeterTheoricalSurface() {
+        if (getMilimeterTheoricalDiameter() == null) {
             return Double.NaN;
         }
 
-        return getSquareMilimeterSection() * 1.3;
+        return Math.pow(getMilimeterTheoricalDiameter(), 2.0) * Math.PI / 4.0;
+    }
+
+    public Double getSquareMilimeterRealSurface() {
+        if (getSquareMilimeterTheoricalSurface() == null) {
+            return Double.NaN;
+        }
+
+        return getSquareMilimeterTheoricalSurface() / 0.7;
+    }
+
+    public Double getSquareMilimeterSection() {
+        return Double.NaN;
     }
 
     public Long getNumber() {
