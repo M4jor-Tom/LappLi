@@ -7,14 +7,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IMaterial } from 'app/shared/model/material.model';
 import { getEntities as getMaterials } from 'app/entities/material/material.reducer';
 import { IStrandSupply } from 'app/shared/model/strand-supply.model';
-import { getEntities as getStrandSupplies } from 'app/entities/strand-supply/strand-supply.reducer';
+import { getEntities as getStrandSupplies, getEntity as getStrandSupplyEntity } from 'app/entities/strand-supply/strand-supply.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './flat-sheathing.reducer';
 import { IFlatSheathing } from 'app/shared/model/flat-sheathing.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { getOutFromStudySupplyStrandFlatSheathing } from '../index-management/index-management-lib';
 
-export const FlatSheathingUpdate = (props: RouteComponentProps<{ id: string }>) => {
+export const FlatSheathingUpdate = (props: RouteComponentProps<{ id: string; strand_supply_id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
@@ -25,8 +26,16 @@ export const FlatSheathingUpdate = (props: RouteComponentProps<{ id: string }>) 
   const loading = useAppSelector(state => state.flatSheathing.loading);
   const updating = useAppSelector(state => state.flatSheathing.updating);
   const updateSuccess = useAppSelector(state => state.flatSheathing.updateSuccess);
+
+  //  Design for operation -- START
+
+  const redirectionUrl = getOutFromStudySupplyStrandFlatSheathing(props.match.url, isNew);
+  const futureOwnerStrandSupplyEntity = useAppSelector(state => state.strandSupply.entity);
+
+  //  Design for operation -- END
+
   const handleClose = () => {
-    props.history.push('/flat-sheathing');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {
@@ -47,11 +56,25 @@ export const FlatSheathingUpdate = (props: RouteComponentProps<{ id: string }>) 
   }, [updateSuccess]);
 
   const saveEntity = values => {
+    //  Design for operation -- START
+
+    let futureOwnerStrandSupply: IStrandSupply = {};
+
+    if (values.ownerStrandSupply) {
+      futureOwnerStrandSupply = strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString());
+    } else {
+      dispatch(getStrandSupplyEntity(props.match.params.strand_supply_id));
+      futureOwnerStrandSupply = futureOwnerStrandSupplyEntity;
+    }
+
+    //  Design for operation -- END
+
     const entity = {
       ...flatSheathingEntity,
       ...values,
+      __typeName: 'FlatSheathing',
       material: materials.find(it => it.id.toString() === values.material.toString()),
-      ownerStrandSupply: strandSupplies.find(it => it.id.toString() === values.ownerStrandSupply.toString()),
+      ownerStrandSupply: futureOwnerStrandSupply,
     };
 
     if (isNew) {
@@ -95,17 +118,20 @@ export const FlatSheathingUpdate = (props: RouteComponentProps<{ id: string }>) 
                   validate={{ required: true }}
                 />
               ) : null}
-              <ValidatedField
-                label={translate('lappLiApp.flatSheathing.operationLayer')}
-                id="flat-sheathing-operationLayer"
-                name="operationLayer"
-                data-cy="operationLayer"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
-              />
+              {isNew ? (
+                <ValidatedField
+                  label={translate('lappLiApp.flatSheathing.operationLayer')}
+                  id="flat-sheathing-operationLayer"
+                  name="operationLayer"
+                  data-cy="operationLayer"
+                  type="text"
+                  defaultValue={-2}
+                  validate={{
+                    required: { value: true, message: translate('entity.validation.required') },
+                    validate: v => isNumber(v) || translate('entity.validation.number'),
+                  }}
+                />
+              ) : null}
               <ValidatedField
                 label={translate('lappLiApp.flatSheathing.milimeterWidth')}
                 id="flat-sheathing-milimeterWidth"
@@ -148,26 +174,34 @@ export const FlatSheathingUpdate = (props: RouteComponentProps<{ id: string }>) 
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              <ValidatedField
-                id="flat-sheathing-ownerStrandSupply"
-                name="ownerStrandSupply"
-                data-cy="ownerStrandSupply"
-                label={translate('lappLiApp.flatSheathing.ownerStrandSupply')}
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {strandSupplies
-                  ? strandSupplies.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.designation}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <FormText>
-                <Translate contentKey="entity.validation.required">This field is required.</Translate>
-              </FormText>
+              {props.match.params ? (
+                ''
+              ) : (
+                <ValidatedField
+                  id="flat-sheathing-ownerStrandSupply"
+                  name="ownerStrandSupply"
+                  data-cy="ownerStrandSupply"
+                  label={translate('lappLiApp.flatSheathing.ownerStrandSupply')}
+                  type="select"
+                  required
+                >
+                  <option value="" key="0" />
+                  {strandSupplies
+                    ? strandSupplies.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.designation}
+                        </option>
+                      ))
+                    : null}
+                </ValidatedField>
+              )}
+              {props.match.params ? (
+                ''
+              ) : (
+                <FormText>
+                  <Translate contentKey="entity.validation.required">This field is required.</Translate>
+                </FormText>
+              )}
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/flat-sheathing" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
