@@ -35,6 +35,9 @@ class CarrierPlaitFiberResourceIT {
     private static final String DEFAULT_DESIGNATION = "AAAAAAAAAA";
     private static final String UPDATED_DESIGNATION = "BBBBBBBBBB";
 
+    private static final Double DEFAULT_GRAM_PER_METER_LINEAR_MASS = 0D;
+    private static final Double UPDATED_GRAM_PER_METER_LINEAR_MASS = 1D;
+
     private static final Double DEFAULT_SQUARE_MILIMETER_SECTION = 0D;
     private static final Double UPDATED_SQUARE_MILIMETER_SECTION = 1D;
 
@@ -68,6 +71,7 @@ class CarrierPlaitFiberResourceIT {
         CarrierPlaitFiber carrierPlaitFiber = new CarrierPlaitFiber()
             .number(DEFAULT_NUMBER)
             .designation(DEFAULT_DESIGNATION)
+            .gramPerMeterLinearMass(DEFAULT_GRAM_PER_METER_LINEAR_MASS)
             .squareMilimeterSection(DEFAULT_SQUARE_MILIMETER_SECTION)
             .decaNewtonLoad(DEFAULT_DECA_NEWTON_LOAD);
         return carrierPlaitFiber;
@@ -83,6 +87,7 @@ class CarrierPlaitFiberResourceIT {
         CarrierPlaitFiber carrierPlaitFiber = new CarrierPlaitFiber()
             .number(UPDATED_NUMBER)
             .designation(UPDATED_DESIGNATION)
+            .gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS)
             .squareMilimeterSection(UPDATED_SQUARE_MILIMETER_SECTION)
             .decaNewtonLoad(UPDATED_DECA_NEWTON_LOAD);
         return carrierPlaitFiber;
@@ -110,6 +115,7 @@ class CarrierPlaitFiberResourceIT {
         CarrierPlaitFiber testCarrierPlaitFiber = carrierPlaitFiberList.get(carrierPlaitFiberList.size() - 1);
         assertThat(testCarrierPlaitFiber.getNumber()).isEqualTo(DEFAULT_NUMBER);
         assertThat(testCarrierPlaitFiber.getDesignation()).isEqualTo(DEFAULT_DESIGNATION);
+        assertThat(testCarrierPlaitFiber.getGramPerMeterLinearMass()).isEqualTo(DEFAULT_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testCarrierPlaitFiber.getSquareMilimeterSection()).isEqualTo(DEFAULT_SQUARE_MILIMETER_SECTION);
         assertThat(testCarrierPlaitFiber.getDecaNewtonLoad()).isEqualTo(DEFAULT_DECA_NEWTON_LOAD);
     }
@@ -132,6 +138,25 @@ class CarrierPlaitFiberResourceIT {
         // Validate the CarrierPlaitFiber in the database
         List<CarrierPlaitFiber> carrierPlaitFiberList = carrierPlaitFiberRepository.findAll();
         assertThat(carrierPlaitFiberList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    void checkGramPerMeterLinearMassIsRequired() throws Exception {
+        int databaseSizeBeforeTest = carrierPlaitFiberRepository.findAll().size();
+        // set the field null
+        carrierPlaitFiber.setGramPerMeterLinearMass(null);
+
+        // Create the CarrierPlaitFiber, which fails.
+
+        restCarrierPlaitFiberMockMvc
+            .perform(
+                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(carrierPlaitFiber))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<CarrierPlaitFiber> carrierPlaitFiberList = carrierPlaitFiberRepository.findAll();
+        assertThat(carrierPlaitFiberList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -186,6 +211,7 @@ class CarrierPlaitFiberResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(carrierPlaitFiber.getId().intValue())))
             .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER.intValue())))
             .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)))
+            .andExpect(jsonPath("$.[*].gramPerMeterLinearMass").value(hasItem(DEFAULT_GRAM_PER_METER_LINEAR_MASS.doubleValue())))
             .andExpect(jsonPath("$.[*].squareMilimeterSection").value(hasItem(DEFAULT_SQUARE_MILIMETER_SECTION.doubleValue())))
             .andExpect(jsonPath("$.[*].decaNewtonLoad").value(hasItem(DEFAULT_DECA_NEWTON_LOAD.doubleValue())));
     }
@@ -204,6 +230,7 @@ class CarrierPlaitFiberResourceIT {
             .andExpect(jsonPath("$.id").value(carrierPlaitFiber.getId().intValue()))
             .andExpect(jsonPath("$.number").value(DEFAULT_NUMBER.intValue()))
             .andExpect(jsonPath("$.designation").value(DEFAULT_DESIGNATION))
+            .andExpect(jsonPath("$.gramPerMeterLinearMass").value(DEFAULT_GRAM_PER_METER_LINEAR_MASS.doubleValue()))
             .andExpect(jsonPath("$.squareMilimeterSection").value(DEFAULT_SQUARE_MILIMETER_SECTION.doubleValue()))
             .andExpect(jsonPath("$.decaNewtonLoad").value(DEFAULT_DECA_NEWTON_LOAD.doubleValue()));
     }
@@ -230,6 +257,7 @@ class CarrierPlaitFiberResourceIT {
         updatedCarrierPlaitFiber
             .number(UPDATED_NUMBER)
             .designation(UPDATED_DESIGNATION)
+            .gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS)
             .squareMilimeterSection(UPDATED_SQUARE_MILIMETER_SECTION)
             .decaNewtonLoad(UPDATED_DECA_NEWTON_LOAD);
 
@@ -247,6 +275,7 @@ class CarrierPlaitFiberResourceIT {
         CarrierPlaitFiber testCarrierPlaitFiber = carrierPlaitFiberList.get(carrierPlaitFiberList.size() - 1);
         assertThat(testCarrierPlaitFiber.getNumber()).isEqualTo(UPDATED_NUMBER);
         assertThat(testCarrierPlaitFiber.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
+        assertThat(testCarrierPlaitFiber.getGramPerMeterLinearMass()).isEqualTo(UPDATED_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testCarrierPlaitFiber.getSquareMilimeterSection()).isEqualTo(UPDATED_SQUARE_MILIMETER_SECTION);
         assertThat(testCarrierPlaitFiber.getDecaNewtonLoad()).isEqualTo(UPDATED_DECA_NEWTON_LOAD);
     }
@@ -321,7 +350,7 @@ class CarrierPlaitFiberResourceIT {
         CarrierPlaitFiber partialUpdatedCarrierPlaitFiber = new CarrierPlaitFiber();
         partialUpdatedCarrierPlaitFiber.setId(carrierPlaitFiber.getId());
 
-        partialUpdatedCarrierPlaitFiber.designation(UPDATED_DESIGNATION).decaNewtonLoad(UPDATED_DECA_NEWTON_LOAD);
+        partialUpdatedCarrierPlaitFiber.designation(UPDATED_DESIGNATION).squareMilimeterSection(UPDATED_SQUARE_MILIMETER_SECTION);
 
         restCarrierPlaitFiberMockMvc
             .perform(
@@ -337,8 +366,9 @@ class CarrierPlaitFiberResourceIT {
         CarrierPlaitFiber testCarrierPlaitFiber = carrierPlaitFiberList.get(carrierPlaitFiberList.size() - 1);
         assertThat(testCarrierPlaitFiber.getNumber()).isEqualTo(DEFAULT_NUMBER);
         assertThat(testCarrierPlaitFiber.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
-        assertThat(testCarrierPlaitFiber.getSquareMilimeterSection()).isEqualTo(DEFAULT_SQUARE_MILIMETER_SECTION);
-        assertThat(testCarrierPlaitFiber.getDecaNewtonLoad()).isEqualTo(UPDATED_DECA_NEWTON_LOAD);
+        assertThat(testCarrierPlaitFiber.getGramPerMeterLinearMass()).isEqualTo(DEFAULT_GRAM_PER_METER_LINEAR_MASS);
+        assertThat(testCarrierPlaitFiber.getSquareMilimeterSection()).isEqualTo(UPDATED_SQUARE_MILIMETER_SECTION);
+        assertThat(testCarrierPlaitFiber.getDecaNewtonLoad()).isEqualTo(DEFAULT_DECA_NEWTON_LOAD);
     }
 
     @Test
@@ -356,6 +386,7 @@ class CarrierPlaitFiberResourceIT {
         partialUpdatedCarrierPlaitFiber
             .number(UPDATED_NUMBER)
             .designation(UPDATED_DESIGNATION)
+            .gramPerMeterLinearMass(UPDATED_GRAM_PER_METER_LINEAR_MASS)
             .squareMilimeterSection(UPDATED_SQUARE_MILIMETER_SECTION)
             .decaNewtonLoad(UPDATED_DECA_NEWTON_LOAD);
 
@@ -373,6 +404,7 @@ class CarrierPlaitFiberResourceIT {
         CarrierPlaitFiber testCarrierPlaitFiber = carrierPlaitFiberList.get(carrierPlaitFiberList.size() - 1);
         assertThat(testCarrierPlaitFiber.getNumber()).isEqualTo(UPDATED_NUMBER);
         assertThat(testCarrierPlaitFiber.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
+        assertThat(testCarrierPlaitFiber.getGramPerMeterLinearMass()).isEqualTo(UPDATED_GRAM_PER_METER_LINEAR_MASS);
         assertThat(testCarrierPlaitFiber.getSquareMilimeterSection()).isEqualTo(UPDATED_SQUARE_MILIMETER_SECTION);
         assertThat(testCarrierPlaitFiber.getDecaNewtonLoad()).isEqualTo(UPDATED_DECA_NEWTON_LOAD);
     }

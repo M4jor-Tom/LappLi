@@ -56,6 +56,9 @@ export const CarrierPlaitFiber = (props: RouteComponentProps<{ url: string }>) =
                   <Translate contentKey="lappLiApp.carrierPlaitFiber.designation">Designation</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.carrierPlaitFiber.gramPerMeterLinearMass">Gram Per Meter Linear Mass</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.carrierPlaitFiber.squareMilimeterSection">Square Milimeter Section</Translate>
                 </th>
                 <th>
@@ -74,6 +77,7 @@ export const CarrierPlaitFiber = (props: RouteComponentProps<{ url: string }>) =
                   </td>
                   <td>{carrierPlaitFiber.number}</td>
                   <td>{carrierPlaitFiber.designation}</td>
+                  <td>{carrierPlaitFiber.gramPerMeterLinearMass}</td>
                   <td>{carrierPlaitFiber.squareMilimeterSection}</td>
                   <td>{carrierPlaitFiber.decaNewtonLoad}</td>
                   <td className="text-right">

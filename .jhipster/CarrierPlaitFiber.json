@@ -13,6 +13,12 @@
       "fieldValidateRules": ["unique"]
     },
     {
+      "fieldName": "gramPerMeterLinearMass",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
       "fieldName": "squareMilimeterSection",
       "fieldType": "Double",
       "fieldValidateRules": ["required", "min"],

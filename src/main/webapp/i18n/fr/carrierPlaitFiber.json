@@ -20,6 +20,7 @@
       "id": "ID",
       "number": "Number",
       "designation": "Designation",
+      "gramPerMeterLinearMass": "Gram Per Meter Linear Mass",
       "squareMilimeterSection": "Square Milimeter Section",
       "decaNewtonLoad": "Deca Newton Load"
     }

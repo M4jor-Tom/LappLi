@@ -128,6 +128,7 @@ public class CarrierPlaitFiber extends /*TODO AbstractUniformAtom*/AbstractDomai
             "id=" + getId() +
             ", number=" + getNumber() +
             ", designation='" + getDesignation() + "'" +
+            ", gramPerMeterLinearMass=" + getGramPerMeterLinearMass() +
             ", squareMilimeterSection=" + getSquareMilimeterSection() +
             ", decaNewtonLoad=" + getDecaNewtonLoad() +
             "}";
