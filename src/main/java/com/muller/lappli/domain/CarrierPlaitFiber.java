@@ -47,7 +47,7 @@ public class CarrierPlaitFiber extends AbstractDomainObject<CarrierPlaitFiber> i
 
     @Override
     public Boolean isConform() {
-        return getSquareMilimeterSection() != null && getDecaNewtonLoad() != null;
+        return getDecitexTitration() != null && getGramPerSquareMilimeterPerMeterDensity() != null && getDecaNewtonLoad() != null;
     }
 
     @Override
@@ -77,10 +77,6 @@ public class CarrierPlaitFiber extends AbstractDomainObject<CarrierPlaitFiber> i
         }
 
         return getSquareMilimeterTheoricalSurface() / 0.7;
-    }
-
-    public Double getSquareMilimeterSection() {
-        return Double.NaN;
     }
 
     public Long getNumber() {
