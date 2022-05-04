@@ -155,7 +155,8 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
         return new CarrierPlaitFiber()
             .number(getAnonymousCarrierPlaitFiberNumber())
             .designation(getAnonymousCarrierPlaitFiberDesignation())
-            //.squareMilimeterSection(getAnonymousCarrierPlaitFiberSquareMilimeterSection())
+            .decitexTitration(getAnonymousCarrierPlaitFiberDecitexTitration())
+            .gramPerSquareMilimeterPerMeterDensity(getAnonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity())
             .decaNewtonLoad(getAnonymousCarrierPlaitFiberDecaNewtonLoad())
             .getThisIfConform()
             .orElse(null);
