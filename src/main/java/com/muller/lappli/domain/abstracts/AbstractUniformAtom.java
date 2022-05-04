@@ -14,11 +14,6 @@ public abstract class AbstractUniformAtom<T extends AbstractUniformAtom<T>> exte
     @Column(name = "gram_per_meter_linear_mass", nullable = false)
     private Double gramPerMeterLinearMass;
 
-    @NotNull
-    @DecimalMin(value = "0")
-    @Column(name = "milimeter_diameter", nullable = false)
-    private Double milimeterDiameter;
-
     public AbstractUniformAtom() {
         super();
     }
@@ -26,6 +21,8 @@ public abstract class AbstractUniformAtom<T extends AbstractUniformAtom<T>> exte
     public Boolean isConform() {
         return getGramPerMeterLinearMass() != null && getMilimeterDiameter() != null;
     }
+
+    public abstract Double getMilimeterDiameter();
 
     public Double getGramPerMeterLinearMass() {
         return this.gramPerMeterLinearMass;
@@ -38,18 +35,5 @@ public abstract class AbstractUniformAtom<T extends AbstractUniformAtom<T>> exte
 
     public void setGramPerMeterLinearMass(Double gramPerMeterLinearMass) {
         this.gramPerMeterLinearMass = gramPerMeterLinearMass;
-    }
-
-    public Double getMilimeterDiameter() {
-        return this.milimeterDiameter;
-    }
-
-    public T milimeterDiameter(Double milimeterDiameter) {
-        this.setMilimeterDiameter(milimeterDiameter);
-        return getThis();
-    }
-
-    public void setMilimeterDiameter(Double milimeterDiameter) {
-        this.milimeterDiameter = milimeterDiameter;
     }
 }

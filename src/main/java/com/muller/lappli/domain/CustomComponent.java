@@ -1,7 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.muller.lappli.domain.abstracts.AbstractUniformAtom;
+import com.muller.lappli.domain.abstracts.AbstractFixedDiameterUniformAtom;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.interfaces.PlasticAspectCylindricComponent;
 import java.io.Serializable;
@@ -16,7 +16,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "custom_component")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CustomComponent extends AbstractUniformAtom<CustomComponent> implements Serializable, PlasticAspectCylindricComponent {
+public class CustomComponent
+    extends AbstractFixedDiameterUniformAtom<CustomComponent>
+    implements Serializable, PlasticAspectCylindricComponent {
 
     private static final long serialVersionUID = 1L;
 
