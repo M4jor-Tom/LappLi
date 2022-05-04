@@ -56,9 +56,14 @@ public class CarrierPlaitServiceImpl extends AbstractNonCentralOperationServiceI
                 if (carrierPlait.getAnonymousCarrierPlaitFiberDesignation() != null) {
                     existingCarrierPlait.setAnonymousCarrierPlaitFiberDesignation(carrierPlait.getAnonymousCarrierPlaitFiberDesignation());
                 }
-                if (carrierPlait.getAnonymousCarrierPlaitFiberSquareMilimeterSection() != null) {
-                    existingCarrierPlait.setAnonymousCarrierPlaitFiberSquareMilimeterSection(
-                        carrierPlait.getAnonymousCarrierPlaitFiberSquareMilimeterSection()
+                if (carrierPlait.getAnonymousCarrierPlaitFiberDecitexTitration() != null) {
+                    existingCarrierPlait.setAnonymousCarrierPlaitFiberDecitexTitration(
+                        carrierPlait.getAnonymousCarrierPlaitFiberDecitexTitration()
+                    );
+                }
+                if (carrierPlait.getAnonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity() != null) {
+                    existingCarrierPlait.setAnonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity(
+                        carrierPlait.getAnonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity()
                     );
                 }
                 if (carrierPlait.getAnonymousCarrierPlaitFiberDecaNewtonLoad() != null) {
