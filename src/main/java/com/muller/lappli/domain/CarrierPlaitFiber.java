@@ -36,6 +36,10 @@ public class CarrierPlaitFiber extends /*TODO AbstractUniformAtom*/AbstractDomai
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    public CarrierPlaitFiber() {
+        super();
+    }
+
     @Override
     public Boolean isConform() {
         return getSquareMilimeterSection() != null && getDecaNewtonLoad() != null;
