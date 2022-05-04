@@ -138,8 +138,23 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
     }
 
     public Long getSuggestedEndPerBobinsCount() {
-        // TODO Empty method stub
+        // TODO Implement this
         return null;
+    }
+
+    public Long getSuggestedBobinsCount() {
+        // TODO Implement this
+        return null;
+    }
+
+    public Double getHourExecutionTime() {
+        // TODO Implement this
+        return Double.NaN;
+    }
+
+    public Double getRealDiameterAssemblyStep() {
+        // TODO Implement this
+        return Double.NaN;
     }
 
     public Long getFinalEndPerBobinsCount() {
