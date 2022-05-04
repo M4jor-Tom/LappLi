@@ -20,8 +20,8 @@
       "id": "ID",
       "number": "Number",
       "designation": "Designation",
-      "gramPerMeterLinearMass": "Gram Per Meter Linear Mass",
-      "squareMilimeterSection": "Square Milimeter Section",
+      "decitexTitration": "Decitex Titration",
+      "gramPerSquareMilimeterPerMeterDensity": "Gram Per Square Milimeter Per Meter Density",
       "decaNewtonLoad": "Deca Newton Load"
     }
   }

@@ -239,8 +239,8 @@ entity CopperFiber {
 entity CarrierPlaitFiber {
     number Long unique min(0)
     designation String unique
-    gramPerMeterLinearMass Double required min(0)
-    squareMilimeterSection Double required min(0)
+    decitexTitration Long required min(0)
+    gramPerSquareMilimeterPerMeterDensity Double required min(0)
     decaNewtonLoad Double required min(0)
 }
 

@@ -42,17 +42,19 @@ export const CarrierPlaitFiberDetail = (props: RouteComponentProps<{ id: string 
           </dt>
           <dd>{carrierPlaitFiberEntity.designation}</dd>
           <dt>
-            <span id="gramPerMeterLinearMass">
-              <Translate contentKey="lappLiApp.carrierPlaitFiber.gramPerMeterLinearMass">Gram Per Meter Linear Mass</Translate>
+            <span id="decitexTitration">
+              <Translate contentKey="lappLiApp.carrierPlaitFiber.decitexTitration">Decitex Titration</Translate>
             </span>
           </dt>
-          <dd>{carrierPlaitFiberEntity.gramPerMeterLinearMass}</dd>
+          <dd>{carrierPlaitFiberEntity.decitexTitration}</dd>
           <dt>
-            <span id="squareMilimeterSection">
-              <Translate contentKey="lappLiApp.carrierPlaitFiber.squareMilimeterSection">Square Milimeter Section</Translate>
+            <span id="gramPerSquareMilimeterPerMeterDensity">
+              <Translate contentKey="lappLiApp.carrierPlaitFiber.gramPerSquareMilimeterPerMeterDensity">
+                Gram Per Square Milimeter Per Meter Density
+              </Translate>
             </span>
           </dt>
-          <dd>{carrierPlaitFiberEntity.squareMilimeterSection}</dd>
+          <dd>{carrierPlaitFiberEntity.gramPerSquareMilimeterPerMeterDensity}</dd>
           <dt>
             <span id="decaNewtonLoad">
               <Translate contentKey="lappLiApp.carrierPlaitFiber.decaNewtonLoad">Deca Newton Load</Translate>

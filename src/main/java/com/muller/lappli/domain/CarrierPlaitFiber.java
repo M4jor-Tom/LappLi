@@ -25,9 +25,14 @@ public class CarrierPlaitFiber extends AbstractUniformAtom<CarrierPlaitFiber> im
     private String designation;
 
     @NotNull
+    @Min(value = 0L)
+    @Column(name = "decitex_titration", nullable = false)
+    private Long decitexTitration;
+
+    @NotNull
     @DecimalMin(value = "0")
-    @Column(name = "square_milimeter_section", nullable = false)
-    private Double squareMilimeterSection;
+    @Column(name = "gram_per_square_milimeter_per_meter_density", nullable = false)
+    private Double gramPerSquareMilimeterPerMeterDensity;
 
     @NotNull
     @DecimalMin(value = "0")
@@ -98,17 +103,30 @@ public class CarrierPlaitFiber extends AbstractUniformAtom<CarrierPlaitFiber> im
         this.designation = designation;
     }
 
-    public Double getSquareMilimeterSection() {
-        return this.squareMilimeterSection;
+    public Long getDecitexTitration() {
+        return this.decitexTitration;
     }
 
-    public CarrierPlaitFiber squareMilimeterSection(Double squareMilimeterSection) {
-        this.setSquareMilimeterSection(squareMilimeterSection);
+    public CarrierPlaitFiber decitexTitration(Long decitexTitration) {
+        this.setDecitexTitration(decitexTitration);
         return this;
     }
 
-    public void setSquareMilimeterSection(Double squareMilimeterSection) {
-        this.squareMilimeterSection = squareMilimeterSection;
+    public void setDecitexTitration(Long decitexTitration) {
+        this.decitexTitration = decitexTitration;
+    }
+
+    public Double getGramPerSquareMilimeterPerMeterDensity() {
+        return this.gramPerSquareMilimeterPerMeterDensity;
+    }
+
+    public CarrierPlaitFiber gramPerSquareMilimeterPerMeterDensity(Double gramPerSquareMilimeterPerMeterDensity) {
+        this.setGramPerSquareMilimeterPerMeterDensity(gramPerSquareMilimeterPerMeterDensity);
+        return this;
+    }
+
+    public void setGramPerSquareMilimeterPerMeterDensity(Double gramPerSquareMilimeterPerMeterDensity) {
+        this.gramPerSquareMilimeterPerMeterDensity = gramPerSquareMilimeterPerMeterDensity;
     }
 
     public Double getDecaNewtonLoad() {
@@ -150,8 +168,8 @@ public class CarrierPlaitFiber extends AbstractUniformAtom<CarrierPlaitFiber> im
             "id=" + getId() +
             ", number=" + getNumber() +
             ", designation='" + getDesignation() + "'" +
-            ", gramPerMeterLinearMass=" + getGramPerMeterLinearMass() +
-            ", squareMilimeterSection=" + getSquareMilimeterSection() +
+            ", decitexTitration=" + getDecitexTitration() +
+            ", gramPerSquareMilimeterPerMeterDensity=" + getGramPerSquareMilimeterPerMeterDensity() +
             ", decaNewtonLoad=" + getDecaNewtonLoad() +
             "}";
     }

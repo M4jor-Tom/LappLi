@@ -2,8 +2,8 @@ export interface ICarrierPlaitFiber {
   id?: number;
   number?: number | null;
   designation?: string | null;
-  gramPerMeterLinearMass?: number;
-  squareMilimeterSection?: number;
+  decitexTitration?: number;
+  gramPerSquareMilimeterPerMeterDensity?: number;
   decaNewtonLoad?: number;
 }
 

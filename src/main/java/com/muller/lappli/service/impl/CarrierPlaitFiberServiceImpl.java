@@ -44,11 +44,13 @@ public class CarrierPlaitFiberServiceImpl implements CarrierPlaitFiberService {
                 if (carrierPlaitFiber.getDesignation() != null) {
                     existingCarrierPlaitFiber.setDesignation(carrierPlaitFiber.getDesignation());
                 }
-                if (carrierPlaitFiber.getGramPerMeterLinearMass() != null) {
-                    existingCarrierPlaitFiber.setGramPerMeterLinearMass(carrierPlaitFiber.getGramPerMeterLinearMass());
+                if (carrierPlaitFiber.getDecitexTitration() != null) {
+                    existingCarrierPlaitFiber.setDecitexTitration(carrierPlaitFiber.getDecitexTitration());
                 }
-                if (carrierPlaitFiber.getSquareMilimeterSection() != null) {
-                    existingCarrierPlaitFiber.setSquareMilimeterSection(carrierPlaitFiber.getSquareMilimeterSection());
+                if (carrierPlaitFiber.getGramPerSquareMilimeterPerMeterDensity() != null) {
+                    existingCarrierPlaitFiber.setGramPerSquareMilimeterPerMeterDensity(
+                        carrierPlaitFiber.getGramPerSquareMilimeterPerMeterDensity()
+                    );
                 }
                 if (carrierPlaitFiber.getDecaNewtonLoad() != null) {
                     existingCarrierPlaitFiber.setDecaNewtonLoad(carrierPlaitFiber.getDecaNewtonLoad());

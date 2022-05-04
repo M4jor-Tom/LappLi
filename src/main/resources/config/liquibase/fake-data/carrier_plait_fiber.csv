@@ -1,4 +1,4 @@
-id;number;designation;gram_per_meter_linear_mass;square_milimeter_section;deca_newton_load
+id;number;designation;decitex_titration;gram_per_square_milimeter_per_meter_density;deca_newton_load
 1;80200;Fresh Awesome Bedfordshire;95880;64904;67057
 2;68950;Manager payment Fresh;24221;31203;72196
 3;61384;Account Bedfordshire;10276;2658;10611

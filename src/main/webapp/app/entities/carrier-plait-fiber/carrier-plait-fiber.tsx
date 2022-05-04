@@ -56,10 +56,12 @@ export const CarrierPlaitFiber = (props: RouteComponentProps<{ url: string }>) =
                   <Translate contentKey="lappLiApp.carrierPlaitFiber.designation">Designation</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.carrierPlaitFiber.gramPerMeterLinearMass">Gram Per Meter Linear Mass</Translate>
+                  <Translate contentKey="lappLiApp.carrierPlaitFiber.decitexTitration">Decitex Titration</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.carrierPlaitFiber.squareMilimeterSection">Square Milimeter Section</Translate>
+                  <Translate contentKey="lappLiApp.carrierPlaitFiber.gramPerSquareMilimeterPerMeterDensity">
+                    Gram Per Square Milimeter Per Meter Density
+                  </Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.carrierPlaitFiber.decaNewtonLoad">Deca Newton Load</Translate>
@@ -77,8 +79,8 @@ export const CarrierPlaitFiber = (props: RouteComponentProps<{ url: string }>) =
                   </td>
                   <td>{carrierPlaitFiber.number}</td>
                   <td>{carrierPlaitFiber.designation}</td>
-                  <td>{carrierPlaitFiber.gramPerMeterLinearMass}</td>
-                  <td>{carrierPlaitFiber.squareMilimeterSection}</td>
+                  <td>{carrierPlaitFiber.decitexTitration}</td>
+                  <td>{carrierPlaitFiber.gramPerSquareMilimeterPerMeterDensity}</td>
                   <td>{carrierPlaitFiber.decaNewtonLoad}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
