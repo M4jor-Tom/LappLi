@@ -1,6 +1,6 @@
 package com.muller.lappli.domain;
 
-import com.muller.lappli.domain.abstracts.AbstractFixedDiameterUniformAtom;
+import com.muller.lappli.domain.abstracts.AbstractUniformAtom;
 import com.muller.lappli.domain.enumeration.Flexibility;
 import com.muller.lappli.domain.enumeration.MetalFiberKind;
 import java.io.Serializable;
@@ -15,7 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "continuity_wire")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ContinuityWire extends AbstractFixedDiameterUniformAtom<ContinuityWire> implements Serializable {
+public class ContinuityWire extends AbstractUniformAtom<ContinuityWire> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

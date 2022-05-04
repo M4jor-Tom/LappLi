@@ -1,6 +1,6 @@
 package com.muller.lappli.domain;
 
-import com.muller.lappli.domain.abstracts.AbstractFixedDiameterUniformAtom;
+import com.muller.lappli.domain.abstracts.AbstractUniformAtom;
 import com.muller.lappli.domain.interfaces.Article;
 import com.muller.lappli.domain.interfaces.PlasticAspectCylindricComponent;
 import java.io.Serializable;
@@ -15,7 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "bangle")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Bangle extends AbstractFixedDiameterUniformAtom<Bangle> implements Article, Serializable, PlasticAspectCylindricComponent {
+public class Bangle extends AbstractUniformAtom<Bangle> implements Article, Serializable, PlasticAspectCylindricComponent {
 
     private static final long serialVersionUID = 1L;
 
