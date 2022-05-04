@@ -65,8 +65,11 @@ public class CarrierPlaitFiber extends AbstractUniformAtom<CarrierPlaitFiber> im
 
     @Override
     public Double getMilimeterDiameter() {
-        // TODO Auto-generated method stub
-        return Double.NaN;
+        if (getSquareMilimeterSection() == null) {
+            return Double.NaN;
+        }
+
+        return Math.sqrt(4.0 * getSquareMilimeterSection() / Math.PI);
     }
 
     public Long getNumber() {
