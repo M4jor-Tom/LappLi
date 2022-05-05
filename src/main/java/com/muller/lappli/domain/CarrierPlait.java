@@ -152,7 +152,7 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
         return Double.NaN;
     }
 
-    public Double getRealDiameterAssemblyStep() {
+    public Double getRealDegreeAssemblyStep() {
         // TODO Implement this
         return Double.NaN;
     }
