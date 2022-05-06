@@ -1,7 +1,7 @@
 package com.muller.lappli.domain;
 
-import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
+import com.muller.lappli.domain.abstracts.AbstractMachine;
 import com.muller.lappli.domain.enumeration.MarkingTechnique;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.domain.exception.UnknownSupplyException;
@@ -17,13 +17,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "lifter")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Lifter extends AbstractDomainObject<Lifter> implements Serializable {
+public class Lifter extends AbstractMachine<Lifter> implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @NotNull
-    @Column(name = "jhi_index", nullable = false, unique = true)
-    private Long index;
 
     @NotNull
     @Column(name = "minimum_milimeter_diameter", nullable = false)
@@ -62,14 +58,9 @@ public class Lifter extends AbstractDomainObject<Lifter> implements Serializable
         return this;
     }
 
-    public String getName() {
-        if (getIndex() == null) {
-            return null;
-        }
-
-        String prefix = getIndex() >= 10 ? "MR" : "MR0";
-
-        return prefix + getIndex();
+    @Override
+    protected String getPrefix() {
+        return "MR";
     }
 
     public Boolean supportsSupply(AbstractLiftedSupply<?> abstractLiftedSupply) {
@@ -151,19 +142,6 @@ public class Lifter extends AbstractDomainObject<Lifter> implements Serializable
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Long getIndex() {
-        return this.index;
-    }
-
-    public Lifter index(Long index) {
-        this.setIndex(index);
-        return this;
-    }
-
-    public void setIndex(Long index) {
-        this.index = index;
-    }
 
     public Double getMinimumMilimeterDiameter() {
         return this.minimumMilimeterDiameter;
