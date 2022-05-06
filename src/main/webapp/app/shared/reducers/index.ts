@@ -83,6 +83,10 @@ import steelFiber from 'app/entities/steel-fiber/steel-fiber.reducer';
 import carrierPlait from 'app/entities/carrier-plait/carrier-plait.reducer';
 // prettier-ignore
 import carrierPlaitFiber from 'app/entities/carrier-plait-fiber/carrier-plait-fiber.reducer';
+// prettier-ignore
+import plaiter from 'app/entities/plaiter/plaiter.reducer';
+// prettier-ignore
+import plaiterConfiguration from 'app/entities/plaiter-configuration/plaiter-configuration.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -132,6 +136,8 @@ const rootReducer = {
   steelFiber,
   carrierPlait,
   carrierPlaitFiber,
+  plaiter,
+  plaiterConfiguration,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };

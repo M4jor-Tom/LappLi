@@ -125,6 +125,15 @@ entity StrandSupply {
     forceCentralUtilityComponent Boolean required
 }
 
+entity Plaiter {
+    index Long unique required min(0)
+    totalBobinsCount Long required min(0)
+}
+
+entity PlaiterConfiguration {
+    usedBobinsCount Long required min(0)
+}
+
 entity Lifter {
 	index Long unique required
 	minimumMilimeterDiameter Double required
@@ -360,6 +369,10 @@ relationship ManyToOne {
 
 relationship ManyToOne {
 	OneStudySupply{surfaceMaterial(designation) required} to Material
+}
+
+relationship ManyToOne {
+    PlaiterConfiguration{plaiter(name) required} to Plaiter{plaiterConfigurations}
 }
 
 relationship ManyToOne {
