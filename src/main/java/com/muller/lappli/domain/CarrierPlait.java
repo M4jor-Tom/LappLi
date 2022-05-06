@@ -152,6 +152,10 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
         return Double.NaN;
     }
 
+    public Double getMilimeterAssemblyStep() {
+        return Math.tan(Math.PI / 2 - getRadianAssemblyAngle()) * Math.PI * getAfterThisMilimeterDiameter();
+    }
+
     public Long getFinalEndPerBobinsCount() {
         if (getForcedEndPerBobinsCount() == null) {
             return getSuggestedEndPerBobinsCount();
