@@ -3,6 +3,7 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.OperationKind;
+import com.muller.lappli.domain.interfaces.AssemblableOperation;
 import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
 import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
@@ -17,7 +18,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "carrier_plait")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Serializable, INonAssemblyOperation<CarrierPlait> {
+public class CarrierPlait
+    extends AbstractOperation<CarrierPlait>
+    implements Serializable, INonAssemblyOperation<CarrierPlait>, AssemblableOperation<CarrierPlait> {
 
     private static final long serialVersionUID = 1L;
 
@@ -98,6 +101,11 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
     @Override
     public OperationKind getOperationKind() {
         return OperationKind.CARRIER_PLAIT;
+    }
+
+    @Override
+    public Double getDiameterAssemblyStep() {
+        return getMilimeterAssemblyStep() / getAfterThisMilimeterDiameter();
     }
 
     @Override
