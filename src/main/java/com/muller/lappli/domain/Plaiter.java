@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractMachine;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,19 +16,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "plaiter")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Plaiter implements Serializable {
+public class Plaiter extends AbstractMachine<Plaiter> implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @NotNull
-    @Min(value = 0L)
-    @Column(name = "jhi_index", nullable = false, unique = true)
-    private Long index;
 
     @NotNull
     @Min(value = 0L)
@@ -41,30 +32,14 @@ public class Plaiter implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public Plaiter id(Long id) {
-        this.setId(id);
+    @Override
+    public Plaiter getThis() {
         return this;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getIndex() {
-        return this.index;
-    }
-
-    public Plaiter index(Long index) {
-        this.setIndex(index);
-        return this;
-    }
-
-    public void setIndex(Long index) {
-        this.index = index;
+    @Override
+    protected String getPrefix() {
+        return "TR";
     }
 
     public Long getTotalBobinsCount() {
@@ -121,7 +96,7 @@ public class Plaiter implements Serializable {
         if (!(o instanceof Plaiter)) {
             return false;
         }
-        return id != null && id.equals(((Plaiter) o).id);
+        return getId() != null && getId().equals(((Plaiter) o).getId());
     }
 
     @Override

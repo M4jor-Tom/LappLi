@@ -3,6 +3,7 @@ import { IPlaiterConfiguration } from 'app/shared/model/plaiter-configuration.mo
 export interface IPlaiter {
   id?: number;
   index?: number;
+  name?: string;
   totalBobinsCount?: number;
   plaiterConfigurations?: IPlaiterConfiguration[] | null;
 }
