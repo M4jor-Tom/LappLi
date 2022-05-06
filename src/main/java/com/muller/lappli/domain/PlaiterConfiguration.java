@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -13,14 +14,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "plaiter_configuration")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class PlaiterConfiguration implements Serializable {
+public class PlaiterConfiguration extends AbstractDomainObject<PlaiterConfiguration> implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
 
     @NotNull
     @Min(value = 0L)
@@ -34,17 +30,9 @@ public class PlaiterConfiguration implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public PlaiterConfiguration id(Long id) {
-        this.setId(id);
+    @Override
+    public PlaiterConfiguration getThis() {
         return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getUsedBobinsCount() {
@@ -83,7 +71,7 @@ public class PlaiterConfiguration implements Serializable {
         if (!(o instanceof PlaiterConfiguration)) {
             return false;
         }
-        return id != null && id.equals(((PlaiterConfiguration) o).id);
+        return getId() != null && getId().equals(((PlaiterConfiguration) o).getId());
     }
 
     @Override
