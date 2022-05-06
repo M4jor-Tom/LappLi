@@ -79,8 +79,10 @@
       "Plait",
       "SteelFiber",
       "CarrierPlait",
-      "CarrierPlaitFiber"
+      "CarrierPlaitFiber",
+      "Plaiter",
+      "PlaiterConfiguration"
     ],
-    "lastLiquibaseTimestamp": 1651068634000
+    "lastLiquibaseTimestamp": 1651844304000
   }
 }
