@@ -35,6 +35,16 @@ public class PlaiterConfiguration extends AbstractDomainObject<PlaiterConfigurat
         return this;
     }
 
+    @Override
+    public Boolean isConform() {
+        return (
+            getUsedBobinsCount() != null &&
+            getUsedBobinsCount() >= 0 &&
+            getPlaiter() != null &&
+            getPlaiter().getTotalBobinsCount() >= getUsedBobinsCount()
+        );
+    }
+
     public Long getUsedBobinsCount() {
         return this.usedBobinsCount;
     }
