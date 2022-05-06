@@ -152,11 +152,6 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
         return Double.NaN;
     }
 
-    public Double getRealDegreeAssemblyStep() {
-        // TODO Implement this
-        return Double.NaN;
-    }
-
     public Long getFinalEndPerBobinsCount() {
         if (getForcedEndPerBobinsCount() == null) {
             return getSuggestedEndPerBobinsCount();
