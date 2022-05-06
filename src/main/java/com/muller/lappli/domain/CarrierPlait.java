@@ -102,8 +102,7 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
 
     @Override
     public Double getMilimeterDiameterIncidency() {
-        // TODO Auto-generated method stub
-        return Double.NaN;
+        return getAfterThisMilimeterDiameter() - getBeforeThisMilimeterDiameter();
     }
 
     @Override
