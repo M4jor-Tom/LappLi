@@ -160,8 +160,11 @@ public class CarrierPlait
     }
 
     public Long getSuggestedEndPerBobinsCount() {
-        // TODO Implement this
-        return null;
+        if (getFastestPlaiterConfiguration() == null) {
+            return null;
+        }
+
+        return getMinimumCarrierPlaitFibersCount() / getFastestPlaiterConfiguration().getUsedBobinsCount();
     }
 
     public Double getHourExecutionTime(PlaiterConfiguration plaiterConfiguration) {
