@@ -153,4 +153,8 @@ public interface ICalculator {
     );
 
     public Long getAssemblyPresetDistributionCalculatorCount();
+
+    //  CARRIER_PLAIT PART
+
+    public Double getCarrierPlaitRealDecaNewtonLoad(CarrierPlait carrierPlait);
 }

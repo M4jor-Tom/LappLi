@@ -88,4 +88,11 @@ public class CalculatorEmptyImpl implements ICalculator {
     ) {
         return Double.NaN;
     }
+
+    //  CARRIER_PLAIT PART
+
+    @Override
+    public Double getCarrierPlaitRealDecaNewtonLoad(CarrierPlait carrierPlait) {
+        return Double.NaN;
+    }
 }

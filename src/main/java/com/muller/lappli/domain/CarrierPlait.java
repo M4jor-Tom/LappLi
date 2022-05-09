@@ -126,8 +126,7 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
     }
 
     public Double getRealDecaNewtonLoad() {
-        // TODO Empty method stub
-        return Double.NaN;
+        return CalculatorManager.getCalculatorInstance().getCarrierPlaitRealDecaNewtonLoad(this);
     }
 
     public Double getRadianAssemblyAngle() {
