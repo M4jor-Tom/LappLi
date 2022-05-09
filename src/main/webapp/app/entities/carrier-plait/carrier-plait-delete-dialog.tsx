@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity, deleteEntity } from './carrier-plait.reducer';
+import { getOutFromStudySupplyStrandCarrierPlait } from '../index-management/index-management-lib';
 
 export const CarrierPlaitDeleteDialog = (props: RouteComponentProps<{ id: string }>) => {
   const [loadModal, setLoadModal] = useState(false);
@@ -16,11 +17,13 @@ export const CarrierPlaitDeleteDialog = (props: RouteComponentProps<{ id: string
     setLoadModal(true);
   }, []);
 
+  const redirectionUrl = getOutFromStudySupplyStrandCarrierPlait(props.match.url, false);
+
   const carrierPlaitEntity = useAppSelector(state => state.carrierPlait.entity);
   const updateSuccess = useAppSelector(state => state.carrierPlait.updateSuccess);
 
   const handleClose = () => {
-    props.history.push('/carrier-plait');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {
