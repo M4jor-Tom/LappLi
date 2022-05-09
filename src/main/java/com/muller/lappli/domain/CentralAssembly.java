@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
+import com.muller.lappli.domain.abstracts.AbstractMachine;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import com.muller.lappli.domain.interfaces.ISupplyPositionOwner;
@@ -101,6 +102,12 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
 
     @Override
     public Long getProductionStep() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public AbstractMachine<?> getOperatingMachine() {
         // TODO Auto-generated method stub
         return null;
     }
