@@ -95,4 +95,9 @@ public class CalculatorEmptyImpl implements ICalculator {
     public Double getCarrierPlaitRealDecaNewtonLoad(CarrierPlait carrierPlait) {
         return Double.NaN;
     }
+
+    @Override
+    public Double getAfterCarrierPlaitMilimeterDiameter(CarrierPlait carrierPlait) {
+        return Double.NaN;
+    }
 }

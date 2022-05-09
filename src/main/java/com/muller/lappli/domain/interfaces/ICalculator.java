@@ -157,4 +157,6 @@ public interface ICalculator {
     //  CARRIER_PLAIT PART
 
     public Double getCarrierPlaitRealDecaNewtonLoad(CarrierPlait carrierPlait);
+
+    public Double getAfterCarrierPlaitMilimeterDiameter(CarrierPlait carrierPlait);
 }

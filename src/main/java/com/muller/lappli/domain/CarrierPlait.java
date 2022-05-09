@@ -103,11 +103,12 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
     @Override
     public Double getMilimeterDiameterIncidency() {
         // TODO Auto-generated method stub
-        if (getFinalCarrierPlaitFiber() == null) {
-            return Double.NaN;
-        }
-
         return Double.NaN;
+    }
+
+    @Override
+    public Double getAfterThisMilimeterDiameter() {
+        return CalculatorManager.getCalculatorInstance().getAfterCarrierPlaitMilimeterDiameter(this);
     }
 
     @Override
