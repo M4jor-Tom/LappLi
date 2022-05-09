@@ -3,6 +3,8 @@ package com.muller.lappli.service.impl;
 import com.muller.lappli.domain.CarrierPlait;
 import com.muller.lappli.repository.CarrierPlaitRepository;
 import com.muller.lappli.service.CarrierPlaitService;
+import com.muller.lappli.service.PlaiterService;
+import com.muller.lappli.service.ReadTriggerableService;
 import com.muller.lappli.service.StrandSupplyService;
 import com.muller.lappli.service.abstracts.AbstractNonCentralOperationServiceImpl;
 import java.util.Optional;
@@ -16,12 +18,21 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class CarrierPlaitServiceImpl extends AbstractNonCentralOperationServiceImpl<CarrierPlait> implements CarrierPlaitService {
+public class CarrierPlaitServiceImpl
+    extends AbstractNonCentralOperationServiceImpl<CarrierPlait>
+    implements CarrierPlaitService, ReadTriggerableService<CarrierPlait> {
 
     private final Logger log = LoggerFactory.getLogger(CarrierPlaitServiceImpl.class);
 
-    public CarrierPlaitServiceImpl(CarrierPlaitRepository carrierPlaitRepository, StrandSupplyService strandSupplyService) {
+    private final PlaiterService plaiterService;
+
+    public CarrierPlaitServiceImpl(
+        CarrierPlaitRepository carrierPlaitRepository,
+        StrandSupplyService strandSupplyService,
+        PlaiterService plaiterService
+    ) {
         super(strandSupplyService, carrierPlaitRepository);
+        this.plaiterService = plaiterService;
     }
 
     @Override
@@ -75,5 +86,16 @@ public class CarrierPlaitServiceImpl extends AbstractNonCentralOperationServiceI
                 return existingCarrierPlait;
             })
             .map(getJpaRepository()::save);
+    }
+
+    @Override
+    public CarrierPlait onRead(CarrierPlait domainObject) {
+        return domainObject.plaitersWithEnoughBobins(
+            plaiterService
+                .findAll()
+                .stream()
+                .filter(plaiter -> plaiter.getTotalBobinsCount() >= domainObject.getFinalEndPerBobinsCount())
+                .toList()
+        );
     }
 }

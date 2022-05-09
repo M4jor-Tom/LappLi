@@ -7,6 +7,8 @@ import com.muller.lappli.domain.interfaces.AssemblableOperation;
 import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
 import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -23,6 +25,9 @@ public class CarrierPlait
     implements Serializable, INonAssemblyOperation<CarrierPlait>, AssemblableOperation<CarrierPlait> {
 
     private static final long serialVersionUID = 1L;
+
+    @Transient
+    private List<Plaiter> plaitersWithEnoughBobins;
 
     @NotNull
     @Column(name = "operation_layer", nullable = false)
@@ -90,6 +95,7 @@ public class CarrierPlait
 
     public CarrierPlait() {
         super();
+        setPlaitersWithEnoughBobins(new ArrayList<>());
     }
 
     @Override
@@ -196,6 +202,20 @@ public class CarrierPlait
             .decaNewtonLoad(getAnonymousCarrierPlaitFiberDecaNewtonLoad())
             .getThisIfConform()
             .orElse(null);
+    }
+
+    public List<Plaiter> getPlaitersWithEnoughBobins() {
+        return plaitersWithEnoughBobins;
+    }
+
+    public CarrierPlait plaitersWithEnoughBobins(List<Plaiter> plaitersWithEnoughBobins) {
+        this.setPlaitersWithEnoughBobins(plaitersWithEnoughBobins);
+
+        return this;
+    }
+
+    public void setPlaitersWithEnoughBobins(List<Plaiter> plaitersWithEnoughBobins) {
+        this.plaitersWithEnoughBobins = plaitersWithEnoughBobins;
     }
 
     public Long getOperationLayer() {
