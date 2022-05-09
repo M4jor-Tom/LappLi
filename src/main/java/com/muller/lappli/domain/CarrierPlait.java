@@ -141,8 +141,7 @@ public class CarrierPlait
 
     @Override
     public AbstractMachine<?> getOperatingMachine() {
-        // TODO Auto-generated method stub
-        return null;
+        return getSelectedPlaiter();
     }
 
     @Override
