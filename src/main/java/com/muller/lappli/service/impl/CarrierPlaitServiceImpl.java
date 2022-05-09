@@ -1,12 +1,14 @@
 package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.CarrierPlait;
+import com.muller.lappli.domain.Plaiter;
 import com.muller.lappli.repository.CarrierPlaitRepository;
 import com.muller.lappli.service.CarrierPlaitService;
 import com.muller.lappli.service.PlaiterService;
 import com.muller.lappli.service.ReadTriggerableService;
 import com.muller.lappli.service.StrandSupplyService;
 import com.muller.lappli.service.abstracts.AbstractNonCentralOperationServiceImpl;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,11 +93,13 @@ public class CarrierPlaitServiceImpl
     @Override
     public CarrierPlait onRead(CarrierPlait domainObject) {
         return domainObject.plaitersWithEnoughBobins(
-            plaiterService
-                .findAll()
-                .stream()
-                .filter(plaiter -> plaiter.getTotalBobinsCount() >= domainObject.getFinalEndPerBobinsCount())
-                .toList()
+            List.of(
+                (Plaiter[]) plaiterService
+                    .findAll()
+                    .stream()
+                    .filter(plaiter -> plaiter.getTotalBobinsCount() >= domainObject.getFinalEndPerBobinsCount())
+                    .toArray()
+            )
         );
     }
 }
