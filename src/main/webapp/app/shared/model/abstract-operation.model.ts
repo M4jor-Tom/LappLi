@@ -1,5 +1,6 @@
 import { OperationKind } from './enumerations/operation-kind.model';
 import { IStrandSupply } from './strand-supply.model';
+import { IAbstractMachine } from './abstract-machine.model';
 
 export interface IAbstractOperation {
   id?: number;
@@ -15,6 +16,7 @@ export interface IAbstractOperation {
   productionStep?: number;
   designation?: string | null;
   ownerStrandSupply?: IStrandSupply;
+  operatingMachine?: IAbstractMachine;
 }
 
 export const defaultValue: Readonly<IAbstractOperation> = {};

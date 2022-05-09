@@ -10,6 +10,8 @@ public class CalculatorEmptyImpl implements ICalculator {
 
     public CalculatorEmptyImpl() {}
 
+    //  ASSEMBLY PART
+
     @Override
     public Double getSuppliedComponentsAverageDiameterCentralVoidDiameter(Long componentsCount, Double diameterAssemblyStep) {
         return Double.NaN;
