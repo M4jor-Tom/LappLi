@@ -183,6 +183,9 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   <Translate contentKey="lappLiApp.operation.layer">Layer</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.operation.operatingMachine">Operating Machine</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.assembly.suppliedComponentsCount">Components Count</Translate>
                 </th>
                 <th>
@@ -218,6 +221,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   <td>
                     <Translate contentKey="lappLiApp.centralAssembly.centralOperationLayer" />
                   </td>
+                  <td>{strandSupplyEntity.centralAssembly.operatingMachine?.name}</td>
                   <td>
                     {translate('lappLiApp.assembly.utilitySuppliedComponentsCount') + ':'}&nbsp;
                     {strandSupplyEntity.centralAssembly.utilityComponentsCount}
@@ -291,6 +295,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                         : ''}
                     </td>
                     <td>{operation.operationLayer}</td>
+                    <td>{operation.operatingMachine?.name}</td>
                     <td>{componentsCountRender(operation)}</td>
                     <td>{operation.productionStep}</td>
                     <td>{operation.productDesignation}</td>
