@@ -105,4 +105,9 @@ public class CalculatorEmptyImpl implements ICalculator {
     public Long getMinimumCarrierPlaitFibersCount(CarrierPlait carrierPlait) {
         return DomainManager.ERROR_LONG_POSITIVE_VALUE;
     }
+
+    @Override
+    public Double getCarrierPlaitHourExecutionTime(CarrierPlait carrierPlait) {
+        return Double.NaN;
+    }
 }

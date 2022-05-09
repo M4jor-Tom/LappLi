@@ -148,8 +148,7 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
     }
 
     public Double getHourExecutionTime() {
-        // TODO Implement this
-        return Double.NaN;
+        return CalculatorManager.getCalculatorInstance().getCarrierPlaitHourExecutionTime(this);
     }
 
     public Double getMilimeterAssemblyStep() {

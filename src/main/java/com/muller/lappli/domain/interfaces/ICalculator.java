@@ -161,4 +161,6 @@ public interface ICalculator {
     public Double getAfterCarrierPlaitMilimeterDiameter(CarrierPlait carrierPlait);
 
     public Long getMinimumCarrierPlaitFibersCount(CarrierPlait carrierPlait);
+
+    public Double getCarrierPlaitHourExecutionTime(CarrierPlait carrierPlait);
 }
