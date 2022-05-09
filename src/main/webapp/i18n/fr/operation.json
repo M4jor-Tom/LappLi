@@ -13,7 +13,8 @@
       "productionStep": "Etape de production",
       "productDesignation": "Désignation de Produit",
       "milimeterDiameterIncidency": "Incidence au Diamètre (mm)",
-      "afterThisMilimeterDiameter": "Diamètre après opération (mm)"
+      "afterThisMilimeterDiameter": "Diamètre après opération (mm)",
+      "operatingMachine": "Machine d'opération"
     }
   }
 }
