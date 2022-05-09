@@ -8,6 +8,7 @@ import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
 import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -199,6 +200,29 @@ public class CarrierPlait
             .gramPerSquareMilimeterPerMeterDensity(getAnonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity())
             .decaNewtonLoad(getAnonymousCarrierPlaitFiberDecaNewtonLoad())
             .getThisIfConform()
+            .orElse(null);
+    }
+
+    public PlaiterConfiguration getFastestPlaiterConfiguration() {
+        if (getPlaitersWithEnoughBobins().isEmpty()) {
+            return null;
+        }
+
+        List<PlaiterConfiguration> allPlaitersConfigurations = new ArrayList<PlaiterConfiguration>();
+        for (Plaiter plaiter : getPlaitersWithEnoughBobins()) {
+            allPlaitersConfigurations.addAll(plaiter.getPlaiterConfigurations());
+        }
+
+        return allPlaitersConfigurations
+            .stream()
+            .max(
+                new Comparator<PlaiterConfiguration>() {
+                    @Override
+                    public int compare(PlaiterConfiguration o1, PlaiterConfiguration o2) {
+                        return getHourExecutionTime(o1) < getHourExecutionTime(o2) ? 1 : -1;
+                    }
+                }
+            )
             .orElse(null);
     }
 
