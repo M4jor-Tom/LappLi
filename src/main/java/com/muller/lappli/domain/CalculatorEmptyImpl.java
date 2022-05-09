@@ -100,4 +100,9 @@ public class CalculatorEmptyImpl implements ICalculator {
     public Double getAfterCarrierPlaitMilimeterDiameter(CarrierPlait carrierPlait) {
         return Double.NaN;
     }
+
+    @Override
+    public Long getMinimumCarrierPlaitFibersCount(CarrierPlait carrierPlait) {
+        return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+    }
 }

@@ -156,6 +156,10 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
         return Math.tan(Math.PI / 2 - getRadianAssemblyAngle()) * Math.PI * getAfterThisMilimeterDiameter();
     }
 
+    public Long getMinimumCarrierPlaitFibersCount() {
+        return CalculatorManager.getCalculatorInstance().getMinimumCarrierPlaitFibersCount(this);
+    }
+
     public Long getFinalEndPerBobinsCount() {
         if (getForcedEndPerBobinsCount() == null) {
             return getSuggestedEndPerBobinsCount();

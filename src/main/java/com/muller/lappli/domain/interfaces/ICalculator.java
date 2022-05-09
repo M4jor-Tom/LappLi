@@ -159,4 +159,6 @@ public interface ICalculator {
     public Double getCarrierPlaitRealDecaNewtonLoad(CarrierPlait carrierPlait);
 
     public Double getAfterCarrierPlaitMilimeterDiameter(CarrierPlait carrierPlait);
+
+    public Long getMinimumCarrierPlaitFibersCount(CarrierPlait carrierPlait);
 }
