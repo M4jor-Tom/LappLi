@@ -97,7 +97,7 @@ public class CalculatorEmptyImpl implements ICalculator {
     }
 
     @Override
-    public Double getAfterCarrierPlaitMilimeterDiameter(CarrierPlait carrierPlait) {
+    public Double getAfterCarrierPlaitMilimeterDiameter(CarrierPlait carrierPlait, PlaiterConfiguration plaiterConfiguration) {
         return Double.NaN;
     }
 
@@ -107,7 +107,7 @@ public class CalculatorEmptyImpl implements ICalculator {
     }
 
     @Override
-    public Double getCarrierPlaitHourExecutionTime(CarrierPlait carrierPlait) {
+    public Double getCarrierPlaitHourExecutionTime(CarrierPlait carrierPlait, PlaiterConfiguration plaiterConfiguration) {
         return Double.NaN;
     }
 }

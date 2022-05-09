@@ -158,9 +158,9 @@ public interface ICalculator {
 
     public Double getCarrierPlaitRealDecaNewtonLoad(CarrierPlait carrierPlait);
 
-    public Double getAfterCarrierPlaitMilimeterDiameter(CarrierPlait carrierPlait);
+    public Double getAfterCarrierPlaitMilimeterDiameter(CarrierPlait carrierPlait, PlaiterConfiguration plaiterConfiguration);
 
     public Long getMinimumCarrierPlaitFibersCount(CarrierPlait carrierPlait);
 
-    public Double getCarrierPlaitHourExecutionTime(CarrierPlait carrierPlait);
+    public Double getCarrierPlaitHourExecutionTime(CarrierPlait carrierPlait, PlaiterConfiguration plaiterConfiguration);
 }

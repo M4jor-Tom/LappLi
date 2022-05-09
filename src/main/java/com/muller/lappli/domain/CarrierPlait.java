@@ -29,6 +29,9 @@ public class CarrierPlait
     @Transient
     private List<Plaiter> plaitersWithEnoughBobins;
 
+    @Transient
+    private PlaiterConfiguration selectedPlaiterConfiguration;
+
     @NotNull
     @Column(name = "operation_layer", nullable = false)
     private Long operationLayer;
@@ -125,7 +128,7 @@ public class CarrierPlait
 
     @Override
     public Double getAfterThisMilimeterDiameter() {
-        return CalculatorManager.getCalculatorInstance().getAfterCarrierPlaitMilimeterDiameter(this);
+        return CalculatorManager.getCalculatorInstance().getAfterCarrierPlaitMilimeterDiameter(this, getSelectedPlaiterConfiguration());
     }
 
     @Override
@@ -160,13 +163,8 @@ public class CarrierPlait
         return null;
     }
 
-    public Long getSuggestedBobinsCount() {
-        // TODO Implement this
-        return null;
-    }
-
-    public Double getHourExecutionTime() {
-        return CalculatorManager.getCalculatorInstance().getCarrierPlaitHourExecutionTime(this);
+    public Double getHourExecutionTime(PlaiterConfiguration plaiterConfiguration) {
+        return CalculatorManager.getCalculatorInstance().getCarrierPlaitHourExecutionTime(this, plaiterConfiguration);
     }
 
     public Double getMilimeterAssemblyStep() {
@@ -216,6 +214,20 @@ public class CarrierPlait
 
     public void setPlaitersWithEnoughBobins(List<Plaiter> plaitersWithEnoughBobins) {
         this.plaitersWithEnoughBobins = plaitersWithEnoughBobins;
+    }
+
+    public PlaiterConfiguration getSelectedPlaiterConfiguration() {
+        return selectedPlaiterConfiguration;
+    }
+
+    public CarrierPlait selectedPlaiterConfiguration(PlaiterConfiguration plaiterConfiguration) {
+        this.setSelectedPlaiterConfiguration(plaiterConfiguration);
+
+        return this;
+    }
+
+    public void setSelectedPlaiterConfiguration(PlaiterConfiguration selectedPlaiterConfiguration) {
+        this.selectedPlaiterConfiguration = selectedPlaiterConfiguration;
     }
 
     public Long getOperationLayer() {
