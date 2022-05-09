@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractMachine;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
@@ -112,6 +113,12 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
 
     @Override
     public Long getProductionStep() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public AbstractMachine<?> getOperatingMachine() {
         // TODO Auto-generated method stub
         return null;
     }

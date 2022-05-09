@@ -14,6 +14,7 @@ import com.muller.lappli.domain.Sheathing;
 import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.StripLaying;
 import com.muller.lappli.domain.TapeLaying;
+import com.muller.lappli.domain.abstracts.AbstractMachine;
 import com.muller.lappli.domain.enumeration.OperationKind;
 
 //[OPERATION]
@@ -42,6 +43,11 @@ public interface IOperation<T extends IOperation<T>> extends IDomainObject<T> {
      * @return the layer at which the operation is
      */
     public Long getOperationLayer();
+
+    /**
+     * @return the {@link AbstractMachine} which operates this operation
+     */
+    public AbstractMachine<?> getOperatingMachine();
 
     /**
      * @return the operation kind of this
