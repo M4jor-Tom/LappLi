@@ -147,6 +147,14 @@ public class CarrierPlait
         return getFinalCarrierPlaitFiber().getDesignation();
     }
 
+    public Plaiter getSelectedPlaiter() {
+        if (getSelectedPlaiterConfiguration() == null) {
+            return null;
+        }
+
+        return getSelectedPlaiterConfiguration().getPlaiter();
+    }
+
     public Double getRealDecaNewtonLoad() {
         return CalculatorManager.getCalculatorInstance().getCarrierPlaitRealDecaNewtonLoad(this);
     }
