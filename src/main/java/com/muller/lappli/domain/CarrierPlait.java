@@ -88,6 +88,10 @@ public class CarrierPlait
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    public CarrierPlait() {
+        super();
+    }
+
     @Override
     public IOperation<CarrierPlait> toOperation() {
         return this;
