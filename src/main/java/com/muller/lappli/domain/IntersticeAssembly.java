@@ -96,6 +96,12 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     }
 
     @Override
+    public Double getHourExecutionTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
     public AssemblyMean getAssemblyMean() {
         if (getOwnerStrandSupply() == null) {
             return null;

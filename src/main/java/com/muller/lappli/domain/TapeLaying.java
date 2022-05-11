@@ -90,6 +90,12 @@ public class TapeLaying
     }
 
     @Override
+    public Double getHourExecutionTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
     public String getProductDesignation() {
         if (getTape() == null) {
             return "";
