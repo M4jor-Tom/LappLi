@@ -140,6 +140,12 @@ public class Plait extends AbstractOperation<Plait> implements Serializable, INo
     }
 
     @Override
+    public Double getHourExecutionTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
     public Double getDiameterAssemblyStep() {
         // TODO Auto-generated method stub
         return Double.NaN;

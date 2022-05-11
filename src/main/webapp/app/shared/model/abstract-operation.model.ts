@@ -17,6 +17,7 @@ export interface IAbstractOperation {
   designation?: string | null;
   ownerStrandSupply?: IStrandSupply;
   operatingMachine?: IAbstractMachine;
+  hourExecutionTime?: number;
 }
 
 export const defaultValue: Readonly<IAbstractOperation> = {};

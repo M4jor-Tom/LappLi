@@ -50,6 +50,11 @@ public interface IOperation<T extends IOperation<T>> extends IDomainObject<T> {
     public AbstractMachine<?> getOperatingMachine();
 
     /**
+     * @return the time in hours in which this operation is executed
+     */
+    public Double getHourExecutionTime();
+
+    /**
      * @return the operation kind of this
      */
     public OperationKind getOperationKind();
