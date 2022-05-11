@@ -1,14 +1,11 @@
 package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.CarrierPlait;
-import com.muller.lappli.domain.DomainManager;
-import com.muller.lappli.domain.Plaiter;
 import com.muller.lappli.repository.CarrierPlaitRepository;
 import com.muller.lappli.service.CarrierPlaitService;
 import com.muller.lappli.service.PlaiterService;
 import com.muller.lappli.service.StrandSupplyService;
 import com.muller.lappli.service.abstracts.AbstractNonCentralOperationServiceImpl;
-import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,22 +87,6 @@ public class CarrierPlaitServiceImpl extends AbstractNonCentralOperationServiceI
 
     @Override
     public CarrierPlait onRead(CarrierPlait domainObject) {
-        DomainManager.noticeInPrompt(
-            plaiterService
-                .findAll()
-                .stream()
-                .filter(plaiter -> plaiter.getTotalBobinsCount() >= domainObject.getFinalEndPerBobinsCount())
-                .toArray()
-                .toString()
-        );
-        return domainObject.plaitersWithEnoughBobins(
-            List.of(
-                (Plaiter[]) plaiterService
-                    .findAll()
-                    .stream()
-                    .filter(plaiter -> plaiter.getTotalBobinsCount() >= domainObject.getFinalEndPerBobinsCount())
-                    .toArray()
-            )
-        );
+        return domainObject;
     }
 }

@@ -29,9 +29,6 @@ public class CarrierPlait
     private static final long serialVersionUID = 1L;
 
     @Transient
-    private List<Plaiter> plaitersWithEnoughBobins;
-
-    @Transient
     private PlaiterConfiguration selectedPlaiterConfiguration;
 
     @NotNull
@@ -100,7 +97,6 @@ public class CarrierPlait
 
     public CarrierPlait() {
         super();
-        setPlaitersWithEnoughBobins(new ArrayList<>());
     }
 
     @Override
@@ -146,8 +142,7 @@ public class CarrierPlait
 
     @Override
     public Double getHourExecutionTime() {
-        // TODO Auto-generated method stub
-        return Double.NaN;
+        return getHourExecutionTime(getSelectedPlaiterConfiguration());
     }
 
     @Override
@@ -224,14 +219,14 @@ public class CarrierPlait
     }
 
     public PlaiterConfiguration getFastestPlaiterConfiguration() {
-        if (getPlaitersWithEnoughBobins().isEmpty()) {
+        /*if (getPlaitersWithEnoughBobins().isEmpty()) {
             return null;
-        }
+        }*/
 
         List<PlaiterConfiguration> allPlaitersConfigurations = new ArrayList<PlaiterConfiguration>();
-        for (Plaiter plaiter : getPlaitersWithEnoughBobins()) {
+        /*for (Plaiter plaiter : getPlaitersWithEnoughBobins()) {
             allPlaitersConfigurations.addAll(plaiter.getPlaiterConfigurations());
-        }
+        }*/
 
         return allPlaitersConfigurations
             .stream()
@@ -244,20 +239,6 @@ public class CarrierPlait
                 }
             )
             .orElse(null);
-    }
-
-    public List<Plaiter> getPlaitersWithEnoughBobins() {
-        return plaitersWithEnoughBobins;
-    }
-
-    public CarrierPlait plaitersWithEnoughBobins(List<Plaiter> plaitersWithEnoughBobins) {
-        this.setPlaitersWithEnoughBobins(plaitersWithEnoughBobins);
-
-        return this;
-    }
-
-    public void setPlaitersWithEnoughBobins(List<Plaiter> plaitersWithEnoughBobins) {
-        this.plaitersWithEnoughBobins = plaitersWithEnoughBobins;
     }
 
     public PlaiterConfiguration getSelectedPlaiterConfiguration() {
