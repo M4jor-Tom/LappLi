@@ -14,7 +14,8 @@
       "productDesignation": "Product Designation",
       "milimeterDiameterIncidency": "Diameter Incidency (mm)",
       "afterThisMilimeterDiameter": "Diameter After This (mm)",
-      "operatingMachine": "Operating Machine"
+      "operatingMachine": "Operating Machine",
+      "hourExecutionTime": "Execution Time (h)"
     }
   }
 }
