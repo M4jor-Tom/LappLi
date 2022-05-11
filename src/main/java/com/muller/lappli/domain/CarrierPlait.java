@@ -233,16 +233,11 @@ public class CarrierPlait
     }
 
     public PlaiterConfiguration getFastestPlaiterConfiguration() {
-        /*if (getPlaitersWithEnoughBobins().isEmpty()) {
+        if (getPlaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin().isEmpty()) {
             return null;
-        }*/
+        }
 
-        List<PlaiterConfiguration> allPlaitersConfigurations = new ArrayList<PlaiterConfiguration>();
-        /*for (Plaiter plaiter : getPlaitersWithEnoughBobins()) {
-            allPlaitersConfigurations.addAll(plaiter.getPlaiterConfigurations());
-        }*/
-
-        return allPlaitersConfigurations
+        return getPlaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin()
             .stream()
             .max(
                 new Comparator<PlaiterConfiguration>() {
