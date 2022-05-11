@@ -1,11 +1,13 @@
 package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.CarrierPlait;
+import com.muller.lappli.domain.PlaiterConfiguration;
 import com.muller.lappli.repository.CarrierPlaitRepository;
 import com.muller.lappli.service.CarrierPlaitService;
-import com.muller.lappli.service.PlaiterService;
+import com.muller.lappli.service.PlaiterConfigurationService;
 import com.muller.lappli.service.StrandSupplyService;
 import com.muller.lappli.service.abstracts.AbstractNonCentralOperationServiceImpl;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,15 +23,15 @@ public class CarrierPlaitServiceImpl extends AbstractNonCentralOperationServiceI
 
     private final Logger log = LoggerFactory.getLogger(CarrierPlaitServiceImpl.class);
 
-    private final PlaiterService plaiterService;
+    private final PlaiterConfigurationService plaiterConfigurationService;
 
     public CarrierPlaitServiceImpl(
         CarrierPlaitRepository carrierPlaitRepository,
         StrandSupplyService strandSupplyService,
-        PlaiterService plaiterService
+        PlaiterConfigurationService plaiterConfigurationService
     ) {
         super(strandSupplyService, carrierPlaitRepository);
-        this.plaiterService = plaiterService;
+        this.plaiterConfigurationService = plaiterConfigurationService;
     }
 
     @Override
@@ -91,6 +93,24 @@ public class CarrierPlaitServiceImpl extends AbstractNonCentralOperationServiceI
 
     @Override
     public CarrierPlait onRead(CarrierPlait domainObject) {
+        //  Fetch all PlaiterConfigurations
+        List<PlaiterConfiguration> allPlaiterConfigurations = plaiterConfigurationService.findAll();
+
+        //Finding min value of CarrierPlaitFibersPerBobins for the domainObject CarrierPlait...
+        Long minimumCarrierPlaitFibersPerBobin = Long.MAX_VALUE;
+        for (PlaiterConfiguration plaiterConfiguration : allPlaiterConfigurations) {
+            //...and for this PlaiterConfiguration
+            minimumCarrierPlaitFibersPerBobin =
+                Math.min(minimumCarrierPlaitFibersPerBobin, domainObject.getCarrierPlaitFibersPerBobinsMinimumCount(plaiterConfiguration));
+        }
+
+        //Adding PlaiterConfigurations which have the minimum possible value of CarrierPlaitFibersPerBobin
+        for (PlaiterConfiguration plaiterConfiguration : allPlaiterConfigurations) {
+            if (domainObject.getCarrierPlaitFibersPerBobinsMinimumCount(plaiterConfiguration) == minimumCarrierPlaitFibersPerBobin) {
+                domainObject.getPlaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin().add(plaiterConfiguration);
+            }
+        }
+
         return domainObject;
     }
 }
