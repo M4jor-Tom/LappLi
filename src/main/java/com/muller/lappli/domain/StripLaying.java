@@ -86,6 +86,12 @@ public class StripLaying
     }
 
     @Override
+    public Double getHourExecutionTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
     public String getProductDesignation() {
         if (getStrip() == null) {
             return "";

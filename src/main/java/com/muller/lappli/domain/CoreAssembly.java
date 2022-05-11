@@ -56,6 +56,12 @@ public class CoreAssembly extends AbstractNonCentralAssembly<CoreAssembly> imple
     }
 
     @Override
+    public Double getHourExecutionTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
     public Double getBeforeThisMilimeterDiameter() {
         if (getOwnerStrandSupply() == null) {
             return Double.NaN;

@@ -137,6 +137,12 @@ public class ContinuityWireLongitLaying
     }
 
     @Override
+    public Double getHourExecutionTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
     public String getProductDesignation() {
         ContinuityWire continuityWire = getFinalContinuityWire();
 

@@ -145,6 +145,12 @@ public class CarrierPlait
     }
 
     @Override
+    public Double getHourExecutionTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
     public String getProductDesignation() {
         if (getFinalCarrierPlaitFiber() == null) {
             return null;
