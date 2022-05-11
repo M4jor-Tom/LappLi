@@ -29,9 +29,6 @@ public class CarrierPlait
     private static final long serialVersionUID = 1L;
 
     @Transient
-    private PlaiterConfiguration selectedPlaiterConfiguration;
-
-    @Transient
     List<PlaiterConfiguration> plaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin;
 
     @NotNull
@@ -130,7 +127,7 @@ public class CarrierPlait
 
     @Override
     public Double getAfterThisMilimeterDiameter() {
-        return CalculatorManager.getCalculatorInstance().getAfterCarrierPlaitMilimeterDiameter(this, getSelectedPlaiterConfiguration());
+        return CalculatorManager.getCalculatorInstance().getAfterCarrierPlaitMilimeterDiameter(this, getFastestPlaiterConfiguration());
     }
 
     @Override
@@ -146,7 +143,7 @@ public class CarrierPlait
 
     @Override
     public Double getHourExecutionTime() {
-        return getHourExecutionTime(getSelectedPlaiterConfiguration());
+        return getHourExecutionTime(getFastestPlaiterConfiguration());
     }
 
     @Override
@@ -188,7 +185,7 @@ public class CarrierPlait
     }
 
     public Long getCarrierPlaitFibersPerBobinsMinimumCount() {
-        return getCarrierPlaitFibersPerBobinsMinimumCount(getSelectedPlaiterConfiguration());
+        return getCarrierPlaitFibersPerBobinsMinimumCount(getFastestPlaiterConfiguration());
     }
 
     public Long getCarrierPlaitFibersPerBobinsMinimumCount(PlaiterConfiguration plaiterConfiguration) {
@@ -244,20 +241,6 @@ public class CarrierPlait
                 }
             )
             .orElse(null);
-    }
-
-    public PlaiterConfiguration getSelectedPlaiterConfiguration() {
-        return selectedPlaiterConfiguration;
-    }
-
-    public CarrierPlait selectedPlaiterConfiguration(PlaiterConfiguration plaiterConfiguration) {
-        this.setSelectedPlaiterConfiguration(plaiterConfiguration);
-
-        return this;
-    }
-
-    public void setSelectedPlaiterConfiguration(PlaiterConfiguration selectedPlaiterConfiguration) {
-        this.selectedPlaiterConfiguration = selectedPlaiterConfiguration;
     }
 
     public List<PlaiterConfiguration> getPlaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin() {
