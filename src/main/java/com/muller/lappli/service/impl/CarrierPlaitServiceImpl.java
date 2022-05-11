@@ -46,43 +46,47 @@ public class CarrierPlaitServiceImpl extends AbstractNonCentralOperationServiceI
     public Optional<CarrierPlait> partialUpdate(CarrierPlait carrierPlait) {
         log.debug("Request to partially update CarrierPlait : {}", carrierPlait);
 
-        return getJpaRepository()
-            .findById(carrierPlait.getId())
-            .map(existingCarrierPlait -> {
-                if (carrierPlait.getMinimumDecaNewtonLoad() != null) {
-                    existingCarrierPlait.setMinimumDecaNewtonLoad(carrierPlait.getMinimumDecaNewtonLoad());
-                }
-                if (carrierPlait.getDegreeAssemblyAngle() != null) {
-                    existingCarrierPlait.setDegreeAssemblyAngle(carrierPlait.getDegreeAssemblyAngle());
-                }
-                if (carrierPlait.getForcedEndPerBobinsCount() != null) {
-                    existingCarrierPlait.setForcedEndPerBobinsCount(carrierPlait.getForcedEndPerBobinsCount());
-                }
-                if (carrierPlait.getAnonymousCarrierPlaitFiberNumber() != null) {
-                    existingCarrierPlait.setAnonymousCarrierPlaitFiberNumber(carrierPlait.getAnonymousCarrierPlaitFiberNumber());
-                }
-                if (carrierPlait.getAnonymousCarrierPlaitFiberDesignation() != null) {
-                    existingCarrierPlait.setAnonymousCarrierPlaitFiberDesignation(carrierPlait.getAnonymousCarrierPlaitFiberDesignation());
-                }
-                if (carrierPlait.getAnonymousCarrierPlaitFiberDecitexTitration() != null) {
-                    existingCarrierPlait.setAnonymousCarrierPlaitFiberDecitexTitration(
-                        carrierPlait.getAnonymousCarrierPlaitFiberDecitexTitration()
-                    );
-                }
-                if (carrierPlait.getAnonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity() != null) {
-                    existingCarrierPlait.setAnonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity(
-                        carrierPlait.getAnonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity()
-                    );
-                }
-                if (carrierPlait.getAnonymousCarrierPlaitFiberDecaNewtonLoad() != null) {
-                    existingCarrierPlait.setAnonymousCarrierPlaitFiberDecaNewtonLoad(
-                        carrierPlait.getAnonymousCarrierPlaitFiberDecaNewtonLoad()
-                    );
-                }
+        return onOptionalRead(
+            getJpaRepository()
+                .findById(carrierPlait.getId())
+                .map(existingCarrierPlait -> {
+                    if (carrierPlait.getMinimumDecaNewtonLoad() != null) {
+                        existingCarrierPlait.setMinimumDecaNewtonLoad(carrierPlait.getMinimumDecaNewtonLoad());
+                    }
+                    if (carrierPlait.getDegreeAssemblyAngle() != null) {
+                        existingCarrierPlait.setDegreeAssemblyAngle(carrierPlait.getDegreeAssemblyAngle());
+                    }
+                    if (carrierPlait.getForcedEndPerBobinsCount() != null) {
+                        existingCarrierPlait.setForcedEndPerBobinsCount(carrierPlait.getForcedEndPerBobinsCount());
+                    }
+                    if (carrierPlait.getAnonymousCarrierPlaitFiberNumber() != null) {
+                        existingCarrierPlait.setAnonymousCarrierPlaitFiberNumber(carrierPlait.getAnonymousCarrierPlaitFiberNumber());
+                    }
+                    if (carrierPlait.getAnonymousCarrierPlaitFiberDesignation() != null) {
+                        existingCarrierPlait.setAnonymousCarrierPlaitFiberDesignation(
+                            carrierPlait.getAnonymousCarrierPlaitFiberDesignation()
+                        );
+                    }
+                    if (carrierPlait.getAnonymousCarrierPlaitFiberDecitexTitration() != null) {
+                        existingCarrierPlait.setAnonymousCarrierPlaitFiberDecitexTitration(
+                            carrierPlait.getAnonymousCarrierPlaitFiberDecitexTitration()
+                        );
+                    }
+                    if (carrierPlait.getAnonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity() != null) {
+                        existingCarrierPlait.setAnonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity(
+                            carrierPlait.getAnonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity()
+                        );
+                    }
+                    if (carrierPlait.getAnonymousCarrierPlaitFiberDecaNewtonLoad() != null) {
+                        existingCarrierPlait.setAnonymousCarrierPlaitFiberDecaNewtonLoad(
+                            carrierPlait.getAnonymousCarrierPlaitFiberDecaNewtonLoad()
+                        );
+                    }
 
-                return existingCarrierPlait;
-            })
-            .map(getJpaRepository()::save);
+                    return existingCarrierPlait;
+                })
+                .map(getJpaRepository()::save)
+        );
     }
 
     @Override
