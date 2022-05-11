@@ -195,6 +195,16 @@ public class CarrierPlait
         return CalculatorManager.getCalculatorInstance().getMinimumCarrierPlaitFibersCount(this);
     }
 
+    public Long getCarrierPlaitFibersPerBobinsMinimumCount() {
+        return getCarrierPlaitFibersPerBobinsMinimumCount(getSelectedPlaiterConfiguration());
+    }
+
+    public Long getCarrierPlaitFibersPerBobinsMinimumCount(PlaiterConfiguration plaiterConfiguration) {
+        return Double
+            .valueOf(Math.ceil(getMinimumCarrierPlaitFibersCount().doubleValue() / plaiterConfiguration.getUsedBobinsCount().doubleValue()))
+            .longValue();
+    }
+
     public Long getFinalEndPerBobinsCount() {
         if (getForcedEndPerBobinsCount() == null) {
             return getSuggestedEndPerBobinsCount();
