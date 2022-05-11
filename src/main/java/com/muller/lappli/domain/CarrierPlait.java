@@ -31,6 +31,9 @@ public class CarrierPlait
     @Transient
     private PlaiterConfiguration selectedPlaiterConfiguration;
 
+    @Transient
+    List<PlaiterConfiguration> plaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin;
+
     @NotNull
     @Column(name = "operation_layer", nullable = false)
     private Long operationLayer;
@@ -97,6 +100,7 @@ public class CarrierPlait
 
     public CarrierPlait() {
         super();
+        setPlaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin(new ArrayList<PlaiterConfiguration>());
     }
 
     @Override
@@ -253,6 +257,24 @@ public class CarrierPlait
 
     public void setSelectedPlaiterConfiguration(PlaiterConfiguration selectedPlaiterConfiguration) {
         this.selectedPlaiterConfiguration = selectedPlaiterConfiguration;
+    }
+
+    public List<PlaiterConfiguration> getPlaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin() {
+        return plaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin;
+    }
+
+    public CarrierPlait plaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin(
+        List<PlaiterConfiguration> plaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin
+    ) {
+        this.setPlaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin(plaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin);
+
+        return this;
+    }
+
+    public void setPlaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin(
+        List<PlaiterConfiguration> plaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin
+    ) {
+        this.plaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin = plaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin;
     }
 
     public Long getOperationLayer() {
