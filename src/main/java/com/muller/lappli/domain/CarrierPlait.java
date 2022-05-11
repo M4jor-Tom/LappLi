@@ -175,14 +175,6 @@ public class CarrierPlait
         return Math.toRadians(getDegreeAssemblyAngle());
     }
 
-    public Long getSuggestedEndPerBobinsCount() {
-        if (getFastestPlaiterConfiguration() == null) {
-            return null;
-        }
-
-        return getMinimumCarrierPlaitFibersCount() / getFastestPlaiterConfiguration().getUsedBobinsCount();
-    }
-
     public Double getHourExecutionTime(PlaiterConfiguration plaiterConfiguration) {
         return CalculatorManager.getCalculatorInstance().getCarrierPlaitHourExecutionTime(this, plaiterConfiguration);
     }
@@ -207,7 +199,7 @@ public class CarrierPlait
 
     public Long getFinalEndPerBobinsCount() {
         if (getForcedEndPerBobinsCount() == null) {
-            return getSuggestedEndPerBobinsCount();
+            return getCarrierPlaitFibersPerBobinsMinimumCount();
         }
 
         return getForcedEndPerBobinsCount();
