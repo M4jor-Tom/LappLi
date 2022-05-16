@@ -8,6 +8,7 @@ export interface IAbstractOperation {
   productDesignation?: string;
   milimeterDiameterIncidency?: number;
   mullerStandardizedFormatMilimeterDiameterIncidency?: string;
+  mullerStandardizedFormatHourExecutionTime?: string;
   beforeThisMilimeterDiameter?: number;
   mullerStandardizedFormatBeforeThisMilimeterDiameter?: string;
   afterThisMilimeterDiameter?: number;
