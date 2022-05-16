@@ -32,6 +32,10 @@ public class Plaiter extends AbstractMachine<Plaiter> implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    public Plaiter() {
+        super();
+    }
+
     @Override
     public Plaiter getThis() {
         return this;
