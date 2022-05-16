@@ -23,6 +23,14 @@ public abstract class AbstractOperation<T extends AbstractOperation<T>> extends 
     }
 
     /**
+     * @return the standardized {@link String} value of
+     * {@link AbstractOperation#getMullerStandardizedFormatHourExecutionTime}
+     */
+    public String getMullerStandardizedFormatHourExecutionTime() {
+        return DomainManager.mullerStandardizedFormat(getHourExecutionTime());
+    }
+
+    /**
      * @return the diameter just under this operation
      */
     public Double getBeforeThisMilimeterDiameter() {
