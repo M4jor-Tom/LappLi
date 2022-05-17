@@ -184,7 +184,15 @@ public class CarrierPlait
     }
 
     public PlaiterConfiguration getSelectedPlaiterConfiguration() {
-        return getFastestPlaiterConfiguration();
+        if (
+            getPlaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin() == null ||
+            getPlaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin().isEmpty()
+        ) {
+            return null;
+        }
+
+        return getPlaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin().get(0);
+        //return getFastestPlaiterConfiguration();
     }
 
     public Double getRealDecaNewtonLoad() {
