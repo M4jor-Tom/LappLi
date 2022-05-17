@@ -200,9 +200,9 @@ public class CarrierPlait
             .longValue();
     }
 
-    public Long getFinalEndPerBobinsCount() {
+    public Long getFinalEndPerBobinsCount(PlaiterConfiguration plaiterConfiguration) {
         if (getForcedEndPerBobinsCount() == null) {
-            return getCarrierPlaitFibersPerBobinsMinimumCount();
+            return getCarrierPlaitFibersPerBobinsMinimumCount(plaiterConfiguration);
         }
 
         return getForcedEndPerBobinsCount();
