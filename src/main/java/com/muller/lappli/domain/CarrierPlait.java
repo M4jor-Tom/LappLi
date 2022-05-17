@@ -189,7 +189,9 @@ public class CarrierPlait
     }
 
     public Long getCarrierPlaitFibersPerBobinsMinimumCount(PlaiterConfiguration plaiterConfiguration) {
-        if (plaiterConfiguration == null || plaiterConfiguration.getUsedBobinsCount() == null) {
+        if (
+            plaiterConfiguration == null || plaiterConfiguration.getUsedBobinsCount() == null || getMinimumCarrierPlaitFibersCount() == null
+        ) {
             return null;
         }
 
