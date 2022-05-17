@@ -156,8 +156,15 @@ public class CarrierPlait
     }
 
     public Plaiter getSelectedPlaiter() {
-        //  TODO: Implement this
-        return null;
+        if (getSelectedPlaiterConfiguration() == null) {
+            return null;
+        }
+
+        return getSelectedPlaiterConfiguration().getPlaiter();
+    }
+
+    public PlaiterConfiguration getSelectedPlaiterConfiguration() {
+        return getFastestPlaiterConfiguration();
     }
 
     public Double getRealDecaNewtonLoad() {
