@@ -100,6 +100,9 @@ public class CarrierPlaitServiceImpl extends AbstractNonCentralOperationServiceI
         Long minimumCarrierPlaitFibersPerBobin = Long.MAX_VALUE;
         for (PlaiterConfiguration plaiterConfiguration : allPlaiterConfigurations) {
             //...and for this PlaiterConfiguration
+            if (domainObject.getCarrierPlaitFibersPerBobinsMinimumCount(plaiterConfiguration) == null) {
+                return domainObject;
+            }
             minimumCarrierPlaitFibersPerBobin =
                 Math.min(minimumCarrierPlaitFibersPerBobin, domainObject.getCarrierPlaitFibersPerBobinsMinimumCount(plaiterConfiguration));
         }
