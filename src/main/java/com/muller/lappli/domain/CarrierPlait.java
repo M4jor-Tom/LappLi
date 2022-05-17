@@ -127,7 +127,7 @@ public class CarrierPlait
 
     @Override
     public Double getAfterThisMilimeterDiameter() {
-        return CalculatorManager.getCalculatorInstance().getAfterCarrierPlaitMilimeterDiameter(this, getFastestPlaiterConfiguration());
+        return CalculatorManager.getCalculatorInstance().getAfterCarrierPlaitMilimeterDiameter(this, getSelectedPlaiterConfiguration());
     }
 
     @Override
@@ -143,7 +143,7 @@ public class CarrierPlait
 
     @Override
     public Double getHourExecutionTime() {
-        return getHourExecutionTime(getFastestPlaiterConfiguration());
+        return getHourExecutionTime(getSelectedPlaiterConfiguration());
     }
 
     @Override
@@ -192,7 +192,7 @@ public class CarrierPlait
     }
 
     public Long getCarrierPlaitFibersPerBobinsMinimumCount() {
-        return getCarrierPlaitFibersPerBobinsMinimumCount(getFastestPlaiterConfiguration());
+        return getCarrierPlaitFibersPerBobinsMinimumCount(getSelectedPlaiterConfiguration());
     }
 
     public Long getCarrierPlaitFibersPerBobinsMinimumCount(PlaiterConfiguration plaiterConfiguration) {
