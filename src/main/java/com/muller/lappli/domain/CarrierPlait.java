@@ -5,6 +5,7 @@ import com.muller.lappli.domain.abstracts.AbstractMachine;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import com.muller.lappli.domain.interfaces.AssemblableOperation;
+import com.muller.lappli.domain.interfaces.BobinsCountOwnerOperation;
 import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
 import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
@@ -24,7 +25,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class CarrierPlait
     extends AbstractOperation<CarrierPlait>
-    implements Serializable, INonAssemblyOperation<CarrierPlait>, AssemblableOperation<CarrierPlait> {
+    implements
+        Serializable, INonAssemblyOperation<CarrierPlait>, AssemblableOperation<CarrierPlait>, BobinsCountOwnerOperation<CarrierPlait> {
 
     private static final long serialVersionUID = 1L;
 
@@ -155,12 +157,25 @@ public class CarrierPlait
         return getFinalCarrierPlaitFiber().getDesignation();
     }
 
+    @Override
+    public Long getBobinsCount() {
+        return getSelectedPlaiterTotalBobinsCount();
+    }
+
     public Plaiter getSelectedPlaiter() {
         if (getSelectedPlaiterConfiguration() == null) {
             return null;
         }
 
         return getSelectedPlaiterConfiguration().getPlaiter();
+    }
+
+    public Long getSelectedPlaiterTotalBobinsCount() {
+        if (getSelectedPlaiter() == null) {
+            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+        }
+
+        return getSelectedPlaiter().getTotalBobinsCount();
     }
 
     public PlaiterConfiguration getSelectedPlaiterConfiguration() {
