@@ -113,6 +113,12 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     }
 
     @Override
+    public Double getHourPreparationTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
     public Double getHourExecutionTime() {
         // TODO Auto-generated method stub
         return Double.NaN;

@@ -80,6 +80,12 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
     }
 
     @Override
+    public Double getHourPreparationTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
     public Double getHourExecutionTime() {
         // TODO Auto-generated method stub
         return Double.NaN;

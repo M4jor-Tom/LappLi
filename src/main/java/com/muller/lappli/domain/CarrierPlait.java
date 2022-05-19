@@ -124,6 +124,12 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
     }
 
     @Override
+    public Double getHourPreparationTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
     public Double getHourExecutionTime() {
         // TODO Auto-generated method stub
         return Double.NaN;

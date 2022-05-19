@@ -15,7 +15,8 @@
       "milimeterDiameterIncidency": "Incidence au Diamètre (mm)",
       "afterThisMilimeterDiameter": "Diamètre après opération (mm)",
       "operatingMachine": "Machine d'opération",
-      "hourExecutionTime": "Temps d'execution (h)",
+      "hourPreparationTime": "Temps de Préparation (h)",
+      "hourExecutionTime": "Temps d'Execution (h)",
       "componentsInformations": "Informations Composants"
     }
   }
