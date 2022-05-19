@@ -39,18 +39,24 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
 
   const getOutCount: number = props.match.params.study_id ? 2 : 0;
 
-  const componentsCountRender = (operation: IAbstractOperation) => {
-    return isAssembly(operation)
-      ? translate('lappLiApp.assembly.utilitySuppliedComponentsCount') +
-          ':' +
-          String.fromCharCode(160) +
-          operation.utilityComponentsCount +
-          '\n' +
-          translate('lappLiApp.assembly.completionSuppliedComponentsCount') +
-          ':' +
-          String.fromCharCode(160) +
-          operation.completionComponentsCount
-      : '';
+  const componentsRender = (operation: IAbstractOperation) => {
+    if (isAssembly(operation)) {
+      return componentsCountRender(operation);
+    }
+  };
+
+  const componentsCountRender = (operation: IAbstractNonCentralAssembly) => {
+    return (
+      translate('lappLiApp.assembly.utilitySuppliedComponentsCount') +
+      ':' +
+      String.fromCharCode(160) +
+      operation.utilityComponentsCount +
+      '\n' +
+      translate('lappLiApp.assembly.completionSuppliedComponentsCount') +
+      ':' +
+      String.fromCharCode(160) +
+      operation.completionComponentsCount
+    );
   };
 
   return (
@@ -301,7 +307,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                     <td>{operation.operationLayer}</td>
                     <td>{operation.operatingMachine?.name}</td>
                     <td>{operation.mullerStandardizedFormatHourExecutionTime}</td>
-                    <td>{componentsCountRender(operation)}</td>
+                    <td>{componentsRender(operation)}</td>
                     <td>{operation.productionStep}</td>
                     <td>{operation.productDesignation}</td>
                     <td>{operation.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
