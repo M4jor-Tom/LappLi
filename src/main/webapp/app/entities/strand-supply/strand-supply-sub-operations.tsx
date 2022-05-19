@@ -21,6 +21,10 @@ import { isAssembly } from 'app/shared/model/abstract-assembly.model';
 import { isAssemblableOperation } from 'app/shared/model/assemblable-operation.model';
 import { isMeanedAssemblableOperation } from 'app/shared/model/meaned-assemblable-operation.model';
 import { escapeRegExp } from 'lodash';
+import {
+  IAbstractBobinsCountOwnerOperation,
+  isBobinsCountOwnerOperation,
+} from 'app/shared/model/abstract-bobins-count-owner-operation.model';
 
 function replaceAll(str: string, find: string, replace: string): string {
   return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
@@ -42,7 +46,11 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
   const componentsRender = (operation: IAbstractOperation) => {
     if (isAssembly(operation)) {
       return componentsCountRender(operation);
+    } else if (isBobinsCountOwnerOperation(operation)) {
+      return totalBobinsCountRender(operation);
     }
+
+    return '';
   };
 
   const componentsCountRender = (operation: IAbstractNonCentralAssembly) => {
@@ -57,6 +65,10 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
       String.fromCharCode(160) +
       operation.completionComponentsCount
     );
+  };
+
+  const totalBobinsCountRender = (operation: IAbstractBobinsCountOwnerOperation) => {
+    return operation.bobinsCount;
   };
 
   return (
