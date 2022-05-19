@@ -207,7 +207,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   <Translate contentKey="lappLiApp.operation.hourExecutionTime">Execution Time (h)</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.assembly.componentsInformations">Components Informations</Translate>
+                  <Translate contentKey="lappLiApp.operation.componentsInformations">Components Informations</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.operation.productionStep">Production Step</Translate>
