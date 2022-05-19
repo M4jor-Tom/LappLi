@@ -144,6 +144,12 @@ public class CarrierPlait
     }
 
     @Override
+    public Double getHourPreparationTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
     public Double getHourExecutionTime() {
         return getHourExecutionTime(getSelectedPlaiterConfiguration());
     }

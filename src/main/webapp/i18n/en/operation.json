@@ -7,6 +7,9 @@
       "detail": {
         "title": "Operation"
       },
+      "componentsInformationsDescription": {
+        "bobinsCount": "Bobins Count"
+      },
       "ownerStrand": "Owner Strand",
       "layer": "Layer",
       "operationLayer": "Operation Layer",
@@ -15,6 +18,7 @@
       "milimeterDiameterIncidency": "Diameter Incidency (mm)",
       "afterThisMilimeterDiameter": "Diameter After This (mm)",
       "operatingMachine": "Operating Machine",
+      "hourPreparationTime": "Preparation Time (h)",
       "hourExecutionTime": "Execution Time (h)",
       "componentsInformations": "Components Information"
     }

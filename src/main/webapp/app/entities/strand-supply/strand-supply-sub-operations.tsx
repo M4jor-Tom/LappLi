@@ -47,7 +47,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
     if (isAssembly(operation)) {
       return componentsCountRender(operation);
     } else if (isBobinsCountOwnerOperation(operation)) {
-      return totalBobinsCountRender(operation);
+      return bobinsCountRender(operation);
     }
 
     return '';
@@ -67,8 +67,13 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
     );
   };
 
-  const totalBobinsCountRender = (operation: IAbstractBobinsCountOwnerOperation) => {
-    return operation.bobinsCount;
+  const bobinsCountRender = (operation: IAbstractBobinsCountOwnerOperation) => {
+    return (
+      translate('lappLiApp.operation.componentsInformationsDescription.bobinsCount') +
+      ':' +
+      String.fromCharCode(160) +
+      operation.bobinsCount
+    );
   };
 
   return (
@@ -204,6 +209,9 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   <Translate contentKey="lappLiApp.operation.operatingMachine">Operating Machine</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.operation.hourPreparationTime">Preparation Time (h)</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.operation.hourExecutionTime">Execution Time (h)</Translate>
                 </th>
                 <th>
@@ -243,6 +251,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                     <Translate contentKey="lappLiApp.centralAssembly.centralOperationLayer" />
                   </td>
                   <td>{strandSupplyEntity.centralAssembly.operatingMachine?.name}</td>
+                  <td>{strandSupplyEntity.centralAssembly.mullerStandardizedFormatHourPreparationTime}</td>
                   <td>{strandSupplyEntity.centralAssembly.mullerStandardizedFormatHourExecutionTime}</td>
                   <td>
                     {translate('lappLiApp.assembly.utilitySuppliedComponentsCount') + ':'}&nbsp;
@@ -318,6 +327,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                     </td>
                     <td>{operation.operationLayer}</td>
                     <td>{operation.operatingMachine?.name}</td>
+                    <td>{operation.mullerStandardizedFormatHourPreparationTime}</td>
                     <td>{operation.mullerStandardizedFormatHourExecutionTime}</td>
                     <td>{componentsRender(operation)}</td>
                     <td>{operation.productionStep}</td>
