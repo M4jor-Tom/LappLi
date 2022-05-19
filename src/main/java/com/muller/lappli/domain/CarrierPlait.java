@@ -145,8 +145,7 @@ public class CarrierPlait
 
     @Override
     public Double getHourPreparationTime() {
-        // TODO Auto-generated method stub
-        return Double.NaN;
+        return CalculatorManager.getCalculatorInstance().getCarrierPlaitHourPreparationTime(this);
     }
 
     @Override

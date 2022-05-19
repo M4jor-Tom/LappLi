@@ -164,5 +164,7 @@ public interface ICalculator {
 
     public Long getMinimumCarrierPlaitFibersCount(CarrierPlait carrierPlait);
 
+    public Double getCarrierPlaitHourPreparationTime(CarrierPlait carrierPlait);
+
     public Double getCarrierPlaitHourExecutionTime(CarrierPlait carrierPlait, PlaiterConfiguration plaiterConfiguration);
 }
