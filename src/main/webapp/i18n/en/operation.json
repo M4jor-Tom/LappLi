@@ -15,7 +15,8 @@
       "milimeterDiameterIncidency": "Diameter Incidency (mm)",
       "afterThisMilimeterDiameter": "Diameter After This (mm)",
       "operatingMachine": "Operating Machine",
-      "hourExecutionTime": "Execution Time (h)"
+      "hourExecutionTime": "Execution Time (h)",
+      "componentsInformations": "Components Information"
     }
   }
 }
