@@ -47,7 +47,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
     if (isAssembly(operation)) {
       return componentsCountRender(operation);
     } else if (isBobinsCountOwnerOperation(operation)) {
-      return totalBobinsCountRender(operation);
+      return bobinsCountRender(operation);
     }
 
     return '';
@@ -67,7 +67,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
     );
   };
 
-  const totalBobinsCountRender = (operation: IAbstractBobinsCountOwnerOperation) => {
+  const bobinsCountRender = (operation: IAbstractBobinsCountOwnerOperation) => {
     return operation.bobinsCount;
   };
 
