@@ -7,6 +7,9 @@
       "detail": {
         "title": "Operation"
       },
+      "componentsInformationsDescription": {
+        "bobinsCount": "Bobins Count"
+      },
       "ownerStrand": "Owner Strand",
       "layer": "Layer",
       "operationLayer": "Operation Layer",

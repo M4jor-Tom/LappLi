@@ -7,6 +7,9 @@
       "detail": {
         "title": "Opération"
       },
+      "componentsInformationsDescription": {
+        "bobinsCount": "Nombre de fuseaux"
+      },
       "ownerStrandSupply": "Approvisionnement de Toron propriétaire",
       "layer": "Couche",
       "operationLayer": "Couche d'opération",

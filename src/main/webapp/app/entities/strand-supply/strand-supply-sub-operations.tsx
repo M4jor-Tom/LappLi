@@ -68,7 +68,12 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
   };
 
   const bobinsCountRender = (operation: IAbstractBobinsCountOwnerOperation) => {
-    return operation.bobinsCount;
+    return (
+      translate('lappLiApp.operation.componentsInformationsDescription.bobinsCount') +
+      ':' +
+      String.fromCharCode(160) +
+      operation.bobinsCount
+    );
   };
 
   return (
