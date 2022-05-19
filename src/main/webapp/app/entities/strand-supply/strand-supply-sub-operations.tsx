@@ -310,7 +310,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                       &nbsp;&#62;&nbsp;
                       {operation.mullerStandardizedFormatAfterThisMilimeterDiameter}
                     </td>
-                    <td>{isAssemblableOperation(operation) ? operation.diameterAssemblyStep : ''}</td>
+                    <td>{isAssemblableOperation(operation) ? operation.mullerStandardizedFormatDiameterAssemblyStep : ''}</td>
                     <td>{isMeanedAssemblableOperation(operation) ? operation.assemblyMean : ''}</td>
                     <td>{isCoreAssembly(operation) ? operation.mullerStandardizedFormatMilimeterAssemblyVoid : ''}</td>
                     <td className="text-right">
