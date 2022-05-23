@@ -60,6 +60,11 @@ public interface IOperation<T extends IOperation<T>> extends IDomainObject<T> {
     public Double getHourExecutionTime();
 
     /**
+     * @return the time in hours in which this operation is executed for all StrandSupplies
+     */
+    public Double getHourExecutionTimeForAllStrandSupplies();
+
+    /**
      * @return the operation kind of this
      */
     public OperationKind getOperationKind();
