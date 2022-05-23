@@ -150,7 +150,7 @@ public class CarrierPlait
 
     @Override
     public Double getHourExecutionTime() {
-        return getHourExecutionTime(getSelectedPlaiterConfiguration());
+        return Double.NaN;
     }
 
     @Override
@@ -199,8 +199,8 @@ public class CarrierPlait
         return Math.toRadians(getDegreeAssemblyAngle());
     }
 
-    public Double getHourExecutionTime(PlaiterConfiguration plaiterConfiguration) {
-        return CalculatorManager.getCalculatorInstance().getCarrierPlaitHourExecutionTime(this, plaiterConfiguration);
+    public Double getInternalHourExecutionTime(PlaiterConfiguration plaiterConfiguration) {
+        return CalculatorManager.getCalculatorInstance().getCarrierPlaitInternalHourExecutionTime(this, plaiterConfiguration);
     }
 
     public Double getMilimeterAssemblyStep() {
@@ -263,7 +263,7 @@ public class CarrierPlait
                 new Comparator<PlaiterConfiguration>() {
                     @Override
                     public int compare(PlaiterConfiguration o1, PlaiterConfiguration o2) {
-                        return getHourExecutionTime(o1) < getHourExecutionTime(o2) ? 1 : -1;
+                        return getInternalHourExecutionTime(o1) < getInternalHourExecutionTime(o2) ? 1 : -1;
                     }
                 }
             )

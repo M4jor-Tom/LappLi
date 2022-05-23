@@ -114,7 +114,12 @@ public class CalculatorEmptyImpl implements ICalculator {
     }
 
     @Override
-    public Double getCarrierPlaitHourExecutionTime(CarrierPlait carrierPlait, PlaiterConfiguration plaiterConfiguration) {
+    public Double getCarrierPlaitInternalHourExecutionTime(CarrierPlait carrierPlait, PlaiterConfiguration plaiterConfiguration) {
+        return Double.NaN;
+    }
+
+    @Override
+    public Double getCarrierPlaitDisplayedHourExecutionTime(CarrierPlait carrierPlait) {
         return Double.NaN;
     }
 }
