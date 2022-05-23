@@ -150,7 +150,7 @@ public class CarrierPlait
 
     @Override
     public Double getHourExecutionTime() {
-        return Double.NaN;
+        return CalculatorManager.getCalculatorInstance().getCarrierPlaitDisplayedHourExecutionTime(this);
     }
 
     @Override
