@@ -32,10 +32,10 @@ public abstract class AbstractOperation<T extends AbstractOperation<T>> extends 
 
     /**
      * @return the standardized {@link String} value of
-     * {@link AbstractOperation#getHourExecutionTime}
+     * {@link AbstractOperation#getHourExecutionTimeForAllStrandSupplies}
      */
-    public String getMullerStandardizedFormatHourExecutionTime() {
-        return DomainManager.mullerStandardizedFormat(getHourExecutionTime());
+    public String getMullerStandardizedFormatHourExecutionTimeForAllStrandSupplies() {
+        return DomainManager.mullerStandardizedFormat(getHourExecutionTimeForAllStrandSupplies());
     }
 
     /**
@@ -68,6 +68,14 @@ public abstract class AbstractOperation<T extends AbstractOperation<T>> extends 
      */
     public String getMullerStandardizedFormatAfterThisMilimeterDiameter() {
         return DomainManager.mullerStandardizedFormat(getAfterThisMilimeterDiameter());
+    }
+
+    public Double getHourExecutionTimeForAllStrandSupplies() {
+        if (getOwnerStrandSupply() == null || getOwnerStrandSupply().getApparitions() == null) {
+            return Double.NaN;
+        }
+
+        return getOwnerStrandSupply().getApparitions().doubleValue() * getHourExecutionTime();
     }
 
     /**

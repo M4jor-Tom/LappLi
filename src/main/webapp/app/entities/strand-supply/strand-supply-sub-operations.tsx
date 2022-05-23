@@ -252,7 +252,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   </td>
                   <td>{strandSupplyEntity.centralAssembly.operatingMachine?.name}</td>
                   <td>{strandSupplyEntity.centralAssembly.mullerStandardizedFormatHourPreparationTime}</td>
-                  <td>{strandSupplyEntity.centralAssembly.mullerStandardizedFormatHourExecutionTime}</td>
+                  <td>{strandSupplyEntity.centralAssembly.mullerStandardizedFormatHourExecutionTimeForAllStrandSupplies}</td>
                   <td>
                     {translate('lappLiApp.assembly.utilitySuppliedComponentsCount') + ':'}&nbsp;
                     {strandSupplyEntity.centralAssembly.utilityComponentsCount}
@@ -328,7 +328,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                     <td>{operation.operationLayer}</td>
                     <td>{operation.operatingMachine?.name}</td>
                     <td>{operation.mullerStandardizedFormatHourPreparationTime}</td>
-                    <td>{operation.mullerStandardizedFormatHourExecutionTime}</td>
+                    <td>{operation.mullerStandardizedFormatHourExecutionTimeForAllStrandSupplies}</td>
                     <td>{componentsRender(operation)}</td>
                     <td>{operation.productionStep}</td>
                     <td>{operation.productDesignation}</td>
