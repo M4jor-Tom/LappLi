@@ -34,7 +34,7 @@ public abstract class AbstractOperation<T extends AbstractOperation<T>> extends 
      * @return the standardized {@link String} value of
      * {@link AbstractOperation#getHourExecutionTimeForAllStrandSupplies}
      */
-    public String getMullerStandardizedFormatHourHourExecutionTimeForAllStrandSupplies() {
+    public String getMullerStandardizedFormatHourExecutionTimeForAllStrandSupplies() {
         return DomainManager.mullerStandardizedFormat(getHourExecutionTimeForAllStrandSupplies());
     }
 
