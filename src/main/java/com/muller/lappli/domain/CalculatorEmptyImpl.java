@@ -122,4 +122,9 @@ public class CalculatorEmptyImpl implements ICalculator {
     public Double getCarrierPlaitDisplayedHourExecutionTime(CarrierPlait carrierPlait) {
         return Double.NaN;
     }
+
+    @Override
+    public Double getPlaiterBobinCapacity(Plaiter plaiter) {
+        return Double.NaN;
+    }
 }

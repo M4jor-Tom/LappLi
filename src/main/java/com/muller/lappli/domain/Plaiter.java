@@ -36,6 +36,10 @@ public class Plaiter extends AbstractMachine<Plaiter> implements Serializable {
         super();
     }
 
+    public Double getBobinCapacity() {
+        return CalculatorManager.getCalculatorInstance().getPlaiterBobinCapacity(this);
+    }
+
     @Override
     public Plaiter getThis() {
         return this;

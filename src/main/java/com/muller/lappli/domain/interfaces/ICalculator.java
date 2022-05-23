@@ -169,4 +169,6 @@ public interface ICalculator {
     public Double getCarrierPlaitInternalHourExecutionTime(CarrierPlait carrierPlait, PlaiterConfiguration plaiterConfiguration);
 
     public Double getCarrierPlaitDisplayedHourExecutionTime(CarrierPlait carrierPlait);
+
+    public Double getPlaiterBobinCapacity(Plaiter plaiter);
 }
