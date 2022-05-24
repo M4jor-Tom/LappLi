@@ -164,7 +164,7 @@ public class CarrierPlait
 
     @Override
     public Long getBobinsCount() {
-        return getSelectedPlaiterTotalBobinsCount();
+        return getSelectedPlaiterConfigurationUsedBobinsCount();
     }
 
     public Plaiter getSelectedPlaiter() {
@@ -175,12 +175,12 @@ public class CarrierPlait
         return getSelectedPlaiterConfiguration().getPlaiter();
     }
 
-    public Long getSelectedPlaiterTotalBobinsCount() {
-        if (getSelectedPlaiter() == null) {
+    public Long getSelectedPlaiterConfigurationUsedBobinsCount() {
+        if (getSelectedPlaiterConfiguration() == null) {
             return DomainManager.ERROR_LONG_POSITIVE_VALUE;
         }
 
-        return getSelectedPlaiter().getTotalBobinsCount();
+        return getSelectedPlaiterConfiguration().getUsedBobinsCount();
     }
 
     public PlaiterConfiguration getSelectedPlaiterConfiguration() {
