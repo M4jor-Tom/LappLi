@@ -460,17 +460,21 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
         <Translate contentKey="lappLiApp.sheathing.detail.title">Sheathing</Translate>
       </Link>
       &nbsp;
-      <Link
-        to={`${props.match.url}/flat-sheathing/new`}
-        className="btn btn-primary jh-create-entity"
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-      >
-        <FontAwesomeIcon icon="plus" />
-        &nbsp;
-        <Translate contentKey="lappLiApp.flatSheathing.detail.title">Flat Sheathing</Translate>
-      </Link>
-      &nbsp;
+      {strandSupplyEntity.couldBeFlat ? (
+        <Link
+          to={`${props.match.url}/flat-sheathing/new`}
+          className="btn btn-primary jh-create-entity"
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+        >
+          <FontAwesomeIcon icon="plus" />
+          &nbsp;
+          <Translate contentKey="lappLiApp.flatSheathing.detail.title">Flat Sheathing</Translate>
+        </Link>
+      ) : (
+        ''
+      )}
+      {strandSupplyEntity.couldBeFlat ? <>&nbsp;</> : ''}
       <Link
         to={`${props.match.url}/continuity-wire-longit-laying/new`}
         className="btn btn-primary jh-create-entity"
