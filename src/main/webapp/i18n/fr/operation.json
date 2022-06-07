@@ -20,7 +20,9 @@
       "operatingMachine": "Machine d'opération",
       "hourPreparationTime": "Temps de Préparation (h)",
       "hourExecutionTime": "Temps d'Execution (h)",
-      "componentsInformations": "Informations Composants"
+      "componentsInformations": "Informations Composants",
+      "milimeterWidth": "Largeur (mm)",
+      "milimeterHeight": "Hauteur (mm)"
     }
   }
 }
