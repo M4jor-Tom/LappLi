@@ -2,20 +2,20 @@
   "lappLiApp": {
     "flatSheathing": {
       "home": {
-        "title": "FlatSheathings",
+        "title": "Gainages Plats",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Flat Sheathing",
-        "createOrEditLabel": "Créer ou éditer un Flat Sheathing",
-        "notFound": "Aucun Flat Sheathing trouvé"
+        "createLabel": "Créer un nouveau Gainage Plat",
+        "createOrEditLabel": "Créer ou éditer un Gainage Plat",
+        "notFound": "Aucun Gainage Plat trouvé"
       },
-      "created": "Un nouveau Flat Sheathing a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Flat Sheathing avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Flat Sheathing avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouveau Gainage Plat a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Gainage Plat avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Gainage Plat avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Flat Sheathing {{ id }} ?"
+        "question": "Etes-vous certain de vouloir supprimer le Gainage Plat {{ id }} ?"
       },
       "detail": {
-        "title": "Flat Sheathing"
+        "title": "Gainage Plat"
       },
       "id": "ID",
       "operationLayer": "Operation Layer",
