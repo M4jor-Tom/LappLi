@@ -202,7 +202,7 @@ export const FlatSheathingUpdate = (props: RouteComponentProps<{ id: string; str
                   <Translate contentKey="entity.validation.required">This field is required.</Translate>
                 </FormText>
               )}
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/flat-sheathing" replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
