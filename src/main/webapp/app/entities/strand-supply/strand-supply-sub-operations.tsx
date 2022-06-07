@@ -380,7 +380,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
             </span>
           </Button>
         </>
-      ) : (
+      ) : strandSupplyEntity.couldBeCylindric ? (
         <Link
           to={`${props.match.url}/assemblies/new`}
           className="btn btn-primary jh-create-entity"
@@ -391,6 +391,8 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
           &nbsp;
           <Translate contentKey="lappLiApp.assembly.detail.title">Assembly</Translate>
         </Link>
+      ) : (
+        ''
       )}
       {/* [NON_CENTRAL_OPERATION] */}
       &nbsp;
