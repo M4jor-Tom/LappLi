@@ -405,7 +405,7 @@ class FlatSheathingResourceIT {
         assertThat(testFlatSheathing.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testFlatSheathing.getSheathingKind()).isEqualTo(DEFAULT_SHEATHING_KIND);
         assertThat(testFlatSheathing.getMilimeterWidth()).isEqualTo(DEFAULT_MILIMETER_WIDTH);
-        assertThat(testFlatSheathing.getMilimeterHeight()).isEqualTo(DEFAULT_MILIMETER_HEIGHT);
+        assertThat(testFlatSheathing.getMilimeterHeight()).isEqualTo(UPDATED_MILIMETER_HEIGHT);
     }
 
     @Test
