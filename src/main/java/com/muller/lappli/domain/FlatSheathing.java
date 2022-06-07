@@ -3,9 +3,8 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractMachine;
-import com.muller.lappli.domain.abstracts.AbstractOperation;
+import com.muller.lappli.domain.abstracts.AbstractSheathing;
 import com.muller.lappli.domain.enumeration.OperationKind;
-import com.muller.lappli.domain.enumeration.SheathingKind;
 import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
 import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
@@ -20,18 +19,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "flat_sheathing")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class FlatSheathing extends AbstractOperation<FlatSheathing> implements Serializable, INonAssemblyOperation<FlatSheathing> {
+public class FlatSheathing extends AbstractSheathing<FlatSheathing> implements Serializable, INonAssemblyOperation<FlatSheathing> {
 
     private static final long serialVersionUID = 1L;
-
-    @NotNull
-    @Column(name = "operation_layer", nullable = false)
-    private Long operationLayer;
-
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "sheathing_kind", nullable = false)
-    private SheathingKind sheathingKind;
 
     @NotNull
     @Column(name = "milimeter_width", nullable = false)
@@ -40,11 +30,6 @@ public class FlatSheathing extends AbstractOperation<FlatSheathing> implements S
     @NotNull
     @Column(name = "milimeter_height", nullable = false)
     private Double milimeterHeight;
-
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
-    private Material material;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -147,32 +132,6 @@ public class FlatSheathing extends AbstractOperation<FlatSheathing> implements S
         return getMaterial().getDesignation();
     }
 
-    public Long getOperationLayer() {
-        return this.operationLayer;
-    }
-
-    public FlatSheathing operationLayer(Long operationLayer) {
-        this.setOperationLayer(operationLayer);
-        return this;
-    }
-
-    public void setOperationLayer(Long operationLayer) {
-        this.operationLayer = operationLayer;
-    }
-
-    public SheathingKind getSheathingKind() {
-        return this.sheathingKind;
-    }
-
-    public FlatSheathing sheathingKind(SheathingKind sheathingKind) {
-        this.setSheathingKind(sheathingKind);
-        return this;
-    }
-
-    public void setSheathingKind(SheathingKind sheathingKind) {
-        this.sheathingKind = sheathingKind;
-    }
-
     public Double getMilimeterWidth() {
         return this.milimeterWidth;
     }
@@ -197,19 +156,6 @@ public class FlatSheathing extends AbstractOperation<FlatSheathing> implements S
 
     public void setMilimeterHeight(Double milimeterHeight) {
         this.milimeterHeight = milimeterHeight;
-    }
-
-    public Material getMaterial() {
-        return this.material;
-    }
-
-    public void setMaterial(Material material) {
-        this.material = material;
-    }
-
-    public FlatSheathing material(Material material) {
-        this.setMaterial(material);
-        return this;
     }
 
     public StrandSupply getOwnerStrandSupply() {
