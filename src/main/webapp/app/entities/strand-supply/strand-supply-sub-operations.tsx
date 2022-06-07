@@ -78,8 +78,14 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
 
   const strandSupplyOperationListRender = (strandSupply: IStrandSupply) => {
     if (strandSupply.isFlat) {
-      return cylindricStrandSupplyOperationListRender(strandSupply);
+      return flatStrandSupplyOperationListRender(strandSupply);
     }
+
+    return cylindricStrandSupplyOperationListRender(strandSupply);
+  };
+
+  const flatStrandSupplyOperationListRender = (strandSupply: IStrandSupply) => {
+    return null;
   };
 
   const cylindricStrandSupplyOperationListRender = (strandSupply: IStrandSupply) => {
