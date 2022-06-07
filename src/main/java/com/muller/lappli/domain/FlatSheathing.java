@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractMachine;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
@@ -72,6 +73,24 @@ public class FlatSheathing extends AbstractOperation<FlatSheathing> implements S
     @Override
     public FlatSheathing getThis() {
         return this;
+    }
+
+    @Override
+    public AbstractMachine<?> getOperatingMachine() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Double getHourPreparationTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
+    public Double getHourExecutionTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
     }
 
     @Override

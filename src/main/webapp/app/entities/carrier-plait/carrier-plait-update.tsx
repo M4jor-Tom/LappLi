@@ -187,10 +187,21 @@ export const CarrierPlaitUpdate = (props: RouteComponentProps<{ id: string; stra
                 type="text"
               />
               <ValidatedField
-                label={translate('lappLiApp.carrierPlait.anonymousCarrierPlaitFiberSquareMilimeterSection') + ' *'}
-                id="carrier-plait-anonymousCarrierPlaitFiberSquareMilimeterSection"
-                name="anonymousCarrierPlaitFiberSquareMilimeterSection"
-                data-cy="anonymousCarrierPlaitFiberSquareMilimeterSection"
+                label={translate('lappLiApp.carrierPlait.anonymousCarrierPlaitFiberDecitexTitration') + ' *'}
+                id="carrier-plait-anonymousCarrierPlaitFiberDecitexTitration"
+                name="anonymousCarrierPlaitFiberDecitexTitration"
+                data-cy="anonymousCarrierPlaitFiberDecitexTitration"
+                type="text"
+                validate={{
+                  min: { value: 0, message: translate('entity.validation.min', { min: 0 }) },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
+              />
+              <ValidatedField
+                label={translate('lappLiApp.carrierPlait.anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity') + ' *'}
+                id="carrier-plait-anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity"
+                name="anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity"
+                data-cy="anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity"
                 type="text"
                 validate={{
                   min: { value: 0, message: translate('entity.validation.min', { min: 0 }) },

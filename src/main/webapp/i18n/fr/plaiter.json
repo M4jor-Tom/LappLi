@@ -1,0 +1,26 @@
+{
+  "lappLiApp": {
+    "plaiter": {
+      "home": {
+        "title": "Plaiters",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Plaiter",
+        "createOrEditLabel": "Créer ou éditer un Plaiter",
+        "notFound": "Aucun Plaiter trouvé"
+      },
+      "created": "Un nouveau Plaiter a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Plaiter avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Plaiter avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Plaiter {{ id }} ?"
+      },
+      "detail": {
+        "title": "Plaiter"
+      },
+      "id": "ID",
+      "index": "Index",
+      "totalBobinsCount": "Total Bobins Count",
+      "plaiterConfigurations": "Plaiter Configurations"
+    }
+  }
+}

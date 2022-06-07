@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractMachine;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.MetalFiberKind;
@@ -109,6 +110,24 @@ public class Screen
     public Long getProductionStep() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public AbstractMachine<?> getOperatingMachine() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Double getHourPreparationTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
+    public Double getHourExecutionTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
     }
 
     @Override

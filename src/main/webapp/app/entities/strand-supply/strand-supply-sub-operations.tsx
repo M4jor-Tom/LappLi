@@ -21,6 +21,10 @@ import { isAssembly } from 'app/shared/model/abstract-assembly.model';
 import { isAssemblableOperation } from 'app/shared/model/assemblable-operation.model';
 import { isMeanedAssemblableOperation } from 'app/shared/model/meaned-assemblable-operation.model';
 import { escapeRegExp } from 'lodash';
+import {
+  IAbstractBobinsCountOwnerOperation,
+  isBobinsCountOwnerOperation,
+} from 'app/shared/model/abstract-bobins-count-owner-operation.model';
 
 function replaceAll(str: string, find: string, replace: string): string {
   return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
@@ -39,18 +43,37 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
 
   const getOutCount: number = props.match.params.study_id ? 2 : 0;
 
-  const componentsCountRender = (operation: IAbstractOperation) => {
-    return isAssembly(operation)
-      ? translate('lappLiApp.assembly.utilitySuppliedComponentsCount') +
-          ':' +
-          String.fromCharCode(160) +
-          operation.utilityComponentsCount +
-          '\n' +
-          translate('lappLiApp.assembly.completionSuppliedComponentsCount') +
-          ':' +
-          String.fromCharCode(160) +
-          operation.completionComponentsCount
-      : '';
+  const componentsRender = (operation: IAbstractOperation) => {
+    if (isAssembly(operation)) {
+      return componentsCountRender(operation);
+    } else if (isBobinsCountOwnerOperation(operation)) {
+      return bobinsCountRender(operation);
+    }
+
+    return '';
+  };
+
+  const componentsCountRender = (operation: IAbstractNonCentralAssembly) => {
+    return (
+      translate('lappLiApp.assembly.utilitySuppliedComponentsCount') +
+      ':' +
+      String.fromCharCode(160) +
+      operation.utilityComponentsCount +
+      '\n' +
+      translate('lappLiApp.assembly.completionSuppliedComponentsCount') +
+      ':' +
+      String.fromCharCode(160) +
+      operation.completionComponentsCount
+    );
+  };
+
+  const bobinsCountRender = (operation: IAbstractBobinsCountOwnerOperation) => {
+    return (
+      translate('lappLiApp.operation.componentsInformationsDescription.bobinsCount') +
+      ':' +
+      String.fromCharCode(160) +
+      operation.bobinsCount
+    );
   };
 
   return (
@@ -194,7 +217,16 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   <Translate contentKey="lappLiApp.operation.layer">Layer</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="lappLiApp.assembly.suppliedComponentsCount">Components Count</Translate>
+                  <Translate contentKey="lappLiApp.operation.operatingMachine">Operating Machine</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.operation.hourPreparationTime">Preparation Time (h)</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.operation.hourExecutionTime">Execution Time (h)</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="lappLiApp.operation.componentsInformations">Components Informations</Translate>
                 </th>
                 <th>
                   <Translate contentKey="lappLiApp.operation.productionStep">Production Step</Translate>
@@ -229,6 +261,9 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   <td>
                     <Translate contentKey="lappLiApp.centralAssembly.centralOperationLayer" />
                   </td>
+                  <td>{strandSupplyEntity.centralAssembly.operatingMachine?.name}</td>
+                  <td>{strandSupplyEntity.centralAssembly.mullerStandardizedFormatHourPreparationTime}</td>
+                  <td>{strandSupplyEntity.centralAssembly.mullerStandardizedFormatHourExecutionTimeForAllStrandSupplies}</td>
                   <td>
                     {translate('lappLiApp.assembly.utilitySuppliedComponentsCount') + ':'}&nbsp;
                     {strandSupplyEntity.centralAssembly.utilityComponentsCount}
@@ -302,7 +337,10 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                         : ''}
                     </td>
                     <td>{operation.operationLayer}</td>
-                    <td>{componentsCountRender(operation)}</td>
+                    <td>{operation.operatingMachine?.name}</td>
+                    <td>{operation.mullerStandardizedFormatHourPreparationTime}</td>
+                    <td>{operation.mullerStandardizedFormatHourExecutionTimeForAllStrandSupplies}</td>
+                    <td>{componentsRender(operation)}</td>
                     <td>{operation.productionStep}</td>
                     <td>{operation.productDesignation}</td>
                     <td>{operation.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
@@ -311,7 +349,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                       &nbsp;&#62;&nbsp;
                       {operation.mullerStandardizedFormatAfterThisMilimeterDiameter}
                     </td>
-                    <td>{isAssemblableOperation(operation) ? operation.diameterAssemblyStep : ''}</td>
+                    <td>{isAssemblableOperation(operation) ? operation.mullerStandardizedFormatDiameterAssemblyStep : ''}</td>
                     <td>{isMeanedAssemblableOperation(operation) ? operation.assemblyMean : ''}</td>
                     <td>{isCoreAssembly(operation) ? operation.mullerStandardizedFormatMilimeterAssemblyVoid : ''}</td>
                     <td className="text-right">

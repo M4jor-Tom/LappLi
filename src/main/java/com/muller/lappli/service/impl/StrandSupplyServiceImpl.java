@@ -93,9 +93,17 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
     }
 
     public StrandSupply onRead(StrandSupply domainObject) {
-        if (domainObject != null && domainObject.getStrand() != null) {
-            for (AbstractSupply<?> supply : domainObject.getStrand().getSupplies()) {
-                supply.setObserverStrandSupply(domainObject);
+        if (domainObject != null) {
+            if (domainObject.getStrand() != null) {
+                for (AbstractSupply<?> supply : domainObject.getStrand().getSupplies()) {
+                    supply.setObserverStrandSupply(domainObject);
+                }
+            }
+            if (domainObject.getCarrierPlaits() != null) {
+                for (CarrierPlait carrierPlait : domainObject.getCarrierPlaits()) {
+                    domainObject.getCarrierPlaits().remove(carrierPlait);
+                    domainObject.addCarrierPlaits(carrierPlaitService.onRead(carrierPlait));
+                }
             }
         }
 

@@ -32,7 +32,10 @@
             <column name="anonymous_carrier_plait_fiber_designation" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="anonymous_carrier_plait_fiber_square_milimeter_section" type="double">
+            <column name="anonymous_carrier_plait_fiber_decitex_titration" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="anonymous_carrier_plait_fiber_gram_per_square_milimeter_per_meter_density" type="double">
                 <constraints nullable="true" />
             </column>
             <column name="anonymous_carrier_plait_fiber_deca_newton_load" type="double">
@@ -71,7 +74,8 @@
             <column name="forced_end_per_bobins_count" type="numeric"/>
             <column name="anonymous_carrier_plait_fiber_number" type="numeric"/>
             <column name="anonymous_carrier_plait_fiber_designation" type="string"/>
-            <column name="anonymous_carrier_plait_fiber_square_milimeter_section" type="numeric"/>
+            <column name="anonymous_carrier_plait_fiber_decitex_titration" type="numeric"/>
+            <column name="anonymous_carrier_plait_fiber_gram_per_square_milimeter_per_meter_density" type="numeric"/>
             <column name="anonymous_carrier_plait_fiber_deca_newton_load" type="numeric"/>
             <column name="owner_strand_supply_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->

@@ -23,6 +23,22 @@ public abstract class AbstractOperation<T extends AbstractOperation<T>> extends 
     }
 
     /**
+     * @return the standardized {@link String} value of
+     * {@link AbstractOperation#getHourPreparationTime}
+     */
+    public String getMullerStandardizedFormatHourPreparationTime() {
+        return DomainManager.mullerStandardizedFormat(getHourPreparationTime());
+    }
+
+    /**
+     * @return the standardized {@link String} value of
+     * {@link AbstractOperation#getHourExecutionTimeForAllStrandSupplies}
+     */
+    public String getMullerStandardizedFormatHourExecutionTimeForAllStrandSupplies() {
+        return DomainManager.mullerStandardizedFormat(getHourExecutionTimeForAllStrandSupplies());
+    }
+
+    /**
      * @return the diameter just under this operation
      */
     public Double getBeforeThisMilimeterDiameter() {
@@ -52,6 +68,14 @@ public abstract class AbstractOperation<T extends AbstractOperation<T>> extends 
      */
     public String getMullerStandardizedFormatAfterThisMilimeterDiameter() {
         return DomainManager.mullerStandardizedFormat(getAfterThisMilimeterDiameter());
+    }
+
+    public Double getHourExecutionTimeForAllStrandSupplies() {
+        if (getOwnerStrandSupply() == null || getOwnerStrandSupply().getApparitions() == null) {
+            return Double.NaN;
+        }
+
+        return getOwnerStrandSupply().getApparitions().doubleValue() * getHourExecutionTime();
     }
 
     /**

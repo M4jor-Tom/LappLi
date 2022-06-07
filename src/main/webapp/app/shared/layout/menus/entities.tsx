@@ -126,6 +126,12 @@ export const EntitiesMenu = props => (
     <MenuItem icon="asterisk" to="/carrier-plait-fiber">
       <Translate contentKey="global.menu.entities.carrierPlaitFiber" />
     </MenuItem>
+    <MenuItem icon="asterisk" to="/plaiter">
+      <Translate contentKey="global.menu.entities.plaiter" />
+    </MenuItem>
+    <MenuItem icon="asterisk" to="/plaiter-configuration">
+      <Translate contentKey="global.menu.entities.plaiterConfiguration" />
+    </MenuItem>
     <MenuItem icon="asterisk" to="/flat-sheathing">
       <Translate contentKey="global.menu.entities.flatSheathing" />
     </MenuItem>

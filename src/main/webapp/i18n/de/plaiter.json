@@ -1,0 +1,26 @@
+{
+  "lappLiApp": {
+    "plaiter": {
+      "home": {
+        "title": "Plaiters",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Plaiter erstellen",
+        "createOrEditLabel": "Plaiter erstellen oder bearbeiten",
+        "notFound": "Keine Plaiters gefunden"
+      },
+      "created": "Plaiter erstellt mit ID {{ param }}",
+      "updated": "Plaiter aktualisiert mit ID {{ param }}",
+      "deleted": "Plaiter gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Plaiter {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Plaiter"
+      },
+      "id": "ID",
+      "index": "Index",
+      "totalBobinsCount": "Total Bobins Count",
+      "plaiterConfigurations": "Plaiter Configurations"
+    }
+  }
+}

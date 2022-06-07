@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class DomainManager {
 
-    private static DecimalFormat JACQUES_DOUBLE_DECIMAL_FORMAT = new DecimalFormat("#.##");
+    public static final DecimalFormat JACQUES_DOUBLE_DECIMAL_FORMAT = new DecimalFormat("#.##");
 
     /**
      * When displaying hours,

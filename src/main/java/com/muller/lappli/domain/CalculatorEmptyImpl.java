@@ -10,6 +10,8 @@ public class CalculatorEmptyImpl implements ICalculator {
 
     public CalculatorEmptyImpl() {}
 
+    //  ASSEMBLY PART
+
     @Override
     public Double getSuppliedComponentsAverageDiameterCentralVoidDiameter(Long componentsCount, Double diameterAssemblyStep) {
         return Double.NaN;
@@ -86,6 +88,43 @@ public class CalculatorEmptyImpl implements ICalculator {
         Double roundComponentsAverageDiameter,
         Double diameterAssemblyStep
     ) {
+        return Double.NaN;
+    }
+
+    //  CARRIER_PLAIT PART
+
+    @Override
+    public Double getCarrierPlaitRealDecaNewtonLoad(CarrierPlait carrierPlait) {
+        return Double.NaN;
+    }
+
+    @Override
+    public Double getAfterCarrierPlaitMilimeterDiameter(CarrierPlait carrierPlait, PlaiterConfiguration plaiterConfiguration) {
+        return Double.NaN;
+    }
+
+    @Override
+    public Long getMinimumCarrierPlaitFibersCount(CarrierPlait carrierPlait) {
+        return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+    }
+
+    @Override
+    public Double getCarrierPlaitHourPreparationTime(CarrierPlait carrierPlait) {
+        return Double.NaN;
+    }
+
+    @Override
+    public Double getCarrierPlaitInternalHourExecutionTime(CarrierPlait carrierPlait, PlaiterConfiguration plaiterConfiguration) {
+        return Double.NaN;
+    }
+
+    @Override
+    public Double getCarrierPlaitDisplayedHourExecutionTime(CarrierPlait carrierPlait) {
+        return Double.NaN;
+    }
+
+    @Override
+    public Double getPlaiterBobinCapacity(Plaiter plaiter) {
         return Double.NaN;
     }
 }
