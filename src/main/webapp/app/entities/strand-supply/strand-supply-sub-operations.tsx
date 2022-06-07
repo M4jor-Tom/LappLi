@@ -76,6 +76,196 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
     );
   };
 
+  const strandSupplyOperationListRender = (strandSupply: IStrandSupply) => {
+    if (strandSupply.isFlat) {
+      return cylindricStrandSupplyOperationListRender(strandSupply);
+    }
+  };
+
+  const cylindricStrandSupplyOperationListRender = (strandSupply: IStrandSupply) => {
+    <Table responsive>
+      <thead>
+        <tr>
+          <th>
+            <Translate contentKey="lappLiApp.strandSupply.operationKind">Operation Kind</Translate>
+          </th>
+          <th>
+            <Translate contentKey="lappLiApp.operation.layer">Layer</Translate>
+          </th>
+          <th>
+            <Translate contentKey="lappLiApp.operation.operatingMachine">Operating Machine</Translate>
+          </th>
+          <th>
+            <Translate contentKey="lappLiApp.operation.hourPreparationTime">Preparation Time (h)</Translate>
+          </th>
+          <th>
+            <Translate contentKey="lappLiApp.operation.hourExecutionTime">Execution Time (h)</Translate>
+          </th>
+          <th>
+            <Translate contentKey="lappLiApp.operation.componentsInformations">Components Informations</Translate>
+          </th>
+          <th>
+            <Translate contentKey="lappLiApp.operation.productionStep">Production Step</Translate>
+          </th>
+          <th>
+            <Translate contentKey="lappLiApp.operation.productDesignation">Product Designation</Translate>
+          </th>
+          <th>
+            <Translate contentKey="lappLiApp.operation.milimeterDiameterIncidency">Diameter Incidency (mm)</Translate>
+          </th>
+          <th>
+            <Translate contentKey="lappLiApp.operation.afterThisMilimeterDiameter">Diameter After This (mm)</Translate>
+          </th>
+          <th>
+            <Translate contentKey="lappLiApp.assembly.diameterAssemblyStep">Assembly Step (D)</Translate>
+          </th>
+          <th>
+            <Translate contentKey="lappLiApp.assembly.assemblyMean">Assembly Mean</Translate>
+          </th>
+          <th>
+            <Translate contentKey="lappLiApp.assembly.milimeterAssemblyVoid">Assembly Void</Translate>
+          </th>
+          <th />
+        </tr>
+      </thead>
+      <tbody>
+        {strandSupply.centralAssembly && strandSupply.centralAssembly.supplyPosition ? (
+          <tr data-cy="entityTable">
+            <td>
+              <Translate contentKey="lappLiApp.centralAssembly.home.title" />
+            </td>
+            <td>
+              <Translate contentKey="lappLiApp.centralAssembly.centralOperationLayer" />
+            </td>
+            <td>{strandSupply.centralAssembly.operatingMachine?.name}</td>
+            <td>{strandSupply.centralAssembly.mullerStandardizedFormatHourPreparationTime}</td>
+            <td>{strandSupply.centralAssembly.mullerStandardizedFormatHourExecutionTimeForAllStrandSupplies}</td>
+            <td>
+              {translate('lappLiApp.assembly.utilitySuppliedComponentsCount') + ':'}&nbsp;
+              {strandSupply.centralAssembly.utilityComponentsCount}
+              <br />
+              {translate('lappLiApp.assembly.completionSuppliedComponentsCount') + ':'}&nbsp;
+              {strandSupply.centralAssembly.completionComponentsCount}
+            </td>
+            <td>{strandSupply.centralAssembly.productionStep}</td>
+            <td>{/* NO PRODUCT DESIGNATION (ASSEMBLY) */}</td>
+            <td>{strandSupply.centralAssembly.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
+            <td>{strandSupply.centralAssembly.mullerStandardizedFormatAfterThisMilimeterDiameter}</td>
+            <td>{/* NO ASSEMBLY STEP (CENTRAL ASSEMBLY) */}</td>
+            <td>{/* NO ASSEMBLY MEAN (CENTRAL ASSEMBLY) */}</td>
+            <td>{/* NO ASSEMBLY VOID (CENTRAL ASSEMBLY) */}</td>
+            <td className="text-right">
+              <div className="btn-group flex-btn-group-container">
+                <Button
+                  tag={Link}
+                  to={`${props.match.url}/central-assembly/${strandSupply.centralAssembly.id}/supply`}
+                  color="primary"
+                  size="sm"
+                  data-cy="entityEditButton"
+                >
+                  <FontAwesomeIcon icon="pencil-alt" />{' '}
+                  <span className="d-none d-md-inline">
+                    <Translate contentKey="lappLiApp.assembly.subSupply">Assembly Supply</Translate>
+                  </span>
+                </Button>
+                &nbsp;
+                <Button
+                  tag={Link}
+                  to={`${props.match.url}/central-assembly/${strandSupply.centralAssembly.id}/edit`}
+                  color="primary"
+                  size="sm"
+                  data-cy="entityEditButton"
+                >
+                  <FontAwesomeIcon icon="pencil-alt" />{' '}
+                  <span className="d-none d-md-inline">
+                    <Translate contentKey="entity.action.edit">Edit</Translate>
+                  </span>
+                </Button>
+                &nbsp;
+                <Button
+                  tag={Link}
+                  to={`${props.match.url}/central-assembly/${strandSupply.centralAssembly.id}/delete`}
+                  color="danger"
+                  size="sm"
+                  data-cy="entityDeleteButton"
+                >
+                  <FontAwesomeIcon icon="trash" />{' '}
+                  <span className="d-none d-md-inline">
+                    <Translate contentKey="entity.action.delete">Delete</Translate>
+                  </span>
+                </Button>
+              </div>
+            </td>
+          </tr>
+        ) : (
+          ''
+        )}
+      </tbody>
+      {strandSupply.nonCentralOperations && strandSupply.nonCentralOperations.length > 0 ? (
+        <tbody>
+          {strandSupply.nonCentralOperations.map((operation, i) => (
+            <tr key={`entity-operation-${i}`} data-cy="entityTable">
+              <td>
+                {translate('lappLiApp.OperationKind.' + operation.operationKind)}
+                <br />
+                {operation.operationKind === OperationKind.SHEATHING
+                  ? translate('lappLiApp.SheathingKind.' + (operation as ISheathing).sheathingKind)
+                  : ''}
+              </td>
+              <td>{operation.operationLayer}</td>
+              <td>{operation.operatingMachine?.name}</td>
+              <td>{operation.mullerStandardizedFormatHourPreparationTime}</td>
+              <td>{operation.mullerStandardizedFormatHourExecutionTimeForAllStrandSupplies}</td>
+              <td>{componentsRender(operation)}</td>
+              <td>{operation.productionStep}</td>
+              <td>{operation.productDesignation}</td>
+              <td>{operation.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
+              <td>
+                {operation.mullerStandardizedFormatBeforeThisMilimeterDiameter}
+                &nbsp;&#62;&nbsp;
+                {operation.mullerStandardizedFormatAfterThisMilimeterDiameter}
+              </td>
+              <td>{isAssemblableOperation(operation) ? operation.mullerStandardizedFormatDiameterAssemblyStep : ''}</td>
+              <td>{isMeanedAssemblableOperation(operation) ? operation.assemblyMean : ''}</td>
+              <td>{isCoreAssembly(operation) ? operation.mullerStandardizedFormatMilimeterAssemblyVoid : ''}</td>
+              <td className="text-right">
+                <div className="btn-group flex-btn-group-container">
+                  <Button
+                    tag={Link}
+                    to={`${props.match.url}/${replaceAll(operation.operationKind.toLowerCase(), '_', '-')}/${operation.id}/edit`}
+                    color="primary"
+                    size="sm"
+                    data-cy="entityEditButton"
+                  >
+                    <FontAwesomeIcon icon="pencil-alt" />{' '}
+                    <span className="d-none d-md-inline">
+                      <Translate contentKey="entity.action.edit">Edit</Translate>
+                    </span>
+                  </Button>
+                  &nbsp;
+                  <Button
+                    tag={Link}
+                    to={`${props.match.url}/${replaceAll(operation.operationKind.toLowerCase(), '_', '-')}/${operation.id}/delete`}
+                    color="danger"
+                    size="sm"
+                    data-cy="entityDeleteButton"
+                  >
+                    <FontAwesomeIcon icon="trash" />{' '}
+                    <span className="d-none d-md-inline">
+                      <Translate contentKey="entity.action.delete">Delete</Translate>
+                    </span>
+                  </Button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      ) : (
+        ''
+      )}
+    </Table>;
+  };
+
   return (
     <div>
       <h2 data-cy="strandDetailsHeading">
@@ -207,187 +397,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
       <div className="table-responsive">
         {strandSupplyEntity.centralAssembly ||
         (strandSupplyEntity.nonCentralOperations && strandSupplyEntity.nonCentralOperations.length > 0) ? (
-          <Table responsive>
-            <thead>
-              <tr>
-                <th>
-                  <Translate contentKey="lappLiApp.strandSupply.operationKind">Operation Kind</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.operation.layer">Layer</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.operation.operatingMachine">Operating Machine</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.operation.hourPreparationTime">Preparation Time (h)</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.operation.hourExecutionTime">Execution Time (h)</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.operation.componentsInformations">Components Informations</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.operation.productionStep">Production Step</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.operation.productDesignation">Product Designation</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.operation.milimeterDiameterIncidency">Diameter Incidency (mm)</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.operation.afterThisMilimeterDiameter">Diameter After This (mm)</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.assembly.diameterAssemblyStep">Assembly Step (D)</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.assembly.assemblyMean">Assembly Mean</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="lappLiApp.assembly.milimeterAssemblyVoid">Assembly Void</Translate>
-                </th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {strandSupplyEntity.centralAssembly && strandSupplyEntity.centralAssembly.supplyPosition ? (
-                <tr data-cy="entityTable">
-                  <td>
-                    <Translate contentKey="lappLiApp.centralAssembly.home.title" />
-                  </td>
-                  <td>
-                    <Translate contentKey="lappLiApp.centralAssembly.centralOperationLayer" />
-                  </td>
-                  <td>{strandSupplyEntity.centralAssembly.operatingMachine?.name}</td>
-                  <td>{strandSupplyEntity.centralAssembly.mullerStandardizedFormatHourPreparationTime}</td>
-                  <td>{strandSupplyEntity.centralAssembly.mullerStandardizedFormatHourExecutionTimeForAllStrandSupplies}</td>
-                  <td>
-                    {translate('lappLiApp.assembly.utilitySuppliedComponentsCount') + ':'}&nbsp;
-                    {strandSupplyEntity.centralAssembly.utilityComponentsCount}
-                    <br />
-                    {translate('lappLiApp.assembly.completionSuppliedComponentsCount') + ':'}&nbsp;
-                    {strandSupplyEntity.centralAssembly.completionComponentsCount}
-                  </td>
-                  <td>{strandSupplyEntity.centralAssembly.productionStep}</td>
-                  <td>{/* NO PRODUCT DESIGNATION (ASSEMBLY) */}</td>
-                  <td>{strandSupplyEntity.centralAssembly.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
-                  <td>{strandSupplyEntity.centralAssembly.mullerStandardizedFormatAfterThisMilimeterDiameter}</td>
-                  <td>{/* NO ASSEMBLY STEP (CENTRAL ASSEMBLY) */}</td>
-                  <td>{/* NO ASSEMBLY MEAN (CENTRAL ASSEMBLY) */}</td>
-                  <td>{/* NO ASSEMBLY VOID (CENTRAL ASSEMBLY) */}</td>
-                  <td className="text-right">
-                    <div className="btn-group flex-btn-group-container">
-                      <Button
-                        tag={Link}
-                        to={`${props.match.url}/central-assembly/${strandSupplyEntity.centralAssembly.id}/supply`}
-                        color="primary"
-                        size="sm"
-                        data-cy="entityEditButton"
-                      >
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="lappLiApp.assembly.subSupply">Assembly Supply</Translate>
-                        </span>
-                      </Button>
-                      &nbsp;
-                      <Button
-                        tag={Link}
-                        to={`${props.match.url}/central-assembly/${strandSupplyEntity.centralAssembly.id}/edit`}
-                        color="primary"
-                        size="sm"
-                        data-cy="entityEditButton"
-                      >
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.edit">Edit</Translate>
-                        </span>
-                      </Button>
-                      &nbsp;
-                      <Button
-                        tag={Link}
-                        to={`${props.match.url}/central-assembly/${strandSupplyEntity.centralAssembly.id}/delete`}
-                        color="danger"
-                        size="sm"
-                        data-cy="entityDeleteButton"
-                      >
-                        <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.delete">Delete</Translate>
-                        </span>
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
-              ) : (
-                ''
-              )}
-            </tbody>
-            {strandSupplyEntity.nonCentralOperations && strandSupplyEntity.nonCentralOperations.length > 0 ? (
-              <tbody>
-                {strandSupplyEntity.nonCentralOperations.map((operation, i) => (
-                  <tr key={`entity-operation-${i}`} data-cy="entityTable">
-                    <td>
-                      {translate('lappLiApp.OperationKind.' + operation.operationKind)}
-                      <br />
-                      {operation.operationKind === OperationKind.SHEATHING
-                        ? translate('lappLiApp.SheathingKind.' + (operation as ISheathing).sheathingKind)
-                        : ''}
-                    </td>
-                    <td>{operation.operationLayer}</td>
-                    <td>{operation.operatingMachine?.name}</td>
-                    <td>{operation.mullerStandardizedFormatHourPreparationTime}</td>
-                    <td>{operation.mullerStandardizedFormatHourExecutionTimeForAllStrandSupplies}</td>
-                    <td>{componentsRender(operation)}</td>
-                    <td>{operation.productionStep}</td>
-                    <td>{operation.productDesignation}</td>
-                    <td>{operation.mullerStandardizedFormatMilimeterDiameterIncidency}</td>
-                    <td>
-                      {operation.mullerStandardizedFormatBeforeThisMilimeterDiameter}
-                      &nbsp;&#62;&nbsp;
-                      {operation.mullerStandardizedFormatAfterThisMilimeterDiameter}
-                    </td>
-                    <td>{isAssemblableOperation(operation) ? operation.mullerStandardizedFormatDiameterAssemblyStep : ''}</td>
-                    <td>{isMeanedAssemblableOperation(operation) ? operation.assemblyMean : ''}</td>
-                    <td>{isCoreAssembly(operation) ? operation.mullerStandardizedFormatMilimeterAssemblyVoid : ''}</td>
-                    <td className="text-right">
-                      <div className="btn-group flex-btn-group-container">
-                        <Button
-                          tag={Link}
-                          to={`${props.match.url}/${replaceAll(operation.operationKind.toLowerCase(), '_', '-')}/${operation.id}/edit`}
-                          color="primary"
-                          size="sm"
-                          data-cy="entityEditButton"
-                        >
-                          <FontAwesomeIcon icon="pencil-alt" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.edit">Edit</Translate>
-                          </span>
-                        </Button>
-                        &nbsp;
-                        <Button
-                          tag={Link}
-                          to={`${props.match.url}/${replaceAll(operation.operationKind.toLowerCase(), '_', '-')}/${operation.id}/delete`}
-                          color="danger"
-                          size="sm"
-                          data-cy="entityDeleteButton"
-                        >
-                          <FontAwesomeIcon icon="trash" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.delete">Delete</Translate>
-                          </span>
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            ) : (
-              ''
-            )}
-          </Table>
+          strandSupplyOperationListRender(strandSupplyEntity)
         ) : (
           <div className="alert alert-warning">
             <Translate contentKey="lappLiApp.operation.home.notFound">No operation found</Translate>
