@@ -20,6 +20,7 @@ export interface IStrandSupply {
   assemblyMean?: AssemblyMean;
   hasAssemblies?: boolean;
   isFlat?: boolean;
+  isCylindric?: boolean;
   couldBeFlat?: boolean;
   forceCentralUtilityComponent?: boolean;
   strand?: IStrand;
