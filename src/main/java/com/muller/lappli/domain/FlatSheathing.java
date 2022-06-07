@@ -8,7 +8,6 @@ import com.muller.lappli.domain.enumeration.OperationKind;
 import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
 import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -103,7 +102,7 @@ public class FlatSheathing extends AbstractOperation<FlatSheathing> implements S
             return super.isConform();
         }
 
-        return super.isConform() && getOwnerStrandSupply().getAssemblies().equals(Set.of());
+        return super.isConform() && getOwnerStrandSupply().couldBeFlat();
     }
 
     @Override

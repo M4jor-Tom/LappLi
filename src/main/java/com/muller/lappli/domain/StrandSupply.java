@@ -439,6 +439,11 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         return new LinkedHashSet<IOperation<?>>(sortedOperationList);
     }
 
+    @JsonProperty("couldBeFlat")
+    public Boolean couldBeFlat() {
+        return getAssemblies().equals(Set.of());
+    }
+
     @JsonProperty("isFlat")
     public Boolean isFlat() {
         for (IOperation<?> operation : getOperations()) {
