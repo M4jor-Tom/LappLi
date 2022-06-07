@@ -25,6 +25,7 @@ import {
   IAbstractBobinsCountOwnerOperation,
   isBobinsCountOwnerOperation,
 } from 'app/shared/model/abstract-bobins-count-owner-operation.model';
+import { isFlatSheathing } from 'app/shared/model/flat-sheathing.model';
 
 function replaceAll(str: string, find: string, replace: string): string {
   return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
@@ -85,7 +86,85 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
   };
 
   const flatStrandSupplyOperationListRender = (strandSupply: IStrandSupply) => {
-    return null;
+    return (
+      <Table responsive>
+        <thead>
+          <tr>
+            <th>
+              <Translate contentKey="lappLiApp.strandSupply.operationKind">Operation Kind</Translate>
+            </th>
+            <th>
+              <Translate contentKey="lappLiApp.operation.layer">Layer</Translate>
+            </th>
+            <th>
+              <Translate contentKey="lappLiApp.operation.operatingMachine">Operating Machine</Translate>
+            </th>
+            <th>
+              <Translate contentKey="lappLiApp.operation.hourPreparationTime">Preparation Time (h)</Translate>
+            </th>
+            <th>
+              <Translate contentKey="lappLiApp.operation.hourExecutionTime">Execution Time (h)</Translate>
+            </th>
+            <th>
+              <Translate contentKey="lappLiApp.operation.milimeterWidth">Width (mm)</Translate>
+            </th>
+            <th>
+              <Translate contentKey="lappLiApp.operation.milimeterHeight">Height (mm)</Translate>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {strandSupply.nonCentralOperations && strandSupply.nonCentralOperations.length > 0
+            ? strandSupply.nonCentralOperations.map((operation, i) => (
+                <tr key={`entity-operation-${i}`} data-cy="entityTable">
+                  <td>
+                    {translate('lappLiApp.OperationKind.' + operation.operationKind)}
+                    <br />
+                    {operation.operationKind === OperationKind.SHEATHING
+                      ? translate('lappLiApp.SheathingKind.' + (operation as ISheathing).sheathingKind)
+                      : ''}
+                  </td>
+                  <td>{operation.operationLayer}</td>
+                  <td>{operation.operatingMachine?.name}</td>
+                  <td>{operation.mullerStandardizedFormatHourPreparationTime}</td>
+                  <td>{operation.mullerStandardizedFormatHourExecutionTimeForAllStrandSupplies}</td>
+                  <td>{isFlatSheathing(operation) ? operation.milimeterWidth : ''}</td>
+                  <td>{isFlatSheathing(operation) ? operation.milimeterHeight : ''}</td>
+                  <td className="text-right">
+                    <div className="btn-group flex-btn-group-container">
+                      <Button
+                        tag={Link}
+                        to={`${props.match.url}/${replaceAll(operation.operationKind.toLowerCase(), '_', '-')}/${operation.id}/edit`}
+                        color="primary"
+                        size="sm"
+                        data-cy="entityEditButton"
+                      >
+                        <FontAwesomeIcon icon="pencil-alt" />{' '}
+                        <span className="d-none d-md-inline">
+                          <Translate contentKey="entity.action.edit">Edit</Translate>
+                        </span>
+                      </Button>
+                      &nbsp;
+                      <Button
+                        tag={Link}
+                        to={`${props.match.url}/${replaceAll(operation.operationKind.toLowerCase(), '_', '-')}/${operation.id}/delete`}
+                        color="danger"
+                        size="sm"
+                        data-cy="entityDeleteButton"
+                      >
+                        <FontAwesomeIcon icon="trash" />{' '}
+                        <span className="d-none d-md-inline">
+                          <Translate contentKey="entity.action.delete">Delete</Translate>
+                        </span>
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              ))
+            : ''}
+        </tbody>
+      </Table>
+    );
   };
 
   const cylindricStrandSupplyOperationListRender = (strandSupply: IStrandSupply) => {
