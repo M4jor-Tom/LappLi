@@ -155,4 +155,20 @@ public interface ICalculator {
     );
 
     public Long getAssemblyPresetDistributionCalculatorCount();
+
+    //  CARRIER_PLAIT PART
+
+    public Double getCarrierPlaitRealDecaNewtonLoad(CarrierPlait carrierPlait);
+
+    public Double getAfterCarrierPlaitMilimeterDiameter(CarrierPlait carrierPlait, PlaiterConfiguration plaiterConfiguration);
+
+    public Long getMinimumCarrierPlaitFibersCount(CarrierPlait carrierPlait);
+
+    public Double getCarrierPlaitHourPreparationTime(CarrierPlait carrierPlait);
+
+    public Double getCarrierPlaitInternalHourExecutionTime(CarrierPlait carrierPlait, PlaiterConfiguration plaiterConfiguration);
+
+    public Double getCarrierPlaitDisplayedHourExecutionTime(CarrierPlait carrierPlait);
+
+    public Double getPlaiterBobinCapacity(Plaiter plaiter);
 }

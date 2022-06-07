@@ -4,9 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractMachine;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.OperationKind;
+import com.muller.lappli.domain.interfaces.AssemblableOperation;
+import com.muller.lappli.domain.interfaces.BobinsCountOwnerOperation;
 import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
 import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -18,9 +23,15 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "carrier_plait")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Serializable, INonAssemblyOperation<CarrierPlait> {
+public class CarrierPlait
+    extends AbstractOperation<CarrierPlait>
+    implements
+        Serializable, INonAssemblyOperation<CarrierPlait>, AssemblableOperation<CarrierPlait>, BobinsCountOwnerOperation<CarrierPlait> {
 
     private static final long serialVersionUID = 1L;
+
+    @Transient
+    List<PlaiterConfiguration> plaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin;
 
     @NotNull
     @Column(name = "operation_layer", nullable = false)
@@ -86,6 +97,11 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    public CarrierPlait() {
+        super();
+        setPlaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin(new ArrayList<PlaiterConfiguration>());
+    }
+
     @Override
     public IOperation<CarrierPlait> toOperation() {
         return this;
@@ -102,13 +118,18 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
     }
 
     @Override
-    public Double getMilimeterDiameterIncidency() {
-        // TODO Auto-generated method stub
-        if (getFinalCarrierPlaitFiber() == null) {
-            return Double.NaN;
-        }
+    public Double getDiameterAssemblyStep() {
+        return getMilimeterAssemblyStep() / getAfterThisMilimeterDiameter();
+    }
 
-        return Double.NaN;
+    @Override
+    public Double getMilimeterDiameterIncidency() {
+        return getAfterThisMilimeterDiameter() - getBeforeThisMilimeterDiameter();
+    }
+
+    @Override
+    public Double getAfterThisMilimeterDiameter() {
+        return CalculatorManager.getCalculatorInstance().getAfterCarrierPlaitMilimeterDiameter(this, getSelectedPlaiterConfiguration());
     }
 
     @Override
@@ -119,20 +140,17 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
 
     @Override
     public AbstractMachine<?> getOperatingMachine() {
-        // TODO Auto-generated method stub
-        return null;
+        return getSelectedPlaiter();
     }
 
     @Override
     public Double getHourPreparationTime() {
-        // TODO Auto-generated method stub
-        return Double.NaN;
+        return CalculatorManager.getCalculatorInstance().getCarrierPlaitHourPreparationTime(this);
     }
 
     @Override
     public Double getHourExecutionTime() {
-        // TODO Auto-generated method stub
-        return Double.NaN;
+        return CalculatorManager.getCalculatorInstance().getCarrierPlaitDisplayedHourExecutionTime(this);
     }
 
     @Override
@@ -144,19 +162,80 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
         return getFinalCarrierPlaitFiber().getDesignation();
     }
 
-    public Double getRealDecaNewtonLoad() {
-        // TODO Empty method stub
-        return Double.NaN;
+    @Override
+    public Long getBobinsCount() {
+        return getSelectedPlaiterConfigurationUsedBobinsCount();
     }
 
-    public Long getSuggestedEndPerBobinsCount() {
-        // TODO Empty method stub
-        return null;
+    public Plaiter getSelectedPlaiter() {
+        if (getSelectedPlaiterConfiguration() == null) {
+            return null;
+        }
+
+        return getSelectedPlaiterConfiguration().getPlaiter();
+    }
+
+    public Long getSelectedPlaiterConfigurationUsedBobinsCount() {
+        if (getSelectedPlaiterConfiguration() == null) {
+            return DomainManager.ERROR_LONG_POSITIVE_VALUE;
+        }
+
+        return getSelectedPlaiterConfiguration().getUsedBobinsCount();
+    }
+
+    public PlaiterConfiguration getSelectedPlaiterConfiguration() {
+        if (
+            getPlaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin() == null ||
+            getPlaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin().isEmpty()
+        ) {
+            return null;
+        }
+
+        return getPlaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin().get(0);
+        //return getFastestPlaiterConfiguration();
+    }
+
+    public Double getRealDecaNewtonLoad() {
+        return CalculatorManager.getCalculatorInstance().getCarrierPlaitRealDecaNewtonLoad(this);
+    }
+
+    public Double getRadianAssemblyAngle() {
+        if (getDegreeAssemblyAngle() == null) {
+            return Double.NaN;
+        }
+
+        return Math.toRadians(getDegreeAssemblyAngle());
+    }
+
+    public Double getInternalHourExecutionTime(PlaiterConfiguration plaiterConfiguration) {
+        return CalculatorManager.getCalculatorInstance().getCarrierPlaitInternalHourExecutionTime(this, plaiterConfiguration);
+    }
+
+    public Double getMilimeterAssemblyStep() {
+        return Math.tan(Math.PI / 2 - getRadianAssemblyAngle()) * Math.PI * getAfterThisMilimeterDiameter();
+    }
+
+    public Long getMinimumCarrierPlaitFibersCount() {
+        return CalculatorManager.getCalculatorInstance().getMinimumCarrierPlaitFibersCount(this);
+    }
+
+    public Long getCarrierPlaitFibersPerBobinsMinimumCount() {
+        return getCarrierPlaitFibersPerBobinsMinimumCount(getSelectedPlaiterConfiguration());
+    }
+
+    public Long getCarrierPlaitFibersPerBobinsMinimumCount(PlaiterConfiguration plaiterConfiguration) {
+        if (plaiterConfiguration == null || plaiterConfiguration.getUsedBobinsCount() == null) {
+            return null;
+        }
+
+        return Double
+            .valueOf(Math.ceil(getMinimumCarrierPlaitFibersCount().doubleValue() / plaiterConfiguration.getUsedBobinsCount().doubleValue()))
+            .longValue();
     }
 
     public Long getFinalEndPerBobinsCount() {
         if (getForcedEndPerBobinsCount() == null) {
-            return getSuggestedEndPerBobinsCount();
+            return getCarrierPlaitFibersPerBobinsMinimumCount();
         }
 
         return getForcedEndPerBobinsCount();
@@ -179,6 +258,42 @@ public class CarrierPlait extends AbstractOperation<CarrierPlait> implements Ser
             .decaNewtonLoad(getAnonymousCarrierPlaitFiberDecaNewtonLoad())
             .getThisIfConform()
             .orElse(null);
+    }
+
+    public PlaiterConfiguration getFastestPlaiterConfiguration() {
+        if (getPlaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin().isEmpty()) {
+            return null;
+        }
+
+        return getPlaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin()
+            .stream()
+            .max(
+                new Comparator<PlaiterConfiguration>() {
+                    @Override
+                    public int compare(PlaiterConfiguration o1, PlaiterConfiguration o2) {
+                        return getInternalHourExecutionTime(o1) < getInternalHourExecutionTime(o2) ? 1 : -1;
+                    }
+                }
+            )
+            .orElse(null);
+    }
+
+    public List<PlaiterConfiguration> getPlaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin() {
+        return plaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin;
+    }
+
+    public CarrierPlait plaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin(
+        List<PlaiterConfiguration> plaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin
+    ) {
+        this.setPlaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin(plaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin);
+
+        return this;
+    }
+
+    public void setPlaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin(
+        List<PlaiterConfiguration> plaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin
+    ) {
+        this.plaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin = plaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin;
     }
 
     public Long getOperationLayer() {
