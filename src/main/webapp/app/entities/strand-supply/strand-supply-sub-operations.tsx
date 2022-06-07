@@ -26,6 +26,7 @@ import {
   isBobinsCountOwnerOperation,
 } from 'app/shared/model/abstract-bobins-count-owner-operation.model';
 import { isFlatSheathing } from 'app/shared/model/flat-sheathing.model';
+import { isAbstractSheathing } from 'app/shared/model/abstract-sheathing.model';
 
 function replaceAll(str: string, find: string, replace: string): string {
   return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
@@ -90,8 +91,9 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
       <>
         {translate('lappLiApp.OperationKind.' + operation.operationKind)}
         <br />
-        {isSheathing(operation) ? translate('lappLiApp.SheathingKind.' + operation.sheathingKind) : ''}
-        {isFlatSheathing(operation) ? operation.material.designation : ''}
+        {isAbstractSheathing(operation)
+          ? translate('lappLiApp.SheathingKind.' + operation.sheathingKind) + '\n' + operation.material.designation
+          : ''}
       </>
     );
   };
