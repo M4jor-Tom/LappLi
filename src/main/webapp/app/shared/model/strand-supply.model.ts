@@ -19,6 +19,7 @@ export interface IStrandSupply {
   diameterAssemblyStep?: number;
   assemblyMean?: AssemblyMean;
   hasAssemblies?: boolean;
+  isFlat?: boolean;
   forceCentralUtilityComponent?: boolean;
   strand?: IStrand;
   centralAssembly?: ICentralAssembly | null;

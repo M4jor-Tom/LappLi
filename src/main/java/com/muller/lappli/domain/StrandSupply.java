@@ -439,6 +439,17 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         return new LinkedHashSet<IOperation<?>>(sortedOperationList);
     }
 
+    @JsonProperty("isFlat")
+    public Boolean isFlat() {
+        for (IOperation<?> operation : getOperations()) {
+            if (operation instanceof FlatSheathing) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public Boolean isUsedOperationLayer(Long operationLayer) {
         if (operationLayer == null) {
             return false;
