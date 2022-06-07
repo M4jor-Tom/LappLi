@@ -439,16 +439,6 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         return new LinkedHashSet<IOperation<?>>(sortedOperationList);
     }
 
-    @JsonProperty("isCylindric")
-    public Boolean isCylindric() {
-        return !getAssemblies().equals(Set.of());
-    }
-
-    @JsonProperty("couldBeFlat")
-    public Boolean couldBeFlat() {
-        return !isCylindric();
-    }
-
     @JsonProperty("isFlat")
     public Boolean isFlat() {
         for (IOperation<?> operation : getOperations()) {
@@ -458,6 +448,16 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         }
 
         return false;
+    }
+
+    @JsonProperty("isCylindric")
+    public Boolean isCylindric() {
+        return !getAssemblies().equals(Set.of());
+    }
+
+    @JsonProperty("couldBeFlat")
+    public Boolean couldBeFlat() {
+        return !isCylindric();
     }
 
     public Boolean isUsedOperationLayer(Long operationLayer) {
