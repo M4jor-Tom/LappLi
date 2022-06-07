@@ -85,6 +85,7 @@ entity Sheathing {
 
 entity FlatSheathing {
     operationLayer Long required
+    sheathingKind SheathingKind required
     milimeterWidth Double required
     milimeterHeight Double required
 }

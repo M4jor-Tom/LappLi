@@ -9,6 +9,7 @@ import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.FlatSheathing;
 import com.muller.lappli.domain.Material;
 import com.muller.lappli.domain.StrandSupply;
+import com.muller.lappli.domain.enumeration.SheathingKind;
 import com.muller.lappli.repository.FlatSheathingRepository;
 import java.util.List;
 import java.util.Random;
@@ -33,6 +34,9 @@ class FlatSheathingResourceIT {
 
     private static final Long DEFAULT_OPERATION_LAYER = 1L;
     private static final Long UPDATED_OPERATION_LAYER = 2L;
+
+    private static final SheathingKind DEFAULT_SHEATHING_KIND = SheathingKind.TUBE;
+    private static final SheathingKind UPDATED_SHEATHING_KIND = SheathingKind.FLOATING_TUBE;
 
     private static final Double DEFAULT_MILIMETER_WIDTH = 1D;
     private static final Double UPDATED_MILIMETER_WIDTH = 2D;
@@ -66,6 +70,7 @@ class FlatSheathingResourceIT {
     public static FlatSheathing createEntity(EntityManager em) {
         FlatSheathing flatSheathing = new FlatSheathing()
             .operationLayer(DEFAULT_OPERATION_LAYER)
+            .sheathingKind(DEFAULT_SHEATHING_KIND)
             .milimeterWidth(DEFAULT_MILIMETER_WIDTH)
             .milimeterHeight(DEFAULT_MILIMETER_HEIGHT);
         // Add required entity
@@ -100,6 +105,7 @@ class FlatSheathingResourceIT {
     public static FlatSheathing createUpdatedEntity(EntityManager em) {
         FlatSheathing flatSheathing = new FlatSheathing()
             .operationLayer(UPDATED_OPERATION_LAYER)
+            .sheathingKind(UPDATED_SHEATHING_KIND)
             .milimeterWidth(UPDATED_MILIMETER_WIDTH)
             .milimeterHeight(UPDATED_MILIMETER_HEIGHT);
         // Add required entity
@@ -144,6 +150,7 @@ class FlatSheathingResourceIT {
         assertThat(flatSheathingList).hasSize(databaseSizeBeforeCreate + 1);
         FlatSheathing testFlatSheathing = flatSheathingList.get(flatSheathingList.size() - 1);
         assertThat(testFlatSheathing.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
+        assertThat(testFlatSheathing.getSheathingKind()).isEqualTo(DEFAULT_SHEATHING_KIND);
         assertThat(testFlatSheathing.getMilimeterWidth()).isEqualTo(DEFAULT_MILIMETER_WIDTH);
         assertThat(testFlatSheathing.getMilimeterHeight()).isEqualTo(DEFAULT_MILIMETER_HEIGHT);
     }
@@ -172,6 +179,23 @@ class FlatSheathingResourceIT {
         int databaseSizeBeforeTest = flatSheathingRepository.findAll().size();
         // set the field null
         flatSheathing.setOperationLayer(null);
+
+        // Create the FlatSheathing, which fails.
+
+        restFlatSheathingMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(flatSheathing)))
+            .andExpect(status().isBadRequest());
+
+        List<FlatSheathing> flatSheathingList = flatSheathingRepository.findAll();
+        assertThat(flatSheathingList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkSheathingKindIsRequired() throws Exception {
+        int databaseSizeBeforeTest = flatSheathingRepository.findAll().size();
+        // set the field null
+        flatSheathing.setSheathingKind(null);
 
         // Create the FlatSheathing, which fails.
 
@@ -230,6 +254,7 @@ class FlatSheathingResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(flatSheathing.getId().intValue())))
             .andExpect(jsonPath("$.[*].operationLayer").value(hasItem(DEFAULT_OPERATION_LAYER.intValue())))
+            .andExpect(jsonPath("$.[*].sheathingKind").value(hasItem(DEFAULT_SHEATHING_KIND.toString())))
             .andExpect(jsonPath("$.[*].milimeterWidth").value(hasItem(DEFAULT_MILIMETER_WIDTH.doubleValue())))
             .andExpect(jsonPath("$.[*].milimeterHeight").value(hasItem(DEFAULT_MILIMETER_HEIGHT.doubleValue())));
     }
@@ -247,6 +272,7 @@ class FlatSheathingResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(flatSheathing.getId().intValue()))
             .andExpect(jsonPath("$.operationLayer").value(DEFAULT_OPERATION_LAYER.intValue()))
+            .andExpect(jsonPath("$.sheathingKind").value(DEFAULT_SHEATHING_KIND.toString()))
             .andExpect(jsonPath("$.milimeterWidth").value(DEFAULT_MILIMETER_WIDTH.doubleValue()))
             .andExpect(jsonPath("$.milimeterHeight").value(DEFAULT_MILIMETER_HEIGHT.doubleValue()));
     }
@@ -272,6 +298,7 @@ class FlatSheathingResourceIT {
         em.detach(updatedFlatSheathing);
         updatedFlatSheathing
             .operationLayer(UPDATED_OPERATION_LAYER)
+            .sheathingKind(UPDATED_SHEATHING_KIND)
             .milimeterWidth(UPDATED_MILIMETER_WIDTH)
             .milimeterHeight(UPDATED_MILIMETER_HEIGHT);
 
@@ -288,6 +315,7 @@ class FlatSheathingResourceIT {
         assertThat(flatSheathingList).hasSize(databaseSizeBeforeUpdate);
         FlatSheathing testFlatSheathing = flatSheathingList.get(flatSheathingList.size() - 1);
         assertThat(testFlatSheathing.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
+        assertThat(testFlatSheathing.getSheathingKind()).isEqualTo(UPDATED_SHEATHING_KIND);
         assertThat(testFlatSheathing.getMilimeterWidth()).isEqualTo(UPDATED_MILIMETER_WIDTH);
         assertThat(testFlatSheathing.getMilimeterHeight()).isEqualTo(UPDATED_MILIMETER_HEIGHT);
     }
@@ -360,7 +388,7 @@ class FlatSheathingResourceIT {
         FlatSheathing partialUpdatedFlatSheathing = new FlatSheathing();
         partialUpdatedFlatSheathing.setId(flatSheathing.getId());
 
-        partialUpdatedFlatSheathing.operationLayer(UPDATED_OPERATION_LAYER);
+        partialUpdatedFlatSheathing.operationLayer(UPDATED_OPERATION_LAYER).milimeterHeight(UPDATED_MILIMETER_HEIGHT);
 
         restFlatSheathingMockMvc
             .perform(
@@ -375,6 +403,7 @@ class FlatSheathingResourceIT {
         assertThat(flatSheathingList).hasSize(databaseSizeBeforeUpdate);
         FlatSheathing testFlatSheathing = flatSheathingList.get(flatSheathingList.size() - 1);
         assertThat(testFlatSheathing.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
+        assertThat(testFlatSheathing.getSheathingKind()).isEqualTo(DEFAULT_SHEATHING_KIND);
         assertThat(testFlatSheathing.getMilimeterWidth()).isEqualTo(DEFAULT_MILIMETER_WIDTH);
         assertThat(testFlatSheathing.getMilimeterHeight()).isEqualTo(DEFAULT_MILIMETER_HEIGHT);
     }
@@ -393,6 +422,7 @@ class FlatSheathingResourceIT {
 
         partialUpdatedFlatSheathing
             .operationLayer(UPDATED_OPERATION_LAYER)
+            .sheathingKind(UPDATED_SHEATHING_KIND)
             .milimeterWidth(UPDATED_MILIMETER_WIDTH)
             .milimeterHeight(UPDATED_MILIMETER_HEIGHT);
 
@@ -409,6 +439,7 @@ class FlatSheathingResourceIT {
         assertThat(flatSheathingList).hasSize(databaseSizeBeforeUpdate);
         FlatSheathing testFlatSheathing = flatSheathingList.get(flatSheathingList.size() - 1);
         assertThat(testFlatSheathing.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
+        assertThat(testFlatSheathing.getSheathingKind()).isEqualTo(UPDATED_SHEATHING_KIND);
         assertThat(testFlatSheathing.getMilimeterWidth()).isEqualTo(UPDATED_MILIMETER_WIDTH);
         assertThat(testFlatSheathing.getMilimeterHeight()).isEqualTo(UPDATED_MILIMETER_HEIGHT);
     }

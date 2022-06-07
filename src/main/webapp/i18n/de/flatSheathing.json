@@ -19,6 +19,7 @@
       },
       "id": "ID",
       "operationLayer": "Operation Layer",
+      "sheathingKind": "Sheathing Kind",
       "milimeterWidth": "Milimeter Width",
       "milimeterHeight": "Milimeter Height",
       "material": "Material",

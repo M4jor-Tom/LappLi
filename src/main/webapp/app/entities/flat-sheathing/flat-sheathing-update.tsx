@@ -14,6 +14,7 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getOutFromStudySupplyStrandFlatSheathing } from '../index-management/index-management-lib';
+import { SheathingKind } from 'app/shared/model/enumerations/sheathing-kind.model';
 
 export const FlatSheathingUpdate = (props: RouteComponentProps<{ id: string; strand_supply_id: string }>) => {
   const dispatch = useAppDispatch();
@@ -26,6 +27,7 @@ export const FlatSheathingUpdate = (props: RouteComponentProps<{ id: string; str
   const loading = useAppSelector(state => state.flatSheathing.loading);
   const updating = useAppSelector(state => state.flatSheathing.updating);
   const updateSuccess = useAppSelector(state => state.flatSheathing.updateSuccess);
+  const sheathingKindValues = Object.keys(SheathingKind);
 
   //  Design for operation -- START
 
@@ -132,6 +134,19 @@ export const FlatSheathingUpdate = (props: RouteComponentProps<{ id: string; str
                   }}
                 />
               ) : null}
+              <ValidatedField
+                label={translate('lappLiApp.flatSheathing.sheathingKind')}
+                id="flat-sheathing-sheathingKind"
+                name="sheathingKind"
+                data-cy="sheathingKind"
+                type="select"
+              >
+                {sheathingKindValues.map(sheathingKind => (
+                  <option value={sheathingKind} key={sheathingKind}>
+                    {translate('lappLiApp.SheathingKind.' + sheathingKind)}
+                  </option>
+                ))}
+              </ValidatedField>
               <ValidatedField
                 label={translate('lappLiApp.flatSheathing.milimeterWidth')}
                 id="flat-sheathing-milimeterWidth"

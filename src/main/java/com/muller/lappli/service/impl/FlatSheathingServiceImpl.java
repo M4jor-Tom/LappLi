@@ -41,6 +41,9 @@ public class FlatSheathingServiceImpl extends AbstractNonCentralOperationService
         return getJpaRepository()
             .findById(flatSheathing.getId())
             .map(existingFlatSheathing -> {
+                if (flatSheathing.getSheathingKind() != null) {
+                    existingFlatSheathing.setSheathingKind(flatSheathing.getSheathingKind());
+                }
                 if (flatSheathing.getMilimeterWidth() != null) {
                     existingFlatSheathing.setMilimeterWidth(flatSheathing.getMilimeterWidth());
                 }

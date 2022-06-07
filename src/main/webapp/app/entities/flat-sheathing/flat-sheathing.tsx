@@ -53,6 +53,9 @@ export const FlatSheathing = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="lappLiApp.flatSheathing.operationLayer">Operation Layer</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.flatSheathing.sheathingKind">Sheathing Kind</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.flatSheathing.milimeterWidth">Milimeter Width</Translate>
                 </th>
                 <th>
@@ -76,6 +79,9 @@ export const FlatSheathing = (props: RouteComponentProps<{ url: string }>) => {
                     </Button>
                   </td>
                   <td>{flatSheathing.operationLayer}</td>
+                  <td>
+                    <Translate contentKey={`lappLiApp.SheathingKind.${flatSheathing.sheathingKind}`} />
+                  </td>
                   <td>{flatSheathing.milimeterWidth}</td>
                   <td>{flatSheathing.milimeterHeight}</td>
                   <td>

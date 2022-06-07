@@ -36,6 +36,12 @@ export const FlatSheathingDetail = (props: RouteComponentProps<{ id: string }>) 
           </dt>
           <dd>{flatSheathingEntity.operationLayer}</dd>
           <dt>
+            <span id="sheathingKind">
+              <Translate contentKey="lappLiApp.flatSheathing.sheathingKind">Sheathing Kind</Translate>
+            </span>
+          </dt>
+          <dd>{flatSheathingEntity.sheathingKind}</dd>
+          <dt>
             <span id="milimeterWidth">
               <Translate contentKey="lappLiApp.flatSheathing.milimeterWidth">Milimeter Width</Translate>
             </span>

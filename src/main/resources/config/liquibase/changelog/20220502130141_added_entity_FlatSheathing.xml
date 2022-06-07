@@ -17,6 +17,9 @@
             <column name="operation_layer" type="bigint">
                 <constraints nullable="false" />
             </column>
+            <column name="sheathing_kind" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
             <column name="milimeter_width" type="double">
                 <constraints nullable="false" />
             </column>
@@ -51,6 +54,7 @@
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="operation_layer" type="numeric"/>
+            <column name="sheathing_kind" type="string"/>
             <column name="milimeter_width" type="numeric"/>
             <column name="milimeter_height" type="numeric"/>
             <column name="material_id" type="numeric"/>

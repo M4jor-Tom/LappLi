@@ -7,6 +7,12 @@
       "fieldValidateRules": ["required"]
     },
     {
+      "fieldName": "sheathingKind",
+      "fieldType": "SheathingKind",
+      "fieldValues": "TUBE,FLOATING_TUBE,HALF_STUFFING,STUFFING",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "milimeterWidth",
       "fieldType": "Double",
       "fieldValidateRules": ["required"]

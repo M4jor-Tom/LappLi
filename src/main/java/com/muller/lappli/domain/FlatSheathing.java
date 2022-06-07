@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractMachine;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.OperationKind;
+import com.muller.lappli.domain.enumeration.SheathingKind;
 import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
 import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
@@ -26,6 +27,11 @@ public class FlatSheathing extends AbstractOperation<FlatSheathing> implements S
     @NotNull
     @Column(name = "operation_layer", nullable = false)
     private Long operationLayer;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sheathing_kind", nullable = false)
+    private SheathingKind sheathingKind;
 
     @NotNull
     @Column(name = "milimeter_width", nullable = false)
@@ -154,6 +160,19 @@ public class FlatSheathing extends AbstractOperation<FlatSheathing> implements S
         this.operationLayer = operationLayer;
     }
 
+    public SheathingKind getSheathingKind() {
+        return this.sheathingKind;
+    }
+
+    public FlatSheathing sheathingKind(SheathingKind sheathingKind) {
+        this.setSheathingKind(sheathingKind);
+        return this;
+    }
+
+    public void setSheathingKind(SheathingKind sheathingKind) {
+        this.sheathingKind = sheathingKind;
+    }
+
     public Double getMilimeterWidth() {
         return this.milimeterWidth;
     }
@@ -231,6 +250,7 @@ public class FlatSheathing extends AbstractOperation<FlatSheathing> implements S
         return "FlatSheathing{" +
             "id=" + getId() +
             ", operationLayer=" + getOperationLayer() +
+            ", sheathingKind='" + getSheathingKind() + "'" +
             ", milimeterWidth=" + getMilimeterWidth() +
             ", milimeterHeight=" + getMilimeterHeight() +
             "}";
