@@ -2,6 +2,7 @@ package com.muller.lappli.domain.abstracts;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.Material;
+import com.muller.lappli.domain.enumeration.SheathingKind;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -16,6 +17,11 @@ public abstract class AbstractSheathing<T extends AbstractSheathing<T>> extends 
     @NotNull
     @JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
     private Material material;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sheathing_kind", nullable = false)
+    private SheathingKind sheathingKind;
 
     public AbstractSheathing() {
         super();
@@ -45,5 +51,18 @@ public abstract class AbstractSheathing<T extends AbstractSheathing<T>> extends 
     public T material(Material material) {
         this.setMaterial(material);
         return getThis();
+    }
+
+    public SheathingKind getSheathingKind() {
+        return this.sheathingKind;
+    }
+
+    public T sheathingKind(SheathingKind sheathingKind) {
+        this.setSheathingKind(sheathingKind);
+        return getThis();
+    }
+
+    public void setSheathingKind(SheathingKind sheathingKind) {
+        this.sheathingKind = sheathingKind;
     }
 }

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractMachine;
 import com.muller.lappli.domain.abstracts.AbstractSheathing;
 import com.muller.lappli.domain.enumeration.OperationKind;
-import com.muller.lappli.domain.enumeration.SheathingKind;
 import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
 import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
@@ -26,11 +25,6 @@ public class Sheathing extends AbstractSheathing<Sheathing> implements Serializa
     @NotNull
     @Column(name = "milimeter_thickness", nullable = false)
     private Double milimeterThickness;
-
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "sheathing_kind", nullable = false)
-    private SheathingKind sheathingKind;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -114,19 +108,6 @@ public class Sheathing extends AbstractSheathing<Sheathing> implements Serializa
 
     public void setMilimeterThickness(Double milimeterThickness) {
         this.milimeterThickness = milimeterThickness;
-    }
-
-    public SheathingKind getSheathingKind() {
-        return this.sheathingKind;
-    }
-
-    public Sheathing sheathingKind(SheathingKind sheathingKind) {
-        this.setSheathingKind(sheathingKind);
-        return this;
-    }
-
-    public void setSheathingKind(SheathingKind sheathingKind) {
-        this.sheathingKind = sheathingKind;
     }
 
     @Override
