@@ -91,6 +91,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
         {translate('lappLiApp.OperationKind.' + operation.operationKind)}
         <br />
         {isSheathing(operation) ? translate('lappLiApp.SheathingKind.' + operation.sheathingKind) : ''}
+        {isFlatSheathing(operation) ? operation.material.designation : ''}
       </>
     );
   };
