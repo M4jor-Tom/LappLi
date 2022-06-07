@@ -65,6 +65,10 @@ public class FlatSheathing extends AbstractOperation<FlatSheathing> implements S
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
+    public FlatSheathing() {
+        super();
+    }
+
     @Override
     public IOperation<FlatSheathing> toOperation() {
         return this;
