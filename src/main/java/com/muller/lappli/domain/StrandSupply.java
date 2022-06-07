@@ -156,7 +156,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     }
 
     /**
-     * As {@link Strand#getOperations()} is a Set, it is unsorted,
+     * As {@link StrandSupply#getOperations()} is a Set, it is unsorted,
      * that's why a sorting algorithm is needed.
      *
      * @return a Comparator for the class AbstractOperation
