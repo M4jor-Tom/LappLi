@@ -22,6 +22,7 @@ export interface IStrandSupply {
   isFlat?: boolean;
   isCylindric?: boolean;
   couldBeFlat?: boolean;
+  couldBeCylindric?: boolean;
   forceCentralUtilityComponent?: boolean;
   strand?: IStrand;
   centralAssembly?: ICentralAssembly | null;

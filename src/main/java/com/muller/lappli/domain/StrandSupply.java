@@ -460,6 +460,11 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         return !isCylindric();
     }
 
+    @JsonProperty("couldBeCylindric")
+    public Boolean couldBeCylindric() {
+        return !isFlat();
+    }
+
     public Boolean isUsedOperationLayer(Long operationLayer) {
         if (operationLayer == null) {
             return false;
