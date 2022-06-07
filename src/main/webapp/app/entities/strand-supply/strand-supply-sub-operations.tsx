@@ -85,6 +85,18 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
     return cylindricStrandSupplyOperationListRender(strandSupply);
   };
 
+  const operationKindRender = (operation: IAbstractOperation) => {
+    return (
+      <>
+        {translate('lappLiApp.OperationKind.' + operation.operationKind)}
+        <br />
+        {operation.operationKind === OperationKind.SHEATHING
+          ? translate('lappLiApp.SheathingKind.' + (operation as ISheathing).sheathingKind)
+          : ''}
+      </>
+    );
+  };
+
   const flatStrandSupplyOperationListRender = (strandSupply: IStrandSupply) => {
     return (
       <Table responsive>
@@ -117,13 +129,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
           {strandSupply.nonCentralOperations && strandSupply.nonCentralOperations.length > 0
             ? strandSupply.nonCentralOperations.map((operation, i) => (
                 <tr key={`entity-operation-${i}`} data-cy="entityTable">
-                  <td>
-                    {translate('lappLiApp.OperationKind.' + operation.operationKind)}
-                    <br />
-                    {operation.operationKind === OperationKind.SHEATHING
-                      ? translate('lappLiApp.SheathingKind.' + (operation as ISheathing).sheathingKind)
-                      : ''}
-                  </td>
+                  <td>{operationKindRender(operation)}</td>
                   <td>{operation.operationLayer}</td>
                   <td>{operation.operatingMachine?.name}</td>
                   <td>{operation.mullerStandardizedFormatHourPreparationTime}</td>
@@ -291,13 +297,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
           <tbody>
             {strandSupply.nonCentralOperations.map((operation, i) => (
               <tr key={`entity-operation-${i}`} data-cy="entityTable">
-                <td>
-                  {translate('lappLiApp.OperationKind.' + operation.operationKind)}
-                  <br />
-                  {operation.operationKind === OperationKind.SHEATHING
-                    ? translate('lappLiApp.SheathingKind.' + (operation as ISheathing).sheathingKind)
-                    : ''}
-                </td>
+                <td>{operationKindRender(operation)}</td>
                 <td>{operation.operationLayer}</td>
                 <td>{operation.operatingMachine?.name}</td>
                 <td>{operation.mullerStandardizedFormatHourPreparationTime}</td>
