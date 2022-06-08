@@ -132,6 +132,33 @@ public class FlatSheathing extends AbstractSheathing<FlatSheathing> implements S
         return getMaterial().getDesignation();
     }
 
+    private Double getTotalSquareMilimeterSurface() {
+        if (getMilimeterHeight() == null || getMilimeterWidth() == null) {
+            return Double.NaN;
+        }
+
+        return (getMilimeterWidth() - getMilimeterHeight()) * getMilimeterHeight() + (Math.pow(getMilimeterHeight(), 2.0) * Math.PI / 4.0);
+    }
+
+    public Double getSquareMilimeterSurfaceToSheath() {
+        if (getOwnerStrandSupply() == null || getOwnerStrandSupply().getStrand() == null) {
+            return Double.NaN;
+        }
+
+        return getTotalSquareMilimeterSurface() - getOwnerStrandSupply().getStrand().getSuppliedComponentsSquareMilimeterSurfacesSum();
+    }
+
+    public Double getGramPerMeterLinearMass() {
+        if (getMaterial() == null) {
+            return Double.NaN;
+        }
+
+        // TODO Ask Jacques what's that
+        Double someCoefficient = 1.2;
+
+        return someCoefficient * getMaterial().getKilogramPerCubeMeterVolumicDensity() * getSquareMilimeterSurfaceToSheath();
+    }
+
     public Double getMilimeterWidth() {
         return this.milimeterWidth;
     }
