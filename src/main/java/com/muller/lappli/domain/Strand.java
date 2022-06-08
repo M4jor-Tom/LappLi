@@ -169,6 +169,20 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return suppliedComponentsMilimeterDiameter;
     }
 
+    public List<Double> getSuppliedComponentsSquareMilimeterSurfaces() {
+        List<Double> suppliedComponentsSquareMilimeterSurfaces = new ArrayList<Double>();
+
+        for (AbstractSupply<?> supply : getSupplies()) {
+            for (Long i = Long.valueOf(0); i < supply.getApparitions(); i++) {
+                suppliedComponentsSquareMilimeterSurfaces.add(
+                    supply == null ? Double.NaN : supply.getCylindricComponent().getSquareMilimeterSurface()
+                );
+            }
+        }
+
+        return suppliedComponentsSquareMilimeterSurfaces;
+    }
+
     public Double getSuppliedComponentsMilimeterDiametersSum() {
         Double suppliedComponentsMilimeterDiametersSum = 0.0;
 
@@ -177,6 +191,16 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         }
 
         return suppliedComponentsMilimeterDiametersSum;
+    }
+
+    public Double getSuppliedComponentsSquareMilimeterSurfacesSum() {
+        Double suppliedComponentsSquareMilimeterSurfaceSum = 0.0;
+
+        for (Double suppliedComponentSquareMilimeterSurface : getSuppliedComponentsSquareMilimeterSurfaces()) {
+            suppliedComponentsSquareMilimeterSurfaceSum += suppliedComponentSquareMilimeterSurface;
+        }
+
+        return suppliedComponentsSquareMilimeterSurfaceSum;
     }
 
     //[SUPPLY]
