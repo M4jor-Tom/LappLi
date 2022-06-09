@@ -22,6 +22,7 @@
       "sheathingKind": "Sheathing Kind",
       "milimeterWidth": "Milimeter Width",
       "milimeterHeight": "Milimeter Height",
+      "flatSheathingSupplyPositions": "Positions d'Approvisionnements",
       "material": "Material",
       "ownerStrandSupply": "Owner Strand Supply"
     }
