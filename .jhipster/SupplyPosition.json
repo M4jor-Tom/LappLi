@@ -10,6 +10,13 @@
   "relationships": [
     {
       "relationshipType": "one-to-one",
+      "otherEntityName": "flatSheathingSupplyPosition",
+      "otherEntityRelationshipName": "supplyPosition",
+      "relationshipName": "ownerFlatSheathingSupplyPosition",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
       "otherEntityName": "centralAssembly",
       "otherEntityRelationshipName": "supplyPosition",
       "relationshipName": "ownerCentralAssembly",

@@ -3,11 +3,13 @@ import { IStrandSupply } from 'app/shared/model/strand-supply.model';
 import { IAbstractOperation } from './abstract-operation.model';
 import { IAbstractSheathing, isAbstractSheathing } from './abstract-sheathing.model';
 import { SheathingKind } from './enumerations/sheathing-kind.model';
+import { IFlatSheathingSupplyPosition } from './flat-sheathing-supply-position.model';
 
 export interface IFlatSheathing extends IAbstractSheathing {
   id?: number;
   milimeterWidth?: number;
   milimeterHeight?: number;
+  flatSheathingSupplyPositions?: IFlatSheathingSupplyPosition[] | null;
   kilogramPerKilometerLinearMass?: number;
   mullerStandardizedFormatKilogramPerKilometerLinearMass?: string;
   mullerStandardizedFormatSquareMilimeterSurfaceToSheath?: string;
@@ -18,6 +20,7 @@ export function isFlatSheathing(object: IAbstractOperation): object is IFlatShea
     isAbstractSheathing(object) &&
     Object.prototype.hasOwnProperty.call(object, 'milimeterHeight') &&
     Object.prototype.hasOwnProperty.call(object, 'milimeterWidth') &&
+    Object.prototype.hasOwnProperty.call(object, 'flatSheathingSupplyPositions') &&
     Object.prototype.hasOwnProperty.call(object, 'kilogramPerKilometerLinearMass') &&
     Object.prototype.hasOwnProperty.call(object, 'mullerStandardizedFormatKilogramPerKilometerLinearMass') &&
     Object.prototype.hasOwnProperty.call(object, 'mullerStandardizedFormatSquareMilimeterSurfaceToSheath')

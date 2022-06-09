@@ -25,6 +25,13 @@
   ],
   "relationships": [
     {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "flatSheathingSupplyPosition",
+      "otherEntityRelationshipName": "ownerFlatSheathing",
+      "relationshipName": "flatSheathingSupplyPositions",
+      "otherEntityField": "designation"
+    },
+    {
       "relationshipType": "many-to-one",
       "otherEntityName": "material",
       "otherEntityRelationshipName": "flatSheathing",

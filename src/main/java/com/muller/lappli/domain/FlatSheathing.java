@@ -8,6 +8,8 @@ import com.muller.lappli.domain.enumeration.OperationKind;
 import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
 import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -30,6 +32,11 @@ public class FlatSheathing extends AbstractSheathing<FlatSheathing> implements S
     @NotNull
     @Column(name = "milimeter_height", nullable = false)
     private Double milimeterHeight;
+
+    @OneToMany(mappedBy = "ownerFlatSheathing")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "supplyPosition", "ownerFlatSheathing" }, allowSetters = true)
+    private Set<FlatSheathingSupplyPosition> flatSheathingSupplyPositions = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
@@ -195,6 +202,37 @@ public class FlatSheathing extends AbstractSheathing<FlatSheathing> implements S
 
     public void setMilimeterHeight(Double milimeterHeight) {
         this.milimeterHeight = milimeterHeight;
+    }
+
+    public Set<FlatSheathingSupplyPosition> getFlatSheathingSupplyPositions() {
+        return this.flatSheathingSupplyPositions;
+    }
+
+    public void setFlatSheathingSupplyPositions(Set<FlatSheathingSupplyPosition> flatSheathingSupplyPositions) {
+        if (this.flatSheathingSupplyPositions != null) {
+            this.flatSheathingSupplyPositions.forEach(i -> i.setOwnerFlatSheathing(null));
+        }
+        if (flatSheathingSupplyPositions != null) {
+            flatSheathingSupplyPositions.forEach(i -> i.setOwnerFlatSheathing(this));
+        }
+        this.flatSheathingSupplyPositions = flatSheathingSupplyPositions;
+    }
+
+    public FlatSheathing flatSheathingSupplyPositions(Set<FlatSheathingSupplyPosition> flatSheathingSupplyPositions) {
+        this.setFlatSheathingSupplyPositions(flatSheathingSupplyPositions);
+        return this;
+    }
+
+    public FlatSheathing addFlatSheathingSupplyPositions(FlatSheathingSupplyPosition flatSheathingSupplyPosition) {
+        this.flatSheathingSupplyPositions.add(flatSheathingSupplyPosition);
+        flatSheathingSupplyPosition.setOwnerFlatSheathing(this);
+        return this;
+    }
+
+    public FlatSheathing removeFlatSheathingSupplyPositions(FlatSheathingSupplyPosition flatSheathingSupplyPosition) {
+        this.flatSheathingSupplyPositions.remove(flatSheathingSupplyPosition);
+        flatSheathingSupplyPosition.setOwnerFlatSheathing(null);
+        return this;
     }
 
     public StrandSupply getOwnerStrandSupply() {

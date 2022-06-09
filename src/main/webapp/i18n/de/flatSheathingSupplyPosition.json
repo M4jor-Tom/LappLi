@@ -1,0 +1,26 @@
+{
+  "lappLiApp": {
+    "flatSheathingSupplyPosition": {
+      "home": {
+        "title": "Flat Sheathing Supply Positions",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Flat Sheathing Supply Position erstellen",
+        "createOrEditLabel": "Flat Sheathing Supply Position erstellen oder bearbeiten",
+        "notFound": "Keine Flat Sheathing Supply Positions gefunden"
+      },
+      "created": "Flat Sheathing Supply Position erstellt mit ID {{ param }}",
+      "updated": "Flat Sheathing Supply Position aktualisiert mit ID {{ param }}",
+      "deleted": "Flat Sheathing Supply Position gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Flat Sheathing Supply Position {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Flat Sheathing Supply Position"
+      },
+      "id": "ID",
+      "locationInOwnerFlatSheathing": "Location In Owner Flat Sheathing",
+      "supplyPosition": "Supply Position",
+      "ownerFlatSheathing": "Owner Flat Sheathing"
+    }
+  }
+}

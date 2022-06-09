@@ -25,6 +25,11 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     @Column(name = "supply_apparitions_usage", nullable = false)
     private Long supplyApparitionsUsage;
 
+    @JsonIgnoreProperties(value = { "supplyPosition", "ownerFlatSheathing" }, allowSetters = true)
+    @OneToOne
+    @JoinColumn(unique = true)
+    private FlatSheathingSupplyPosition ownerFlatSheathingSupplyPosition;
+
     @JsonIgnoreProperties(value = { "ownerStrandSupply", "supplyPosition" }, allowSetters = true)
     @OneToOne(mappedBy = "supplyPosition")
     private CentralAssembly ownerCentralAssembly;
@@ -203,6 +208,19 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
 
     public void setSupplyApparitionsUsage(Long supplyApparitionsUsage) {
         this.supplyApparitionsUsage = supplyApparitionsUsage;
+    }
+
+    public FlatSheathingSupplyPosition getOwnerFlatSheathingSupplyPosition() {
+        return this.ownerFlatSheathingSupplyPosition;
+    }
+
+    public void setOwnerFlatSheathingSupplyPosition(FlatSheathingSupplyPosition flatSheathingSupplyPosition) {
+        this.ownerFlatSheathingSupplyPosition = flatSheathingSupplyPosition;
+    }
+
+    public SupplyPosition ownerFlatSheathingSupplyPosition(FlatSheathingSupplyPosition flatSheathingSupplyPosition) {
+        this.setOwnerFlatSheathingSupplyPosition(flatSheathingSupplyPosition);
+        return this;
     }
 
     public CentralAssembly getOwnerCentralAssembly() {

@@ -1,0 +1,40 @@
+{
+  "name": "FlatSheathingSupplyPosition",
+  "fields": [
+    {
+      "fieldName": "locationInOwnerFlatSheathing",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "supplyPosition",
+      "otherEntityRelationshipName": "ownerFlatSheathingSupplyPosition",
+      "relationshipValidateRules": "required",
+      "relationshipName": "supplyPosition",
+      "otherEntityField": "designation",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "flatSheathing",
+      "otherEntityRelationshipName": "flatSheathingSupplyPositions",
+      "relationshipValidateRules": "required",
+      "relationshipName": "ownerFlatSheathing",
+      "otherEntityField": "designation"
+    }
+  ],
+  "entityTableName": "flat_sheathing_supply_position",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220609104804"
+}

@@ -90,6 +90,10 @@ entity FlatSheathing {
     milimeterHeight Double required
 }
 
+entity FlatSheathingSupplyPosition {
+    locationInOwnerFlatSheathing Long required min(0)
+}
+
 entity SupplyPosition {
     supplyApparitionsUsage Long required
 }
@@ -272,6 +276,15 @@ relationship OneToOne {
 
 relationship OneToOne {
 	UserData{user(login) required} to User with jpaDerivedIdentifier
+}
+
+relationship OneToOne {
+    //FlatSheathing's SupplyPositions
+    SupplyPosition{ownerFlatSheathingSupplyPosition} to FlatSheathingSupplyPosition{supplyPosition(designation) required}
+}
+
+relationship OneToMany {
+    FlatSheathing{flatSheathingSupplyPositions(designation)} to FlatSheathingSupplyPosition{ownerFlatSheathing(designation) required}
 }
 
 relationship OneToMany {

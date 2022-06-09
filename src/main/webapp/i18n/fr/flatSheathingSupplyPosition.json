@@ -1,0 +1,26 @@
+{
+  "lappLiApp": {
+    "flatSheathingSupplyPosition": {
+      "home": {
+        "title": "FlatSheathingSupplyPositions",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Flat Sheathing Supply Position",
+        "createOrEditLabel": "Créer ou éditer un Flat Sheathing Supply Position",
+        "notFound": "Aucun Flat Sheathing Supply Position trouvé"
+      },
+      "created": "Un nouveau Flat Sheathing Supply Position a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Flat Sheathing Supply Position avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Flat Sheathing Supply Position avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Flat Sheathing Supply Position {{ id }} ?"
+      },
+      "detail": {
+        "title": "Flat Sheathing Supply Position"
+      },
+      "id": "ID",
+      "locationInOwnerFlatSheathing": "Location In Owner Flat Sheathing",
+      "supplyPosition": "Supply Position",
+      "ownerFlatSheathing": "Owner Flat Sheathing"
+    }
+  }
+}

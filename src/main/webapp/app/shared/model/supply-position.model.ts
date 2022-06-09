@@ -6,11 +6,13 @@ import { IOneStudySupply } from 'app/shared/model/one-study-supply.model';
 import { IStrand } from 'app/shared/model/strand.model';
 import { IIntersticeAssembly } from 'app/shared/model/interstice-assembly.model';
 import { IAbstractSupply } from './abstract-supply.model';
+import { IFlatSheathingSupplyPosition } from './flat-sheathing-supply-position.model';
 
 export interface ISupplyPosition {
   id?: number;
   supplyApparitionsUsage?: number;
   supply?: IAbstractSupply | null;
+  ownerFlatSheathingSupplyPosition?: IFlatSheathingSupplyPosition | null;
   ownerCentralAssembly?: ICentralAssembly | null;
   elementSupply?: IElementSupply | null;
   bangleSupply?: IBangleSupply | null;
