@@ -7,6 +7,7 @@ import com.muller.lappli.domain.CarrierPlait;
 import com.muller.lappli.domain.CentralAssembly;
 import com.muller.lappli.domain.ContinuityWireLongitLaying;
 import com.muller.lappli.domain.CoreAssembly;
+import com.muller.lappli.domain.FlatSheathing;
 import com.muller.lappli.domain.IntersticeAssembly;
 import com.muller.lappli.domain.Plait;
 import com.muller.lappli.domain.Screen;
@@ -31,6 +32,7 @@ import com.muller.lappli.domain.enumeration.OperationKind;
         @JsonSubTypes.Type(value = Plait.class, name = "Plait"),
         @JsonSubTypes.Type(value = CarrierPlait.class, name = "CarrierPlait"),
         @JsonSubTypes.Type(value = Sheathing.class, name = "Sheathing"),
+        @JsonSubTypes.Type(value = FlatSheathing.class, name = "FlatSheathing"),
         @JsonSubTypes.Type(value = ContinuityWireLongitLaying.class, name = "ContinuityWireLongitLaying"),
     }
 )

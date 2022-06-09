@@ -1,19 +1,12 @@
-import { IMaterial } from 'app/shared/model/material.model';
-import { SheathingKind } from 'app/shared/model/enumerations/sheathing-kind.model';
 import { IAbstractOperation } from './abstract-operation.model';
+import { IAbstractSheathing, isAbstractSheathing } from './abstract-sheathing.model';
 
-export interface ISheathing extends IAbstractOperation {
+export interface ISheathing extends IAbstractSheathing {
   milimeterThickness?: number;
-  sheathingKind?: SheathingKind;
-  material?: IMaterial;
 }
 
 export function isSheathing(object: IAbstractOperation): object is ISheathing {
-  return (
-    Object.prototype.hasOwnProperty.call(object, 'milimeterThickness') &&
-    Object.prototype.hasOwnProperty.call(object, 'sheathingKind') &&
-    Object.prototype.hasOwnProperty.call(object, 'material')
-  );
+  return isAbstractSheathing(object) && Object.prototype.hasOwnProperty.call(object, 'milimeterThickness');
 }
 
 export const defaultValue: Readonly<ISheathing> = {};

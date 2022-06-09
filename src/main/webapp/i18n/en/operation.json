@@ -20,7 +20,10 @@
       "operatingMachine": "Operating Machine",
       "hourPreparationTime": "Preparation Time (h)",
       "hourExecutionTime": "Execution Time (h)",
-      "componentsInformations": "Components Information"
+      "componentsInformations": "Components Information",
+      "milimeterWidth": "Width (mm)",
+      "milimeterHeight": "Height (mm)",
+      "kilogramPerKilometerLinearMass": "Linear Mass (kg/km)"
     }
   }
 }

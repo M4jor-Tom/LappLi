@@ -81,8 +81,9 @@
       "CarrierPlait",
       "CarrierPlaitFiber",
       "Plaiter",
-      "PlaiterConfiguration"
+      "PlaiterConfiguration",
+      "FlatSheathing"
     ],
-    "lastLiquibaseTimestamp": 1651844304000
+    "lastLiquibaseTimestamp": 1654593784000
   }
 }

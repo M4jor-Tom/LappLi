@@ -83,6 +83,13 @@ entity Sheathing {
     sheathingKind SheathingKind required
 }
 
+entity FlatSheathing {
+    operationLayer Long required
+    sheathingKind SheathingKind required
+    milimeterWidth Double required
+    milimeterHeight Double required
+}
+
 entity SupplyPosition {
     supplyApparitionsUsage Long required
 }
@@ -310,6 +317,9 @@ relationship OneToMany {
     //Sheathings
     StrandSupply{sheathings(productionStep)} to Sheathing{ownerStrandSupply(designation) required}
 
+    //FlatSheathings
+    StrandSupply{flatSheathings(productionStep)} to FlatSheathing{ownerStrandSupply(designation) required}
+
     //ContinuityWireLongitLayings
     StrandSupply{continuityWireLongitLayings(productionStep)} to ContinuityWireLongitLaying{ownerStrandSupply(designation) required}
 }
@@ -361,6 +371,10 @@ relationship ManyToOne {
 
 relationship ManyToOne {
 	Sheathing{material(designation) required} to Material
+}
+
+relationship ManyToOne {
+	FlatSheathing{material(designation) required} to Material
 }
 
 relationship ManyToOne {

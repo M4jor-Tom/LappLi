@@ -87,6 +87,8 @@ import carrierPlaitFiber from 'app/entities/carrier-plait-fiber/carrier-plait-fi
 import plaiter from 'app/entities/plaiter/plaiter.reducer';
 // prettier-ignore
 import plaiterConfiguration from 'app/entities/plaiter-configuration/plaiter-configuration.reducer';
+// prettier-ignore
+import flatSheathing from 'app/entities/flat-sheathing/flat-sheathing.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -138,6 +140,7 @@ const rootReducer = {
   carrierPlaitFiber,
   plaiter,
   plaiterConfiguration,
+  flatSheathing,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };

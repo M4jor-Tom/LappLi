@@ -45,6 +45,8 @@ import PlaitUpdate from '../plait/plait-update';
 import PlaitDeleteDialog from '../plait/plait-delete-dialog';
 import CarrierPlaitUpdate from '../carrier-plait/carrier-plait-update';
 import CarrierPlaitDeleteDialog from '../carrier-plait/carrier-plait-delete-dialog';
+import FlatSheathingUpdate from '../flat-sheathing/flat-sheathing-update';
+import FlatSheathingDeleteDialog from '../flat-sheathing/flat-sheathing-delete-dialog';
 
 const studySuppliesUrlPrefix = '/:study_id/study-supplies';
 
@@ -151,6 +153,22 @@ const Routes = ({ match }) => (
         exact
         path={`${match.url + strandSupplyOperationZoneUrlPrefix}/sheathing/:id/delete`}
         component={SheathingDeleteDialog}
+      />
+
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/flat-sheathing/new`}
+        component={FlatSheathingUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/flat-sheathing/:id/edit`}
+        component={FlatSheathingUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/flat-sheathing/:id/delete`}
+        component={FlatSheathingDeleteDialog}
       />
 
       <ErrorBoundaryRoute

@@ -92,6 +92,13 @@
     },
     {
       "relationshipType": "one-to-many",
+      "otherEntityName": "flatSheathing",
+      "otherEntityRelationshipName": "ownerStrandSupply",
+      "relationshipName": "flatSheathings",
+      "otherEntityField": "productionStep"
+    },
+    {
+      "relationshipType": "one-to-many",
       "otherEntityName": "continuityWireLongitLaying",
       "otherEntityRelationshipName": "ownerStrandSupply",
       "relationshipName": "continuityWireLongitLayings",
