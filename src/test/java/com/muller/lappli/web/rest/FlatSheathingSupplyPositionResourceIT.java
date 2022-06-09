@@ -140,6 +140,9 @@ class FlatSheathingSupplyPositionResourceIT {
             flatSheathingSupplyPositionList.size() - 1
         );
         assertThat(testFlatSheathingSupplyPosition.getLocationInOwnerFlatSheathing()).isEqualTo(DEFAULT_LOCATION_IN_OWNER_FLAT_SHEATHING);
+
+        // Validate the id for MapsId, the ids must be same
+        assertThat(testFlatSheathingSupplyPosition.getId()).isEqualTo(testFlatSheathingSupplyPosition.getSupplyPosition().getId());
     }
 
     @Test
@@ -162,6 +165,50 @@ class FlatSheathingSupplyPositionResourceIT {
         // Validate the FlatSheathingSupplyPosition in the database
         List<FlatSheathingSupplyPosition> flatSheathingSupplyPositionList = flatSheathingSupplyPositionRepository.findAll();
         assertThat(flatSheathingSupplyPositionList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    void updateFlatSheathingSupplyPositionMapsIdAssociationWithNewId() throws Exception {
+        // Initialize the database
+        flatSheathingSupplyPositionRepository.saveAndFlush(flatSheathingSupplyPosition);
+        int databaseSizeBeforeCreate = flatSheathingSupplyPositionRepository.findAll().size();
+
+        // Add a new parent entity
+        SupplyPosition supplyPosition = SupplyPositionResourceIT.createUpdatedEntity(em);
+        em.persist(supplyPosition);
+        em.flush();
+
+        // Load the flatSheathingSupplyPosition
+        FlatSheathingSupplyPosition updatedFlatSheathingSupplyPosition = flatSheathingSupplyPositionRepository
+            .findById(flatSheathingSupplyPosition.getId())
+            .get();
+        assertThat(updatedFlatSheathingSupplyPosition).isNotNull();
+        // Disconnect from session so that the updates on updatedFlatSheathingSupplyPosition are not directly saved in db
+        em.detach(updatedFlatSheathingSupplyPosition);
+
+        // Update the SupplyPosition with new association value
+        updatedFlatSheathingSupplyPosition.setSupplyPosition(supplyPosition);
+
+        // Update the entity
+        restFlatSheathingSupplyPositionMockMvc
+            .perform(
+                put(ENTITY_API_URL_ID, updatedFlatSheathingSupplyPosition.getId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(updatedFlatSheathingSupplyPosition))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the FlatSheathingSupplyPosition in the database
+        List<FlatSheathingSupplyPosition> flatSheathingSupplyPositionList = flatSheathingSupplyPositionRepository.findAll();
+        assertThat(flatSheathingSupplyPositionList).hasSize(databaseSizeBeforeCreate);
+        FlatSheathingSupplyPosition testFlatSheathingSupplyPosition = flatSheathingSupplyPositionList.get(
+            flatSheathingSupplyPositionList.size() - 1
+        );
+        // Validate the id for MapsId, the ids must be same
+        // Uncomment the following line for assertion. However, please note that there is a known issue and uncommenting will fail the test.
+        // Please look at https://github.com/jhipster/generator-jhipster/issues/9100. You can modify this test as necessary.
+        // assertThat(testFlatSheathingSupplyPosition.getId()).isEqualTo(testFlatSheathingSupplyPosition.getSupplyPosition().getId());
     }
 
     @Test

@@ -2,11 +2,10 @@ package com.muller.lappli.service.impl;
 
 import com.muller.lappli.domain.FlatSheathingSupplyPosition;
 import com.muller.lappli.repository.FlatSheathingSupplyPositionRepository;
+import com.muller.lappli.repository.SupplyPositionRepository;
 import com.muller.lappli.service.FlatSheathingSupplyPositionService;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -23,13 +22,21 @@ public class FlatSheathingSupplyPositionServiceImpl implements FlatSheathingSupp
 
     private final FlatSheathingSupplyPositionRepository flatSheathingSupplyPositionRepository;
 
-    public FlatSheathingSupplyPositionServiceImpl(FlatSheathingSupplyPositionRepository flatSheathingSupplyPositionRepository) {
+    private final SupplyPositionRepository supplyPositionRepository;
+
+    public FlatSheathingSupplyPositionServiceImpl(
+        FlatSheathingSupplyPositionRepository flatSheathingSupplyPositionRepository,
+        SupplyPositionRepository supplyPositionRepository
+    ) {
         this.flatSheathingSupplyPositionRepository = flatSheathingSupplyPositionRepository;
+        this.supplyPositionRepository = supplyPositionRepository;
     }
 
     @Override
     public FlatSheathingSupplyPosition save(FlatSheathingSupplyPosition flatSheathingSupplyPosition) {
         log.debug("Request to save FlatSheathingSupplyPosition : {}", flatSheathingSupplyPosition);
+        Long supplyPositionId = flatSheathingSupplyPosition.getSupplyPosition().getId();
+        supplyPositionRepository.findById(supplyPositionId).ifPresent(flatSheathingSupplyPosition::supplyPosition);
         return flatSheathingSupplyPositionRepository.save(flatSheathingSupplyPosition);
     }
 
@@ -56,19 +63,6 @@ public class FlatSheathingSupplyPositionServiceImpl implements FlatSheathingSupp
     public List<FlatSheathingSupplyPosition> findAll() {
         log.debug("Request to get all FlatSheathingSupplyPositions");
         return flatSheathingSupplyPositionRepository.findAll();
-    }
-
-    /**
-     *  Get all the flatSheathingSupplyPositions where SupplyPosition is {@code null}.
-     *  @return the list of entities.
-     */
-    @Transactional(readOnly = true)
-    public List<FlatSheathingSupplyPosition> findAllWhereSupplyPositionIsNull() {
-        log.debug("Request to get all flatSheathingSupplyPositions where SupplyPosition is null");
-        return StreamSupport
-            .stream(flatSheathingSupplyPositionRepository.findAll().spliterator(), false)
-            .filter(flatSheathingSupplyPosition -> flatSheathingSupplyPosition.getSupplyPosition() == null)
-            .collect(Collectors.toList());
     }
 
     @Override

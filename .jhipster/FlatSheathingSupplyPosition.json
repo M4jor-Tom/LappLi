@@ -16,7 +16,9 @@
       "relationshipValidateRules": "required",
       "relationshipName": "supplyPosition",
       "otherEntityField": "designation",
-      "ownerSide": false
+      "ownerSide": true,
+      "useJPADerivedIdentifier": true,
+      "id": true
     },
     {
       "relationshipType": "many-to-one",

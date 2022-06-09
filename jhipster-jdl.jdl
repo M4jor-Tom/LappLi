@@ -280,7 +280,7 @@ relationship OneToOne {
 
 relationship OneToOne {
     //FlatSheathing's SupplyPositions
-    SupplyPosition{ownerFlatSheathingSupplyPosition} to FlatSheathingSupplyPosition{supplyPosition(designation) required}
+    FlatSheathingSupplyPosition{supplyPosition(designation) required} to SupplyPosition{ownerFlatSheathingSupplyPosition} with jpaDerivedIdentifier
 }
 
 relationship OneToMany {

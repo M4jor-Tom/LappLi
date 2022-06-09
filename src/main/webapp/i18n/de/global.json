@@ -46,6 +46,9 @@
         "carrierPlait": "Carrier Plait",
         "carrierPlaitFiber": "Carrier Plait Fiber",
         "flatSheathing": "Flat Sheathing",
+        "plaiter": "Plaiter",
+        "plaiterConfiguration": "Plaiter Configuration",
+        "flatSheathingSupplyPosition": "Flat Sheathing Supply Position",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

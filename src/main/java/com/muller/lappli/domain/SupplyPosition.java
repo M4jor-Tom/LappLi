@@ -25,14 +25,13 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     @Column(name = "supply_apparitions_usage", nullable = false)
     private Long supplyApparitionsUsage;
 
-    @JsonIgnoreProperties(value = { "supplyPosition", "ownerFlatSheathing" }, allowSetters = true)
-    @OneToOne
-    @JoinColumn(unique = true)
-    private FlatSheathingSupplyPosition ownerFlatSheathingSupplyPosition;
-
     @JsonIgnoreProperties(value = { "ownerStrandSupply", "supplyPosition" }, allowSetters = true)
     @OneToOne(mappedBy = "supplyPosition")
     private CentralAssembly ownerCentralAssembly;
+
+    @JsonIgnoreProperties(value = { "supplyPosition", "ownerFlatSheathing" }, allowSetters = true)
+    @OneToOne(mappedBy = "supplyPosition")
+    private FlatSheathingSupplyPosition ownerFlatSheathingSupplyPosition;
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "ownerSupplyPositions" }, allowSetters = true)
@@ -210,19 +209,6 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
         this.supplyApparitionsUsage = supplyApparitionsUsage;
     }
 
-    public FlatSheathingSupplyPosition getOwnerFlatSheathingSupplyPosition() {
-        return this.ownerFlatSheathingSupplyPosition;
-    }
-
-    public void setOwnerFlatSheathingSupplyPosition(FlatSheathingSupplyPosition flatSheathingSupplyPosition) {
-        this.ownerFlatSheathingSupplyPosition = flatSheathingSupplyPosition;
-    }
-
-    public SupplyPosition ownerFlatSheathingSupplyPosition(FlatSheathingSupplyPosition flatSheathingSupplyPosition) {
-        this.setOwnerFlatSheathingSupplyPosition(flatSheathingSupplyPosition);
-        return this;
-    }
-
     public CentralAssembly getOwnerCentralAssembly() {
         return this.ownerCentralAssembly;
     }
@@ -239,6 +225,25 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
 
     public SupplyPosition ownerCentralAssembly(CentralAssembly centralAssembly) {
         this.setOwnerCentralAssembly(centralAssembly);
+        return this;
+    }
+
+    public FlatSheathingSupplyPosition getOwnerFlatSheathingSupplyPosition() {
+        return this.ownerFlatSheathingSupplyPosition;
+    }
+
+    public void setOwnerFlatSheathingSupplyPosition(FlatSheathingSupplyPosition flatSheathingSupplyPosition) {
+        if (this.ownerFlatSheathingSupplyPosition != null) {
+            this.ownerFlatSheathingSupplyPosition.setSupplyPosition(null);
+        }
+        if (flatSheathingSupplyPosition != null) {
+            flatSheathingSupplyPosition.setSupplyPosition(this);
+        }
+        this.ownerFlatSheathingSupplyPosition = flatSheathingSupplyPosition;
+    }
+
+    public SupplyPosition ownerFlatSheathingSupplyPosition(FlatSheathingSupplyPosition flatSheathingSupplyPosition) {
+        this.setOwnerFlatSheathingSupplyPosition(flatSheathingSupplyPosition);
         return this;
     }
 

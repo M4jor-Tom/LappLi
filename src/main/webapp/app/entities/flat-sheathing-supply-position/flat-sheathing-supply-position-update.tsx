@@ -50,6 +50,7 @@ export const FlatSheathingSupplyPositionUpdate = (props: RouteComponentProps<{ i
     const entity = {
       ...flatSheathingSupplyPositionEntity,
       ...values,
+      supplyPosition: supplyPositions.find(it => it.id.toString() === values.supplyPosition.toString()),
       ownerFlatSheathing: flatSheathings.find(it => it.id.toString() === values.ownerFlatSheathing.toString()),
     };
 
@@ -65,6 +66,7 @@ export const FlatSheathingSupplyPositionUpdate = (props: RouteComponentProps<{ i
       ? {}
       : {
           ...flatSheathingSupplyPositionEntity,
+          supplyPosition: flatSheathingSupplyPositionEntity?.supplyPosition?.id,
           ownerFlatSheathing: flatSheathingSupplyPositionEntity?.ownerFlatSheathing?.id,
         };
 
@@ -107,6 +109,26 @@ export const FlatSheathingSupplyPositionUpdate = (props: RouteComponentProps<{ i
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
               />
+              <ValidatedField
+                id="flat-sheathing-supply-position-supplyPosition"
+                name="supplyPosition"
+                data-cy="supplyPosition"
+                label={translate('lappLiApp.flatSheathingSupplyPosition.supplyPosition')}
+                type="select"
+                required
+              >
+                <option value="" key="0" />
+                {supplyPositions
+                  ? supplyPositions.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.designation}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
               <ValidatedField
                 id="flat-sheathing-supply-position-ownerFlatSheathing"
                 name="ownerFlatSheathing"

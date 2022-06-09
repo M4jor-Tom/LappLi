@@ -9,7 +9,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -60,6 +59,9 @@ public class FlatSheathingSupplyPositionResource {
         log.debug("REST request to save FlatSheathingSupplyPosition : {}", flatSheathingSupplyPosition);
         if (flatSheathingSupplyPosition.getId() != null) {
             throw new BadRequestAlertException("A new flatSheathingSupplyPosition cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        if (Objects.isNull(flatSheathingSupplyPosition.getSupplyPosition())) {
+            throw new BadRequestAlertException("Invalid association value provided", ENTITY_NAME, "null");
         }
         FlatSheathingSupplyPosition result = flatSheathingSupplyPositionService.save(flatSheathingSupplyPosition);
         return ResponseEntity
@@ -141,15 +143,10 @@ public class FlatSheathingSupplyPositionResource {
     /**
      * {@code GET  /flat-sheathing-supply-positions} : get all the flatSheathingSupplyPositions.
      *
-     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of flatSheathingSupplyPositions in body.
      */
     @GetMapping("/flat-sheathing-supply-positions")
-    public List<FlatSheathingSupplyPosition> getAllFlatSheathingSupplyPositions(@RequestParam(required = false) String filter) {
-        if ("supplyposition-is-null".equals(filter)) {
-            log.debug("REST request to get all FlatSheathingSupplyPositions where supplyPosition is null");
-            return flatSheathingSupplyPositionService.findAllWhereSupplyPositionIsNull();
-        }
+    public List<FlatSheathingSupplyPosition> getAllFlatSheathingSupplyPositions() {
         log.debug("REST request to get all FlatSheathingSupplyPositions");
         return flatSheathingSupplyPositionService.findAll();
     }

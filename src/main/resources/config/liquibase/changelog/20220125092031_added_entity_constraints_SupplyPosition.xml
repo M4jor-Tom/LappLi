@@ -8,12 +8,6 @@
     -->
     <changeSet id="20220125092031-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="owner_flat_sheathing_supply_position_id"
-                                 baseTableName="supply_position"
-                                 constraintName="fk_supply_position__owner_flat_sheathing_supply_position_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="flat_sheathing_supply_position"/>
-
         <addForeignKeyConstraint baseColumnNames="element_supply_id"
                                  baseTableName="supply_position"
                                  constraintName="fk_supply_position__element_supply_id"

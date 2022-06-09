@@ -1,7 +1,6 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -14,9 +13,13 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "flat_sheathing_supply_position")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class FlatSheathingSupplyPosition extends AbstractDomainObject<FlatSheathingSupplyPosition> implements Serializable {
+public class FlatSheathingSupplyPosition implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    @Id
+    @Column(name = "id")
+    private Long id;
 
     @NotNull
     @Min(value = 0L)
@@ -25,8 +28,8 @@ public class FlatSheathingSupplyPosition extends AbstractDomainObject<FlatSheath
 
     @JsonIgnoreProperties(
         value = {
-            "ownerFlatSheathingSupplyPosition",
             "ownerCentralAssembly",
+            "ownerFlatSheathingSupplyPosition",
             "elementSupply",
             "bangleSupply",
             "customComponentSupply",
@@ -36,7 +39,10 @@ public class FlatSheathingSupplyPosition extends AbstractDomainObject<FlatSheath
         },
         allowSetters = true
     )
-    @OneToOne(mappedBy = "ownerFlatSheathingSupplyPosition")
+    @OneToOne(optional = false)
+    @NotNull
+    @MapsId
+    @JoinColumn(name = "id")
     private SupplyPosition supplyPosition;
 
     @ManyToOne(optional = false)
@@ -46,13 +52,17 @@ public class FlatSheathingSupplyPosition extends AbstractDomainObject<FlatSheath
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public FlatSheathingSupplyPosition() {
-        super();
+    public Long getId() {
+        return this.id;
     }
 
-    @Override
-    public FlatSheathingSupplyPosition getThis() {
+    public FlatSheathingSupplyPosition id(Long id) {
+        this.setId(id);
         return this;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getLocationInOwnerFlatSheathing() {
@@ -73,12 +83,6 @@ public class FlatSheathingSupplyPosition extends AbstractDomainObject<FlatSheath
     }
 
     public void setSupplyPosition(SupplyPosition supplyPosition) {
-        if (this.supplyPosition != null) {
-            this.supplyPosition.setOwnerFlatSheathingSupplyPosition(null);
-        }
-        if (supplyPosition != null) {
-            supplyPosition.setOwnerFlatSheathingSupplyPosition(this);
-        }
         this.supplyPosition = supplyPosition;
     }
 
@@ -110,7 +114,7 @@ public class FlatSheathingSupplyPosition extends AbstractDomainObject<FlatSheath
         if (!(o instanceof FlatSheathingSupplyPosition)) {
             return false;
         }
-        return getId() != null && getId().equals(((FlatSheathingSupplyPosition) o).getId());
+        return id != null && id.equals(((FlatSheathingSupplyPosition) o).id);
     }
 
     @Override

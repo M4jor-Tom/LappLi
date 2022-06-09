@@ -38,6 +38,10 @@ export const FlatSheathingSupplyPositionDetail = (props: RouteComponentProps<{ i
           </dt>
           <dd>{flatSheathingSupplyPositionEntity.locationInOwnerFlatSheathing}</dd>
           <dt>
+            <Translate contentKey="lappLiApp.flatSheathingSupplyPosition.supplyPosition">Supply Position</Translate>
+          </dt>
+          <dd>{flatSheathingSupplyPositionEntity.supplyPosition ? flatSheathingSupplyPositionEntity.supplyPosition.designation : ''}</dd>
+          <dt>
             <Translate contentKey="lappLiApp.flatSheathingSupplyPosition.ownerFlatSheathing">Owner Flat Sheathing</Translate>
           </dt>
           <dd>

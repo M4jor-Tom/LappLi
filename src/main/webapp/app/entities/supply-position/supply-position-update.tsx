@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { ICentralAssembly } from 'app/shared/model/central-assembly.model';
 import { getEntities as getCentralAssemblies } from 'app/entities/central-assembly/central-assembly.reducer';
+import { IFlatSheathingSupplyPosition } from 'app/shared/model/flat-sheathing-supply-position.model';
+import { getEntities as getFlatSheathingSupplyPositions } from 'app/entities/flat-sheathing-supply-position/flat-sheathing-supply-position.reducer';
 import { IElementSupply } from 'app/shared/model/element-supply.model';
 import { getEntities as getElementSupplies } from 'app/entities/element-supply/element-supply.reducer';
 import { IBangleSupply } from 'app/shared/model/bangle-supply.model';
@@ -30,6 +32,7 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string }>)
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
   const centralAssemblies = useAppSelector(state => state.centralAssembly.entities);
+  const flatSheathingSupplyPositions = useAppSelector(state => state.flatSheathingSupplyPosition.entities);
   const elementSupplies = useAppSelector(state => state.elementSupply.entities);
   const bangleSupplies = useAppSelector(state => state.bangleSupply.entities);
   const customComponentSupplies = useAppSelector(state => state.customComponentSupply.entities);
@@ -52,6 +55,7 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string }>)
     }
 
     dispatch(getCentralAssemblies({}));
+    dispatch(getFlatSheathingSupplyPositions({}));
     dispatch(getElementSupplies({}));
     dispatch(getBangleSupplies({}));
     dispatch(getCustomComponentSupplies({}));

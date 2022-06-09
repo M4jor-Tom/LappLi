@@ -119,6 +119,19 @@ public class SupplyPositionServiceImpl implements SupplyPositionService {
             .collect(Collectors.toList());
     }
 
+    /**
+     *  Get all the supplyPositions where OwnerFlatSheathingSupplyPosition is {@code null}.
+     *  @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<SupplyPosition> findAllWhereOwnerFlatSheathingSupplyPositionIsNull() {
+        log.debug("Request to get all supplyPositions where OwnerFlatSheathingSupplyPosition is null");
+        return StreamSupport
+            .stream(supplyPositionRepository.findAll().spliterator(), false)
+            .filter(supplyPosition -> supplyPosition.getOwnerFlatSheathingSupplyPosition() == null)
+            .collect(Collectors.toList());
+    }
+
     @Override
     @Transactional(readOnly = true)
     public Optional<SupplyPosition> findOne(Long id) {

@@ -30,12 +30,6 @@ public interface FlatSheathingSupplyPositionService {
      * @return the list of entities.
      */
     List<FlatSheathingSupplyPosition> findAll();
-    /**
-     * Get all the FlatSheathingSupplyPosition where SupplyPosition is {@code null}.
-     *
-     * @return the {@link List} of entities.
-     */
-    List<FlatSheathingSupplyPosition> findAllWhereSupplyPositionIsNull();
 
     /**
      * Get the "id" flatSheathingSupplyPosition.

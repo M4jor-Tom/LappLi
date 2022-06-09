@@ -17,9 +17,6 @@
             <column name="supply_apparitions_usage" type="bigint">
                 <constraints nullable="false" />
             </column>
-            <column name="owner_flat_sheathing_supply_position_id" type="bigint">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_supply_position__owner_flat_sheathing_supply_position_id" />
-            </column>
             <column name="element_supply_id" type="bigint">
                 <constraints nullable="true" />
             </column>

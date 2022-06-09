@@ -57,6 +57,9 @@ export const FlatSheathingSupplyPosition = (props: RouteComponentProps<{ url: st
                   </Translate>
                 </th>
                 <th>
+                  <Translate contentKey="lappLiApp.flatSheathingSupplyPosition.supplyPosition">Supply Position</Translate>
+                </th>
+                <th>
                   <Translate contentKey="lappLiApp.flatSheathingSupplyPosition.ownerFlatSheathing">Owner Flat Sheathing</Translate>
                 </th>
                 <th />
@@ -71,6 +74,15 @@ export const FlatSheathingSupplyPosition = (props: RouteComponentProps<{ url: st
                     </Button>
                   </td>
                   <td>{flatSheathingSupplyPosition.locationInOwnerFlatSheathing}</td>
+                  <td>
+                    {flatSheathingSupplyPosition.supplyPosition ? (
+                      <Link to={`supply-position/${flatSheathingSupplyPosition.supplyPosition.id}`}>
+                        {flatSheathingSupplyPosition.supplyPosition.designation}
+                      </Link>
+                    ) : (
+                      ''
+                    )}
+                  </td>
                   <td>
                     {flatSheathingSupplyPosition.ownerFlatSheathing ? (
                       <Link to={`flat-sheathing/${flatSheathingSupplyPosition.ownerFlatSheathing.id}`}>
