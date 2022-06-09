@@ -15,7 +15,8 @@ export function isFlatSheathing(object: IAbstractOperation): object is IFlatShea
   return (
     isAbstractSheathing(object) &&
     Object.prototype.hasOwnProperty.call(object, 'milimeterHeight') &&
-    Object.prototype.hasOwnProperty.call(object, 'milimeterWidth')
+    Object.prototype.hasOwnProperty.call(object, 'milimeterWidth') &&
+    Object.prototype.hasOwnProperty.call(object, 'kilogramPerKilometerLinearMass')
   );
 }
 
