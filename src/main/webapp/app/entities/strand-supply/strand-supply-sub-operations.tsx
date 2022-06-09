@@ -127,6 +127,9 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
             <th>
               <Translate contentKey="lappLiApp.operation.kilogramPerKilometerLinearMass">Linear Mass (kg/km)</Translate>
             </th>
+            <th>
+              <Translate contentKey="lappLiApp.sheathing.squareMilimeterSurfaceToSheath">Surface to sheath (mm²)</Translate>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -141,6 +144,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   <td>{isFlatSheathing(operation) ? operation.milimeterWidth : ''}</td>
                   <td>{isFlatSheathing(operation) ? operation.milimeterHeight : ''}</td>
                   <td>{isFlatSheathing(operation) ? operation.mullerStandardizedFormatKilogramPerKilometerLinearMass : ''}</td>
+                  <td>{isFlatSheathing(operation) ? operation.mullerStandardizedFormatSquareMilimeterSurfaceToSheath : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button

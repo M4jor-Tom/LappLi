@@ -136,6 +136,10 @@ public class FlatSheathing extends AbstractSheathing<FlatSheathing> implements S
         return DomainManager.mullerStandardizedFormat(getKilogramPerKilometerLinearMass());
     }
 
+    public String getMullerStandardizedFormatSquareMilimeterSurfaceToSheath() {
+        return DomainManager.mullerStandardizedFormat(getSquareMilimeterSurfaceToSheath());
+    }
+
     public Double getKilogramPerKilometerLinearMass() {
         return getGramPerMeterLinearMass();
     }
