@@ -196,6 +196,10 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
         }
     }
 
+    public String getDesignation() {
+        return getSupply().getDesignation();
+    }
+
     public Long getSupplyApparitionsUsage() {
         return this.supplyApparitionsUsage;
     }

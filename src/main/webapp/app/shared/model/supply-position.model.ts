@@ -20,6 +20,7 @@ export interface ISupplyPosition {
   oneStudySupply?: IOneStudySupply | null;
   ownerStrand?: IStrand | null;
   ownerIntersticeAssembly?: IIntersticeAssembly | null;
+  designation?: string;
 }
 
 export const defaultValue: Readonly<ISupplyPosition> = {};
