@@ -22,7 +22,8 @@
       "hourExecutionTime": "Temps d'Execution (h)",
       "componentsInformations": "Informations Composants",
       "milimeterWidth": "Largeur (mm)",
-      "milimeterHeight": "Hauteur (mm)"
+      "milimeterHeight": "Hauteur (mm)",
+      "kilogramPerKilometerLinearMass": "Masse Linéique (kg/km)"
     }
   }
 }

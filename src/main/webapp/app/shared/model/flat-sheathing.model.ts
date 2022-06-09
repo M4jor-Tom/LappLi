@@ -9,6 +9,7 @@ export interface IFlatSheathing extends IAbstractSheathing {
   milimeterWidth?: number;
   milimeterHeight?: number;
   kilogramPerKilometerLinearMass?: number;
+  mullerStandardizedFormatKilogramPerKilometerLinearMass?: string;
 }
 
 export function isFlatSheathing(object: IAbstractOperation): object is IFlatSheathing {
@@ -16,7 +17,8 @@ export function isFlatSheathing(object: IAbstractOperation): object is IFlatShea
     isAbstractSheathing(object) &&
     Object.prototype.hasOwnProperty.call(object, 'milimeterHeight') &&
     Object.prototype.hasOwnProperty.call(object, 'milimeterWidth') &&
-    Object.prototype.hasOwnProperty.call(object, 'kilogramPerKilometerLinearMass')
+    Object.prototype.hasOwnProperty.call(object, 'kilogramPerKilometerLinearMass') &&
+    Object.prototype.hasOwnProperty.call(object, 'mullerStandardizedFormatKilogramPerKilometerLinearMass')
   );
 }
 
