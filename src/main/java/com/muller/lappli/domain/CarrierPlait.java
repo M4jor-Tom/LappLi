@@ -31,7 +31,7 @@ public class CarrierPlait
     private static final long serialVersionUID = 1L;
 
     @Transient
-    List<PlaiterConfiguration> plaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin;
+    private List<PlaiterConfiguration> plaiterConfigurationsWithMinimumCarrierPlaitFibersPerBobin;
 
     @NotNull
     @Column(name = "operation_layer", nullable = false)
