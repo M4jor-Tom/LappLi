@@ -15,6 +15,6 @@ public interface CylindricComponent extends Designable {
 
     @JsonIgnore
     default Double getSquareMilimeterSurface() {
-        return Math.PI * Math.pow(getGramPerMeterLinearMass(), 2) / 4;
+        return Math.PI * Math.pow(getMilimeterDiameter(), 2) / 4;
     }
 }
