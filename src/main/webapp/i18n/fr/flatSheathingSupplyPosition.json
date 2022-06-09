@@ -2,20 +2,20 @@
   "lappLiApp": {
     "flatSheathingSupplyPosition": {
       "home": {
-        "title": "FlatSheathingSupplyPositions",
+        "title": "Position d'approvisionnement de Gainage Plat",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Flat Sheathing Supply Position",
-        "createOrEditLabel": "Créer ou éditer un Flat Sheathing Supply Position",
-        "notFound": "Aucun Flat Sheathing Supply Position trouvé"
+        "createLabel": "Créer une nouvelle Position d'approvisionnement de Gainage Plat",
+        "createOrEditLabel": "Créer ou éditer une Position d'approvisionnement de Gainage Plat",
+        "notFound": "Aucune Position d'approvisionnement de Gainage Plat trouvé"
       },
-      "created": "Un nouveau Flat Sheathing Supply Position a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Flat Sheathing Supply Position avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Flat Sheathing Supply Position avec l'identifiant {{ param }} a été supprimé",
+      "created": "Une nouvelle Position d'approvisionnement de Gainage Plat a été créé avec l'identifiant {{ param }}",
+      "updated": "La Position d'approvisionnement de Gainage Plat avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "La Position d'approvisionnement de Gainage Plat avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Flat Sheathing Supply Position {{ id }} ?"
+        "question": "Etes-vous certain de vouloir supprimer la Position d'approvisionnement de Gainage Plat {{ id }} ?"
       },
       "detail": {
-        "title": "Flat Sheathing Supply Position"
+        "title": "Position d'approvisionnement de Gainage Plat"
       },
       "id": "ID",
       "locationInOwnerFlatSheathing": "Location In Owner Flat Sheathing",
