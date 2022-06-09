@@ -22,7 +22,7 @@
       "milimeterThickness": "Milimeter Thickness",
       "sheathingKind": "Sheathing Kind",
       "material": "Material",
-      "ownerStrand": "Owner Strand",
+      "ownerStrandSupply": "Owner Strand Supply",
       "squareMilimeterSurfaceToSheath": "Surface to Sheath (mm²)"
     }
   }
