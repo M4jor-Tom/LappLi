@@ -197,6 +197,10 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     }
 
     public String getDesignation() {
+        if (getSupply() == null) {
+            return "";
+        }
+
         return getSupply().getDesignation();
     }
 
