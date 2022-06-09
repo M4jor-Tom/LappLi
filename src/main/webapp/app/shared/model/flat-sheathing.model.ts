@@ -8,6 +8,7 @@ export interface IFlatSheathing extends IAbstractSheathing {
   id?: number;
   milimeterWidth?: number;
   milimeterHeight?: number;
+  kilogramPerKilometerLinearMass?: number;
 }
 
 export function isFlatSheathing(object: IAbstractOperation): object is IFlatSheathing {
