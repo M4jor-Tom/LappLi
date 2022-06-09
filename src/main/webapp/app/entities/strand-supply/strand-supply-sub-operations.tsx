@@ -130,6 +130,9 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
             <th>
               <Translate contentKey="lappLiApp.sheathing.squareMilimeterSurfaceToSheath">Surface to sheath (mm²)</Translate>
             </th>
+            <th>
+              <Translate contentKey="lappLiApp.flatSheathing.flatSheathingSupplyPositions">Surface to sheath (mm²)</Translate>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -145,6 +148,52 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
                   <td>{isFlatSheathing(operation) ? operation.milimeterHeight : ''}</td>
                   <td>{isFlatSheathing(operation) ? operation.mullerStandardizedFormatKilogramPerKilometerLinearMass : ''}</td>
                   <td>{isFlatSheathing(operation) ? operation.mullerStandardizedFormatSquareMilimeterSurfaceToSheath : ''}</td>
+                  <td>
+                    {isFlatSheathing(operation) ? (
+                      <div>
+                        {operation.flatSheathingSupplyPositions && operation.flatSheathingSupplyPositions.length > 0 ? (
+                          <Table responsive>
+                            <thead>
+                              <tr>
+                                <th>
+                                  <Translate contentKey="lappLiApp.article.designation" />
+                                </th>
+                                <th>
+                                  <Translate contentKey="lappLiApp.dimension.milimeterDiameter" />
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {operation.flatSheathingSupplyPositions?.map((flatSheathingSupplyPosition, j) => (
+                                <tr key={`entity-flat-sheathing-supply-position-${j}`}>
+                                  <td>{flatSheathingSupplyPosition.supplyPosition.supply.designation}</td>
+                                  <td>{flatSheathingSupplyPosition.supplyPosition.supply.cylindricComponent.milimeterDiameter}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </Table>
+                        ) : (
+                          ''
+                        )}
+                        <div className="btn-group flex-btn-group-container">
+                          <Link
+                            to={`${props.match.url}/flat-sheathing/${operation.id}/flat-sheathing-supply-position/new`}
+                            className="btn btn-primary jh-create-entity"
+                            id="jh-create-entity"
+                            data-cy="entityCreateButton"
+                          >
+                            <FontAwesomeIcon icon="plus" />
+                            &nbsp;
+                            <Translate contentKey="lappLiApp.flatSheathingSupplyPosition.detail.title">
+                              Flat Sheathing Supply Position
+                            </Translate>
+                          </Link>
+                        </div>
+                      </div>
+                    ) : (
+                      ''
+                    )}
+                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button
