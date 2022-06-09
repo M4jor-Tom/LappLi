@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -13,14 +14,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "flat_sheathing_supply_position")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class FlatSheathingSupplyPosition implements Serializable {
+public class FlatSheathingSupplyPosition extends AbstractDomainObject<FlatSheathingSupplyPosition> implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
 
     @NotNull
     @Min(value = 0L)
@@ -50,17 +46,13 @@ public class FlatSheathingSupplyPosition implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getId() {
-        return this.id;
+    public FlatSheathingSupplyPosition() {
+        super();
     }
 
-    public FlatSheathingSupplyPosition id(Long id) {
-        this.setId(id);
+    @Override
+    public FlatSheathingSupplyPosition getThis() {
         return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getLocationInOwnerFlatSheathing() {
@@ -118,7 +110,7 @@ public class FlatSheathingSupplyPosition implements Serializable {
         if (!(o instanceof FlatSheathingSupplyPosition)) {
             return false;
         }
-        return id != null && id.equals(((FlatSheathingSupplyPosition) o).id);
+        return getId() != null && getId().equals(((FlatSheathingSupplyPosition) o).getId());
     }
 
     @Override
