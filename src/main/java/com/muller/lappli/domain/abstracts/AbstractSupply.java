@@ -11,7 +11,6 @@ import com.muller.lappli.domain.Material;
 import com.muller.lappli.domain.OneStudySupply;
 import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.SupplyPosition;
-import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.exception.AppartionDivisionNonNullRemainderException;
 import com.muller.lappli.domain.exception.IllegalStrandSupplyException;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
@@ -30,7 +29,7 @@ import javax.validation.constraints.NotNull;
  * A supply object refers to the instanciation of a CylindricComponent
  * inside a Strand or Cable
  */
-//[SUPPLY]
+//[COMPONENT_KIND]
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "__typeName")
 @JsonSubTypes(
@@ -123,11 +122,6 @@ public abstract class AbstractSupply<T extends AbstractSupply<T>> extends Abstra
 
         return getCylindricComponentIfPlasticAspect().get().getSurfaceMaterial();
     }
-
-    /**
-     * @return the kind of supply this is
-     */
-    public abstract SupplyKind getSupplyKind();
 
     /**
      * Computes the divided apparitions which are unused

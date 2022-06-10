@@ -1,4 +1,4 @@
-export enum SupplyKind {
+export enum CylindricComponentKind {
   BANGLE = 'bangle',
   CUSTOM_COMPONENT = 'custom-component',
   ELEMENT = 'element',

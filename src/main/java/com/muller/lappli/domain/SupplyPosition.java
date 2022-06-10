@@ -149,7 +149,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
      * @return the owned Supply
      */
     public AbstractSupply<?> getSupply() {
-        //[SUPPLY]
+        //[COMPONENT_KIND]
         if (getBangleSupply() != null) {
             return getBangleSupply();
         } else if (getCustomComponentSupply() != null) {
@@ -170,7 +170,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
 
     @JsonIgnore
     public void setSupply(AbstractSupply<?> supply) {
-        //[SUPPLY]
+        //[COMPONENT_KIND]
         setBangleSupply(null);
         setCustomComponentSupply(null);
         setElementSupply(null);
@@ -178,7 +178,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
 
         if (supply == null) {
             return;
-        } else switch (supply.getSupplyKind()) {
+        } else switch (supply.getCylindricComponent().getCylindricComponentKind()) {
             case BANGLE:
                 setBangleSupply((BangleSupply) supply);
                 break;

@@ -3,6 +3,7 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractUniformAtom;
 import com.muller.lappli.domain.enumeration.Color;
+import com.muller.lappli.domain.enumeration.CylindricComponentKind;
 import com.muller.lappli.domain.interfaces.PlasticAspectCylindricComponent;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -50,6 +51,11 @@ public class CustomComponent extends AbstractUniformAtom<CustomComponent> implem
     @Override
     public Boolean isUtility() {
         return true;
+    }
+
+    @Override
+    public CylindricComponentKind getCylindricComponentKind() {
+        return CylindricComponentKind.CUSTOM_COMPONENT;
     }
 
     public Long getNumber() {
