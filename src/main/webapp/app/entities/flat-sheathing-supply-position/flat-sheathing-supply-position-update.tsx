@@ -13,6 +13,7 @@ import { IFlatSheathingSupplyPosition } from 'app/shared/model/flat-sheathing-su
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { getOut } from '../index-management/index-management-lib';
 
 export const FlatSheathingSupplyPositionUpdate = (
   props: RouteComponentProps<{ id: string; study_id: string; operation_id: string; strand_supply_id: string }>
@@ -28,9 +29,12 @@ export const FlatSheathingSupplyPositionUpdate = (
   const flatSheathingSupplyPositionEntity = useAppSelector(state => state.flatSheathingSupplyPosition.entity);
   const loading = useAppSelector(state => state.flatSheathingSupplyPosition.loading);
   const updating = useAppSelector(state => state.flatSheathingSupplyPosition.updating);
+
+  const redirectionUrl = pageComesFromStudyMenu ? getOut(props.match.url, 3) : '/flat-sheathing-supply-position';
+
   const updateSuccess = useAppSelector(state => state.flatSheathingSupplyPosition.updateSuccess);
   const handleClose = () => {
-    props.history.push('/flat-sheathing-supply-position');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {
@@ -153,14 +157,7 @@ export const FlatSheathingSupplyPositionUpdate = (
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              <Button
-                tag={Link}
-                id="cancel-save"
-                data-cy="entityCreateCancelButton"
-                to="/flat-sheathing-supply-position"
-                replace
-                color="info"
-              >
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
