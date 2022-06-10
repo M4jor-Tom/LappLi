@@ -1,7 +1,8 @@
 import { IElementKind } from 'app/shared/model/element-kind.model';
 import { Color } from 'app/shared/model/enumerations/color.model';
+import { ICylindricComponent } from './cylindric-component.model';
 
-export interface IElement {
+export interface IElement extends ICylindricComponent {
   id?: number;
   number?: number;
   designationWithColor?: string;
