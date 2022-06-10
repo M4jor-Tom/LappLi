@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
-import com.muller.lappli.domain.enumeration.SupplyKind;
+import com.muller.lappli.domain.enumeration.CylindricComponentKind;
 import com.muller.lappli.domain.interfaces.ISupplyPositionOwner;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -203,21 +203,21 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return suppliedComponentsSquareMilimeterSurfaceSum;
     }
 
-    //[SUPPLY]
+    //[COMPONENT_KIND]
     public Set<BangleSupply> getBangleSupplies() {
-        return getSuppliesByKind(SupplyKind.BANGLE);
+        return getSuppliesByKind(CylindricComponentKind.BANGLE);
     }
 
     public Set<CustomComponentSupply> getCustomComponentSupplies() {
-        return getSuppliesByKind(SupplyKind.CUSTOM_COMPONENT);
+        return getSuppliesByKind(CylindricComponentKind.CUSTOM_COMPONENT);
     }
 
     public Set<ElementSupply> getElementSupplies() {
-        return getSuppliesByKind(SupplyKind.ELEMENT);
+        return getSuppliesByKind(CylindricComponentKind.ELEMENT);
     }
 
     public Set<OneStudySupply> getOneStudySupplies() {
-        return getSuppliesByKind(SupplyKind.ONE_STUDY);
+        return getSuppliesByKind(CylindricComponentKind.ONE_STUDY);
     }
 
     /**
@@ -226,12 +226,12 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
      * @return All supplies of supplyKind kind
      */
     @SuppressWarnings("unchecked")
-    public <T extends AbstractSupply<T>> Set<T> getSuppliesByKind(SupplyKind supplyKind) {
+    public <T extends AbstractSupply<T>> Set<T> getSuppliesByKind(CylindricComponentKind cylindricComponentKind) {
         Set<T> sortedSupplies = new HashSet<>();
 
         for (SupplyPosition supplyPosition : getSupplyPositions()) {
             AbstractSupply<?> supply = supplyPosition.getSupply();
-            if (supply != null && supplyKind.equals(supply.getSupplyKind())) {
+            if (supply != null && cylindricComponentKind.equals(supply.getCylindricComponent().getCylindricComponentKind())) {
                 sortedSupplies.add((T) supply);
             }
         }

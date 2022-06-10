@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.muller.lappli.domain.abstracts.AbstractUniformAtom;
+import com.muller.lappli.domain.enumeration.CylindricComponentKind;
 import com.muller.lappli.domain.enumeration.Flexibility;
 import com.muller.lappli.domain.enumeration.MetalFiberKind;
 import java.io.Serializable;
@@ -47,6 +48,11 @@ public class ContinuityWire extends AbstractUniformAtom<ContinuityWire> implemen
     @Override
     public Boolean isConform() {
         return super.isConform() && getDesignation() != null && getMetalFiberKind() != null && getFlexibility() != null;
+    }
+
+    @Override
+    public CylindricComponentKind getCylindricComponentKind() {
+        return null;
     }
 
     @Override
