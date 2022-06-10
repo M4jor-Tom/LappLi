@@ -78,7 +78,104 @@ export const FlatSheathingSupplyPositionUpdate = (
           ownerFlatSheathing: flatSheathingSupplyPositionEntity?.ownerFlatSheathing?.id,
         };
 
-  return (
+  return pageComesFromStudyMenu ? (
+    <div>
+      <Row className="justify-content-center">
+        <Col md="8">
+          <h2 id="lappLiApp.flatSheathingSupplyPosition.home.createOrEditLabel" data-cy="FlatSheathingSupplyPositionCreateUpdateHeading">
+            <Translate contentKey="lappLiApp.flatSheathingSupplyPosition.home.createOrEditLabel">
+              Create or edit a FlatSheathingSupplyPosition
+            </Translate>
+          </h2>
+        </Col>
+      </Row>
+      <Row className="justify-content-center">
+        <Col md="8">
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
+              {!isNew ? (
+                <ValidatedField
+                  name="id"
+                  required
+                  readOnly
+                  id="flat-sheathing-supply-position-id"
+                  label={translate('global.field.id')}
+                  validate={{ required: true }}
+                />
+              ) : null}
+              <ValidatedField
+                label={translate('lappLiApp.flatSheathingSupplyPosition.locationInOwnerFlatSheathing')}
+                id="flat-sheathing-supply-position-locationInOwnerFlatSheathing"
+                name="locationInOwnerFlatSheathing"
+                data-cy="locationInOwnerFlatSheathing"
+                type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                  min: { value: 0, message: translate('entity.validation.min', { min: 0 }) },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
+              />
+              <ValidatedField
+                id="flat-sheathing-supply-position-supplyPosition"
+                name="supplyPosition"
+                data-cy="supplyPosition"
+                label={translate('lappLiApp.flatSheathingSupplyPosition.supplyPosition')}
+                type="select"
+                required
+              >
+                <option value="" key="0" />
+                {supplyPositions
+                  ? supplyPositions.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.designation}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
+              <ValidatedField
+                id="flat-sheathing-supply-position-ownerFlatSheathing"
+                name="ownerFlatSheathing"
+                data-cy="ownerFlatSheathing"
+                label={translate('lappLiApp.flatSheathingSupplyPosition.ownerFlatSheathing')}
+                type="select"
+                required
+              >
+                <option value="" key="0" />
+                {flatSheathings
+                  ? flatSheathings.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.designation}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
+                <FontAwesomeIcon icon="arrow-left" />
+                &nbsp;
+                <span className="d-none d-md-inline">
+                  <Translate contentKey="entity.action.back">Back</Translate>
+                </span>
+              </Button>
+              &nbsp;
+              <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
+                <FontAwesomeIcon icon="save" />
+                &nbsp;
+                <Translate contentKey="entity.action.save">Save</Translate>
+              </Button>
+            </ValidatedForm>
+          )}
+        </Col>
+      </Row>
+    </div>
+  ) : (
     <div>
       <Row className="justify-content-center">
         <Col md="8">
