@@ -14,10 +14,14 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-export const FlatSheathingSupplyPositionUpdate = (props: RouteComponentProps<{ id: string }>) => {
+export const FlatSheathingSupplyPositionUpdate = (
+  props: RouteComponentProps<{ id: string; study_id: string; operation_id: string; strand_supply_id: string }>
+) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
+  const pageComesFromStudyMenu: boolean =
+    props.match.params.study_id != null && props.match.params.strand_supply_id != null && props.match.params.operation_id != null;
 
   const supplyPositions = useAppSelector(state => state.supplyPosition.entities);
   const flatSheathings = useAppSelector(state => state.flatSheathing.entities);
