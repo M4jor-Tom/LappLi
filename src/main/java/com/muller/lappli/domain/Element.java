@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.enumeration.Color;
+import com.muller.lappli.domain.enumeration.CylindricComponentKind;
 import com.muller.lappli.domain.interfaces.Article;
 import com.muller.lappli.domain.interfaces.PlasticAspectCylindricComponent;
 import java.io.Serializable;
@@ -43,6 +44,11 @@ public class Element extends AbstractDomainObject<Element> implements PlasticAsp
     @Override
     public Element getThis() {
         return this;
+    }
+
+    @Override
+    public CylindricComponentKind getCylindricComponentKind() {
+        return CylindricComponentKind.ELEMENT;
     }
 
     @Override

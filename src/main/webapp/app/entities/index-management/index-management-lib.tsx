@@ -1,4 +1,4 @@
-import { SupplyKind } from 'app/shared/model/enumerations/supply-kind.model';
+import { CylindricComponentKind } from 'app/shared/model/enumerations/cylindric-component-kind.model';
 import { IStrandSupply } from 'app/shared/model/strand-supply.model';
 import { IStrand } from 'app/shared/model/strand.model';
 import { IStudy } from 'app/shared/model/study.model';
@@ -90,7 +90,7 @@ function isStudySupply(props: RouteComponentProps<{ study_id: string; id: string
 function getStudySupplyRedirectionUrl(props: RouteComponentProps<{ study_id: string; id: string }>, supplyOwner: SupplyOwner): string {
   return isStudySupply(props)
     ? '/' + supplyOwner + '/' + props.match.params.study_id + '/study-supplies'
-    : '/' + SupplyKind.STRAND + '-supply';
+    : '/' + CylindricComponentKind.STRAND + '-supply';
 }
 
 function isStrandSupply(props: RouteComponentProps<{ strand_supply_id: string; id: string }>): string {
@@ -100,7 +100,7 @@ function isStrandSupply(props: RouteComponentProps<{ strand_supply_id: string; i
 
 function getStrandSupplyRedirectionUrl(
   props: RouteComponentProps<{ strand_supply_id: string; id: string }>,
-  supplyKind: SupplyKind
+  supplyKind: CylindricComponentKind
 ): string {
   return isStrandSupply(props)
     ? '/' + SupplyOwner.STRAND + '/' + props.match.params.strand_supply_id + '/supply'

@@ -54,10 +54,11 @@ public class SupplyPositionServiceImpl implements SupplyPositionService {
         this.oneStudySupplyService = oneStudySupplyService;
     }
 
+    //[COMPONENT_KIND]
     private void saveSupply(SupplyPosition supplyPosition) {
         AbstractSupply<?> supply = supplyPosition.getSupply();
         if (supply != null) {
-            switch (supply.getSupplyKind()) {
+            switch (supply.getCylindricComponent().getCylindricComponentKind()) {
                 case BANGLE:
                     bangleSupplyService.save((BangleSupply) supply);
                     break;

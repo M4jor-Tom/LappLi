@@ -1,6 +1,6 @@
 package com.muller.lappli.domain.enumeration;
 
-public enum SupplyKind {
+public enum CylindricComponentKind {
     BANGLE,
     CUSTOM_COMPONENT,
     ELEMENT,

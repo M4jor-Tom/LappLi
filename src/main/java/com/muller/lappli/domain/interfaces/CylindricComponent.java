@@ -1,6 +1,7 @@
 package com.muller.lappli.domain.interfaces;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.muller.lappli.domain.enumeration.CylindricComponentKind;
 
 public interface CylindricComponent extends Designable {
     public Double getMilimeterDiameter();
@@ -8,6 +9,8 @@ public interface CylindricComponent extends Designable {
     public Double getGramPerMeterLinearMass();
 
     public Boolean isUtility();
+
+    public CylindricComponentKind getCylindricComponentKind();
 
     public default Boolean isCompletion() {
         return !isUtility();
