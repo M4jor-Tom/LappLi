@@ -38,6 +38,7 @@ import javax.validation.constraints.NotNull;
         @JsonSubTypes.Type(value = CustomComponentSupply.class, name = "CustomComponentSupply"),
         @JsonSubTypes.Type(value = ElementSupply.class, name = "ElementSupply"),
         @JsonSubTypes.Type(value = OneStudySupply.class, name = "OneStudySupply"),
+        @JsonSubTypes.Type(value = StrandSupply.class, name = "StrandSupply"),
     }
 )
 @MappedSuperclass

@@ -165,6 +165,8 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
             return getElementSupply();
         } else if (getOneStudySupply() != null) {
             return getOneStudySupply();
+        } else if (getStrandSupply() != null) {
+            return getStrandSupply();
         }
 
         return null;
@@ -182,6 +184,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
         setCustomComponentSupply(null);
         setElementSupply(null);
         setOneStudySupply(null);
+        setStrandSupply(null);
 
         if (supply == null) {
             return;
@@ -198,6 +201,8 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
             case ONE_STUDY:
                 setOneStudySupply((OneStudySupply) supply);
                 break;
+            case STRAND:
+                setStrandSupply((StrandSupply) supply);
             default:
                 break;
         }

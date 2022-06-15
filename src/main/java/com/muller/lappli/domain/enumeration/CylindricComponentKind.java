@@ -5,4 +5,5 @@ public enum CylindricComponentKind {
     CUSTOM_COMPONENT,
     ELEMENT,
     ONE_STUDY,
+    STRAND,
 }

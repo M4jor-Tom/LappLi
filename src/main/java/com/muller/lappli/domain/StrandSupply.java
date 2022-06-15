@@ -4,23 +4,26 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
-import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.AssemblyPresetDistribution;
+import com.muller.lappli.domain.enumeration.CylindricComponentKind;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.domain.exception.ImpossibleAssemblyPresetDistributionException;
+import com.muller.lappli.domain.interfaces.CylindricComponent;
 import com.muller.lappli.domain.interfaces.Designable;
 import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
 import com.muller.lappli.domain.interfaces.INonCentralOperation;
 import com.muller.lappli.domain.interfaces.IOperation;
+import com.muller.lappli.domain.interfaces.PlasticAspectCylindricComponent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -33,7 +36,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "strand_supply")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class StrandSupply extends AbstractDomainObject<StrandSupply> implements Designable, Serializable {
+public class StrandSupply extends AbstractSupply<StrandSupply> implements Designable, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -162,6 +165,56 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     }
 
     @Override
+    public CylindricComponent getCylindricComponent() {
+        return new CylindricComponent() {
+            @Override
+            public String getDesignation() {
+                if (getStrand() == null) {
+                    return "";
+                }
+
+                return getStrand().getDesignation();
+            }
+
+            @Override
+            public Double getMilimeterDiameter() {
+                if (getLastOperation() == null) {
+                    return Double.NaN;
+                }
+
+                return getLastOperation().getAfterThisMilimeterDiameter();
+            }
+
+            @Override
+            public Double getGramPerMeterLinearMass() {
+                // TODO Auto-generated method stub
+                return Double.NaN;
+            }
+
+            @Override
+            public Boolean isUtility() {
+                return true;
+            }
+
+            @Override
+            public CylindricComponentKind getCylindricComponentKind() {
+                return CylindricComponentKind.STRAND;
+            }
+        };
+    }
+
+    @Override
+    public Optional<PlasticAspectCylindricComponent> getCylindricComponentIfPlasticAspect() {
+        return Optional.empty();
+    }
+
+    @Override
+    public Double getMeterPerHourSpeed() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
     public String getDesignation() {
         if (getApparitions() == null) {
             return "";
@@ -265,6 +318,18 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
      */
     public Boolean shallUseAssemblyPresetDistributionPossibilities() {
         return !forcesCenterDiameterWithSuppliedComponent();
+    }
+
+    @JsonIgnore
+    @JsonIgnoreProperties("ownerStrandSupply")
+    public IOperation<?> getLastOperation() {
+        IOperation<?> lastOperation = null;
+
+        for (IOperation<?> operation : getOperations()) {
+            lastOperation = operation;
+        }
+
+        return lastOperation;
     }
 
     /**
@@ -982,6 +1047,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         return this;
     }
 
+    @Override
     public Set<SupplyPosition> getOwnerSupplyPositions() {
         return this.ownerSupplyPositions;
     }

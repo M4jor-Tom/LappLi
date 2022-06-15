@@ -220,6 +220,10 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return getSuppliesByKind(CylindricComponentKind.ONE_STUDY);
     }
 
+    public Set<StrandSupply> getStrandSupplies() {
+        return getSuppliesByKind(CylindricComponentKind.STRAND);
+    }
+
     /**
      * @param <T> The AbstractSupply daughter class represented by supplyKind
      * @param cylindricComponentKind the kind of component expected
