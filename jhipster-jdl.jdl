@@ -280,6 +280,8 @@ relationship OneToMany {
     BangleSupply{ownerSupplyPosition(designation) required} to SupplyPosition{bangleSupply(designation)}
     CustomComponentSupply{ownerSupplyPosition(designation) required} to SupplyPosition{customComponentSupply(designation)}
 	OneStudySupply{ownerSupplyPosition(designation) required} to SupplyPosition{oneStudySupply(designation)}
+
+	StrandSupply{ownerSupplyPosition(designation) required} to SupplyPosition{strandSupply(designation)}
 }
 
 relationship OneToMany {

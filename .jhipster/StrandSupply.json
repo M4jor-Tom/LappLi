@@ -36,6 +36,14 @@
   "relationships": [
     {
       "relationshipType": "one-to-many",
+      "otherEntityName": "supplyPosition",
+      "otherEntityRelationshipName": "strandSupply",
+      "relationshipValidateRules": "required",
+      "relationshipName": "ownerSupplyPosition",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "one-to-many",
       "otherEntityName": "coreAssembly",
       "otherEntityRelationshipName": "ownerStrandSupply",
       "relationshipName": "coreAssemblies",

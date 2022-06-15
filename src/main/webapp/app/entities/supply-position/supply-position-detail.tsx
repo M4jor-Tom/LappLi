@@ -52,6 +52,10 @@ export const SupplyPositionDetail = (props: RouteComponentProps<{ id: string }>)
           </dt>
           <dd>{supplyPositionEntity.oneStudySupply ? supplyPositionEntity.oneStudySupply.designation : ''}</dd>
           <dt>
+            <Translate contentKey="lappLiApp.supplyPosition.strandSupply">Strand Supply</Translate>
+          </dt>
+          <dd>{supplyPositionEntity.strandSupply ? supplyPositionEntity.strandSupply.designation : ''}</dd>
+          <dt>
             <Translate contentKey="lappLiApp.supplyPosition.ownerStrand">Owner Strand</Translate>
           </dt>
           <dd>{supplyPositionEntity.ownerStrand ? supplyPositionEntity.ownerStrand.id : ''}</dd>

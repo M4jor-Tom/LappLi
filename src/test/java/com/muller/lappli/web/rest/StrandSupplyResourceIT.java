@@ -9,6 +9,7 @@ import com.muller.lappli.IntegrationTest;
 import com.muller.lappli.domain.Strand;
 import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.Study;
+import com.muller.lappli.domain.SupplyPosition;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.MarkingType;
 import com.muller.lappli.repository.StrandSupplyRepository;
@@ -83,6 +84,16 @@ class StrandSupplyResourceIT {
             .assemblyMean(DEFAULT_ASSEMBLY_MEAN)
             .forceCentralUtilityComponent(DEFAULT_FORCE_CENTRAL_UTILITY_COMPONENT);
         // Add required entity
+        SupplyPosition supplyPosition;
+        if (TestUtil.findAll(em, SupplyPosition.class).isEmpty()) {
+            supplyPosition = SupplyPositionResourceIT.createEntity(em);
+            em.persist(supplyPosition);
+            em.flush();
+        } else {
+            supplyPosition = TestUtil.findAll(em, SupplyPosition.class).get(0);
+        }
+        strandSupply.getOwnerSupplyPositions().add(supplyPosition);
+        // Add required entity
         Strand strand;
         if (TestUtil.findAll(em, Strand.class).isEmpty()) {
             strand = StrandResourceIT.createEntity(em);
@@ -119,6 +130,16 @@ class StrandSupplyResourceIT {
             .diameterAssemblyStep(UPDATED_DIAMETER_ASSEMBLY_STEP)
             .assemblyMean(UPDATED_ASSEMBLY_MEAN)
             .forceCentralUtilityComponent(UPDATED_FORCE_CENTRAL_UTILITY_COMPONENT);
+        // Add required entity
+        SupplyPosition supplyPosition;
+        if (TestUtil.findAll(em, SupplyPosition.class).isEmpty()) {
+            supplyPosition = SupplyPositionResourceIT.createUpdatedEntity(em);
+            em.persist(supplyPosition);
+            em.flush();
+        } else {
+            supplyPosition = TestUtil.findAll(em, SupplyPosition.class).get(0);
+        }
+        strandSupply.getOwnerSupplyPositions().add(supplyPosition);
         // Add required entity
         Strand strand;
         if (TestUtil.findAll(em, Strand.class).isEmpty()) {

@@ -29,6 +29,9 @@
             <column name="one_study_supply_id" type="bigint">
                 <constraints nullable="true" />
             </column>
+            <column name="strand_supply_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <column name="owner_strand_id" type="bigint">
                 <constraints nullable="true" />
             </column>

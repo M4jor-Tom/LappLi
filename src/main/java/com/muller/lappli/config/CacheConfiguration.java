@@ -112,6 +112,7 @@ public class CacheConfiguration {
             createCache(cm, com.muller.lappli.domain.PlaiterConfiguration.class.getName());
             createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".flatSheathings");
             createCache(cm, com.muller.lappli.domain.FlatSheathing.class.getName());
+            createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".ownerSupplyPositions");
             // jhipster-needle-ehcache-add-entry
         };
     }

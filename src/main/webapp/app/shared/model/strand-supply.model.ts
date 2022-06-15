@@ -1,3 +1,4 @@
+import { ISupplyPosition } from 'app/shared/model/supply-position.model';
 import { ICoreAssembly } from 'app/shared/model/core-assembly.model';
 import { IIntersticeAssembly } from 'app/shared/model/interstice-assembly.model';
 import { ISheathing } from 'app/shared/model/sheathing.model';
@@ -24,6 +25,7 @@ export interface IStrandSupply {
   couldBeFlat?: boolean;
   couldBeCylindric?: boolean;
   forceCentralUtilityComponent?: boolean;
+  ownerSupplyPositions?: ISupplyPosition[];
   strand?: IStrand;
   centralAssembly?: ICentralAssembly | null;
   nonCentralOperations?: IAbstractOperation[];

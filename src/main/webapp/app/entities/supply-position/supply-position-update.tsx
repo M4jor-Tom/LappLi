@@ -14,6 +14,8 @@ import { ICustomComponentSupply } from 'app/shared/model/custom-component-supply
 import { getEntities as getCustomComponentSupplies } from 'app/entities/custom-component-supply/custom-component-supply.reducer';
 import { IOneStudySupply } from 'app/shared/model/one-study-supply.model';
 import { getEntities as getOneStudySupplies } from 'app/entities/one-study-supply/one-study-supply.reducer';
+import { IStrandSupply } from 'app/shared/model/strand-supply.model';
+import { getEntities as getStrandSupplies } from 'app/entities/strand-supply/strand-supply.reducer';
 import { IStrand } from 'app/shared/model/strand.model';
 import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
 import { IIntersticeAssembly } from 'app/shared/model/interstice-assembly.model';
@@ -34,6 +36,7 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string }>)
   const bangleSupplies = useAppSelector(state => state.bangleSupply.entities);
   const customComponentSupplies = useAppSelector(state => state.customComponentSupply.entities);
   const oneStudySupplies = useAppSelector(state => state.oneStudySupply.entities);
+  const strandSupplies = useAppSelector(state => state.strandSupply.entities);
   const strands = useAppSelector(state => state.strand.entities);
   const intersticeAssemblies = useAppSelector(state => state.intersticeAssembly.entities);
   const supplyPositionEntity = useAppSelector(state => state.supplyPosition.entity);
@@ -56,6 +59,7 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string }>)
     dispatch(getBangleSupplies({}));
     dispatch(getCustomComponentSupplies({}));
     dispatch(getOneStudySupplies({}));
+    dispatch(getStrandSupplies({}));
     dispatch(getStrands({}));
     dispatch(getIntersticeAssemblies({}));
   }, []);
@@ -74,6 +78,7 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string }>)
       bangleSupply: bangleSupplies.find(it => it.id.toString() === values.bangleSupply.toString()),
       customComponentSupply: customComponentSupplies.find(it => it.id.toString() === values.customComponentSupply.toString()),
       oneStudySupply: oneStudySupplies.find(it => it.id.toString() === values.oneStudySupply.toString()),
+      strandSupply: strandSupplies.find(it => it.id.toString() === values.strandSupply.toString()),
       ownerStrand: strands.find(it => it.id.toString() === values.ownerStrand.toString()),
       ownerIntersticeAssembly: intersticeAssemblies.find(it => it.id.toString() === values.ownerIntersticeAssembly.toString()),
     };
@@ -94,6 +99,7 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string }>)
           bangleSupply: supplyPositionEntity?.bangleSupply?.id,
           customComponentSupply: supplyPositionEntity?.customComponentSupply?.id,
           oneStudySupply: supplyPositionEntity?.oneStudySupply?.id,
+          strandSupply: supplyPositionEntity?.strandSupply?.id,
           ownerStrand: supplyPositionEntity?.ownerStrand?.id,
           ownerIntersticeAssembly: supplyPositionEntity?.ownerIntersticeAssembly?.id,
         };
@@ -192,6 +198,22 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string }>)
                 <option value="" key="0" />
                 {oneStudySupplies
                   ? oneStudySupplies.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.designation}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <ValidatedField
+                id="supply-position-strandSupply"
+                name="strandSupply"
+                data-cy="strandSupply"
+                label={translate('lappLiApp.supplyPosition.strandSupply')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {strandSupplies
+                  ? strandSupplies.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.designation}
                       </option>

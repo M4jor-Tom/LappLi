@@ -30,6 +30,7 @@
       "diameterAssemblyStep": "Diameter Assembly Step",
       "assemblyMean": "Assembly Mean",
       "forceCentralUtilityComponent": "Force Central Utility Component",
+      "ownerSupplyPosition": "Owner Supply Position",
       "coreAssemblies": "Core Assemblies",
       "intersticeAssemblies": "Interstice Assemblies",
       "tapeLayings": "Tape Layings",

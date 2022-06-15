@@ -118,6 +118,23 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
     private Set<ContinuityWireLongitLaying> continuityWireLongitLayings = new HashSet<>();
 
+    @OneToMany(mappedBy = "strandSupply")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(
+        value = {
+            "ownerCentralAssembly",
+            "elementSupply",
+            "bangleSupply",
+            "customComponentSupply",
+            "oneStudySupply",
+            "strandSupply",
+            "ownerStrand",
+            "ownerIntersticeAssembly",
+        },
+        allowSetters = true
+    )
+    private Set<SupplyPosition> ownerSupplyPositions = new HashSet<>();
+
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @NotNull
     @JsonIgnoreProperties(
@@ -962,6 +979,37 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     public StrandSupply removeContinuityWireLongitLayings(ContinuityWireLongitLaying continuityWireLongitLaying) {
         this.continuityWireLongitLayings.remove(continuityWireLongitLaying);
         continuityWireLongitLaying.setOwnerStrandSupply(null);
+        return this;
+    }
+
+    public Set<SupplyPosition> getOwnerSupplyPositions() {
+        return this.ownerSupplyPositions;
+    }
+
+    public void setOwnerSupplyPositions(Set<SupplyPosition> supplyPositions) {
+        if (this.ownerSupplyPositions != null) {
+            this.ownerSupplyPositions.forEach(i -> i.setStrandSupply(null));
+        }
+        if (supplyPositions != null) {
+            supplyPositions.forEach(i -> i.setStrandSupply(this));
+        }
+        this.ownerSupplyPositions = supplyPositions;
+    }
+
+    public StrandSupply ownerSupplyPositions(Set<SupplyPosition> supplyPositions) {
+        this.setOwnerSupplyPositions(supplyPositions);
+        return this;
+    }
+
+    public StrandSupply addOwnerSupplyPosition(SupplyPosition supplyPosition) {
+        this.ownerSupplyPositions.add(supplyPosition);
+        supplyPosition.setStrandSupply(this);
+        return this;
+    }
+
+    public StrandSupply removeOwnerSupplyPosition(SupplyPosition supplyPosition) {
+        this.ownerSupplyPositions.remove(supplyPosition);
+        supplyPosition.setStrandSupply(null);
         return this;
     }
 

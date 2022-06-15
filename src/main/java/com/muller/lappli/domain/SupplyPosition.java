@@ -46,14 +46,25 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     private OneStudySupply oneStudySupply;
 
     @ManyToOne
+    @JsonIgnoreProperties(value = { "ownerSupplyPositions" }, allowSetters = true)
+    private StrandSupply strandSupply;
+
+    @ManyToOne
     @JsonIgnoreProperties(
         value = {
-            "supplyPositions",
+            "ownerSupplyPositions",
             "coreAssemblies",
             "intersticeAssemblies",
+            "tapeLayings",
+            "screens",
+            "stripLayings",
+            "plaits",
+            "carrierPlaits",
             "sheathings",
+            "flatSheathings",
+            "continuityWireLongitLayings",
             "centralAssembly",
-            "futureStudy",
+            "study",
             "bangleSupplies",
             "elementSupplies",
             "customComponentSupplies",
@@ -273,6 +284,19 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
 
     public SupplyPosition oneStudySupply(OneStudySupply oneStudySupply) {
         this.setOneStudySupply(oneStudySupply);
+        return this;
+    }
+
+    public StrandSupply getStrandSupply() {
+        return this.strandSupply;
+    }
+
+    public void setStrandSupply(StrandSupply strandSupply) {
+        this.strandSupply = strandSupply;
+    }
+
+    public SupplyPosition strandSupply(StrandSupply strandSupply) {
+        this.setStrandSupply(strandSupply);
         return this;
     }
 

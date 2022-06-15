@@ -3,6 +3,7 @@ import { IElementSupply } from 'app/shared/model/element-supply.model';
 import { IBangleSupply } from 'app/shared/model/bangle-supply.model';
 import { ICustomComponentSupply } from 'app/shared/model/custom-component-supply.model';
 import { IOneStudySupply } from 'app/shared/model/one-study-supply.model';
+import { IStrandSupply } from 'app/shared/model/strand-supply.model';
 import { IStrand } from 'app/shared/model/strand.model';
 import { IIntersticeAssembly } from 'app/shared/model/interstice-assembly.model';
 import { IAbstractSupply } from './abstract-supply.model';
@@ -16,6 +17,7 @@ export interface ISupplyPosition {
   bangleSupply?: IBangleSupply | null;
   customComponentSupply?: ICustomComponentSupply | null;
   oneStudySupply?: IOneStudySupply | null;
+  strandSupply?: IStrandSupply | null;
   ownerStrand?: IStrand | null;
   ownerIntersticeAssembly?: IIntersticeAssembly | null;
 }
