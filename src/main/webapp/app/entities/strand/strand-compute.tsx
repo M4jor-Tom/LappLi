@@ -57,6 +57,7 @@ export const StrandCompute = (props: RouteComponentProps<{ strand_id: string; st
 
   const saveEntity = values => {
     const entity: IStrandSupply = {
+      __typeName: 'StrandSupply',
       study: studyEntity,
       strand: strandEntity,
       markingType: 'LIFTING',
