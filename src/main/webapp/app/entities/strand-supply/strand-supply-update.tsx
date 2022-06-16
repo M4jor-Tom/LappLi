@@ -63,6 +63,7 @@ export const StrandSupplyUpdate = (props: RouteComponentProps<{ strand_id: strin
 
   const saveEntity = values => {
     const entity = {
+      __typeName: 'StrandSupply',
       ...strandSupplyEntity,
       ...values,
       strand: strands.find(it => it.id.toString() === values.strand.toString()),
