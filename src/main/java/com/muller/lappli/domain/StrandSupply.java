@@ -115,7 +115,7 @@ public class StrandSupply extends AbstractSupply<StrandSupply> implements Design
     @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
     private Set<ContinuityWireLongitLaying> continuityWireLongitLayings = new HashSet<>();
 
-    @OneToMany(mappedBy = "strandSupply")
+    @OneToMany(mappedBy = "strandSupply", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
         value = {
