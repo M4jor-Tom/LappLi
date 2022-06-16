@@ -423,6 +423,17 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
                 &nbsp;
                 <Translate contentKey="lappLiApp.oneStudySupply.home.createLabel">Create new One Study Supply</Translate>
               </Link>
+              &nbsp;
+              <Link
+                to={`${props.match.url}/supply-position/new`}
+                className="btn btn-primary jh-create-entity"
+                id="jh-create-entity"
+                data-cy="entityCreateButton"
+              >
+                <FontAwesomeIcon icon="plus" />
+                &nbsp;
+                <Translate contentKey="lappLiApp.strandSupply.home.createLabel">Create new One Study Supply</Translate>
+              </Link>
             </div>
           </dd>
         </dl>
