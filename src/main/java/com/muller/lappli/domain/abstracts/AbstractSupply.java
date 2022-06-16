@@ -113,12 +113,8 @@ public abstract class AbstractSupply<T extends AbstractSupply<T>> extends Abstra
      * @return the Material at the surface of this
      */
     public Material getSurfaceMaterial() {
-        if (getCylindricComponentIfPlasticAspect() == null) {
+        if (getCylindricComponentIfPlasticAspect().isEmpty()) {
             return null;
-        } else if (getCylindricComponentIfPlasticAspect().isEmpty()) {
-            throw new UnsupportedOperationException(
-                getCylindricComponent().getClass().getCanonicalName() + " does not have a surfaceMaterial"
-            );
         }
 
         return getCylindricComponentIfPlasticAspect().get().getSurfaceMaterial();

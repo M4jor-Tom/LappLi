@@ -68,7 +68,7 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
     @Override
     public Optional<PlasticAspectCylindricComponent> getCylindricComponentIfPlasticAspect() {
         if (getCustomComponent() == null) {
-            return null;
+            return Optional.empty();
         }
 
         return Optional.of(getCustomComponent());
