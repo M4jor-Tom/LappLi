@@ -17,7 +17,7 @@ import { getEntities as getOneStudySupplies } from 'app/entities/one-study-suppl
 import { IStrandSupply } from 'app/shared/model/strand-supply.model';
 import { getEntities as getStrandSupplies } from 'app/entities/strand-supply/strand-supply.reducer';
 import { IStrand } from 'app/shared/model/strand.model';
-import { getEntities as getStrands } from 'app/entities/strand/strand.reducer';
+import { getEntities as getStrands, getEntity as getStrand } from 'app/entities/strand/strand.reducer';
 import { IIntersticeAssembly } from 'app/shared/model/interstice-assembly.model';
 import { getEntities as getIntersticeAssemblies } from 'app/entities/interstice-assembly/interstice-assembly.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './supply-position.reducer';
@@ -25,11 +25,16 @@ import { ISupplyPosition } from 'app/shared/model/supply-position.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { toNumber } from 'lodash';
 
-export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string }>) => {
+export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string; strand_id: string; study_id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
+
+  const comesFromStudyInterface = props.match.params.strand_id != null && props.match.params.study_id != null;
+
+  const studyId: number = toNumber(props.match.params.study_id);
 
   const centralAssemblies = useAppSelector(state => state.centralAssembly.entities);
   const elementSupplies = useAppSelector(state => state.elementSupply.entities);
@@ -43,6 +48,9 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string }>)
   const loading = useAppSelector(state => state.supplyPosition.loading);
   const updating = useAppSelector(state => state.supplyPosition.updating);
   const updateSuccess = useAppSelector(state => state.supplyPosition.updateSuccess);
+
+  const strand = useAppSelector(state => state.strand.entity);
+
   const handleClose = () => {
     props.history.push('/supply-position');
   };
@@ -54,14 +62,19 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string }>)
       dispatch(getEntity(props.match.params.id));
     }
 
-    dispatch(getCentralAssemblies({}));
-    dispatch(getElementSupplies({}));
-    dispatch(getBangleSupplies({}));
-    dispatch(getCustomComponentSupplies({}));
-    dispatch(getOneStudySupplies({}));
+    if (comesFromStudyInterface) {
+      dispatch(getStrand(props.match.params.strand_id));
+    } else {
+      dispatch(getStrands({}));
+      dispatch(getCentralAssemblies({}));
+      dispatch(getElementSupplies({}));
+      dispatch(getBangleSupplies({}));
+      dispatch(getCustomComponentSupplies({}));
+      dispatch(getOneStudySupplies({}));
+      dispatch(getIntersticeAssemblies({}));
+    }
+
     dispatch(getStrandSupplies({}));
-    dispatch(getStrands({}));
-    dispatch(getIntersticeAssemblies({}));
   }, []);
 
   useEffect(() => {
@@ -71,17 +84,29 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string }>)
   }, [updateSuccess]);
 
   const saveEntity = values => {
-    const entity = {
-      ...supplyPositionEntity,
-      ...values,
-      elementSupply: elementSupplies.find(it => it.id.toString() === values.elementSupply.toString()),
-      bangleSupply: bangleSupplies.find(it => it.id.toString() === values.bangleSupply.toString()),
-      customComponentSupply: customComponentSupplies.find(it => it.id.toString() === values.customComponentSupply.toString()),
-      oneStudySupply: oneStudySupplies.find(it => it.id.toString() === values.oneStudySupply.toString()),
-      strandSupply: strandSupplies.find(it => it.id.toString() === values.strandSupply.toString()),
-      ownerStrand: strands.find(it => it.id.toString() === values.ownerStrand.toString()),
-      ownerIntersticeAssembly: intersticeAssemblies.find(it => it.id.toString() === values.ownerIntersticeAssembly.toString()),
-    };
+    const entity = comesFromStudyInterface
+      ? {
+          ...supplyPositionEntity,
+          ...values,
+          elementSupply: null,
+          bangleSupply: null,
+          customComponentSupply: null,
+          oneStudySupply: null,
+          ownerIntersticeAssembly: null,
+          ownerStrand: strand,
+          strandSupply: strandSupplies.find(it => it.id.toString() === values.strandSupply.toString()),
+        }
+      : {
+          ...supplyPositionEntity,
+          ...values,
+          elementSupply: elementSupplies.find(it => it.id.toString() === values.elementSupply.toString()),
+          bangleSupply: bangleSupplies.find(it => it.id.toString() === values.bangleSupply.toString()),
+          customComponentSupply: customComponentSupplies.find(it => it.id.toString() === values.customComponentSupply.toString()),
+          oneStudySupply: oneStudySupplies.find(it => it.id.toString() === values.oneStudySupply.toString()),
+          strandSupply: strandSupplies.find(it => it.id.toString() === values.strandSupply.toString()),
+          ownerStrand: strands.find(it => it.id.toString() === values.ownerStrand.toString()),
+          ownerIntersticeAssembly: intersticeAssemblies.find(it => it.id.toString() === values.ownerIntersticeAssembly.toString()),
+        };
 
     if (isNew) {
       dispatch(createEntity(entity));
@@ -213,11 +238,15 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string }>)
               >
                 <option value="" key="0" />
                 {strandSupplies
-                  ? strandSupplies.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.designation}
-                      </option>
-                    ))
+                  ? strandSupplies
+                      .filter(otherEntity => {
+                        return studyId === otherEntity.study.id;
+                      })
+                      .map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.designation}
+                        </option>
+                      ))
                   : null}
               </ValidatedField>
               <ValidatedField
