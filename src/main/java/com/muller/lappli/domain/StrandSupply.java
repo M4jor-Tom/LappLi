@@ -43,16 +43,9 @@ public class StrandSupply extends AbstractSupply<StrandSupply> implements Design
     private static Comparator<IOperation<?>> operationComparator = null;
 
     @NotNull
-    @Column(name = "apparitions", nullable = false)
-    private Long apparitions;
-
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "marking_type", nullable = false)
     private MarkingType markingType;
-
-    @Column(name = "description")
-    private String description;
 
     @NotNull
     @Column(name = "diameter_assembly_step", nullable = false)
@@ -659,19 +652,6 @@ public class StrandSupply extends AbstractSupply<StrandSupply> implements Design
         return false;
     }
 
-    public Long getApparitions() {
-        return this.apparitions;
-    }
-
-    public StrandSupply apparitions(Long apparitions) {
-        this.setApparitions(apparitions);
-        return this;
-    }
-
-    public void setApparitions(Long apparitions) {
-        this.apparitions = apparitions;
-    }
-
     public MarkingType getMarkingType() {
         return this.markingType;
     }
@@ -683,19 +663,6 @@ public class StrandSupply extends AbstractSupply<StrandSupply> implements Design
 
     public void setMarkingType(MarkingType markingType) {
         this.markingType = markingType;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public StrandSupply description(String description) {
-        this.setDescription(description);
-        return this;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Double getDiameterAssemblyStep() {
