@@ -92,7 +92,12 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
 
     @Override
     public Boolean isConform() {
-        return getSupplyApparitionsUsage() != null && isOwnerLegit() && isSupplyLegit();
+        return (
+            getSupplyApparitionsUsage() != null &&
+            isOwnerLegit() &&
+            isSupplyLegit() &&
+            (getSupply() == null || getSupply().getApparitions() >= getSupplyApparitionsUsage())
+        );
     }
 
     /**
