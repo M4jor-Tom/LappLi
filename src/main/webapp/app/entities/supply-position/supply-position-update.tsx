@@ -87,6 +87,11 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string; st
   }, [updateSuccess]);
 
   const saveEntity = values => {
+    const strandSupplyEntity: IStrandSupply = strandSupplies.find(it => it.id.toString() === values.strandSupply.toString());
+    if (strandSupplyEntity.apparitions < values.supplyApparitionsUsage) {
+      alert(strandSupplyEntity.apparitions + ' < ' + values.supplyApparitionsUsage);
+      return;
+    }
     const entity = comesFromStudyInterface
       ? {
           ...supplyPositionEntity,
@@ -97,7 +102,7 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string; st
           oneStudySupply: null,
           ownerIntersticeAssembly: null,
           ownerStrand: strand,
-          strandSupply: strandSupplies.find(it => it.id.toString() === values.strandSupply.toString()),
+          strandSupply: strandSupplyEntity,
         }
       : {
           ...supplyPositionEntity,
@@ -106,7 +111,7 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string; st
           bangleSupply: bangleSupplies.find(it => it.id.toString() === values.bangleSupply.toString()),
           customComponentSupply: customComponentSupplies.find(it => it.id.toString() === values.customComponentSupply.toString()),
           oneStudySupply: oneStudySupplies.find(it => it.id.toString() === values.oneStudySupply.toString()),
-          strandSupply: strandSupplies.find(it => it.id.toString() === values.strandSupply.toString()),
+          strandSupply: strandSupplyEntity,
           ownerStrand: strands.find(it => it.id.toString() === values.ownerStrand.toString()),
           ownerIntersticeAssembly: intersticeAssemblies.find(it => it.id.toString() === values.ownerIntersticeAssembly.toString()),
         };
