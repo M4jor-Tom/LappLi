@@ -6,8 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity, deleteEntity } from './supply-position.reducer';
+import { getOut } from '../index-management/index-management-lib';
 
-export const SupplyPositionDeleteDialog = (props: RouteComponentProps<{ id: string }>) => {
+export const SupplyPositionDeleteDialog = (props: RouteComponentProps<{ id: string; strand_id: string; study_id: string }>) => {
   const [loadModal, setLoadModal] = useState(false);
   const dispatch = useAppDispatch();
 
@@ -19,8 +20,12 @@ export const SupplyPositionDeleteDialog = (props: RouteComponentProps<{ id: stri
   const supplyPositionEntity = useAppSelector(state => state.supplyPosition.entity);
   const updateSuccess = useAppSelector(state => state.supplyPosition.updateSuccess);
 
+  const comesFromStudyInterface = props.match.params.strand_id != null && props.match.params.study_id != null;
+
+  const redirectionUrl = comesFromStudyInterface ? getOut(props.match.url, 1) : '/supply-positions';
+
   const handleClose = () => {
-    props.history.push('/supply-position');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {

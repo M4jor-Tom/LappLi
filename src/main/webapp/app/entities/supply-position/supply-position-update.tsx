@@ -26,6 +26,7 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { toNumber } from 'lodash';
+import { getOut } from '../index-management/index-management-lib';
 
 export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string; strand_id: string; study_id: string }>) => {
   const dispatch = useAppDispatch();
@@ -51,8 +52,10 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string; st
 
   const strand = useAppSelector(state => state.strand.entity);
 
+  const redirectionUrl = comesFromStudyInterface ? getOut(props.match.url, 1) : '/supply-positions';
+
   const handleClose = () => {
-    props.history.push('/supply-position');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {
@@ -281,7 +284,7 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string; st
                     ))
                   : null}
               </ValidatedField>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/supply-position" replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
