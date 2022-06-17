@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity, deleteEntity } from './supply-position.reducer';
-import { getOut } from '../index-management/index-management-lib';
+import { getOutFromStudySupplyStrandSupplyComponent } from '../index-management/index-management-lib';
 
 export const SupplyPositionDeleteDialog = (props: RouteComponentProps<{ id: string; strand_id: string; study_id: string }>) => {
   const [loadModal, setLoadModal] = useState(false);
@@ -22,7 +22,7 @@ export const SupplyPositionDeleteDialog = (props: RouteComponentProps<{ id: stri
 
   const comesFromStudyInterface = props.match.params.strand_id != null && props.match.params.study_id != null;
 
-  const redirectionUrl = comesFromStudyInterface ? getOut(props.match.url, 1) : '/supply-positions';
+  const redirectionUrl = comesFromStudyInterface ? getOutFromStudySupplyStrandSupplyComponent(props.match.url, false) : '/supply-positions';
 
   const handleClose = () => {
     props.history.push(redirectionUrl);

@@ -26,7 +26,7 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { toNumber } from 'lodash';
-import { getOut } from '../index-management/index-management-lib';
+import { getOutFromStudySupplyStrandSupplyComponent } from '../index-management/index-management-lib';
 
 export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string; strand_id: string; study_id: string }>) => {
   const dispatch = useAppDispatch();
@@ -52,7 +52,7 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string; st
 
   const strand = useAppSelector(state => state.strand.entity);
 
-  const redirectionUrl = comesFromStudyInterface ? getOut(props.match.url, 1) : '/supply-positions';
+  const redirectionUrl = comesFromStudyInterface ? getOutFromStudySupplyStrandSupplyComponent(props.match.url, isNew) : '/supply-positions';
 
   const handleClose = () => {
     props.history.push(redirectionUrl);
