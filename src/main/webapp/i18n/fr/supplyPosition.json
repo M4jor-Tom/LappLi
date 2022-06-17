@@ -25,7 +25,8 @@
       "customComponentSupply": "Approvisionnement de Composant Custom",
       "oneStudySupply": "Approvisionnement Mono-Toron",
       "ownerStrand": "Toron Propriétaire",
-      "ownerIntersticeAssembly": "Assemblage Inersticiel Propriétaire"
+      "ownerIntersticeAssembly": "Assemblage Inersticiel Propriétaire",
+      "strandSupply": "Approvisionnement de toron"
     }
   }
 }
