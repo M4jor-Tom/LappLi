@@ -10,8 +10,9 @@ import { AssemblyMean } from 'app/shared/model/enumerations/assembly-mean.model'
 import { IAbstractNonCentralAssembly } from './abstract-non-central-assembly.model';
 import { ITapeLaying } from './tape-laying.model';
 import { IAbstractOperation } from './abstract-operation.model';
+import { IAbstractSupply } from './abstract-supply.model';
 
-export interface IStrandSupply {
+export interface IStrandSupply extends IAbstractSupply {
   id?: number;
   designation?: string;
   apparitions?: number;
