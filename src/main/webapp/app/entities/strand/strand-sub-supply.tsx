@@ -55,7 +55,8 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
               {(strandEntity.customComponentSupplies && strandEntity.customComponentSupplies.length > 0) ||
               (strandEntity.bangleSupplies && strandEntity.bangleSupplies.length > 0) ||
               (strandEntity.elementSupplies && strandEntity.elementSupplies.length > 0) ||
-              (strandEntity.oneStudySupplies && strandEntity.oneStudySupplies.length > 0) ? (
+              (strandEntity.oneStudySupplies && strandEntity.oneStudySupplies.length > 0) ||
+              (strandEntity.strandSupplies && strandEntity.strandSupplies.length > 0) ? (
                 <Table responsive>
                   <thead>
                     <tr>
@@ -360,6 +361,68 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
                             <Button
                               tag={Link}
                               to={`${props.match.url}/one-study-supply/${oneStudySupply.id}/delete`}
+                              color="danger"
+                              size="sm"
+                              data-cy="entityDeleteButton"
+                            >
+                              <FontAwesomeIcon icon="trash" />{' '}
+                              <span className="d-none d-md-inline">
+                                <Translate contentKey="entity.action.delete">Delete</Translate>
+                              </span>
+                            </Button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                    {strandEntity.strandSupplies.map((strandSupply, i) => (
+                      <tr key={`entity-${i}`} data-cy="entityTable">
+                        <td>
+                          <Translate contentKey="global.menu.entities.strandSupply" />
+                        </td>
+                        <td>{strandSupply.apparitions}</td>
+                        <td>
+                          <Translate contentKey={`lappLiApp.MarkingType.${strandSupply.markingType}`} />
+                        </td>
+                        <td>
+                          <Link to={`${props.match.url}/one-study-supply/${strandSupply.id}`}>{/* strandSupply.number*/}</Link>
+                        </td>
+                        <td>
+                          <Link to={`${props.match.url}/one-study-supply/${strandSupply.id}`}>{strandSupply.designation}</Link>
+                        </td>
+                        <td>{strandSupply.description}</td>
+                        <td>{strandSupply.meterQuantity}</td>
+                        <td>{strandSupply.cylindricComponent.milimeterDiameter}</td>
+                        <td>{strandSupply.cylindricComponent.gramPerMeterLinearMass}</td>
+                        <td>{/* strandSupply.bestLiftersNames*/}</td>
+                        <td>
+                          {strandSupply.surfaceMaterial ? (
+                            <Link to={`/material/${strandSupply.surfaceMaterial.id}`}>{strandSupply.surfaceMaterial.designation}</Link>
+                          ) : (
+                            ''
+                          )}
+                        </td>
+                        <td>{/* <Translate contentKey={`lappLiApp.Color.${/*  strandSupply.surfaceColor*}`} />*/}</td>
+                        <td>{strandSupply.meterPerHourSpeed}</td>
+                        <td>{strandSupply.formatedHourPreparationTime}</td>
+                        <td>{strandSupply.formatedHourExecutionTime}</td>
+                        <td>{/* strandSupply.markingTechnique*/}</td>
+                        <td className="text-right">
+                          <div className="btn-group flex-btn-group-container">
+                            <Button
+                              tag={Link}
+                              to={`${props.match.url}/one-study-supply/${strandSupply.id}/edit`}
+                              color="primary"
+                              size="sm"
+                              data-cy="entityEditButton"
+                            >
+                              <FontAwesomeIcon icon="pencil-alt" />{' '}
+                              <span className="d-none d-md-inline">
+                                <Translate contentKey="entity.action.edit">Edit</Translate>
+                              </span>
+                            </Button>
+                            <Button
+                              tag={Link}
+                              to={`${props.match.url}/one-study-supply/${strandSupply.id}/delete`}
                               color="danger"
                               size="sm"
                               data-cy="entityDeleteButton"
