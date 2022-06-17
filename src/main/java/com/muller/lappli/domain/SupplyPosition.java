@@ -52,6 +52,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     @ManyToOne
     @JsonIgnoreProperties(
         value = {
+            "strandSupplies",
             "ownerSupplyPositions",
             "coreAssemblies",
             "intersticeAssemblies",
