@@ -243,6 +243,19 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return sortedSupplies;
     }
 
+    @JsonIgnoreProperties(value = { "owner", "ownerCentralAssembly", "ownerStrand", "ownerIntersticeAssembly" }, allowSetters = true)
+    public Set<SupplyPosition> getStrandSupplyPositions() {
+        Set<SupplyPosition> strandSupplyPositions = new HashSet<SupplyPosition>();
+
+        for (SupplyPosition supplyPosition : getSupplyPositions()) {
+            if (supplyPosition.getStrandSupply() != null) {
+                strandSupplyPositions.add(supplyPosition);
+            }
+        }
+
+        return strandSupplyPositions;
+    }
+
     public Set<SupplyPosition> getSupplyPositions() {
         return this.supplyPositions;
     }
