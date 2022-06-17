@@ -1,6 +1,7 @@
 package com.muller.lappli.domain.abstracts;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.muller.lappli.domain.interfaces.IDomainObject;
 import java.util.Optional;
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public abstract class AbstractDomainObject<T extends AbstractDomainObject<T>> im
     }
 
     @Override
+    @JsonProperty("isConform")
     public Boolean isConform() {
         return true;
     }
