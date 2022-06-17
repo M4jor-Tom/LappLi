@@ -470,7 +470,7 @@ public class StrandSupply extends AbstractSupply<StrandSupply> implements Design
      * @return all the assemblies
      */
     @JsonIgnoreProperties("ownerStrandSupply")
-    public Set<AbstractAssembly<?>> getAssemblies() {
+    private Set<AbstractAssembly<?>> getAssemblies() {
         LinkedHashSet<AbstractAssembly<?>> assemblies = new LinkedHashSet<>();
 
         if (getCentralAssembly() != null) {
@@ -488,8 +488,7 @@ public class StrandSupply extends AbstractSupply<StrandSupply> implements Design
     /**
      * @return all operations which are not assemblies
      */
-    @JsonIgnore
-    public Set<INonAssemblyOperation<?>> getNonAssemblyOperations() {
+    private Set<INonAssemblyOperation<?>> getNonAssemblyOperations() {
         HashSet<INonAssemblyOperation<?>> operations = new HashSet<>();
 
         //[NON_ASSEMBLY_OPERATION]

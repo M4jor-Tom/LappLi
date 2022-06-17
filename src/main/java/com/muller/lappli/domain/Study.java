@@ -31,14 +31,46 @@ public class Study extends AbstractDomainObject<Study> implements Serializable {
     @OneToMany(mappedBy = "futureStudy", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
-        value = { "supplyPositions", "coreAssemblies", "intersticeAssemblies", "sheathings", "centralAssembly", "futureStudy" },
+        value = {
+            "supplyPositions",
+            "futureStudy",
+            "bangleSupplies",
+            "customComponentSupplies",
+            "elementSupplies",
+            "oneStudySupplies",
+            "strandSupplies",
+            "strandSupplyPositions",
+        },
         allowSetters = true
     )
     private Set<Strand> strands = new HashSet<>();
 
     @OneToMany(mappedBy = "study", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "study" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = {
+            "study",
+            "markingType",
+            "diameterAssemblyStep",
+            "assemblyMean",
+            "forceCentralUtilityComponent",
+            "centralAssembly",
+            "coreAssemblies",
+            "intersticeAssemblies",
+            "tapeLayings",
+            "screens",
+            "stripLayings",
+            "plaits",
+            "carrierPlaits",
+            "sheathings",
+            "flatSheathings",
+            "continuityWireLongitLayings",
+            "operations",
+            "nonCentralOperations",
+            "ownerSupplyPositions",
+        },
+        allowSetters = true
+    )
     private Set<StrandSupply> strandSupplies = new HashSet<>();
 
     @ManyToOne(optional = false)
