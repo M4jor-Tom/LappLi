@@ -5,6 +5,8 @@ export interface ICylindricComponent extends IDesignable {
   milimeterDiameter?: number;
   gramPerMeterLinearMass?: number;
   cylindricComponentKind?: CylindricComponentKind;
+  mullerStadardizedFormatMilimeterDiameter?: string;
+  mullerStadardizedFormatGramPerMeterLinearMass?: string;
 
   squareMilimeterSurface?: number;
 }

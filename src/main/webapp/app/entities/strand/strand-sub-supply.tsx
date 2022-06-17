@@ -395,8 +395,8 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
                         </td>
                         <td>{strandSupplyPosition.strandSupply.description}</td>
                         <td>{strandSupplyPosition.strandSupply.meterQuantity}</td>
-                        <td>{strandSupplyPosition.strandSupply.cylindricComponent.milimeterDiameter}</td>
-                        <td>{strandSupplyPosition.strandSupply.cylindricComponent.gramPerMeterLinearMass}</td>
+                        <td>{strandSupplyPosition.strandSupply.cylindricComponent.mullerStadardizedFormatMilimeterDiameter}</td>
+                        <td>{strandSupplyPosition.strandSupply.cylindricComponent.mullerStadardizedFormatGramPerMeterLinearMass}</td>
                         <td>{/* strandSupplyPosition.strandSupply.bestLiftersNames*/}</td>
                         <td>
                           {strandSupplyPosition.strandSupply.surfaceMaterial ? (
