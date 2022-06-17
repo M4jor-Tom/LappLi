@@ -168,70 +168,86 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string; st
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
               />
-              <ValidatedField
-                id="supply-position-elementSupply"
-                name="elementSupply"
-                data-cy="elementSupply"
-                label={translate('lappLiApp.supplyPosition.elementSupply')}
-                type="select"
-              >
-                <option value="" key="0" />
-                {elementSupplies
-                  ? elementSupplies.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.designation}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <ValidatedField
-                id="supply-position-bangleSupply"
-                name="bangleSupply"
-                data-cy="bangleSupply"
-                label={translate('lappLiApp.supplyPosition.bangleSupply')}
-                type="select"
-              >
-                <option value="" key="0" />
-                {bangleSupplies
-                  ? bangleSupplies.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.designation}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <ValidatedField
-                id="supply-position-customComponentSupply"
-                name="customComponentSupply"
-                data-cy="customComponentSupply"
-                label={translate('lappLiApp.supplyPosition.customComponentSupply')}
-                type="select"
-              >
-                <option value="" key="0" />
-                {customComponentSupplies
-                  ? customComponentSupplies.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.designation}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <ValidatedField
-                id="supply-position-oneStudySupply"
-                name="oneStudySupply"
-                data-cy="oneStudySupply"
-                label={translate('lappLiApp.supplyPosition.oneStudySupply')}
-                type="select"
-              >
-                <option value="" key="0" />
-                {oneStudySupplies
-                  ? oneStudySupplies.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.designation}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
+              {comesFromStudyInterface ? (
+                ''
+              ) : (
+                <ValidatedField
+                  id="supply-position-elementSupply"
+                  name="elementSupply"
+                  data-cy="elementSupply"
+                  label={translate('lappLiApp.supplyPosition.elementSupply')}
+                  type="select"
+                >
+                  <option value="" key="0" />
+                  {elementSupplies
+                    ? elementSupplies.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.designation}
+                        </option>
+                      ))
+                    : null}
+                </ValidatedField>
+              )}
+              {comesFromStudyInterface ? (
+                ''
+              ) : (
+                <ValidatedField
+                  id="supply-position-bangleSupply"
+                  name="bangleSupply"
+                  data-cy="bangleSupply"
+                  label={translate('lappLiApp.supplyPosition.bangleSupply')}
+                  type="select"
+                >
+                  <option value="" key="0" />
+                  {bangleSupplies
+                    ? bangleSupplies.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.designation}
+                        </option>
+                      ))
+                    : null}
+                </ValidatedField>
+              )}
+              {comesFromStudyInterface ? (
+                ''
+              ) : (
+                <ValidatedField
+                  id="supply-position-customComponentSupply"
+                  name="customComponentSupply"
+                  data-cy="customComponentSupply"
+                  label={translate('lappLiApp.supplyPosition.customComponentSupply')}
+                  type="select"
+                >
+                  <option value="" key="0" />
+                  {customComponentSupplies
+                    ? customComponentSupplies.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.designation}
+                        </option>
+                      ))
+                    : null}
+                </ValidatedField>
+              )}
+              {comesFromStudyInterface ? (
+                ''
+              ) : (
+                <ValidatedField
+                  id="supply-position-oneStudySupply"
+                  name="oneStudySupply"
+                  data-cy="oneStudySupply"
+                  label={translate('lappLiApp.supplyPosition.oneStudySupply')}
+                  type="select"
+                >
+                  <option value="" key="0" />
+                  {oneStudySupplies
+                    ? oneStudySupplies.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.designation}
+                        </option>
+                      ))
+                    : null}
+                </ValidatedField>
+              )}
               <ValidatedField
                 id="supply-position-strandSupply"
                 name="strandSupply"
@@ -252,38 +268,46 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string; st
                       ))
                   : null}
               </ValidatedField>
-              <ValidatedField
-                id="supply-position-ownerStrand"
-                name="ownerStrand"
-                data-cy="ownerStrand"
-                label={translate('lappLiApp.supplyPosition.ownerStrand')}
-                type="select"
-              >
-                <option value="" key="0" />
-                {strands
-                  ? strands.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <ValidatedField
-                id="supply-position-ownerIntersticeAssembly"
-                name="ownerIntersticeAssembly"
-                data-cy="ownerIntersticeAssembly"
-                label={translate('lappLiApp.supplyPosition.ownerIntersticeAssembly')}
-                type="select"
-              >
-                <option value="" key="0" />
-                {intersticeAssemblies
-                  ? intersticeAssemblies.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.productDesignation}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
+              {comesFromStudyInterface ? (
+                ''
+              ) : (
+                <ValidatedField
+                  id="supply-position-ownerStrand"
+                  name="ownerStrand"
+                  data-cy="ownerStrand"
+                  label={translate('lappLiApp.supplyPosition.ownerStrand')}
+                  type="select"
+                >
+                  <option value="" key="0" />
+                  {strands
+                    ? strands.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </ValidatedField>
+              )}
+              {comesFromStudyInterface ? (
+                ''
+              ) : (
+                <ValidatedField
+                  id="supply-position-ownerIntersticeAssembly"
+                  name="ownerIntersticeAssembly"
+                  data-cy="ownerIntersticeAssembly"
+                  label={translate('lappLiApp.supplyPosition.ownerIntersticeAssembly')}
+                  type="select"
+                >
+                  <option value="" key="0" />
+                  {intersticeAssemblies
+                    ? intersticeAssemblies.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.productDesignation}
+                        </option>
+                      ))
+                    : null}
+                </ValidatedField>
+              )}
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
