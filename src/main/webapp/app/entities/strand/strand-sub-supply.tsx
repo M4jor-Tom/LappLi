@@ -416,7 +416,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
                           <div className="btn-group flex-btn-group-container">
                             <Button
                               tag={Link}
-                              to={`${props.match.url}/strand-supply/${strandSupplyPosition.id}/edit`}
+                              to={`${props.match.url}/supply-position/${strandSupplyPosition.id}/edit`}
                               color="primary"
                               size="sm"
                               data-cy="entityEditButton"
@@ -428,7 +428,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
                             </Button>
                             <Button
                               tag={Link}
-                              to={`${props.match.url}/strand-supply/${strandSupplyPosition.id}/delete`}
+                              to={`${props.match.url}/supply-position/${strandSupplyPosition.id}/delete`}
                               color="danger"
                               size="sm"
                               data-cy="entityDeleteButton"
