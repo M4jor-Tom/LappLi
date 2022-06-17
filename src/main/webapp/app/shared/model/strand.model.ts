@@ -4,6 +4,7 @@ import { IBangleSupply } from 'app/shared/model/bangle-supply.model';
 import { ICustomComponentSupply } from 'app/shared/model/custom-component-supply.model';
 import { IOneStudySupply } from 'app/shared/model/one-study-supply.model';
 import { IStudy } from 'app/shared/model/study.model';
+import { IStrandSupply } from './strand-supply.model';
 
 export interface IStrand {
   id?: number;
@@ -12,6 +13,7 @@ export interface IStrand {
   bangleSupplies?: IBangleSupply[] | null;
   customComponentSupplies?: ICustomComponentSupply[] | null;
   oneStudySupplies?: IOneStudySupply[] | null;
+  strandSupplies?: IStrandSupply[] | null;
   suppliesCountsCommonDividers?: number[];
   undividedSuppliedComponentsCount?: number;
   futureStudy?: IStudy;
