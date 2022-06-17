@@ -50,7 +50,6 @@ public class Study extends AbstractDomainObject<Study> implements Serializable {
     @JsonIgnoreProperties(
         value = {
             "study",
-            "markingType",
             "diameterAssemblyStep",
             "assemblyMean",
             "forceCentralUtilityComponent",
