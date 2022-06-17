@@ -374,43 +374,49 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
                         </td>
                       </tr>
                     ))}
-                    {strandEntity.strandSupplies.map((strandSupply, i) => (
+                    {strandEntity.strandSupplyPositions.map((strandSupplyPosition, i) => (
                       <tr key={`entity-${i}`} data-cy="entityTable">
                         <td>
                           <Translate contentKey="global.menu.entities.strandSupply" />
                         </td>
-                        <td>{strandSupply.apparitions}</td>
+                        <td>{strandSupplyPosition.strandSupply.apparitions}</td>
                         <td>
-                          <Translate contentKey={`lappLiApp.MarkingType.${strandSupply.markingType}`} />
+                          <Translate contentKey={`lappLiApp.MarkingType.${strandSupplyPosition.strandSupply.markingType}`} />
                         </td>
                         <td>
-                          <Link to={`${props.match.url}/one-study-supply/${strandSupply.id}`}>{/* strandSupply.number*/}</Link>
+                          <Link to={`${props.match.url}/one-study-supply/${strandSupplyPosition.strandSupply.id}`}>
+                            {/* strandSupplyPosition.strandSupply.number*/}
+                          </Link>
                         </td>
                         <td>
-                          <Link to={`${props.match.url}/one-study-supply/${strandSupply.id}`}>{strandSupply.designation}</Link>
+                          <Link to={`${props.match.url}/one-study-supply/${strandSupplyPosition.strandSupply.id}`}>
+                            {strandSupplyPosition.strandSupply.designation}
+                          </Link>
                         </td>
-                        <td>{strandSupply.description}</td>
-                        <td>{strandSupply.meterQuantity}</td>
-                        <td>{strandSupply.cylindricComponent.milimeterDiameter}</td>
-                        <td>{strandSupply.cylindricComponent.gramPerMeterLinearMass}</td>
-                        <td>{/* strandSupply.bestLiftersNames*/}</td>
+                        <td>{strandSupplyPosition.strandSupply.description}</td>
+                        <td>{strandSupplyPosition.strandSupply.meterQuantity}</td>
+                        <td>{strandSupplyPosition.strandSupply.cylindricComponent.milimeterDiameter}</td>
+                        <td>{strandSupplyPosition.strandSupply.cylindricComponent.gramPerMeterLinearMass}</td>
+                        <td>{/* strandSupplyPosition.strandSupply.bestLiftersNames*/}</td>
                         <td>
-                          {strandSupply.surfaceMaterial ? (
-                            <Link to={`/material/${strandSupply.surfaceMaterial.id}`}>{strandSupply.surfaceMaterial.designation}</Link>
+                          {strandSupplyPosition.strandSupply.surfaceMaterial ? (
+                            <Link to={`/material/${strandSupplyPosition.strandSupply.surfaceMaterial.id}`}>
+                              {strandSupplyPosition.strandSupply.surfaceMaterial.designation}
+                            </Link>
                           ) : (
                             ''
                           )}
                         </td>
-                        <td>{/* <Translate contentKey={`lappLiApp.Color.${/*  strandSupply.surfaceColor*}`} />*/}</td>
-                        <td>{strandSupply.meterPerHourSpeed}</td>
-                        <td>{strandSupply.formatedHourPreparationTime}</td>
-                        <td>{strandSupply.formatedHourExecutionTime}</td>
-                        <td>{/* strandSupply.markingTechnique*/}</td>
+                        <td>{/* <Translate contentKey={`lappLiApp.Color.${/*  strandSupplyPosition.strandSupply.surfaceColor*}`} />*/}</td>
+                        <td>{strandSupplyPosition.strandSupply.meterPerHourSpeed}</td>
+                        <td>{strandSupplyPosition.strandSupply.formatedHourPreparationTime}</td>
+                        <td>{strandSupplyPosition.strandSupply.formatedHourExecutionTime}</td>
+                        <td>{/* strandSupplyPosition.strandSupply.markingTechnique*/}</td>
                         <td className="text-right">
                           <div className="btn-group flex-btn-group-container">
                             <Button
                               tag={Link}
-                              to={`${props.match.url}/one-study-supply/${strandSupply.id}/edit`}
+                              to={`${props.match.url}/one-study-supply/${strandSupplyPosition.id}/edit`}
                               color="primary"
                               size="sm"
                               data-cy="entityEditButton"
@@ -422,7 +428,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
                             </Button>
                             <Button
                               tag={Link}
-                              to={`${props.match.url}/one-study-supply/${strandSupply.id}/delete`}
+                              to={`${props.match.url}/one-study-supply/${strandSupplyPosition.id}/delete`}
                               color="danger"
                               size="sm"
                               data-cy="entityDeleteButton"
