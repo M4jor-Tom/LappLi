@@ -379,7 +379,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
                         <td>
                           <Translate contentKey="global.menu.entities.strandSupply" />
                         </td>
-                        <td>{strandSupplyPosition.strandSupply.apparitions}</td>
+                        <td>{strandSupplyPosition.supplyApparitionsUsage + ' / ' + strandSupplyPosition.strandSupply.apparitions}</td>
                         <td>
                           <Translate contentKey={`lappLiApp.MarkingType.${strandSupplyPosition.strandSupply.markingType}`} />
                         </td>
