@@ -45,7 +45,7 @@ import javax.validation.constraints.NotNull;
 public abstract class AbstractSupply<T extends AbstractSupply<T>> extends AbstractDomainObject<T> {
 
     @Transient
-    private StrandSupply observerStrandSupply;
+    private SupplyPosition observerStrandSupplyPosition;
 
     @NotNull
     @Column(name = "apparitions", nullable = false)
@@ -68,7 +68,7 @@ public abstract class AbstractSupply<T extends AbstractSupply<T>> extends Abstra
 
     public AbstractSupply() {
         super();
-        this.observerStrandSupply = null;
+        setObserverStrandSupplyPosition(null);
     }
 
     /**
@@ -187,15 +187,23 @@ public abstract class AbstractSupply<T extends AbstractSupply<T>> extends Abstra
     }
 
     public StrandSupply getObserverStrandSupply() {
-        return observerStrandSupply;
+        if (getObserverStrandSupplyPosition() == null) {
+            return null;
+        }
+
+        return getObserverStrandSupplyPosition().getStrandSupply();
     }
 
-    public void setObserverStrandSupply(StrandSupply observerStrandSupply) {
-        this.observerStrandSupply = observerStrandSupply;
+    public SupplyPosition getObserverStrandSupplyPosition() {
+        return observerStrandSupplyPosition;
     }
 
-    public T observerStrandSupply(StrandSupply strandSupply) {
-        setObserverStrandSupply(observerStrandSupply);
+    public void setObserverStrandSupplyPosition(SupplyPosition observerStrandSupplyPosition) {
+        this.observerStrandSupplyPosition = observerStrandSupplyPosition;
+    }
+
+    public T observerStrandSupplyPosition(SupplyPosition observerStrandSupplyPosition) {
+        setObserverStrandSupplyPosition(observerStrandSupplyPosition);
 
         return getThis();
     }

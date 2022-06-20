@@ -81,30 +81,32 @@ public class SupplyPositionServiceImpl implements SupplyPositionService {
     public SupplyPosition save(SupplyPosition supplyPosition) {
         log.debug("Request to save SupplyPosition : {}", supplyPosition);
         saveSupply(supplyPosition);
-        return supplyPositionRepository.save(supplyPosition);
+        return onRead(supplyPositionRepository.save(supplyPosition));
     }
 
     @Override
     public Optional<SupplyPosition> partialUpdate(SupplyPosition supplyPosition) {
         log.debug("Request to partially update SupplyPosition : {}", supplyPosition);
 
-        return supplyPositionRepository
-            .findById(supplyPosition.getId())
-            .map(existingSupplyPosition -> {
-                if (supplyPosition.getSupplyApparitionsUsage() != null) {
-                    existingSupplyPosition.setSupplyApparitionsUsage(supplyPosition.getSupplyApparitionsUsage());
-                }
+        return onOptionalRead(
+            supplyPositionRepository
+                .findById(supplyPosition.getId())
+                .map(existingSupplyPosition -> {
+                    if (supplyPosition.getSupplyApparitionsUsage() != null) {
+                        existingSupplyPosition.setSupplyApparitionsUsage(supplyPosition.getSupplyApparitionsUsage());
+                    }
 
-                return existingSupplyPosition;
-            })
-            .map(supplyPositionRepository::save);
+                    return existingSupplyPosition;
+                })
+                .map(supplyPositionRepository::save)
+        );
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<SupplyPosition> findAll() {
         log.debug("Request to get all SupplyPositions");
-        return supplyPositionRepository.findAll();
+        return onListRead(supplyPositionRepository.findAll());
     }
 
     /**
@@ -114,22 +116,35 @@ public class SupplyPositionServiceImpl implements SupplyPositionService {
     @Transactional(readOnly = true)
     public List<SupplyPosition> findAllWhereOwnerCentralAssemblyIsNull() {
         log.debug("Request to get all supplyPositions where OwnerCentralAssembly is null");
-        return StreamSupport
-            .stream(supplyPositionRepository.findAll().spliterator(), false)
-            .filter(supplyPosition -> supplyPosition.getOwnerCentralAssembly() == null)
-            .collect(Collectors.toList());
+        return onListRead(
+            StreamSupport
+                .stream(supplyPositionRepository.findAll().spliterator(), false)
+                .filter(supplyPosition -> supplyPosition.getOwnerCentralAssembly() == null)
+                .collect(Collectors.toList())
+        );
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<SupplyPosition> findOne(Long id) {
         log.debug("Request to get SupplyPosition : {}", id);
-        return supplyPositionRepository.findById(id);
+        return onOptionalRead(supplyPositionRepository.findById(id));
     }
 
     @Override
     public void delete(Long id) {
         log.debug("Request to delete SupplyPosition : {}", id);
         supplyPositionRepository.deleteById(id);
+    }
+
+    @Override
+    public SupplyPosition onRead(SupplyPosition domainObject) {
+        if (domainObject.getStrandSupply() != null && domainObject.getStrandSupply().getStrand() != null) {
+            for (AbstractSupply<?> supply : domainObject.getStrandSupply().getStrand().getSupplies()) {
+                supply.setObserverStrandSupplyPosition(domainObject);
+            }
+        }
+
+        return domainObject;
     }
 }

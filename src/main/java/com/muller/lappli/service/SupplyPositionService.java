@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Service Interface for managing {@link SupplyPosition}.
  */
-public interface SupplyPositionService extends IService<SupplyPosition> {
+public interface SupplyPositionService extends IService<SupplyPosition>, ReadTriggerableService<SupplyPosition> {
     /**
      * Get all the SupplyPosition where OwnerCentralAssembly is {@code null}.
      *
