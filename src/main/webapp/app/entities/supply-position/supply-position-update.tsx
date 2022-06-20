@@ -89,7 +89,14 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string; st
   const saveEntity = values => {
     const strandSupplyEntity: IStrandSupply = strandSupplies.find(it => it.id.toString() === values.strandSupply.toString());
     if (strandSupplyEntity.apparitions < values.supplyApparitionsUsage) {
-      alert(strandSupplyEntity.apparitions + ' < ' + values.supplyApparitionsUsage);
+      alert(
+        'Max ' +
+          translate('lappLiApp.supplyPosition.supplyApparitionsUsage') +
+          ' for ' +
+          strandSupplyEntity.designation +
+          ' = ' +
+          strandSupplyEntity.apparitions
+      );
       return;
     }
     const entity = comesFromStudyInterface
