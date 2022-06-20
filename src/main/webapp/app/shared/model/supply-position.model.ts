@@ -11,6 +11,7 @@ import { IAbstractSupply } from './abstract-supply.model';
 export interface ISupplyPosition {
   id?: number;
   supplyApparitionsUsage?: number;
+  finalSupplyApparitionsUsage?: number;
   supply?: IAbstractSupply | null;
   ownerCentralAssembly?: ICentralAssembly | null;
   elementSupply?: IElementSupply | null;

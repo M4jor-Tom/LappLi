@@ -100,6 +100,16 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
         );
     }
 
+    public Long getFinalSupplyApparitionsUsage() {
+        if (getSupply() == null) {
+            return null;
+        } else if (getSupply() instanceof StrandSupply) {
+            return getSupplyApparitionsUsage();
+        }
+
+        return getSupply().getApparitions();
+    }
+
     /**
      * Checks the SupplyPosition's owner data is'nt corrupted
      *

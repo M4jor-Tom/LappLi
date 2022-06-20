@@ -67,14 +67,18 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     public List<Long> getSuppliesCountsCommonDividers() {
         List<Long> commonDividers = new ArrayList<Long>();
 
-        for (AbstractSupply<?> supply : getSupplies()) {
-            //For each supply
+        for (SupplyPosition supplyPosition : getSupplyPositions()) {
+            //For each SupplyPosition
             List<Long> supplyDividers = new ArrayList<Long>();
 
-            if (supply != null) {
-                for (Long testValue = Long.valueOf(1); testValue < supply.getApparitions() + Long.valueOf(1); testValue++) {
+            if (supplyPosition != null) {
+                for (
+                    Long testValue = Long.valueOf(1);
+                    testValue < supplyPosition.getFinalSupplyApparitionsUsage() + Long.valueOf(1);
+                    testValue++
+                ) {
                     //For each of its dividers
-                    if (supply.getApparitions() % testValue == Long.valueOf(0)) {
+                    if (supplyPosition.getFinalSupplyApparitionsUsage() % testValue == Long.valueOf(0)) {
                         //Store it
                         supplyDividers.add(testValue);
                     }
@@ -134,11 +138,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         Long count = Long.valueOf(0);
 
         for (SupplyPosition supplyPosition : getSupplyPositions()) {
-            if (supplyPosition.getSupply() != null) {
-                count += supplyPosition.getSupply().getApparitions();
-            } else {
-                return DomainManager.ERROR_LONG_POSITIVE_VALUE;
-            }
+            count += supplyPosition.getFinalSupplyApparitionsUsage();
         }
 
         return count;
