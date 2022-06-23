@@ -9,6 +9,7 @@ import com.muller.lappli.domain.interfaces.Designable;
 import com.muller.lappli.domain.interfaces.ISupplyPositionOwner;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -47,6 +48,32 @@ public class Strand extends AbstractDomainObject<Strand> implements Designable, 
     public Strand() {
         super();
         setSupplyPositions(new HashSet<>());
+    }
+
+    public Long getProductionStep() {
+        Object[] strandsOfThisStudy = getFutureStudy()
+            .getStrands()
+            .stream()
+            .sorted(
+                new Comparator<Strand>() {
+                    @Override
+                    public int compare(Strand o1, Strand o2) {
+                        return (int) (o1.getId() - o2.getId());
+                    }
+                }
+            )
+            .toArray();
+
+        Long index = 1L;
+        for (Object strand : strandsOfThisStudy) {
+            if (strand == this) {
+                return index * 100L;
+            }
+
+            index++;
+        }
+
+        return null;
     }
 
     /**
