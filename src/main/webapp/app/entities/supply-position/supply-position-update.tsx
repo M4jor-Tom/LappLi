@@ -275,7 +275,7 @@ export const SupplyPositionUpdate = (props: RouteComponentProps<{ id: string; st
                       })
                       .map(otherEntity => (
                         <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.designation}
+                          {translate('lappLiApp.strand.detail.title') + ' ' + otherEntity.strand.productionStep}
                         </option>
                       ))
                   : null}
