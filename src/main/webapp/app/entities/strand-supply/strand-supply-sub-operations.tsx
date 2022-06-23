@@ -365,7 +365,11 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
   return (
     <div>
       <h2 data-cy="strandDetailsHeading">
-        <Translate contentKey="lappLiApp.strand.detail.title">Strand</Translate>
+        {strandSupplyEntity.apparitions +
+          ' x ' +
+          translate('lappLiApp.strand.detail.title') +
+          ' ' +
+          strandSupplyEntity.strand?.productionStep}
       </h2>
       {strandSupplyEntity.hasAssemblies ? (
         <>
