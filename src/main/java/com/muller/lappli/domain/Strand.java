@@ -51,6 +51,10 @@ public class Strand extends AbstractDomainObject<Strand> implements Designable, 
     }
 
     public Long getProductionStep() {
+        if (getFutureStudy() == null || getFutureStudy().getStrands() == null) {
+            return null;
+        }
+
         Object[] strandsOfThisStudy = getFutureStudy()
             .getStrands()
             .stream()
