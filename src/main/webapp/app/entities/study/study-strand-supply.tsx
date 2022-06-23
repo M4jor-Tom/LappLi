@@ -120,7 +120,7 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                         <td>{strandSupply.description}</td>
                         <td>
                           {strandSupply.strand ? (
-                            <Link to={`${props.match.url}/strand/${strandSupply.strand.id}`}>{strandSupply.strand.id}</Link>
+                            <Link to={`${props.match.url}/strand/${strandSupply.strand.id}`}>{strandSupply.strand.productionStep}</Link>
                           ) : (
                             ''
                           )}
@@ -173,7 +173,7 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                   <tbody>
                     {studyEntity.strands.map((strand, i) => (
                       <tr key={`entity-${i}`} data-cy="entityTable">
-                        <td>{translate('lappLiApp.strand.detail.title') + '#' + strand.id}</td>
+                        <td>{translate('lappLiApp.strand.detail.title') + ' ' + strand.productionStep}</td>
                         <td className="text-right">
                           <div className="btn-group flex-btn-group-container">
                             <Button
