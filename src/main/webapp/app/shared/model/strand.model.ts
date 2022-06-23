@@ -7,6 +7,7 @@ import { IStudy } from 'app/shared/model/study.model';
 
 export interface IStrand {
   id?: number;
+  designation?: string;
   supplyPositions?: ISupplyPosition[] | null;
   elementSupplies?: IElementSupply[] | null;
   bangleSupplies?: IBangleSupply[] | null;
