@@ -35,7 +35,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
       <div>
         {/* md="8">*/}
         <h2 data-cy="strandDetailsHeading">
-          {translate('lappLiApp.strand.detail.title') + '#' + strandEntity.id}
+          {translate('lappLiApp.strand.detail.title') + ' ' + strandEntity.productionStep}
           &nbsp;
           {strandSupplyExistsInStudy ? (
             ''
