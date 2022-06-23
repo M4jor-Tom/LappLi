@@ -390,7 +390,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
                         </td>
                         <td>
                           <Link to={`${props.match.url}/strand-supply/${strandSupplyPosition.strandSupply.id}`}>
-                            {strandSupplyPosition.strandSupply.designation}
+                            {translate('lappLiApp.strand.detail.title') + ' ' + strandSupplyPosition.strandSupply.strand.productionStep}
                           </Link>
                         </td>
                         <td>{strandSupplyPosition.strandSupply.description}</td>
