@@ -107,14 +107,14 @@ public class Strand extends AbstractDomainObject<Strand> implements Designable, 
 
     @Override
     public String getDesignation() {
-        return getUndividedCountDesignation(Long.valueOf(1));
+        return getUndividedCountDesignation();
     }
 
     public Double getSuppliedComponentsAverageMilimeterDiameter() {
         return getSuppliedComponentsMilimeterDiametersSum() / getUndividedSuppliedComponentsCount();
     }
 
-    public String getUndividedCountDesignation(Long supplyComponentsDivider) {
+    public String getUndividedCountDesignation() {
         String designation = "";
         Boolean isFirstWrittenSupplyDesignation = true;
 

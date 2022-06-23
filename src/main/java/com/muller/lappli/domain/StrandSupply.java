@@ -152,7 +152,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
             return getApparitions() + " x [?]";
         }
 
-        return getApparitions().toString() + " x (" + getStrand().getUndividedCountDesignation(getApparitions()) + ")";
+        return getApparitions().toString() + " x (" + getStrand().getUndividedCountDesignation() + ")";
     }
 
     /**
