@@ -8,6 +8,7 @@ import { IStrandSupply } from './strand-supply.model';
 
 export interface IStrand {
   id?: number;
+  designation?: string;
   supplyPositions?: ISupplyPosition[] | null;
   strandSupplyPositions?: ISupplyPosition[] | null;
   elementSupplies?: IElementSupply[] | null;
