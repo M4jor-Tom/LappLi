@@ -186,7 +186,7 @@ public abstract class AbstractSupply<T extends AbstractSupply<T>> extends Abstra
         return getApparitions() % getObserverStrandSupply().getApparitions();
     }
 
-    public StrandSupply getObserverStrandSupply() {
+    private StrandSupply getObserverStrandSupply() {
         if (getObserverStrandSupplyPosition() == null) {
             return null;
         }
