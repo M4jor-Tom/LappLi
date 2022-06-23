@@ -11,7 +11,6 @@ import com.muller.lappli.domain.Sheathing;
 import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.StripLaying;
 import com.muller.lappli.domain.TapeLaying;
-import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.interfaces.INonCentralOperation;
 import com.muller.lappli.repository.StrandSupplyRepository;
 import com.muller.lappli.service.CarrierPlaitService;
