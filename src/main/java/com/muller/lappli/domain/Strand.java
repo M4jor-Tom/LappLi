@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.enumeration.CylindricComponentKind;
+import com.muller.lappli.domain.interfaces.Designable;
 import com.muller.lappli.domain.interfaces.ISupplyPositionOwner;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "strand")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Strand extends AbstractDomainObject<Strand> implements ISupplyPositionOwner, Serializable {
+public class Strand extends AbstractDomainObject<Strand> implements Designable, ISupplyPositionOwner, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -104,6 +105,7 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return commonDividers;
     }
 
+    @Override
     public String getDesignation() {
         return getUndividedCountDesignation(Long.valueOf(1));
     }
