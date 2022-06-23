@@ -73,54 +73,28 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
           </dt>
           <dd>{studyEntity.number}</dd>
           <dt>
-            <span id="lastEditionInstant">
-              <Translate contentKey="lappLiApp.study.lastEditionInstant">Last Edition Instant</Translate>
-            </span>
-          </dt>
-          <dd>
-            {studyEntity.lastEditionInstant ? (
-              <TextFormat value={studyEntity.lastEditionInstant} type="date" format={APP_DATE_FORMAT} />
-            ) : null}
-          </dd>
-          <dt>
             <Translate contentKey="lappLiApp.study.author">Author</Translate>
           </dt>
           <dd>{studyEntity.author ? studyEntity.author.user.login : ''}</dd>
           <dd>
             <h5>
-              <Translate contentKey="lappLiApp.strandSupply.home.title">StrandSupplies</Translate>
+              <Translate contentKey="lappLiApp.operation.detail.title">Operations</Translate>
             </h5>
             <div className="table-responsive">
               {studyEntity.strandSupplies && studyEntity.strandSupplies.length > 0 ? (
                 <Table>
-                  <thead>
-                    <tr>
-                      <th>
-                        <Translate contentKey="lappLiApp.strandSupply.apparitions">Apparitions</Translate>
-                      </th>
-                      <th>
-                        <Translate contentKey="lappLiApp.strandSupply.markingType">Marking Type</Translate>
-                      </th>
-                      <th>
-                        <Translate contentKey="lappLiApp.strandSupply.description">Description</Translate>
-                      </th>
-                      <th>
-                        <Translate contentKey="lappLiApp.strandSupply.strand">Strand</Translate>
-                      </th>
-                      <th />
-                    </tr>
-                  </thead>
                   <tbody>
                     {studyEntity.strandSupplies.map((strandSupply, i) => (
                       <tr key={`entity-${i}`} data-cy="entityTable">
-                        <td>{strandSupply.apparitions}</td>
-                        <td>
-                          <Translate contentKey={`lappLiApp.MarkingType.${strandSupply.markingType}`} />
-                        </td>
-                        <td>{strandSupply.description}</td>
                         <td>
                           {strandSupply.strand ? (
-                            <Link to={`${props.match.url}/strand/${strandSupply.strand.id}`}>{strandSupply.strand.productionStep}</Link>
+                            <Link to={`${props.match.url}/strand/${strandSupply.strand.id}`}>
+                              {strandSupply.apparitions +
+                                ' x ' +
+                                translate('lappLiApp.strand.detail.title') +
+                                ' ' +
+                                strandSupply.strand.productionStep}
+                            </Link>
                           ) : (
                             ''
                           )}
@@ -173,7 +147,7 @@ export const StudyStrandSupply = (props: RouteComponentProps<{ study_id: string 
                   <tbody>
                     {studyEntity.strands.map((strand, i) => (
                       <tr key={`entity-${i}`} data-cy="entityTable">
-                        <td>{translate('lappLiApp.strand.detail.title') + ' ' + strand.productionStep}</td>
+                        <td>{translate('lappLiApp.strandSupply.detail.title') + ' ' + strand.productionStep}</td>
                         <td className="text-right">
                           <div className="btn-group flex-btn-group-container">
                             <Button
