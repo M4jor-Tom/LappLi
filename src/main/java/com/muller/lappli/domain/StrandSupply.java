@@ -224,7 +224,7 @@ public class StrandSupply extends AbstractSupply<StrandSupply> implements Design
             return getApparitions() + " x [?]";
         }
 
-        return getApparitions().toString() + " x (" + getStrand().getUndividedCountDesignation(getApparitions()) + ")";
+        return getApparitions().toString() + " x (" + getStrand().getUndividedCountDesignation() + ")";
     }
 
     /**
