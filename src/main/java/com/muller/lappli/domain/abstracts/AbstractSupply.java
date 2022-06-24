@@ -273,11 +273,11 @@ public abstract class AbstractSupply<T extends AbstractSupply<T>> extends Abstra
      * @return the execution time in hours of the supply operation
      */
     public Double getHourExecutionTime() {
-        if (getMeterPerHourSpeed() == null) {
+        if (getMeterPerHourSpeed() == null || getMeterQuantity() == null) {
             return Double.NaN;
         }
 
-        return getMeterQuantity() / getMeterPerHourSpeed();
+        return getMeterQuantity().doubleValue() / getMeterPerHourSpeed();
     }
 
     /**
