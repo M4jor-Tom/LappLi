@@ -4,7 +4,8 @@ package com.muller.lappli.domain.enumeration;
  * The Color enumeration.
  *
  * It follow the DIN-47100 norma/strandard used in Muller,
- * with the "NATURAL" Color added in the beggining of that
+ * with the "NATURAL" Color added in the beggining of that,
+ * and "YELLOW_GREEN" Color added right before composite Colors
  */
 public enum Color {
     NONE("NONE"),
@@ -19,6 +20,7 @@ public enum Color {
     RED("R"),
     BLACK("N"),
     PURPLE("VIO"),
+    YELLOW_GREEN(YELLOW, GREEN),
     PINK_GREY(PINK, GREY),
     RED_BLUE(RED, BLUE),
     WHITE_GREEN(WHITE, GREEN),
