@@ -69,7 +69,7 @@ class StrandSupplyTest {
 
             Strand strand = new Strand().supplyPositions(supplyPositions);
 
-            StrandSupply strandSupply = new StrandSupply()
+            StrandSupply notForceCentralUtilityComponentStrandSupply = new StrandSupply()
                 .strand(strand)
                 .apparitions(1L)
                 .forceCentralUtilityComponent(false)
@@ -77,15 +77,47 @@ class StrandSupplyTest {
                 .checkAssemblyPresetDistributionIsPossible()
                 .autoGenerateAssemblies();
 
+            StrandSupply forceCentralUtilityComponentStrandSupply = new StrandSupply()
+                .strand(strand)
+                .apparitions(1L)
+                .forceCentralUtilityComponent(true)
+                .diameterAssemblyStep(5.0)
+                .checkAssemblyPresetDistributionIsPossible()
+                .autoGenerateAssemblies();
+
             /*Long centralAssemblyCount = strandSupply.getCentralAssembly() == null
                 ? 0L
                 : 1L;*/
-            Long coreAssemblyCount = Long.valueOf(strandSupply.getCoreAssemblies().size());
+            Long coreAssemblyCount = Long.valueOf(notForceCentralUtilityComponentStrandSupply.getCoreAssemblies().size());
             Long generatedAssembliesCount = /*centralAssemblyCount + */coreAssemblyCount;
 
-            logger.info("Try for " + assemblyPresetDistribution.getComponentsCount());
+            logger.info(
+                "Try for " +
+                assemblyPresetDistribution.getComponentsCount() +
+                " with StrandSupply.getForceCentralUtilityComponent() = false"
+            );
             assertThat(generatedAssembliesCount)
-                .isEqualTo(Long.valueOf(strandSupply.getAssemblyPresetDistributionPossibility().getAssemblyPresetsAfterCentral().size()));
+                .isEqualTo(
+                    Long.valueOf(
+                        notForceCentralUtilityComponentStrandSupply
+                            .getAssemblyPresetDistributionPossibility()
+                            .getAssemblyPresetsAfterCentral()
+                            .size()
+                    )
+                );
+
+            logger.info(
+                "Try for " + assemblyPresetDistribution.getComponentsCount() + " with StrandSupply.getForceCentralUtilityComponent() = true"
+            );
+            assertThat(generatedAssembliesCount)
+                .isEqualTo(
+                    Long.valueOf(
+                        forceCentralUtilityComponentStrandSupply
+                            .getAssemblyPresetDistributionPossibility()
+                            .getAssemblyPresetsAfterCentral()
+                            .size()
+                    )
+                );
         }
     }
 }
