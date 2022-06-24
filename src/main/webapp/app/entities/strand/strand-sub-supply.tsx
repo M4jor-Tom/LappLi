@@ -501,7 +501,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
               >
                 <FontAwesomeIcon icon="plus" />
                 &nbsp;
-                <Translate contentKey="lappLiApp.strandSupply.home.createLabel">Create new One Study Supply</Translate>
+                <Translate contentKey="lappLiApp.strand.detail.title">Strand</Translate>
               </Link>
             </div>
           </dd>
