@@ -37,7 +37,7 @@ public class AssemblyPreset implements Cloneable {
     }
 
     public Boolean isCentralAccordingToTotalComponentsCount() {
-        return getTotalComponentsCount().equals(Long.valueOf(1));
+        return Long.valueOf(1).equals(getTotalComponentsCount());
     }
 
     public Boolean isCentralUtilityComponent() {

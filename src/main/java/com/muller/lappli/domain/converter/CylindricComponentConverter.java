@@ -12,7 +12,7 @@ public class CylindricComponentConverter {
         Material surfaceMaterial
     ) {
         if (cylindricComponent == null) {
-            throw new NullPointerException();
+            throw new NullPointerException("Attempt to convert a null entity");
         }
 
         return new PlasticAspectCylindricComponent() {

@@ -233,7 +233,7 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
           {strandSupply.centralAssembly && strandSupply.centralAssembly.supplyPosition ? (
             <tr data-cy="entityTable">
               <td>
-                <Translate contentKey="lappLiApp.centralAssembly.home.title" />
+                <Translate contentKey="lappLiApp.centralAssembly.detail.title" />
               </td>
               <td>
                 <Translate contentKey="lappLiApp.centralAssembly.centralOperationLayer" />
