@@ -19,7 +19,7 @@ public class DomainManager {
      *
      * this returned will signal that an error has occured
      */
-    public static final Long ERROR_LONG_POSITIVE_VALUE = Long.valueOf(-1);
+    public static final Long ERROR_LONG_POSITIVE_VALUE = null;
 
     /**
      * A String to be used for prompting to help noticing
