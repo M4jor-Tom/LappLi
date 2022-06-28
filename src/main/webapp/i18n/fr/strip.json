@@ -2,20 +2,20 @@
   "lappLiApp": {
     "strip": {
       "home": {
-        "title": "Strips",
+        "title": "Poses de feuillard",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Strip",
-        "createOrEditLabel": "Créer ou éditer un Strip",
-        "notFound": "Aucun Strip trouvé"
+        "createLabel": "Créer une nouvelle Pose de Feuillard",
+        "createOrEditLabel": "Créer ou éditer une Pose de Feuillard",
+        "notFound": "Aucune Pose de Feuillard trouvé"
       },
-      "created": "Un nouveau Strip a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Strip avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Strip avec l'identifiant {{ param }} a été supprimé",
+      "created": "Une nouvelle Pose de Feuillard a été créé avec l'identifiant {{ param }}",
+      "updated": "La Pose de Feuillard avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "La Pose de Feuillard avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Strip {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer la Pose de Feuillard {{ id }} ?"
       },
       "detail": {
-        "title": "Strip"
+        "title": "Pose de Feuillard"
       },
       "id": "ID",
       "number": "Number",
