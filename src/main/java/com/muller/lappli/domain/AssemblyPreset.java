@@ -50,8 +50,8 @@ public class AssemblyPreset implements Cloneable {
 
     public Long getTotalComponentsCount() {
         if (
-            DomainManager.ERROR_LONG_POSITIVE_VALUE.equals(getUtilityComponentsCount()) ||
-            DomainManager.ERROR_LONG_POSITIVE_VALUE.equals(getCompletionComponentsCount())
+            DomainManager.ERROR_LONG_POSITIVE_VALUE == getUtilityComponentsCount() ||
+            DomainManager.ERROR_LONG_POSITIVE_VALUE == getCompletionComponentsCount()
         ) {
             return DomainManager.ERROR_LONG_POSITIVE_VALUE;
         }
