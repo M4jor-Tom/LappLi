@@ -550,7 +550,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         AssemblyPresetDistribution assemblyPresetDistribution = AssemblyPresetDistribution.forStrandSupply(this);
 
         if (assemblyPresetDistribution == null) {
-            return false;
+            throw new NullPointerException("assemblyPresetDistribution must not be null");
         }
 
         return (assemblyPresetDistribution.getAssemblyPresetDistributionPossibility(getForceCentralUtilityComponent()) != null);
