@@ -82,7 +82,6 @@ class StrandSupplyTest {
                 .apparitions(1L)
                 .forceCentralUtilityComponent(true)
                 .diameterAssemblyStep(5.0)
-                .checkAssemblyPresetDistributionIsPossible()
                 .autoGenerateAssemblies();
 
             /*Long centralAssemblyCount = strandSupply.getCentralAssembly() == null
@@ -106,18 +105,23 @@ class StrandSupplyTest {
                     )
                 );
 
-            logger.info(
-                "Try for " + assemblyPresetDistribution.getComponentsCount() + " with StrandSupply.getForceCentralUtilityComponent() = true"
-            );
-            assertThat(generatedAssembliesCount)
-                .isEqualTo(
-                    Long.valueOf(
-                        forceCentralUtilityComponentStrandSupply
-                            .getAssemblyPresetDistributionPossibility()
-                            .getAssemblyPresetsAfterCentral()
-                            .size()
-                    )
+            if (forceCentralUtilityComponentStrandSupply.assemblyPresetDistributionIsPossible()) {
+                logger.info(
+                    "Try for " +
+                    assemblyPresetDistribution.getComponentsCount() +
+                    " with StrandSupply.getForceCentralUtilityComponent() = true"
                 );
+
+                assertThat(generatedAssembliesCount)
+                    .isEqualTo(
+                        Long.valueOf(
+                            forceCentralUtilityComponentStrandSupply
+                                .getAssemblyPresetDistributionPossibility()
+                                .getAssemblyPresetsAfterCentral()
+                                .size()
+                        )
+                    );
+            }
         }
     }
 }
