@@ -8,6 +8,10 @@ import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.interfaces.IAssemblyPresetDistributionCalculator;
 import java.util.List;
 
+/**
+ * Ways to describe assemblies of components
+ * in several layers described by {@link com.muller.lappli.domain.AssemblyPreset}
+ */
 public enum AssemblyPresetDistribution {
     FOR_1(),
     FOR_2(),
