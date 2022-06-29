@@ -6,6 +6,11 @@ import com.muller.lappli.domain.interfaces.ICalculator;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * An pointless implementation allowing
+ * {@link com.muller.lappli.domain.interfaces.ICalculator}
+ * to compile something
+ */
 public class CalculatorEmptyImpl implements ICalculator {
 
     public CalculatorEmptyImpl() {}
