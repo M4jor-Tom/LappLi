@@ -6,6 +6,10 @@ import com.muller.lappli.domain.enumeration.SheathingKind;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+/**
+ * A sheathing operation, either cylindric {@link com.muller.lappli.domain.Sheathing}
+ * or flat {@link com.muller.lappli.domain.FlatSheathing}
+ */
 @MappedSuperclass
 public abstract class AbstractSheathing<T extends AbstractSheathing<T>> extends AbstractOperation<T> {
 
@@ -13,6 +17,9 @@ public abstract class AbstractSheathing<T extends AbstractSheathing<T>> extends 
     @Column(name = "operation_layer", nullable = false)
     private Long operationLayer;
 
+    /**
+     * The material in which the sheathing is done
+     */
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
