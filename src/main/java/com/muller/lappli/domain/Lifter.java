@@ -65,6 +65,7 @@ public class Lifter extends AbstractMachine<Lifter> implements Serializable {
         return "MR";
     }
 
+    //[COMPONENT_KIND]
     public Boolean supportsSupply(AbstractLiftedSupply<?> abstractLiftedSupply) {
         if (abstractLiftedSupply instanceof CustomComponentSupply) {
             return supportsCustomComponentSupply((CustomComponentSupply) abstractLiftedSupply);

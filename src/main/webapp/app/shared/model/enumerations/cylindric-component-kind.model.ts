@@ -1,3 +1,4 @@
+//  [COMPONENT_KIND]
 export enum CylindricComponentKind {
   BANGLE = 'bangle',
   CUSTOM_COMPONENT = 'custom-component',

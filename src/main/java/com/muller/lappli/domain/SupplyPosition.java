@@ -48,6 +48,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     @JsonIgnoreProperties(value = { "ownerSupplyPositions" }, allowSetters = true)
     private OneStudySupply oneStudySupply;
 
+    //[COMPONENT_KIND]
     @ManyToOne
     @JsonIgnoreProperties(
         value = {
