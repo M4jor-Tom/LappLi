@@ -9,6 +9,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A TapeKind.
+ * A type class for the class
+ * {@link com.muller.lappli.domain.Tape}
  */
 @Entity
 @Table(name = "tape_kind")

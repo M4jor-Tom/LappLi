@@ -13,6 +13,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A CustomComponent.
+ * A component which can be anything.
+ * It must be used by users to define components
+ * which yet don't have a class, such as Tubes.
  */
 @Entity
 @Table(name = "custom_component")

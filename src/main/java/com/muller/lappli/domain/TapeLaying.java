@@ -15,6 +15,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A TapeLaying.
+ * An Operation consisting in a laying of a
+ * {@link com.muller.lappli.domain.Tape}
  */
 @Entity
 @Table(name = "tape_laying")

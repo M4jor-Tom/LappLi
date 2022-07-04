@@ -28,7 +28,16 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A StrandSupply.
+ * A Supply for {@link com.muller.lappli.domain.Strand}.
+ *
+ * This Supply is quite different than others.
+ * First, its {@link com.muller.lappli.domain.interfaces.CylindricComponent}
+ * isn't atomic, but composed ({@link com.muller.lappli.domain.Strand})
+ *
+ * Then, a StrandSupply is required to determine its
+ * {@link com.muller.lappli.domain.Strand} physical form,
+ * because {@link StrandSupply#getApparitions()} can say
+ * in how much times it appears, for the same amount of components.
  */
 @Entity
 @Table(name = "strand_supply")

@@ -13,6 +13,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Lifter.
+ * A machine to check in production time any data of
+ * {@link com.muller.lappli.domain.abstracts.AbstractLiftedSupply}
  */
 @Entity
 @Table(name = "lifter")

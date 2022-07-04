@@ -13,6 +13,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Element.
+ * It is a electricity wire made of a {@link com.muller.lappli.domain.Copper}
+ * and an a Colored insulation {@link com.muller.lappli.domain.Material}.
  */
 @Entity
 @Table(name = "element")

@@ -16,6 +16,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A StripLaying.
+ * An Operation consisting in a laying of a
+ * {@link com.muller.lappli.domain.Strip}
  */
 @Entity
 @Table(name = "strip_laying")

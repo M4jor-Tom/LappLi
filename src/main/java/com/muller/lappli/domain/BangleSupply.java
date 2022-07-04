@@ -14,7 +14,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A BangleSupply.
+ * A Supply for {@link com.muller.lappli.domain.Bangle}
  */
 @Entity
 @Table(name = "bangle_supply")

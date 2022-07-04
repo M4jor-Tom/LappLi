@@ -20,6 +20,23 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Strand.
+ * This represents the gathering of
+ * {@link com.muller.lappli.domain.interfaces.CylindricComponent}s
+ * through their respective supplies
+ *
+ * Strand is a bit itself a component, but it needs to be
+ * observed through a {@link com.muller.lappli.domain.StrandSupply}
+ * for that.
+ *
+ * In fact, a Strand does know how much
+ * {@link com.muller.lappli.domain.interfaces.CylindricComponent}s it
+ * owns in total, but only its {@link com.muller.lappli.domain.StrandSupply}
+ * knows in how many times it exists.
+ *
+ * Therefore, if a Strand can specify how much components it
+ * will finally include in a Cable, only its
+ * {@link com.muller.lappli.domain.StrandSupply} can determine its
+ * physical form, its operations.
  */
 @Entity
 @Table(name = "strand")

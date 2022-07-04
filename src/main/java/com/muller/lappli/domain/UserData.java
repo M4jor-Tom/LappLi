@@ -12,6 +12,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A UserData.
+ * That class allows Users to store studies.
+ * Other adds to the {@link com.muller.lappli.domain.User}
+ * must be done here.
  */
 @Entity
 @Table(name = "user_data")

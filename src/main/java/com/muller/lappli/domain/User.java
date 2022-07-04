@@ -19,6 +19,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A user.
+ * Any modification of this class shall be done in
+ * the {@link com.muller.lappli.domain.UserData} class
  */
 @Entity
 @Table(name = "jhi_user")

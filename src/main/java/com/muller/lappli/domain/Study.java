@@ -13,6 +13,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Study.
+ * This class caracterize the study of a Cable.
+ * Each, Strand and StrandSupply in it is meant
+ * to make one Cable.
  */
 @Entity
 @Table(name = "study")

@@ -8,6 +8,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A SteelFiber.
+ * A component which can be laid through the
+ * {@link com.muller.lappli.domain.Plait} operation
  */
 @Entity
 @Table(name = "steel_fiber")

@@ -14,6 +14,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Sheathing.
+ * An Operation consisting in a laying of a
+ * {@link com.muller.lappli.domain.Material}
  */
 @Entity
 @Table(name = "sheathing")

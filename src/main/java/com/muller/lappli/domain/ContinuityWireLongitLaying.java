@@ -16,6 +16,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A ContinuityWireLongitLaying.
+ * An Operation consisting in a laying of a
+ * {@link com.muller.lappli.domain.ContinuityWire}
  */
 @Entity
 @Table(name = "continuity_wire_longit_laying")

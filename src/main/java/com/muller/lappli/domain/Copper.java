@@ -10,6 +10,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Copper.
+ * It is used in {@link com.muller.lappli.domain.ElementKind} to define
+ * {@link com.muller.lappli.domain.Element}'s properties.
  */
 @Entity
 @Table(name = "copper")

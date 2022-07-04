@@ -18,6 +18,12 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Plait.
+ * An Operation consisting in a laying of a
+ * {@link com.muller.lappli.domain.abstracts.AbstractMetalFiber}
+ * component.
+ *
+ * It can be a {@link com.muller.lappli.domain.CopperFiber}
+ * or a {@link com.muller.lappli.domain.SteelFiber} component.
  */
 @Entity
 @Table(name = "plait")

@@ -16,6 +16,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A IntersticeAssembly.
+ * An {@link com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly}
+ * Operation which is to be laid on {@link com.muller.lappli.domain.CoreAssembly},
+ * without increasing their diameter.
  */
 @Entity
 @Table(name = "interstice_assembly")

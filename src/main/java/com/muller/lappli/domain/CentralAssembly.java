@@ -14,6 +14,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A CentralAssembly.
+ *
+ * This represents the "slot" at the center of a {@link com.muller.lappli.domain.Strand}
+ * in which we can put a {@link com.muller.lappli.domain.interfaces.CylindricComponent}.
  */
 @Entity
 @Table(name = "central_assembly")

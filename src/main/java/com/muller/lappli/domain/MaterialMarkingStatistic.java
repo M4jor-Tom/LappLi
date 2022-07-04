@@ -12,6 +12,11 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A MaterialMarkingStatistic.
+ * This class is a set of data about its
+ * {@link com.muller.lappli.domain.Material}
+ *
+ * It is used to know {@link com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply}
+ * can be marked.
  */
 @Entity
 @Table(name = "material_marking_statistic")
