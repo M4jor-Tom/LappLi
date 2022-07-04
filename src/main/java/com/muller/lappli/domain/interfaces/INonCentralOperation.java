@@ -1,5 +1,8 @@
 package com.muller.lappli.domain.interfaces;
 
+/**
+ * An operation which is not the center of a Strand
+ */
 public interface INonCentralOperation<T extends INonCentralOperation<T>> extends IOperation<T> {
     public T operationLayer(Long operationLayer);
 

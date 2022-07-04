@@ -13,6 +13,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A SupplyPosition.
+ * Caracterizes how a Supply object (which inherits from
+ * {@link com.muller.lappli.domain.abstracts.AbstractSupply})
+ * is consumed in a Strand
  */
 @Entity
 @Table(name = "supply_position")

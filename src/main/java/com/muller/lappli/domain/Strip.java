@@ -9,6 +9,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Strip.
+ * A component which can be laid through the
+ * {@link com.muller.lappli.domain.StripLaying} operation
  */
 @Entity
 @Table(name = "strip")

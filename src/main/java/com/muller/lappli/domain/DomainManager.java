@@ -3,6 +3,10 @@ package com.muller.lappli.domain;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+/**
+ * A class containing generic and program-wide values and
+ * processes.
+ */
 public class DomainManager {
 
     public static final DecimalFormat JACQUES_DOUBLE_DECIMAL_FORMAT = new DecimalFormat("#.##");

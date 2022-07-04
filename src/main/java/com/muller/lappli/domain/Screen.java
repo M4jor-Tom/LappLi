@@ -17,6 +17,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Screen.
+ * An Operation consisting in a laying of a
+ * {@link com.muller.lappli.domain.CopperFiber}
  */
 @Entity
 @Table(name = "screen")

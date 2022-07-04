@@ -1,7 +1,8 @@
 package com.muller.lappli.domain.enumeration;
 
 /**
- * The MarkingType enumeration.
+ * The ways of marking
+ * {@link com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply}'s component
  */
 public enum MarkingType {
     LIFTING,

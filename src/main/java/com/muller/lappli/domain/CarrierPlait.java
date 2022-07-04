@@ -19,6 +19,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A CarrierPlait.
+ * An Operation consisting in a laying of a
+ * {@link com.muller.lappli.domain.CarrierPlaitFiber}
  */
 @Entity
 @Table(name = "carrier_plait")

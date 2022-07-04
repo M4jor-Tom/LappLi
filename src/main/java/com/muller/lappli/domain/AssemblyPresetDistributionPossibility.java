@@ -4,6 +4,11 @@ import com.muller.lappli.domain.enumeration.AssemblyPresetDistribution;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class representing ways of distributing
+ * {@link com.muller.lappli.domain.AssemblyPreset}s
+ * along a Strand
+ */
 public class AssemblyPresetDistributionPossibility implements Cloneable {
 
     private List<AssemblyPreset> assemblyPresets;

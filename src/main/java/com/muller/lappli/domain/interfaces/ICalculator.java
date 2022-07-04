@@ -5,6 +5,12 @@ import com.muller.lappli.domain.enumeration.AssemblyPresetDistribution;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+/**
+ * An interface which grants access to formulas.
+ * Those can either come from a target instance,
+ * in which case they could be secret, or a default instance,
+ * which is just here to allow the program's compilation
+ */
 public interface ICalculator {
     /**
      * Tries to find the class in targetCalculatorInstanceClassName
@@ -138,37 +144,106 @@ public interface ICalculator {
         );
     }
 
+    /**
+     * Suggests a components count for one layer depending
+     * on parameters
+     * @param centralDiameterInRoundComponentsDiameter how much
+     * components diameter are required to get one central diameter
+     * @param diameterAssemblyStep the assembly step measured in diameters
+     * @return a count
+     */
     public Double suggestSuppliedComponentsCount(Double centralDiameterInRoundComponentsDiameter, Double diameterAssemblyStep);
 
+    /**
+     * Same than {@link ICalculator#suggestSuppliedComponentsCount},
+     * with diameters in milimeter to input rather than a ratio
+     * @param centralMilimeterDiameter the diameter of the central component
+     * @param roundComponentsAverageDiameter the diameter of components arount
+     * @param diameterAssemblyStep the assembly step in diameters
+     * @return a count
+     */
     public Double suggestSuppliedComponentsCountWithMilimeterDiameters(
         Double centralMilimeterDiameter,
         Double roundComponentsAverageDiameter,
         Double diameterAssemblyStep
     );
 
+    /**
+     * Shows {@link com.muller.lappli.domain.AssemblyPresetDistributionPossibility}s
+     * of the protagonist AssemblyPresetDistribution
+     * @param assemblyPresetDistribution the protagonist assemblyPresetDistribution
+     * @return a List of AssemblyPresetDistributionPossibilities
+     */
     public List<AssemblyPresetDistributionPossibility> getAssemblyPresetDistributionPossibilitiesForAssemblyPresetDistribution(
         AssemblyPresetDistribution assemblyPresetDistribution
     );
 
+    /**
+     * Finds the IAssemblyPresetDistributionCalculator corresponding to the
+     * protagonist assemblyPresetDistribution. It can be used to get more information.
+     * @param assemblyPresetDistribution
+     * @return a IAssemblyPresetDistributionCalculator
+     */
     public IAssemblyPresetDistributionCalculator getCorrespondingAssemblyPresetDistributionCalculator(
         AssemblyPresetDistribution assemblyPresetDistribution
     );
 
+    /**
+     * The amount of existnig {@link com.muller.lappli.domain.interfaces.IAssemblyPresetDistributionCalculator}
+     * @return a count
+     */
     public Long getAssemblyPresetDistributionCalculatorCount();
 
     //  CARRIER_PLAIT PART
 
+    /**
+     * Compute the real Load (DN) of a CarrierPlait
+     * @param carrierPlait the protagonist carrier plait
+     * @return a Load in Deca Newtons
+     */
     public Double getCarrierPlaitRealDecaNewtonLoad(CarrierPlait carrierPlait);
 
+    /**
+     * Computes the final diameter after this operation
+     * @param carrierPlait the protagonist CarrierPlait
+     * @param plaiterConfiguration the selected PlaiterConfiguration for the carrierPlait
+     * @return a diameter in milimeters
+     */
     public Double getAfterCarrierPlaitMilimeterDiameter(CarrierPlait carrierPlait, PlaiterConfiguration plaiterConfiguration);
 
+    /**
+     * Computes the minimum required CarrierPlaitFibers needed
+     * for specified data in carrierPlait
+     * @param carrierPlait the protagonist CarrierPlait
+     * @return a count
+     */
     public Long getMinimumCarrierPlaitFibersCount(CarrierPlait carrierPlait);
 
+    /**
+     * Calculates the times needed to prepare the
+     * production of the operation
+     * @param carrierPlait the protagonist CarrierPlait
+     * @return a time in hours
+     */
     public Double getCarrierPlaitHourPreparationTime(CarrierPlait carrierPlait);
 
+    /**
+     * Calculates an execution time needed to choose fastest
+     * PlaiterConfiguration. It's not the true one.
+     * @param carrierPlait the protagonist CarrierPlait
+     * @param plaiterConfiguration the PlaiterConfiguration to test
+     * @return a time in hours
+     */
     public Double getCarrierPlaitInternalHourExecutionTime(CarrierPlait carrierPlait, PlaiterConfiguration plaiterConfiguration);
 
+    /**
+     * Calculates the time of the fastest plaiterConfiguration
+     * for the CarrierPlait
+     * @param carrierPlait the protagonist CarrierPlait
+     * @return a time in hours
+     */
     public Double getCarrierPlaitDisplayedHourExecutionTime(CarrierPlait carrierPlait);
 
+    //TODO: javadoc this one
     public Double getPlaiterBobinCapacity(Plaiter plaiter);
 }

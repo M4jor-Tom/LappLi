@@ -12,6 +12,11 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Plaiter.
+ * A machine which is capable of making
+ * {@link com.muller.lappli.domain.CarrierPlait} operations.
+ *
+ * In the future, this class must be used to make
+ * {@link com.muller.lappli.domain.Plait} operations as well.
  */
 @Entity
 @Table(name = "plaiter")

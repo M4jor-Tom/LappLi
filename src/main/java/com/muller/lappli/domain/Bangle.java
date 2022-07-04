@@ -11,7 +11,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A Bangle.
+ * A Bangle. It can be used to fill in Strands when they need
+ * completion.
  */
 @Entity
 @Table(name = "bangle")

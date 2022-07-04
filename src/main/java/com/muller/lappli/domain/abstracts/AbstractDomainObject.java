@@ -23,12 +23,19 @@ public abstract class AbstractDomainObject<T extends AbstractDomainObject<T>> im
         super();
     }
 
+    /**
+     * @return true if the DomainObject has consistent data
+     */
     @Override
     @JsonProperty("isConform")
     public Boolean isConform() {
         return true;
     }
 
+    /**
+     * @return an Optional containing
+     * the class instance if isConform() == true
+     */
     @JsonIgnore
     public Optional<T> getThisIfConform() {
         if (!isConform()) {

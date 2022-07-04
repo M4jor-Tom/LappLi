@@ -13,6 +13,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Material.
+ * An component which can be laid through an operation of
+ * {@link com.muller.lappli.domain.abstracts.AbstractSheathing}
  */
 @Entity
 @Table(name = "material")

@@ -13,6 +13,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A CoreAssembly.
+ * An {@link com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly}
+ * Operation which is the main one of a StrandSupply.
  */
 @Entity
 @Table(name = "core_assembly")

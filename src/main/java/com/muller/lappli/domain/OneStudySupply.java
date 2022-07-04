@@ -17,7 +17,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A OneStudySupply.
+ * A Supply which allows to create unique
+ * {@link com.muller.lappli.domain.interfaces.CylindricComponent}s
+ * for each Strand
  */
 @Entity
 @Table(name = "one_study_supply")

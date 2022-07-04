@@ -3,6 +3,9 @@ package com.muller.lappli.domain.interfaces;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Optional;
 
+/**
+ * An object which can be stored in the database
+ */
 public interface IDomainObject<T extends IDomainObject<T>> {
     public Optional<T> getThisIfConform();
 

@@ -16,7 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A CustomComponentSupply.
+ * A Supply for {@link com.muller.lappli.domain.CustomComponent}
  */
 @Entity
 @Table(name = "custom_component_supply")

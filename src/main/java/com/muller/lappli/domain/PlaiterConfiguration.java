@@ -10,6 +10,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A PlaiterConfiguration.
+ * A certain way to use a
+ * {@link com.muller.lappli.domain.Plaiter} machine.
  */
 @Entity
 @Table(name = "plaiter_configuration")

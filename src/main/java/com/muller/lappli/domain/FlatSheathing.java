@@ -15,6 +15,12 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A FlatSheathing.
+ * An Operation consisting in a laying of a
+ * {@link com.muller.lappli.domain.Material}
+ *
+ * Their must not be any
+ * {@link com.muller.lappli.domain.abstracts.AbstractAssembly}
+ * Operation under thisone before.
  */
 @Entity
 @Table(name = "flat_sheathing")

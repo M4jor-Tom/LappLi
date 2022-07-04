@@ -16,7 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A ElementSupply.
+ * A Supply for {@link com.muller.lappli.domain.Element}
  */
 @Entity
 @Table(name = "element_supply")

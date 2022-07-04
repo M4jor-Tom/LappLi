@@ -19,6 +19,9 @@ import com.muller.lappli.domain.abstracts.AbstractMachine;
 import com.muller.lappli.domain.enumeration.OperationKind;
 
 //[OPERATION]
+/**
+ * An operation.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "__typeName")
 @JsonSubTypes(

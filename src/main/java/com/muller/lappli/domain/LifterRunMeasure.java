@@ -15,6 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "lifter_run_measure")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Deprecated
 public class LifterRunMeasure extends AbstractDomainObject<LifterRunMeasure> implements Serializable {
 
     private static final long serialVersionUID = 1L;

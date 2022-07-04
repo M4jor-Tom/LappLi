@@ -6,6 +6,10 @@ import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
+/**
+ * This class represents an atomic component (not a Strand),
+ * which is made of the same material in its totality
+ */
 @MappedSuperclass
 public abstract class AbstractUniformAtom<T extends AbstractUniformAtom<T>> extends AbstractDomainObject<T> implements CylindricComponent {
 

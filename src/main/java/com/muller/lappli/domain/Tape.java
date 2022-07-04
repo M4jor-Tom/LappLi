@@ -9,6 +9,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Tape.
+ * A component which can be laid through the
+ * {@link com.muller.lappli.domain.TapeLaying} operation
  */
 @Entity
 @Table(name = "tape")

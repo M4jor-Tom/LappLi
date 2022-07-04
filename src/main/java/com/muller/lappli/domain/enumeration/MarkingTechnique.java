@@ -1,7 +1,8 @@
 package com.muller.lappli.domain.enumeration;
 
 /**
- * The MarkingTechnique enumeration.
+ * The MarkingTechniques available to mark
+ * {@link com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply}'s component
  */
 public enum MarkingTechnique {
     NONE,
