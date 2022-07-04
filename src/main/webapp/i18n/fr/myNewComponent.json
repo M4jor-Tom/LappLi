@@ -1,0 +1,26 @@
+{
+  "lappLiApp": {
+    "myNewComponent": {
+      "home": {
+        "title": "MyNewComponents",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau My New Component",
+        "createOrEditLabel": "Créer ou éditer un My New Component",
+        "notFound": "Aucun My New Component trouvé"
+      },
+      "created": "Un nouveau My New Component a été créé avec l'identifiant {{ param }}",
+      "updated": "Le My New Component avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le My New Component avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le My New Component {{ id }} ?"
+      },
+      "detail": {
+        "title": "My New Component"
+      },
+      "id": "ID",
+      "number": "Number",
+      "designation": "Designation",
+      "data": "Data"
+    }
+  }
+}

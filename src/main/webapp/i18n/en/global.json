@@ -46,6 +46,7 @@
         "carrierPlait": "Carrier Plait",
         "carrierPlaitFiber": "Carrier Plait Fiber",
         "flatSheathing": "Flat Sheathing",
+        "myNewComponent": "My New Component",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

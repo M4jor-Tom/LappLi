@@ -216,6 +216,12 @@ entity ElementKindEdition {
     newMilimeterInsulationThickness Double
 }
 
+entity MyNewComponent {
+    number Long unique required
+    designation String unique required
+    data Double required
+}
+
 entity Element {
 	number Long unique required
     color Color required
