@@ -77,8 +77,13 @@
       "ContinuityWireLongitLaying",
       "ContinuityWire",
       "Plait",
-      "SteelFiber"
+      "SteelFiber",
+      "CarrierPlait",
+      "CarrierPlaitFiber",
+      "Plaiter",
+      "PlaiterConfiguration",
+      "FlatSheathing"
     ],
-    "lastLiquibaseTimestamp": 1650360857000
+    "lastLiquibaseTimestamp": 1654593784000
   }
 }

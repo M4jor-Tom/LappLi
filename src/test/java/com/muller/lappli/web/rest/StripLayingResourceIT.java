@@ -232,7 +232,7 @@ class StripLayingResourceIT {
         List<StripLaying> stripLayingList = stripLayingRepository.findAll();
         assertThat(stripLayingList).hasSize(databaseSizeBeforeUpdate);
         StripLaying testStripLaying = stripLayingList.get(stripLayingList.size() - 1);
-        assertThat(testStripLaying.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
+        assertThat(testStripLaying.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
     }
 
     @Test
@@ -344,7 +344,7 @@ class StripLayingResourceIT {
         List<StripLaying> stripLayingList = stripLayingRepository.findAll();
         assertThat(stripLayingList).hasSize(databaseSizeBeforeUpdate);
         StripLaying testStripLaying = stripLayingList.get(stripLayingList.size() - 1);
-        assertThat(testStripLaying.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
+        assertThat(testStripLaying.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
     }
 
     @Test

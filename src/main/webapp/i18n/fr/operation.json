@@ -7,13 +7,23 @@
       "detail": {
         "title": "Opération"
       },
+      "componentsInformationsDescription": {
+        "bobinsCount": "Nombre de fuseaux"
+      },
       "ownerStrandSupply": "Approvisionnement de Toron propriétaire",
       "layer": "Couche",
       "operationLayer": "Couche d'opération",
       "productionStep": "Etape de production",
       "productDesignation": "Désignation de Produit",
       "milimeterDiameterIncidency": "Incidence au Diamètre (mm)",
-      "afterThisMilimeterDiameter": "Diamètre après opération (mm)"
+      "afterThisMilimeterDiameter": "Diamètre après opération (mm)",
+      "operatingMachine": "Machine d'opération",
+      "hourPreparationTime": "Temps de Préparation (h)",
+      "hourExecutionTime": "Temps d'Execution (h)",
+      "componentsInformations": "Informations Composants",
+      "milimeterWidth": "Largeur (mm)",
+      "milimeterHeight": "Hauteur (mm)",
+      "kilogramPerKilometerLinearMass": "Masse Linéique (kg/km)"
     }
   }
 }

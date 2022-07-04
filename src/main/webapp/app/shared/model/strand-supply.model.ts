@@ -19,11 +19,37 @@ export interface IStrandSupply {
   diameterAssemblyStep?: number;
   assemblyMean?: AssemblyMean;
   hasAssemblies?: boolean;
+  isFlat?: boolean;
+  isCylindric?: boolean;
+  couldBeFlat?: boolean;
+  couldBeCylindric?: boolean;
   forceCentralUtilityComponent?: boolean;
   strand?: IStrand;
   centralAssembly?: ICentralAssembly | null;
   nonCentralOperations?: IAbstractOperation[];
   study?: IStudy;
+}
+
+export function isStrandSupply(object: IAbstractOperation): object is IStrandSupply {
+  return (
+    Object.prototype.hasOwnProperty.call(object, 'designation') ||
+    Object.prototype.hasOwnProperty.call(object, 'apparitions') ||
+    Object.prototype.hasOwnProperty.call(object, 'markingType') ||
+    Object.prototype.hasOwnProperty.call(object, 'description') ||
+    Object.prototype.hasOwnProperty.call(object, 'diameterAssemblyStep') ||
+    Object.prototype.hasOwnProperty.call(object, 'assemblyMean') ||
+    Object.prototype.hasOwnProperty.call(object, 'hasAssemblies') ||
+    Object.prototype.hasOwnProperty.call(object, 'isFlat') ||
+    Object.prototype.hasOwnProperty.call(object, 'isCylindric') ||
+    Object.prototype.hasOwnProperty.call(object, 'couldBeFlat') ||
+    Object.prototype.hasOwnProperty.call(object, 'couldBeCylindric') ||
+    Object.prototype.hasOwnProperty.call(object, 'forceCentralUtilityComponent') ||
+    Object.prototype.hasOwnProperty.call(object, 'ownerSupplyPositions') ||
+    Object.prototype.hasOwnProperty.call(object, 'strand') ||
+    Object.prototype.hasOwnProperty.call(object, 'centralAssembly') ||
+    Object.prototype.hasOwnProperty.call(object, 'nonCentralOperations') ||
+    Object.prototype.hasOwnProperty.call(object, 'study')
+  );
 }
 
 export const defaultValue: Readonly<IStrandSupply> = {

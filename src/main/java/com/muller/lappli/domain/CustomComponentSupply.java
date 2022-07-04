@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
-import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import com.muller.lappli.domain.interfaces.PlasticAspectCylindricComponent;
 import java.io.Serializable;
@@ -17,7 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A CustomComponentSupply.
+ * A Supply for {@link com.muller.lappli.domain.CustomComponent}
  */
 @Entity
 @Table(name = "custom_component_supply")
@@ -59,11 +58,6 @@ public class CustomComponentSupply extends AbstractMarkedLiftedSupply<CustomComp
     @Override
     public CustomComponentSupply getThis() {
         return this;
-    }
-
-    @Override
-    public SupplyKind getSupplyKind() {
-        return SupplyKind.CUSTOM_COMPONENT;
     }
 
     @Override

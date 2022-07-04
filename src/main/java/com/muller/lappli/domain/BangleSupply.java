@@ -2,7 +2,6 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractLiftedSupply;
-import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import com.muller.lappli.domain.interfaces.PlasticAspectCylindricComponent;
 import java.io.Serializable;
@@ -15,7 +14,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A BangleSupply.
+ * A Supply for {@link com.muller.lappli.domain.Bangle}
  */
 @Entity
 @Table(name = "bangle_supply")
@@ -51,11 +50,6 @@ public class BangleSupply extends AbstractLiftedSupply<BangleSupply> implements 
     @Override
     public BangleSupply getThis() {
         return this;
-    }
-
-    @Override
-    public SupplyKind getSupplyKind() {
-        return SupplyKind.BANGLE;
     }
 
     @Override

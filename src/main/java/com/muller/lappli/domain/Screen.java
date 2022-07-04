@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractMachine;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.MetalFiberKind;
@@ -16,6 +17,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Screen.
+ * An Operation consisting in a laying of a
+ * {@link com.muller.lappli.domain.CopperFiber}
  */
 @Entity
 @Table(name = "screen")
@@ -34,9 +37,11 @@ public class Screen
     @Column(name = "assembly_mean_is_same_than_assemblys", nullable = false)
     private Boolean assemblyMeanIsSameThanAssemblys;
 
+    @Min(value = 0L)
     @Column(name = "forced_diameter_assembly_step")
     private Long forcedDiameterAssemblyStep;
 
+    @Min(value = 0L)
     @Column(name = "anonymous_copper_fiber_number")
     private Long anonymousCopperFiberNumber;
 
@@ -47,6 +52,7 @@ public class Screen
     @Column(name = "anonymous_copper_fiber_kind")
     private MetalFiberKind anonymousCopperFiberKind;
 
+    @DecimalMin(value = "0")
     @Column(name = "anonymous_copper_fiber_milimeter_diameter")
     private Double anonymousCopperFiberMilimeterDiameter;
 
@@ -62,7 +68,10 @@ public class Screen
             "tapeLayings",
             "screens",
             "stripLayings",
+            "plaits",
+            "carrierPlaits",
             "sheathings",
+            "continuityWireLongitLayings",
             "strand",
             "centralAssembly",
             "study",
@@ -103,6 +112,24 @@ public class Screen
     public Long getProductionStep() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public AbstractMachine<?> getOperatingMachine() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Double getHourPreparationTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
+    public Double getHourExecutionTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
     }
 
     @Override

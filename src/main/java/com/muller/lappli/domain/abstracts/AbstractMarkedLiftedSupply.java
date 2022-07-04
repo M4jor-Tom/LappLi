@@ -27,6 +27,10 @@ public abstract class AbstractMarkedLiftedSupply<T extends AbstractMarkedLiftedS
      */
     public abstract MarkingType getMarkingType();
 
+    /**
+     * @return the speed (m/h) at which the
+     * component gets marked
+     */
     @Override
     public Double getMeterPerHourSpeed() {
         if (getBestMarkingMaterialStatistic() == null) {

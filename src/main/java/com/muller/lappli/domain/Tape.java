@@ -9,6 +9,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Tape.
+ * A component which can be laid through the
+ * {@link com.muller.lappli.domain.TapeLaying} operation
  */
 @Entity
 @Table(name = "tape")
@@ -18,6 +20,7 @@ public class Tape extends AbstractDomainObject<Tape> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @NotNull
+    @Min(value = 0L)
     @Column(name = "number", nullable = false, unique = true)
     private Long number;
 
@@ -26,6 +29,7 @@ public class Tape extends AbstractDomainObject<Tape> implements Serializable {
     private String designation;
 
     @NotNull
+    @DecimalMin(value = "0")
     @Column(name = "milimeter_width", nullable = false)
     private Double milimeterWidth;
 

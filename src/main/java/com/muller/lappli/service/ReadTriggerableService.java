@@ -1,5 +1,6 @@
 package com.muller.lappli.service;
 
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -8,14 +9,14 @@ import java.util.Set;
 
 /**
  * Must be implemented on Spring Service classes which
- * <p>
+ *
  * want to execute some procedures upon reading.
- * <p>
- * <p>
+ *
+ *
  * Default implementations are provided for specific data reading
- * <p>
+ *
  * such as List and Optional, meant to be used in findAll and findOne methods
- * <p>
+ *
  * These methods are
  * <pre>Optional onOptionalRead(Optional domainObjectOptional)</pre>
  * To be used in
@@ -27,7 +28,7 @@ import java.util.Set;
  * All their behaviors depend on the override of
  * <pre>T onRead(T domainObject)</pre>
  */
-public interface ReadTriggerableService<T> {
+public interface ReadTriggerableService<T extends AbstractDomainObject<T>> {
     /**
      * Changes an Optional upon reading
      *
@@ -61,7 +62,7 @@ public interface ReadTriggerableService<T> {
     /**
      * Changes an Set upon reading
      *
-     * @param domainObjectHashSet the Set to read
+     * @param domainObjectSet the Set to read
      * @return the read Set
      */
     public default Set<T> onSetRead(Set<T> domainObjectSet) {

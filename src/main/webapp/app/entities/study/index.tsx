@@ -43,6 +43,10 @@ import ContinuityWireLongitLayingUpdate from '../continuity-wire-longit-laying/c
 import ContinuityWireLongitLayingDeleteDialog from '../continuity-wire-longit-laying/continuity-wire-longit-laying-delete-dialog';
 import PlaitUpdate from '../plait/plait-update';
 import PlaitDeleteDialog from '../plait/plait-delete-dialog';
+import CarrierPlaitUpdate from '../carrier-plait/carrier-plait-update';
+import CarrierPlaitDeleteDialog from '../carrier-plait/carrier-plait-delete-dialog';
+import FlatSheathingUpdate from '../flat-sheathing/flat-sheathing-update';
+import FlatSheathingDeleteDialog from '../flat-sheathing/flat-sheathing-delete-dialog';
 
 const studySuppliesUrlPrefix = '/:study_id/study-supplies';
 
@@ -90,7 +94,7 @@ const Routes = ({ match }) => (
 
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}`} component={StrandSupplySubOperation} />
 
-      {/* (CUD ACCESS): OPERATIONS */}
+      {/* [NON_ASSEMBLY_OPERATION] (CUD ACCESS) */}
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/tape-laying/new`} component={TapeLayingUpdate} />
       <ErrorBoundaryRoute
         exact
@@ -127,12 +131,44 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/plait/:id/edit`} component={PlaitUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/plait/:id/delete`} component={PlaitDeleteDialog} />
 
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/carrier-plait/new`}
+        component={CarrierPlaitUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/carrier-plait/:id/edit`}
+        component={CarrierPlaitUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/carrier-plait/:id/delete`}
+        component={CarrierPlaitDeleteDialog}
+      />
+
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/sheathing/new`} component={SheathingUpdate} />
       <ErrorBoundaryRoute exact path={`${match.url + strandSupplyOperationZoneUrlPrefix}/sheathing/:id/edit`} component={SheathingUpdate} />
       <ErrorBoundaryRoute
         exact
         path={`${match.url + strandSupplyOperationZoneUrlPrefix}/sheathing/:id/delete`}
         component={SheathingDeleteDialog}
+      />
+
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/flat-sheathing/new`}
+        component={FlatSheathingUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/flat-sheathing/:id/edit`}
+        component={FlatSheathingUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/flat-sheathing/:id/delete`}
+        component={FlatSheathingDeleteDialog}
       />
 
       <ErrorBoundaryRoute

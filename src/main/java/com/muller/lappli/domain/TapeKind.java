@@ -9,6 +9,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A TapeKind.
+ * A type class for the class
+ * {@link com.muller.lappli.domain.Tape}
  */
 @Entity
 @Table(name = "tape_kind")
@@ -18,6 +20,8 @@ public class TapeKind extends AbstractDomainObject<TapeKind> implements Serializ
     private static final long serialVersionUID = 1L;
 
     @NotNull
+    @DecimalMin(value = "0")
+    @DecimalMax(value = "1")
     @Column(name = "target_covering_rate", nullable = false)
     private Double targetCoveringRate;
 

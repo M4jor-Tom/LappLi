@@ -1,0 +1,34 @@
+{
+  "lappLiApp": {
+    "carrierPlait": {
+      "home": {
+        "title": "Tresses Porteuses",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer une nouvelle Tresse Porteuse",
+        "createOrEditLabel": "Créer ou éditer une Tresse Porteuse",
+        "notFound": "Aucune Tresse Porteuse trouvé"
+      },
+      "created": "Une nouvelle Tresse Porteuse a été créé avec l'identifiant {{ param }}",
+      "updated": "La Tresse Porteuse avec l'identifiant {{ param }} a été mise à jour",
+      "deleted": "La Tresse Porteuse avec l'identifiant {{ param }} a été supprimée",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer la Tresse Porteuse {{ id }} ?"
+      },
+      "detail": {
+        "title": "Tresse Porteuse"
+      },
+      "id": "ID",
+      "operationLayer": "Couche d'opération",
+      "minimumDecaNewtonLoad": "Charge Minimum (DaN)",
+      "degreeAssemblyAngle": "Angle d'Assemblage (°)",
+      "forcedEndPerBobinsCount": "Nombre de Bouts par Fuseaux Forcé",
+      "anonymousCarrierPlaitFiberNumber": "Numéro de Fibre de Tresse Porteuse Anonyme",
+      "anonymousCarrierPlaitFiberDesignation": "Désignation de Fibre de Tresse Porteuse Anonyme",
+      "anonymousCarrierPlaitFiberDecitexTitration": "Titrage de Fibre de Tresse Porteuse Anonyme (dtx)",
+      "anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity": "Densité de Fibre de Tresse Porteuse Anonyme (g/mm²/m)",
+      "anonymousCarrierPlaitFiberDecaNewtonLoad": "Charge Maximale de Fibre de Tresse Porteuse Anonyme (DaN)",
+      "carrierPlaitFiber": "Mèche de Tresse Porteuse",
+      "ownerStrandSupply": "Approvisionnement de Toron Propriétaire"
+    }
+  }
+}

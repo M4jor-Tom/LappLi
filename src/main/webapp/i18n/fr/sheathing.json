@@ -18,10 +18,12 @@
         "title": "Gaine"
       },
       "id": "ID",
-      "sheathingKind": "Genre de Gainage",
+      "operationLayer": "Operation Layer",
       "milimeterThickness": "Épaisseur (mm)",
+      "sheathingKind": "Genre de Gainage",
       "material": "Matériau",
-      "ownerStrandSupply": "Approvisionnement de Toron Propriétaire"
+      "ownerStrandSupply": "Approvisionnement de Toron Propriétaire",
+      "squareMilimeterSurfaceToSheath": "Surface à Gainer (mm²)"
     }
   }
 }

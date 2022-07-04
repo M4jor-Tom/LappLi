@@ -1,0 +1,29 @@
+{
+  "lappLiApp": {
+    "flatSheathing": {
+      "home": {
+        "title": "Flat Sheathings",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Flat Sheathing erstellen",
+        "createOrEditLabel": "Flat Sheathing erstellen oder bearbeiten",
+        "notFound": "Keine Flat Sheathings gefunden"
+      },
+      "created": "Flat Sheathing erstellt mit ID {{ param }}",
+      "updated": "Flat Sheathing aktualisiert mit ID {{ param }}",
+      "deleted": "Flat Sheathing gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Flat Sheathing {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Flat Sheathing"
+      },
+      "id": "ID",
+      "operationLayer": "Operation Layer",
+      "sheathingKind": "Sheathing Kind",
+      "milimeterWidth": "Milimeter Width",
+      "milimeterHeight": "Milimeter Height",
+      "material": "Material",
+      "ownerStrandSupply": "Owner Strand Supply"
+    }
+  }
+}

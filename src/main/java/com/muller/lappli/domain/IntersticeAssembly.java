@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractMachine;
 import com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly;
 import com.muller.lappli.domain.enumeration.AssemblyMean;
 import com.muller.lappli.domain.enumeration.OperationKind;
@@ -15,6 +16,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A IntersticeAssembly.
+ * An {@link com.muller.lappli.domain.abstracts.AbstractNonCentralAssembly}
+ * Operation which is to be laid on {@link com.muller.lappli.domain.CoreAssembly},
+ * without increasing their diameter.
  */
 @Entity
 @Table(name = "interstice_assembly")
@@ -86,6 +90,24 @@ public class IntersticeAssembly extends AbstractNonCentralAssembly<IntersticeAss
     public Long getProductionStep() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public AbstractMachine<?> getOperatingMachine() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Double getHourPreparationTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
+    public Double getHourExecutionTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
     }
 
     @Override

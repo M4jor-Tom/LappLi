@@ -2,6 +2,7 @@ package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractAssembly;
+import com.muller.lappli.domain.abstracts.AbstractMachine;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.enumeration.OperationKind;
 import com.muller.lappli.domain.interfaces.ISupplyPositionOwner;
@@ -13,6 +14,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A CentralAssembly.
+ *
+ * This represents the "slot" at the center of a {@link com.muller.lappli.domain.Strand}
+ * in which we can put a {@link com.muller.lappli.domain.interfaces.CylindricComponent}.
  */
 @Entity
 @Table(name = "central_assembly")
@@ -103,6 +107,24 @@ public class CentralAssembly extends AbstractAssembly<CentralAssembly> implement
     public Long getProductionStep() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public AbstractMachine<?> getOperatingMachine() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Double getHourPreparationTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
+    public Double getHourExecutionTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
     }
 
     @Override

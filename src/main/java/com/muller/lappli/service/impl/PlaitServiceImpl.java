@@ -5,7 +5,6 @@ import com.muller.lappli.repository.PlaitRepository;
 import com.muller.lappli.service.PlaitService;
 import com.muller.lappli.service.StrandSupplyService;
 import com.muller.lappli.service.abstracts.AbstractNonCentralOperationServiceImpl;
-import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,33 +20,27 @@ public class PlaitServiceImpl extends AbstractNonCentralOperationServiceImpl<Pla
 
     private final Logger log = LoggerFactory.getLogger(PlaitServiceImpl.class);
 
-    private final PlaitRepository plaitRepository;
-
     public PlaitServiceImpl(PlaitRepository plaitRepository, StrandSupplyService strandSupplyService) {
-        super(strandSupplyService);
-        this.plaitRepository = plaitRepository;
+        super(strandSupplyService, plaitRepository);
     }
 
     @Override
-    public Plait save(Plait plait, Boolean actualizeOwnerStrandSupply) {
-        log.debug("Request to save Plait : {}", plait);
+    protected Logger getLogger() {
+        return log;
+    }
 
-        if (actualizeOwnerStrandSupply) {
-            actualizeOwnerStrandSupply(plait);
-        }
-        return plaitRepository.save(plait);
+    @Override
+    protected String getDomainClassName() {
+        return "Plait";
     }
 
     @Override
     public Optional<Plait> partialUpdate(Plait plait) {
         log.debug("Request to partially update Plait : {}", plait);
 
-        return plaitRepository
+        return getJpaRepository()
             .findById(plait.getId())
             .map(existingPlait -> {
-                if (plait.getOperationLayer() != null) {
-                    existingPlait.setOperationLayer(plait.getOperationLayer());
-                }
                 if (plait.getTargetCoveringRate() != null) {
                     existingPlait.setTargetCoveringRate(plait.getTargetCoveringRate());
                 }
@@ -72,26 +65,6 @@ public class PlaitServiceImpl extends AbstractNonCentralOperationServiceImpl<Pla
 
                 return existingPlait;
             })
-            .map(plaitRepository::save);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Plait> findAll() {
-        log.debug("Request to get all Plaits");
-        return plaitRepository.findAll();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<Plait> findOne(Long id) {
-        log.debug("Request to get Plait : {}", id);
-        return plaitRepository.findById(id);
-    }
-
-    @Override
-    public void delete(Long id) {
-        log.debug("Request to delete Plait : {}", id);
-        plaitRepository.deleteById(id);
+            .map(getJpaRepository()::save);
     }
 }

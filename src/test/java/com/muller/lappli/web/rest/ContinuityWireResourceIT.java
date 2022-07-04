@@ -34,14 +34,14 @@ class ContinuityWireResourceIT {
     private static final String DEFAULT_DESIGNATION = "AAAAAAAAAA";
     private static final String UPDATED_DESIGNATION = "BBBBBBBBBB";
 
-    private static final Double DEFAULT_GRAM_PER_METER_LINEAR_MASS = 1D;
-    private static final Double UPDATED_GRAM_PER_METER_LINEAR_MASS = 2D;
+    private static final Double DEFAULT_GRAM_PER_METER_LINEAR_MASS = 0D;
+    private static final Double UPDATED_GRAM_PER_METER_LINEAR_MASS = 1D;
 
     private static final MetalFiberKind DEFAULT_METAL_FIBER_KIND = MetalFiberKind.RED_COPPER;
     private static final MetalFiberKind UPDATED_METAL_FIBER_KIND = MetalFiberKind.TINNED_COPPER;
 
-    private static final Double DEFAULT_MILIMETER_DIAMETER = 1D;
-    private static final Double UPDATED_MILIMETER_DIAMETER = 2D;
+    private static final Double DEFAULT_MILIMETER_DIAMETER = 0D;
+    private static final Double UPDATED_MILIMETER_DIAMETER = 1D;
 
     private static final Flexibility DEFAULT_FLEXIBILITY = Flexibility.S;
     private static final Flexibility UPDATED_FLEXIBILITY = Flexibility.ES;

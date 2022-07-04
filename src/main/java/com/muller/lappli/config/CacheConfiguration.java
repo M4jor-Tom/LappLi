@@ -104,6 +104,14 @@ public class CacheConfiguration {
             createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".plaits");
             createCache(cm, com.muller.lappli.domain.Plait.class.getName());
             createCache(cm, com.muller.lappli.domain.SteelFiber.class.getName());
+            createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".carrierPlaits");
+            createCache(cm, com.muller.lappli.domain.CarrierPlait.class.getName());
+            createCache(cm, com.muller.lappli.domain.CarrierPlaitFiber.class.getName());
+            createCache(cm, com.muller.lappli.domain.Plaiter.class.getName());
+            createCache(cm, com.muller.lappli.domain.Plaiter.class.getName() + ".plaiterConfigurations");
+            createCache(cm, com.muller.lappli.domain.PlaiterConfiguration.class.getName());
+            createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".flatSheathings");
+            createCache(cm, com.muller.lappli.domain.FlatSheathing.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

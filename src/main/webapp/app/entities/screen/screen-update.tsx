@@ -121,18 +121,20 @@ export const ScreenUpdate = (props: RouteComponentProps<{ strand_supply_id: stri
                   validate={{ required: true }}
                 />
               ) : null}
-              <ValidatedField
-                label={translate('lappLiApp.operation.operationLayer')}
-                id="screen-operationLayer"
-                name="operationLayer"
-                data-cy="operationLayer"
-                type="text"
-                defaultValue={-2}
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
-              />
+              {isNew ? (
+                <ValidatedField
+                  label={translate('lappLiApp.operation.operationLayer')}
+                  id="screen-operationLayer"
+                  name="operationLayer"
+                  data-cy="operationLayer"
+                  type="text"
+                  defaultValue={-2}
+                  validate={{
+                    required: { value: true, message: translate('entity.validation.required') },
+                    validate: v => isNumber(v) || translate('entity.validation.number'),
+                  }}
+                />
+              ) : null}
               <ValidatedField
                 label={translate('lappLiApp.screen.assemblyMeanIsSameThanAssemblys')}
                 id="screen-assemblyMeanIsSameThanAssemblys"
@@ -147,6 +149,10 @@ export const ScreenUpdate = (props: RouteComponentProps<{ strand_supply_id: stri
                 name="forcedDiameterAssemblyStep"
                 data-cy="forcedDiameterAssemblyStep"
                 type="text"
+                validate={{
+                  min: { value: 0, message: translate('entity.validation.min', { min: 0 }) },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
               />
               <ValidatedField
                 label={translate('lappLiApp.screen.anonymousCopperFiberNumber')}
@@ -154,6 +160,10 @@ export const ScreenUpdate = (props: RouteComponentProps<{ strand_supply_id: stri
                 name="anonymousCopperFiberNumber"
                 data-cy="anonymousCopperFiberNumber"
                 type="text"
+                validate={{
+                  min: { value: 0, message: translate('entity.validation.min', { min: 0 }) },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
               />
               <ValidatedField
                 label={translate('lappLiApp.screen.anonymousCopperFiberDesignation')}
@@ -163,7 +173,7 @@ export const ScreenUpdate = (props: RouteComponentProps<{ strand_supply_id: stri
                 type="text"
               />
               <ValidatedField
-                label={translate('lappLiApp.screen.anonymousCopperFiberKind')}
+                label={translate('lappLiApp.screen.anonymousCopperFiberKind') + ' *'}
                 id="screen-anonymousCopperFiberKind"
                 name="anonymousCopperFiberKind"
                 data-cy="anonymousCopperFiberKind"
@@ -171,16 +181,20 @@ export const ScreenUpdate = (props: RouteComponentProps<{ strand_supply_id: stri
               >
                 {metalFiberKindValues.map(metalFiberKind => (
                   <option value={metalFiberKind} key={metalFiberKind}>
-                    {translate('lappLiApp.MetalFiberKind' + metalFiberKind)}
+                    {translate('lappLiApp.MetalFiberKind.' + metalFiberKind)}
                   </option>
                 ))}
               </ValidatedField>
               <ValidatedField
-                label={translate('lappLiApp.screen.anonymousCopperFiberMilimeterDiameter')}
+                label={translate('lappLiApp.screen.anonymousCopperFiberMilimeterDiameter') + ' *'}
                 id="screen-anonymousCopperFiberMilimeterDiameter"
                 name="anonymousCopperFiberMilimeterDiameter"
                 data-cy="anonymousCopperFiberMilimeterDiameter"
                 type="text"
+                validate={{
+                  min: { value: 0, message: translate('entity.validation.min', { min: 0 }) },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
               />
               <ValidatedField
                 id="screen-copperFiber"

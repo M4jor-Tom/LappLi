@@ -8,6 +8,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A CopperFiber.
+ * An {@link com.muller.lappli.domain.abstracts.AbstractMetalFiber}
+ * which is used in {@link com.muller.lappli.domain.Plait} and
+ * {@link com.muller.lappli.domain.Screen} Operations.
  */
 @Entity
 @Table(name = "copper_fiber")

@@ -1,5 +1,4 @@
 import { ICylindricComponent } from './cylindric-component.model';
-import { SupplyKind } from './enumerations/supply-kind.model';
 import { IMaterial } from './material.model';
 import { IStrand } from './strand.model';
 import { ISupplyPosition } from './supply-position.model';
@@ -7,7 +6,6 @@ import { ISupplyPosition } from './supply-position.model';
 export interface IAbstractSupply {
   id?: number;
   supplyPosition?: ISupplyPosition;
-  supplyKind?: SupplyKind;
   apparitions?: number;
   dividedApparitions?: number;
   surfaceMaterial?: IMaterial;

@@ -3,8 +3,8 @@ package com.muller.lappli.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
 import com.muller.lappli.domain.enumeration.Color;
+import com.muller.lappli.domain.enumeration.CylindricComponentKind;
 import com.muller.lappli.domain.enumeration.MarkingType;
-import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
 import com.muller.lappli.domain.interfaces.PlasticAspectCylindricComponent;
 import java.io.Serializable;
@@ -17,7 +17,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A OneStudySupply.
+ * A Supply which allows to create unique
+ * {@link com.muller.lappli.domain.interfaces.CylindricComponent}s
+ * for each Strand
  */
 @Entity
 @Table(name = "one_study_supply")
@@ -83,11 +85,6 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
     @Override
     public OneStudySupply getThis() {
         return this;
-    }
-
-    @Override
-    public SupplyKind getSupplyKind() {
-        return SupplyKind.ONE_STUDY;
     }
 
     private OneStudyComponent getOneStudyComponent() {
@@ -286,6 +283,15 @@ public class OneStudySupply extends AbstractMarkedLiftedSupply<OneStudySupply> i
         private Double gramPerMeterLinearMass;
 
         private Material surfaceMaterial;
+
+        public OneStudyComponent() {
+            super();
+        }
+
+        @Override
+        public CylindricComponentKind getCylindricComponentKind() {
+            return CylindricComponentKind.ONE_STUDY;
+        }
 
         @Override
         public Boolean isUtility() {

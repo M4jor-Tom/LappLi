@@ -4,7 +4,8 @@
     {
       "fieldName": "number",
       "fieldType": "Long",
-      "fieldValidateRules": ["required", "unique"]
+      "fieldValidateRules": ["required", "unique", "min"],
+      "fieldValidateRulesMin": "0"
     },
     {
       "fieldName": "designation",
@@ -14,7 +15,8 @@
     {
       "fieldName": "milimeterWidth",
       "fieldType": "Double",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
     },
     {
       "fieldName": "milimeterDiameterIncidency",

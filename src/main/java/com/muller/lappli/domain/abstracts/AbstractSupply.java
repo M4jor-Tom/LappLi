@@ -11,7 +11,6 @@ import com.muller.lappli.domain.Material;
 import com.muller.lappli.domain.OneStudySupply;
 import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.SupplyPosition;
-import com.muller.lappli.domain.enumeration.SupplyKind;
 import com.muller.lappli.domain.exception.AppartionDivisionNonNullRemainderException;
 import com.muller.lappli.domain.exception.IllegalStrandSupplyException;
 import com.muller.lappli.domain.interfaces.CylindricComponent;
@@ -30,7 +29,7 @@ import javax.validation.constraints.NotNull;
  * A supply object refers to the instanciation of a CylindricComponent
  * inside a Strand or Cable
  */
-//[SUPPLY]
+//[COMPONENT_KIND]
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "__typeName")
 @JsonSubTypes(
@@ -125,11 +124,6 @@ public abstract class AbstractSupply<T extends AbstractSupply<T>> extends Abstra
     }
 
     /**
-     * @return the kind of supply this is
-     */
-    public abstract SupplyKind getSupplyKind();
-
-    /**
      * Computes the divided apparitions which are unused
      * by any SupplyPosition, so still usable
      *
@@ -146,7 +140,7 @@ public abstract class AbstractSupply<T extends AbstractSupply<T>> extends Abstra
     }
 
     /**
-     * To be used on {@link #getOwnerStrand()}'s computation
+     * To be used on {@link #getObserverStrandSupply()}'s computation
      *
      * @return this
      * @throws AppartionDivisionNonNullRemainderException if {@link #getApparitionDivisionRemain()} is not null
@@ -279,11 +273,11 @@ public abstract class AbstractSupply<T extends AbstractSupply<T>> extends Abstra
      * @return the execution time in hours of the supply operation
      */
     public Double getHourExecutionTime() {
-        if (getMeterPerHourSpeed() == null) {
+        if (getMeterPerHourSpeed() == null || getMeterQuantity() == null) {
             return Double.NaN;
         }
 
-        return getMeterQuantity() / getMeterPerHourSpeed();
+        return getMeterQuantity().doubleValue() / getMeterPerHourSpeed();
     }
 
     /**

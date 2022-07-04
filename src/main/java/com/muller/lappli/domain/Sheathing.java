@@ -1,9 +1,9 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.muller.lappli.domain.abstracts.AbstractOperation;
+import com.muller.lappli.domain.abstracts.AbstractMachine;
+import com.muller.lappli.domain.abstracts.AbstractSheathing;
 import com.muller.lappli.domain.enumeration.OperationKind;
-import com.muller.lappli.domain.enumeration.SheathingKind;
 import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
 import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
@@ -14,31 +14,19 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Sheathing.
+ * An Operation consisting in a laying of a
+ * {@link com.muller.lappli.domain.Material}
  */
 @Entity
 @Table(name = "sheathing")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Sheathing extends AbstractOperation<Sheathing> implements Serializable, INonAssemblyOperation<Sheathing> {
+public class Sheathing extends AbstractSheathing<Sheathing> implements Serializable, INonAssemblyOperation<Sheathing> {
 
     private static final long serialVersionUID = 1L;
 
     @NotNull
-    @Column(name = "operation_layer", nullable = false)
-    private Long operationLayer;
-
-    @NotNull
     @Column(name = "milimeter_thickness", nullable = false)
     private Double milimeterThickness;
-
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "sheathing_kind", nullable = false)
-    private SheathingKind sheathingKind;
-
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties(value = { "materialMarkingStatistics" }, allowSetters = true)
-    private Material material;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -73,6 +61,24 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
     }
 
     @Override
+    public AbstractMachine<?> getOperatingMachine() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Double getHourPreparationTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
+    public Double getHourExecutionTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
     public Sheathing getThis() {
         return this;
     }
@@ -93,22 +99,6 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    @Override
-    public Long getOperationLayer() {
-        return this.operationLayer;
-    }
-
-    @Override
-    public Sheathing operationLayer(Long operationLayer) {
-        this.setOperationLayer(operationLayer);
-        return this;
-    }
-
-    @Override
-    public void setOperationLayer(Long operationLayer) {
-        this.operationLayer = operationLayer;
-    }
-
     public Double getMilimeterThickness() {
         return this.milimeterThickness;
     }
@@ -120,32 +110,6 @@ public class Sheathing extends AbstractOperation<Sheathing> implements Serializa
 
     public void setMilimeterThickness(Double milimeterThickness) {
         this.milimeterThickness = milimeterThickness;
-    }
-
-    public SheathingKind getSheathingKind() {
-        return this.sheathingKind;
-    }
-
-    public Sheathing sheathingKind(SheathingKind sheathingKind) {
-        this.setSheathingKind(sheathingKind);
-        return this;
-    }
-
-    public void setSheathingKind(SheathingKind sheathingKind) {
-        this.sheathingKind = sheathingKind;
-    }
-
-    public Material getMaterial() {
-        return this.material;
-    }
-
-    public void setMaterial(Material material) {
-        this.material = material;
-    }
-
-    public Sheathing material(Material material) {
-        this.setMaterial(material);
-        return this;
     }
 
     @Override

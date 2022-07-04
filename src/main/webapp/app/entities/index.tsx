@@ -38,6 +38,11 @@ import ContinuityWireLongitLaying from './continuity-wire-longit-laying';
 import ContinuityWire from './continuity-wire';
 import Plait from './plait';
 import SteelFiber from './steel-fiber';
+import CarrierPlait from './carrier-plait';
+import CarrierPlaitFiber from './carrier-plait-fiber';
+import Plaiter from './plaiter';
+import PlaiterConfiguration from './plaiter-configuration';
+import FlatSheathing from './flat-sheathing';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -78,6 +83,11 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}continuity-wire`} component={ContinuityWire} />
       <ErrorBoundaryRoute path={`${match.url}plait`} component={Plait} />
       <ErrorBoundaryRoute path={`${match.url}steel-fiber`} component={SteelFiber} />
+      <ErrorBoundaryRoute path={`${match.url}carrier-plait`} component={CarrierPlait} />
+      <ErrorBoundaryRoute path={`${match.url}carrier-plait-fiber`} component={CarrierPlaitFiber} />
+      <ErrorBoundaryRoute path={`${match.url}plaiter`} component={Plaiter} />
+      <ErrorBoundaryRoute path={`${match.url}plaiter-configuration`} component={PlaiterConfiguration} />
+      <ErrorBoundaryRoute path={`${match.url}flat-sheathing`} component={FlatSheathing} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>

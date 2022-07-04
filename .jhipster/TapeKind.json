@@ -4,7 +4,9 @@
     {
       "fieldName": "targetCoveringRate",
       "fieldType": "Double",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required", "min", "max"],
+      "fieldValidateRulesMin": "0",
+      "fieldValidateRulesMax": "1"
     },
     {
       "fieldName": "designation",

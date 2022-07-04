@@ -35,7 +35,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
       <div>
         {/* md="8">*/}
         <h2 data-cy="strandDetailsHeading">
-          {translate('lappLiApp.strand.detail.title') + '#' + strandEntity.id}
+          {translate('lappLiApp.strand.detail.title') + ' ' + strandEntity.productionStep}
           &nbsp;
           {strandSupplyExistsInStudy ? (
             ''
@@ -388,7 +388,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
               >
                 <FontAwesomeIcon icon="plus" />
                 &nbsp;
-                <Translate contentKey="lappLiApp.bangleSupply.home.createLabel">Create new Bangle Supply</Translate>
+                <Translate contentKey="lappLiApp.bangle.detail.title">Bangle</Translate>
               </Link>
               &nbsp;
               <Link
@@ -399,7 +399,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
               >
                 <FontAwesomeIcon icon="plus" />
                 &nbsp;
-                <Translate contentKey="lappLiApp.customComponentSupply.home.createLabel">Create new Custom Component Supply</Translate>
+                <Translate contentKey="lappLiApp.customComponent.detail.title">Custom Component</Translate>
               </Link>
               &nbsp;
               <Link
@@ -410,7 +410,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
               >
                 <FontAwesomeIcon icon="plus" />
                 &nbsp;
-                <Translate contentKey="lappLiApp.elementSupply.home.createLabel">Create new Element Supply</Translate>
+                <Translate contentKey="lappLiApp.element.detail.title">Element</Translate>
               </Link>
               &nbsp;
               <Link
@@ -421,7 +421,7 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
               >
                 <FontAwesomeIcon icon="plus" />
                 &nbsp;
-                <Translate contentKey="lappLiApp.oneStudySupply.home.createLabel">Create new One Study Supply</Translate>
+                <Translate contentKey="lappLiApp.oneStudySupply.detail.title">One Study Supply</Translate>
               </Link>
             </div>
           </dd>

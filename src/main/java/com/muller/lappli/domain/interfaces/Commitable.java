@@ -15,6 +15,7 @@ import java.util.List;
  * The type parameter C MUST be the the implementation class
  *
  */
+@Deprecated
 public interface Commitable<C extends Commitable<C>> {
     public Long getId();
 
@@ -48,7 +49,6 @@ public interface Commitable<C extends Commitable<C>> {
     /**
      * Gets an altered version of a Commitable object at a given instant
      *
-     * @param commitable the receiver of editions, surely this or this.clone()
      * @param instant the instant before which modifications shall be applied
      * @return an edited version of commitable parameter
      */

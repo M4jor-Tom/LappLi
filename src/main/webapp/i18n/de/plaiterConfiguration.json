@@ -1,0 +1,25 @@
+{
+  "lappLiApp": {
+    "plaiterConfiguration": {
+      "home": {
+        "title": "Plaiter Configurations",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Plaiter Configuration erstellen",
+        "createOrEditLabel": "Plaiter Configuration erstellen oder bearbeiten",
+        "notFound": "Keine Plaiter Configurations gefunden"
+      },
+      "created": "Plaiter Configuration erstellt mit ID {{ param }}",
+      "updated": "Plaiter Configuration aktualisiert mit ID {{ param }}",
+      "deleted": "Plaiter Configuration gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Plaiter Configuration {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Plaiter Configuration"
+      },
+      "id": "ID",
+      "usedBobinsCount": "Used Bobins Count",
+      "plaiter": "Plaiter"
+    }
+  }
+}

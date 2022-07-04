@@ -9,8 +9,10 @@
       "SCREEN": "Guipage",
       "STRIP_LAYING": "Pose de Feuillard",
       "PLAIT": "Tresse",
+      "CARRIER_PLAIT": "Tresse Porteuse",
       "SHEATHING": "Gainage",
-      "CONTINUITY_WIRE_LONGIT_LAYING": "Pose de fil de continuité en long"
+      "FLAT_SHEATHING": "Gainage Plat",
+      "CONTINUITY_WIRE_LONGIT_LAYING": "Pose de Fil de Continuité en Long"
     }
   }
 }

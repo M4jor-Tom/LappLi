@@ -1,5 +1,6 @@
 package com.muller.lappli.domain.interfaces;
 
-public interface Article extends Designable {
-    Long getArticleNumber();
-}
+/**
+ * A normal Muller Article in Database
+ */
+public interface Article extends Numbered, Designable {}

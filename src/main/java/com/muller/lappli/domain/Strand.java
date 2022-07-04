@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.muller.lappli.domain.abstracts.AbstractDomainObject;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
-import com.muller.lappli.domain.enumeration.SupplyKind;
+import com.muller.lappli.domain.enumeration.CylindricComponentKind;
+import com.muller.lappli.domain.interfaces.Designable;
 import com.muller.lappli.domain.interfaces.ISupplyPositionOwner;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,11 +20,28 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Strand.
+ * This represents the gathering of
+ * {@link com.muller.lappli.domain.interfaces.CylindricComponent}s
+ * through their respective supplies
+ *
+ * Strand is a bit itself a component, but it needs to be
+ * observed through a {@link com.muller.lappli.domain.StrandSupply}
+ * for that.
+ *
+ * In fact, a Strand does know how much
+ * {@link com.muller.lappli.domain.interfaces.CylindricComponent}s it
+ * owns in total, but only its {@link com.muller.lappli.domain.StrandSupply}
+ * knows in how many times it exists.
+ *
+ * Therefore, if a Strand can specify how much components it
+ * will finally include in a Cable, only its
+ * {@link com.muller.lappli.domain.StrandSupply} can determine its
+ * physical form, its operations.
  */
 @Entity
 @Table(name = "strand")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Strand extends AbstractDomainObject<Strand> implements ISupplyPositionOwner, Serializable {
+public class Strand extends AbstractDomainObject<Strand> implements Designable, ISupplyPositionOwner, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,6 +65,36 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
     public Strand() {
         super();
         setSupplyPositions(new HashSet<>());
+    }
+
+    public Long getProductionStep() {
+        if (getFutureStudy() == null || getFutureStudy().getStrands() == null) {
+            return null;
+        }
+
+        Object[] strandsOfThisStudy = getFutureStudy()
+            .getStrands()
+            .stream()
+            .sorted(
+                new Comparator<Strand>() {
+                    @Override
+                    public int compare(Strand o1, Strand o2) {
+                        return (int) (o1.getId() - o2.getId());
+                    }
+                }
+            )
+            .toArray();
+
+        Long index = 1L;
+        for (Object strand : strandsOfThisStudy) {
+            if (strand == this) {
+                return index * 100L;
+            }
+
+            index++;
+        }
+
+        return null;
     }
 
     /**
@@ -104,15 +153,16 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return commonDividers;
     }
 
+    @Override
     public String getDesignation() {
-        return getUndividedCountDesignation(Long.valueOf(1));
+        return getUndividedCountDesignation();
     }
 
     public Double getSuppliedComponentsAverageMilimeterDiameter() {
         return getSuppliedComponentsMilimeterDiametersSum() / getUndividedSuppliedComponentsCount();
     }
 
-    public String getUndividedCountDesignation(Long supplyComponentsDivider) {
+    public String getUndividedCountDesignation() {
         String designation = "";
         Boolean isFirstWrittenSupplyDesignation = true;
 
@@ -169,6 +219,20 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return suppliedComponentsMilimeterDiameter;
     }
 
+    public List<Double> getSuppliedComponentsSquareMilimeterSurfaces() {
+        List<Double> suppliedComponentsSquareMilimeterSurfaces = new ArrayList<Double>();
+
+        for (AbstractSupply<?> supply : getSupplies()) {
+            for (Long i = Long.valueOf(0); i < supply.getApparitions(); i++) {
+                suppliedComponentsSquareMilimeterSurfaces.add(
+                    supply == null ? Double.NaN : supply.getCylindricComponent().getSquareMilimeterSurface()
+                );
+            }
+        }
+
+        return suppliedComponentsSquareMilimeterSurfaces;
+    }
+
     public Double getSuppliedComponentsMilimeterDiametersSum() {
         Double suppliedComponentsMilimeterDiametersSum = 0.0;
 
@@ -179,35 +243,45 @@ public class Strand extends AbstractDomainObject<Strand> implements ISupplyPosit
         return suppliedComponentsMilimeterDiametersSum;
     }
 
-    //[SUPPLY]
+    public Double getSuppliedComponentsSquareMilimeterSurfacesSum() {
+        Double suppliedComponentsSquareMilimeterSurfaceSum = 0.0;
+
+        for (Double suppliedComponentSquareMilimeterSurface : getSuppliedComponentsSquareMilimeterSurfaces()) {
+            suppliedComponentsSquareMilimeterSurfaceSum += suppliedComponentSquareMilimeterSurface;
+        }
+
+        return suppliedComponentsSquareMilimeterSurfaceSum;
+    }
+
+    //[COMPONENT_KIND]
     public Set<BangleSupply> getBangleSupplies() {
-        return getSuppliesByKind(SupplyKind.BANGLE);
+        return getSuppliesByKind(CylindricComponentKind.BANGLE);
     }
 
     public Set<CustomComponentSupply> getCustomComponentSupplies() {
-        return getSuppliesByKind(SupplyKind.CUSTOM_COMPONENT);
+        return getSuppliesByKind(CylindricComponentKind.CUSTOM_COMPONENT);
     }
 
     public Set<ElementSupply> getElementSupplies() {
-        return getSuppliesByKind(SupplyKind.ELEMENT);
+        return getSuppliesByKind(CylindricComponentKind.ELEMENT);
     }
 
     public Set<OneStudySupply> getOneStudySupplies() {
-        return getSuppliesByKind(SupplyKind.ONE_STUDY);
+        return getSuppliesByKind(CylindricComponentKind.ONE_STUDY);
     }
 
     /**
-     * @param <T> The AbstractSupply<T> daughter class represented by supplyKind
-     * @param supplyKind the kind of supply expected
+     * @param <T> The AbstractSupply daughter class represented by supplyKind
+     * @param cylindricComponentKind the kind of component expected
      * @return All supplies of supplyKind kind
      */
     @SuppressWarnings("unchecked")
-    public <T extends AbstractSupply<T>> Set<T> getSuppliesByKind(SupplyKind supplyKind) {
+    public <T extends AbstractSupply<T>> Set<T> getSuppliesByKind(CylindricComponentKind cylindricComponentKind) {
         Set<T> sortedSupplies = new HashSet<>();
 
         for (SupplyPosition supplyPosition : getSupplyPositions()) {
             AbstractSupply<?> supply = supplyPosition.getSupply();
-            if (supply != null && supplyKind.equals(supply.getSupplyKind())) {
+            if (supply != null && cylindricComponentKind.equals(supply.getCylindricComponent().getCylindricComponentKind())) {
                 sortedSupplies.add((T) supply);
             }
         }

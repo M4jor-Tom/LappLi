@@ -28,7 +28,16 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A StrandSupply.
+ * A Supply for {@link com.muller.lappli.domain.Strand}.
+ *
+ * This Supply is quite different than others.
+ * First, its {@link com.muller.lappli.domain.interfaces.CylindricComponent}
+ * isn't atomic, but composed ({@link com.muller.lappli.domain.Strand})
+ *
+ * Then, a StrandSupply is required to determine its
+ * {@link com.muller.lappli.domain.Strand} physical form,
+ * because {@link StrandSupply#getApparitions()} can say
+ * in how much times it appears, for the same amount of components.
  */
 @Entity
 @Table(name = "strand_supply")
@@ -95,13 +104,23 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
 
     @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "copperFiber", "metalFiber", "ownerStrandSupply" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
     private Set<Plait> plaits = new HashSet<>();
 
     @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
+    private Set<CarrierPlait> carrierPlaits = new HashSet<>();
+
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
     private Set<Sheathing> sheathings = new HashSet<>();
+
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
+    private Set<FlatSheathing> flatSheathings = new HashSet<>();
 
     @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -142,11 +161,11 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
             return getApparitions() + " x [?]";
         }
 
-        return getApparitions().toString() + " x (" + getStrand().getUndividedCountDesignation(getApparitions()) + ")";
+        return getApparitions().toString() + " x (" + getStrand().getUndividedCountDesignation() + ")";
     }
 
     /**
-     * As {@link Strand#getOperations()} is a Set, it is unsorted,
+     * As {@link StrandSupply#getOperations()} is a Set, it is unsorted,
      * that's why a sorting algorithm is needed.
      *
      * @return a Comparator for the class AbstractOperation
@@ -269,7 +288,6 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
      *
      * @param operation under which we want a diameter
      * @return the diameter in milimeter
-     * @throws ImpossibleAssemblyPresetDistributionException
      */
     public Double getMilimeterDiameterBefore(IOperation<?> operation) {
         IOperation<?> lastOperationBeforeThis = getLastOperationBefore(operation);
@@ -399,12 +417,14 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     public Set<INonAssemblyOperation<?>> getNonAssemblyOperations() {
         HashSet<INonAssemblyOperation<?>> operations = new HashSet<>();
 
-        //[NON_ASSEMBLY_OPERATIONS]
+        //[NON_ASSEMBLY_OPERATION]
         operations.addAll(getTapeLayings());
         operations.addAll(getScreens());
         operations.addAll(getStripLayings());
         operations.addAll(getPlaits());
+        operations.addAll(getCarrierPlaits());
         operations.addAll(getSheathings());
+        operations.addAll(getFlatSheathings());
         operations.addAll(getContinuityWireLongitLayings());
 
         return operations;
@@ -426,6 +446,32 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         sortedOperationList.sort(getOperationComparator());
 
         return new LinkedHashSet<IOperation<?>>(sortedOperationList);
+    }
+
+    @JsonProperty("isFlat")
+    public Boolean isFlat() {
+        for (IOperation<?> operation : getOperations()) {
+            if (operation instanceof FlatSheathing) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @JsonProperty("isCylindric")
+    public Boolean isCylindric() {
+        return !getAssemblies().equals(Set.of());
+    }
+
+    @JsonProperty("couldBeFlat")
+    public Boolean couldBeFlat() {
+        return !isCylindric();
+    }
+
+    @JsonProperty("couldBeCylindric")
+    public Boolean couldBeCylindric() {
+        return !isFlat();
     }
 
     public Boolean isUsedOperationLayer(Long operationLayer) {
@@ -513,7 +559,7 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         AssemblyPresetDistribution assemblyPresetDistribution = AssemblyPresetDistribution.forStrandSupply(this);
 
         if (assemblyPresetDistribution == null) {
-            return false;
+            throw new NullPointerException("assemblyPresetDistribution must not be null");
         }
 
         return (assemblyPresetDistribution.getAssemblyPresetDistributionPossibility(getForceCentralUtilityComponent()) != null);
@@ -804,6 +850,37 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
         return this;
     }
 
+    public Set<CarrierPlait> getCarrierPlaits() {
+        return this.carrierPlaits;
+    }
+
+    public void setCarrierPlaits(Set<CarrierPlait> carrierPlaits) {
+        if (this.carrierPlaits != null) {
+            this.carrierPlaits.forEach(i -> i.setOwnerStrandSupply(null));
+        }
+        if (carrierPlaits != null) {
+            carrierPlaits.forEach(i -> i.setOwnerStrandSupply(this));
+        }
+        this.carrierPlaits = carrierPlaits;
+    }
+
+    public StrandSupply carrierPlaits(Set<CarrierPlait> carrierPlaits) {
+        this.setCarrierPlaits(carrierPlaits);
+        return this;
+    }
+
+    public StrandSupply addCarrierPlaits(CarrierPlait carrierPlait) {
+        this.carrierPlaits.add(carrierPlait);
+        carrierPlait.setOwnerStrandSupply(this);
+        return this;
+    }
+
+    public StrandSupply removeCarrierPlaits(CarrierPlait carrierPlait) {
+        this.carrierPlaits.remove(carrierPlait);
+        carrierPlait.setOwnerStrandSupply(null);
+        return this;
+    }
+
     public Set<Sheathing> getSheathings() {
         return this.sheathings;
     }
@@ -832,6 +909,37 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     public StrandSupply removeSheathings(Sheathing sheathing) {
         this.sheathings.remove(sheathing);
         sheathing.setOwnerStrandSupply(null);
+        return this;
+    }
+
+    public Set<FlatSheathing> getFlatSheathings() {
+        return this.flatSheathings;
+    }
+
+    public void setFlatSheathings(Set<FlatSheathing> flatSheathings) {
+        if (this.flatSheathings != null) {
+            this.flatSheathings.forEach(i -> i.setOwnerStrandSupply(null));
+        }
+        if (flatSheathings != null) {
+            flatSheathings.forEach(i -> i.setOwnerStrandSupply(this));
+        }
+        this.flatSheathings = flatSheathings;
+    }
+
+    public StrandSupply flatSheathings(Set<FlatSheathing> flatSheathings) {
+        this.setFlatSheathings(flatSheathings);
+        return this;
+    }
+
+    public StrandSupply addFlatSheathings(FlatSheathing flatSheathing) {
+        this.flatSheathings.add(flatSheathing);
+        flatSheathing.setOwnerStrandSupply(this);
+        return this;
+    }
+
+    public StrandSupply removeFlatSheathings(FlatSheathing flatSheathing) {
+        this.flatSheathings.remove(flatSheathing);
+        flatSheathing.setOwnerStrandSupply(null);
         return this;
     }
 

@@ -127,24 +127,31 @@ export const PlaitUpdate = (props: RouteComponentProps<{ id: string; strand_supp
                   validate={{ required: true }}
                 />
               ) : null}
-              <ValidatedField
-                label={translate('lappLiApp.plait.operationLayer')}
-                id="plait-operationLayer"
-                name="operationLayer"
-                data-cy="operationLayer"
-                type="text"
-                defaultValue={-2}
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
-              />
+              {isNew ? (
+                <ValidatedField
+                  label={translate('lappLiApp.plait.operationLayer')}
+                  id="plait-operationLayer"
+                  name="operationLayer"
+                  data-cy="operationLayer"
+                  type="text"
+                  defaultValue={-2}
+                  validate={{
+                    required: { value: true, message: translate('entity.validation.required') },
+                    validate: v => isNumber(v) || translate('entity.validation.number'),
+                  }}
+                />
+              ) : null}
               <ValidatedField
                 label={translate('lappLiApp.plait.targetCoveringRate')}
                 id="plait-targetCoveringRate"
                 name="targetCoveringRate"
                 data-cy="targetCoveringRate"
                 type="text"
+                validate={{
+                  min: { value: 0, message: translate('entity.validation.min', { min: 0 }) },
+                  max: { value: 1, message: translate('entity.validation.max', { max: 1 }) },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
               />
               <ValidatedField
                 label={translate('lappLiApp.plait.targetDegreeAngle')}
@@ -236,7 +243,7 @@ export const PlaitUpdate = (props: RouteComponentProps<{ id: string; strand_supp
                 type="text"
               />
               <ValidatedField
-                label={translate('lappLiApp.plait.anonymousMetalFiberMetalFiberKind')}
+                label={translate('lappLiApp.plait.anonymousMetalFiberMetalFiberKind') + ' *'}
                 id="plait-anonymousMetalFiberMetalFiberKind"
                 name="anonymousMetalFiberMetalFiberKind"
                 data-cy="anonymousMetalFiberMetalFiberKind"
@@ -249,7 +256,7 @@ export const PlaitUpdate = (props: RouteComponentProps<{ id: string; strand_supp
                 ))}
               </ValidatedField>
               <ValidatedField
-                label={translate('lappLiApp.plait.anonymousMetalFiberMilimeterDiameter')}
+                label={translate('lappLiApp.plait.anonymousMetalFiberMilimeterDiameter') + ' *'}
                 id="plait-anonymousMetalFiberMilimeterDiameter"
                 name="anonymousMetalFiberMilimeterDiameter"
                 data-cy="anonymousMetalFiberMilimeterDiameter"

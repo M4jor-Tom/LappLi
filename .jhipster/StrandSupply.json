@@ -78,9 +78,23 @@
     },
     {
       "relationshipType": "one-to-many",
+      "otherEntityName": "carrierPlait",
+      "otherEntityRelationshipName": "ownerStrandSupply",
+      "relationshipName": "carrierPlaits",
+      "otherEntityField": "productionStep"
+    },
+    {
+      "relationshipType": "one-to-many",
       "otherEntityName": "sheathing",
       "otherEntityRelationshipName": "ownerStrandSupply",
       "relationshipName": "sheathings",
+      "otherEntityField": "productionStep"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "flatSheathing",
+      "otherEntityRelationshipName": "ownerStrandSupply",
+      "relationshipName": "flatSheathings",
       "otherEntityField": "productionStep"
     },
     {

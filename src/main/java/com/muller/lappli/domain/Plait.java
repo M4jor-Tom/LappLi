@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractMachine;
 import com.muller.lappli.domain.abstracts.AbstractMetalFiber;
 import com.muller.lappli.domain.abstracts.AbstractOperation;
 import com.muller.lappli.domain.enumeration.MetalFiberKind;
@@ -17,6 +18,12 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Plait.
+ * An Operation consisting in a laying of a
+ * {@link com.muller.lappli.domain.abstracts.AbstractMetalFiber}
+ * component.
+ *
+ * It can be a {@link com.muller.lappli.domain.CopperFiber}
+ * or a {@link com.muller.lappli.domain.SteelFiber} component.
  */
 @Entity
 @Table(name = "plait")
@@ -29,6 +36,8 @@ public class Plait extends AbstractOperation<Plait> implements Serializable, INo
     @Column(name = "operation_layer", nullable = false)
     private Long operationLayer;
 
+    @DecimalMin(value = "0")
+    @DecimalMax(value = "1")
     @Column(name = "target_covering_rate")
     private Double targetCoveringRate;
 
@@ -85,6 +94,8 @@ public class Plait extends AbstractOperation<Plait> implements Serializable, INo
         return this;
     }
 
+    //[TODO] Solve bug: Any Plait equiped of CopperFibers will have it null
+    //[TODO] when being moved in operation list by another operation
     @Override
     public Boolean isConform() {
         return (
@@ -126,6 +137,24 @@ public class Plait extends AbstractOperation<Plait> implements Serializable, INo
     public Long getProductionStep() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public AbstractMachine<?> getOperatingMachine() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Double getHourPreparationTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
+    public Double getHourExecutionTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
     }
 
     @Override

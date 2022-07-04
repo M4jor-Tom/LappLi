@@ -11,6 +11,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A ElementKind.
+ * This class serves the
+ * {@link com.muller.lappli.domain.Element} class
+ * to define its physical properties.
  */
 @Entity
 @Table(name = "element_kind")

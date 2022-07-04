@@ -1,0 +1,34 @@
+{
+  "lappLiApp": {
+    "carrierPlait": {
+      "home": {
+        "title": "Carrier Plaits",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Carrier Plait",
+        "createOrEditLabel": "Create or edit a Carrier Plait",
+        "notFound": "No Carrier Plaits found"
+      },
+      "created": "A new Carrier Plait is created with identifier {{ param }}",
+      "updated": "A Carrier Plait is updated with identifier {{ param }}",
+      "deleted": "A Carrier Plait is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Carrier Plait {{ id }}?"
+      },
+      "detail": {
+        "title": "Carrier Plait"
+      },
+      "id": "ID",
+      "operationLayer": "Operation Layer",
+      "minimumDecaNewtonLoad": "Minimum Deca Newton Load",
+      "degreeAssemblyAngle": "Degree Assembly Angle",
+      "forcedEndPerBobinsCount": "Forced End Per Bobins Count",
+      "anonymousCarrierPlaitFiberNumber": "Anonymous Carrier Plait Fiber Number",
+      "anonymousCarrierPlaitFiberDesignation": "Anonymous Carrier Plait Fiber Designation",
+      "anonymousCarrierPlaitFiberDecitexTitration": "Anonymous Carrier Plait Fiber Decitex Titration",
+      "anonymousCarrierPlaitFiberGramPerSquareMilimeterPerMeterDensity": "Anonymous Carrier Plait Fiber Gram Per Square Milimeter Per Meter Density",
+      "anonymousCarrierPlaitFiberDecaNewtonLoad": "Anonymous Carrier Plait Fiber Deca Newton Load",
+      "carrierPlaitFiber": "Carrier Plait Fiber",
+      "ownerStrandSupply": "Owner Strand Supply"
+    }
+  }
+}

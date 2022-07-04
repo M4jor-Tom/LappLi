@@ -5,7 +5,6 @@ import com.muller.lappli.repository.ScreenRepository;
 import com.muller.lappli.service.ScreenService;
 import com.muller.lappli.service.StrandSupplyService;
 import com.muller.lappli.service.abstracts.AbstractNonCentralOperationServiceImpl;
-import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,33 +20,27 @@ public class ScreenServiceImpl extends AbstractNonCentralOperationServiceImpl<Sc
 
     private final Logger log = LoggerFactory.getLogger(ScreenServiceImpl.class);
 
-    private final ScreenRepository screenRepository;
-
     public ScreenServiceImpl(ScreenRepository screenRepository, StrandSupplyService strandSupplyService) {
-        super(strandSupplyService);
-        this.screenRepository = screenRepository;
+        super(strandSupplyService, screenRepository);
     }
 
     @Override
-    public Screen save(Screen screen, Boolean actualizeOwnerStrandSupply) {
-        log.debug("Request to save Screen : {}", screen);
+    protected Logger getLogger() {
+        return log;
+    }
 
-        if (actualizeOwnerStrandSupply) {
-            actualizeOwnerStrandSupply(screen);
-        }
-        return screenRepository.save(screen);
+    @Override
+    protected String getDomainClassName() {
+        return "Screen";
     }
 
     @Override
     public Optional<Screen> partialUpdate(Screen screen) {
         log.debug("Request to partially update Screen : {}", screen);
 
-        return screenRepository
+        return getJpaRepository()
             .findById(screen.getId())
             .map(existingScreen -> {
-                if (screen.getOperationLayer() != null) {
-                    existingScreen.setOperationLayer(screen.getOperationLayer());
-                }
                 if (screen.getAssemblyMeanIsSameThanAssemblys() != null) {
                     existingScreen.setAssemblyMeanIsSameThanAssemblys(screen.getAssemblyMeanIsSameThanAssemblys());
                 }
@@ -69,26 +62,6 @@ public class ScreenServiceImpl extends AbstractNonCentralOperationServiceImpl<Sc
 
                 return existingScreen;
             })
-            .map(screenRepository::save);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Screen> findAll() {
-        log.debug("Request to get all Screens");
-        return screenRepository.findAll();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<Screen> findOne(Long id) {
-        log.debug("Request to get Screen : {}", id);
-        return screenRepository.findById(id);
-    }
-
-    @Override
-    public void delete(Long id) {
-        log.debug("Request to delete Screen : {}", id);
-        screenRepository.deleteById(id);
+            .map(getJpaRepository()::save);
     }
 }

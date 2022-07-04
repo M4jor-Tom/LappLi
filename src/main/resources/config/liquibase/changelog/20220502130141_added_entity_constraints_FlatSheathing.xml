@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+    <!--
+        Added the constraints for entity FlatSheathing.
+    -->
+    <changeSet id="20220502130141-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="material_id"
+                                 baseTableName="flat_sheathing"
+                                 constraintName="fk_flat_sheathing__material_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="material"/>
+
+        <addForeignKeyConstraint baseColumnNames="owner_strand_supply_id"
+                                 baseTableName="flat_sheathing"
+                                 constraintName="fk_flat_sheathing__owner_strand_supply_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="strand_supply"/>
+    </changeSet>
+</databaseChangeLog>

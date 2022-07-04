@@ -1,5 +1,11 @@
 package com.muller.lappli.domain;
 
+/**
+ * A class to represent presets of the amounts
+ * of utility and completion components at each
+ * {@link com.muller.lappli.domain.CoreAssembly}
+ *  that we could find
+ */
 public class AssemblyPreset implements Cloneable {
 
     private Long utilityComponentsCount;
@@ -37,7 +43,7 @@ public class AssemblyPreset implements Cloneable {
     }
 
     public Boolean isCentralAccordingToTotalComponentsCount() {
-        return getTotalComponentsCount().equals(Long.valueOf(1));
+        return Long.valueOf(1).equals(getTotalComponentsCount());
     }
 
     public Boolean isCentralUtilityComponent() {

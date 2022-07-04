@@ -4,6 +4,9 @@ import com.muller.lappli.domain.enumeration.MetalFiberKind;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+/**
+ * A class representing any metal fiber
+ */
 @MappedSuperclass
 public abstract class AbstractMetalFiber<T extends AbstractMetalFiber<T>> extends AbstractDomainObject<T> {
 
@@ -13,6 +16,9 @@ public abstract class AbstractMetalFiber<T extends AbstractMetalFiber<T>> extend
     @Column(name = "designation", unique = true)
     private String designation;
 
+    /**
+     * The metal which composes this fiber
+     */
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "metal_fiber_kind", nullable = false)

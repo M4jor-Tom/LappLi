@@ -1,0 +1,25 @@
+{
+  "lappLiApp": {
+    "plaiterConfiguration": {
+      "home": {
+        "title": "PlaiterConfigurations",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Plaiter Configuration",
+        "createOrEditLabel": "Créer ou éditer un Plaiter Configuration",
+        "notFound": "Aucun Plaiter Configuration trouvé"
+      },
+      "created": "Un nouveau Plaiter Configuration a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Plaiter Configuration avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Plaiter Configuration avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Plaiter Configuration {{ id }} ?"
+      },
+      "detail": {
+        "title": "Plaiter Configuration"
+      },
+      "id": "ID",
+      "usedBobinsCount": "Used Bobins Count",
+      "plaiter": "Plaiter"
+    }
+  }
+}

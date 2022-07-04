@@ -38,14 +38,14 @@ class ContinuityWireLongitLayingResourceIT {
     private static final String DEFAULT_ANONYMOUS_CONTINUITY_WIRE_DESIGNATION = "AAAAAAAAAA";
     private static final String UPDATED_ANONYMOUS_CONTINUITY_WIRE_DESIGNATION = "BBBBBBBBBB";
 
-    private static final Double DEFAULT_ANONYMOUS_CONTINUITY_WIRE_GRAM_PER_METER_LINEAR_MASS = 1D;
-    private static final Double UPDATED_ANONYMOUS_CONTINUITY_WIRE_GRAM_PER_METER_LINEAR_MASS = 2D;
+    private static final Double DEFAULT_ANONYMOUS_CONTINUITY_WIRE_GRAM_PER_METER_LINEAR_MASS = 0D;
+    private static final Double UPDATED_ANONYMOUS_CONTINUITY_WIRE_GRAM_PER_METER_LINEAR_MASS = 1D;
 
     private static final MetalFiberKind DEFAULT_ANONYMOUS_CONTINUITY_WIRE_METAL_FIBER_KIND = MetalFiberKind.RED_COPPER;
     private static final MetalFiberKind UPDATED_ANONYMOUS_CONTINUITY_WIRE_METAL_FIBER_KIND = MetalFiberKind.TINNED_COPPER;
 
-    private static final Double DEFAULT_ANONYMOUS_CONTINUITY_WIRE_MILIMETER_DIAMETER = 1D;
-    private static final Double UPDATED_ANONYMOUS_CONTINUITY_WIRE_MILIMETER_DIAMETER = 2D;
+    private static final Double DEFAULT_ANONYMOUS_CONTINUITY_WIRE_MILIMETER_DIAMETER = 0D;
+    private static final Double UPDATED_ANONYMOUS_CONTINUITY_WIRE_MILIMETER_DIAMETER = 1D;
 
     private static final Flexibility DEFAULT_ANONYMOUS_CONTINUITY_WIRE_FLEXIBILITY = Flexibility.S;
     private static final Flexibility UPDATED_ANONYMOUS_CONTINUITY_WIRE_FLEXIBILITY = Flexibility.ES;
@@ -304,7 +304,7 @@ class ContinuityWireLongitLayingResourceIT {
         ContinuityWireLongitLaying testContinuityWireLongitLaying = continuityWireLongitLayingList.get(
             continuityWireLongitLayingList.size() - 1
         );
-        assertThat(testContinuityWireLongitLaying.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
+        assertThat(testContinuityWireLongitLaying.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireDesignation())
             .isEqualTo(UPDATED_ANONYMOUS_CONTINUITY_WIRE_DESIGNATION);
         assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireGramPerMeterLinearMass())
@@ -454,7 +454,7 @@ class ContinuityWireLongitLayingResourceIT {
         ContinuityWireLongitLaying testContinuityWireLongitLaying = continuityWireLongitLayingList.get(
             continuityWireLongitLayingList.size() - 1
         );
-        assertThat(testContinuityWireLongitLaying.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
+        assertThat(testContinuityWireLongitLaying.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireDesignation())
             .isEqualTo(UPDATED_ANONYMOUS_CONTINUITY_WIRE_DESIGNATION);
         assertThat(testContinuityWireLongitLaying.getAnonymousContinuityWireGramPerMeterLinearMass())

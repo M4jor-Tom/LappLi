@@ -1,6 +1,7 @@
 package com.muller.lappli.domain;
 
 import com.muller.lappli.domain.abstracts.AbstractUniformAtom;
+import com.muller.lappli.domain.enumeration.CylindricComponentKind;
 import com.muller.lappli.domain.interfaces.Article;
 import com.muller.lappli.domain.interfaces.PlasticAspectCylindricComponent;
 import java.io.Serializable;
@@ -10,7 +11,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A Bangle.
+ * A Bangle. It can be used to fill in Strands when they need
+ * completion.
  */
 @Entity
 @Table(name = "bangle")
@@ -41,6 +43,11 @@ public class Bangle extends AbstractUniformAtom<Bangle> implements Article, Seri
     @Override
     public Bangle getThis() {
         return this;
+    }
+
+    @Override
+    public CylindricComponentKind getCylindricComponentKind() {
+        return CylindricComponentKind.BANGLE;
     }
 
     @Override

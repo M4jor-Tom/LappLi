@@ -1,7 +1,9 @@
 package com.muller.lappli.service.impl;
 
+import com.muller.lappli.domain.CarrierPlait;
 import com.muller.lappli.domain.ContinuityWireLongitLaying;
 import com.muller.lappli.domain.CoreAssembly;
+import com.muller.lappli.domain.FlatSheathing;
 import com.muller.lappli.domain.IntersticeAssembly;
 import com.muller.lappli.domain.Plait;
 import com.muller.lappli.domain.Screen;
@@ -12,8 +14,10 @@ import com.muller.lappli.domain.TapeLaying;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
 import com.muller.lappli.domain.interfaces.INonCentralOperation;
 import com.muller.lappli.repository.StrandSupplyRepository;
+import com.muller.lappli.service.CarrierPlaitService;
 import com.muller.lappli.service.ContinuityWireLongitLayingService;
 import com.muller.lappli.service.CoreAssemblyService;
+import com.muller.lappli.service.FlatSheathingService;
 import com.muller.lappli.service.IntersticeAssemblyService;
 import com.muller.lappli.service.PlaitService;
 import com.muller.lappli.service.ScreenService;
@@ -54,7 +58,11 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
 
     private final PlaitService plaitService;
 
+    private final CarrierPlaitService carrierPlaitService;
+
     private final SheathingService sheathingService;
+
+    private final FlatSheathingService flatSheathingService;
 
     private final ContinuityWireLongitLayingService continuityWireLongitLayingService;
 
@@ -66,7 +74,9 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         @Lazy ScreenService screenService,
         @Lazy StripLayingService stripLayingService,
         @Lazy PlaitService plaitService,
+        @Lazy CarrierPlaitService carrierPlaitService,
         @Lazy SheathingService sheathingService,
+        @Lazy FlatSheathingService flatSheathingService,
         @Lazy ContinuityWireLongitLayingService continuityWireLongitLayingService
     ) {
         this.strandSupplyRepository = strandSupplyRepository;
@@ -76,14 +86,24 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         this.screenService = screenService;
         this.stripLayingService = stripLayingService;
         this.plaitService = plaitService;
+        this.carrierPlaitService = carrierPlaitService;
         this.sheathingService = sheathingService;
+        this.flatSheathingService = flatSheathingService;
         this.continuityWireLongitLayingService = continuityWireLongitLayingService;
     }
 
     public StrandSupply onRead(StrandSupply domainObject) {
-        if (domainObject != null && domainObject.getStrand() != null) {
-            for (AbstractSupply<?> supply : domainObject.getStrand().getSupplies()) {
-                supply.setObserverStrandSupply(domainObject);
+        if (domainObject != null) {
+            if (domainObject.getStrand() != null) {
+                for (AbstractSupply<?> supply : domainObject.getStrand().getSupplies()) {
+                    supply.setObserverStrandSupply(domainObject);
+                }
+            }
+            if (domainObject.getCarrierPlaits() != null) {
+                for (CarrierPlait carrierPlait : domainObject.getCarrierPlaits()) {
+                    domainObject.getCarrierPlaits().remove(carrierPlait);
+                    domainObject.addCarrierPlaits(carrierPlaitService.onRead(carrierPlait));
+                }
             }
         }
 
@@ -106,32 +126,42 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
 
         for (TapeLaying tapeLaying : toActualize.getTapeLayings()) {
             Boolean actualizeOwnerStrandSupply = false;
-            tapeLayingService.save(tapeLaying, actualizeOwnerStrandSupply);
+            tapeLayingService.save(tapeLaying, actualizeOwnerStrandSupply, false);
         }
 
         for (Screen screen : toActualize.getScreens()) {
             Boolean actualizeOwnerStrandSupply = false;
-            screenService.save(screen, actualizeOwnerStrandSupply);
+            screenService.save(screen, actualizeOwnerStrandSupply, false);
         }
 
         for (StripLaying stripLaying : toActualize.getStripLayings()) {
             Boolean actualizeOwnerStrandSupply = false;
-            stripLayingService.save(stripLaying, actualizeOwnerStrandSupply);
+            stripLayingService.save(stripLaying, actualizeOwnerStrandSupply, false);
         }
 
         for (Plait plait : toActualize.getPlaits()) {
             Boolean actualizeOwnerStrandSupply = false;
-            plaitService.save(plait, actualizeOwnerStrandSupply);
+            plaitService.save(plait, actualizeOwnerStrandSupply, false);
+        }
+
+        for (CarrierPlait carrierPlait : toActualize.getCarrierPlaits()) {
+            Boolean actualizeOwnerStrandSupply = false;
+            carrierPlaitService.save(carrierPlait, actualizeOwnerStrandSupply, false);
         }
 
         for (Sheathing sheathing : toActualize.getSheathings()) {
             Boolean actualizeOwnerStrandSupply = false;
-            sheathingService.save(sheathing, actualizeOwnerStrandSupply);
+            sheathingService.save(sheathing, actualizeOwnerStrandSupply, false);
+        }
+
+        for (FlatSheathing flatSheathing : toActualize.getFlatSheathings()) {
+            Boolean actualizeOwnerStrandSupply = false;
+            flatSheathingService.save(flatSheathing, actualizeOwnerStrandSupply, false);
         }
 
         for (ContinuityWireLongitLaying continuityWireLongitLaying : toActualize.getContinuityWireLongitLayings()) {
             Boolean actualizeOwnerStrandSupply = false;
-            continuityWireLongitLayingService.save(continuityWireLongitLaying, actualizeOwnerStrandSupply);
+            continuityWireLongitLayingService.save(continuityWireLongitLaying, actualizeOwnerStrandSupply, false);
         }
     }
 
