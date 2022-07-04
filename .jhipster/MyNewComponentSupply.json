@@ -1,0 +1,47 @@
+{
+  "name": "MyNewComponentSupply",
+  "fields": [
+    {
+      "fieldName": "apparitions",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "markingType",
+      "fieldType": "MarkingType",
+      "fieldValues": "LIFTING,SPIRALLY_COLORED,LONGITUDINALLY_COLORED,RINGY_COLORED,NUMBERED",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "supplyPosition",
+      "otherEntityRelationshipName": "myNewComponentSupply",
+      "relationshipValidateRules": "required",
+      "relationshipName": "ownerSupplyPosition",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "myNewComponent",
+      "otherEntityRelationshipName": "myNewComponentSupply",
+      "relationshipValidateRules": "required",
+      "relationshipName": "myNewComponent"
+    }
+  ],
+  "entityTableName": "my_new_component_supply",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220704112135"
+}

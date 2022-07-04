@@ -49,6 +49,10 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     private OneStudySupply oneStudySupply;
 
     @ManyToOne
+    @JsonIgnoreProperties(value = { "ownerSupplyPositions" }, allowSetters = true)
+    private MyNewComponentSupply myNewComponentSupply;
+
+    @ManyToOne
     @JsonIgnoreProperties(
         value = {
             "supplyPositions",
@@ -276,6 +280,19 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
 
     public SupplyPosition oneStudySupply(OneStudySupply oneStudySupply) {
         this.setOneStudySupply(oneStudySupply);
+        return this;
+    }
+
+    public MyNewComponentSupply getMyNewComponentSupply() {
+        return this.myNewComponentSupply;
+    }
+
+    public void setMyNewComponentSupply(MyNewComponentSupply myNewComponentSupply) {
+        this.myNewComponentSupply = myNewComponentSupply;
+    }
+
+    public SupplyPosition myNewComponentSupply(MyNewComponentSupply myNewComponentSupply) {
+        this.setMyNewComponentSupply(myNewComponentSupply);
         return this;
     }
 

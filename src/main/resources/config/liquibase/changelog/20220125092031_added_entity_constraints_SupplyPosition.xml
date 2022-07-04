@@ -32,6 +32,12 @@
                                  referencedColumnNames="id"
                                  referencedTableName="one_study_supply"/>
 
+        <addForeignKeyConstraint baseColumnNames="my_new_component_supply_id"
+                                 baseTableName="supply_position"
+                                 constraintName="fk_supply_position__my_new_component_supply_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="my_new_component_supply"/>
+
         <addForeignKeyConstraint baseColumnNames="owner_strand_id"
                                  baseTableName="supply_position"
                                  constraintName="fk_supply_position__owner_strand_id"
