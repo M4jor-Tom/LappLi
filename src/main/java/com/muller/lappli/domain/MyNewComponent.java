@@ -1,5 +1,9 @@
 package com.muller.lappli.domain;
 
+import com.muller.lappli.domain.abstracts.AbstractDomainObject;
+import com.muller.lappli.domain.enumeration.CylindricComponentKind;
+import com.muller.lappli.domain.interfaces.Article;
+import com.muller.lappli.domain.interfaces.CylindricComponent;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -12,14 +16,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "my_new_component")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class MyNewComponent implements Serializable {
+public class MyNewComponent extends AbstractDomainObject<MyNewComponent> implements Serializable, CylindricComponent, Article {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
 
     @NotNull
     @Column(name = "number", nullable = false, unique = true)
@@ -35,19 +34,6 @@ public class MyNewComponent implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public MyNewComponent id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getNumber() {
         return this.number;
     }
@@ -61,6 +47,7 @@ public class MyNewComponent implements Serializable {
         this.number = number;
     }
 
+    @Override
     public String getDesignation() {
         return this.designation;
     }
@@ -97,7 +84,7 @@ public class MyNewComponent implements Serializable {
         if (!(o instanceof MyNewComponent)) {
             return false;
         }
-        return id != null && id.equals(((MyNewComponent) o).id);
+        return getId() != null && getId().equals(((MyNewComponent) o).getId());
     }
 
     @Override
@@ -115,5 +102,43 @@ public class MyNewComponent implements Serializable {
             ", designation='" + getDesignation() + "'" +
             ", data=" + getData() +
             "}";
+    }
+
+    @Override
+    public MyNewComponent getThis() {
+        return this;
+    }
+
+    @Override
+    public Double getMilimeterDiameter() {
+        // [TODO] Either calculate this from other fields,
+        // [TODO] either store it by specifing it in jdl file
+        return Double.NaN;
+    }
+
+    @Override
+    public Double getGramPerMeterLinearMass() {
+        // [TODO] Either calculate this from other fields,
+        // [TODO] either store it by specifing it in jdl file
+        return null;
+    }
+
+    @Override
+    public Boolean isUtility() {
+        // [TODO] Set to true if it's a component made for some
+        // [TODO] Electrical/Thermal/Transfert purpose
+        // [TODO] Set to false if it's a component made for
+        // [TODO] Mecanical/Geometrical purposes only such as Bangles
+        return null;
+    }
+
+    @Override
+    public CylindricComponentKind getCylindricComponentKind() {
+        return CylindricComponentKind.MY_NEW_COMPONENT;
+    }
+
+    @Override
+    public Long getArticleNumber() {
+        return getNumber();
     }
 }

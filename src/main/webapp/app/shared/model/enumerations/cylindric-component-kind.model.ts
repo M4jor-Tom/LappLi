@@ -4,4 +4,5 @@ export enum CylindricComponentKind {
   ELEMENT = 'element',
   ONE_STUDY = 'one-study',
   STRAND = 'strand',
+  MY_NEW_COMPONENT = 'my-new-component',
 }

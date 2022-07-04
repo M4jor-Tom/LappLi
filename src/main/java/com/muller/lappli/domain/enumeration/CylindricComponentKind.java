@@ -9,4 +9,5 @@ public enum CylindricComponentKind {
     CUSTOM_COMPONENT,
     ELEMENT,
     ONE_STUDY,
+    MY_NEW_COMPONENT,
 }
