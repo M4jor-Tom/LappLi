@@ -4,6 +4,9 @@ import { Button, Row, Col, FormText } from 'reactstrap';
 import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { getEntity as getStrand } from '../strand/strand.reducer';
+import { createEntity as createSupplyPositionEntity } from '../supply-position/supply-position.reducer';
+
 import { IMyNewComponent } from 'app/shared/model/my-new-component.model';
 import { getEntities as getMyNewComponents } from 'app/entities/my-new-component/my-new-component.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './my-new-component-supply.reducer';
@@ -12,12 +15,18 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { MarkingType } from 'app/shared/model/enumerations/marking-type.model';
+import { getOutFromStudySupplyStrandSupplyComponent } from '../index-management/index-management-lib';
+import { IStrand } from 'app/shared/model/strand.model';
+import { ISupplyPosition } from 'app/shared/model/supply-position.model';
 
-export const MyNewComponentSupplyUpdate = (props: RouteComponentProps<{ id: string }>) => {
+export const MyNewComponentSupplyUpdate = (props: RouteComponentProps<{ id: string; strand_id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
+  const redirectionUrl = getOutFromStudySupplyStrandSupplyComponent(props.match.url, isNew);
+
+  const strand: IStrand = useAppSelector(state => state.strand.entity);
   const myNewComponents = useAppSelector(state => state.myNewComponent.entities);
   const myNewComponentSupplyEntity = useAppSelector(state => state.myNewComponentSupply.entity);
   const loading = useAppSelector(state => state.myNewComponentSupply.loading);
@@ -25,7 +34,7 @@ export const MyNewComponentSupplyUpdate = (props: RouteComponentProps<{ id: stri
   const updateSuccess = useAppSelector(state => state.myNewComponentSupply.updateSuccess);
   const markingTypeValues = Object.keys(MarkingType);
   const handleClose = () => {
-    props.history.push('/my-new-component-supply');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {
@@ -33,6 +42,7 @@ export const MyNewComponentSupplyUpdate = (props: RouteComponentProps<{ id: stri
       dispatch(reset());
     } else {
       dispatch(getEntity(props.match.params.id));
+      dispatch(getStrand(props.match.params.strand_id));
     }
 
     dispatch(getMyNewComponents({}));
@@ -48,10 +58,18 @@ export const MyNewComponentSupplyUpdate = (props: RouteComponentProps<{ id: stri
     const entity = {
       ...myNewComponentSupplyEntity,
       ...values,
+      __typeName: 'MyNewComponentSupply',
       myNewComponent: myNewComponents.find(it => it.id.toString() === values.myNewComponent.toString()),
     };
 
+    const createdSupplyPosition: ISupplyPosition = {
+      supplyApparitionsUsage: 0,
+      ownerStrand: strand,
+      myNewComponentSupply: entity,
+    };
+
     if (isNew) {
+      dispatch(createSupplyPositionEntity(createdSupplyPosition));
       dispatch(createEntity(entity));
     } else {
       dispatch(updateEntity(entity));
@@ -119,7 +137,7 @@ export const MyNewComponentSupplyUpdate = (props: RouteComponentProps<{ id: stri
               >
                 {markingTypeValues.map(markingType => (
                   <option value={markingType} key={markingType}>
-                    {translate('lappLiApp.MarkingType' + markingType)}
+                    {translate('lappLiApp.MarkingType.' + markingType)}
                   </option>
                 ))}
               </ValidatedField>
@@ -143,7 +161,7 @@ export const MyNewComponentSupplyUpdate = (props: RouteComponentProps<{ id: stri
               <FormText>
                 <Translate contentKey="entity.validation.required">This field is required.</Translate>
               </FormText>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/my-new-component-supply" replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to={redirectionUrl} replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">

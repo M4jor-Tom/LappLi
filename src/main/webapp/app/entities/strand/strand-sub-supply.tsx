@@ -55,7 +55,8 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
               {(strandEntity.customComponentSupplies && strandEntity.customComponentSupplies.length > 0) ||
               (strandEntity.bangleSupplies && strandEntity.bangleSupplies.length > 0) ||
               (strandEntity.elementSupplies && strandEntity.elementSupplies.length > 0) ||
-              (strandEntity.oneStudySupplies && strandEntity.oneStudySupplies.length > 0) ? (
+              (strandEntity.oneStudySupplies && strandEntity.oneStudySupplies.length > 0) ||
+              (strandEntity.myNewComponentSupplies && strandEntity.myNewComponentSupplies.length > 0) ? (
                 <Table responsive>
                   <thead>
                     <tr>
@@ -373,6 +374,74 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
                         </td>
                       </tr>
                     ))}
+                    {strandEntity.myNewComponentSupplies.map((myNewComponentSupply, i) => (
+                      <tr key={`entity-${i}`} data-cy="entityTable">
+                        <td>
+                          <Translate contentKey="global.menu.entities.myNewComponentSupply" />
+                        </td>
+                        <td>{myNewComponentSupply.apparitions}</td>
+                        <td>
+                          <Translate contentKey={`lappLiApp.MarkingType.${myNewComponentSupply.markingType}`} />
+                        </td>
+                        <td>
+                          <Link to={`${props.match.url}/my-new-component-supply/${myNewComponentSupply.id}`}>
+                            {myNewComponentSupply.myNewComponent.number}
+                          </Link>
+                        </td>
+                        <td>
+                          <Link to={`${props.match.url}/my-new-component-supply/${myNewComponentSupply.id}`}>
+                            {myNewComponentSupply.designation}
+                          </Link>
+                        </td>
+                        <td>{myNewComponentSupply.description}</td>
+                        <td>{myNewComponentSupply.meterQuantity}</td>
+                        <td>{myNewComponentSupply.myNewComponent?.milimeterDiameter}</td>
+                        <td>{myNewComponentSupply.myNewComponent?.gramPerMeterLinearMass}</td>
+                        <td>{myNewComponentSupply.bestLiftersNames}</td>
+                        <td>
+                          {myNewComponentSupply.surfaceMaterial ? (
+                            <Link to={`/material/${myNewComponentSupply.surfaceMaterial.id}`}>
+                              {myNewComponentSupply.surfaceMaterial.designation}
+                            </Link>
+                          ) : (
+                            ''
+                          )}
+                        </td>
+                        <td>{/* sufaceColor if you created it in MyNewComponent jdl */}</td>
+                        <td>{myNewComponentSupply.meterPerHourSpeed}</td>
+                        <td>{myNewComponentSupply.formatedHourPreparationTime}</td>
+                        <td>{myNewComponentSupply.formatedHourExecutionTime}</td>
+                        <td>{myNewComponentSupply.markingTechnique}</td>
+                        <td className="text-right">
+                          <div className="btn-group flex-btn-group-container">
+                            <Button
+                              tag={Link}
+                              to={`${props.match.url}/my-new-component-supply/${myNewComponentSupply.id}/edit`}
+                              color="primary"
+                              size="sm"
+                              data-cy="entityEditButton"
+                            >
+                              <FontAwesomeIcon icon="pencil-alt" />{' '}
+                              <span className="d-none d-md-inline">
+                                <Translate contentKey="entity.action.edit">Edit</Translate>
+                              </span>
+                            </Button>
+                            <Button
+                              tag={Link}
+                              to={`${props.match.url}/my-new-component-supply/${myNewComponentSupply.id}/delete`}
+                              color="danger"
+                              size="sm"
+                              data-cy="entityDeleteButton"
+                            >
+                              <FontAwesomeIcon icon="trash" />{' '}
+                              <span className="d-none d-md-inline">
+                                <Translate contentKey="entity.action.delete">Delete</Translate>
+                              </span>
+                            </Button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </Table>
               ) : (
@@ -422,6 +491,17 @@ export const StrandSubSupply = (props: RouteComponentProps<{ study_id: string; i
                 <FontAwesomeIcon icon="plus" />
                 &nbsp;
                 <Translate contentKey="lappLiApp.oneStudySupply.detail.title">One Study Supply</Translate>
+              </Link>
+              &nbsp;
+              <Link
+                to={`${props.match.url}/my-new-component-supply/new`}
+                className="btn btn-primary jh-create-entity"
+                id="jh-create-entity"
+                data-cy="entityCreateButton"
+              >
+                <FontAwesomeIcon icon="plus" />
+                &nbsp;
+                <Translate contentKey="lappLiApp.myNewComponentSupply.detail.title">My New Component Supply</Translate>
               </Link>
             </div>
           </dd>
