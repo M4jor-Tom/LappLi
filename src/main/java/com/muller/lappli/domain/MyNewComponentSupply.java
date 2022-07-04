@@ -1,9 +1,14 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractMarkedLiftedSupply;
+import com.muller.lappli.domain.enumeration.Color;
 import com.muller.lappli.domain.enumeration.MarkingType;
+import com.muller.lappli.domain.interfaces.CylindricComponent;
+import com.muller.lappli.domain.interfaces.PlasticAspectCylindricComponent;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -16,21 +21,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "my_new_component_supply")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class MyNewComponentSupply implements Serializable {
+public class MyNewComponentSupply extends AbstractMarkedLiftedSupply<MyNewComponentSupply> implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @NotNull
-    @Column(name = "apparitions", nullable = false)
-    private Long apparitions;
-
-    @Column(name = "description")
-    private String description;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -60,45 +53,7 @@ public class MyNewComponentSupply implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public MyNewComponentSupply id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getApparitions() {
-        return this.apparitions;
-    }
-
-    public MyNewComponentSupply apparitions(Long apparitions) {
-        this.setApparitions(apparitions);
-        return this;
-    }
-
-    public void setApparitions(Long apparitions) {
-        this.apparitions = apparitions;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public MyNewComponentSupply description(String description) {
-        this.setDescription(description);
-        return this;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
+    @Override
     public MarkingType getMarkingType() {
         return this.markingType;
     }
@@ -112,6 +67,7 @@ public class MyNewComponentSupply implements Serializable {
         this.markingType = markingType;
     }
 
+    @Override
     public Set<SupplyPosition> getOwnerSupplyPositions() {
         return this.ownerSupplyPositions;
     }
@@ -166,7 +122,7 @@ public class MyNewComponentSupply implements Serializable {
         if (!(o instanceof MyNewComponentSupply)) {
             return false;
         }
-        return id != null && id.equals(((MyNewComponentSupply) o).id);
+        return getId() != null && getId().equals(((MyNewComponentSupply) o).getId());
     }
 
     @Override
@@ -184,5 +140,33 @@ public class MyNewComponentSupply implements Serializable {
             ", description='" + getDescription() + "'" +
             ", markingType='" + getMarkingType() + "'" +
             "}";
+    }
+
+    @Override
+    public MyNewComponentSupply getThis() {
+        return this;
+    }
+
+    @Override
+    public Color getSurfaceColor() {
+        //Let's suppose there's no color. This can stay null.
+        return null;
+    }
+
+    @Override
+    public CylindricComponent getCylindricComponent() {
+        return getMyNewComponent();
+    }
+
+    @Override
+    public Optional<PlasticAspectCylindricComponent> getCylindricComponentIfPlasticAspect() {
+        //WATCH OUT HERE
+        //This example works for version 0.2.9, but upon merging
+        //feature/StrandSupplyAsSupply, the contract of this methods changes.
+        //See commit 7bf8fe454e639e2a6c31b2b21e71a4c0ca131729
+
+        //return Optional.of(getMyNewComponent()); //if MyNewComponent does implement or can be
+        //interpreated as a PlasticAspectCylindricComponent
+        return null; //otherwise
     }
 }
