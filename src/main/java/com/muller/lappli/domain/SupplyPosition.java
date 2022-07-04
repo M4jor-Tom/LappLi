@@ -65,6 +65,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
             "elementSupplies",
             "customComponentSupplies",
             "oneStudySupplies",
+            "myNewComponentSupplies",
         },
         allowSetters = true
     )
