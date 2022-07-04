@@ -120,7 +120,7 @@ public class MyNewComponent extends AbstractDomainObject<MyNewComponent> impleme
     public Double getGramPerMeterLinearMass() {
         // [TODO] Either calculate this from other fields,
         // [TODO] either store it by specifing it in jdl file
-        return null;
+        return Double.NaN;
     }
 
     @Override
@@ -129,7 +129,7 @@ public class MyNewComponent extends AbstractDomainObject<MyNewComponent> impleme
         // [TODO] Electrical/Thermal/Transfert purpose
         // [TODO] Set to false if it's a component made for
         // [TODO] Mecanical/Geometrical purposes only such as Bangles
-        return null;
+        return true;
     }
 
     @Override
