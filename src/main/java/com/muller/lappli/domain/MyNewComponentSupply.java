@@ -30,7 +30,7 @@ public class MyNewComponentSupply extends AbstractMarkedLiftedSupply<MyNewCompon
     @Column(name = "marking_type", nullable = false)
     private MarkingType markingType;
 
-    @OneToMany(mappedBy = "myNewComponentSupply")
+    @OneToMany(mappedBy = "myNewComponentSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
         value = {
