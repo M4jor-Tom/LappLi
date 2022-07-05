@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+    <!--
+        Added the constraints for entity MyNewOperation.
+    -->
+    <changeSet id="20220705090243-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="my_new_component_id"
+                                 baseTableName="my_new_operation"
+                                 constraintName="fk_my_new_operation__my_new_component_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="my_new_component"/>
+
+        <addForeignKeyConstraint baseColumnNames="owner_strand_supply_id"
+                                 baseTableName="my_new_operation"
+                                 constraintName="fk_my_new_operation__owner_strand_supply_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="strand_supply"/>
+    </changeSet>
+</databaseChangeLog>

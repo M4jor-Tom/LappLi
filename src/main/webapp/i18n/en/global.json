@@ -48,6 +48,7 @@
         "flatSheathing": "Flat Sheathing",
         "myNewComponent": "My New Component",
         "myNewComponentSupply": "My New Component Supply",
+        "myNewOperation": "My New Operation",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

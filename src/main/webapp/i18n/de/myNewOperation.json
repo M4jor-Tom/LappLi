@@ -1,0 +1,30 @@
+{
+  "lappLiApp": {
+    "myNewOperation": {
+      "home": {
+        "title": "My New Operations",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "My New Operation erstellen",
+        "createOrEditLabel": "My New Operation erstellen oder bearbeiten",
+        "notFound": "Keine My New Operations gefunden"
+      },
+      "created": "My New Operation erstellt mit ID {{ param }}",
+      "updated": "My New Operation aktualisiert mit ID {{ param }}",
+      "deleted": "My New Operation gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll My New Operation {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "My New Operation"
+      },
+      "id": "ID",
+      "operationLayer": "Operation Layer",
+      "operationData": "Operation Data",
+      "anonymousMyNewComponentNumber": "Anonymous My New Component Number",
+      "anonymousMyNewComponentDesignation": "Anonymous My New Component Designation",
+      "anonymousMyNewComponentData": "Anonymous My New Component Data",
+      "myNewComponent": "My New Component",
+      "ownerStrandSupply": "Owner Strand Supply"
+    }
+  }
+}

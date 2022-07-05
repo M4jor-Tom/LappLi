@@ -127,6 +127,11 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
     private Set<ContinuityWireLongitLaying> continuityWireLongitLayings = new HashSet<>();
 
+    @OneToMany(mappedBy = "ownerStrandSupply", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "ownerStrandSupply" }, allowSetters = true)
+    private Set<MyNewOperation> myNewOperations = new HashSet<>();
+
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @NotNull
     @JsonIgnoreProperties(
@@ -971,6 +976,37 @@ public class StrandSupply extends AbstractDomainObject<StrandSupply> implements 
     public StrandSupply removeContinuityWireLongitLayings(ContinuityWireLongitLaying continuityWireLongitLaying) {
         this.continuityWireLongitLayings.remove(continuityWireLongitLaying);
         continuityWireLongitLaying.setOwnerStrandSupply(null);
+        return this;
+    }
+
+    public Set<MyNewOperation> getMyNewOperations() {
+        return this.myNewOperations;
+    }
+
+    public void setMyNewOperations(Set<MyNewOperation> myNewOperations) {
+        if (this.myNewOperations != null) {
+            this.myNewOperations.forEach(i -> i.setOwnerStrandSupply(null));
+        }
+        if (myNewOperations != null) {
+            myNewOperations.forEach(i -> i.setOwnerStrandSupply(this));
+        }
+        this.myNewOperations = myNewOperations;
+    }
+
+    public StrandSupply myNewOperations(Set<MyNewOperation> myNewOperations) {
+        this.setMyNewOperations(myNewOperations);
+        return this;
+    }
+
+    public StrandSupply addMyNewOperations(MyNewOperation myNewOperation) {
+        this.myNewOperations.add(myNewOperation);
+        myNewOperation.setOwnerStrandSupply(this);
+        return this;
+    }
+
+    public StrandSupply removeMyNewOperations(MyNewOperation myNewOperation) {
+        this.myNewOperations.remove(myNewOperation);
+        myNewOperation.setOwnerStrandSupply(null);
         return this;
     }
 

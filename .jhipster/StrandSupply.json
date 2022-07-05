@@ -105,6 +105,13 @@
       "otherEntityField": "productionStep"
     },
     {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "myNewOperation",
+      "otherEntityRelationshipName": "ownerStrandSupply",
+      "relationshipName": "myNewOperations",
+      "otherEntityField": "productionStep"
+    },
+    {
       "relationshipType": "many-to-one",
       "otherEntityName": "strand",
       "otherEntityRelationshipName": "strandSupply",

@@ -93,6 +93,8 @@ import flatSheathing from 'app/entities/flat-sheathing/flat-sheathing.reducer';
 import myNewComponent from 'app/entities/my-new-component/my-new-component.reducer';
 // prettier-ignore
 import myNewComponentSupply from 'app/entities/my-new-component-supply/my-new-component-supply.reducer';
+// prettier-ignore
+import myNewOperation from 'app/entities/my-new-operation/my-new-operation.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -147,6 +149,7 @@ const rootReducer = {
   flatSheathing,
   myNewComponent,
   myNewComponentSupply,
+  myNewOperation,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };
