@@ -91,6 +91,8 @@ import plaiterConfiguration from 'app/entities/plaiter-configuration/plaiter-con
 import flatSheathing from 'app/entities/flat-sheathing/flat-sheathing.reducer';
 // prettier-ignore
 import myNewComponent from 'app/entities/my-new-component/my-new-component.reducer';
+// prettier-ignore
+import myNewComponentSupply from 'app/entities/my-new-component-supply/my-new-component-supply.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -144,6 +146,7 @@ const rootReducer = {
   plaiterConfiguration,
   flatSheathing,
   myNewComponent,
+  myNewComponentSupply,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };

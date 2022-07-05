@@ -270,6 +270,10 @@ public class Strand extends AbstractDomainObject<Strand> implements Designable, 
         return getSuppliesByKind(CylindricComponentKind.ONE_STUDY);
     }
 
+    public Set<MyNewComponentSupply> getMyNewComponentSupplies() {
+        return getSuppliesByKind(CylindricComponentKind.MY_NEW_COMPONENT);
+    }
+
     /**
      * @param <T> The AbstractSupply daughter class represented by supplyKind
      * @param cylindricComponentKind the kind of component expected

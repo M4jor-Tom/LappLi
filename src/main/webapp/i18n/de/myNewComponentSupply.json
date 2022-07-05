@@ -1,0 +1,28 @@
+{
+  "lappLiApp": {
+    "myNewComponentSupply": {
+      "home": {
+        "title": "My New Component Supplies",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "My New Component Supply erstellen",
+        "createOrEditLabel": "My New Component Supply erstellen oder bearbeiten",
+        "notFound": "Keine My New Component Supplies gefunden"
+      },
+      "created": "My New Component Supply erstellt mit ID {{ param }}",
+      "updated": "My New Component Supply aktualisiert mit ID {{ param }}",
+      "deleted": "My New Component Supply gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll My New Component Supply {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "My New Component Supply"
+      },
+      "id": "ID",
+      "apparitions": "Apparitions",
+      "description": "Description",
+      "markingType": "Marking Type",
+      "ownerSupplyPosition": "Owner Supply Position",
+      "myNewComponent": "My New Component"
+    }
+  }
+}

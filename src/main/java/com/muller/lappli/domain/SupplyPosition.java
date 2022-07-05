@@ -49,6 +49,10 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
     private OneStudySupply oneStudySupply;
 
     @ManyToOne
+    @JsonIgnoreProperties(value = { "ownerSupplyPositions" }, allowSetters = true)
+    private MyNewComponentSupply myNewComponentSupply;
+
+    @ManyToOne
     @JsonIgnoreProperties(
         value = {
             "supplyPositions",
@@ -61,6 +65,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
             "elementSupplies",
             "customComponentSupplies",
             "oneStudySupplies",
+            "myNewComponentSupplies",
         },
         allowSetters = true
     )
@@ -157,6 +162,8 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
             return getElementSupply();
         } else if (getOneStudySupply() != null) {
             return getOneStudySupply();
+        } else if (getMyNewComponentSupply() != null) {
+            return getMyNewComponentSupply();
         }
 
         return null;
@@ -174,6 +181,7 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
         setCustomComponentSupply(null);
         setElementSupply(null);
         setOneStudySupply(null);
+        setMyNewComponentSupply(null);
 
         if (supply == null) {
             return;
@@ -189,6 +197,9 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
                 break;
             case ONE_STUDY:
                 setOneStudySupply((OneStudySupply) supply);
+                break;
+            case MY_NEW_COMPONENT:
+                setMyNewComponentSupply((MyNewComponentSupply) supply);
                 break;
             default:
                 break;
@@ -276,6 +287,19 @@ public class SupplyPosition extends AbstractDomainObject<SupplyPosition> impleme
 
     public SupplyPosition oneStudySupply(OneStudySupply oneStudySupply) {
         this.setOneStudySupply(oneStudySupply);
+        return this;
+    }
+
+    public MyNewComponentSupply getMyNewComponentSupply() {
+        return this.myNewComponentSupply;
+    }
+
+    public void setMyNewComponentSupply(MyNewComponentSupply myNewComponentSupply) {
+        this.myNewComponentSupply = myNewComponentSupply;
+    }
+
+    public SupplyPosition myNewComponentSupply(MyNewComponentSupply myNewComponentSupply) {
+        this.setMyNewComponentSupply(myNewComponentSupply);
         return this;
     }
 

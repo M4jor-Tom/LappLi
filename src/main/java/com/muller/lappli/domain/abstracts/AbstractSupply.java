@@ -8,6 +8,7 @@ import com.muller.lappli.domain.CustomComponentSupply;
 import com.muller.lappli.domain.DomainManager;
 import com.muller.lappli.domain.ElementSupply;
 import com.muller.lappli.domain.Material;
+import com.muller.lappli.domain.MyNewComponentSupply;
 import com.muller.lappli.domain.OneStudySupply;
 import com.muller.lappli.domain.StrandSupply;
 import com.muller.lappli.domain.SupplyPosition;
@@ -38,6 +39,7 @@ import javax.validation.constraints.NotNull;
         @JsonSubTypes.Type(value = CustomComponentSupply.class, name = "CustomComponentSupply"),
         @JsonSubTypes.Type(value = ElementSupply.class, name = "ElementSupply"),
         @JsonSubTypes.Type(value = OneStudySupply.class, name = "OneStudySupply"),
+        @JsonSubTypes.Type(value = MyNewComponentSupply.class, name = "MyNewComponentSupply"),
     }
 )
 @MappedSuperclass

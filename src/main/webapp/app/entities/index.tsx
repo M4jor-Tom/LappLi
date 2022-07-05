@@ -44,6 +44,7 @@ import Plaiter from './plaiter';
 import PlaiterConfiguration from './plaiter-configuration';
 import FlatSheathing from './flat-sheathing';
 import MyNewComponent from './my-new-component';
+import MyNewComponentSupply from './my-new-component-supply';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -90,6 +91,7 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}plaiter-configuration`} component={PlaiterConfiguration} />
       <ErrorBoundaryRoute path={`${match.url}flat-sheathing`} component={FlatSheathing} />
       <ErrorBoundaryRoute path={`${match.url}my-new-component`} component={MyNewComponent} />
+      <ErrorBoundaryRoute path={`${match.url}my-new-component-supply`} component={MyNewComponentSupply} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>

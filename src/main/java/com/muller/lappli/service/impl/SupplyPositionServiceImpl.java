@@ -3,6 +3,7 @@ package com.muller.lappli.service.impl;
 import com.muller.lappli.domain.BangleSupply;
 import com.muller.lappli.domain.CustomComponentSupply;
 import com.muller.lappli.domain.ElementSupply;
+import com.muller.lappli.domain.MyNewComponentSupply;
 import com.muller.lappli.domain.OneStudySupply;
 import com.muller.lappli.domain.SupplyPosition;
 import com.muller.lappli.domain.abstracts.AbstractSupply;
@@ -10,6 +11,7 @@ import com.muller.lappli.repository.SupplyPositionRepository;
 import com.muller.lappli.service.BangleSupplyService;
 import com.muller.lappli.service.CustomComponentSupplyService;
 import com.muller.lappli.service.ElementSupplyService;
+import com.muller.lappli.service.MyNewComponentSupplyService;
 import com.muller.lappli.service.OneStudySupplyService;
 import com.muller.lappli.service.SupplyPositionService;
 import java.util.List;
@@ -40,18 +42,22 @@ public class SupplyPositionServiceImpl implements SupplyPositionService {
 
     private final OneStudySupplyService oneStudySupplyService;
 
+    private final MyNewComponentSupplyService myNewComponentSupplyService;
+
     public SupplyPositionServiceImpl(
         SupplyPositionRepository supplyPositionRepository,
         BangleSupplyService bangleSupplyService,
         CustomComponentSupplyService customComponentSupplyService,
         ElementSupplyService elementSupplyService,
-        OneStudySupplyService oneStudySupplyService
+        OneStudySupplyService oneStudySupplyService,
+        MyNewComponentSupplyService myNewComponentSupplyService
     ) {
         this.supplyPositionRepository = supplyPositionRepository;
         this.bangleSupplyService = bangleSupplyService;
         this.customComponentSupplyService = customComponentSupplyService;
         this.elementSupplyService = elementSupplyService;
         this.oneStudySupplyService = oneStudySupplyService;
+        this.myNewComponentSupplyService = myNewComponentSupplyService;
     }
 
     //[COMPONENT_KIND]
@@ -70,6 +76,9 @@ public class SupplyPositionServiceImpl implements SupplyPositionService {
                     break;
                 case ONE_STUDY:
                     oneStudySupplyService.save((OneStudySupply) supply);
+                    break;
+                case MY_NEW_COMPONENT:
+                    myNewComponentSupplyService.save((MyNewComponentSupply) supply);
                     break;
                 default:
                     break;

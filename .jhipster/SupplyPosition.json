@@ -46,6 +46,13 @@
     },
     {
       "relationshipType": "many-to-one",
+      "otherEntityName": "myNewComponentSupply",
+      "otherEntityRelationshipName": "ownerSupplyPosition",
+      "relationshipName": "myNewComponentSupply",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
       "otherEntityName": "strand",
       "otherEntityRelationshipName": "supplyPositions",
       "relationshipName": "ownerStrand",

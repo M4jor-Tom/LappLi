@@ -74,6 +74,8 @@ public class Lifter extends AbstractMachine<Lifter> implements Serializable {
             return supportsBangleSupply((BangleSupply) abstractLiftedSupply);
         } else if (abstractLiftedSupply instanceof OneStudySupply) {
             return supportsOneStudySupply((OneStudySupply) abstractLiftedSupply);
+        } else if (abstractLiftedSupply instanceof MyNewComponentSupply) {
+            return supportsMyNewComponentSupply((MyNewComponentSupply) abstractLiftedSupply);
         }
 
         (new UnknownSupplyException(abstractLiftedSupply.toString())).printStackTrace();
@@ -105,6 +107,14 @@ public class Lifter extends AbstractMachine<Lifter> implements Serializable {
             supportsMarkingType(oneStudySupply.getMarkingType()) &&
             supportsMilimeterDiameter(oneStudySupply.getMilimeterDiameter()) &&
             supportsMarkingTechnique(oneStudySupply.getMarkingTechnique())
+        );
+    }
+
+    public Boolean supportsMyNewComponentSupply(MyNewComponentSupply myNewComponentSupply) {
+        return (
+            supportsMarkingType(myNewComponentSupply.getMarkingType()) &&
+            supportsMilimeterDiameter(myNewComponentSupply.getMilimeterDiameter()) &&
+            supportsMarkingTechnique(myNewComponentSupply.getMarkingTechnique())
         );
     }
 

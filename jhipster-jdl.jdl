@@ -216,6 +216,12 @@ entity ElementKindEdition {
     newMilimeterInsulationThickness Double
 }
 
+entity MyNewComponentSupply {
+	apparitions Long required
+    description String
+    markingType MarkingType required
+}
+
 entity MyNewComponent {
     number Long unique required
     designation String unique required
@@ -286,6 +292,7 @@ relationship OneToMany {
     BangleSupply{ownerSupplyPosition(designation) required} to SupplyPosition{bangleSupply(designation)}
     CustomComponentSupply{ownerSupplyPosition(designation) required} to SupplyPosition{customComponentSupply(designation)}
 	OneStudySupply{ownerSupplyPosition(designation) required} to SupplyPosition{oneStudySupply(designation)}
+	MyNewComponentSupply{ownerSupplyPosition(designation) required} to SupplyPosition{MyNewComponentSupply(designation)}
 }
 
 relationship OneToMany {
@@ -413,6 +420,10 @@ relationship ManyToOne {
 
 relationship ManyToOne {
 	ElementSupply{element(designationWithColor) required} to Element
+}
+
+relationship ManyToOne {
+    MyNewComponentSupply{myNewComponent required} to MyNewComponent
 }
 
 relationship ManyToOne {

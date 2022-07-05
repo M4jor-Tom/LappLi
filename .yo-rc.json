@@ -83,8 +83,9 @@
       "Plaiter",
       "PlaiterConfiguration",
       "FlatSheathing",
-      "MyNewComponent"
+      "MyNewComponent",
+      "MyNewComponentSupply"
     ],
-    "lastLiquibaseTimestamp": 1656927667000
+    "lastLiquibaseTimestamp": 1656933695000
   }
 }

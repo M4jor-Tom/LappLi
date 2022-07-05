@@ -6,6 +6,7 @@ import { IOneStudySupply } from 'app/shared/model/one-study-supply.model';
 import { IStrand } from 'app/shared/model/strand.model';
 import { IIntersticeAssembly } from 'app/shared/model/interstice-assembly.model';
 import { IAbstractSupply } from './abstract-supply.model';
+import { IMyNewComponentSupply } from './my-new-component-supply.model';
 
 export interface ISupplyPosition {
   id?: number;
@@ -16,6 +17,7 @@ export interface ISupplyPosition {
   bangleSupply?: IBangleSupply | null;
   customComponentSupply?: ICustomComponentSupply | null;
   oneStudySupply?: IOneStudySupply | null;
+  myNewComponentSupply?: IMyNewComponentSupply | null;
   ownerStrand?: IStrand | null;
   ownerIntersticeAssembly?: IIntersticeAssembly | null;
 }

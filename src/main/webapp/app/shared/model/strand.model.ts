@@ -3,6 +3,7 @@ import { IElementSupply } from 'app/shared/model/element-supply.model';
 import { IBangleSupply } from 'app/shared/model/bangle-supply.model';
 import { ICustomComponentSupply } from 'app/shared/model/custom-component-supply.model';
 import { IOneStudySupply } from 'app/shared/model/one-study-supply.model';
+import { IMyNewComponentSupply } from './my-new-component-supply.model';
 import { IStudy } from 'app/shared/model/study.model';
 
 export interface IStrand {
@@ -14,6 +15,7 @@ export interface IStrand {
   bangleSupplies?: IBangleSupply[] | null;
   customComponentSupplies?: ICustomComponentSupply[] | null;
   oneStudySupplies?: IOneStudySupply[] | null;
+  myNewComponentSupplies?: IMyNewComponentSupply[] | null;
   suppliesCountsCommonDividers?: number[];
   undividedSuppliedComponentsCount?: number;
   futureStudy?: IStudy;
