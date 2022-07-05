@@ -500,6 +500,17 @@ export const StrandSupplySubOperation = (props: RouteComponentProps<{ strand_sup
         &nbsp;
         <Translate contentKey="lappLiApp.continuityWireLongitLaying.detail.title">Continuity Wire Longitudinal Laying</Translate>
       </Link>
+      &nbsp;
+      <Link
+        to={`${props.match.url}/my-new-operation/new`}
+        className="btn btn-primary jh-create-entity"
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+      >
+        <FontAwesomeIcon icon="plus" />
+        &nbsp;
+        <Translate contentKey="lappLiApp.myNewOperation.detail.title">My New Operation</Translate>
+      </Link>
       <div className="table-responsive">
         {strandSupplyEntity.centralAssembly ||
         (strandSupplyEntity.nonCentralOperations && strandSupplyEntity.nonCentralOperations.length > 0) ? (

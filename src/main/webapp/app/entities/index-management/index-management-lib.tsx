@@ -53,6 +53,10 @@ function getOutFromStudySupplyStrandContinuityWireLongitLaying(url: string, isNe
   return getOutFromStudySupplyStrandComponent(url, isNew);
 }
 
+function getOutFromStudySupplyStrandMyNewOperation(url: string, isNew: boolean): string {
+  return getOutFromStudySupplyStrandComponent(url, isNew);
+}
+
 function getOutFromStudySupplyStrandAssemblyComponent(url: string, isNew: boolean): string {
   return getOutFromStudySupplyStrandComponent(url, isNew);
 }
@@ -211,6 +215,7 @@ export {
   getOutFromStudySupplyStrandSheathing,
   getOutFromStudySupplyStrandFlatSheathing,
   getOutFromStudySupplyStrandContinuityWireLongitLaying,
+  getOutFromStudySupplyStrandMyNewOperation,
   getOutFromStudySupplyStrandAssemblyComponent,
   getOutFromStudySupplyStrandSupplyComponent,
   getStrandSupplyValidatedField,

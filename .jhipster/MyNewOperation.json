@@ -1,0 +1,54 @@
+{
+  "name": "MyNewOperation",
+  "fields": [
+    {
+      "fieldName": "operationLayer",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "operationData",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "anonymousMyNewComponentNumber",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "anonymousMyNewComponentDesignation",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "anonymousMyNewComponentData",
+      "fieldType": "Double"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "myNewComponent",
+      "otherEntityRelationshipName": "myNewOperation",
+      "relationshipName": "myNewComponent",
+      "otherEntityField": "designation"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "strandSupply",
+      "otherEntityRelationshipName": "myNewOperations",
+      "relationshipValidateRules": "required",
+      "relationshipName": "ownerStrandSupply",
+      "otherEntityField": "designation"
+    }
+  ],
+  "entityTableName": "my_new_operation",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220705090243"
+}

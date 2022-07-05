@@ -1,5 +1,13 @@
 service * with serviceImpl
 
+entity MyNewOperation {
+    operationLayer Long required
+    operationData Double required
+    anonymousMyNewComponentNumber Long
+    anonymousMyNewComponentDesignation String
+    anonymousMyNewComponentData Double
+}
+
 entity Screen {
     operationLayer Long required
     assemblyMeanIsSameThanAssemblys Boolean required
@@ -335,6 +343,9 @@ relationship OneToMany {
 
     //ContinuityWireLongitLayings
     StrandSupply{continuityWireLongitLayings(productionStep)} to ContinuityWireLongitLaying{ownerStrandSupply(designation) required}
+
+    //MyNewOperations
+    StrandSupply{myNewOperations(productionStep)} to MyNewOperation{ownerStrandSupply(designation) required}
 }
 
 relationship OneToMany {
@@ -355,6 +366,10 @@ relationship OneToMany {
 
 relationship ManyToOne {
     ContinuityWireLongitLaying{continuityWire(designation)} to ContinuityWire
+}
+
+relationship ManyToOne {
+    MyNewOperation{myNewComponent(designation)} to MyNewComponent
 }
 
 relationship ManyToOne {

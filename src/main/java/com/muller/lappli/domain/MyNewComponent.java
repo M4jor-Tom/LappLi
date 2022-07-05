@@ -141,4 +141,9 @@ public class MyNewComponent extends AbstractDomainObject<MyNewComponent> impleme
     public Long getArticleNumber() {
         return getNumber();
     }
+
+    @Override
+    public Boolean isConform() {
+        return getNumber() != null && getNumber() != null && getData() != null && !getData().isNaN();
+    }
 }

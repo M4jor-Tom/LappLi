@@ -115,6 +115,8 @@ public class CacheConfiguration {
             createCache(cm, com.muller.lappli.domain.MyNewComponent.class.getName());
             createCache(cm, com.muller.lappli.domain.MyNewComponentSupply.class.getName());
             createCache(cm, com.muller.lappli.domain.MyNewComponentSupply.class.getName() + ".ownerSupplyPositions");
+            createCache(cm, com.muller.lappli.domain.StrandSupply.class.getName() + ".myNewOperations");
+            createCache(cm, com.muller.lappli.domain.MyNewOperation.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -17,4 +17,5 @@ public enum OperationKind {
     CONTINUITY_WIRE_LONGIT_LAYING,
     CARRIER_PLAIT,
     FLAT_SHEATHING,
+    MY_NEW_OPERATION,
 }

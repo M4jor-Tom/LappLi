@@ -12,7 +12,8 @@
       "CARRIER_PLAIT": "Tresse Porteuse",
       "SHEATHING": "Gainage",
       "FLAT_SHEATHING": "Gainage Plat",
-      "CONTINUITY_WIRE_LONGIT_LAYING": "Pose de Fil de Continuité en Long"
+      "CONTINUITY_WIRE_LONGIT_LAYING": "Pose de Fil de Continuité en Long",
+      "MY_NEW_OPERATION": "Ma nouvelle opération"
     }
   }
 }

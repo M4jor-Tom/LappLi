@@ -49,6 +49,8 @@ import FlatSheathingUpdate from '../flat-sheathing/flat-sheathing-update';
 import FlatSheathingDeleteDialog from '../flat-sheathing/flat-sheathing-delete-dialog';
 import MyNewComponentSupplyUpdate from '../my-new-component-supply/my-new-component-supply-update';
 import MyNewComponentSupplyDeleteDialog from '../my-new-component-supply/my-new-component-supply-delete-dialog';
+import MyNewOperationUpdate from '../my-new-operation/my-new-operation-update';
+import MyNewOperationDeleteDialog from '../my-new-operation/my-new-operation-delete-dialog';
 
 const studySuppliesUrlPrefix = '/:study_id/study-supplies';
 
@@ -187,6 +189,22 @@ const Routes = ({ match }) => (
         exact
         path={`${match.url + strandSupplyOperationZoneUrlPrefix}/continuity-wire-longit-laying/:id/delete`}
         component={ContinuityWireLongitLayingDeleteDialog}
+      />
+
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/my-new-operation/new`}
+        component={MyNewOperationUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/my-new-operation/:id/edit`}
+        component={MyNewOperationUpdate}
+      />
+      <ErrorBoundaryRoute
+        exact
+        path={`${match.url + strandSupplyOperationZoneUrlPrefix}/my-new-operation/:id/delete`}
+        component={MyNewOperationDeleteDialog}
       />
 
       <ErrorBoundaryRoute

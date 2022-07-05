@@ -56,6 +56,7 @@
     <include file="config/liquibase/changelog/20220502130141_added_entity_FlatSheathing.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220704094107_added_entity_MyNewComponent.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220704112135_added_entity_MyNewComponentSupply.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220705090243_added_entity_MyNewOperation.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20211124113148_added_entity_constraints_Element.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211124113149_added_entity_constraints_ElementKind.xml" relativeToChangelogFile="false"/>
@@ -87,6 +88,7 @@
     <include file="config/liquibase/changelog/20220506133824_added_entity_constraints_PlaiterConfiguration.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220502130141_added_entity_constraints_FlatSheathing.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220704112135_added_entity_constraints_MyNewComponentSupply.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220705090243_added_entity_constraints_MyNewOperation.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>
