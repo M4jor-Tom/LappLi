@@ -56,7 +56,7 @@ public class MyNewOperationResource {
         if (myNewOperation.getId() != null) {
             throw new BadRequestAlertException("A new myNewOperation cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        MyNewOperation result = myNewOperationService.save(myNewOperation);
+        MyNewOperation result = myNewOperationService.save(myNewOperation, true, true);
         return ResponseEntity
             .created(new URI("/api/my-new-operations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -90,7 +90,7 @@ public class MyNewOperationResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        MyNewOperation result = myNewOperationService.save(myNewOperation);
+        MyNewOperation result = myNewOperationService.save(myNewOperation, true, true);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, myNewOperation.getId().toString()))

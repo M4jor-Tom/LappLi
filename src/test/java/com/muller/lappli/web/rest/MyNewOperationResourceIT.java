@@ -275,7 +275,7 @@ class MyNewOperationResourceIT {
         List<MyNewOperation> myNewOperationList = myNewOperationRepository.findAll();
         assertThat(myNewOperationList).hasSize(databaseSizeBeforeUpdate);
         MyNewOperation testMyNewOperation = myNewOperationList.get(myNewOperationList.size() - 1);
-        assertThat(testMyNewOperation.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
+        assertThat(testMyNewOperation.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testMyNewOperation.getOperationData()).isEqualTo(UPDATED_OPERATION_DATA);
         assertThat(testMyNewOperation.getAnonymousMyNewComponentNumber()).isEqualTo(UPDATED_ANONYMOUS_MY_NEW_COMPONENT_NUMBER);
         assertThat(testMyNewOperation.getAnonymousMyNewComponentDesignation()).isEqualTo(UPDATED_ANONYMOUS_MY_NEW_COMPONENT_DESIGNATION);
@@ -400,7 +400,7 @@ class MyNewOperationResourceIT {
         List<MyNewOperation> myNewOperationList = myNewOperationRepository.findAll();
         assertThat(myNewOperationList).hasSize(databaseSizeBeforeUpdate);
         MyNewOperation testMyNewOperation = myNewOperationList.get(myNewOperationList.size() - 1);
-        assertThat(testMyNewOperation.getOperationLayer()).isEqualTo(UPDATED_OPERATION_LAYER);
+        assertThat(testMyNewOperation.getOperationLayer()).isEqualTo(DEFAULT_OPERATION_LAYER);
         assertThat(testMyNewOperation.getOperationData()).isEqualTo(UPDATED_OPERATION_DATA);
         assertThat(testMyNewOperation.getAnonymousMyNewComponentNumber()).isEqualTo(UPDATED_ANONYMOUS_MY_NEW_COMPONENT_NUMBER);
         assertThat(testMyNewOperation.getAnonymousMyNewComponentDesignation()).isEqualTo(UPDATED_ANONYMOUS_MY_NEW_COMPONENT_DESIGNATION);

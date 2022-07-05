@@ -9,6 +9,7 @@ import com.muller.lappli.domain.ContinuityWireLongitLaying;
 import com.muller.lappli.domain.CoreAssembly;
 import com.muller.lappli.domain.FlatSheathing;
 import com.muller.lappli.domain.IntersticeAssembly;
+import com.muller.lappli.domain.MyNewOperation;
 import com.muller.lappli.domain.Plait;
 import com.muller.lappli.domain.Screen;
 import com.muller.lappli.domain.Sheathing;
@@ -37,6 +38,7 @@ import com.muller.lappli.domain.enumeration.OperationKind;
         @JsonSubTypes.Type(value = Sheathing.class, name = "Sheathing"),
         @JsonSubTypes.Type(value = FlatSheathing.class, name = "FlatSheathing"),
         @JsonSubTypes.Type(value = ContinuityWireLongitLaying.class, name = "ContinuityWireLongitLaying"),
+        @JsonSubTypes.Type(value = MyNewOperation.class, name = "MyNewOperation"),
     }
 )
 public interface IOperation<T extends IOperation<T>> extends IDomainObject<T> {

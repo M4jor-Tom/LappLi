@@ -3,7 +3,8 @@ package com.muller.lappli.service.impl;
 import com.muller.lappli.domain.MyNewOperation;
 import com.muller.lappli.repository.MyNewOperationRepository;
 import com.muller.lappli.service.MyNewOperationService;
-import java.util.List;
+import com.muller.lappli.service.StrandSupplyService;
+import com.muller.lappli.service.abstracts.AbstractNonCentralOperationServiceImpl;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,32 +16,21 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class MyNewOperationServiceImpl implements MyNewOperationService {
+public class MyNewOperationServiceImpl extends AbstractNonCentralOperationServiceImpl<MyNewOperation> implements MyNewOperationService {
 
     private final Logger log = LoggerFactory.getLogger(MyNewOperationServiceImpl.class);
 
-    private final MyNewOperationRepository myNewOperationRepository;
-
-    public MyNewOperationServiceImpl(MyNewOperationRepository myNewOperationRepository) {
-        this.myNewOperationRepository = myNewOperationRepository;
-    }
-
-    @Override
-    public MyNewOperation save(MyNewOperation myNewOperation) {
-        log.debug("Request to save MyNewOperation : {}", myNewOperation);
-        return myNewOperationRepository.save(myNewOperation);
+    public MyNewOperationServiceImpl(MyNewOperationRepository myNewOperationRepository, StrandSupplyService strandSupplyService) {
+        super(strandSupplyService, myNewOperationRepository);
     }
 
     @Override
     public Optional<MyNewOperation> partialUpdate(MyNewOperation myNewOperation) {
         log.debug("Request to partially update MyNewOperation : {}", myNewOperation);
 
-        return myNewOperationRepository
+        return getJpaRepository()
             .findById(myNewOperation.getId())
             .map(existingMyNewOperation -> {
-                if (myNewOperation.getOperationLayer() != null) {
-                    existingMyNewOperation.setOperationLayer(myNewOperation.getOperationLayer());
-                }
                 if (myNewOperation.getOperationData() != null) {
                     existingMyNewOperation.setOperationData(myNewOperation.getOperationData());
                 }
@@ -56,26 +46,16 @@ public class MyNewOperationServiceImpl implements MyNewOperationService {
 
                 return existingMyNewOperation;
             })
-            .map(myNewOperationRepository::save);
+            .map(getJpaRepository()::save);
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<MyNewOperation> findAll() {
-        log.debug("Request to get all MyNewOperations");
-        return myNewOperationRepository.findAll();
+    protected Logger getLogger() {
+        return log;
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Optional<MyNewOperation> findOne(Long id) {
-        log.debug("Request to get MyNewOperation : {}", id);
-        return myNewOperationRepository.findById(id);
-    }
-
-    @Override
-    public void delete(Long id) {
-        log.debug("Request to delete MyNewOperation : {}", id);
-        myNewOperationRepository.deleteById(id);
+    protected String getDomainClassName() {
+        return "MyNewOperation";
     }
 }

@@ -1,6 +1,11 @@
 package com.muller.lappli.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.muller.lappli.domain.abstracts.AbstractMachine;
+import com.muller.lappli.domain.abstracts.AbstractOperation;
+import com.muller.lappli.domain.enumeration.OperationKind;
+import com.muller.lappli.domain.interfaces.INonAssemblyOperation;
+import com.muller.lappli.domain.interfaces.IOperation;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -13,7 +18,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "my_new_operation")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class MyNewOperation implements Serializable {
+public class MyNewOperation extends AbstractOperation<MyNewOperation> implements Serializable, INonAssemblyOperation<MyNewOperation> {
 
     private static final long serialVersionUID = 1L;
 
@@ -145,6 +150,10 @@ public class MyNewOperation implements Serializable {
         this.anonymousMyNewComponentData = anonymousMyNewComponentData;
     }
 
+    /**
+     * As {@link #getFinalMyNewComponent()} exists, this shall not be used
+     * for other purposes than testing
+     */
     public MyNewComponent getMyNewComponent() {
         return this.myNewComponent;
     }
@@ -201,5 +210,101 @@ public class MyNewOperation implements Serializable {
             ", anonymousMyNewComponentDesignation='" + getAnonymousMyNewComponentDesignation() + "'" +
             ", anonymousMyNewComponentData=" + getAnonymousMyNewComponentData() +
             "}";
+    }
+
+    @Override
+    public MyNewOperation getThis() {
+        return this;
+    }
+
+    @Override
+    public IOperation<MyNewOperation> toOperation() {
+        return this;
+    }
+
+    @Override
+    public AbstractMachine<?> getOperatingMachine() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Double getHourPreparationTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
+    public Double getHourExecutionTime() {
+        // TODO Auto-generated method stub
+        return Double.NaN;
+    }
+
+    @Override
+    public OperationKind getOperationKind() {
+        return OperationKind.MY_NEW_OPERATION;
+    }
+
+    @Override
+    public Double getMilimeterDiameterIncidency() {
+        Double milimeterDiameterIncidency = Double.NaN;
+        MyNewComponent myNewComponent = getFinalMyNewComponent();
+
+        //Check no field is null
+        if (myNewComponent != null && getOperationData() != null) {
+            // Let's invent a way to calculate that
+            milimeterDiameterIncidency = myNewComponent.getData() * getOperationData();
+        }
+
+        return milimeterDiameterIncidency;
+    }
+
+    @Override
+    public Long getProductionStep() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getProductDesignation() {
+        String productDesignation = "";
+        MyNewComponent myNewComponent = getFinalMyNewComponent();
+
+        if (myNewComponent != null) {
+            productDesignation = myNewComponent.getDesignation();
+        }
+
+        return productDesignation;
+    }
+
+    /**
+     * The anonymous component getter, for one-time components.
+     * As it is created for {@link #getFinalMyNewComponent()}
+     * this shall not be used elsewhere.
+     */
+    private MyNewComponent getAnonmousMyNewComponent() {
+        return new MyNewComponent()
+            .id(null)
+            .number(getAnonymousMyNewComponentNumber())
+            .designation(getAnonymousMyNewComponentDesignation())
+            .data(getAnonymousMyNewComponentData())
+            .getThisIfConform()
+            .orElse(null);
+    }
+
+    /**
+     * The component to use for the operation,
+     * {@link #getMyNewComponent()} shall not be used.
+     */
+    public MyNewComponent getFinalMyNewComponent() {
+        MyNewComponent finalMyNewComponent = null;
+
+        if (getMyNewComponent() == null) {
+            finalMyNewComponent = getAnonmousMyNewComponent();
+        } else {
+            finalMyNewComponent = getMyNewComponent();
+        }
+
+        return finalMyNewComponent;
     }
 }

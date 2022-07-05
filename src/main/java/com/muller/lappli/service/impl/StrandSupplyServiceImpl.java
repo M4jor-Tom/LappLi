@@ -5,6 +5,7 @@ import com.muller.lappli.domain.ContinuityWireLongitLaying;
 import com.muller.lappli.domain.CoreAssembly;
 import com.muller.lappli.domain.FlatSheathing;
 import com.muller.lappli.domain.IntersticeAssembly;
+import com.muller.lappli.domain.MyNewOperation;
 import com.muller.lappli.domain.Plait;
 import com.muller.lappli.domain.Screen;
 import com.muller.lappli.domain.Sheathing;
@@ -19,6 +20,7 @@ import com.muller.lappli.service.ContinuityWireLongitLayingService;
 import com.muller.lappli.service.CoreAssemblyService;
 import com.muller.lappli.service.FlatSheathingService;
 import com.muller.lappli.service.IntersticeAssemblyService;
+import com.muller.lappli.service.MyNewOperationService;
 import com.muller.lappli.service.PlaitService;
 import com.muller.lappli.service.ScreenService;
 import com.muller.lappli.service.SheathingService;
@@ -66,6 +68,8 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
 
     private final ContinuityWireLongitLayingService continuityWireLongitLayingService;
 
+    private final MyNewOperationService myNewOperationService;
+
     public StrandSupplyServiceImpl(
         StrandSupplyRepository strandSupplyRepository,
         @Lazy CoreAssemblyService coreAssemblyService,
@@ -77,7 +81,8 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         @Lazy CarrierPlaitService carrierPlaitService,
         @Lazy SheathingService sheathingService,
         @Lazy FlatSheathingService flatSheathingService,
-        @Lazy ContinuityWireLongitLayingService continuityWireLongitLayingService
+        @Lazy ContinuityWireLongitLayingService continuityWireLongitLayingService,
+        @Lazy MyNewOperationService myNewOperationService
     ) {
         this.strandSupplyRepository = strandSupplyRepository;
         this.coreAssemblyService = coreAssemblyService;
@@ -90,6 +95,7 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         this.sheathingService = sheathingService;
         this.flatSheathingService = flatSheathingService;
         this.continuityWireLongitLayingService = continuityWireLongitLayingService;
+        this.myNewOperationService = myNewOperationService;
     }
 
     public StrandSupply onRead(StrandSupply domainObject) {
@@ -162,6 +168,11 @@ public class StrandSupplyServiceImpl implements StrandSupplyService {
         for (ContinuityWireLongitLaying continuityWireLongitLaying : toActualize.getContinuityWireLongitLayings()) {
             Boolean actualizeOwnerStrandSupply = false;
             continuityWireLongitLayingService.save(continuityWireLongitLaying, actualizeOwnerStrandSupply, false);
+        }
+
+        for (MyNewOperation myNewOperation : toActualize.getMyNewOperations()) {
+            Boolean actualizeOwnerStrandSupply = false;
+            myNewOperationService.save(myNewOperation, actualizeOwnerStrandSupply, false);
         }
     }
 
