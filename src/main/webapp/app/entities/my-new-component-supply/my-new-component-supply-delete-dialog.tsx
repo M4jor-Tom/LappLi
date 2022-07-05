@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity, deleteEntity } from './my-new-component-supply.reducer';
+import { getOutFromStudySupplyStrandSupplyComponent } from '../index-management/index-management-lib';
 
 export const MyNewComponentSupplyDeleteDialog = (props: RouteComponentProps<{ id: string }>) => {
   const [loadModal, setLoadModal] = useState(false);
@@ -16,11 +17,13 @@ export const MyNewComponentSupplyDeleteDialog = (props: RouteComponentProps<{ id
     setLoadModal(true);
   }, []);
 
+  const redirectionUrl = getOutFromStudySupplyStrandSupplyComponent(props.match.url, null);
+
   const myNewComponentSupplyEntity = useAppSelector(state => state.myNewComponentSupply.entity);
   const updateSuccess = useAppSelector(state => state.myNewComponentSupply.updateSuccess);
 
   const handleClose = () => {
-    props.history.push('/my-new-component-supply');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {
