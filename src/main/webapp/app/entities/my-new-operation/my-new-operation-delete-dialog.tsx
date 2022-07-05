@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity, deleteEntity } from './my-new-operation.reducer';
+import { getOutFromStudySupplyStrandMyNewOperation } from '../index-management/index-management-lib';
 
 export const MyNewOperationDeleteDialog = (props: RouteComponentProps<{ id: string }>) => {
   const [loadModal, setLoadModal] = useState(false);
@@ -16,11 +17,13 @@ export const MyNewOperationDeleteDialog = (props: RouteComponentProps<{ id: stri
     setLoadModal(true);
   }, []);
 
+  const redirectionUrl = getOutFromStudySupplyStrandMyNewOperation(props.match.url, false);
+
   const myNewOperationEntity = useAppSelector(state => state.myNewOperation.entity);
   const updateSuccess = useAppSelector(state => state.myNewOperation.updateSuccess);
 
   const handleClose = () => {
-    props.history.push('/my-new-operation');
+    props.history.push(redirectionUrl);
   };
 
   useEffect(() => {
